@@ -1,0 +1,106 @@
+<webidl-xml name="Web Workers" original-file="webworkers.specidl" xmlns="http://schemas.microsoft.com/ie/webidl-xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/ie/webidl-xml webidl-xml-schema.xsd">
+  <interfaces>
+    <interface extends="Object" name="FileReaderSync">
+      <constructor />
+      <methods>
+        <method name="readAsArrayBuffer" type="any">
+          <param name="blob" type="Blob" />
+        </method>
+        <method name="readAsBinaryString" type="void">
+          <param name="blob" type="Blob" />
+        </method>
+        <method name="readAsDataURL" type="DOMString">
+          <param name="blob" type="Blob" />
+        </method>
+        <method name="readAsText" type="DOMString">
+          <param name="blob" type="Blob" />
+          <param name="encoding" optional="1" type="DOMString" />
+        </method>
+      </methods>
+    </interface>
+    <interface extends="EventTarget" global="Worker" name="WorkerGlobalScope">
+      <implements>WorkerUtils</implements>
+      <implements>DedicatedWorkerGlobalScope</implements>
+      <implements>WindowConsole</implements>
+      <methods>
+        <method name="close" type="void" />
+        <method name="msWriteProfilerMark" type="void">
+          <param name="profilerMarkName" type="DOMString" />
+        </method>
+        <method name="toString" stringifier="1" type="DOMString" />
+      </methods>
+      <properties>
+        <property name="location" property-descriptor-not-configurable="1" read-only="1" type="WorkerLocation" />
+        <property event-handler="error" name="onerror" type="EventHandler" />
+        <property name="self" property-descriptor-not-configurable="1" read-only="1" type="WorkerGlobalScope" />
+      </properties>
+    </interface>
+    <interface extends="Object" name="WorkerLocation">
+      <methods>
+        <method name="toString" stringifier="1" type="DOMString" />
+      </methods>
+      <properties>
+        <property name="hash" read-only="1" type="DOMString" />
+        <property name="host" read-only="1" type="DOMString" />
+        <property name="hostname" read-only="1" type="DOMString" />
+        <property name="href" read-only="1" stringifier="1" type="DOMString" />
+        <property name="pathname" read-only="1" type="DOMString" />
+        <property name="port" read-only="1" type="DOMString" />
+        <property name="protocol" read-only="1" type="DOMString" />
+        <property name="search" read-only="1" type="DOMString" />
+      </properties>
+    </interface>
+    <interface extends="Object" name="WorkerNavigator">
+      <implements>NavigatorID</implements>
+      <implements>NavigatorOnLine</implements>
+    </interface>
+  </interfaces>
+  <mixin-interfaces>
+    <interface extends="Object" name="DedicatedWorkerGlobalScope" no-interface-object="1">
+      <methods>
+        <method name="postMessage" type="void">
+          <param name="data" type="any" />
+        </method>
+      </methods>
+      <properties>
+        <property event-handler="message" name="onmessage" type="EventHandler" />
+      </properties>
+    </interface>
+    <interface extends="Object" name="WorkerUtils" no-interface-object="1">
+      <implements>WindowBase64</implements>
+      <methods>
+        <method name="clearImmediate" type="void">
+          <param name="handle" type="long" />
+        </method>
+        <method name="clearInterval" type="void">
+          <param name="handle" type="long" />
+        </method>
+        <method name="clearTimeout" type="void">
+          <param name="handle" type="long" />
+        </method>
+        <method name="importScripts" type="void">
+          <param name="urls" type="DOMString" variadic="1" />
+        </method>
+        <method name="setImmediate" type="long">
+          <param name="handler" type="any" />
+          <param name="args" optional="1" type="any" variadic="1" />
+        </method>
+        <method name="setInterval" type="long">
+          <param name="handler" type="any" />
+          <param name="timeout" optional="1" type="any" />
+          <param name="args" type="any" variadic="1" />
+        </method>
+        <method name="setTimeout" type="long">
+          <param name="handler" type="any" />
+          <param name="timeout" optional="1" type="any" />
+          <param name="args" type="any" variadic="1" />
+        </method>
+      </methods>
+      <properties>
+        <property name="indexedDB" read-only="1" type="IDBFactory" />
+        <property name="msIndexedDB" read-only="1" type="IDBFactory" />
+        <property name="navigator" property-descriptor-not-configurable="1" read-only="1" type="WorkerNavigator" />
+      </properties>
+    </interface>
+  </mixin-interfaces>
+</webidl-xml>

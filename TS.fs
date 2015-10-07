@@ -135,84 +135,61 @@ let DumpCreateEventOverloads (m: Browser.Method) =
         Pt.printl "createEvent(eventInterface: string): Event;"
 
 let ParamsToString (ps: Param list) =
-    let ParamToString (p: Param) =
+    let paramToString (p: Param) =
         (if p.Variadic then "..." else "") + 
         (AdjustParamName p.Name) + 
         (if not p.Variadic && p.Optional then "?: " else ": ") +
         (DomTypeToTsType p.Type) +
         (if p.Variadic then "[]" else "")
-    String.Join(", ", (List.map ParamToString ps))
+    String.Join(", ", (List.map paramToString ps))
 
 let DumpMethod flavor prefix (i:Browser.Interface) (m:Browser.Method)  = 
+    // print comment
     if m.Name.IsSome then
         match GetCommentForMethod i.Name m.Name.Value with
         | Some comment -> Pt.printl "%s" comment
         | _ -> ()
 
-    match i.Name, m.Name with
-    | _, Some "createElement" -> 
-        DumpCreateElementOverloads m
-    | _, Some "createEvent" -> 
-        DumpCreateEventOverloads m
-    | _, Some "getElementsByTagName" -> 
-        DumpGetElementsByTagNameOverloads m
-    | _, Some "getElementsByTagNameNS" ->
-        Pt.printl "getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>;"
-    | _, Some "getElementsByClassName" ->
-        // Issue 4401:
-        // in the spec "getElementsByClassName" is defined in both Document and HTMLElement, actually
-        // it should be in Element instead of HTMLElement. So suppress it here if the i.Name equals HTMLElement
-        if i.Name <> "HTMLElement" then
-            Pt.printl "getElementsByClassName(classNames: string): NodeListOf<Element>;"
-    | _, Some "getElementsByName" ->
-        Pt.printl "getElementsByName(elementName: string): NodeListOf<Element>;"
-    | "NodeSelector", Some "querySelectorAll" ->
-        Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
-    | "Document", Some "getElementById" -> 
-        Pt.printl "getElementById(elementId: string): HTMLElement;"
-    | "Document", Some "open" ->
-        Pt.printl "open(url?: string, name?: string, features?: string, replace?: boolean): Document;" 
-    | _, Some "alert" -> 
-        Pt.printl "%salert(message?: any): void;" prefix
-    // Todo: hack for issue #2984
-    |"HTMLCanvasElement", Some "getContext" -> 
-        Pt.printl "%sgetContext(contextId: \"2d\"): CanvasRenderingContext2D;" prefix
-        Pt.printl "%sgetContext(contextId: \"experimental-webgl\"): WebGLRenderingContext;" prefix
-        Pt.printl "%sgetContext(contextId: string, ...args: any[]): CanvasRenderingContext2D | WebGLRenderingContext;" prefix
-    // Todo: hack for issue #3002
-    | "XMLHttpRequest", Some "send" ->
-        if flavor <> Flavor.Worker then
-            Pt.printl "%ssend(data?: Document): void;" prefix
-        Pt.printl "%ssend(data?: string): void;" prefix
-        Pt.printl "%ssend(data?: any): void;" prefix
-    // Todo: hack for issue #3344
-    | "WebGLRenderingContext", Some "texImage2D" ->
-        Pt.printl "%stexImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels: ArrayBufferView): void;" prefix
-        Pt.printl "%stexImage2D(target: number, level: number, internalformat: number, format: number, type: number, image: HTMLImageElement): void;" prefix
-        Pt.printl "%stexImage2D(target: number, level: number, internalformat: number, format: number, type: number, canvas: HTMLCanvasElement): void;" prefix
-        Pt.printl "%stexImage2D(target: number, level: number, internalformat: number, format: number, type: number, video: HTMLVideoElement): void;" prefix
-        Pt.printl "%stexImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageData): void;" prefix
-    | "WebGLRenderingContext", Some "texSubImage2D" ->
-        Pt.printl "%stexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView): void;" prefix
-        Pt.printl "%stexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, image: HTMLImageElement): void;" prefix
-        Pt.printl "%stexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, canvas: HTMLCanvasElement): void;" prefix
-        Pt.printl "%stexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, video: HTMLVideoElement): void;" prefix
-        Pt.printl "%stexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageData): void;" prefix
-    | _ ->
-        let consoleMethodsNeedToReplaceStringWithAny = [|"dir"; "dirxml"; "error"; "info"; "log"; "warn"|]
-        GetOverloads (Method m) false
-        |> List.iter 
-            (fun { ParamCombinations = pCombList; ReturnTypes = rTypes } ->                   
-                let paramsString = 
-                    // Some console methods should accept "any" instead of "string" for convenience, although 
-                    // it is said to be string in the spec
-                    if i.Name = "Console" && m.Name.IsSome && Array.contains m.Name.Value consoleMethodsNeedToReplaceStringWithAny then
-                        (ParamsToString pCombList).Replace("string", "any")
-                    else
-                        ParamsToString pCombList
-                let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
-                Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
-            )
+    // find if there are overriding signatures in the external json file
+    let removedType = 
+        match m.Name with
+        | Some mName -> findRemovedType mName i.Name MemberKind.Method
+        | None -> None
+
+    let overridenType = 
+        match m.Name with
+        | Some mName -> findOverridingType mName i.Name MemberKind.Method
+        | None -> None
+
+    match removedType with
+    | Some r -> ()
+    | None ->
+        match overridenType with
+        | Some t -> 
+            match flavor with 
+            | Windows | Web -> t.WebOnlySignatures |> Array.iter (Pt.printl "%s%s;" prefix)
+            | _ -> ()
+            t.Signatures |> Array.iter (Pt.printl "%s%s;" prefix)
+        | None -> 
+            match i.Name, m.Name with
+            | _, Some "createElement" -> DumpCreateElementOverloads m
+            | _, Some "createEvent" -> DumpCreateEventOverloads m
+            | _, Some "getElementsByTagName" -> DumpGetElementsByTagNameOverloads m
+            | _ ->
+                let consoleMethodsNeedToReplaceStringWithAny = [|"dir"; "dirxml"; "error"; "info"; "log"; "warn"|]
+                GetOverloads (Method m) false
+                |> List.iter 
+                    (fun { ParamCombinations = pCombList; ReturnTypes = rTypes } ->
+                        let paramsString = 
+                            // Some console methods should accept "any" instead of "string" for convenience, although 
+                            // it is said to be string in the spec
+                            if i.Name = "Console" && m.Name.IsSome && Array.contains m.Name.Value consoleMethodsNeedToReplaceStringWithAny then
+                                (ParamsToString pCombList).Replace("string", "any")
+                            else
+                                ParamsToString pCombList
+                        let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                        Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
+                    )
            
 let DumpCallBackInterface (i:Browser.Interface) = 
     Pt.printl "interface %s {" i.Name
@@ -251,50 +228,33 @@ let DumpEnums () =
 let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
     // -------- Dump properties -------- 
     // Note: the schema file shows the property doesn't have static attribute
+    let dumpProperty (p: Browser.Property) =
+        match GetCommentForProperty i.Name p.Name with
+        | Some comment -> Pt.printl "%s" comment
+        | _ -> ()
+
+        match findRemovedType p.Name i.Name MemberKind.Property with 
+        | Some _ -> ()
+        | None -> 
+            match findOverridingType p.Name i.Name MemberKind.Property with
+            | Some t -> Pt.printl "%s%s: %s;" prefix t.Name t.Type.Value
+            | None -> 
+                let pType  = match p.Type with
+                    | "EventHandler" -> String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
+                    | _ -> DomTypeToTsType p.Type
+                Pt.printl "%s%s: %s;" prefix p.Name pType
+
     if dumpScope <> DumpScope.StaticOnly then
         match i.Properties with
         | Some ps ->
             ps.Properties
             |> Array.filter (ShouldKeep flavor)
-            |> Array.iter (fun p -> 
-                            match GetCommentForProperty i.Name p.Name with
-                            | Some comment -> Pt.printl "%s" comment
-                            | _ -> ()
-
-                            let pType  = 
-                                match i.Name, p.Name, p.Type with
-                                | _, _, "EventHandler" -> 
-                                    String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
-                                // There are type conflicts between 
-                                | "BeforeUnloadEvent", "returnValue", _-> "any"
-                                | "HTMLEmbedElement", "hidden", _ -> "any"
-                                | _ -> DomTypeToTsType p.Type
-                            match p.Name, pType with
-                            // HOTFIX: although technically the type of documentElement should be "Element",
-                            // but in most cases typescript would be dealing with HTML document, therefore it
-                            // would be more convenient (and more backward compatible) to assume "HTMLElement"
-                            | "documentElement", _ -> Pt.printl "%sdocumentElement: HTMLElement;" prefix 
-                            // HOTFIX: move the className and id property from HTMLElement to Element
-                            | "id", _ when i.Name = "HTMLElement" -> ()
-                            | "className", _ when i.Name = "HTMLElement" -> ()
-                            | "className", _ when i.Name = "SVGStylable" -> 
-                                Pt.printl "%sclassName: any;" prefix
-                            // HOTFIX: explicitly denote the type of SVGElement.className property to "any", and making it 
-                            // appear after "id"
-                            | "id", _ when i.Name = "SVGElement" ->
-                                Pt.printl "%s%s: %s;" prefix p.Name pType
-                                Pt.printl "%sclassName: any;" prefix
-                            // HOTFIX: Issue 3884
-                            | "orientation", _ when i.Name = "Window" ->
-                                Pt.printl "%sorientation: string | number;" prefix
-                            | _ -> Pt.printl "%s%s: %s;" prefix p.Name pType)
+            |> Array.iter dumpProperty
         | None -> ()
-        // Hack to add the URL property to window
-        if i.Name = "Window" then
-            Pt.printl "%sURL: URL;" prefix
-        if i.Name = "Element" then
-            Pt.printl "%sid: string;" prefix
-            Pt.printl "%sclassName: string;" prefix
+
+        addedTypes 
+        |> Array.filter (fun t -> t.Interface.IsNone || t.Interface.Value = i.Name)
+        |> Array.iter (fun t -> Pt.printl "%s%s: %s;" prefix t.Name t.Type.Value)
 
     // --------  Dump methods -------- 
     // Note: two cases:

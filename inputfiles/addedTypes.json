@@ -1,0 +1,26 @@
+[
+    {
+        "kind": "property",
+        "interface": "Window",
+        "name": "URL",
+        "type": "URL"
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "id",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "className",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "SVGElement",
+        "name": "className",
+        "type": "any"
+    }
+]

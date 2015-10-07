@@ -14,13 +14,13 @@ module GlobalVars =
     if not (Directory.Exists(__SOURCE_DIRECTORY__ + @"\generated")) then 
         Directory.CreateDirectory(__SOURCE_DIRECTORY__ + @"\generated") |> ignore
     
-    //let srcFolder = (new DirectoryInfo(__SOURCE_DIRECTORY__)).Parent.Parent.Parent.Parent.FullName
     let inputFolder = __SOURCE_DIRECTORY__ + @"\inputfiles"
-    let jsWebOutput = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\domWeb.js") :> TextWriter
-    let jsWinOutput = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\domWindows.js") :> TextWriter
-    let jsWorkerOutput = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\dedicatedworker.js") :> TextWriter
-    let tsWebOutput = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\dom.generated.d.ts") :> TextWriter
-    let tsWorkerOutput = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\webworker.generated.d.ts") :> TextWriter
+    let makeTextWriter fileName = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\" + fileName) :> TextWriter
+    let jsWebOutput = makeTextWriter "domWeb.js"
+    let jsWinOutput = makeTextWriter "domWindows.js"
+    let jsWorkerOutput = makeTextWriter "dedicatedworker.js"
+    let tsWebOutput = makeTextWriter "dom.generated.d.ts"
+    let tsWorkerOutput = makeTextWriter "webworker.generated.d.ts"
     let defaultEventType = "Event"
 
 /// ===========================================
@@ -28,9 +28,33 @@ module GlobalVars =
 /// ===========================================
 type Browser = XmlProvider< "sample.xml", Global=true >
 
-type commentType = JsonProvider< "inputfiles\comments.json" >
+type CommentType = JsonProvider< "inputfiles\comments.json" >
 
-let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\comments.json") |> commentType.Parse
+type TypesFromJsonFile = JsonProvider< "inputfiles\overridingTypes.json" >
+
+let overridingTypes = 
+    File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\overridingTypes.json") |> TypesFromJsonFile.Parse
+
+let removedTypes = 
+    File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\removedTypes.json") |> TypesFromJsonFile.Parse
+
+let addedTypes = 
+    File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\addedTypes.json") |> TypesFromJsonFile.Parse
+
+type MemberKind = 
+    Property | Method
+    member this.ToString = if this = Property then "property" else "method"
+
+let findTypeFromJsonArray (jsonArray: TypesFromJsonFile.Root []) mName iName (kind: MemberKind) =
+    jsonArray
+    |> Array.tryFind (fun t -> 
+        t.Name = mName && (t.Interface.IsNone || t.Interface.Value = iName) && t.Kind = kind.ToString)
+
+let findOverridingType mName iName (kind: MemberKind) = findTypeFromJsonArray overridingTypes mName iName kind
+let findRemovedType mName iName (kind: MemberKind) = findTypeFromJsonArray removedTypes mName iName kind
+let findAddedType mName iName (kind: MemberKind) = findTypeFromJsonArray addedTypes mName iName kind
+
+let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\comments.json") |> CommentType.Parse
 
 let GetCommentForProperty iName pName = 
     match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
@@ -181,7 +205,7 @@ let worker =
 /// all share a 'tag' property
 let inline ShouldKeep flavor (i : ^a when ^a : (member Tags : string option) and ^a : (member Name : string)) = 
     let filterByTag = 
-        match ((^a : (member Tags : string option) i)) with
+        match ((((((^a : (member Tags : string option) i)))))) with
         | Some tags -> 
             // Check if should be included
             match flavor with
@@ -195,7 +219,6 @@ let inline ShouldKeep flavor (i : ^a when ^a : (member Tags : string option) and
                 |> Seq.exists (fun t -> tags.Contains t)
                 |> not
         | _ -> true
-    
     filterByTag
 
 // Global interfacename to interface object map
@@ -451,13 +474,6 @@ let GetGlobalPollutorName flavor =
     | Some gp -> gp.Name
     | _ -> "Window"
 
-//    let flavorStr = flavor.ToString()
-//    let iList = GetAllInterfacesByFlavor flavor
-//    match Array.tryFind (fun (i:Browser.Interface) -> OptionCheckValue flavorStr i.PrimaryGlobal ) iList with
-//    | Some i -> i.Name
-//    | _ -> match Array.tryFind (fun (i:Browser.Interface) -> OptionCheckValue flavorStr i.Global) iList with
-//           | Some i -> i.Name
-//           | _ -> "Window"
 /// Return a sequence of returntype * HashSet<paramCombination> tuple
 let GetOverloads (f : Function) (decomposeMultipleTypes : bool) = 
     let getParams (f : Function) = 

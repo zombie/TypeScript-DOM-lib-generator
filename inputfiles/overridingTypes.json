@@ -1,0 +1,135 @@
+[
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "texSubImage2D",
+        "signatures": [
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView): void",
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, image: HTMLImageElement): void",
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, canvas: HTMLCanvasElement): void",
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, video: HTMLVideoElement): void",
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageData): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "texImage2D",
+        "signatures": [
+            "texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels: ArrayBufferView): void",
+            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, image: HTMLImageElement): void",
+            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, canvas: HTMLCanvasElement): void",
+            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, video: HTMLVideoElement): void",
+            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageData): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "XMLHttpRequest",
+        "name": "send",
+        "signatures": [
+            "send(data?: string): void",
+            "send(data?: any): void"
+        ],
+        "webOnlySignatures": [
+            "send(data?: Document): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLCanvasElement",
+        "name": "getContext",
+        "signatures": [
+            "getContext(contextId: \"2d\"): CanvasRenderingContext2D",
+            "getContext(contextId: \"experimental-webgl\"): WebGLRenderingContext",
+            "getContext(contextId: string, ...args: any[]): CanvasRenderingContext2D | WebGLRenderingContext"
+        ]
+    },
+    {
+        "kind": "method",
+        "name": "alert",
+        "signatures": ["alert(message?: any): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "open",
+        "signatures": ["open(url?: string, name?: string, features?: string, replace?: boolean): Document"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "getElementById",
+        "signatures": ["getElementById(elementId: string): HTMLElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "NodeSelector",
+        "name": "querySelectorAll",
+        "signatures": ["querySelectorAll(selectors: string): NodeListOf<Element>"]
+    },
+    {
+        "kind": "method",
+        "name": "getElementsByTagNameNS",
+        "signatures": ["getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>"]
+    },
+    {
+        "kind": "method",
+        "name": "getElementsByClassName",
+        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+    },
+    {
+        "kind": "method",
+        "name": "getElementsByName",
+        "signatures": [
+            "getElementsByName(elementName: string): NodeListOf<Element>"
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "fillStyle",
+        "type": "string | CanvasGradient | CanvasPattern"
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "strokeStyle",
+        "type": "string | CanvasGradient | CanvasPattern"
+    },
+    {
+        "kind": "property",
+        "interface": "BeforeUnloadEvent",
+        "name": "returnValue",
+        "type": "any"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLEmbedElement",
+        "name": "hidden",
+        "type": "any"
+    },
+    {
+        "kind": "property",
+        "name": "documentElement",
+        "type": "HTMLElement"
+    },
+    {
+        "kind": "property",
+        "interface": "SVGStylable",
+        "name": "className",
+        "type": "any"
+    },
+    {
+        "kind": "property",
+        "interface": "SVGElement",
+        "name": "className",
+        "type": "any"
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "name": "orientation",
+        "type": "string | number"
+    }
+]

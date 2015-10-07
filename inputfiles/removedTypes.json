@@ -1,0 +1,17 @@
+[
+    {
+        "kind": "method",
+        "interface": "HTMLElement",
+        "name": "getElementsByClassName"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLElement",
+        "name": "id"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLElement",
+        "name": "className"
+    }
+]

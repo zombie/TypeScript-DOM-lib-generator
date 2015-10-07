@@ -1,4 +1,160 @@
- [
+[
+    {
+        "kind": "property",
+        "interface": "Window",
+        "name": "URL",
+        "type": "URL"
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "id",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "className",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "SVGElement",
+        "name": "className",
+        "type": "any"
+    },
+    {
+        "kind": "interface",
+        "name": "NodeListOf<TNode extends Node>",
+        "flavor": "web",
+        "extends": "NodeList",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "item",
+                "signatures": [
+                    "item(index: number): TNode"
+                ]
+            }
+        ],
+        "indexer": [
+            {
+                "signatures": [
+                    "[index: number]: TNode"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "BlobPropertyBag",
+        "properties": [
+            {
+                "name": "type?",
+                "type": "string"
+            },
+            {
+                "name": "endings?",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "FilePropertyBag",
+        "properties": [
+            {
+                "name": "type?",
+                "type": "string"
+            },
+            {
+                "name": "lastModified?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EventListenerObject",
+        "methods": [
+            {
+                "name": "handleEvent",
+                "signatures": [
+                    "handleEvent(evt: Event): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "MessageEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "data?",
+                "type": "any"
+            },
+            {
+                "name": "origin?",
+                "type": "string"
+            },
+            {
+                "name": "lastEventId?",
+                "type": "string"
+            },
+            {
+                "name": "channel?",
+                "type": "string"
+            },
+            {
+                "name": "source?",
+                "type": "any"
+            },
+            {
+                "name": "ports?",
+                "type": "MessagePort[]"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ProgressEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "lengthComputable?",
+                "type": "boolean"
+            },
+            {
+                "name": "loaded?",
+                "type": "number"
+            },
+            {
+                "name": "total?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLElement",
+        "name": "getElementsByClassName"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLElement",
+        "name": "id"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLElement",
+        "name": "className"
+    },
     {
         "kind": "method",
         "interface": "WebGLRenderingContext",
@@ -48,35 +204,47 @@
     {
         "kind": "method",
         "name": "alert",
-        "signatures": ["alert(message?: any): void"]
+        "signatures": [
+            "alert(message?: any): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Document",
         "name": "open",
-        "signatures": ["open(url?: string, name?: string, features?: string, replace?: boolean): Document"]
+        "signatures": [
+            "open(url?: string, name?: string, features?: string, replace?: boolean): Document"
+        ]
     },
     {
         "kind": "method",
         "interface": "Document",
         "name": "getElementById",
-        "signatures": ["getElementById(elementId: string): HTMLElement"]
+        "signatures": [
+            "getElementById(elementId: string): HTMLElement"
+        ]
     },
     {
         "kind": "method",
         "interface": "NodeSelector",
         "name": "querySelectorAll",
-        "signatures": ["querySelectorAll(selectors: string): NodeListOf<Element>"]
+        "signatures": [
+            "querySelectorAll(selectors: string): NodeListOf<Element>"
+        ]
     },
     {
         "kind": "method",
         "name": "getElementsByTagNameNS",
-        "signatures": ["getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>"]
+        "signatures": [
+            "getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>"
+        ]
     },
     {
         "kind": "method",
         "name": "getElementsByClassName",
-        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+        "signatures": [
+            "getElementsByClassName(classNames: string): NodeListOf<Element>"
+        ]
     },
     {
         "kind": "method",

@@ -22,5 +22,116 @@
         "interface": "SVGElement",
         "name": "className",
         "type": "any"
+    },
+    {
+        "kind": "interface",
+        "name": "NodeListOf<TNode extends Node>",
+        "flavor": "Web",
+        "extends": "NodeList",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "item",
+                "signatures": ["item(index: number): TNode"]
+            }
+        ],
+        "indexer": [
+            {
+                "signatures": ["[index: number]: TNode"]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "BlobPropertyBag",
+        "properties": [
+            {
+                "name": "type?",
+                "type": "string"
+            },
+            {
+                "name": "endings?",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "FilePropertyBag",
+        "properties": [
+            {
+                "name": "type?",
+                "type": "string"
+            },
+            {
+                "name": "lastModified?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EventListenerObject",
+        "methods": [
+            {
+                "name": "handleEvent",
+                "signatures": ["handleEvent(evt: Event): void"]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "MessageEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "data?",
+                "type": "any"
+            },
+            {
+                "name": "origin?",
+                "type": "string"
+            },
+            {
+                "name": "lastEventId?",
+                "type": "string"
+            },
+            {
+                "name": "channel?",
+                "type": "string"
+            },
+            {
+                "name": "source?",
+                "type": "any"
+            },
+            {
+                "name": "ports?",
+                "type": "MessagePort[]"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ProgressEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "lengthComputable?",
+                "type": "boolean"
+            },
+            {
+                "name": "loaded?",
+                "type": "number"
+            },
+            {
+                "name": "total?",
+                "type": "number"
+            }
+        ]
     }
 ]

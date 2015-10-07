@@ -253,7 +253,7 @@ let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
         | None -> ()
 
         addedTypes 
-        |> Array.filter (fun t -> t.Interface.IsNone || t.Interface.Value = i.Name)
+        |> Array.filter (fun t -> t.Kind = "property" && (t.Interface.IsNone || t.Interface.Value = i.Name))
         |> Array.iter (fun t -> Pt.printl "%s%s: %s;" prefix t.Name t.Type.Value)
 
     // --------  Dump methods -------- 
@@ -555,6 +555,17 @@ let DumpDictionaries flavor =
     |> Array.filter (fun dict -> flavor <> Worker || knownWorkerInterfaces.Contains dict.Name)
     |> Array.iter DumpDictionary
 
+let DumpAddedInterface (t: TypesFromJsonFile.Root) =
+    match t.Extends with 
+    | Some e -> Pt.printl "interface %s extends %s {" t.Name t.Extends.Value
+    | None -> Pt.printl "interface %s {" t.Name
+    
+    t.Properties |> Array.iter (fun p -> Pt.printWithAddedIndent "%s: %s;" p.Name p.Type)
+    t.Methods |> Array.collect (fun m -> m.Signatures) |> Array.iter (Pt.printWithAddedIndent "%s;")
+    t.Indexer |> Array.collect (fun i -> i.Signatures) |> Array.iter (Pt.printWithAddedIndent "%s;")
+    Pt.printl "}"
+    Pt.printl ""
+
 let DumpTheWholeThing flavor (target:TextWriter) =
     Pt.reset()
     Pt.printl "/////////////////////////////"
@@ -569,14 +580,10 @@ let DumpTheWholeThing flavor (target:TextWriter) =
     DumpNonCallbackInterfaces flavor    
     
     // Add missed interface definition from the spec
-    let additionalNonSharedTypes = 
-        match flavor with
-        | Worker -> System.IO.File.ReadAllText(GlobalVars.inputFolder +  @"\additionalWorkerTypes.ts")
-        | _ -> System.IO.File.ReadAllText(GlobalVars.inputFolder +  @"\additionalDomTypes.ts")
-    Pt.printl "%s" additionalNonSharedTypes
+    getAllAddedInterfaces flavor |> Array.iter DumpAddedInterface
 
-    let additionalSharedTypes = System.IO.File.ReadAllText(GlobalVars.inputFolder +  @"\additionalSharedTypes.ts")
-    Pt.print "%s" additionalSharedTypes
+    Pt.printl "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
+    Pt.printl ""
 
     DumpCallBackFunctions flavor
 

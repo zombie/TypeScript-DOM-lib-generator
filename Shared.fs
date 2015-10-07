@@ -26,11 +26,19 @@ module GlobalVars =
 /// ===========================================
 /// Types
 /// ===========================================
+type Flavor = 
+    | Worker
+    | Web
+    | Windows
+    override x.ToString() = 
+        match FSharpValue.GetUnionFields(x, typeof<Flavor>) with
+        | case, _ -> case.Name
+
 type Browser = XmlProvider< "sample.xml", Global=true >
 
-type CommentType = JsonProvider< "inputfiles\comments.json" >
+type CommentType = JsonProvider<"inputfiles/comments.json">
 
-type TypesFromJsonFile = JsonProvider< "inputfiles\overridingTypes.json" >
+type TypesFromJsonFile = JsonProvider<"inputfiles/sample.json">
 
 let overridingTypes = 
     File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\overridingTypes.json") |> TypesFromJsonFile.Parse
@@ -53,6 +61,9 @@ let findTypeFromJsonArray (jsonArray: TypesFromJsonFile.Root []) mName iName (ki
 let findOverridingType mName iName (kind: MemberKind) = findTypeFromJsonArray overridingTypes mName iName kind
 let findRemovedType mName iName (kind: MemberKind) = findTypeFromJsonArray removedTypes mName iName kind
 let findAddedType mName iName (kind: MemberKind) = findTypeFromJsonArray addedTypes mName iName kind
+
+let getAllAddedInterfaces (flavor: Flavor) =
+    addedTypes |> Array.filter (fun t -> t.Kind = "interface" && (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || flavor = Windows))
 
 let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\comments.json") |> CommentType.Parse
 
@@ -125,14 +136,6 @@ type StringPrinter() =
 type Event = 
     { Name : string
       Type : string }
-
-type Flavor = 
-    | Worker
-    | Web
-    | Windows
-    override x.ToString() = 
-        match FSharpValue.GetUnionFields(x, typeof<Flavor>) with
-        | case, _ -> case.Name
 
 /// Method parameter
 type Param = 

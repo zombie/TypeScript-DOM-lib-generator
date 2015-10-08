@@ -220,9 +220,9 @@ let DumpCallBackFunctions flavor =
     |> Array.iter DumpCallBackFunction
 
 let DumpEnums () =
-    let DumpEnum (e: Browser.Enum) =
+    let dumpEnum (e: Browser.Enum) =
         Pt.printl "declare var %s: string;" e.Name
-    browser.Enums |> Array.iter DumpEnum
+    browser.Enums |> Array.iter dumpEnum
 
 /// Dump the properties and methods of a given interface
 let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
@@ -244,7 +244,7 @@ let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
                     | _ -> DomTypeToTsType p.Type
                 Pt.printl "%s%s: %s;" prefix p.Name pType
 
-    if dumpScope <> DumpScope.StaticOnly then
+    if dumpScope <> StaticOnly then
         match i.Properties with
         | Some ps ->
             ps.Properties
@@ -490,52 +490,85 @@ let DumpInterface flavor (i:Browser.Interface) =
     Pt.printl ""
 
 let DumpStaticInterface flavor (i:Browser.Interface) =
-    Pt.resetIndent()
-    DumpInterfaceDeclaration i
-    Pt.increaseIndent ()
+    // Some types are static types with non-static members. For example, 
+    // NodeFilter is a static method itself, however it has an "acceptNode" method
+    // that expects the user to implement. 
+    let hasNonStaticMember = 
+        match i.Methods with
+        | Some ms -> ms.Methods |> Array.exists (fun m -> m.Static.IsNone)
+        | _ -> false
 
-    let prefix = ""
-    DumpMembers flavor prefix DumpScope.StaticOnly i
-    DumpConstants i
-    DumpEventHandlers prefix i
+    let dumpStaticInterfaceWithNSMembers () = 
+        Pt.resetIndent()
+        DumpInterfaceDeclaration i
+        Pt.increaseIndent ()
 
-    let dumpIndexers (ms:Browser.Method []) =
-        ms
-        |> Array.filter (fun m -> m.Getter.IsSome) 
-        |> Array.iter 
-            (fun m -> 
-                let indexer = m.Params.[0]
-                Pt.printl "[%s: %s]: %s;" 
-                    indexer.Name 
-                    (DomTypeToTsType indexer.Type) 
-                    (DomTypeToTsType indexer.Type))
+        let prefix = ""
+        DumpMembers flavor prefix DumpScope.InstanceOnly i
+        DumpEventHandlers prefix i
 
-    // The indices could be within either Methods or Anonymous Methods
-    match i.Methods with
-    | Some ms -> ms.Methods |> dumpIndexers
-    | None -> ()
+        Pt.decreaseIndent()
+        Pt.printl "}"
+        Pt.printl ""
+        Pt.printl "declare var %s: {" i.Name
+        Pt.increaseIndent()
+        Pt.printl "prototype: %s;" i.Name
+        DumpConstants i
+        DumpMembers flavor prefix DumpScope.StaticOnly i
+        Pt.decreaseIndent()
+        Pt.printl "}"
+        Pt.printl ""
 
-    match i.AnonymousMethods with
-    | Some ms -> ms.Methods |> dumpIndexers
-    | None -> ()
+    let dumpPureStaticInterface () =
+        Pt.resetIndent()
+        DumpInterfaceDeclaration i
+        Pt.increaseIndent ()
 
-    Pt.decreaseIndent()
-    Pt.printl "}"
-    Pt.printl "declare var %s: %s;" i.Name i.Name
-    Pt.printl ""
+        let prefix = ""
+        DumpMembers flavor prefix DumpScope.StaticOnly i
+        DumpConstants i
+        DumpEventHandlers prefix i
+
+        let dumpIndexers (ms:Browser.Method []) =
+            ms
+            |> Array.filter (fun m -> m.Getter.IsSome) 
+            |> Array.iter 
+                (fun m -> 
+                    let indexer = m.Params.[0]
+                    Pt.printl "[%s: %s]: %s;" 
+                        indexer.Name 
+                        (DomTypeToTsType indexer.Type) 
+                        (DomTypeToTsType indexer.Type))
+
+        // The indices could be within either Methods or Anonymous Methods
+        match i.Methods with
+        | Some ms -> ms.Methods |> dumpIndexers
+        | None -> ()
+
+        match i.AnonymousMethods with
+        | Some ms -> ms.Methods |> dumpIndexers
+        | None -> ()
+
+        Pt.decreaseIndent()
+        Pt.printl "}"
+        Pt.printl "declare var %s: %s;" i.Name i.Name
+        Pt.printl ""
+
+    if hasNonStaticMember then dumpStaticInterfaceWithNSMembers() else dumpPureStaticInterface()
 
 let DumpNonCallbackInterfaces flavor =
     GetNonCallbackInterfacesByFlavor flavor
     |> Array.iter 
-        (fun i -> match i with
-                  // Static attribute means singleton object
-                  | i when i.Static.IsSome -> 
-                    DumpStaticInterface flavor i
-                  | i when i.NoInterfaceObject.IsSome -> 
-                    DumpInterface flavor i
-                  | _ -> 
-                    DumpInterface flavor i
-                    DumpConstructor flavor i)
+        (fun i -> 
+            match i with
+            // Static attribute the type doesn't have a constructor function
+            | i when i.Static.IsSome -> 
+                DumpStaticInterface flavor i
+            | i when i.NoInterfaceObject.IsSome -> 
+                DumpInterface flavor i
+            | _ -> 
+                DumpInterface flavor i
+                DumpConstructor flavor i)
 
 let DumpDictionaries flavor =
     let DumpDictionary (dict:Browser.Dictionary) =

@@ -20,34 +20,23 @@ let rec DomTypeToTsType (objDomType: string) =
     match objDomType.Trim('?') with
     | "AbortMode" -> "String"
     | "any" -> "any"
-    | "bool" -> "boolean"
-    | "boolean" -> "boolean"
-    | "Boolean" -> "boolean"
+    | "bool" | "boolean" | "Boolean" -> "boolean"
     | "CanvasPixelArray" -> "number[]"
     | "Date" -> "Date"
     | "DOMHighResTimeStamp" -> "number"
     | "DOMString" -> "string"
     | "DOMTimeStamp" -> "number"
-    | "double" -> "number"
     | "EndOfStreamError" -> "number"
     | "EventListener" -> "EventListenerOrEventListenerObject"
-    | "float" -> "number"
+    | "double" | "float" -> "number"
     | "Function" -> "Function"
-    | "long long" -> "number"
-    | "long" -> "number"
+    | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
     | "object" -> "any"
     | "Promise" -> "Promise"
     | "ReadyState" -> "number"
     | "sequence" -> "Array"
-    | "short" -> "number"
-    | "signed long" -> "number"
-    | "signed long long" -> "number"
-    | "signed short" -> "number"
+    | "short" | "signed short" | "unsigned short" -> "number"
     | "UnrestrictedDouble" -> "number"
-    | "unsigned long" -> "number"
-    | "unsigned long long" -> "number"
-    | "unsigned long" -> "number"
-    | "unsigned short" -> "number"
     | "void" -> "void"
     | extendedType when List.contains extendedType extendedTypes -> extendedType
     | _ -> 
@@ -58,8 +47,7 @@ let rec DomTypeToTsType (objDomType: string) =
                 allCallbackFuncs.ContainsKey objDomType ||
                 allDictionariesMap.ContainsKey objDomType then
                 objDomType
-            elif allEnumsMap.ContainsKey objDomType then
-                "string"
+            elif allEnumsMap.ContainsKey objDomType then "string"
             // Deal with union type
             elif (objDomType.Contains(" or ")) then
                 let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
@@ -79,18 +67,15 @@ let rec DomTypeToTsType (objDomType: string) =
                 elif objDomType.EndsWith("[]") then
                     let elementType = objDomType.Replace("[]", "").Trim() |> DomTypeToTsType
                     elementType + "[]"
-                else
-                    "any"
+                else "any"
 
-let DumpConstants (i:Browser.Interface) =
-    let dumpConstant (c: Browser.Constant) =
-        Pt.printl "%s: %s;" c.Name (DomTypeToTsType c.Type)
-    match i.Constants with
-    | Some cs -> cs.Constants |> Array.iter dumpConstant
-    | None -> ()
+let DumpConstants (i: Browser.Interface) =
+    let dumpConstant (c: Browser.Constant) = Pt.printl "%s: %s;" c.Name (DomTypeToTsType c.Type)
+    if i.Constants.IsSome then 
+        Array.iter dumpConstant i.Constants.Value.Constants
 
 /// Dump overloads for the createElement method
-let DumpCreateElementOverloads (m:Browser.Method) =
+let DumpCreateElementOverloads (m: Browser.Method) =
     if  not (OptionCheckValue "createElement" m.Name) || 
         (DomTypeToTsType m.Type) <> "Element" || 
         m.Params.Length <> 1 ||
@@ -103,7 +88,7 @@ let DumpCreateElementOverloads (m:Browser.Method) =
         Pt.printl "createElement(tagName: string): HTMLElement;"
 
 /// Dump overloads for the getElementsByTagName method
-let DumpGetElementsByTagNameOverloads (m:Browser.Method) =
+let DumpGetElementsByTagNameOverloads (m: Browser.Method) =
     if  not (OptionCheckValue "getElementsByTagName" m.Name) || 
         (DomTypeToTsType m.Type) <> "NodeList" || 
         m.Params.Length <> 1 ||
@@ -124,16 +109,15 @@ let DumpCreateEventOverloads (m: Browser.Method) =
     else
         // Dump plurals. For example, "Events", "MutationEvents"
         let hasPlurals = ["Event"; "MutationEvent"; "MouseEvent"; "SVGZoomEvent"; "UIEvent"]
-        distinctETypeList 
-        |> List.iter (
-            fun x -> 
-                if List.contains x hasPlurals then
-                    Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x
-                    Pt.printl "createEvent(eventInterface:\"%ss\"): %s;" x x
-                else
-                    Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x)
+        for x in distinctETypeList do
+            if List.contains x hasPlurals then
+                Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x
+                Pt.printl "createEvent(eventInterface:\"%ss\"): %s;" x x
+            else
+                Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x
         Pt.printl "createEvent(eventInterface: string): Event;"
 
+/// Generate the parameters string for function signatures 
 let ParamsToString (ps: Param list) =
     let paramToString (p: Param) =
         (if p.Variadic then "..." else "") + 
@@ -150,20 +134,15 @@ let DumpMethod flavor prefix (i:Browser.Interface) (m:Browser.Method)  =
         | Some comment -> Pt.printl "%s" comment
         | _ -> ()
 
-    // find if there are overriding signatures in the external json file
-    let removedType = 
-        match m.Name with
-        | Some mName -> findRemovedType mName i.Name MemberKind.Method
-        | None -> None
+    // Find if there are overriding signatures in the external json file
+    // - overridenType: meaning there is a better definition of this type in the external json file
+    // - removedType: meaning the type is marked as removed in the external json file
+    // if there is any conflicts between the two, the "removedType" has a higher priority over
+    // the "overridenType".
+    let removedType = Option.bind (fun mName -> findRemovedType mName i.Name MemberKind.Method) m.Name
+    let overridenType = Option.bind (fun mName -> findOverridingType mName i.Name MemberKind.Method) m.Name
 
-    let overridenType = 
-        match m.Name with
-        | Some mName -> findOverridingType mName i.Name MemberKind.Method
-        | None -> None
-
-    match removedType with
-    | Some r -> ()
-    | None ->
+    if removedType.IsNone then
         match overridenType with
         | Some t -> 
             match flavor with 
@@ -188,14 +167,11 @@ let DumpMethod flavor prefix (i:Browser.Interface) (m:Browser.Method)  =
                             else
                                 ParamsToString pCombList
                         let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
-                        Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
-                    )
-           
+                        Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString)
+
 let DumpCallBackInterface (i:Browser.Interface) = 
     Pt.printl "interface %s {" i.Name
-    Pt.increaseIndent()
-    Pt.printl "(evt: Event): void;"
-    Pt.decreaseIndent()
+    Pt.printWithAddedIndent "(evt: Event): void;"
     Pt.printl "}"
     Pt.printl ""
 
@@ -207,7 +183,7 @@ let DumpCallBackFunctions flavor =
             Pt.printWithAddedIndent "(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void;"
         | _ ->
             for { ParamCombinations = pCombList } in GetOverloads (CallBackFun cb) false do
-                let paramsString = ParamsToString pCombList            
+                let paramsString = ParamsToString pCombList
                 match cb.Type with
                 | "void" -> 
                     Pt.printWithAddedIndent "(%s): void;" paramsString
@@ -220,8 +196,7 @@ let DumpCallBackFunctions flavor =
     |> Array.iter DumpCallBackFunction
 
 let DumpEnums () =
-    let dumpEnum (e: Browser.Enum) =
-        Pt.printl "declare var %s: string;" e.Name
+    let dumpEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
     browser.Enums |> Array.iter dumpEnum
 
 /// Dump the properties and methods of a given interface
@@ -272,10 +247,7 @@ let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
         not iNameToEhList.[i.Name].IsEmpty
 
     let mFilter (m:Browser.Method) =
-        (match dumpScope with
-        | StaticOnly -> m.Static.IsSome
-        | InstanceOnly -> m.Static.IsNone
-        | All -> true)
+        matchScope dumpScope m
         &&
         not (hasEventHandlers && OptionCheckValue "addEventListener" m.Name)
 
@@ -452,38 +424,34 @@ let ShouldDumpIndexerSignature (i: Browser.Interface) (m: Browser.Method) =
     else 
         false
 
+let DumpIndexers dumpScope (i: Browser.Interface) =
+    // The indices could be within either Methods or Anonymous Methods
+    let ms = if i.Methods.IsSome then i.Methods.Value.Methods else [||]
+    let ams = if i.AnonymousMethods.IsSome then i.AnonymousMethods.Value.Methods else [||]
+    
+    Array.concat [|ms; ams|]
+    |> Array.filter (ShouldDumpIndexerSignature i)
+    |> Array.filter (matchScope dumpScope)
+    |> Array.iter (fun m -> 
+        let indexer = m.Params.[0]
+        Pt.printl "[%s: %s]: %s;" 
+            indexer.Name 
+            (DomTypeToTsType indexer.Type) 
+            (DomTypeToTsType m.Type))
+
+    if i.Name = "HTMLCollection" then
+        Pt.printl "[index: number]: Element;"
+
 let DumpInterface flavor (i:Browser.Interface) =
     Pt.resetIndent()
     DumpInterfaceDeclaration i
-    Pt.increaseIndent ()
+    Pt.increaseIndent()
 
     let prefix = ""
     DumpMembers flavor prefix DumpScope.InstanceOnly i
     DumpConstants i
     DumpEventHandlers prefix i
-
-    let dumpIndexers (ms:Browser.Method []) =
-        ms
-        |> Array.filter (ShouldDumpIndexerSignature i)
-        |> Array.iter 
-            (fun m -> 
-                let indexer = m.Params.[0]
-                Pt.printl "[%s: %s]: %s;" 
-                    indexer.Name 
-                    (DomTypeToTsType indexer.Type) 
-                    (DomTypeToTsType m.Type))        
-
-    // The indices could be within either Methods or Anonymous Methods
-    match i.Methods with
-    | Some ms -> 
-        ms.Methods |> dumpIndexers
-        if i.Name = "HTMLCollection" then
-            Pt.printl "[index: number]: Element;"
-    | None -> ()
-
-    match i.AnonymousMethods with
-    | Some ms -> ms.Methods |> dumpIndexers
-    | None -> ()
+    DumpIndexers DumpScope.InstanceOnly i
 
     Pt.decreaseIndent()
     Pt.printl "}"
@@ -498,21 +466,26 @@ let DumpStaticInterface flavor (i:Browser.Interface) =
         | Some ms -> ms.Methods |> Array.exists (fun m -> m.Static.IsNone)
         | _ -> false
 
-    let dumpStaticInterfaceWithNSMembers () = 
+    // For static types with non-static members, we put the non-static members into an
+    // interface, and put the static members into the object literal type of 'declare var'
+    // For static types with only static members, we put everything in the interface. 
+    // Because in the two cases the interface contains different things, it might be easier to
+    // read to seperate them into two functions.
+    let dumpStaticInterfaceWithNonStaticMembers () = 
         Pt.resetIndent()
         DumpInterfaceDeclaration i
-        Pt.increaseIndent ()
+        Pt.increaseIndent()
 
         let prefix = ""
         DumpMembers flavor prefix DumpScope.InstanceOnly i
         DumpEventHandlers prefix i
+        DumpIndexers DumpScope.InstanceOnly i
 
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""
         Pt.printl "declare var %s: {" i.Name
         Pt.increaseIndent()
-        Pt.printl "prototype: %s;" i.Name
         DumpConstants i
         DumpMembers flavor prefix DumpScope.StaticOnly i
         Pt.decreaseIndent()
@@ -522,53 +495,31 @@ let DumpStaticInterface flavor (i:Browser.Interface) =
     let dumpPureStaticInterface () =
         Pt.resetIndent()
         DumpInterfaceDeclaration i
-        Pt.increaseIndent ()
+        Pt.increaseIndent()
 
         let prefix = ""
         DumpMembers flavor prefix DumpScope.StaticOnly i
         DumpConstants i
         DumpEventHandlers prefix i
-
-        let dumpIndexers (ms:Browser.Method []) =
-            ms
-            |> Array.filter (fun m -> m.Getter.IsSome) 
-            |> Array.iter 
-                (fun m -> 
-                    let indexer = m.Params.[0]
-                    Pt.printl "[%s: %s]: %s;" 
-                        indexer.Name 
-                        (DomTypeToTsType indexer.Type) 
-                        (DomTypeToTsType indexer.Type))
-
-        // The indices could be within either Methods or Anonymous Methods
-        match i.Methods with
-        | Some ms -> ms.Methods |> dumpIndexers
-        | None -> ()
-
-        match i.AnonymousMethods with
-        | Some ms -> ms.Methods |> dumpIndexers
-        | None -> ()
+        DumpIndexers DumpScope.StaticOnly i
 
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl "declare var %s: %s;" i.Name i.Name
         Pt.printl ""
 
-    if hasNonStaticMember then dumpStaticInterfaceWithNSMembers() else dumpPureStaticInterface()
+    if hasNonStaticMember then dumpStaticInterfaceWithNonStaticMembers() else dumpPureStaticInterface()
 
 let DumpNonCallbackInterfaces flavor =
-    GetNonCallbackInterfacesByFlavor flavor
-    |> Array.iter 
-        (fun i -> 
-            match i with
-            // Static attribute the type doesn't have a constructor function
-            | i when i.Static.IsSome -> 
-                DumpStaticInterface flavor i
-            | i when i.NoInterfaceObject.IsSome -> 
-                DumpInterface flavor i
-            | _ -> 
-                DumpInterface flavor i
-                DumpConstructor flavor i)
+    for i in GetNonCallbackInterfacesByFlavor flavor do
+        // If the static attribute has a value, it means the type doesn't have a constructor
+        if i.Static.IsSome then
+            DumpStaticInterface flavor i
+        elif i.NoInterfaceObject.IsSome then
+            DumpInterface flavor i
+        else
+            DumpInterface flavor i
+            DumpConstructor flavor i
 
 let DumpDictionaries flavor =
     let DumpDictionary (dict:Browser.Dictionary) =
@@ -577,13 +528,11 @@ let DumpDictionaries flavor =
         | _ -> Pt.printl "interface %s extends %s {" dict.Name dict.Extends
 
         Pt.increaseIndent()
-    
-        dict.Members
-        |> Array.iter (fun m -> Pt.printl "%s?: %s;" m.Name (DomTypeToTsType m.Type))
-
+        dict.Members |> Array.iter (fun m -> Pt.printl "%s?: %s;" m.Name (DomTypeToTsType m.Type))
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""
+
     browser.Dictionaries 
     |> Array.filter (fun dict -> flavor <> Worker || knownWorkerInterfaces.Contains dict.Name)
     |> Array.iter DumpDictionary

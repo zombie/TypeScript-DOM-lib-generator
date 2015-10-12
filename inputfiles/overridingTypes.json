@@ -131,5 +131,79 @@
         "interface": "Window",
         "name": "orientation",
         "type": "string | number"
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "dir",
+        "signatures": ["dir(value?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "dirxml",
+        "signatures": ["dirxml(value: any): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "error",
+        "signatures": ["error(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "info",
+        "signatures": ["info(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "log",
+        "signatures": ["log(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "warn",
+        "signatures": ["warn(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "callback",
+        "name": "ErrorEventHandler",
+        "signatures": ["(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "Blob",
+        "signatures": ["new (blobParts?: any[], options?: BlobPropertyBag): Blob"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "FormData",
+        "signatures": ["new (form?: HTMLFormElement): FormData"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "MessageEvent",
+        "signatures": ["new(type: string, eventInitDict?: MessageEventInit): MessageEvent"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "ProgressEvent",
+        "signatures": ["new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "File",
+        "signatures": ["new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "ImageData",
+        "signatures": [
+            "new(width: number, height: number): ImageData",
+            "new(array: Uint8ClampedArray, width: number, height: number): ImageData"
+        ]
     }
 ]

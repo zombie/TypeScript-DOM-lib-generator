@@ -3,12 +3,14 @@
 open System
 open System.Text.RegularExpressions
 open Shared
+open Shared.Comments
+open Shared.JsonItems
 open System.IO
 
 // Global print target
 let Pt = StringPrinter()
 
-// When dump webworker types the dom types are ignored
+// When emit webworker types the dom types are ignored
 let mutable ignoreDOMTypes = false
 
 // Extended types used but not defined in the spec
@@ -47,8 +49,9 @@ let rec DomTypeToTsType (objDomType: string) =
                 allCallbackFuncs.ContainsKey objDomType ||
                 allDictionariesMap.ContainsKey objDomType then
                 objDomType
+            // Enum types are all treated as string
             elif allEnumsMap.ContainsKey objDomType then "string"
-            // Deal with union type
+            // Union types
             elif (objDomType.Contains(" or ")) then
                 let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
                                 |> Array.map DomTypeToTsType
@@ -69,45 +72,48 @@ let rec DomTypeToTsType (objDomType: string) =
                     elementType + "[]"
                 else "any"
 
-let DumpConstants (i: Browser.Interface) =
-    let dumpConstant (c: Browser.Constant) = Pt.printl "%s: %s;" c.Name (DomTypeToTsType c.Type)
-    if i.Constants.IsSome then 
-        Array.iter dumpConstant i.Constants.Value.Constants
+let EmitConstants (i: Browser.Interface) =
+    let emitConstantFromJson (c: ItemsType.Root) = Pt.printl "%s: %s;" c.Name.Value c.Type.Value
 
-/// Dump overloads for the createElement method
-let DumpCreateElementOverloads (m: Browser.Method) =
-    if  not (OptionCheckValue "createElement" m.Name) || 
-        (DomTypeToTsType m.Type) <> "Element" || 
-        m.Params.Length <> 1 ||
-        (DomTypeToTsType m.Params.[0].Type) <> "string" then
-        raise (Exception "createElement method signature does not match expected.")
-    else
+    let emitConstant (c: Browser.Constant) = 
+        if Option.isNone (findRemovedItem c.Name ItemKind.Constant i.Name) then
+            match findOverriddenItem c.Name ItemKind.Constant i.Name with
+            | Some c' -> emitConstantFromJson c'
+            | None -> Pt.printl "%s: %s;" c.Name (DomTypeToTsType c.Type)
+
+    // Emit the constants added in the json files
+    
+    let addedConstants = getAddedItems ItemKind.Constant Flavor.All
+    Array.iter emitConstantFromJson addedConstants
+
+    if i.Constants.IsSome then 
+        Array.iter emitConstant i.Constants.Value.Constants
+
+let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMType expectedParamType =
+    OptionCheckValue expectedMName m.Name &&
+    (DomTypeToTsType m.Type) = expectedMType &&
+    m.Params.Length = 1 &&
+    (DomTypeToTsType m.Params.[0].Type) = expectedParamType
+
+/// Emit overloads for the createElement method
+let EmitCreateElementOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "createElement" "Element" "string" then
         for e in tagNameToEleName do
             if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
                 Pt.printl "createElement(tagName: \"%s\"): %s;" e.Key e.Value
         Pt.printl "createElement(tagName: string): HTMLElement;"
 
-/// Dump overloads for the getElementsByTagName method
-let DumpGetElementsByTagNameOverloads (m: Browser.Method) =
-    if  not (OptionCheckValue "getElementsByTagName" m.Name) || 
-        (DomTypeToTsType m.Type) <> "NodeList" || 
-        m.Params.Length <> 1 ||
-        (DomTypeToTsType m.Params.[0].Type) <> "string" then
-        raise (Exception "getElementsByTagName method signature does not match expected.")
-    else
+/// Emit overloads for the getElementsByTagName method
+let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
         for e in tagNameToEleName do
             Pt.printl "getElementsByTagName(%s: \"%s\"): NodeListOf<%s>;" m.Params.[0].Name (e.Key.ToLower()) e.Value
         Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
-/// Dump overloads for the createEvent method
-let DumpCreateEventOverloads (m: Browser.Method) =
-    if  not (OptionCheckValue "createEvent" m.Name) || 
-        (DomTypeToTsType m.Type) <> "Event" || 
-        m.Params.Length <> 1 ||
-        (DomTypeToTsType m.Params.[0].Type) <> "string" then
-        raise (Exception "createEvent method signature does not match expected.")
-    else
-        // Dump plurals. For example, "Events", "MutationEvents"
+/// Emit overloads for the createEvent method
+let EmitCreateEventOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "createEvent" "Event" "string" then
+        // Emit plurals. For example, "Events", "MutationEvents"
         let hasPlurals = ["Event"; "MutationEvent"; "MouseEvent"; "SVGZoomEvent"; "UIEvent"]
         for x in distinctETypeList do
             if List.contains x hasPlurals then
@@ -127,7 +133,7 @@ let ParamsToString (ps: Param list) =
         (if p.Variadic then "[]" else "")
     String.Join(", ", (List.map paramToString ps))
 
-let DumpMethod flavor prefix (i:Browser.Interface) (m:Browser.Method)  = 
+let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) = 
     // print comment
     if m.Name.IsSome then
         match GetCommentForMethod i.Name m.Name.Value with
@@ -135,110 +141,104 @@ let DumpMethod flavor prefix (i:Browser.Interface) (m:Browser.Method)  =
         | _ -> ()
 
     // Find if there are overriding signatures in the external json file
-    // - overridenType: meaning there is a better definition of this type in the external json file
-    // - removedType: meaning the type is marked as removed in the external json file
+    // - overriddenType: meaning there is a better definition of this type in the json file
+    // - removedType: meaning the type is marked as removed in the json file
     // if there is any conflicts between the two, the "removedType" has a higher priority over
     // the "overridenType".
-    let removedType = Option.bind (fun mName -> findRemovedType mName i.Name MemberKind.Method) m.Name
-    let overridenType = Option.bind (fun mName -> findOverridingType mName i.Name MemberKind.Method) m.Name
+    let removedType = Option.bind (fun name -> JsonItems.findRemovedItem name JsonItems.ItemKind.Method i.Name) m.Name
+    let overridenType = Option.bind (fun mName -> JsonItems.findOverriddenItem mName JsonItems.ItemKind.Method i.Name) m.Name
 
     if removedType.IsNone then
         match overridenType with
         | Some t -> 
             match flavor with 
-            | Windows | Web -> t.WebOnlySignatures |> Array.iter (Pt.printl "%s%s;" prefix)
+            | Flavor.All | Flavor.Web -> t.WebOnlySignatures |> Array.iter (Pt.printl "%s%s;" prefix)
             | _ -> ()
             t.Signatures |> Array.iter (Pt.printl "%s%s;" prefix)
         | None -> 
             match i.Name, m.Name with
-            | _, Some "createElement" -> DumpCreateElementOverloads m
-            | _, Some "createEvent" -> DumpCreateEventOverloads m
-            | _, Some "getElementsByTagName" -> DumpGetElementsByTagNameOverloads m
+            | _, Some "createElement" -> EmitCreateElementOverloads m
+            | _, Some "createEvent" -> EmitCreateEventOverloads m
+            | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
             | _ ->
-                let consoleMethodsNeedToReplaceStringWithAny = [|"dir"; "dirxml"; "error"; "info"; "log"; "warn"|]
-                GetOverloads (Method m) false
-                |> List.iter 
-                    (fun { ParamCombinations = pCombList; ReturnTypes = rTypes } ->
-                        let paramsString = 
-                            // Some console methods should accept "any" instead of "string" for convenience, although 
-                            // it is said to be string in the spec
-                            if i.Name = "Console" && m.Name.IsSome && Array.contains m.Name.Value consoleMethodsNeedToReplaceStringWithAny then
-                                (ParamsToString pCombList).Replace("string", "any")
-                            else
-                                ParamsToString pCombList
-                        let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
-                        Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString)
+                let overloads = GetOverloads (Function.Method m) false
+                for { ParamCombinations = pCombList; ReturnTypes = rTypes } in overloads do
+                    let paramsString = ParamsToString pCombList
+                    let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                    Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
 
-let DumpCallBackInterface (i:Browser.Interface) = 
+let EmitCallBackInterface (i:Browser.Interface) = 
     Pt.printl "interface %s {" i.Name
     Pt.printWithAddedIndent "(evt: Event): void;"
     Pt.printl "}"
     Pt.printl ""
 
-let DumpCallBackFunctions flavor =
-    let DumpCallBackFunction (cb: Browser.CallbackFunction) =
-        Pt.printl "interface %s {" cb.Name
-        match cb.Name with 
-        | "ErrorEventHandler" -> 
-            Pt.printWithAddedIndent "(message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void;"
-        | _ ->
-            for { ParamCombinations = pCombList } in GetOverloads (CallBackFun cb) false do
-                let paramsString = ParamsToString pCombList
-                match cb.Type with
-                | "void" -> 
-                    Pt.printWithAddedIndent "(%s): void;" paramsString
-                | _ -> 
-                    Pt.printWithAddedIndent "(%s): %s;" paramsString (DomTypeToTsType cb.Type)
+let EmitCallBackFunctions flavor =
+    let emitCallbackFunctionsFromJson (cb: JsonItems.ItemsType.Root) =
+        Pt.printl "interface %s {" cb.Name.Value
+        cb.Signatures |> Array.iter (Pt.printWithAddedIndent "%s;")
         Pt.printl "}"
-    
-    GetCallbackFuncsByFlavor flavor
-    |> Array.filter (fun cb -> flavor <> Worker || knownWorkerInterfaces.Contains cb.Name)
-    |> Array.iter DumpCallBackFunction
 
-let DumpEnums () =
-    let dumpEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
-    browser.Enums |> Array.iter dumpEnum
+    let emitCallBackFunction (cb: Browser.CallbackFunction) =
+        if Option.isNone (findRemovedItem cb.Name ItemKind.Callback "")then
+            match findOverriddenItem cb.Name ItemKind.Callback "" with
+            | Some cb' -> emitCallbackFunctionsFromJson cb'
+            | _ ->
+                Pt.printl "interface %s {" cb.Name
+                let overloads = GetOverloads (CallBackFun cb) false
+                for { ParamCombinations = pCombList } in overloads do
+                    let paramsString = ParamsToString pCombList
+                    Pt.printWithAddedIndent "(%s): %s;" paramsString (DomTypeToTsType cb.Type)
+                Pt.printl "}"
 
-/// Dump the properties and methods of a given interface
-let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
-    // -------- Dump properties -------- 
-    // Note: the schema file shows the property doesn't have static attribute
-    let dumpProperty (p: Browser.Property) =
+    getAddedItems ItemKind.Callback flavor
+    |> Array.iter emitCallbackFunctionsFromJson
+
+    GetCallbackFuncsByFlavor flavor |> Array.iter emitCallBackFunction
+
+let EmitEnums () =
+    let emitEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
+    browser.Enums |> Array.iter emitEnum
+
+let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
+    let emitPropertyFromJson (p: ItemsType.Root) =
+        Pt.printl "%s%s: %s;" prefix p.Name.Value p.Type.Value
+
+    let emitProperty (p: Browser.Property) =
         match GetCommentForProperty i.Name p.Name with
         | Some comment -> Pt.printl "%s" comment
         | _ -> ()
 
-        match findRemovedType p.Name i.Name MemberKind.Property with 
-        | Some _ -> ()
-        | None -> 
-            match findOverridingType p.Name i.Name MemberKind.Property with
-            | Some t -> Pt.printl "%s%s: %s;" prefix t.Name t.Type.Value
+        if Option.isNone (findRemovedItem p.Name ItemKind.Property i.Name) then 
+            match findOverriddenItem p.Name ItemKind.Property i.Name with
+            | Some p' -> emitPropertyFromJson p'
             | None -> 
-                let pType  = match p.Type with
+                let pType = 
+                    match p.Type with
                     | "EventHandler" -> String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
                     | _ -> DomTypeToTsType p.Type
                 Pt.printl "%s%s: %s;" prefix p.Name pType
 
-    if dumpScope <> StaticOnly then
+    // Note: the schema file shows the property doesn't have "static" attribute,
+    // therefore all properties are emited for the instance type.
+    if emitScope <> StaticOnly then
         match i.Properties with
         | Some ps ->
             ps.Properties
             |> Array.filter (ShouldKeep flavor)
-            |> Array.iter dumpProperty
+            |> Array.iter emitProperty
         | None -> ()
 
-        addedTypes 
-        |> Array.filter (fun t -> t.Kind = "property" && (t.Interface.IsNone || t.Interface.Value = i.Name))
-        |> Array.iter (fun t -> Pt.printl "%s%s: %s;" prefix t.Name t.Type.Value)
+        getAddedItems ItemKind.Property flavor
+        |> Array.filter (matchInterface i.Name)
+        |> Array.iter emitPropertyFromJson
 
-    // --------  Dump methods -------- 
+let EmitMethods flavor prefix (emitScope: EmitScope) (i: Browser.Interface) =
     // Note: two cases:
-    // 1. dump the members inside a interface -> no need to add prefix
-    // 2. dump the members outside to expose them (for "Window") -> need to add "declare"
-    let methodPrefix = 
-        match prefix with
-        | pf when pf.StartsWith("declare var") -> "declare function "
-        | _ -> ""
+    // 1. emit the members inside a interface -> no need to add prefix
+    // 2. emit the members outside to expose them (for "Window") -> need to add "declare"
+    let emitMethodFromJson (m: ItemsType.Root) =
+        m.Signatures |> Array.iter (Pt.printl "%s%s;" prefix)
 
     // Because eventhandler overload are not inherited between interfaces, 
     // they need to be taken care of seperately
@@ -247,42 +247,42 @@ let DumpMembers flavor prefix (dumpScope: DumpScope) (i:Browser.Interface) =
         not iNameToEhList.[i.Name].IsEmpty
 
     let mFilter (m:Browser.Method) =
-        matchScope dumpScope m
-        &&
+        matchScope emitScope m &&
         not (hasEventHandlers && OptionCheckValue "addEventListener" m.Name)
 
-    match i.Methods with
-    | Some ms ->
-        ms.Methods
-        |> Array.filter mFilter 
-        |> Array.iter (DumpMethod flavor methodPrefix i)
-    | _ -> ()
+    if i.Methods.IsSome then
+        i.Methods.Value.Methods
+        |> Array.filter mFilter
+        |> Array.iter (EmitMethod flavor prefix i)
+
+    getAddedItems ItemKind.Method flavor 
+    |> Array.filter (fun m -> matchInterface i.Name m && matchScope emitScope m)
+    |> Array.iter emitMethodFromJson
 
     // The window interface inherited some methods from "Object",
     // which need to explicitly exposed
-    if i.Name = "Window" && methodPrefix = "declare function " then
-        Pt.printl "%stoString(): string;" methodPrefix
+    if i.Name = "Window" && prefix = "declare function " then
+        Pt.printl "%stoString(): string;" prefix
 
-    // Issue4401:
-    // Add "getElementsByClassName" to Element
-    if i.Name = "Element" && dumpScope <> DumpScope.StaticOnly then
-        Pt.printl "%sgetElementsByClassName(classNames: string): NodeListOf<Element>;" methodPrefix
+/// Emit the properties and methods of a given interface
+let EmitMembers flavor (prefix: string) (emitScope: EmitScope) (i:Browser.Interface) =
+    EmitProperties flavor prefix emitScope i
+    let methodPrefix = if prefix.StartsWith("declare var") then "declare function " else ""
+    EmitMethods flavor methodPrefix emitScope i
 
-/// Dump all members of every interfaces at the root level.
+/// Emit all members of every interfaces at the root level.
 /// Called only once on the global polluter object
-let rec DumpAllMembers flavor (i:Browser.Interface) =
+let rec EmitAllMembers flavor (i:Browser.Interface) =
     let prefix = "declare var "
-    DumpMembers flavor prefix DumpScope.All i
+    EmitMembers flavor prefix EmitScope.All i
 
-    iNameToIDependList.[i.Name] 
-    |> List.iter
-        (fun relatedIName -> 
-            match GetInterfaceByName relatedIName with
-            | Some i' -> DumpAllMembers flavor i'
-            | _ -> ())
+    for relatedIName in iNameToIDependList.[i.Name] do
+        match GetInterfaceByName relatedIName with
+        | Some i' -> EmitAllMembers flavor i'
+        | _ -> ()
 
-let DumpEventHandlers (prefix: string) (i:Browser.Interface) =
-    let DumpEventHandler prefix (eHandler: EventHandler)  =
+let EmitEventHandlers (prefix: string) (i:Browser.Interface) =
+    let emitEventHandler prefix (eHandler: EventHandler)  =
         let actualEventType = 
             match i.Name, eHandler.EventName with 
             | "IDBDatabase", "abort"
@@ -304,16 +304,16 @@ let DumpEventHandlers (prefix: string) (i:Browser.Interface) =
     // 2. Has own eventhandlers -> TypeScript's inherit mechanism erases all inherited eventhandler overloads 
     // so they need to be reprinted.
     if iNameToEhList.ContainsKey i.Name then
-        iNameToEhList.[i.Name] |> List.sortBy (fun eh -> eh.EventName) |> List.iter (DumpEventHandler fPrefix)
+        iNameToEhList.[i.Name] |> List.sortBy (fun eh -> eh.EventName) |> List.iter (emitEventHandler fPrefix)
         let shouldPrintAddEventListener =
             if iNameToEhList.[i.Name].Length > 0 then true
             else 
                 match i.Extends, i.Implements.Length with
                 | _, 0 -> false
                 | "Object", 1 -> false
-                | _, _ -> 
+                | _ -> 
                     let allParents = Array.append [|i.Extends|] i.Implements
-                    match allParents |> Array.filter (fun iName -> iNameToEhList.ContainsKey iName) |> Array.length with
+                    match allParents |> Array.filter iNameToEhList.ContainsKey |> Array.length with
                     // only one of the implemented interface has EventHandlers
                     | 0 | 1 -> false
                     // multiple implemented interfaces have EventHandlers
@@ -321,54 +321,44 @@ let DumpEventHandlers (prefix: string) (i:Browser.Interface) =
         if shouldPrintAddEventListener then
            Pt.printl "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;" fPrefix
  
-let DumpConstructorSignature (i:Browser.Interface) =
-    //Dump constructor signature
-    match i.Name, i.Constructor with
-    // HOTFIX: The spec is not looking correct regarding the 'Blob' constructor. Filed a bug
-    // and waiting for the IE team to respond
-    | "Blob", _ -> 
-        Pt.printl "new (blobParts?: any[], options?: BlobPropertyBag): Blob;"
-    | "FormData", _ -> 
-        Pt.printl "new (form?: HTMLFormElement): FormData;"
-    | "MessageEvent", _ ->
-        Pt.printl "new(type: string, eventInitDict?: MessageEventInit): MessageEvent;"
-    | "ProgressEvent", _ ->
-        Pt.printl "new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;"
-    | "File", _ ->
-        Pt.printl "new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File;"
-    | _, Some ctor ->
-        for { ParamCombinations = pCombList } in GetOverloads (Ctor ctor) false do
-            let paramsString = ParamsToString pCombList
-            Pt.printl "new(%s): %s;" paramsString i.Name
-    | _ -> Pt.printl "new(): %s;" i.Name
+let EmitConstructorSignature (i:Browser.Interface) =
+    let emitConstructorSigFromJson (c: ItemsType.Root) =
+        c.Signatures |> Array.iter (Pt.printl "%s;")
 
-let DumpConstructor flavor (i:Browser.Interface) =
-    match i.Name with
-    | "ImageData" ->
-        Pt.printl "interface ImageDataConstructor {"
-        Pt.printWithAddedIndent "prototype: ImageData;"
-        Pt.printWithAddedIndent "new(width: number, height: number): ImageData;"
-        Pt.printWithAddedIndent "new(array: Uint8ClampedArray, width: number, height: number): ImageData;"
-        Pt.printl "}"
-        Pt.printl ""
-        Pt.printl "declare var ImageData: ImageDataConstructor; "
-        Pt.printl ""
-    | _ ->
-        Pt.printl "declare var %s: {" i.Name
-        Pt.increaseIndent()
+    let removedCtor = getRemovedItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
+    if Option.isNone removedCtor then
+        let overriddenCtor = getOverriddenItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
+        match overriddenCtor with
+        | Some c' -> emitConstructorSigFromJson c'
+        | _ -> 
+            //Emit constructor signature
+            match i.Constructor with
+            | Some ctor ->
+                for { ParamCombinations = pCombList } in GetOverloads (Ctor ctor) false do
+                    let paramsString = ParamsToString pCombList
+                    Pt.printl "new(%s): %s;" paramsString i.Name
+            | _ -> Pt.printl "new(): %s;" i.Name
 
-        Pt.printl "prototype: %s;" i.Name
-        DumpConstructorSignature i
-        DumpConstants i
-        let prefix = ""
-        DumpMembers flavor prefix DumpScope.StaticOnly i
+    getAddedItems ItemKind.Constructor Flavor.All
+    |> Array.filter (matchInterface i.Name)
+    |> Array.iter emitConstructorSigFromJson
 
-        Pt.decreaseIndent()
-        Pt.printl "}"
-        Pt.printl ""
+let EmitConstructor flavor (i:Browser.Interface) =
+    Pt.printl "declare var %s: {" i.Name
+    Pt.increaseIndent()
 
-/// Dump all the named constructors at root level
-let DumpNamedConstructors () =
+    Pt.printl "prototype: %s;" i.Name
+    EmitConstructorSignature i
+    EmitConstants i
+    let prefix = ""
+    EmitMembers flavor prefix EmitScope.StaticOnly i
+
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
+
+/// Emit all the named constructors at root level
+let EmitNamedConstructors () =
     browser.Interfaces
     |> Array.filter (fun i -> i.NamedConstructor.IsSome)
     |> Array.iter 
@@ -379,14 +369,15 @@ let DumpNamedConstructors () =
                     yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome}]
             Pt.printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
-let DumpInterfaceDeclaration (i:Browser.Interface) =
+let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
     match i.Extends::(List.ofArray i.Implements) with
     | [""] | [] | ["Object"] -> ()
     | allExtends -> Pt.print " extends %s" (String.Join(", ", allExtends))
     Pt.print " {"
 
-let ShouldDumpIndexerSignature (i: Browser.Interface) (m: Browser.Method) =
+/// To decide if a given method is an indexer and should be emited
+let ShouldEmitIndexerSignature (i: Browser.Interface) (m: Browser.Method) =
     if m.Getter.IsSome && m.Params.Length = 1 then
         // TypeScript array indexer can only be number or string
         // for string, it must return a more generic type then all 
@@ -424,40 +415,49 @@ let ShouldDumpIndexerSignature (i: Browser.Interface) (m: Browser.Method) =
     else 
         false
 
-let DumpIndexers dumpScope (i: Browser.Interface) =
-    // The indices could be within either Methods or Anonymous Methods
-    let ms = if i.Methods.IsSome then i.Methods.Value.Methods else [||]
-    let ams = if i.AnonymousMethods.IsSome then i.AnonymousMethods.Value.Methods else [||]
+let EmitIndexers emitScope (i: Browser.Interface) =
+    let emitIndexerFromJson (id: ItemsType.Root) =
+        id.Signatures |> Array.iter (Pt.printl "%s;")
+
+    let removedIndexer = getRemovedItems ItemKind.Indexer Flavor.All |> Array.tryFind (matchInterface i.Name)
+    if removedIndexer.IsNone then
+        let overriddenIndexer = getOverriddenItems ItemKind.Indexer Flavor.All |> Array.tryFind (matchInterface i.Name)
+        match overriddenIndexer with
+        | Some id -> emitIndexerFromJson id
+        | _ ->
+            // The indices could be within either Methods or Anonymous Methods
+            let ms = if i.Methods.IsSome then i.Methods.Value.Methods else [||]
+            let ams = if i.AnonymousMethods.IsSome then i.AnonymousMethods.Value.Methods else [||]
     
-    Array.concat [|ms; ams|]
-    |> Array.filter (ShouldDumpIndexerSignature i)
-    |> Array.filter (matchScope dumpScope)
-    |> Array.iter (fun m -> 
-        let indexer = m.Params.[0]
-        Pt.printl "[%s: %s]: %s;" 
-            indexer.Name 
-            (DomTypeToTsType indexer.Type) 
-            (DomTypeToTsType m.Type))
+            Array.concat [|ms; ams|]
+            |> Array.filter (fun m -> ShouldEmitIndexerSignature i m && matchScope emitScope m)
+            |> Array.iter (fun m -> 
+                let indexer = m.Params.[0]
+                Pt.printl "[%s: %s]: %s;" 
+                    indexer.Name 
+                    (DomTypeToTsType indexer.Type) 
+                    (DomTypeToTsType m.Type))
 
-    if i.Name = "HTMLCollection" then
-        Pt.printl "[index: number]: Element;"
+    getAddedItems ItemKind.Indexer Flavor.All
+    |> Array.filter (matchInterface i.Name)
+    |> Array.iter emitIndexerFromJson
 
-let DumpInterface flavor (i:Browser.Interface) =
+let EmitInterface flavor (i:Browser.Interface) =
     Pt.resetIndent()
-    DumpInterfaceDeclaration i
+    EmitInterfaceDeclaration i
     Pt.increaseIndent()
 
     let prefix = ""
-    DumpMembers flavor prefix DumpScope.InstanceOnly i
-    DumpConstants i
-    DumpEventHandlers prefix i
-    DumpIndexers DumpScope.InstanceOnly i
+    EmitMembers flavor prefix EmitScope.InstanceOnly i
+    EmitConstants i
+    EmitEventHandlers prefix i
+    EmitIndexers EmitScope.InstanceOnly i
 
     Pt.decreaseIndent()
     Pt.printl "}"
     Pt.printl ""
 
-let DumpStaticInterface flavor (i:Browser.Interface) =
+let EmitStaticInterface flavor (i:Browser.Interface) =
     // Some types are static types with non-static members. For example, 
     // NodeFilter is a static method itself, however it has an "acceptNode" method
     // that expects the user to implement. 
@@ -471,58 +471,58 @@ let DumpStaticInterface flavor (i:Browser.Interface) =
     // For static types with only static members, we put everything in the interface. 
     // Because in the two cases the interface contains different things, it might be easier to
     // read to seperate them into two functions.
-    let dumpStaticInterfaceWithNonStaticMembers () = 
+    let emitStaticInterfaceWithNonStaticMembers () = 
         Pt.resetIndent()
-        DumpInterfaceDeclaration i
+        EmitInterfaceDeclaration i
         Pt.increaseIndent()
 
         let prefix = ""
-        DumpMembers flavor prefix DumpScope.InstanceOnly i
-        DumpEventHandlers prefix i
-        DumpIndexers DumpScope.InstanceOnly i
+        EmitMembers flavor prefix EmitScope.InstanceOnly i
+        EmitEventHandlers prefix i
+        EmitIndexers EmitScope.InstanceOnly i
 
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""
         Pt.printl "declare var %s: {" i.Name
         Pt.increaseIndent()
-        DumpConstants i
-        DumpMembers flavor prefix DumpScope.StaticOnly i
+        EmitConstants i
+        EmitMembers flavor prefix EmitScope.StaticOnly i
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""
 
-    let dumpPureStaticInterface () =
+    let emitPureStaticInterface () =
         Pt.resetIndent()
-        DumpInterfaceDeclaration i
+        EmitInterfaceDeclaration i
         Pt.increaseIndent()
 
         let prefix = ""
-        DumpMembers flavor prefix DumpScope.StaticOnly i
-        DumpConstants i
-        DumpEventHandlers prefix i
-        DumpIndexers DumpScope.StaticOnly i
+        EmitMembers flavor prefix EmitScope.StaticOnly i
+        EmitConstants i
+        EmitEventHandlers prefix i
+        EmitIndexers EmitScope.StaticOnly i
 
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl "declare var %s: %s;" i.Name i.Name
         Pt.printl ""
 
-    if hasNonStaticMember then dumpStaticInterfaceWithNonStaticMembers() else dumpPureStaticInterface()
+    if hasNonStaticMember then emitStaticInterfaceWithNonStaticMembers() else emitPureStaticInterface()
 
-let DumpNonCallbackInterfaces flavor =
+let EmitNonCallbackInterfaces flavor =
     for i in GetNonCallbackInterfacesByFlavor flavor do
         // If the static attribute has a value, it means the type doesn't have a constructor
         if i.Static.IsSome then
-            DumpStaticInterface flavor i
+            EmitStaticInterface flavor i
         elif i.NoInterfaceObject.IsSome then
-            DumpInterface flavor i
+            EmitInterface flavor i
         else
-            DumpInterface flavor i
-            DumpConstructor flavor i
+            EmitInterface flavor i
+            EmitConstructor flavor i
 
-let DumpDictionaries flavor =
-    let DumpDictionary (dict:Browser.Dictionary) =
+let EmitDictionaries flavor =
+    let emitDictionary (dict:Browser.Dictionary) =
         match dict.Extends with
         | "Object" -> Pt.printl "interface %s {" dict.Name
         | _ -> Pt.printl "interface %s extends %s {" dict.Name dict.Extends
@@ -535,20 +535,20 @@ let DumpDictionaries flavor =
 
     browser.Dictionaries 
     |> Array.filter (fun dict -> flavor <> Worker || knownWorkerInterfaces.Contains dict.Name)
-    |> Array.iter DumpDictionary
+    |> Array.iter emitDictionary
 
-let DumpAddedInterface (t: TypesFromJsonFile.Root) =
-    match t.Extends with 
-    | Some e -> Pt.printl "interface %s extends %s {" t.Name t.Extends.Value
-    | None -> Pt.printl "interface %s {" t.Name
+let EmitAddedInterface (ai: JsonItems.ItemsType.Root) =
+    match ai.Extends with 
+    | Some e -> Pt.printl "interface %s extends %s {" ai.Name.Value ai.Extends.Value
+    | None -> Pt.printl "interface %s {" ai.Name.Value
     
-    t.Properties |> Array.iter (fun p -> Pt.printWithAddedIndent "%s: %s;" p.Name p.Type)
-    t.Methods |> Array.collect (fun m -> m.Signatures) |> Array.iter (Pt.printWithAddedIndent "%s;")
-    t.Indexer |> Array.collect (fun i -> i.Signatures) |> Array.iter (Pt.printWithAddedIndent "%s;")
+    ai.Properties |> Array.iter (fun p -> Pt.printWithAddedIndent "%s: %s;" p.Name p.Type)
+    ai.Methods |> Array.collect (fun m -> m.Signatures) |> Array.iter (Pt.printWithAddedIndent "%s;")
+    ai.Indexer |> Array.collect (fun i -> i.Signatures) |> Array.iter (Pt.printWithAddedIndent "%s;")
     Pt.printl "}"
     Pt.printl ""
 
-let DumpTheWholeThing flavor (target:TextWriter) =
+let EmitTheWholeThing flavor (target:TextWriter) =
     Pt.reset()
     Pt.printl "/////////////////////////////"
     match flavor with
@@ -557,33 +557,33 @@ let DumpTheWholeThing flavor (target:TextWriter) =
     Pt.printl "/////////////////////////////"
     Pt.printl ""
 
-    DumpDictionaries flavor
-    DumpCallBackInterface browser.CallbackInterfaces.Interface
-    DumpNonCallbackInterfaces flavor    
+    EmitDictionaries flavor
+    EmitCallBackInterface browser.CallbackInterfaces.Interface
+    EmitNonCallbackInterfaces flavor
     
     // Add missed interface definition from the spec
-    getAllAddedInterfaces flavor |> Array.iter DumpAddedInterface
+    JsonItems.getAddedItems JsonItems.Interface flavor |> Array.iter EmitAddedInterface
 
     Pt.printl "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
     Pt.printl ""
 
-    DumpCallBackFunctions flavor
+    EmitCallBackFunctions flavor
 
     if flavor <> Worker then
-        DumpNamedConstructors()
+        EmitNamedConstructors()
 
     match GetGlobalPollutor flavor with
     | Some gp -> 
-        DumpAllMembers flavor gp
-        DumpEventHandlers "declare var " gp
+        EmitAllMembers flavor gp
+        EmitEventHandlers "declare var " gp
     | _ -> ()
     
     fprintf target "%s" (Pt.getResult())
     target.Flush()
 
-let DumpDomWeb () =
-    DumpTheWholeThing Windows GlobalVars.tsWebOutput
+let EmitDomWeb () =
+    EmitTheWholeThing Flavor.All GlobalVars.tsWebOutput
 
-let DumpDomWorker () =
+let EmitDomWorker () =
     ignoreDOMTypes <- true
-    DumpTheWholeThing Worker GlobalVars.tsWorkerOutput
+    EmitTheWholeThing Flavor.Worker GlobalVars.tsWorkerOutput 

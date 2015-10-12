@@ -133,5 +133,15 @@
                 "type": "number"
             }
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+    },
+    {
+        "kind": "indexer",
+        "interface": "HTMLCollection",
+        "signatures": ["[index: number]: Element"]
     }
 ]

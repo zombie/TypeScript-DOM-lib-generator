@@ -13,7 +13,7 @@ open Microsoft.FSharp.Reflection
 module GlobalVars = 
     if not (Directory.Exists(__SOURCE_DIRECTORY__ + @"\generated")) then 
         Directory.CreateDirectory(__SOURCE_DIRECTORY__ + @"\generated") |> ignore
-    
+
     let inputFolder = __SOURCE_DIRECTORY__ + @"\inputfiles"
     let makeTextWriter fileName = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\" + fileName) :> TextWriter
     let jsWebOutput = makeTextWriter "domWeb.js"
@@ -102,7 +102,7 @@ type Printer(target : TextWriter) =
     member this.endBrace() = 
         this.decreaseIndent()
         this.printl "}"
-    
+
     member this.resetIndent() = curTabCount <- 0
     member this.printWithAddedIndent content = 
         Printf.kprintf (fun s -> output.Append("\r\n" + this.getCurIndent() + "    " + s) |> ignore) content
@@ -169,6 +169,15 @@ type DumpScope =
     | InstanceOnly
     | All
 
+// Used to decide if a member should be emitted given its static property and
+// the intended scope level.
+let inline matchScope scope (x: ^a when ^a: (member Static: Option<int>)) =
+    if scope = DumpScope.All then true
+    else
+        let isStatic = (^a: (member Static: Option<int>)x)
+        if isStatic.IsSome then scope = DumpScope.StaticOnly
+        else scope = DumpScope.InstanceOnly
+
 /// ===========================================
 /// Shared data and helper functions
 /// ===========================================
@@ -190,8 +199,7 @@ let AdjustParamName name =
     | _ -> name
 
 /// Quick checker for option type values
-let OptionCheckValue value = 
-    function 
+let OptionCheckValue value = function 
     | Some v when v = value -> true
     | _ -> false
 
@@ -228,9 +236,7 @@ let inline ShouldKeep flavor (i : ^a when ^a : (member Tags : string option) and
 let allWebNonCallbackInterfaces = Array.concat [| browser.Interfaces; browser.MixinInterfaces.Interfaces |]
 
 let allWebInterfaces = 
-    Array.concat [| browser.Interfaces
-                    [| browser.CallbackInterfaces.Interface |]
-                    browser.MixinInterfaces.Interfaces |]
+    Array.concat [| browser.Interfaces; [| browser.CallbackInterfaces.Interface |]; browser.MixinInterfaces.Interfaces |]
 
 let allWorkerAdditionalInterfaces = Array.concat [| worker.Interfaces; worker.MixinInterfaces.Interfaces |]
 let allInterfaces = Array.concat [| allWebInterfaces; allWorkerAdditionalInterfaces |]
@@ -555,3 +561,14 @@ let workerEventsMap =
       ("loadend", "ProgressEvent")
       ("progress", "ProgressEvent") ]
     |> Map.ofList
+
+module Option =
+    let runIfSome f x = 
+        match x with
+        | Some x' -> f x'
+        | _ -> ()
+
+    let toBool f x =
+        match x with
+        | Some x' -> f x'
+        | _ -> false

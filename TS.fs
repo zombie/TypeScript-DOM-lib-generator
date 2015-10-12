@@ -110,11 +110,9 @@ let DumpCreateEventOverloads (m: Browser.Method) =
         // Dump plurals. For example, "Events", "MutationEvents"
         let hasPlurals = ["Event"; "MutationEvent"; "MouseEvent"; "SVGZoomEvent"; "UIEvent"]
         for x in distinctETypeList do
+            Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x 
             if List.contains x hasPlurals then
-                Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x
                 Pt.printl "createEvent(eventInterface:\"%ss\"): %s;" x x
-            else
-                Pt.printl "createEvent(eventInterface:\"%s\"): %s;" x x
         Pt.printl "createEvent(eventInterface: string): Event;"
 
 /// Generate the parameters string for function signatures 

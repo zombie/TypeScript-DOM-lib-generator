@@ -1,4 +1,5 @@
-﻿module Shared
+﻿#r @"packages\FSharp.Data\lib\net40\FSharp.Data.dll"
+#r "System.Xml.Linq.dll"
 
 open FSharp.Data
 open System.IO

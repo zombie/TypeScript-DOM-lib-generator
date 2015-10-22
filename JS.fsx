@@ -1,4 +1,4 @@
-﻿module JS
+﻿#load "Shared.fsx"
 
 open System
 open System.IO
@@ -691,6 +691,7 @@ let EmitTheWholeThing flavor (target: TextWriter) =
     
     fprintf target "%s" content
     target.Flush()
+    target.Close()
 
 let EmitDomWeb () = 
     EmitTheWholeThing Flavor.Web GlobalVars.jsWebOutput

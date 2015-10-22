@@ -1,10 +1,10 @@
 ﻿
 [<EntryPoint>]
 let main argv = 
-    JS.DumpDomWeb()
-    JS.DumpDomWin()
-    JS.DumpDomWorker()
+    JS.EmitDomWeb()
+    JS.EmitDomWin()
+    JS.EmitDomWorker()
     // For typescript only generate for Dom
-    TS.DumpDomWeb()
-    TS.DumpDomWorker()
+    TS.EmitDomWeb()
+    TS.EmitDomWorker()
     0

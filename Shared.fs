@@ -26,62 +26,91 @@ module GlobalVars =
 /// ===========================================
 /// Types
 /// ===========================================
+
+/// Quick checker for option type values
+let OptionCheckValue value = function 
+    | Some v when v = value -> true
+    | _ -> false
+
+let unionToString (x: 'a) =
+    match FSharpValue.GetUnionFields(x, typeof<'a>) with
+    | case, _ -> case.Name
+
 type Flavor = 
     | Worker
     | Web
-    | Windows
-    override x.ToString() = 
-        match FSharpValue.GetUnionFields(x, typeof<Flavor>) with
-        | case, _ -> case.Name
+    | All
+    override x.ToString() = unionToString x
 
-type Browser = XmlProvider< "sample.xml", Global=true >
+type Browser = XmlProvider<"sample.xml", Global=true>
 
-type CommentType = JsonProvider<"inputfiles/comments.json">
+module JsonItems =
+    type ItemsType = JsonProvider<"inputfiles/sample.json">
 
-type TypesFromJsonFile = JsonProvider<"inputfiles/sample.json">
+    let overriddenItems = 
+        File.ReadAllText(GlobalVars.inputFolder + @"\overridingTypes.json") |> ItemsType.Parse
 
-let overridingTypes = 
-    File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\overridingTypes.json") |> TypesFromJsonFile.Parse
+    let removedItems = 
+        File.ReadAllText(GlobalVars.inputFolder + @"\removedTypes.json") |> ItemsType.Parse
 
-let removedTypes = 
-    File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\removedTypes.json") |> TypesFromJsonFile.Parse
+    let addedItems = 
+        File.ReadAllText(GlobalVars.inputFolder + @"\addedTypes.json") |> ItemsType.Parse
 
-let addedTypes = 
-    File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\addedTypes.json") |> TypesFromJsonFile.Parse
+    // This is the kind of items in the external json files that are used as a 
+    // correction for the spec.
+    type ItemKind = 
+        Property | Method | Constant | Constructor | Interface | Callback | Indexer
+        override x.ToString() = (unionToString x).ToLower()
 
-type MemberKind = 
-    Property | Method
-    member this.ToString = if this = Property then "property" else "method"
+    let findItem (allItems: ItemsType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
+        let filter (item: ItemsType.Root) =
+            OptionCheckValue itemName item.Name &&
+            item.Kind.ToLower() = kind.ToString() &&
+            otherFilter item
+        allItems |> Array.tryFind filter
 
-let findTypeFromJsonArray (jsonArray: TypesFromJsonFile.Root []) mName iName (kind: MemberKind) =
-    jsonArray
-    |> Array.tryFind (fun t -> 
-        t.Name = mName && (t.Interface.IsNone || t.Interface.Value = iName) && t.Kind = kind.ToString)
+    let matchInterface iName (item: ItemsType.Root) = 
+        item.Interface.IsNone || item.Interface.Value = iName
 
-let findOverridingType mName iName (kind: MemberKind) = findTypeFromJsonArray overridingTypes mName iName kind
-let findRemovedType mName iName (kind: MemberKind) = findTypeFromJsonArray removedTypes mName iName kind
-let findAddedType mName iName (kind: MemberKind) = findTypeFromJsonArray addedTypes mName iName kind
+    let findOverriddenItem itemName (kind: ItemKind) iName = 
+        findItem overriddenItems itemName kind (matchInterface iName)
 
-let getAllAddedInterfaces (flavor: Flavor) =
-    addedTypes |> Array.filter (fun t -> t.Kind = "interface" && (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || flavor = Windows))
+    let findRemovedItem itemName (kind: ItemKind) iName = 
+        findItem removedItems itemName kind (matchInterface iName)
 
-let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\comments.json") |> CommentType.Parse
+    let findAddedItem itemName (kind: ItemKind) iName = 
+        findItem addedItems itemName kind (matchInterface iName)
 
-let GetCommentForProperty iName pName = 
-    match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
-    | Some i -> 
-        match i.Members.Property |> Array.tryFind (fun p -> p.Name = pName) with
-        | Some p -> Some p.Comment
+    let getItems (allItems: ItemsType.Root []) (kind: ItemKind) (flavor: Flavor) =
+        allItems
+        |> Array.filter (fun t -> 
+            t.Kind.ToLower() = kind.ToString() && 
+            (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || flavor = All))
+
+    let getOverriddenItems kind flavor = getItems overriddenItems kind flavor
+    let getAddedItems kind flavor = getItems addedItems kind flavor
+    let getRemovedItems kind flavor = getItems removedItems kind flavor
+
+module Comments =
+    type CommentType = JsonProvider<"inputfiles/comments.json">
+
+    let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\comments.json") |> CommentType.Parse
+
+    let GetCommentForProperty iName pName = 
+        match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
+        | Some i -> 
+            match i.Members.Property |> Array.tryFind (fun p -> p.Name = pName) with
+            | Some p -> Some p.Comment
+            | _ -> None
         | _ -> None
-    | _ -> None
 
-let GetCommentForMethod iName mName = 
-    match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
-    | Some i -> 
-        match i.Members.Method |> Array.tryFind (fun m -> m.Name = mName) with
-        | Some m -> Some m.Comment
+    let GetCommentForMethod iName mName = 
+        match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
+        | Some i -> 
+            match i.Members.Method |> Array.tryFind (fun m -> m.Name = mName) with
+            | Some m -> Some m.Comment
+            | _ -> None
         | _ -> None
-    | _ -> None
 
 // Printer for print to file
 type Printer(target : TextWriter) = 
@@ -107,7 +136,7 @@ type Printer(target : TextWriter) =
     member this.printWithAddedIndent content = 
         Printf.kprintf (fun s -> output.Append("\r\n" + this.getCurIndent() + "    " + s) |> ignore) content
     
-    member this.dump() = 
+    member this.emit() = 
         fprintf this.target "%s" (output.ToString())
         this.target.Flush()
     
@@ -163,20 +192,23 @@ type EventHandler =
       EventName : string
       EventType : string }
 
-/// Decide which members of a function to dump
-type DumpScope = 
+/// Decide which members of a function to emit
+type EmitScope = 
     | StaticOnly
     | InstanceOnly
     | All
 
 // Used to decide if a member should be emitted given its static property and
 // the intended scope level.
-let inline matchScope scope (x: ^a when ^a: (member Static: Option<int>)) =
-    if scope = DumpScope.All then true
+let inline matchScope scope (x: ^a when ^a: (member Static: Option<'b>)) =
+    if scope = EmitScope.All then true
     else
-        let isStatic = (^a: (member Static: Option<int>)x)
-        if isStatic.IsSome then scope = DumpScope.StaticOnly
-        else scope = DumpScope.InstanceOnly
+        let isStatic = (^a: (member Static: Option<'b>)x)
+        if isStatic.IsSome then scope = EmitScope.StaticOnly
+        else scope = EmitScope.InstanceOnly
+
+let matchInterface iName (x: JsonItems.ItemsType.Root) =
+    x.Interface.IsNone || x.Interface.Value = iName
 
 /// ===========================================
 /// Shared data and helper functions
@@ -198,11 +230,6 @@ let AdjustParamName name =
     | "continue" -> "_continue"
     | _ -> name
 
-/// Quick checker for option type values
-let OptionCheckValue value = function 
-    | Some v when v = value -> true
-    | _ -> false
-
 /// Parse the xml input file
 let browser = 
     (new StreamReader(Path.Combine(GlobalVars.inputFolder, "browser.webidl.xml"))).ReadToEnd() |> Browser.Parse
@@ -214,18 +241,18 @@ let worker =
 /// (Member constraint aka duck typing)
 /// reason is that ^a can be an interface, property or method, but they
 /// all share a 'tag' property
-let inline ShouldKeep flavor (i : ^a when ^a : (member Tags : string option) and ^a : (member Name : string)) = 
+let inline ShouldKeep flavor (i : ^a when ^a : (member Tags : string option)) = 
     let filterByTag = 
         match ((((((^a : (member Tags : string option) i)))))) with
         | Some tags -> 
             // Check if should be included
             match flavor with
-            | Web -> 
+            | Flavor.Web -> 
                 [ "MSAppOnly"; "WinPhoneOnly" ]
                 |> Seq.exists (fun t -> tags.Contains t)
                 |> not
-            | Windows -> true
-            | Worker -> 
+            | Flavor.All -> true
+            | Flavor.Worker -> 
                 [ "IEOnly" ]
                 |> Seq.exists (fun t -> tags.Contains t)
                 |> not
@@ -277,29 +304,32 @@ let knownWorkerInterfaces =
 
 let GetAllInterfacesByFlavor flavor = 
     match flavor with
-    | Web -> allWebInterfaces |> Array.filter (ShouldKeep Web)
-    | Windows -> allWebInterfaces |> Array.filter (ShouldKeep Windows)
-    | Worker -> 
+    | Flavor.Web -> allWebInterfaces |> Array.filter (ShouldKeep Web)
+    | Flavor.All -> allWebInterfaces |> Array.filter (ShouldKeep Flavor.All)
+    | Flavor.Worker -> 
         let isFromBrowserXml = allWebInterfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
         Array.append isFromBrowserXml allWorkerAdditionalInterfaces
 
 let GetNonCallbackInterfacesByFlavor flavor = 
     match flavor with
-    | Web -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Web)
-    | Windows -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Windows)
-    | Worker -> 
+    | Flavor.Web -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Flavor.Web)
+    | Flavor.All -> allWebNonCallbackInterfaces |> Array.filter (ShouldKeep Flavor.All)
+    | Flavor.Worker -> 
         let isFromBrowserXml = 
             allWebNonCallbackInterfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
         Array.append isFromBrowserXml allWorkerAdditionalInterfaces
 
 let GetPublicInterfacesByFlavor flavor = 
     match flavor with
-    | Web | Windows -> browser.Interfaces |> Array.filter (ShouldKeep flavor)
-    | Worker -> 
+    | Flavor.Web | Flavor.All -> browser.Interfaces |> Array.filter (ShouldKeep flavor)
+    | Flavor.Worker -> 
         let isFromBrowserXml = browser.Interfaces |> Array.filter (fun i -> knownWorkerInterfaces.Contains i.Name)
         Array.append isFromBrowserXml worker.Interfaces
 
-let GetCallbackFuncsByFlavor flavor = browser.CallbackFunctions |> Array.filter (ShouldKeep flavor)
+let GetCallbackFuncsByFlavor flavor = 
+    browser.CallbackFunctions 
+    |> Array.filter (ShouldKeep flavor)
+    |> Array.filter (fun cb -> flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name)
 
 /// Event name to event type map
 let eNameToEType = 
@@ -342,7 +372,7 @@ let tagNameToEleName =
         | name when Seq.contains name iNames -> name
         | _ -> raise (Exception("Element conflict occured! Typename: " + tagName))
     
-    [ for i in GetNonCallbackInterfacesByFlavor Windows do
+    [ for i in GetNonCallbackInterfacesByFlavor Flavor.All do
           yield! [ for e in i.Elements do
                        yield (e.Name, i.Name) ] ]
     |> Seq.groupBy fst
@@ -380,7 +410,7 @@ let iNameToIDependList =
 /// Distinct event type list, used in the "createEvent" function
 let distinctETypeList = 
     let usedEvents = 
-        [ for i in GetNonCallbackInterfacesByFlavor Windows do
+        [ for i in GetNonCallbackInterfacesByFlavor Flavor.All do
               match i.Events with
               | Some es -> yield! es.Events
               | _ -> () ]
@@ -388,7 +418,7 @@ let distinctETypeList =
         |> List.distinct
     
     let unUsedEvents = 
-        GetNonCallbackInterfacesByFlavor Windows
+        GetNonCallbackInterfacesByFlavor Flavor.All
         |> Array.filter (fun i -> i.Extends = "Event")
         |> Array.map (fun i -> i.Name)
         |> Array.filter (fun n -> n.EndsWith("Event") && not (List.contains n usedEvents))
@@ -475,8 +505,8 @@ let ehNameToEType =
 
 let GetGlobalPollutor flavor = 
     match flavor with
-    | Web | Windows -> browser.Interfaces |> Array.tryFind (fun i -> i.PrimaryGlobal.IsSome)
-    | Worker -> worker.Interfaces |> Array.tryFind (fun i -> i.Global.IsSome)
+    | Flavor.Web | Flavor.All -> browser.Interfaces |> Array.tryFind (fun i -> i.PrimaryGlobal.IsSome)
+    | Flavor.Worker -> worker.Interfaces |> Array.tryFind (fun i -> i.Global.IsSome)
 
 let GetGlobalPollutorName flavor = 
     match GetGlobalPollutor flavor with

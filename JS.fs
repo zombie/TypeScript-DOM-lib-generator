@@ -9,7 +9,7 @@ open Shared
 // Global Pt.print target
 let Pt = StringPrinter()
 
-// When dump webworker interfaces dom types are ignored
+// When emit webworker interfaces dom types are ignored
 let mutable ignoreDomType = false
 
 /// Return a stringbuilder
@@ -117,8 +117,8 @@ let GetDefaultValue jsType =
 
 let GetJsDefaultValueForDomType (domType:string) = domType |> DomTypeToJsType |> GetDefaultValue
 
-/// Dump event handlers that associated with an interface
-let DumpEvents (i:Browser.Interface) = 
+/// Emit event handlers that associated with an interface
+let EmitEvents (i:Browser.Interface) = 
     match iNameToEhList.TryFind i.Name with
     | Some ehList ->
         ehList
@@ -132,7 +132,7 @@ let DumpEvents (i:Browser.Interface) =
             else ())
     | None -> ()
 
-let DumpProperties flavor (i:Browser.Interface) =
+let EmitProperties flavor (i:Browser.Interface) =
     let propNameToElmentMap = function
         | "images" -> Some "img"
         | "rows" -> Some "tr"
@@ -146,7 +146,7 @@ let DumpProperties flavor (i:Browser.Interface) =
         | "tBodies" -> Some "tbody"
         | _ -> None
 
-    let DumpProperty (p: Browser.Property) =
+    let EmitProperty (p: Browser.Property) =
         let value = p.Type |> DomTypeToJsType |> GetDefaultValue
         match p with
         | _ when p.Type = "EventHandler" -> ()
@@ -179,10 +179,10 @@ let DumpProperties flavor (i:Browser.Interface) =
     | Some propCollection -> 
         propCollection.Properties
         |> Array.filter (ShouldKeep flavor)
-        |> Array.iter DumpProperty 
+        |> Array.iter EmitProperty 
     | None -> ()
 
-let DumpConstants suffix (i:Browser.Interface) =
+let EmitConstants suffix (i:Browser.Interface) =
     match i.Constants with
     | Some cCollection -> 
         for c in cCollection.Constants do
@@ -192,8 +192,8 @@ let DumpConstants suffix (i:Browser.Interface) =
             | _ -> Pt.printl "%s%s.%s = %s;" i.Name suffix c.Name c.Value.Value
     | None -> ()
 
-let DumpSignatureCommentDocs (jsFunction:Function) =
-    let DumpSignatureDocForSingleParam (p: Param) =
+let EmitSignatureCommentDocs (jsFunction:Function) =
+    let EmitSignatureDocForSingleParam (p: Param) =
         let pJsType = DomTypeToJsType p.Type
 
         (sprintf "/// <param name='%s' type='%s'" p.Name pJsType) +
@@ -201,17 +201,17 @@ let DumpSignatureCommentDocs (jsFunction:Function) =
         (if p.Optional then " optional='true' " else "" ) + "/>"
         |> Pt.printl "%s"
         
-    let DumpSignatureDocForSingleOverload (ol: Overload) =
+    let EmitSignatureDocForSingleOverload (ol: Overload) =
         if not ol.IsEmpty then
             Pt.increaseIndent()
             match ol.ReturnTypes.Length with
             | 0 ->
                 Pt.printl "/// <signature>"
-                ol.ParamCombinations |> List.iter DumpSignatureDocForSingleParam
+                ol.ParamCombinations |> List.iter EmitSignatureDocForSingleParam
                 Pt.printl "/// </signature>"
             | 1 ->
                 Pt.printl "/// <signature>"
-                ol.ParamCombinations |> List.iter DumpSignatureDocForSingleParam
+                ol.ParamCombinations |> List.iter EmitSignatureDocForSingleParam
                 match ol.ReturnTypes.[0] with
                 | "void" | "" -> ()
                 | arrayType when arrayType.StartsWith("sequence<") -> Pt.printl "/// <returns type='Array' elementType='%s'/>" (GetElementTypeForArray arrayType)
@@ -222,7 +222,7 @@ let DumpSignatureCommentDocs (jsFunction:Function) =
                 |> List.iter 
                     (fun r -> 
                         Pt.printl "/// <signature>"
-                        ol.ParamCombinations |> List.iter DumpSignatureDocForSingleParam
+                        ol.ParamCombinations |> List.iter EmitSignatureDocForSingleParam
                         match r with
                         | "void" | "" -> ()
                         | arrayType when arrayType.StartsWith("sequence<") -> Pt.printl "/// <returns type='Array' elementType='%s'/>" (GetElementTypeForArray arrayType)
@@ -233,15 +233,15 @@ let DumpSignatureCommentDocs (jsFunction:Function) =
         else ()
     
     let overloads = GetOverloads jsFunction true
-    if not overloads.IsEmpty then List.iter DumpSignatureDocForSingleOverload overloads
+    if not overloads.IsEmpty then List.iter EmitSignatureDocForSingleOverload overloads
 
-let DumpMethods (i:Browser.Interface) =
-    let DumpMethod (m:Browser.Method) =
+let EmitMethods (i:Browser.Interface) =
+    let EmitMethod (m:Browser.Method) =
         // print declaration
         let paramsStr = String.concat ", " [for p in m.Params do yield AdjustParamName p.Name]
         Pt.printl "%s.%s = function(%s) {" i.Name m.Name.Value paramsStr
         // print comment docs
-        DumpSignatureCommentDocs (Method m)
+        EmitSignatureCommentDocs (Method m)
         // print body
         match i.Name, m.Name.Value with
         | "EventTarget", "addEventListener" -> Pt.printWithAddedIndent "_eventManager.add(this, type, listener);"
@@ -337,7 +337,7 @@ let DumpMethods (i:Browser.Interface) =
         Pt.printl "};"
 
     match i.Methods with
-    | Some ms -> Seq.iter DumpMethod ms.Methods
+    | Some ms -> Seq.iter EmitMethod ms.Methods
     | _ -> ()
 
     // Explicitly expose 'toString' method for 'window'
@@ -353,7 +353,7 @@ let DumpMethods (i:Browser.Interface) =
 	    return ''; 
     };"
 
-let DumpInterfaceInit (i:Browser.Interface) =
+let EmitInterfaceInit (i:Browser.Interface) =
     let nodeType, nodeName = 
         match i.Name with
         | "Text" -> "TEXT_NODE", "#text"
@@ -431,16 +431,16 @@ let RegisterPublicInterfaces flavor =
                 i.NoInterfaceObject.IsNone then
                     Pt.printl "_publicInterface('%s', {" i.Name
 
-                    // Dump constants
-                    let cDump = 
+                    // Emit constants
+                    let cEmit = 
                         match i.Constants with 
                         | Some (cs) -> 
                             [for c in cs.Constants do 
                                 yield "'" + c.Name + "' : " + c.Value.String.Value] 
                         | _ -> []
 
-                    // Dump static methods
-                    let mDump = 
+                    // Emit static methods
+                    let mEmit = 
                         match i.Methods with
                         | Some (ms) -> 
                             [for m in ms.Methods do 
@@ -448,7 +448,7 @@ let RegisterPublicInterfaces flavor =
                                     yield String.Format("'{0}' : {1}.{0}", m.Name.Value, i.Name)] 
                         | _ -> []
 
-                    let combined = String.concat "," (List.append cDump mDump)
+                    let combined = String.concat "," (List.append cEmit mEmit)
                     Pt.print "%s" (combined.Trim(','))
                     Pt.print "}, %s);" i.Name
 
@@ -459,29 +459,29 @@ let RegisterConstructors flavor =
         | Some _ -> Pt.printl "_publicInterface('%s', %sCtor , %s);" i.Name i.Name i.Name
         | _ -> ()
 
-let DumpConstructor (i: Browser.Interface) =
+let EmitConstructor (i: Browser.Interface) =
     match i.Constructor with
-    | Some _ -> DumpConstants "Ctor" i
+    | Some _ -> EmitConstants "Ctor" i
     | None -> ()
 
-let DumpInterface flavor (i:Browser.Interface) =
+let EmitInterface flavor (i:Browser.Interface) =
     Pt.printl ""
     Pt.printl "/* -- type: %s -- */" i.Name
     Pt.printl ""
 
-    // Dump impletented interfaces
+    // Emit impletented interfaces
     i.Implements |> Array.iter (fun im -> Pt.printl "_$implement(%s, %s);" i.Name im)
     if i.Name = GetGlobalPollutorName flavor then
         // if the interface is the global pollutor, inherits becomes implements
         Pt.printl "_$implement(%s, %s);" i.Name i.Extends
 
-    // Dump other contents
-    DumpConstructor i
-    DumpProperties flavor i
-    DumpConstants "" i
-    DumpMethods i
-    DumpInterfaceInit i
-    DumpEvents i
+    // Emit other contents
+    EmitConstructor i
+    EmitProperties flavor i
+    EmitConstants "" i
+    EmitMethods i
+    EmitInterfaceInit i
+    EmitEvents i
 
     // Deal with array types
     if i.Name.EndsWith("List") || i.Name.EndsWith("Collection") then
@@ -497,15 +497,15 @@ let DumpInterface flavor (i:Browser.Interface) =
             | None -> ()
         | None -> ()
 
-let DumpCallBackFunctions flavor =
-    let DumpCallBackFunction (cb: Browser.CallbackFunction) =
+let EmitCallBackFunctions flavor =
+    let EmitCallBackFunction (cb: Browser.CallbackFunction) =
         let paramsStr = cb.Params |> Array.map (fun p -> p.Name) |> String.concat ", "
         Pt.printl "var %s = function(%s) {" cb.Name paramsStr
-        DumpSignatureCommentDocs (CallBackFun cb)
+        EmitSignatureCommentDocs (CallBackFun cb)
         if cb.Type <> "void" then Pt.printWithAddedIndent "return %s;" (DomTypeToJsType cb.Type)
         Pt.printl "};"
     GetCallbackFuncsByFlavor flavor
-    |> Array.iter DumpCallBackFunction
+    |> Array.iter EmitCallBackFunction
 
 let RegisterCallBackFunctions flavor =
     let RegisterCallBackFunction (cb: Browser.CallbackFunction) =
@@ -521,26 +521,26 @@ let RegisterDictionaries () =
     browser.Dictionaries
     |> Array.iter RegisterDictionary
  
-let DumpDictionaries () =
-    let DumpDictionary (d:Browser.Dictionary) =
+let EmitDictionaries () =
+    let EmitDictionary (d:Browser.Dictionary) =
         Pt.printl ""
         Pt.printl "/* -- type: %s -- */" d.Name
         Pt.printl ""
 
-        // Dump members 
+        // Emit members 
         for m in d.Members do
             let defaultValue = match m.Default.String with
                                | Some dv -> dv
                                | None -> GetJsDefaultValueForDomType m.Type
             Pt.printl "%s.%s = %s;" d.Name m.Name defaultValue
 
-    browser.Dictionaries |> Array.iter DumpDictionary
+    browser.Dictionaries |> Array.iter EmitDictionary
 
-let DumpInterfaces flavor =
+let EmitInterfaces flavor =
     let sortedTypes = SortInterfaces (GetAllInterfacesByFlavor flavor)
-    for t in sortedTypes do DumpInterface flavor t
+    for t in sortedTypes do EmitInterface flavor t
 
-let DumpEventTypeToObjSwitchStatement flavor ignoreCase =
+let EmitEventTypeToObjSwitchStatement flavor ignoreCase =
     Pt.printl "switch (type) {"
     Pt.increaseIndent()
     
@@ -570,7 +570,7 @@ let DumpEventTypeToObjSwitchStatement flavor ignoreCase =
     Pt.decreaseIndent()
     Pt.printl "}"
 
-let DumpGetElementByTagNameSwitchStatement () =
+let EmitGetElementByTagNameSwitchStatement () =
     Pt.printl "switch (tagName.toLowerCase()) {"
 
     Pt.increaseIndent()
@@ -581,9 +581,9 @@ let DumpGetElementByTagNameSwitchStatement () =
 
     Pt.print "}"
 
-/// Dump the _createEvent function
-let DumpCreateEventSwitchStatement () =
-    // Dump the switch statements
+/// Emit the _createEvent function
+let EmitCreateEventSwitchStatement () =
+    // Emit the switch statements
     Pt.printl "switch(eventType.toLowerCase()) {"
 
     distinctETypeList
@@ -603,8 +603,8 @@ let DumpCreateEventSwitchStatement () =
 
     Pt.printl "}"
 
-let DumpDeclarations flavor =
-    let DumpInterfaceDeclaration (i:Browser.Interface) =
+let EmitDeclarations flavor =
+    let EmitInterfaceDeclaration (i:Browser.Interface) =
         let init = 
             match i.Name with
             | name when name = GetGlobalPollutorName flavor -> "this"
@@ -623,7 +623,7 @@ let DumpDeclarations flavor =
                     "function(" + pList + ")"
             Pt.printl "var %sCtor = %s { " i.Name functionDeclare
             if ctor.Params.Length > 0 then
-                DumpSignatureCommentDocs (Ctor ctor)
+                EmitSignatureCommentDocs (Ctor ctor)
                 Pt.printWithAddedIndent "return Object.create(%s);" i.Name
                 Pt.printl "};"
             else
@@ -633,30 +633,30 @@ let DumpDeclarations flavor =
 
     GetAllInterfacesByFlavor flavor 
     |> SortInterfaces
-    |> Array.iter DumpInterfaceDeclaration
+    |> Array.iter EmitInterfaceDeclaration
 
     if flavor <> Worker then
-        let DumpDictDeclaration (d: Browser.Dictionary) =
+        let EmitDictDeclaration (d: Browser.Dictionary) =
             match d.Extends with
             | "Object" -> Pt.printl "var %s = {};" d.Name
             | _ -> Pt.printl "var %s = _$inherit(%s);" d.Name d.Extends
         browser.Dictionaries 
         |> SortDicts
-        |> Array.iter DumpDictDeclaration
+        |> Array.iter EmitDictDeclaration
     
-let DumpXmlContent flavor =
-    DumpDeclarations flavor
-    DumpCallBackFunctions flavor
-    DumpInterfaces flavor
+let EmitXmlContent flavor =
+    EmitDeclarations flavor
+    EmitCallBackFunctions flavor
+    EmitInterfaces flavor
     if flavor <> Worker then
-        DumpDictionaries ()
+        EmitDictionaries ()
 
 
 let RegisterPublicObjs flavor =
     RegisterPublicInterfaces flavor
     RegisterConstructors flavor
 
-/// Adjust the indention of the printer, and dump the indented content in the printer,
+/// Adjust the indention of the printer, and emit the indented content in the printer,
 /// and then replace the place holder text with the content in printer
 let ReplaceWithIndentedFuncResult (placeHolder: String) func (sb: StringBuilder) =
     let curText = sb.ToString()
@@ -667,7 +667,7 @@ let ReplaceWithIndentedFuncResult (placeHolder: String) func (sb: StringBuilder)
     func() |> ignore
     sb.Replace(placeHolder, Pt.getResult())
 
-let DumpTheWholeThing flavor (target: TextWriter) = 
+let EmitTheWholeThing flavor (target: TextWriter) = 
     Pt.reset()
 
     let template = LoadTemplate ( __SOURCE_DIRECTORY__ +  @"\inputfiles\jsTemplate.js")
@@ -675,15 +675,15 @@ let DumpTheWholeThing flavor (target: TextWriter) =
     let content =
         template 
         |> ReplaceWithIndentedFuncResult "<@ EventTypeToObjSwitchStatements @>" 
-            (fun () -> DumpEventTypeToObjSwitchStatement flavor false)
+            (fun () -> EmitEventTypeToObjSwitchStatement flavor false)
         |> ReplaceWithIndentedFuncResult "<@ EventTypeToObjSwitchStatementsIgnoreCase @>"
-            (fun () -> DumpEventTypeToObjSwitchStatement flavor true)
+            (fun () -> EmitEventTypeToObjSwitchStatement flavor true)
         |> ReplaceWithIndentedFuncResult "<@ CreateEventSwitchStatements @>" 
-            DumpCreateEventSwitchStatement
+            EmitCreateEventSwitchStatement
         |> ReplaceWithIndentedFuncResult "<@ GetElementsByTagNameSwitchStatements @>" 
-            DumpGetElementByTagNameSwitchStatement
+            EmitGetElementByTagNameSwitchStatement
         |> ReplaceWithIndentedFuncResult "<@ XMLContents @>"    
-            (fun () -> DumpXmlContent flavor)
+            (fun () -> EmitXmlContent flavor)
         |> ReplaceWithIndentedFuncResult "<@ Public Interfaces @>" 
             (fun () -> RegisterPublicObjs flavor)
         |> (fun sb -> sb.Replace("<@ GlobalPolluter @>", GetGlobalPollutorName flavor))
@@ -692,13 +692,13 @@ let DumpTheWholeThing flavor (target: TextWriter) =
     fprintf target "%s" content
     target.Flush()
 
-let DumpDomWeb () = 
-    DumpTheWholeThing Web GlobalVars.jsWebOutput
+let EmitDomWeb () = 
+    EmitTheWholeThing Flavor.Web GlobalVars.jsWebOutput
 
-let DumpDomWin () = 
-    DumpTheWholeThing Windows GlobalVars.jsWinOutput
+let EmitDomWin () = 
+    EmitTheWholeThing Flavor.All GlobalVars.jsWinOutput
 
-let DumpDomWorker () = 
+let EmitDomWorker () = 
     Pt.reset()
 
     ignoreDomType <- true
@@ -707,9 +707,9 @@ let DumpDomWorker () =
     let content =
         template 
         |> ReplaceWithIndentedFuncResult "<@ EventTypeToObjSwitchStatements @>" 
-            (fun () -> DumpEventTypeToObjSwitchStatement Worker false)
+            (fun () -> EmitEventTypeToObjSwitchStatement Worker false)
         |> ReplaceWithIndentedFuncResult "<@ XMLContents @>"    
-            (fun () -> DumpXmlContent Worker)
+            (fun () -> EmitXmlContent Worker)
         |> ReplaceWithIndentedFuncResult "<@ Public Interfaces @>" 
             (fun () -> RegisterPublicObjs Worker)
         |> (fun sb -> sb.Replace("<@ GlobalPolluter @>", GetGlobalPollutorName Worker))

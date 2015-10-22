@@ -299,5 +299,21 @@
         "interface": "Window",
         "name": "orientation",
         "type": "string | number"
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "static": true,
+        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "File",
+        "signatures": ["new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"]
+    },
+    {
+        "kind": "indexer",
+        "interface": "HTMLCollection",
+        "signatures": ["[index: number]: Element"]
     }
 ]

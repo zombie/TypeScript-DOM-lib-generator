@@ -1,4 +1,5 @@
-﻿module Shared
+﻿#r @"packages\FSharp.Data\lib\net40\FSharp.Data.dll"
+#r "System.Xml.Linq.dll"
 
 open FSharp.Data
 open System.IO
@@ -16,9 +17,9 @@ module GlobalVars =
 
     let inputFolder = __SOURCE_DIRECTORY__ + @"\inputfiles"
     let makeTextWriter fileName = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\" + fileName) :> TextWriter
-    let jsWebOutput = makeTextWriter "domWeb.js"
-    let jsWinOutput = makeTextWriter "domWindows.js"
-    let jsWorkerOutput = makeTextWriter "dedicatedworker.js"
+    // let jsWebOutput = makeTextWriter "domWeb.js"
+    // let jsWinOutput = makeTextWriter "domWindows.js"
+    // let jsWorkerOutput = makeTextWriter "dedicatedworker.js"
     let tsWebOutput = makeTextWriter "dom.generated.d.ts"
     let tsWorkerOutput = makeTextWriter "webworker.generated.d.ts"
     let defaultEventType = "Event"

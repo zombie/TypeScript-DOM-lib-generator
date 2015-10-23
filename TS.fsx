@@ -1,4 +1,4 @@
-﻿module TS
+﻿#load "Shared.fsx"
 
 open System
 open System.Text.RegularExpressions
@@ -578,6 +578,7 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     
     fprintf target "%s" (Pt.getResult())
     target.Flush()
+    target.Close()
 
 let EmitDomWeb () =
     EmitTheWholeThing Flavor.All GlobalVars.tsWebOutput

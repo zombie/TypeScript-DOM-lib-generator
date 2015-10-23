@@ -14,12 +14,12 @@ Target "Run" (fun _ ->
 )
 
 let testFile file =
-    let baseline = "./baselines/" + file
-    let newFile = "./generated/" + file
-    if FilesAreEqual (FileInfo baseline) (FileInfo newFile) then
+    let baseline = File.ReadAllText("./baselines/" + file)
+    let newFileWithLFEndings = File.ReadAllText("./generated/" + file).Replace(Environment.NewLine, "\n")
+    if String.Equals(baseline, newFileWithLFEndings) then
         String.Empty
     else
-        sprintf "Test failed: %s is different from baseline file.\n" newFile
+        sprintf "\nTest failed: %s is different from baseline file." file
 
 Target "Test" (fun _ ->
     Directory.GetFiles("./baselines")

@@ -1,6 +1,0 @@
-language: csharp
-
-sudo: true
-
-script:
-    - ./build.sh

@@ -14,8 +14,8 @@ Target "Run" (fun _ ->
 )
 
 let testFile file =
-    let baseline = File.ReadAllText("./baselines/" + file)
-    let newFileWithLFEndings = File.ReadAllText("./generated/" + file).Replace(Environment.NewLine, "\n")
+    let baseline = File.ReadAllText("./baselines/" + file).Replace("\r\n", "\n")
+    let newFileWithLFEndings = File.ReadAllText("./generated/" + file).Replace("\r\n", "\n")
     if String.Equals(baseline, newFileWithLFEndings) then
         String.Empty
     else

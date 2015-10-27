@@ -159,6 +159,12 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
             | _, Some "createEvent" -> EmitCreateEventOverloads m
             | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
             | _ ->
+                if m.Name.IsSome then
+                    // If there are added overloads from the json files, print them first
+                    match findAddedItem m.Name.Value ItemKind.SignatureOverload i.Name with
+                    | Some ol -> ol.Signatures |> Array.iter (Pt.printl "%s")
+                    | _ -> ()
+
                 let overloads = GetOverloads (Function.Method m) false
                 for { ParamCombinations = pCombList; ReturnTypes = rTypes } in overloads do
                     let paramsString = ParamsToString pCombList

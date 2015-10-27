@@ -304,16 +304,22 @@
         "kind": "method",
         "interface": "Element",
         "static": true,
-        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+        "signatures": [ "getElementsByClassName(classNames: string): NodeListOf<Element>" ]
     },
     {
         "kind": "constructor",
         "interface": "File",
-        "signatures": ["new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"]
+        "signatures": [ "new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File" ]
     },
     {
         "kind": "indexer",
         "interface": "HTMLCollection",
-        "signatures": ["[index: number]: Element"]
+        "signatures": [ "[index: number]: Element" ]
+    },
+    {
+        "kind": "signatureoverload",
+        "name": "createElementNS",
+        "interface": "Document",
+        "signatures": [ "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"a\"): SVGAElement" ]
     }
 ]

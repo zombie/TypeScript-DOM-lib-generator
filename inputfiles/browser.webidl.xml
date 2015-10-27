@@ -1,4 +1,4 @@
-<webidl-xml name="Internet Explorer Platform" original-file="browser.webidl" xmlns="http://schemas.microsoft.com/ie/webidl-xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/ie/webidl-xml webidl-xml-schema.xsd">
+<webidl-xml xmlns="http://schemas.microsoft.com/ie/webidl-xml">
   <callback-functions>
     <callback-function callback="1" name="ErrorEventHandler" type="void">
       <param name="event" type="(Event or DOMString)" />

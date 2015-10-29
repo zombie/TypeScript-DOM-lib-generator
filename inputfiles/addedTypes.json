@@ -216,6 +216,8 @@
     {
         "kind": "method",
         "interface": "Navigator",
-        "signatures": ["vibrate(pattern: number | number[]): boolean"]
+        "signatures": [
+            "vibrate(pattern: number | number[]): boolean"
+        ]
     }
 ]

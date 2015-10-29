@@ -212,5 +212,10 @@
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"view\"): SVGViewElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement"
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "Navigator",
+        "signatures": ["vibrate(pattern: number | number[]): boolean"]
     }
 ]

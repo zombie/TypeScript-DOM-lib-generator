@@ -7869,6 +7869,7 @@ interface Navigator extends Object, NavigatorID, NavigatorOnLine, NavigatorConte
     getGamepads(): Gamepad[];
     javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;
+    vibrate(pattern: number | number[]): boolean;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

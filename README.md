@@ -10,9 +10,9 @@ To build the tool, simply clone the repo, and run `build.cmd` in command line or
 - `JS.fs`: handles the emitting of the `domWeb.js` and `domWindows.js`
 
 ## Contribution Guide
-The `dom.generated.d.ts` and `webworker.generated.d.ts` files that are used in TypeScript repo `master` branch are used as baselines. 
-For each pull request, we will try run the script and compare the generated files with the baseline files. 
-So to make the tests passed, please update the baseline and the code at the same pull request. 
+The `dom.generated.d.ts` and `webworker.generated.d.ts` files in the TypeScript repo are used as baselines. 
+For each pull request, we will run the script and compare the generated files with the baseline files. 
+In order to make the tests pass, please update the baseline as well in any pull requests. 
 
 For common changes, it is sufficient to change the json files. 
 There are three json files that are used to alter the file generation: `addedTypes.json`, `overridingTypes.json` and `removedTypes.json`.

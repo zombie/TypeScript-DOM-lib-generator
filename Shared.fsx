@@ -1,4 +1,4 @@
-﻿#r @"packages\FSharp.Data\lib\net40\FSharp.Data.dll"
+﻿#r "packages/FSharp.Data/lib/net40/FSharp.Data.dll"
 #r "System.Xml.Linq.dll"
 
 open FSharp.Data
@@ -12,11 +12,11 @@ open Microsoft.FSharp.Reflection
 /// Global variables
 /// ===========================================
 module GlobalVars = 
-    if not (Directory.Exists(__SOURCE_DIRECTORY__ + @"\generated")) then 
-        Directory.CreateDirectory(__SOURCE_DIRECTORY__ + @"\generated") |> ignore
+    if not (Directory.Exists(__SOURCE_DIRECTORY__ + @"/generated")) then 
+        Directory.CreateDirectory(__SOURCE_DIRECTORY__ + @"/generated") |> ignore
 
-    let inputFolder = __SOURCE_DIRECTORY__ + @"\inputfiles"
-    let makeTextWriter fileName = File.CreateText(__SOURCE_DIRECTORY__ + @"\generated\" + fileName) :> TextWriter
+    let inputFolder = __SOURCE_DIRECTORY__ + @"/inputfiles"
+    let makeTextWriter fileName = File.CreateText(__SOURCE_DIRECTORY__ + @"/generated/" + fileName) :> TextWriter
     // let jsWebOutput = makeTextWriter "domWeb.js"
     // let jsWinOutput = makeTextWriter "domWindows.js"
     // let jsWorkerOutput = makeTextWriter "dedicatedworker.js"
@@ -49,13 +49,13 @@ module JsonItems =
     type ItemsType = JsonProvider<"inputfiles/sample.json">
 
     let overriddenItems = 
-        File.ReadAllText(GlobalVars.inputFolder + @"\overridingTypes.json") |> ItemsType.Parse
+        File.ReadAllText(GlobalVars.inputFolder + @"/overridingTypes.json") |> ItemsType.Parse
 
     let removedItems = 
-        File.ReadAllText(GlobalVars.inputFolder + @"\removedTypes.json") |> ItemsType.Parse
+        File.ReadAllText(GlobalVars.inputFolder + @"/removedTypes.json") |> ItemsType.Parse
 
     let addedItems = 
-        File.ReadAllText(GlobalVars.inputFolder + @"\addedTypes.json") |> ItemsType.Parse
+        File.ReadAllText(GlobalVars.inputFolder + @"/addedTypes.json") |> ItemsType.Parse
 
     // This is the kind of items in the external json files that are used as a 
     // correction for the spec.
@@ -95,7 +95,7 @@ module JsonItems =
 module Comments =
     type CommentType = JsonProvider<"inputfiles/comments.json">
 
-    let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"\inputfiles\comments.json") |> CommentType.Parse
+    let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"/inputfiles/comments.json") |> CommentType.Parse
 
     let GetCommentForProperty iName pName = 
         match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with

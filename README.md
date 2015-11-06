@@ -7,7 +7,7 @@ This tool is used to generate `dom.generated.d.ts` and `webworker.generated.d.ts
 ## Build Instruction
 To build the tool, simply clone the repo, and run `build.cmd` (Windows) or `build.sh` (OS X/Unix) in command line. If it runs successfully, the output files will be generated under the `generated` folder.
 
-Note: for OSX users, [Mono 4.2](http://www.mono-project.com/download/alpha/) is required.
+Note: for OS X/ Unix users, [Mono 4.2](http://www.mono-project.com/download/alpha/) is required.
 
 ## Contribution Guide
 The `dom.generated.d.ts` and `webworker.generated.d.ts` files in the TypeScript repo are used as baselines. 

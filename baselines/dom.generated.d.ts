@@ -7911,6 +7911,7 @@ interface Node extends EventTarget {
     normalize(): void;
     removeChild(oldChild: Node): Node;
     replaceChild(newChild: Node, oldChild: Node): Node;
+    contains(node: Node): boolean;
     ATTRIBUTE_NODE: number;
     CDATA_SECTION_NODE: number;
     COMMENT_NODE: number;

@@ -13,5 +13,10 @@
         "kind": "property",
         "interface": "HTMLElement",
         "name": "className"
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLElement",
+        "name": "contains"
     }
 ]

@@ -208,6 +208,12 @@
     },
     {
         "kind": "property",
+        "interface": "HTMLSelectElement",
+        "name": "options",
+        "type": "HTMLCollection"
+    },
+    {
+        "kind": "property",
         "interface": "ImageData",
         "name": "data",
         "type": "Uint8ClampedArray"

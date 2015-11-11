@@ -210,7 +210,7 @@
         "kind": "property",
         "interface": "HTMLSelectElement",
         "name": "options",
-        "type": "HTMLSelectElement | HTMLCollection"
+        "type": "HTMLCollection"
     },
     {
         "kind": "property",

@@ -211,5 +211,11 @@
         "interface": "HTMLSelectElement",
         "name": "options",
         "type": "HTMLSelectElement | HTMLCollection"
+    },
+    {
+        "kind": "property",
+        "interface": "ImageData",
+        "name": "data",
+        "type": "Uint8ClampedArray"
     }
 ]

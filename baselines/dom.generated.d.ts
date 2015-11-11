@@ -3962,7 +3962,6 @@ interface HTMLElement extends Element {
     title: string;
     blur(): void;
     click(): void;
-    contains(child: HTMLElement): boolean;
     dragDrop(): boolean;
     focus(): void;
     insertAdjacentElement(position: string, insertedElement: Element): Element;

@@ -140,6 +140,11 @@
         "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
     },
     {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": ["matches(selector: string): boolean"]
+    },
+    {
         "kind": "indexer",
         "interface": "HTMLCollection",
         "signatures": ["[index: number]: Element"]

@@ -6422,19 +6422,19 @@ interface HTMLTableElement extends HTMLElement {
     /**
       * Creates an empty caption element in the table.
       */
-    createCaption(): HTMLElement;
+    createCaption(): HTMLTableCaptionElement;
     /**
       * Creates an empty tBody element in the table.
       */
-    createTBody(): HTMLElement;
+    createTBody(): HTMLTableSectionElement;
     /**
       * Creates an empty tFoot element in the table.
       */
-    createTFoot(): HTMLElement;
+    createTFoot(): HTMLTableSectionElement;
     /**
       * Returns the tHead element object if successful, or null otherwise.
       */
-    createTHead(): HTMLElement;
+    createTHead(): HTMLTableSectionElement;
     /**
       * Deletes the caption element and its contents from the table.
       */
@@ -6456,7 +6456,7 @@ interface HTMLTableElement extends HTMLElement {
       * Creates a new row (tr) in the table, and adds the row to the rows collection.
       * @param index Number that specifies where to insert the row in the rows collection. The default value is -1, which appends the new row to the end of the rows collection.
       */
-    insertRow(index?: number): HTMLElement;
+    insertRow(index?: number): HTMLTableRowElement;
 }
 
 declare var HTMLTableElement: {
@@ -6507,7 +6507,7 @@ interface HTMLTableRowElement extends HTMLElement, HTMLTableAlignment {
       * Creates a new cell in the table row, and adds the cell to the cells collection.
       * @param index Number that specifies where to insert the cell in the tr. The default value is -1, which appends the new cell to the end of the cells collection.
       */
-    insertCell(index?: number): HTMLElement;
+    insertCell(index?: number): HTMLTableCellElement;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
@@ -6534,7 +6534,7 @@ interface HTMLTableSectionElement extends HTMLElement, HTMLTableAlignment {
       * Creates a new row (tr) in the table, and adds the row to the rows collection.
       * @param index Number that specifies where to insert the row in the rows collection. The default value is -1, which appends the new row to the end of the rows collection.
       */
-    insertRow(index?: number): HTMLElement;
+    insertRow(index?: number): HTMLTableRowElement;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

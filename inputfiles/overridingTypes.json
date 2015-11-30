@@ -217,5 +217,47 @@
         "interface": "ImageData",
         "name": "data",
         "type": "Uint8ClampedArray"
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableElement",
+        "name": "insertRow",
+        "signatures": ["insertRow(index?: number): HTMLTableRowElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableElement",
+        "name": "createTHead",
+        "signatures": ["createTHead(): HTMLTableSectionElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableElement",
+        "name": "createTBody",
+        "signatures": ["createTBody(): HTMLTableSectionElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableElement",
+        "name": "createTFoot",
+        "signatures": ["createTFoot(): HTMLTableSectionElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableElement",
+        "name": "createCaption",
+        "signatures": ["createCaption(): HTMLTableCaptionElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableSectionElement",
+        "name": "insertRow",
+        "signatures": ["insertRow(index?: number): HTMLTableRowElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTableRowElement",
+        "name": "insertCell",
+        "signatures": ["insertCell(index?: number): HTMLTableCellElement"]
     }
 ]

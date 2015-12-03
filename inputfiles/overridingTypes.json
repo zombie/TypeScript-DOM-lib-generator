@@ -1,4 +1,10 @@
  [
+     {
+         "kind": "method",
+         "interface": "IDBObjectStore",
+         "name": "createIndex",
+         "signatures": ["createIndex(name: string, keyPath: string | string[], optionalParameters?: any): IDBIndex"]
+     },
     {
         "kind": "method",
         "interface": "WebGLRenderingContext",

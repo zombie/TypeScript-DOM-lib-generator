@@ -3,13 +3,19 @@
         "kind": "method",
         "interface": "IDBObjectStore",
         "name": "createIndex",
-        "signatures": ["createIndex(name: string, keyPath: string | string[], optionalParameters?: any): IDBIndex"]
+        "signatures": ["createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex"]
     },
     {
-	"kind": "property",
-	"interface": "IDBIndex",
-	"name": "keyPath",
-	"type": "string | string[]"
+    	"kind": "property",
+    	"interface": "IDBIndex",
+    	"name": "keyPath",
+    	"type": "string | string[]"
+    },
+    {
+        "kind": "method",
+        "interface": "IDBDatabase",
+        "name": "createObjectStore",
+        "signatures": ["createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore"]
     },
     {
         "kind": "method",

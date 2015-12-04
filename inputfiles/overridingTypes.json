@@ -1,6 +1,18 @@
  [
     {
         "kind": "method",
+        "interface": "IDBObjectStore",
+        "name": "createIndex",
+        "signatures": ["createIndex(name: string, keyPath: string | string[], optionalParameters?: any): IDBIndex"]
+    },
+    {
+	"kind": "property",
+	"interface": "IDBIndex",
+	"name": "keyPath",
+	"type": "string | string[]"
+    },
+    {
+        "kind": "method",
         "interface": "WebGLRenderingContext",
         "name": "texSubImage2D",
         "signatures": [

@@ -1,5 +1,39 @@
 [
     {
+        "kind": "interface",
+        "name": "IDBObjectStoreParameters",
+        "properties": [
+            {
+                "name": "keyPath?",
+                "type": "string | string[]"
+            },
+            {
+                "name": "autoIncrement?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "IDBIndexParameters",
+        "properties": [
+            {
+                "name": "unique?",
+                "type": "boolean"
+            },
+            {
+                "name": "multiEntry?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "IDBIndex",
+        "name": "multiEntry",
+        "type": "boolean"
+    },
+    {
         "kind": "property",
         "interface": "Window",
         "name": "URL",

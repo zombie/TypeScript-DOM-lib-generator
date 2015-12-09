@@ -321,6 +321,7 @@ interface AudioContext extends EventTarget {
     destination: AudioDestinationNode;
     listener: AudioListener;
     sampleRate: number;
+    state: string;
     createAnalyser(): AnalyserNode;
     createBiquadFilter(): BiquadFilterNode;
     createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBuffer;

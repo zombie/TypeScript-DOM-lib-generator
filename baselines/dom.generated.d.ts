@@ -2969,7 +2969,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     removeAttributeNode(oldAttr: Attr): Attr;
     requestFullscreen(): void;
     requestPointerLock(): void;
-    setAttribute(name?: string, value?: string): void;
+    setAttribute(name: string, value: string): void;
     setAttributeNS(namespaceURI: string, qualifiedName: string, value: string): void;
     setAttributeNode(newAttr: Attr): Attr;
     setAttributeNodeNS(newAttr: Attr): Attr;

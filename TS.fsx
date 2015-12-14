@@ -35,7 +35,7 @@ let rec DomTypeToTsType (objDomType: string) =
     | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
     | "object" -> "any"
     | "Promise" -> "Promise"
-    | "ReadyState" -> "number"
+    | "ReadyState" -> "string"
     | "sequence" -> "Array"
     | "short" | "signed short" | "unsigned short" -> "number"
     | "UnrestrictedDouble" -> "number"

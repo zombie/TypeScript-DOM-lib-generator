@@ -290,5 +290,11 @@
         "interface": "AudioContext",
         "name": "state",
         "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLSelectElement",
+        "name": "selectedOptions",
+        "type": "HTMLCollection"
     }
 ]

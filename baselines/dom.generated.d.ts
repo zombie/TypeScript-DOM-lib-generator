@@ -2775,6 +2775,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     tagName: string;
     id: string;
     className: string;
+    innerHTML: string;
     getAttribute(name?: string): string;
     getAttributeNS(namespaceURI: string, localName: string): string;
     getAttributeNode(name: string): Attr;

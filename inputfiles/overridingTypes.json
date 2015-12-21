@@ -283,5 +283,11 @@
         "interface": "Element",
         "name": "setAttribute",
         "signatures": ["setAttribute(name: string, value: string): void"]
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLMediaElement",
+        "name": "readyState",
+        "type": "number"
     }
 ]

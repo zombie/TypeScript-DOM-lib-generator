@@ -5513,7 +5513,7 @@ interface HTMLMediaElement extends HTMLElement {
       * Gets or sets the current playback position, in seconds.
       */
     preload: string;
-    readyState: any;
+    readyState: number;
     /**
       * Returns a TimeRanges object that represents the ranges of the current media resource that can be seeked.
       */

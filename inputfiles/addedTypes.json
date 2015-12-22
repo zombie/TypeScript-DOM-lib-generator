@@ -53,6 +53,12 @@
     },
     {
         "kind": "property",
+        "interface": "Element",
+        "name": "innerHTML",
+        "type": "string"
+    },
+    {
+        "kind": "property",
         "interface": "SVGElement",
         "name": "className",
         "type": "any"

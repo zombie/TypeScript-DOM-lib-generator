@@ -40,7 +40,7 @@ let DomTypeToPrimitiveJsType domType =
     | "long long" -> "Number"
     | "long" -> "Number"
     | "object" -> "Object"
-    | "ReadyState" -> "Number"
+    | "ReadyState" -> "String"
     | "short" -> "Number"
     | "signed long" -> "Number"
     | "signed long long" -> "Number"

@@ -538,6 +538,7 @@ let EmitDictionaries flavor =
             getRemovedItems ItemKind.Property flavor 
             |> Array.filter (matchInterface dict.Name)
             |> Array.map (fun rp -> rp.Name.Value)
+            |> Set.ofArray
         let addedProps = 
             getAddedItems ItemKind.Property flavor 
             |> Array.filter (matchInterface dict.Name)
@@ -545,7 +546,7 @@ let EmitDictionaries flavor =
         Pt.increaseIndent()
         Array.iter emitJsonProperty addedProps
         dict.Members
-        |> Array.filter (fun m -> not (Array.contains m.Name removedPropNames))
+        |> Array.filter (fun m -> not (Set.contains m.Name removedPropNames))
         |> Array.iter (fun m -> 
             match (findOverriddenItem m.Name ItemKind.Property dict.Name) with
             | Some om -> emitJsonProperty om

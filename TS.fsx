@@ -531,8 +531,26 @@ let EmitDictionaries flavor =
         | "Object" -> Pt.printl "interface %s {" dict.Name
         | _ -> Pt.printl "interface %s extends %s {" dict.Name dict.Extends
 
+        let emitJsonProperty (p: ItemsType.Root) =
+            Pt.printl "%s: %s;" p.Name.Value p.Type.Value
+
+        let removedPropNames = 
+            getRemovedItems ItemKind.Property flavor 
+            |> Array.filter (matchInterface dict.Name)
+            |> Array.map (fun rp -> rp.Name.Value)
+            |> Set.ofArray
+        let addedProps = 
+            getAddedItems ItemKind.Property flavor 
+            |> Array.filter (matchInterface dict.Name)
+
         Pt.increaseIndent()
-        dict.Members |> Array.iter (fun m -> Pt.printl "%s?: %s;" m.Name (DomTypeToTsType m.Type))
+        Array.iter emitJsonProperty addedProps
+        dict.Members
+        |> Array.filter (fun m -> not (Set.contains m.Name removedPropNames))
+        |> Array.iter (fun m -> 
+            match (findOverriddenItem m.Name ItemKind.Property dict.Name) with
+            | Some om -> emitJsonProperty om
+            | None -> Pt.printl "%s?: %s;" m.Name (DomTypeToTsType m.Type))
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""

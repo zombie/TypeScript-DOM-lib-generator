@@ -289,5 +289,11 @@
         "interface": "HTMLMediaElement",
         "name": "readyState",
         "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "IDBDatabase",
+        "name": "version",
+        "type": "number"
     }
 ]

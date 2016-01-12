@@ -302,5 +302,11 @@
         "interface": "HTMLSelectElement",
         "name": "selectedOptions",
         "type": "HTMLCollection"
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLCanvasElement",
+        "name": "toBlob",
+        "signatures": ["toBlob(): Blob"]
     }
 ]

@@ -295,5 +295,11 @@
         "interface": "IDBDatabase",
         "name": "version",
         "type": "number"
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "trace",
+        "signatures": ["trace(message?: any, ...optionalParams: any[]): void"]
     }
 ]

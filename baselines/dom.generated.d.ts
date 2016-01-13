@@ -1514,9 +1514,9 @@ interface DataTransferItemList {
     length: number;
     add(data: File): DataTransferItem;
     clear(): void;
-    item(index: number): File;
+    item(index: number): DataTransferItem;
     remove(index: number): void;
-    [index: number]: File;
+    [index: number]: DataTransferItem;
 }
 
 declare var DataTransferItemList: {
@@ -3770,6 +3770,7 @@ interface HTMLCanvasElement extends HTMLElement {
       * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
       */
     toDataURL(type?: string, ...args: any[]): string;
+    toBlob(): Blob;
 }
 
 declare var HTMLCanvasElement: {

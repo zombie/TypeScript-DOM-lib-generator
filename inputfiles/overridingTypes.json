@@ -295,5 +295,11 @@
         "interface": "IDBDatabase",
         "name": "version",
         "type": "number"
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "name": "open",
+        "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window"]
     }
 ]

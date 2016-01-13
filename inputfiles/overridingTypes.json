@@ -295,5 +295,16 @@
         "interface": "IDBDatabase",
         "name": "version",
         "type": "number"
+    },
+    {
+        "kind": "method",
+        "interface": "DataTransferItemList",
+        "name": "item",
+        "signatures": ["item(index: number): DataTransferItem"]
+    },
+    {
+        "kind": "indexer",
+        "interface": "DataTransferItemList",
+        "signatures": ["[index: number]: DataTransferItem"]
     }
 ]

@@ -298,6 +298,12 @@
     },
     {
         "kind": "method",
+        "interface": "Console",
+        "name": "trace",
+        "signatures": ["trace(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
         "interface": "DataTransferItemList",
         "name": "item",
         "signatures": ["item(index: number): DataTransferItem"]

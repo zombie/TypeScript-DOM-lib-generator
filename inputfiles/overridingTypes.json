@@ -298,6 +298,23 @@
     },
     {
         "kind": "method",
+        "interface": "Console",
+        "name": "trace",
+        "signatures": ["trace(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "DataTransferItemList",
+        "name": "item",
+        "signatures": ["item(index: number): DataTransferItem"]
+    },
+    {
+        "kind": "indexer",
+        "interface": "DataTransferItemList",
+        "signatures": ["[index: number]: DataTransferItem"]
+    },
+    {
+        "kind": "method",
         "interface": "Window",
         "name": "open",
         "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window"]

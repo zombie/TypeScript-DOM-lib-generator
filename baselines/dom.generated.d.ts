@@ -1255,7 +1255,7 @@ interface Console {
     select(element: Element): void;
     time(timerName?: string): void;
     timeEnd(timerName?: string): void;
-    trace(): void;
+    trace(message?: any, ...optionalParams: any[]): void;
     warn(message?: any, ...optionalParams: any[]): void;
 }
 
@@ -1514,9 +1514,9 @@ interface DataTransferItemList {
     length: number;
     add(data: File): DataTransferItem;
     clear(): void;
-    item(index: number): File;
+    item(index: number): DataTransferItem;
     remove(index: number): void;
-    [index: number]: File;
+    [index: number]: DataTransferItem;
 }
 
 declare var DataTransferItemList: {
@@ -3770,6 +3770,7 @@ interface HTMLCanvasElement extends HTMLElement {
       * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
       */
     toDataURL(type?: string, ...args: any[]): string;
+    toBlob(): Blob;
 }
 
 declare var HTMLCanvasElement: {
@@ -12829,7 +12830,7 @@ declare function msCancelRequestAnimationFrame(handle: number): void;
 declare function msMatchMedia(mediaQuery: string): MediaQueryList;
 declare function msRequestAnimationFrame(callback: FrameRequestCallback): number;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
-declare function open(url?: string, target?: string, features?: string, replace?: boolean): any;
+declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window;
 declare function postMessage(message: any, targetOrigin: string, ports?: any): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string;

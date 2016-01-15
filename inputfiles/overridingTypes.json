@@ -314,6 +314,13 @@
         "signatures": ["[index: number]: DataTransferItem"]
     },
     {
+        "kind": "constructor",
+        "interface": "StorageEvent",
+        "signatures": [
+            "new (type: string, eventInitDict?: StorageEventInit): StorageEvent"
+        ]
+    },
+    {
         "kind": "method",
         "interface": "Window",
         "name": "open",

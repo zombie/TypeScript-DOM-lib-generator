@@ -360,5 +360,11 @@
         "interface": "StorageEvent",
         "name": "storageArea?",
         "type": "Storage"
+    },
+    {
+        "kind": "property",
+        "interface": "IDBObjectStore",
+        "name": "autoIncrement",
+        "type": "boolean"
     }
 ]

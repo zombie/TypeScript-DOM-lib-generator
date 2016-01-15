@@ -43,5 +43,15 @@
         "kind": "property",
         "interface": "StorageEvent",
         "name": "storageArea"
+    },
+    {
+        "kind": "property",
+        "interface": "WorkerUtils",
+        "name": "indexedDB"
+    },
+    {
+        "kind": "property",
+        "interface": "WorkerUtils",
+        "name": "msIndexedDB"
     }
 ]

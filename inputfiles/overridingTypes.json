@@ -312,5 +312,12 @@
         "kind": "indexer",
         "interface": "DataTransferItemList",
         "signatures": ["[index: number]: DataTransferItem"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "StorageEvent",
+        "signatures": [
+            "new (type: string, eventInitDict?: StorageEventInit): StorageEvent"
+        ]
     }
 ]

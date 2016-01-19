@@ -360,5 +360,33 @@
         "interface": "StorageEvent",
         "name": "storageArea?",
         "type": "Storage"
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLPictureElement",
+        "flavor":  "Web",
+        "extends": "HTMLElement",
+        "constructorSignatures": [
+            "new(): HTMLPictureElement"
+        ],
+        "properties": []
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "createElement",
+        "signatures": ["createElement(tagName: \"picture\"): HTMLPictureElement"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "getElementsByTagName",
+        "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "getElementsByTagName",
+        "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
     }
 ]

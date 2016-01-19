@@ -465,17 +465,33 @@ let EmitStaticInterface flavor (i:Browser.Interface) =
     // Some types are static types with non-static members. For example, 
     // NodeFilter is a static method itself, however it has an "acceptNode" method
     // that expects the user to implement. 
-    let hasNonStaticMember = 
-        match i.Methods with
-        | Some ms -> ms.Methods |> Array.exists (fun m -> m.Static.IsNone)
-        | _ -> false
+    let hasNonStaticMember =
+        let hasNonStaticMethod =
+            match JsonItems.getAddedItemsByInterfaceName ItemKind.Method flavor i.Name with
+            | [||] ->
+                match i.Methods with
+                | Some ms -> ms.Methods |> Array.exists (fun m -> m.Static.IsNone)
+                | _ -> false
+            | addedMs -> addedMs |> Array.exists (fun m -> m.Static.IsNone || m.Static.Value = false)
+        let hasProperty =
+            if i.Properties.IsSome then true
+            else
+                JsonItems.getAddedItemsByInterfaceName ItemKind.Property flavor i.Name |> Array.isEmpty |> not
+        hasNonStaticMethod || hasProperty
+
+    let emitAddedConstructor () =
+        match JsonItems.getAddedItemsByInterfaceName ItemKind.Constructor flavor i.Name with
+        | [||] -> ()
+        | ctors ->
+            Pt.printl "prototype: %s;" i.Name
+            ctors |> Array.iter (fun ctor -> ctor.Signatures |> Array.iter (Pt.printl "%s;"))
 
     // For static types with non-static members, we put the non-static members into an
     // interface, and put the static members into the object literal type of 'declare var'
     // For static types with only static members, we put everything in the interface. 
     // Because in the two cases the interface contains different things, it might be easier to
     // read to seperate them into two functions.
-    let emitStaticInterfaceWithNonStaticMembers () = 
+    let emitStaticInterfaceWithNonStaticMembers () =
         Pt.resetIndent()
         EmitInterfaceDeclaration i
         Pt.increaseIndent()
@@ -492,6 +508,7 @@ let EmitStaticInterface flavor (i:Browser.Interface) =
         Pt.increaseIndent()
         EmitConstants i
         EmitMembers flavor prefix EmitScope.StaticOnly i
+        emitAddedConstructor ()
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""
@@ -506,7 +523,7 @@ let EmitStaticInterface flavor (i:Browser.Interface) =
         EmitConstants i
         EmitEventHandlers prefix i
         EmitIndexers EmitScope.StaticOnly i
-
+        emitAddedConstructor ()
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl "declare var %s: %s;" i.Name i.Name
@@ -616,4 +633,4 @@ let EmitDomWeb () =
 
 let EmitDomWorker () =
     ignoreDOMTypes <- true
-    EmitTheWholeThing Flavor.Worker GlobalVars.tsWorkerOutput 
+    EmitTheWholeThing Flavor.Worker GlobalVars.tsWorkerOutput

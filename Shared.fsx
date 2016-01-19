@@ -88,9 +88,19 @@ module JsonItems =
             t.Kind.ToLower() = kind.ToString() && 
             (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || flavor = All))
 
-    let getOverriddenItems kind flavor = getItems overriddenItems kind flavor
-    let getAddedItems kind flavor = getItems addedItems kind flavor
-    let getRemovedItems kind flavor = getItems removedItems kind flavor
+    let getOverriddenItems kind flavor =
+        getItems overriddenItems kind flavor
+    let getAddedItems kind flavor =
+        getItems addedItems kind flavor
+    let getRemovedItems kind flavor =
+        getItems removedItems kind flavor
+
+    let getAddedItemsByInterfaceName kind flavor iName =
+        getItems addedItems kind flavor |> Array.filter (matchInterface iName)
+    let getOverriddenItemsByInterfaceName kind flavor iName =
+        getItems overriddenItems kind flavor |> Array.filter (matchInterface iName)
+    let getRemovedItemsByInterfaceName kind flavor iName =
+        getItems removedItems kind flavor |> Array.filter (matchInterface iName)
 
 module Comments =
     type CommentType = JsonProvider<"inputfiles/comments.json">

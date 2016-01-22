@@ -10218,11 +10218,14 @@ declare var SVGViewElement: {
 }
 
 interface SVGZoomAndPan {
+    zoomAndPan: number;
+}
+
+declare var SVGZoomAndPan: {
     SVG_ZOOMANDPAN_DISABLE: number;
     SVG_ZOOMANDPAN_MAGNIFY: number;
     SVG_ZOOMANDPAN_UNKNOWN: number;
 }
-declare var SVGZoomAndPan: SVGZoomAndPan;
 
 interface SVGZoomEvent extends UIEvent {
     newScale: number;

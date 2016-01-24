@@ -345,12 +345,6 @@
         "type": "IDBObjectStore | IDBIndex | IDBCursor"
     },
     {
-        "kind": "interface",
-        "name": "WorkerUtils",
-        "flavor": "Worker",
-        "extends": "Object, WindowBase64, IDBEnvironment"
-    },
-    {
         "kind": "method",
         "interface": "Window",
         "name": "open",

@@ -881,7 +881,9 @@ interface DedicatedWorkerGlobalScope {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
-interface WorkerUtils extends Object, WindowBase64, IDBEnvironment {
+interface WorkerUtils extends Object, WindowBase64 {
+    indexedDB: IDBFactory;
+    msIndexedDB: IDBFactory;
     navigator: WorkerNavigator;
     clearImmediate(handle: number): void;
     clearInterval(handle: number): void;

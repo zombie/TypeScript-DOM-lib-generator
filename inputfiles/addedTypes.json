@@ -388,5 +388,11 @@
         "interface": "Element",
         "name": "getElementsByTagName",
         "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
+    },
+    {
+        "kind": "property",
+        "interface": "WebGLContextAttributes",
+        "name": "failIfMajorPerformanceCaveat?",
+        "type": "boolean"
     }
 ]

@@ -321,6 +321,30 @@
         ]
     },
     {
+        "kind": "property",
+        "interface": "IDBCursor",
+        "name": "source",
+        "type": "IDBObjectStore | IDBIndex"
+    },
+    {
+        "kind": "method",
+        "interface": "IDBDatabase",
+        "name": "transaction",
+        "signatures": ["transaction(storeNames: string | string[], mode?: string): IDBTransaction"]
+    },
+    {
+        "kind": "property",
+        "interface": "IDBObjectStore",
+        "name": "keyPath",
+        "type": "string | string[]"
+    },
+    {
+        "kind": "property",
+        "interface": "IDBRequest",
+        "name": "source",
+        "type": "IDBObjectStore | IDBIndex | IDBCursor"
+    },
+    {
         "kind": "method",
         "interface": "Window",
         "name": "open",

@@ -362,6 +362,12 @@
         "type": "Storage"
     },
     {
+        "kind": "property",
+        "interface": "IDBObjectStore",
+        "name": "autoIncrement",
+        "type": "boolean"
+    },
+    {
         "kind": "interface",
         "name": "HTMLPictureElement",
         "flavor":  "Web",

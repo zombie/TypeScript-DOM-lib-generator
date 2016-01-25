@@ -6894,7 +6894,7 @@ interface IDBCursor {
     direction: string;
     key: any;
     primaryKey: any;
-    source: any;
+    source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
     continue(key?: any): void;
     delete(): IDBRequest;
@@ -6932,7 +6932,7 @@ interface IDBDatabase extends EventTarget {
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
-    transaction(storeNames: any, mode?: string): IDBTransaction;
+    transaction(storeNames: string | string[], mode?: string): IDBTransaction;
     addEventListener(type: "abort", listener: (ev: Event) => any, useCapture?: boolean): void;
     addEventListener(type: "error", listener: (ev: ErrorEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -6990,9 +6990,10 @@ declare var IDBKeyRange: {
 
 interface IDBObjectStore {
     indexNames: DOMStringList;
-    keyPath: string;
+    keyPath: string | string[];
     name: string;
     transaction: IDBTransaction;
+    autoIncrement: boolean;
     add(value: any, key?: any): IDBRequest;
     clear(): IDBRequest;
     count(key?: any): IDBRequest;
@@ -7031,7 +7032,7 @@ interface IDBRequest extends EventTarget {
     onsuccess: (ev: Event) => any;
     readyState: string;
     result: any;
-    source: any;
+    source: IDBObjectStore | IDBIndex | IDBCursor;
     transaction: IDBTransaction;
     addEventListener(type: "error", listener: (ev: ErrorEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "success", listener: (ev: Event) => any, useCapture?: boolean): void;

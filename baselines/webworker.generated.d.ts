@@ -960,7 +960,7 @@ interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
 }
 interface DecodeErrorCallback {
-    (): void;
+    (error: DOMException): void;
 }
 interface FunctionStringCallback {
     (data: string): void;

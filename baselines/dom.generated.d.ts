@@ -378,6 +378,8 @@ interface AudioNode extends EventTarget {
     numberOfOutputs: number;
     connect(destination: AudioNode, output?: number, input?: number): void;
     disconnect(output?: number): void;
+    disconnect(destination: AudioNode, output?: number, input?: number): void;
+    disconnect(destination: AudioParam, output?: number): void;
 }
 
 declare var AudioNode: {
@@ -12689,7 +12691,7 @@ interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
 }
 interface DecodeErrorCallback {
-    (): void;
+    (error: DOMException): void;
 }
 interface FunctionStringCallback {
     (data: string): void;

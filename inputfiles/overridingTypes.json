@@ -349,5 +349,20 @@
         "interface": "Window",
         "name": "open",
         "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window"]
+    },
+    {
+        "kind": "method",
+        "interface": "AudioNode",
+        "name": "disconnect",
+        "signatures": [
+             "disconnect(output?: number): void",
+             "disconnect(destination: AudioNode, output?: number, input?: number): void",
+             "disconnect(destination: AudioParam, output?: number): void"
+        ]
+    },
+    {
+        "kind": "callback",
+        "name": "DecodeErrorCallback",
+        "signatures": ["(error: DOMException): void"]
     }
 ]

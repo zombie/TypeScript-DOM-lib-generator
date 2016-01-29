@@ -234,7 +234,7 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
         | None -> ()
 
         getAddedItems ItemKind.Property flavor
-        |> Array.filter (matchInterface i.Name)
+        |> Array.filter (fun addedItem -> (matchInterface i.Name addedItem) && (prefix <> "declare var " || not(OptionCheckValue false addedItem.ExposeGlobally)))
         |> Array.iter emitPropertyFromJson
 
 let EmitMethods flavor prefix (emitScope: EmitScope) (i: Browser.Interface) =

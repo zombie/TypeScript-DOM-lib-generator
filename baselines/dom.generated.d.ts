@@ -5262,6 +5262,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
       * Sets or retrieves the MIME type of the object.
       */
     type: string;
+    import?: Document;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

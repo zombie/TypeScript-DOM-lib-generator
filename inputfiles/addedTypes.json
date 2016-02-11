@@ -303,8 +303,14 @@
         "interface": "Document",
         "name": "currentScript",
         "type": "HTMLScriptElement"
-     },
-     {
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLinkElement",
+        "name": "import?",
+        "type": "Document"
+    },
+    {
         "kind": "interface",
         "name": "HTMLTemplateElement",
         "flavor":  "Web",

@@ -400,5 +400,17 @@
         "interface": "Element",
         "name": "getElementsByTagName",
         "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLInputElement",
+        "name": "minLength",
+        "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLTextAreaElement",
+        "name": "minLength",
+        "type": "number"
     }
 ]

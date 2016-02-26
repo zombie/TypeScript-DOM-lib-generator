@@ -1841,10 +1841,6 @@
             "comment": "/**\r\n      * Sets or retrieves the width of the border to draw around the object.\r\n      */"
           },
           {
-            "name": "minLength",
-            "comment": "/**\r\n      * Sets or retrieves the minimum number of characters that the user can enter in a text control.\r\n      */"
-          },
-          {
             "name": "maxLength",
             "comment": "/**\r\n      * Sets or retrieves the maximum number of characters that the user can enter in a text control.\r\n      */"
           },
@@ -2314,10 +2310,6 @@
           {
             "name": "required",
             "comment": "/**\r\n      * When present, marks an element that can't be submitted without a value.\r\n      */"
-          },
-          {
-            "name": "minLength",
-            "comment": "/**\r\n      * Sets or retrieves the minimum number of characters that the user can enter in a text control.\r\n      */"
           },
           {
             "name": "maxLength",

@@ -600,6 +600,9 @@ let workerEventsMap =
       ("progress", "ProgressEvent") ]
     |> Map.ofList
 
+let typeDefSet =
+    browser.Typedefs |> Array.map (fun td -> td.NewType) |> Set.ofArray
+
 module Option =
     let runIfSome f x =
         match x with

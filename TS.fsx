@@ -33,6 +33,7 @@ let rec DomTypeToTsType (objDomType: string) =
     | "double" | "float" -> "number"
     | "Function" -> "Function"
     | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
+    | "octet" | "byte" -> "number"
     | "object" -> "any"
     | "Promise" -> "Promise"
     | "ReadyState" -> "string"
@@ -49,22 +50,26 @@ let rec DomTypeToTsType (objDomType: string) =
                 allCallbackFuncs.ContainsKey objDomType ||
                 allDictionariesMap.ContainsKey objDomType then
                 objDomType
+            // Name of a type alias. Just return itself
+            elif typeDefSet.Contains objDomType then objDomType
             // Enum types are all treated as string
             elif allEnumsMap.ContainsKey objDomType then "string"
             // Union types
-            elif (objDomType.Contains(" or ")) then
+            elif objDomType.Contains(" or ") then
                 let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
-                                |> Array.map DomTypeToTsType
+                                |> Array.map (fun t -> DomTypeToTsType (t.Trim('?', ' ')))
                 if Seq.contains "any" allTypes then "any" else String.concat " | " allTypes
             else
                 // Check if is array type, which looks like "sequence<DOMString>"
-                let genericMatch = Regex.Match(objDomType, @"^(\w+)<(\w+)>$")
+                let unescaped = objDomType.Replace("&lt;", "<").Replace("&gt;", ">")
+                let genericMatch = Regex.Match(unescaped, @"^(\w+)<(\w+)>$")
                 if genericMatch.Success then
                     let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
+                    let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                     match tName with
-                    | "Promise" -> "any"
+                    | "Promise" -> 
+                        "PromiseLike<" + paramName + ">"
                     | _ ->
-                        let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                         if tName = "Array" then paramName + "[]"
                         else tName + "<" + paramName + ">"
                 elif objDomType.EndsWith("[]") then
@@ -605,6 +610,11 @@ let EmitAddedInterface (ai: JsonItems.ItemsType.Root) =
         Pt.printl "}"
         Pt.printl ""
 
+let EmitTypeDefs () =
+    let EmitTypeDef (typeDef: Browser.Typedef) =
+        Pt.printl "type %s = %s;" typeDef.NewType (DomTypeToTsType typeDef.Type)
+    browser.Typedefs |> Array.iter EmitTypeDef
+
 let EmitTheWholeThing flavor (target:TextWriter) =
     Pt.reset()
     Pt.printl "/////////////////////////////"
@@ -634,6 +644,9 @@ let EmitTheWholeThing flavor (target:TextWriter) =
         EmitAllMembers flavor gp
         EmitEventHandlers "declare var " gp
     | _ -> ()
+
+    if flavor <> Flavor.Worker then
+        EmitTypeDefs()
 
     fprintf target "%s" (Pt.getResult())
     target.Flush()

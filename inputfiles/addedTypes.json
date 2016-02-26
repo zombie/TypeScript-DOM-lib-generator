@@ -300,12 +300,6 @@
     },
     {
         "kind": "property",
-        "interface": "Document",
-        "name": "currentScript",
-        "type": "HTMLScriptElement"
-    },
-    {
-        "kind": "property",
         "interface": "HTMLLinkElement",
         "name": "import?",
         "type": "Document"

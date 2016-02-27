@@ -17,6 +17,8 @@ interface AudioBuffer {
     length: number;
     numberOfChannels: number;
     sampleRate: number;
+    copyFromChannel(destination: Float32Array, channelNumber: number, startInChannel?: number): void;
+    copyToChannel(source: Float32Array, channelNumber: number, startInChannel?: number): void;
     getChannelData(channel: number): Float32Array;
 }
 
@@ -58,6 +60,7 @@ interface Console {
     dir(value?: any, ...optionalParams: any[]): void;
     dirxml(value: any): void;
     error(message?: any, ...optionalParams: any[]): void;
+    exception(message?: string, ...optionalParams: any[]): void;
     group(groupTitle?: string): void;
     groupCollapsed(groupTitle?: string): void;
     groupEnd(): void;
@@ -67,6 +70,7 @@ interface Console {
     profile(reportName?: string): void;
     profileEnd(): void;
     select(element: any): void;
+    table(...data: any[]): void;
     time(timerName?: string): void;
     timeEnd(timerName?: string): void;
     trace(message?: any, ...optionalParams: any[]): void;
@@ -226,9 +230,9 @@ declare var Event: {
 }
 
 interface EventTarget {
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+    addEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     dispatchEvent(evt: Event): boolean;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+    removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var EventTarget: {
@@ -239,6 +243,7 @@ declare var EventTarget: {
 interface File extends Blob {
     lastModifiedDate: any;
     name: string;
+    webkitRelativePath: string;
 }
 
 declare var File: {
@@ -344,8 +349,8 @@ interface IDBIndex {
     count(key?: any): IDBRequest;
     get(key: any): IDBRequest;
     getKey(key: any): IDBRequest;
-    openCursor(range?: IDBKeyRange, direction?: string): IDBRequest;
-    openKeyCursor(range?: IDBKeyRange, direction?: string): IDBRequest;
+    openCursor(range?: any, direction?: string): IDBRequest;
+    openKeyCursor(range?: any, direction?: string): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -364,9 +369,9 @@ declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
-    lowerBound(bound: any, open?: boolean): IDBKeyRange;
+    lowerBound(lower: any, open?: boolean): IDBKeyRange;
     only(value: any): IDBKeyRange;
-    upperBound(bound: any, open?: boolean): IDBKeyRange;
+    upperBound(upper: any, open?: boolean): IDBKeyRange;
 }
 
 interface IDBObjectStore {
@@ -483,7 +488,7 @@ interface MSApp {
     execAsyncAtPriority(asynchronousCallback: MSExecAtPriorityFunctionCallback, priority: string, ...args: any[]): void;
     execAtPriority(synchronousCallback: MSExecAtPriorityFunctionCallback, priority: string, ...args: any[]): any;
     getCurrentPriority(): string;
-    getHtmlPrintDocumentSourceAsync(htmlDoc: any): any;
+    getHtmlPrintDocumentSourceAsync(htmlDoc: any): PromiseLike<any>;
     getViewId(view: any): any;
     isTaskScheduledAtPriorityOrHigher(priority: string): boolean;
     pageHandlesAllApplicationActivations(enabled: boolean): void;
@@ -695,7 +700,6 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     onreadystatechange: (ev: ProgressEvent) => any;
     readyState: number;
     response: any;
-    responseBody: any;
     responseText: string;
     responseType: string;
     responseXML: any;
@@ -894,16 +898,6 @@ interface WorkerUtils extends Object, WindowBase64 {
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 }
 
-interface IDBObjectStoreParameters {
-    keyPath?: string | string[];
-    autoIncrement?: boolean;
-}
-
-interface IDBIndexParameters {
-    unique?: boolean;
-    multiEntry?: boolean;
-}
-
 interface BlobPropertyBag {
     type?: string;
     endings?: string;
@@ -971,9 +965,9 @@ declare var self: WorkerGlobalScope;
 declare function close(): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function toString(): string;
-declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+declare function addEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 declare function dispatchEvent(evt: Event): boolean;
-declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 declare var indexedDB: IDBFactory;
 declare var msIndexedDB: IDBFactory;
 declare var navigator: WorkerNavigator;

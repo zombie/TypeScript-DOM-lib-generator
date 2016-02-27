@@ -384,5 +384,11 @@
         "kind": "property",
         "name": "ontouchstart",
         "type": "(ev: TouchEvent) => any"
+    },
+    {
+        "kind": "property",
+        "name": "keyPath?",
+        "interface": "IDBObjectStoreParameters",
+        "type": "string | string[]"
     }
 ]

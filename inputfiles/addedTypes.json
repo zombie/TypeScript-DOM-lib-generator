@@ -50,7 +50,7 @@
         "interface": "Window",
         "exposeGlobally": false,
         "name": "URL",
-        "type": "{\n\tprototype: URL;\n\tnew(url: string, base?: string): URL;\n\tcreateObjectURL(object: any, options?: ObjectURLOptions): string;\n\trevokeObjectURL(url: string): void;}"
+        "type": "{prototype: URL; new(url: string, base?: string): URL; createObjectURL(object: any, options?: ObjectURLOptions): string; revokeObjectURL(url: string): void;}"
     },
     {
         "kind": "property",
@@ -346,5 +346,21 @@
         "interface": "Element",
         "name": "getElementsByTagName",
         "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "ClipboardEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "data?",
+                "type": "string"
+            },
+            {
+                "name": "dataType?",
+                "type": "string"
+            }
+        ]
     }
 ]

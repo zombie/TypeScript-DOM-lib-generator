@@ -390,5 +390,12 @@
         "name": "keyPath?",
         "interface": "IDBObjectStoreParameters",
         "type": "string | string[]"
+    },
+    {
+        "kind": "constructor",
+        "interface": "ClipboardEvent",
+        "signatures": [
+            "new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent"
+        ]
     }
 ]

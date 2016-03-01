@@ -12961,7 +12961,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     toolbar: BarProp;
     top: Window;
     window: Window;
-    URL: {prototype: URL; new(url: string, base?: string): URL; createObjectURL(object: any, options?: ObjectURLOptions): string; revokeObjectURL(url: string): void;};
+    URL: typeof URL;
     alert(message?: any): void;
     blur(): void;
     cancelAnimationFrame(handle: number): void;

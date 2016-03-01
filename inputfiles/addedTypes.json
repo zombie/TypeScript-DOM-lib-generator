@@ -50,7 +50,7 @@
         "interface": "Window",
         "exposeGlobally": false,
         "name": "URL",
-        "type": "{prototype: URL; new(url: string, base?: string): URL; createObjectURL(object: any, options?: ObjectURLOptions): string; revokeObjectURL(url: string): void;}"
+        "type": "typeof URL"
     },
     {
         "kind": "property",

@@ -60,7 +60,15 @@ module JsonItems =
     // This is the kind of items in the external json files that are used as a
     // correction for the spec.
     type ItemKind =
-        Property | Method | Constant | Constructor | Interface | Callback | Indexer | SignatureOverload
+        | Property
+        | Method
+        | Constant
+        | Constructor
+        | Interface
+        | Callback
+        | Indexer
+        | SignatureOverload
+        | TypeDef
         override x.ToString() = (unionToString x).ToLower()
 
     let findItem (allItems: ItemsType.Root []) (itemName: string) (kind: ItemKind) otherFilter =

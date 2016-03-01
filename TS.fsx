@@ -6,6 +6,7 @@ open Shared
 open Shared.Comments
 open Shared.JsonItems
 open System.IO
+open System.Web
 
 // Global print target
 let Pt = StringPrinter()
@@ -61,7 +62,7 @@ let rec DomTypeToTsType (objDomType: string) =
                 if Seq.contains "any" allTypes then "any" else String.concat " | " allTypes
             else
                 // Check if is array type, which looks like "sequence<DOMString>"
-                let unescaped = objDomType.Replace("&lt;", "<").Replace("&gt;", ">")
+                let unescaped = System.Web.HttpUtility.HtmlDecode(objDomType)
                 let genericMatch = Regex.Match(unescaped, @"^(\w+)<(\w+)>$")
                 if genericMatch.Success then
                     let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
@@ -610,10 +611,17 @@ let EmitAddedInterface (ai: JsonItems.ItemsType.Root) =
         Pt.printl "}"
         Pt.printl ""
 
-let EmitTypeDefs () =
+let EmitTypeDefs flavor =
     let EmitTypeDef (typeDef: Browser.Typedef) =
         Pt.printl "type %s = %s;" typeDef.NewType (DomTypeToTsType typeDef.Type)
-    browser.Typedefs |> Array.iter EmitTypeDef
+    let EmitTypeDefFromJson (typeDef: ItemsType.Root) =
+        Pt.printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
+
+    if flavor <> Flavor.Worker then
+        browser.Typedefs |> Array.iter EmitTypeDef
+
+    JsonItems.getAddedItems ItemKind.TypeDef flavor
+    |> Array.iter EmitTypeDefFromJson
 
 let EmitTheWholeThing flavor (target:TextWriter) =
     Pt.reset()
@@ -645,8 +653,7 @@ let EmitTheWholeThing flavor (target:TextWriter) =
         EmitEventHandlers "declare var " gp
     | _ -> ()
 
-    if flavor <> Flavor.Worker then
-        EmitTypeDefs()
+    EmitTypeDefs flavor
 
     fprintf target "%s" (Pt.getResult())
     target.Flush()

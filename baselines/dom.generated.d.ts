@@ -7603,8 +7603,8 @@ interface IDBIndex {
     count(key?: any): IDBRequest;
     get(key: any): IDBRequest;
     getKey(key: any): IDBRequest;
-    openCursor(range?: any, direction?: string): IDBRequest;
-    openKeyCursor(range?: any, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -7642,7 +7642,7 @@ interface IDBObjectStore {
     deleteIndex(indexName: string): void;
     get(key: any): IDBRequest;
     index(name: string): IDBIndex;
-    openCursor(range?: any, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
     put(value: any, key?: any): IDBRequest;
 }
 
@@ -13663,6 +13663,9 @@ interface ClipboardEventInit extends EventInit {
     dataType?: string;
 }
 
+interface IDBArrayKey extends Array<IDBValidKey> {
+}
+
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface ErrorEventHandler {
@@ -14032,3 +14035,4 @@ type MSOutboundPayload = MSVideoSendPayload | MSAudioSendPayload;
 type RTCIceGatherCandidate = RTCIceCandidate | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type payloadtype = number;
+type IDBValidKey = number | string | Date | IDBArrayKey;

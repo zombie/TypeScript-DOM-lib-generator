@@ -362,5 +362,15 @@
                 "type": "string"
             }
         ]
+    },
+    {
+        "kind": "typedef",
+        "name": "IDBValidKey",
+        "type": "number | string | Date | IDBArrayKey"
+    },
+    {
+        "kind": "interface",
+        "name": "IDBArrayKey",
+        "extends": "Array<IDBValidKey>"
     }
 ]

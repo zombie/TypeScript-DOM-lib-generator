@@ -349,8 +349,8 @@ interface IDBIndex {
     count(key?: any): IDBRequest;
     get(key: any): IDBRequest;
     getKey(key: any): IDBRequest;
-    openCursor(range?: any, direction?: string): IDBRequest;
-    openKeyCursor(range?: any, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -388,7 +388,7 @@ interface IDBObjectStore {
     deleteIndex(indexName: string): void;
     get(key: any): IDBRequest;
     index(name: string): IDBIndex;
-    openCursor(range?: any, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
     put(value: any, key?: any): IDBRequest;
 }
 
@@ -927,6 +927,9 @@ interface ProgressEventInit extends EventInit {
     total?: number;
 }
 
+interface IDBArrayKey extends Array<IDBValidKey> {
+}
+
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface ErrorEventHandler {
@@ -986,3 +989,4 @@ declare var console: Console;
 declare function addEventListener(type: "error", listener: (ev: ErrorEvent) => any, useCapture?: boolean): void;
 declare function addEventListener(type: "message", listener: (ev: MessageEvent) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+type IDBValidKey = number | string | Date | IDBArrayKey;

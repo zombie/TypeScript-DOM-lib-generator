@@ -278,11 +278,11 @@ declare var FileReader: {
 
 interface IDBCursor {
     direction: string;
-    key: any;
+    key: IDBKeyRange | IDBValidKey;
     primaryKey: any;
     source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
-    continue(key?: any): void;
+    continue(key?: IDBKeyRange | IDBValidKey): void;
     delete(): IDBRequest;
     update(value: any): IDBRequest;
     NEXT: string;
@@ -346,9 +346,9 @@ interface IDBIndex {
     objectStore: IDBObjectStore;
     unique: boolean;
     multiEntry: boolean;
-    count(key?: any): IDBRequest;
-    get(key: any): IDBRequest;
-    getKey(key: any): IDBRequest;
+    count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
+    get(key: IDBKeyRange | IDBValidKey): IDBRequest;
+    getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
     openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
     openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
 }
@@ -380,16 +380,16 @@ interface IDBObjectStore {
     name: string;
     transaction: IDBTransaction;
     autoIncrement: boolean;
-    add(value: any, key?: any): IDBRequest;
+    add(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
     clear(): IDBRequest;
-    count(key?: any): IDBRequest;
+    count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
-    delete(key: any): IDBRequest;
+    delete(key: IDBKeyRange | IDBValidKey): IDBRequest;
     deleteIndex(indexName: string): void;
     get(key: any): IDBRequest;
     index(name: string): IDBIndex;
     openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
-    put(value: any, key?: any): IDBRequest;
+    put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
 }
 
 declare var IDBObjectStore: {

@@ -372,5 +372,17 @@
         "kind": "interface",
         "name": "IDBArrayKey",
         "extends": "Array<IDBValidKey>"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLInputElement",
+        "name": "minLength",
+        "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLTextAreaElement",
+        "name": "minLength",
+        "type": "number"
     }
 ]

@@ -5766,6 +5766,7 @@ interface HTMLInputElement extends HTMLElement {
       * Returns whether an element will successfully validate based on forms validation rules and constraints.
       */
     willValidate: boolean;
+    minLength: number;
     /**
       * Returns whether a form will validate when it is submitted, without having to submit it.
       */
@@ -7270,6 +7271,7 @@ interface HTMLTextAreaElement extends HTMLElement {
       * Sets or retrieves how to handle wordwrapping in the object.
       */
     wrap: string;
+    minLength: number;
     /**
       * Returns whether a form will validate when it is submitted, without having to submit it.
       */

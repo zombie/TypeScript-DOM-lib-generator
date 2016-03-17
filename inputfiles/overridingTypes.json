@@ -469,5 +469,11 @@
         "interface": "IDBIndex",
         "name": "getKey",
         "signatures": ["getKey(key: IDBKeyRange | IDBValidKey): IDBRequest"]
+    },
+    {
+        "kind": "method",
+        "interface": "Storage",
+        "name": "getItem",
+        "signatures": ["getItem(key: string): string"]
     }
 ]

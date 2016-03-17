@@ -315,6 +315,7 @@ interface IDBDatabase extends EventTarget {
     onabort: (ev: Event) => any;
     onerror: (ev: Event) => any;
     version: number;
+    onversionchange: (ev: IDBVersionChangeEvent) => any;
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;

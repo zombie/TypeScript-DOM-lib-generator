@@ -384,5 +384,11 @@
         "interface": "HTMLTextAreaElement",
         "name": "minLength",
         "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "IDBDatabase",
+        "name": "onversionchange",
+        "type": "(ev: IDBVersionChangeEvent) => any"
     }
 ]

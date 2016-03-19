@@ -4461,7 +4461,6 @@ interface HTMLCollection {
       */
     namedItem(name: string): Element;
     [index: number]: Element;
-    [name: string]: Element;
 }
 
 declare var HTMLCollection: {
@@ -13628,7 +13627,6 @@ interface HTMLCollectionOf<T extends Element> extends HTMLCollection {
     item(index: number): T;
     namedItem(name: string): T;
     [index: number]: T;
-    [name: string]: T;
 }
 
 interface BlobPropertyBag {

@@ -105,8 +105,7 @@
         "indexer": [
             {
                 "signatures": [
-                    "[index: number]: T",
-                    "[name: string]: T"
+                    "[index: number]: T"
                 ]
             }
         ]
@@ -213,8 +212,7 @@
         "kind": "indexer",
         "interface": "HTMLCollection",
         "signatures": [
-            "[index: number]: Element",
-            "[name: string]: Element"
+            "[index: number]: Element"
         ]
     },
     {

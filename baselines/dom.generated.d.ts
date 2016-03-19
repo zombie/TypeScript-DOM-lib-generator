@@ -4460,7 +4460,8 @@ interface HTMLCollection {
       * Retrieves a select object or an object from an options collection.
       */
     namedItem(name: string): Element;
-    [indexOrName: number | string]: Element;
+    [index: number]: Element;
+    [name: string]: Element;
 }
 
 declare var HTMLCollection: {
@@ -13626,7 +13627,8 @@ interface NodeListOf<TNode extends Node> extends NodeList {
 interface HTMLCollectionOf<T extends Element> extends HTMLCollection {
     item(index: number): T;
     namedItem(name: string): T;
-    [indexOrName: number | string]: T;
+    [index: number]: T;
+    [name: string]: T;
 }
 
 interface BlobPropertyBag {

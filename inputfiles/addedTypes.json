@@ -104,7 +104,10 @@
         ],
         "indexer": [
             {
-                "signatures": ["[indexOrName: number | string]: T"]
+                "signatures": [
+                    "[index: number]: T",
+                    "[name: string]: T"
+                ]
             }
         ]
     },
@@ -209,7 +212,10 @@
     {
         "kind": "indexer",
         "interface": "HTMLCollection",
-        "signatures": ["[indexOrName: number | string]: Element"]
+        "signatures": [
+            "[index: number]: Element",
+            "[name: string]: Element"
+        ]
     },
     {
         "kind": "signatureoverload",

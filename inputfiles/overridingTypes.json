@@ -1,6 +1,12 @@
  [
     {
         "kind": "method",
+        "interface": "HTMLCollection",
+        "name": "item",
+        "signatures": ["item(index: number): Element"]
+    },
+    {
+        "kind": "method",
         "interface": "IDBObjectStore",
         "name": "createIndex",
         "signatures": ["createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex"]
@@ -102,6 +108,54 @@
         "signatures": [
             "getElementsByName(elementName: string): NodeListOf<Element>"
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "anchors",
+        "type": "HTMLCollectionOf<HTMLAnchorElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "applets",
+        "type": "HTMLCollectionOf<HTMLAppletElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "embeds",
+        "type": "HTMLCollectionOf<HTMLEmbedElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "forms",
+        "type": "HTMLCollectionOf<HTMLFormElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "images",
+        "type": "HTMLCollectionOf<HTMLImageElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "links",
+        "type": "HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "plugins",
+        "type": "HTMLCollectionOf<HTMLEmbedElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "scripts",
+        "type": "HTMLCollectionOf<HTMLScriptElement>"
     },
     {
         "kind": "property",
@@ -228,7 +282,19 @@
         "kind": "property",
         "interface": "HTMLSelectElement",
         "name": "options",
-        "type": "HTMLCollection"
+        "type": "HTMLCollectionOf<HTMLOptionElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLSelectElement",
+        "name": "selectedOptions",
+        "type": "HTMLCollectionOf<HTMLOptionElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLDataListElement",
+        "name": "options",
+        "type": "HTMLCollectionOf<HTMLOptionElement>"
     },
     {
         "kind": "property",
@@ -267,16 +333,40 @@
         "signatures": ["createCaption(): HTMLTableCaptionElement"]
     },
     {
+        "kind": "property",
+        "interface": "HTMLTableElement",
+        "name": "rows",
+        "type": "HTMLCollectionOf<HTMLTableRowElement>"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLTableElement",
+        "name": "tBodies",
+        "type": "HTMLCollectionOf<HTMLTableSectionElement>"
+    },
+    {
         "kind": "method",
         "interface": "HTMLTableSectionElement",
         "name": "insertRow",
         "signatures": ["insertRow(index?: number): HTMLTableRowElement"]
     },
     {
+        "kind": "property",
+        "interface": "HTMLTableSectionElement",
+        "name": "rows",
+        "type": "HTMLCollectionOf<HTMLTableRowElement>"
+    },
+    {
         "kind": "method",
         "interface": "HTMLTableRowElement",
         "name": "insertCell",
         "signatures": ["insertCell(index?: number): HTMLTableCellElement"]
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLTableRowElement",
+        "name": "cells",
+        "type": "HTMLCollectionOf<HTMLTableCellElement>"
     },
     {
         "kind": "method",

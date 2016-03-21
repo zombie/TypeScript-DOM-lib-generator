@@ -11397,7 +11397,7 @@ declare var StereoPannerNode: {
 interface Storage {
     length: number;
     clear(): void;
-    getItem(key: string): any;
+    getItem(key: string): string;
     key(index: number): string;
     removeItem(key: string): void;
     setItem(key: string, data: string): void;

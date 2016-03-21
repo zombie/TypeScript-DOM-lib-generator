@@ -390,5 +390,11 @@
         "interface": "IDBDatabase",
         "name": "onversionchange",
         "type": "(ev: IDBVersionChangeEvent) => any"
+    },
+    {
+        "kind": "method",
+        "interface": "IDBDatabase",
+        "name": "addEventListener",
+        "signatures": ["addEventListener(type: \"versionchange\", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void"]
     }
 ]

@@ -381,8 +381,15 @@ let EmitNamedConstructors () =
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
-    match i.Extends::(List.ofArray i.Implements) with
-    | [""] | [] | ["Object"] -> ()
+    let extendsFromSpec =
+        match i.Extends::(List.ofArray i.Implements) with
+        | [""] | [] | ["Object"] -> []
+        | specExtends -> specExtends
+    let extendsFromJson =
+        JsonItems.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+        |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+    match List.concat [extendsFromSpec; extendsFromJson] with
+    | [] -> ()
     | allExtends -> Pt.print " extends %s" (String.Join(", ", allExtends))
     Pt.print " {"
 

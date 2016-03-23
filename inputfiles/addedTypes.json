@@ -28,6 +28,28 @@
         ]
     },
     {
+        "kind": "interface",
+        "name": "Canvas2DContextAttributes",
+        "properties": [
+            {
+                "name": "alpha?",
+                "type": "boolean"
+            },
+            {
+                "name": "willReadFrequently?",
+                "type": "boolean"
+            },
+            {
+                "name": "storage?",
+                "type": "boolean"
+            },
+            {
+                "name": "[attrib: string]",
+                "type": "boolean | string"
+            }
+        ]
+    },
+    {
         "kind": "property",
         "interface": "IDBObjectStoreParameters",
         "name": "autoIncrement?",

@@ -900,6 +900,13 @@ interface WorkerUtils extends Object, WindowBase64 {
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 }
 
+interface Canvas2DContextAttributes {
+    alpha?: boolean;
+    willReadFrequently?: boolean;
+    storage?: boolean;
+    [attrib: string]: boolean | string;
+}
+
 interface BlobPropertyBag {
     type?: string;
     endings?: string;

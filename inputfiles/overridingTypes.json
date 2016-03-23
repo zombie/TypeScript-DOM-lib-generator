@@ -58,7 +58,7 @@
         "interface": "HTMLCanvasElement",
         "name": "getContext",
         "signatures": [
-            "getContext(contextId: \"2d\", contextAttributes?: {alpha?: boolean; willReadFrequently?: boolean; storage?: boolean; [attrib: string]: boolean | string}): CanvasRenderingContext2D",
+            "getContext(contextId: \"2d\", contextAttributes?: Canvas2DContextAttributes): CanvasRenderingContext2D",
             "getContext(contextId: \"webgl\" | \"experimental-webgl\", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext",
             "getContext(contextId: string, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext"
         ]

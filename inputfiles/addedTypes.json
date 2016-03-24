@@ -30,6 +30,7 @@
     {
         "kind": "interface",
         "name": "Canvas2DContextAttributes",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "alpha?",

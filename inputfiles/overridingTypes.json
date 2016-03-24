@@ -366,7 +366,7 @@
         "kind": "property",
         "interface": "HTMLTableRowElement",
         "name": "cells",
-        "type": "HTMLCollectionOf<HTMLTableCellElement>"
+        "type": "HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>"
     },
     {
         "kind": "method",

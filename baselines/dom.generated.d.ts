@@ -7126,7 +7126,7 @@ interface HTMLTableRowElement extends HTMLElement, HTMLTableAlignment {
     /**
       * Retrieves a collection of all cells in the table row.
       */
-    cells: HTMLCollectionOf<HTMLTableCellElement>;
+    cells: HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>;
     /**
       * Sets or retrieves the height of the object.
       */
@@ -7148,7 +7148,7 @@ interface HTMLTableRowElement extends HTMLElement, HTMLTableAlignment {
       * Creates a new cell in the table row, and adds the cell to the cells collection.
       * @param index Number that specifies where to insert the cell in the tr. The default value is -1, which appends the new cell to the end of the cells collection.
       */
-    insertCell(index?: number): HTMLTableCellElement;
+    insertCell(index?: number): HTMLTableDataCellElement;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

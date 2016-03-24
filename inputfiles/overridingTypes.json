@@ -360,7 +360,7 @@
         "kind": "method",
         "interface": "HTMLTableRowElement",
         "name": "insertCell",
-        "signatures": ["insertCell(index?: number): HTMLTableCellElement"]
+        "signatures": ["insertCell(index?: number): HTMLTableDataCellElement"]
     },
     {
         "kind": "property",

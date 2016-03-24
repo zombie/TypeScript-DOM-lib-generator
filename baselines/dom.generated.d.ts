@@ -2309,11 +2309,11 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     /**
       * Retrieves a collection of all a objects that have a name and/or id property. Objects in this collection are in HTML source order.
       */
-    anchors: HTMLCollection;
+    anchors: HTMLCollectionOf<HTMLAnchorElement>;
     /**
       * Retrieves a collection of all applet objects in the document.
       */
-    applets: HTMLCollection;
+    applets: HTMLCollectionOf<HTMLAppletElement>;
     /**
       * Deprecated. Sets or retrieves a value that indicates the background color behind the object. 
       */
@@ -2361,7 +2361,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     /**
       * Retrieves a collection of all embed objects in the document.
       */
-    embeds: HTMLCollection;
+    embeds: HTMLCollectionOf<HTMLEmbedElement>;
     /**
       * Sets or gets the foreground (text) color of the document.
       */
@@ -2369,7 +2369,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     /**
       * Retrieves a collection, in source order, of all form objects in the document.
       */
-    forms: HTMLCollection;
+    forms: HTMLCollectionOf<HTMLFormElement>;
     fullscreenElement: Element;
     fullscreenEnabled: boolean;
     head: HTMLHeadElement;
@@ -2377,7 +2377,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     /**
       * Retrieves a collection, in source order, of img objects in the document.
       */
-    images: HTMLCollection;
+    images: HTMLCollectionOf<HTMLImageElement>;
     /**
       * Gets the implementation object of the current document. 
       */
@@ -2397,7 +2397,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     /**
       * Retrieves a collection of all a objects that specify the href property and all area objects in the document.
       */
-    links: HTMLCollection;
+    links: HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>;
     /**
       * Contains information about the current URL. 
       */
@@ -2712,7 +2712,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     onwaiting: (ev: Event) => any;
     onwebkitfullscreenchange: (ev: Event) => any;
     onwebkitfullscreenerror: (ev: Event) => any;
-    plugins: HTMLCollection;
+    plugins: HTMLCollectionOf<HTMLEmbedElement>;
     pointerLockElement: Element;
     /**
       * Retrieves a value that indicates the current state of the object.
@@ -2729,7 +2729,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     /**
       * Retrieves a collection of all script objects in the document.
       */
-    scripts: HTMLCollection;
+    scripts: HTMLCollectionOf<HTMLScriptElement>;
     scrollingElement: Element;
     /**
       * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
@@ -4456,7 +4456,7 @@ interface HTMLCollection {
     /**
       * Retrieves an object from various collections.
       */
-    item(nameOrIndex?: any, optionalIndex?: any): Element;
+    item(index: number): Element;
     /**
       * Retrieves a select object or an object from an options collection.
       */
@@ -4479,7 +4479,7 @@ declare var HTMLDListElement: {
 }
 
 interface HTMLDataListElement extends HTMLElement {
-    options: HTMLCollection;
+    options: HTMLCollectionOf<HTMLOptionElement>;
 }
 
 declare var HTMLDataListElement: {
@@ -6774,7 +6774,7 @@ interface HTMLSelectElement extends HTMLElement {
       * Sets or retrieves the name of the object.
       */
     name: string;
-    options: HTMLCollection;
+    options: HTMLCollectionOf<HTMLOptionElement>;
     /**
       * When present, marks an element that can't be submitted without a value.
       */
@@ -6783,7 +6783,7 @@ interface HTMLSelectElement extends HTMLElement {
       * Sets or retrieves the index of the selected option in a select object.
       */
     selectedIndex: number;
-    selectedOptions: HTMLCollection;
+    selectedOptions: HTMLCollectionOf<HTMLOptionElement>;
     /**
       * Sets or retrieves the number of rows in the list box. 
       */
@@ -7036,7 +7036,7 @@ interface HTMLTableElement extends HTMLElement {
     /**
       * Sets or retrieves the number of horizontal rows contained in the object.
       */
-    rows: HTMLCollection;
+    rows: HTMLCollectionOf<HTMLTableRowElement>;
     /**
       * Sets or retrieves which dividing lines (inner borders) are displayed.
       */
@@ -7048,7 +7048,7 @@ interface HTMLTableElement extends HTMLElement {
     /**
       * Retrieves a collection of all tBody objects in the table. Objects in this collection are in source order.
       */
-    tBodies: HTMLCollection;
+    tBodies: HTMLCollectionOf<HTMLTableSectionElement>;
     /**
       * Retrieves the tFoot object of the table.
       */
@@ -7127,7 +7127,7 @@ interface HTMLTableRowElement extends HTMLElement, HTMLTableAlignment {
     /**
       * Retrieves a collection of all cells in the table row.
       */
-    cells: HTMLCollection;
+    cells: HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>;
     /**
       * Sets or retrieves the height of the object.
       */
@@ -7149,7 +7149,7 @@ interface HTMLTableRowElement extends HTMLElement, HTMLTableAlignment {
       * Creates a new cell in the table row, and adds the cell to the cells collection.
       * @param index Number that specifies where to insert the cell in the tr. The default value is -1, which appends the new cell to the end of the cells collection.
       */
-    insertCell(index?: number): HTMLTableCellElement;
+    insertCell(index?: number): HTMLTableDataCellElement;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
@@ -7166,7 +7166,7 @@ interface HTMLTableSectionElement extends HTMLElement, HTMLTableAlignment {
     /**
       * Sets or retrieves the number of horizontal rows contained in the object.
       */
-    rows: HTMLCollection;
+    rows: HTMLCollectionOf<HTMLTableRowElement>;
     /**
       * Removes the specified row (tr) from the element and from the rows collection.
       * @param index Number that specifies the zero-based position in the rows collection of the row to remove.
@@ -12055,34 +12055,34 @@ interface WebGLRenderingContext {
     texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, video: HTMLVideoElement): void;
     texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageData): void;
     uniform1f(location: WebGLUniformLocation, x: number): void;
-    uniform1fv(location: WebGLUniformLocation, v: Float32Array): void;
+    uniform1fv(location: WebGLUniformLocation, v: Float32Array | number[]): void;
     uniform1i(location: WebGLUniformLocation, x: number): void;
-    uniform1iv(location: WebGLUniformLocation, v: Int32Array): void;
+    uniform1iv(location: WebGLUniformLocation, v: Int32Array | number[]): void;
     uniform2f(location: WebGLUniformLocation, x: number, y: number): void;
-    uniform2fv(location: WebGLUniformLocation, v: Float32Array): void;
+    uniform2fv(location: WebGLUniformLocation, v: Float32Array | number[]): void;
     uniform2i(location: WebGLUniformLocation, x: number, y: number): void;
-    uniform2iv(location: WebGLUniformLocation, v: Int32Array): void;
+    uniform2iv(location: WebGLUniformLocation, v: Int32Array | number[]): void;
     uniform3f(location: WebGLUniformLocation, x: number, y: number, z: number): void;
-    uniform3fv(location: WebGLUniformLocation, v: Float32Array): void;
+    uniform3fv(location: WebGLUniformLocation, v: Float32Array | number[]): void;
     uniform3i(location: WebGLUniformLocation, x: number, y: number, z: number): void;
-    uniform3iv(location: WebGLUniformLocation, v: Int32Array): void;
+    uniform3iv(location: WebGLUniformLocation, v: Int32Array | number[]): void;
     uniform4f(location: WebGLUniformLocation, x: number, y: number, z: number, w: number): void;
-    uniform4fv(location: WebGLUniformLocation, v: Float32Array): void;
+    uniform4fv(location: WebGLUniformLocation, v: Float32Array | number[]): void;
     uniform4i(location: WebGLUniformLocation, x: number, y: number, z: number, w: number): void;
-    uniform4iv(location: WebGLUniformLocation, v: Int32Array): void;
-    uniformMatrix2fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array): void;
-    uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array): void;
-    uniformMatrix4fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array): void;
+    uniform4iv(location: WebGLUniformLocation, v: Int32Array | number[]): void;
+    uniformMatrix2fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void;
+    uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void;
+    uniformMatrix4fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void;
     useProgram(program: WebGLProgram): void;
     validateProgram(program: WebGLProgram): void;
     vertexAttrib1f(indx: number, x: number): void;
-    vertexAttrib1fv(indx: number, values: Float32Array): void;
+    vertexAttrib1fv(indx: number, values: Float32Array | number[]): void;
     vertexAttrib2f(indx: number, x: number, y: number): void;
-    vertexAttrib2fv(indx: number, values: Float32Array): void;
+    vertexAttrib2fv(indx: number, values: Float32Array | number[]): void;
     vertexAttrib3f(indx: number, x: number, y: number, z: number): void;
-    vertexAttrib3fv(indx: number, values: Float32Array): void;
+    vertexAttrib3fv(indx: number, values: Float32Array | number[]): void;
     vertexAttrib4f(indx: number, x: number, y: number, z: number, w: number): void;
-    vertexAttrib4fv(indx: number, values: Float32Array): void;
+    vertexAttrib4fv(indx: number, values: Float32Array | number[]): void;
     vertexAttribPointer(indx: number, size: number, type: number, normalized: boolean, stride: number, offset: number): void;
     viewport(x: number, y: number, width: number, height: number): void;
     ACTIVE_ATTRIBUTES: number;
@@ -13631,6 +13631,12 @@ interface NodeListOf<TNode extends Node> extends NodeList {
     length: number;
     item(index: number): TNode;
     [index: number]: TNode;
+}
+
+interface HTMLCollectionOf<T extends Element> extends HTMLCollection {
+    item(index: number): T;
+    namedItem(name: string): T;
+    [index: number]: T;
 }
 
 interface BlobPropertyBag {

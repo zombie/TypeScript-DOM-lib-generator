@@ -3182,8 +3182,8 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       */
     hasFocus(): boolean;
     importNode(importedNode: Node, deep: boolean): Node;
-    msElementsFromPoint(x: number, y: number): NodeList;
-    msElementsFromRect(left: number, top: number, width: number, height: number): NodeList;
+    msElementsFromPoint(x: number, y: number): NodeListOf<Element>;
+    msElementsFromRect(left: number, top: number, width: number, height: number): NodeListOf<Element>;
     /**
       * Opens a new window and loads a document specified by a given URL. Also, opens a new window that uses the url parameter and the name parameter to collect the output of the write method and the writeln method.
       * @param url Specifies a MIME type for the document.
@@ -10949,8 +10949,8 @@ interface SVGSVGElement extends SVGElement, DocumentEvent, SVGLocatable, SVGTest
     getComputedStyle(elt: Element, pseudoElt?: string): CSSStyleDeclaration;
     getCurrentTime(): number;
     getElementById(elementId: string): Element;
-    getEnclosureList(rect: SVGRect, referenceElement: SVGElement): NodeList;
-    getIntersectionList(rect: SVGRect, referenceElement: SVGElement): NodeList;
+    getEnclosureList(rect: SVGRect, referenceElement: SVGElement): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>;
+    getIntersectionList(rect: SVGRect, referenceElement: SVGElement): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>;
     pauseAnimations(): void;
     setCurrentTime(seconds: number): void;
     suspendRedraw(maxWaitMilliseconds: number): number;

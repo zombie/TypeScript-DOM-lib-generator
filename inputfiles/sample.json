@@ -330,5 +330,10 @@
         "kind": "typedef",
         "name": "IDBValidKey",
         "type": "number | string | Date | IDBArrayKey"
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "Document"
     }
 ]

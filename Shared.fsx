@@ -69,6 +69,7 @@ module JsonItems =
         | Indexer
         | SignatureOverload
         | TypeDef
+        | Extends
         override x.ToString() = (unionToString x).ToLower()
 
     let findItem (allItems: ItemsType.Root []) (itemName: string) (kind: ItemKind) otherFilter =

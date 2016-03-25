@@ -559,5 +559,101 @@
         "interface": "IDBIndex",
         "name": "getKey",
         "signatures": ["getKey(key: IDBKeyRange | IDBValidKey): IDBRequest"]
+    },
+    {
+        "kind": "method",
+        "interface": "Storage",
+        "name": "getItem",
+        "signatures": ["getItem(key: string): string"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform1fv",
+        "signatures": ["uniform1fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform2fv",
+        "signatures": ["uniform2fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform3fv",
+        "signatures": ["uniform3fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform4fv",
+        "signatures": ["uniform4fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform1iv",
+        "signatures": ["uniform1iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform2iv",
+        "signatures": ["uniform2iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform3iv",
+        "signatures": ["uniform3iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniform4iv",
+        "signatures": ["uniform4iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniformMatrix2fv",
+        "signatures": ["uniformMatrix2fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniformMatrix3fv",
+        "signatures": ["uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "uniformMatrix4fv",
+        "signatures": ["uniformMatrix4fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "vertexAttrib1fv",
+        "signatures": ["vertexAttrib1fv(indx: number, values: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "vertexAttrib2fv",
+        "signatures": ["vertexAttrib2fv(indx: number, values: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "vertexAttrib3fv",
+        "signatures": ["vertexAttrib3fv(indx: number, values: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "vertexAttrib4fv",
+        "signatures": ["vertexAttrib4fv(indx: number, values: Float32Array | number[]): void"]
     }
 ]

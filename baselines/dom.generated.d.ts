@@ -2862,6 +2862,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     createElement(tagName: "x-ms-webview"): MSHTMLWebViewElement;
     createElement(tagName: "xmp"): HTMLPreElement;
     createElement(tagName: string): HTMLElement;
+    createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "circle"): SVGCircleElement
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "clipPath"): SVGClipPathElement
@@ -2985,7 +2986,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       * @param elementId String that specifies the ID value. Case-insensitive.
       */
     getElementById(elementId: string): HTMLElement;
-    getElementsByClassName(classNames: string): NodeListOf<Element>;
+    getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
     /**
       * Gets a collection of objects based on the value of the NAME or ID attribute.
       * @param elementName Gets a collection of objects based on the value of the NAME or ID attribute.
@@ -3172,7 +3173,9 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     getElementsByTagName(tagname: "x-ms-webview"): NodeListOf<MSHTMLWebViewElement>;
     getElementsByTagName(tagname: "xmp"): NodeListOf<HTMLPreElement>;
     getElementsByTagName(tagname: string): NodeListOf<Element>;
-    getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>;
+    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
+    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
+    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
     /**
       * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.
       */
@@ -3642,7 +3645,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getElementsByTagName(name: "x-ms-webview"): NodeListOf<MSHTMLWebViewElement>;
     getElementsByTagName(name: "xmp"): NodeListOf<HTMLPreElement>;
     getElementsByTagName(name: string): NodeListOf<Element>;
-    getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>;
+    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
+    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
+    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
     hasAttribute(name: string): boolean;
     hasAttributeNS(namespaceURI: string, localName: string): boolean;
     msGetRegionContent(): MSRangeCollection;

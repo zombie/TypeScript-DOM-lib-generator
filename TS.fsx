@@ -212,7 +212,10 @@ let EmitEnums () =
 
 let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
     let emitPropertyFromJson (p: ItemsType.Root) =
-        let readOnlyModifier = if p.Readonly.IsSome && p.Readonly.Value = true && prefix = "" then "readonly " else ""
+        let readOnlyModifier =
+            match p.Readonly with
+            | Some(true) -> "readonly "
+            | _ -> ""
         Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name.Value p.Type.Value
 
     let emitProperty (p: Browser.Property) =

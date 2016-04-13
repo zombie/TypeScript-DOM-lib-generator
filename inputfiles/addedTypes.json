@@ -393,5 +393,23 @@
         "interface": "IDBDatabase",
         "name": "addEventListener",
         "signatures": ["addEventListener(type: \"versionchange\", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void"]
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "mozImageSmoothingEnabled",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "webkitImageSmoothingEnabled",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "oImageSmoothingEnabled",
+        "type": "boolean"
     }
 ]

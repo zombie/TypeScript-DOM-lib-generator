@@ -1773,6 +1773,9 @@ interface CanvasRenderingContext2D extends Object, CanvasPathMethods {
     strokeStyle: string | CanvasGradient | CanvasPattern;
     textAlign: string;
     textBaseline: string;
+    mozImageSmoothingEnabled: boolean;
+    webkitImageSmoothingEnabled: boolean;
+    oImageSmoothingEnabled: boolean;
     beginPath(): void;
     clearRect(x: number, y: number, w: number, h: number): void;
     clip(fillRule?: string): void;

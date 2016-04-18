@@ -8,6 +8,16 @@ interface EventInit {
     cancelable?: boolean;
 }
 
+interface IDBIndexParameters {
+    multiEntry?: boolean;
+    unique?: boolean;
+}
+
+interface IDBObjectStoreParameters {
+    autoIncrement?: boolean;
+    keyPath?: IDBKeyPath;
+}
+
 interface EventListener {
     (evt: Event): void;
 }
@@ -991,4 +1001,5 @@ declare var console: Console;
 declare function addEventListener(type: "error", listener: (ev: ErrorEvent) => any, useCapture?: boolean): void;
 declare function addEventListener(type: "message", listener: (ev: MessageEvent) => any, useCapture?: boolean): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+type IDBKeyPath = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;

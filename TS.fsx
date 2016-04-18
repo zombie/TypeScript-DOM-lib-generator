@@ -629,7 +629,10 @@ let EmitTypeDefs flavor =
     let EmitTypeDefFromJson (typeDef: ItemsType.Root) =
         Pt.printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
 
-    if flavor <> Flavor.Worker then
+    match flavor with
+    | Flavor.Worker -> 
+        browser.Typedefs |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType) |> Array.iter EmitTypeDef
+    | _ ->
         browser.Typedefs |> Array.iter EmitTypeDef
 
     JsonItems.getAddedItems ItemKind.TypeDef flavor

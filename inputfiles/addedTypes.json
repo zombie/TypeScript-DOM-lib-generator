@@ -243,6 +243,7 @@
         "name": "createElementNS",
         "interface": "Document",
         "signatures": [
+            "createElementNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", qualifiedName: string): HTMLElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"a\"): SVGAElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"circle\"): SVGCircleElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"clipPath\"): SVGClipPathElement",
@@ -369,34 +370,6 @@
     },
     {
         "kind": "interface",
-        "name": "HTMLPictureElement",
-        "flavor":  "Web",
-        "extends": "HTMLElement",
-        "constructorSignatures": [
-            "new(): HTMLPictureElement"
-        ],
-        "properties": []
-    },
-    {
-        "kind": "method",
-        "interface": "Document",
-        "name": "createElement",
-        "signatures": ["createElement(tagName: \"picture\"): HTMLPictureElement"]
-    },
-    {
-        "kind": "method",
-        "interface": "Document",
-        "name": "getElementsByTagName",
-        "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
-    },
-    {
-        "kind": "method",
-        "interface": "Element",
-        "name": "getElementsByTagName",
-        "signatures": ["getElementsByTagName(tagname: \"picture\"): NodeListOf<HTMLPictureElement>"]
-    },
-    {
-        "kind": "interface",
         "flavor": "Web",
         "name": "ClipboardEventInit",
         "extends": "EventInit",
@@ -444,6 +417,23 @@
         "interface": "IDBDatabase",
         "name": "addEventListener",
         "signatures": ["addEventListener(type: \"versionchange\", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void"]
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "mozImageSmoothingEnabled",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "webkitImageSmoothingEnabled",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "CanvasRenderingContext2D",
+        "name": "oImageSmoothingEnabled",
     },
     {
         "kind": "property",

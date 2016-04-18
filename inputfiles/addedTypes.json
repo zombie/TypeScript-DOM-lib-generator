@@ -220,6 +220,7 @@
         "name": "createElementNS",
         "interface": "Document",
         "signatures": [
+            "createElementNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", qualifiedName: string): HTMLElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"a\"): SVGAElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"circle\"): SVGCircleElement",
             "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"clipPath\"): SVGClipPathElement",

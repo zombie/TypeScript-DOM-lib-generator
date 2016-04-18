@@ -107,12 +107,16 @@
     {
         "kind": "method",
         "name": "getElementsByTagNameNS",
-        "signatures": ["getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>"]
+        "signatures": [
+            "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
+            "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
+            "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
+        ]
     },
     {
         "kind": "method",
         "name": "getElementsByClassName",
-        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+        "signatures": ["getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"]
     },
     {
         "kind": "method",

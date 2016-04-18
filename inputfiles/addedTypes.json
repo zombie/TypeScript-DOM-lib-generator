@@ -45,7 +45,7 @@
                 "type": "boolean"
             },
             {
-                "name": "[attrib: string]",
+                "name": "[attribute: string]",
                 "type": "boolean | string"
             }
         ]
@@ -434,6 +434,7 @@
         "kind": "property",
         "interface": "CanvasRenderingContext2D",
         "name": "oImageSmoothingEnabled",
+        "type": "boolean"
     },
     {
         "kind": "property",

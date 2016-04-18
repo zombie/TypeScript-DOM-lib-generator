@@ -13629,7 +13629,7 @@ interface Canvas2DContextAttributes {
     alpha?: boolean;
     willReadFrequently?: boolean;
     storage?: boolean;
-    [attrib: string]: boolean | string;
+    [attribute: string]: boolean | string;
 }
 
 interface NodeListOf<TNode extends Node> extends NodeList {

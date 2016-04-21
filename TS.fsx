@@ -68,7 +68,7 @@ let rec DomTypeToTsType (objDomType: string) =
                     let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
                     let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                     match tName with
-                    | "Promise" -> 
+                    | "Promise" ->
                         "PromiseLike<" + paramName + ">"
                     | _ ->
                         if tName = "Array" then paramName + "[]"
@@ -77,6 +77,19 @@ let rec DomTypeToTsType (objDomType: string) =
                     let elementType = objDomType.Replace("[]", "").Trim() |> DomTypeToTsType
                     elementType + "[]"
                 else "any"
+
+
+let makeNullable (originalType: string) =
+    match originalType with
+    | "any" -> "any"
+    | "void" -> "void"
+    | t when t.Contains "| null" -> t
+    | functionType when functionType.Contains "=>" -> "(" + functionType + ") | null"
+    | _ -> originalType + " | null"
+
+let DomTypeToNullableTsType (objDomType: string) (nullable: bool) =
+    let resolvedType = DomTypeToTsType objDomType
+    if nullable then makeNullable resolvedType else resolvedType
 
 let EmitConstants (i: Browser.Interface) =
     let emitConstantFromJson (c: ItemsType.Root) = Pt.printl "readonly %s: %s;" c.Name.Value c.Type.Value
@@ -97,7 +110,7 @@ let EmitConstants (i: Browser.Interface) =
 
 let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMType expectedParamType =
     OptionCheckValue expectedMName m.Name &&
-    (DomTypeToTsType m.Type) = expectedMType &&
+    (DomTypeToNullableTsType m.Type m.Nullable.IsSome) = expectedMType &&
     m.Params.Length = 1 &&
     (DomTypeToTsType m.Params.[0].Type) = expectedParamType
 
@@ -130,10 +143,12 @@ let EmitCreateEventOverloads (m: Browser.Method) =
 /// Generate the parameters string for function signatures
 let ParamsToString (ps: Param list) =
     let paramToString (p: Param) =
+        let isOptional = not p.Variadic && p.Optional
+        let pType = if isOptional then DomTypeToTsType p.Type else DomTypeToNullableTsType p.Type p.Nullable
         (if p.Variadic then "..." else "") +
         (AdjustParamName p.Name) +
-        (if not p.Variadic && p.Optional then "?: " else ": ") +
-        (DomTypeToTsType p.Type) +
+        (if isOptional then "?: " else ": ") +
+        pType +
         (if p.Variadic then "[]" else "")
     String.Join(", ", (List.map paramToString ps))
 
@@ -172,9 +187,11 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
                     | _ -> ()
 
                 let overloads = GetOverloads (Function.Method m) false
-                for { ParamCombinations = pCombList; ReturnTypes = rTypes } in overloads do
+                for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
                     let paramsString = ParamsToString pCombList
-                    let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                    let returnString = 
+                        let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                        if isNullable then makeNullable returnType else returnType
                     Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
 
 let EmitCallBackInterface (i:Browser.Interface) =
@@ -231,8 +248,9 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
                     match p.Type with
                     | "EventHandler" -> String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
                     | _ -> DomTypeToTsType p.Type
+                let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
-                Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name pType
+                Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name pTypeAndNull
 
     // Note: the schema file shows the property doesn't have "static" attribute,
     // therefore all properties are emited for the instance type.
@@ -381,7 +399,7 @@ let EmitNamedConstructors () =
             let nc = i.NamedConstructor.Value
             let ncParams =
                 [for p in nc.Params do
-                    yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome}]
+                    yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome; Nullable = p.Nullable.IsSome}]
             Pt.printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
@@ -630,7 +648,7 @@ let EmitTypeDefs flavor =
         Pt.printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
 
     match flavor with
-    | Flavor.Worker -> 
+    | Flavor.Worker ->
         browser.Typedefs |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType) |> Array.iter EmitTypeDef
     | _ ->
         browser.Typedefs |> Array.iter EmitTypeDef

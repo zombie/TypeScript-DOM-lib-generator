@@ -1,6 +1,12 @@
  [
     {
         "kind": "method",
+        "interface": "Node",
+        "name": "insertBefore",
+        "signatures": ["insertBefore(newChild: Node, refChild: Node): Node"]
+    },
+    {
+        "kind": "method",
         "interface": "HTMLCollection",
         "name": "item",
         "signatures": ["item(index: number): Element"]

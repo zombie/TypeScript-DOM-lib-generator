@@ -8738,7 +8738,7 @@ interface Node extends EventTarget {
     contains(child: Node): boolean;
     hasAttributes(): boolean;
     hasChildNodes(): boolean;
-    insertBefore(newChild: Node, refChild?: Node): Node;
+    insertBefore(newChild: Node, refChild: Node): Node;
     isDefaultNamespace(namespaceURI: string | null): boolean;
     isEqualNode(arg: Node): boolean;
     isSameNode(other: Node): boolean;

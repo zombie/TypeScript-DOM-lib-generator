@@ -3,7 +3,7 @@
         "kind": "method",
         "interface": "Node",
         "name": "insertBefore",
-        "signatures": ["insertBefore(newChild: Node, refChild: Node): Node"]
+        "signatures": ["insertBefore(newChild: Node, refChild: Node | null): Node"]
     },
     {
         "kind": "method",

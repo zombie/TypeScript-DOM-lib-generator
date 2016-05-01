@@ -3463,7 +3463,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     readonly scrollWidth: number;
     readonly tagName: string;
     innerHTML: string;
-    getAttribute(name?: string): string | null;
+    getAttribute(name: string): string | null;
     getAttributeNS(namespaceURI: string, localName: string): string;
     getAttributeNode(name: string): Attr;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr;

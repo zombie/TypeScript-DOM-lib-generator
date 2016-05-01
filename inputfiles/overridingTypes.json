@@ -689,5 +689,11 @@
         "interface": "WebGLRenderingContext",
         "name": "vertexAttrib4fv",
         "signatures": ["vertexAttrib4fv(indx: number, values: Float32Array | number[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "getAttribute",
+        "signatures": ["getAttribute(name: string): string | null"]
     }
 ]

@@ -106,12 +106,6 @@
     },
     {
         "kind": "method",
-        "interface": "NodeSelector",
-        "name": "querySelectorAll",
-        "signatures": ["querySelectorAll(selectors: string): NodeListOf<Element>"]
-    },
-    {
-        "kind": "method",
         "name": "getElementsByTagNameNS",
         "signatures": [
             "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",

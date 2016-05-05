@@ -404,14 +404,22 @@ let EmitNamedConstructors () =
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
-    let extendsFromSpec =
-        match i.Extends::(List.ofArray i.Implements) with
-        | [""] | [] | ["Object"] -> []
-        | specExtends -> specExtends
-    let extendsFromJson =
-        JsonItems.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
-        |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
-    match List.concat [extendsFromSpec; extendsFromJson] with
+    let finalExtends = 
+        let overridenExtendsFromJson =
+            JsonItems.getOverriddenItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+            |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+        if List.isEmpty overridenExtendsFromJson then
+            let extendsFromSpec =
+                match i.Extends::(List.ofArray i.Implements) with
+                | [""] | [] | ["Object"] -> []
+                | specExtends -> specExtends
+            let extendsFromJson =
+                JsonItems.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+                |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+            List.concat [extendsFromSpec; extendsFromJson]
+        else
+            overridenExtendsFromJson
+    match finalExtends  with
     | [] -> ()
     | allExtends -> Pt.print " extends %s" (String.Join(", ", allExtends))
     Pt.print " {"

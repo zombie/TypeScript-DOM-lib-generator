@@ -6614,7 +6614,7 @@ declare var HTMLOptionElement: {
     create(): HTMLOptionElement;
 }
 
-interface HTMLOptionsCollection extends HTMLCollection {
+interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
     length: number;
     selectedIndex: number;
     add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number): void;
@@ -6778,7 +6778,7 @@ interface HTMLSelectElement extends HTMLElement {
       * Sets or retrieves the name of the object.
       */
     name: string;
-    options: HTMLCollectionOf<HTMLOptionElement>;
+    readonly options: HTMLOptionsCollection;
     /**
       * When present, marks an element that can't be submitted without a value.
       */

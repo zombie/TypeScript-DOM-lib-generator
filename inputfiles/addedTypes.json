@@ -313,7 +313,7 @@
         "kind": "method",
         "interface": "HTMLCanvasElement",
         "name": "toBlob",
-        "signatures": ["toBlob(): Blob"]
+        "signatures": ["toBlob(callback: (result: Blob | null) => void, ... arguments: any[]): void"]
     },
     {
         "kind": "property",

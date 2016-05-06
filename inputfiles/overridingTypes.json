@@ -315,12 +315,6 @@
     {
         "kind": "property",
         "interface": "HTMLSelectElement",
-        "name": "options",
-        "type": "HTMLCollectionOf<HTMLOptionElement>"
-    },
-    {
-        "kind": "property",
-        "interface": "HTMLSelectElement",
         "name": "selectedOptions",
         "type": "HTMLCollectionOf<HTMLOptionElement>"
     },
@@ -695,5 +689,10 @@
         "interface": "Element",
         "name": "getAttribute",
         "signatures": ["getAttribute(name: string): string | null"]
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "HTMLCollectionOf<HTMLOptionElement>",
+        "interface": "HTMLOptionsCollection"
     }
 ]

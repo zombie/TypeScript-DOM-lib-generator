@@ -6,6 +6,7 @@ open Shared
 open Shared.Comments
 open Shared.JsonItems
 open System.IO
+open System.Web
 
 // Global print target
 let Pt = StringPrinter()
@@ -33,6 +34,7 @@ let rec DomTypeToTsType (objDomType: string) =
     | "double" | "float" -> "number"
     | "Function" -> "Function"
     | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
+    | "octet" | "byte" -> "number"
     | "object" -> "any"
     | "Promise" -> "Promise"
     | "ReadyState" -> "string"
@@ -49,22 +51,26 @@ let rec DomTypeToTsType (objDomType: string) =
                 allCallbackFuncs.ContainsKey objDomType ||
                 allDictionariesMap.ContainsKey objDomType then
                 objDomType
+            // Name of a type alias. Just return itself
+            elif typeDefSet.Contains objDomType then objDomType
             // Enum types are all treated as string
             elif allEnumsMap.ContainsKey objDomType then "string"
             // Union types
-            elif (objDomType.Contains(" or ")) then
+            elif objDomType.Contains(" or ") then
                 let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
-                                |> Array.map DomTypeToTsType
+                                |> Array.map (fun t -> DomTypeToTsType (t.Trim('?', ' ')))
                 if Seq.contains "any" allTypes then "any" else String.concat " | " allTypes
             else
                 // Check if is array type, which looks like "sequence<DOMString>"
-                let genericMatch = Regex.Match(objDomType, @"^(\w+)<(\w+)>$")
+                let unescaped = System.Web.HttpUtility.HtmlDecode(objDomType)
+                let genericMatch = Regex.Match(unescaped, @"^(\w+)<(\w+)>$")
                 if genericMatch.Success then
                     let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
+                    let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                     match tName with
-                    | "Promise" -> "any"
+                    | "Promise" ->
+                        "PromiseLike<" + paramName + ">"
                     | _ ->
-                        let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                         if tName = "Array" then paramName + "[]"
                         else tName + "<" + paramName + ">"
                 elif objDomType.EndsWith("[]") then
@@ -72,14 +78,27 @@ let rec DomTypeToTsType (objDomType: string) =
                     elementType + "[]"
                 else "any"
 
+
+let makeNullable (originalType: string) =
+    match originalType with
+    | "any" -> "any"
+    | "void" -> "void"
+    | t when t.Contains "| null" -> t
+    | functionType when functionType.Contains "=>" -> "(" + functionType + ") | null"
+    | _ -> originalType + " | null"
+
+let DomTypeToNullableTsType (objDomType: string) (nullable: bool) =
+    let resolvedType = DomTypeToTsType objDomType
+    if nullable then makeNullable resolvedType else resolvedType
+
 let EmitConstants (i: Browser.Interface) =
-    let emitConstantFromJson (c: ItemsType.Root) = Pt.printl "%s: %s;" c.Name.Value c.Type.Value
+    let emitConstantFromJson (c: ItemsType.Root) = Pt.printl "readonly %s: %s;" c.Name.Value c.Type.Value
 
     let emitConstant (c: Browser.Constant) =
         if Option.isNone (findRemovedItem c.Name ItemKind.Constant i.Name) then
             match findOverriddenItem c.Name ItemKind.Constant i.Name with
             | Some c' -> emitConstantFromJson c'
-            | None -> Pt.printl "%s: %s;" c.Name (DomTypeToTsType c.Type)
+            | None -> Pt.printl "readonly %s: %s;" c.Name (DomTypeToTsType c.Type)
 
     // Emit the constants added in the json files
 
@@ -91,7 +110,7 @@ let EmitConstants (i: Browser.Interface) =
 
 let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMType expectedParamType =
     OptionCheckValue expectedMName m.Name &&
-    (DomTypeToTsType m.Type) = expectedMType &&
+    (DomTypeToNullableTsType m.Type m.Nullable.IsSome) = expectedMType &&
     m.Params.Length = 1 &&
     (DomTypeToTsType m.Params.[0].Type) = expectedParamType
 
@@ -124,10 +143,12 @@ let EmitCreateEventOverloads (m: Browser.Method) =
 /// Generate the parameters string for function signatures
 let ParamsToString (ps: Param list) =
     let paramToString (p: Param) =
+        let isOptional = not p.Variadic && p.Optional
+        let pType = if isOptional then DomTypeToTsType p.Type else DomTypeToNullableTsType p.Type p.Nullable
         (if p.Variadic then "..." else "") +
         (AdjustParamName p.Name) +
-        (if not p.Variadic && p.Optional then "?: " else ": ") +
-        (DomTypeToTsType p.Type) +
+        (if isOptional then "?: " else ": ") +
+        pType +
         (if p.Variadic then "[]" else "")
     String.Join(", ", (List.map paramToString ps))
 
@@ -166,9 +187,11 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
                     | _ -> ()
 
                 let overloads = GetOverloads (Function.Method m) false
-                for { ParamCombinations = pCombList; ReturnTypes = rTypes } in overloads do
+                for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
                     let paramsString = ParamsToString pCombList
-                    let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                    let returnString = 
+                        let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                        if isNullable then makeNullable returnType else returnType
                     Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
 
 let EmitCallBackInterface (i:Browser.Interface) =
@@ -206,7 +229,11 @@ let EmitEnums () =
 
 let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
     let emitPropertyFromJson (p: ItemsType.Root) =
-        Pt.printl "%s%s: %s;" prefix p.Name.Value p.Type.Value
+        let readOnlyModifier =
+            match p.Readonly with
+            | Some(true) -> "readonly "
+            | _ -> ""
+        Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name.Value p.Type.Value
 
     let emitProperty (p: Browser.Property) =
         match GetCommentForProperty i.Name p.Name with
@@ -221,7 +248,9 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
                     match p.Type with
                     | "EventHandler" -> String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
                     | _ -> DomTypeToTsType p.Type
-                Pt.printl "%s%s: %s;" prefix p.Name pType
+                let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
+                let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
+                Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name pTypeAndNull
 
     // Note: the schema file shows the property doesn't have "static" attribute,
     // therefore all properties are emited for the instance type.
@@ -370,13 +399,28 @@ let EmitNamedConstructors () =
             let nc = i.NamedConstructor.Value
             let ncParams =
                 [for p in nc.Params do
-                    yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome}]
+                    yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome; Nullable = p.Nullable.IsSome}]
             Pt.printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
-    match i.Extends::(List.ofArray i.Implements) with
-    | [""] | [] | ["Object"] -> ()
+    let finalExtends = 
+        let overridenExtendsFromJson =
+            JsonItems.getOverriddenItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+            |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+        if List.isEmpty overridenExtendsFromJson then
+            let extendsFromSpec =
+                match i.Extends::(List.ofArray i.Implements) with
+                | [""] | [] | ["Object"] -> []
+                | specExtends -> specExtends
+            let extendsFromJson =
+                JsonItems.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+                |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+            List.concat [extendsFromSpec; extendsFromJson]
+        else
+            overridenExtendsFromJson
+    match finalExtends  with
+    | [] -> ()
     | allExtends -> Pt.print " extends %s" (String.Join(", ", allExtends))
     Pt.print " {"
 
@@ -605,6 +649,21 @@ let EmitAddedInterface (ai: JsonItems.ItemsType.Root) =
         Pt.printl "}"
         Pt.printl ""
 
+let EmitTypeDefs flavor =
+    let EmitTypeDef (typeDef: Browser.Typedef) =
+        Pt.printl "type %s = %s;" typeDef.NewType (DomTypeToTsType typeDef.Type)
+    let EmitTypeDefFromJson (typeDef: ItemsType.Root) =
+        Pt.printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
+
+    match flavor with
+    | Flavor.Worker ->
+        browser.Typedefs |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType) |> Array.iter EmitTypeDef
+    | _ ->
+        browser.Typedefs |> Array.iter EmitTypeDef
+
+    JsonItems.getAddedItems ItemKind.TypeDef flavor
+    |> Array.iter EmitTypeDefFromJson
+
 let EmitTheWholeThing flavor (target:TextWriter) =
     Pt.reset()
     Pt.printl "/////////////////////////////"
@@ -634,6 +693,8 @@ let EmitTheWholeThing flavor (target:TextWriter) =
         EmitAllMembers flavor gp
         EmitEventHandlers "declare var " gp
     | _ -> ()
+
+    EmitTypeDefs flavor
 
     fprintf target "%s" (Pt.getResult())
     target.Flush()

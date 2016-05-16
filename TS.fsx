@@ -246,7 +246,16 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
             | None ->
                 let pType =
                     match p.Type with
-                    | "EventHandler" -> String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
+                    | "EventHandler" ->
+                        // Sometimes event handlers with the same name may actually handle different 
+                        // events in different interfaces. For example, "onerror" handles "ErrorEvent" 
+                        // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
+                        let eType = 
+                            if p.EventHandler.IsSome then
+                                getEventTypeInInterface p.EventHandler.Value i.Name
+                            else 
+                                "Event"
+                        String.Format("(ev: {0}) => any", eType)
                     | _ -> DomTypeToTsType p.Type
                 let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
@@ -316,19 +325,12 @@ let rec EmitAllMembers flavor (i:Browser.Interface) =
 
 let EmitEventHandlers (prefix: string) (i:Browser.Interface) =
     let emitEventHandler prefix (eHandler: EventHandler)  =
-        let actualEventType =
-            match i.Name, eHandler.EventName with
-            | "IDBDatabase", "abort"
-            | "IDBTransaction", "abort"
-            | "XMLHttpRequest", "abort"
-            | "MSBaseReader", "abort"
-            | "XMLHttpRequestEventTarget", "abort"
-                -> "Event"
-            | _ -> eHandler.EventType
+        let eventType =
+            getEventTypeInInterface eHandler.EventName i.Name
 
         Pt.printl
             "%saddEventListener(type: \"%s\", listener: (ev: %s) => any, useCapture?: boolean): void;"
-            prefix eHandler.EventName actualEventType
+            prefix eHandler.EventName eventType
 
     let fPrefix = if prefix.StartsWith "declare var" then "declare function " else ""
 

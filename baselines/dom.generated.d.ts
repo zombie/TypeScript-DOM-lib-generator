@@ -13597,6 +13597,7 @@ interface WindowTimers extends Object, WindowTimersExtension {
     clearTimeout(handle: number): void;
     setInterval(handler: any, timeout?: any, ...args: any[]): number;
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+    setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 }
 
 interface WindowTimersExtension {
@@ -14075,6 +14076,7 @@ declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
 declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
 declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 declare function clearImmediate(handle: number): void;
 declare function setImmediate(expression: any, ...args: any[]): number;
 declare var sessionStorage: Storage;

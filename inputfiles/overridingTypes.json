@@ -784,5 +784,13 @@
          "interface": "SubtleCrypto",
          "name": "wrapKey",
          "signatures": ["wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>"]
+     },
+     {
+        "kind": "method",
+        "name": "setTimeout",
+        "signatures": [
+            "setTimeout(handler: any, timeout?: any, ...args: any[]): number",
+            "setTimeout(handler: (...args: any[]) => void, timeout: number): number"
+        ]
      }
  ]

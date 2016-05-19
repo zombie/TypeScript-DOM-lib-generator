@@ -5643,6 +5643,7 @@ interface HTMLInputElement extends HTMLElement {
     /**
       * Returns a FileList object on a file type input object.
       */
+    readonly files: FileList | null;
     /**
       * Retrieves a reference to the form that the object is embedded in. 
       */

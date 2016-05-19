@@ -792,5 +792,12 @@
             "setTimeout(handler: any, timeout?: any, ...args: any[]): number",
             "setTimeout(handler: (...args: any[]) => void, timeout: number): number"
         ]
+     },
+     {
+         "kind": "property",
+         "interface": "HTMLInputElement",
+         "readonly": true,
+         "name": "files",
+         "type": "FileList | null"
      }
  ]

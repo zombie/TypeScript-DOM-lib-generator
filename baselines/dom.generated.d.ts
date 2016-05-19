@@ -4,7 +4,7 @@
 /////////////////////////////
 
 interface Algorithm {
-    name?: string;
+    name: string;
 }
 
 interface AriaRequestEventInit extends EventInit {
@@ -11478,18 +11478,24 @@ declare var StyleSheetPageList: {
 }
 
 interface SubtleCrypto {
-    decrypt(algorithm: string | Algorithm, key: CryptoKey, data: ArrayBufferView): PromiseLike<any>;
-    deriveBits(algorithm: string | Algorithm, baseKey: CryptoKey, length: number): PromiseLike<any>;
-    deriveKey(algorithm: string | Algorithm, baseKey: CryptoKey, derivedKeyType: string | Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<any>;
-    digest(algorithm: string | Algorithm, data: ArrayBufferView): PromiseLike<any>;
-    encrypt(algorithm: string | Algorithm, key: CryptoKey, data: ArrayBufferView): PromiseLike<any>;
-    exportKey(format: string, key: CryptoKey): PromiseLike<any>;
-    generateKey(algorithm: string | Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<any>;
-    importKey(format: string, keyData: ArrayBufferView, algorithm: string | Algorithm | null, extractable: boolean, keyUsages: string[]): PromiseLike<any>;
-    sign(algorithm: string | Algorithm, key: CryptoKey, data: ArrayBufferView): PromiseLike<any>;
-    unwrapKey(format: string, wrappedKey: ArrayBufferView, unwrappingKey: CryptoKey, unwrapAlgorithm: string | Algorithm, unwrappedKeyAlgorithm: string | Algorithm | null, extractable: boolean, keyUsages: string[]): PromiseLike<any>;
-    verify(algorithm: string | Algorithm, key: CryptoKey, signature: ArrayBufferView, data: ArrayBufferView): PromiseLike<any>;
-    wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: string | Algorithm): PromiseLike<any>;
+    decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+    deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>;
+    deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    digest(algorithm: AlgorithmIdentifier, data: BufferSource): PromiseLike<ArrayBuffer>;
+    encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+    exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
+    exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
+    exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
+    generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair | CryptoKey>;
+    generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair>;
+    generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable:boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable:boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable:boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+    unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>;
+    wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>;
 }
 
 declare var SubtleCrypto: {
@@ -13591,6 +13597,7 @@ interface WindowTimers extends Object, WindowTimersExtension {
     clearTimeout(handle: number): void;
     setInterval(handler: any, timeout?: any, ...args: any[]): number;
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+    setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 }
 
 interface WindowTimersExtension {
@@ -13671,6 +13678,177 @@ interface ClipboardEventInit extends EventInit {
 }
 
 interface IDBArrayKey extends Array<IDBValidKey> {
+}
+
+interface RsaKeyGenParams extends Algorithm {
+    modulusLength: number;
+    publicExponent: Uint8Array;
+}
+
+interface RsaHashedKeyGenParams extends RsaKeyGenParams {
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaKeyAlgorithm extends KeyAlgorithm {
+    modulusLength: number;
+    publicExponent: Uint8Array;
+}
+
+interface RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaHashedImportParams {
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaPssParams {
+    saltLength: number;
+}
+
+interface RsaOaepParams extends Algorithm {
+    label?: BufferSource;
+}
+
+interface EcdsaParams extends Algorithm {
+    hash: AlgorithmIdentifier;
+}
+
+interface EcKeyGenParams extends Algorithm {
+    typedCurve: string;
+}
+
+interface EcKeyAlgorithm extends KeyAlgorithm {
+    typedCurve: string;
+}
+
+interface EcKeyImportParams {
+    namedCurve: string;
+}
+
+interface EcdhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface AesCtrParams extends Algorithm {
+    counter: BufferSource;
+    length: number;
+}
+
+interface AesKeyAlgorithm extends KeyAlgorithm {
+    length: number;
+}
+
+interface AesKeyGenParams extends Algorithm {
+    length: number;
+}
+
+interface AesDerivedKeyParams extends Algorithm {
+    length: number;
+}
+
+interface AesCbcParams extends Algorithm {
+    iv: BufferSource;
+}
+
+interface AesCmacParams extends Algorithm {
+    length: number;
+}
+
+interface AesGcmParams extends Algorithm {
+    iv: BufferSource;
+    additionalData?: BufferSource;
+    tagLength?: number;
+}
+
+interface AesCfbParams extends Algorithm {
+    iv: BufferSource;
+}
+
+interface HmacImportParams extends Algorithm {
+    hash?: AlgorithmIdentifier;
+    length?: number;
+}
+
+interface HmacKeyAlgorithm extends KeyAlgorithm {
+    hash: AlgorithmIdentifier;
+    length: number;
+}
+
+interface HmacKeyGenParams extends Algorithm {
+    hash: AlgorithmIdentifier;
+    length?: number;
+}
+
+interface DhKeyGenParams extends Algorithm {
+    prime: Uint8Array;
+    generator: Uint8Array;
+}
+
+interface DhKeyAlgorithm extends KeyAlgorithm {
+    prime: Uint8Array;
+    generator: Uint8Array;
+}
+
+interface DhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface DhImportKeyParams extends Algorithm {
+    prime: Uint8Array;
+    generator: Uint8Array;
+}
+
+interface ConcatParams extends Algorithm {
+    hash?: AlgorithmIdentifier;
+    algorithmId: Uint8Array;
+    partyUInfo: Uint8Array;
+    partyVInfo: Uint8Array;
+    publicInfo?: Uint8Array;
+    privateInfo?: Uint8Array;
+}
+
+interface HkdfCtrParams extends Algorithm {
+    hash: AlgorithmIdentifier;
+    label: BufferSource;
+    context: BufferSource;
+}
+
+interface Pbkdf2Params extends Algorithm {
+    salt: BufferSource;
+    iterations: number;
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaOtherPrimesInfo {
+    r: string;
+    d: string;
+    t: string;
+}
+
+interface JsonWebKey {
+    kty: string;
+    use?: string;
+    key_ops?: string[];
+    alg?: string;
+    kid?: string;
+    x5u?: string;
+    x5c?: string;
+    x5t?: string;
+    ext?: boolean;
+    crv?: string;
+    x?: string;
+    y?: string;
+    d?: string;
+    n?: string;
+    e?: string;
+    p?: string;
+    q?: string;
+    dp?: string;
+    dq?: string;
+    qi?: string;
+    oth?: RsaOtherPrimesInfo[];
+    k?: string;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
@@ -13898,6 +14076,7 @@ declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
 declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
 declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 declare function clearImmediate(handle: number): void;
 declare function setImmediate(expression: any, ...args: any[]): number;
 declare var sessionStorage: Storage;
@@ -14043,3 +14222,4 @@ type RTCIceGatherCandidate = RTCIceCandidate | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type payloadtype = number;
 type IDBValidKey = number | string | Date | IDBArrayKey;
+type BufferSource = ArrayBuffer | ArrayBufferView;

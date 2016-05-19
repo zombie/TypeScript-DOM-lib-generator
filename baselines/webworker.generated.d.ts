@@ -908,6 +908,7 @@ interface WorkerUtils extends Object, WindowBase64 {
     setImmediate(handler: any, ...args: any[]): number;
     setInterval(handler: any, timeout?: any, ...args: any[]): number;
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+    setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 }
 
 interface BlobPropertyBag {
@@ -940,6 +941,177 @@ interface ProgressEventInit extends EventInit {
 }
 
 interface IDBArrayKey extends Array<IDBValidKey> {
+}
+
+interface RsaKeyGenParams extends Algorithm {
+    modulusLength: number;
+    publicExponent: Uint8Array;
+}
+
+interface RsaHashedKeyGenParams extends RsaKeyGenParams {
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaKeyAlgorithm extends KeyAlgorithm {
+    modulusLength: number;
+    publicExponent: Uint8Array;
+}
+
+interface RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaHashedImportParams {
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaPssParams {
+    saltLength: number;
+}
+
+interface RsaOaepParams extends Algorithm {
+    label?: BufferSource;
+}
+
+interface EcdsaParams extends Algorithm {
+    hash: AlgorithmIdentifier;
+}
+
+interface EcKeyGenParams extends Algorithm {
+    typedCurve: string;
+}
+
+interface EcKeyAlgorithm extends KeyAlgorithm {
+    typedCurve: string;
+}
+
+interface EcKeyImportParams {
+    namedCurve: string;
+}
+
+interface EcdhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface AesCtrParams extends Algorithm {
+    counter: BufferSource;
+    length: number;
+}
+
+interface AesKeyAlgorithm extends KeyAlgorithm {
+    length: number;
+}
+
+interface AesKeyGenParams extends Algorithm {
+    length: number;
+}
+
+interface AesDerivedKeyParams extends Algorithm {
+    length: number;
+}
+
+interface AesCbcParams extends Algorithm {
+    iv: BufferSource;
+}
+
+interface AesCmacParams extends Algorithm {
+    length: number;
+}
+
+interface AesGcmParams extends Algorithm {
+    iv: BufferSource;
+    additionalData?: BufferSource;
+    tagLength?: number;
+}
+
+interface AesCfbParams extends Algorithm {
+    iv: BufferSource;
+}
+
+interface HmacImportParams extends Algorithm {
+    hash?: AlgorithmIdentifier;
+    length?: number;
+}
+
+interface HmacKeyAlgorithm extends KeyAlgorithm {
+    hash: AlgorithmIdentifier;
+    length: number;
+}
+
+interface HmacKeyGenParams extends Algorithm {
+    hash: AlgorithmIdentifier;
+    length?: number;
+}
+
+interface DhKeyGenParams extends Algorithm {
+    prime: Uint8Array;
+    generator: Uint8Array;
+}
+
+interface DhKeyAlgorithm extends KeyAlgorithm {
+    prime: Uint8Array;
+    generator: Uint8Array;
+}
+
+interface DhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface DhImportKeyParams extends Algorithm {
+    prime: Uint8Array;
+    generator: Uint8Array;
+}
+
+interface ConcatParams extends Algorithm {
+    hash?: AlgorithmIdentifier;
+    algorithmId: Uint8Array;
+    partyUInfo: Uint8Array;
+    partyVInfo: Uint8Array;
+    publicInfo?: Uint8Array;
+    privateInfo?: Uint8Array;
+}
+
+interface HkdfCtrParams extends Algorithm {
+    hash: AlgorithmIdentifier;
+    label: BufferSource;
+    context: BufferSource;
+}
+
+interface Pbkdf2Params extends Algorithm {
+    salt: BufferSource;
+    iterations: number;
+    hash: AlgorithmIdentifier;
+}
+
+interface RsaOtherPrimesInfo {
+    r: string;
+    d: string;
+    t: string;
+}
+
+interface JsonWebKey {
+    kty: string;
+    use?: string;
+    key_ops?: string[];
+    alg?: string;
+    kid?: string;
+    x5u?: string;
+    x5c?: string;
+    x5t?: string;
+    ext?: boolean;
+    crv?: string;
+    x?: string;
+    y?: string;
+    d?: string;
+    n?: string;
+    e?: string;
+    p?: string;
+    q?: string;
+    dp?: string;
+    dq?: string;
+    qi?: string;
+    oth?: RsaOtherPrimesInfo[];
+    k?: string;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
@@ -993,6 +1165,7 @@ declare function importScripts(...urls: string[]): void;
 declare function setImmediate(handler: any, ...args: any[]): number;
 declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
 declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare var onmessage: (ev: MessageEvent) => any;
@@ -1003,3 +1176,4 @@ declare function addEventListener(type: "message", listener: (ev: MessageEvent) 
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type IDBKeyPath = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
+type BufferSource = ArrayBuffer | ArrayBufferView;

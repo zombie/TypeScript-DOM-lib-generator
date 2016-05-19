@@ -13595,14 +13595,16 @@ interface WindowSessionStorage {
 interface WindowTimers extends Object, WindowTimersExtension {
     clearInterval(handle: number): void;
     clearTimeout(handle: number): void;
+    setInterval(handler: (...args: any[]) => void, timeout: number): number;
     setInterval(handler: any, timeout?: any, ...args: any[]): number;
-    setTimeout(handler: any, timeout?: any, ...args: any[]): number;
     setTimeout(handler: (...args: any[]) => void, timeout: number): number;
+    setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 }
 
 interface WindowTimersExtension {
     clearImmediate(handle: number): void;
-    setImmediate(expression: any, ...args: any[]): number;
+    setImmediate(handler: (...args: any[]) => void): number;
+    setImmediate(handler: any, ...args: any[]): number;
 }
 
 interface XMLHttpRequestEventTarget {
@@ -14074,11 +14076,13 @@ declare function dispatchEvent(evt: Event): boolean;
 declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
+declare function setInterval(handler: (...args: any[]) => void, timeout: number): number;
 declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
-declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
+declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 declare function clearImmediate(handle: number): void;
-declare function setImmediate(expression: any, ...args: any[]): number;
+declare function setImmediate(handler: (...args: any[]) => void): number;
+declare function setImmediate(handler: any, ...args: any[]): number;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var console: Console;

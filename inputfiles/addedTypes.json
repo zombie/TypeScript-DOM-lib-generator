@@ -209,6 +209,11 @@
         "signatures": ["matches(selector: string): boolean"]
     },
     {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": ["closest(selector: string): Element | null"]
+    },
+    {
         "kind": "indexer",
         "interface": "HTMLCollection",
         "signatures": [

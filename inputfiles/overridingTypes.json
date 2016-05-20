@@ -789,8 +789,24 @@
         "kind": "method",
         "name": "setTimeout",
         "signatures": [
-            "setTimeout(handler: any, timeout?: any, ...args: any[]): number",
-            "setTimeout(handler: (...args: any[]) => void, timeout: number): number"
+            "setTimeout(handler: (...args: any[]) => void, timeout: number): number",
+            "setTimeout(handler: any, timeout?: any, ...args: any[]): number"
+        ]
+     },
+     {
+        "kind": "method",
+        "name": "setImmediate",
+        "signatures": [
+            "setImmediate(handler: (...args: any[]) => void): number",
+            "setImmediate(handler: any, ...args: any[]): number"
+        ]
+     },
+     {
+        "kind": "method",
+        "name": "setInterval",
+        "signatures": [
+            "setInterval(handler: (...args: any[]) => void, timeout: number): number",
+            "setInterval(handler: any, timeout?: any, ...args: any[]): number"
         ]
      }
  ]

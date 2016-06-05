@@ -941,5 +941,11 @@
                 "type": "string"
             }
         ]
+    },
+    {
+        "kind": "property",
+        "name": "msCaching?",
+        "interface": "XMLHttpRequest",
+        "type": "string"
     }
 ]

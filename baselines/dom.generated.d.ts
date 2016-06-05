@@ -13134,7 +13134,6 @@ declare var XMLDocument: {
 }
 
 interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
-    msCaching: string;
     onreadystatechange: (ev: ProgressEvent) => any;
     readonly readyState: number;
     readonly response: any;
@@ -13146,6 +13145,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     timeout: number;
     readonly upload: XMLHttpRequestUpload;
     withCredentials: boolean;
+    msCaching?: string;
     abort(): void;
     getAllResponseHeaders(): string;
     getResponseHeader(header: string): string | null;

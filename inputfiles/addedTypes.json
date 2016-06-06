@@ -54,6 +54,13 @@
     },
     {
         "kind": "property",
+        "interface": "Window",
+        "exposeGlobally": false,
+        "name": "Blob",
+        "type": "typeof Blob"
+    },
+    {
+        "kind": "property",
         "interface": "Element",
         "name": "innerHTML",
         "type": "string"

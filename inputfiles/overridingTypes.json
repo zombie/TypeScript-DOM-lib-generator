@@ -808,5 +808,12 @@
             "setInterval(handler: (...args: any[]) => void, timeout: number): number",
             "setInterval(handler: any, timeout?: any, ...args: any[]): number"
         ]
+     },
+     {
+         "kind": "property",
+         "interface": "HTMLInputElement",
+         "readonly": true,
+         "name": "files",
+         "type": "FileList | null"
      }
  ]

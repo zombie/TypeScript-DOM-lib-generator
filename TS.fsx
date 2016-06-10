@@ -129,6 +129,20 @@ let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
             Pt.printl "getElementsByTagName(%s: \"%s\"): NodeListOf<%s>;" m.Params.[0].Name (e.Key.ToLower()) e.Value
         Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
+/// Emit overloads for the querySelector method
+let EmitQuerySelectorOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
+        for e in tagNameToEleName do
+            Pt.printl "querySelector(selectors: \"%s\"): %s;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelector(selectors: string): Element;"
+
+/// Emit overloads for the querySelectorAll method
+let EmitQuerySelectorAllOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
+        for e in tagNameToEleName do
+            Pt.printl "querySelectorAll(selectors: \"%s\"): NodeListOf<%s>;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
+
 /// Emit overloads for the createEvent method
 let EmitCreateEventOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "createEvent" "Event" "string" then
@@ -179,6 +193,8 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
             | _, Some "createElement" -> EmitCreateElementOverloads m
             | _, Some "createEvent" -> EmitCreateEventOverloads m
             | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
+            | _, Some "querySelector" -> EmitQuerySelectorOverloads m
+            | _, Some "querySelectorAll" -> EmitQuerySelectorAllOverloads m
             | _ ->
                 if m.Name.IsSome then
                     // If there are added overloads from the json files, print them first

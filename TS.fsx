@@ -699,6 +699,8 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     JsonItems.getAddedItems JsonItems.Interface flavor |> Array.iter EmitAddedInterface
 
     Pt.printl "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
+    //  Backward compatibility for IE/Edge
+    Pt.printl "declare type MouseWheelEvent = WheelEvent;"
     Pt.printl ""
 
     EmitCallBackFunctions flavor

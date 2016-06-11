@@ -14208,6 +14208,7 @@ interface JsonWebKey {
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
+declare type MouseWheelEvent = WheelEvent;
 
 interface ErrorEventHandler {
     (message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void;

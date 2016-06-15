@@ -34,11 +34,8 @@
         "interface": "WebGLRenderingContext",
         "name": "texSubImage2D",
         "signatures": [
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView): void",
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, image: HTMLImageElement): void",
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, canvas: HTMLCanvasElement): void",
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, video: HTMLVideoElement): void",
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageData): void"
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels?: ArrayBufferView): void",
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels?: ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
         ]
     },
     {
@@ -46,11 +43,8 @@
         "interface": "WebGLRenderingContext",
         "name": "texImage2D",
         "signatures": [
-            "texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels: ArrayBufferView): void",
-            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, image: HTMLImageElement): void",
-            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, canvas: HTMLCanvasElement): void",
-            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, video: HTMLVideoElement): void",
-            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageData): void"
+            "texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView): void",
+            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels?: ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
         ]
     },
     {
@@ -70,9 +64,9 @@
         "interface": "HTMLCanvasElement",
         "name": "getContext",
         "signatures": [
-            "getContext(contextId: \"2d\"): CanvasRenderingContext2D",
-            "getContext(contextId: \"experimental-webgl\"): WebGLRenderingContext",
-            "getContext(contextId: string, ...args: any[]): CanvasRenderingContext2D | WebGLRenderingContext"
+            "getContext(contextId: \"2d\"): CanvasRenderingContext2D | null",
+            "getContext(contextId: \"experimental-webgl\"): WebGLRenderingContext | null",
+            "getContext(contextId: string, ...args: any[]): CanvasRenderingContext2D | WebGLRenderingContext | null"
         ]
     },
     {
@@ -90,7 +84,7 @@
         "kind": "method",
         "interface": "Document",
         "name": "getElementById",
-        "signatures": ["getElementById(elementId: string): HTMLElement"]
+        "signatures": ["getElementById(elementId: string): HTMLElement | null"]
     },
     {
         "kind": "method",

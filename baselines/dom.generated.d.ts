@@ -851,6 +851,7 @@ interface UIEventInit extends EventInit {
 }
 
 interface WebGLContextAttributes {
+    failIfMajorPerformanceCaveat?: boolean;
     alpha?: boolean;
     depth?: boolean;
     stencil?: boolean;
@@ -4433,9 +4434,9 @@ interface HTMLCanvasElement extends HTMLElement {
       * Returns an object that provides methods and properties for drawing and manipulating images and graphics on a canvas element in a document. A context object includes information about colors, line widths, fonts, and other graphic parameters that can be drawn on a canvas.
       * @param contextId The identifier (ID) of the type of canvas to create. Internet Explorer 9 and Internet Explorer 10 support only a 2-D context using canvas.getContext("2d"); IE11 Preview also supports 3-D or WebGL context using canvas.getContext("experimental-webgl");
       */
-    getContext(contextId: "2d"): CanvasRenderingContext2D | null;
-    getContext(contextId: "experimental-webgl"): WebGLRenderingContext | null;
-    getContext(contextId: string, ...args: any[]): CanvasRenderingContext2D | WebGLRenderingContext | null;
+    getContext(contextId: "2d", contextAttributes?: Canvas2DContextAttributes): CanvasRenderingContext2D | null;
+    getContext(contextId: "webgl" | "experimental-webgl", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: string, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext | null;
     /**
       * Returns a blob object encoded as a Portable Network Graphics (PNG) format from a canvas image or drawing.
       */
@@ -13978,6 +13979,13 @@ interface StorageEventInit extends EventInit {
     newValue?: string;
     url: string;
     storageArea?: Storage;
+}
+
+interface Canvas2DContextAttributes {
+    alpha?: boolean;
+    willReadFrequently?: boolean;
+    storage?: boolean;
+    [attribute: string]: boolean | string;
 }
 
 interface NodeListOf<TNode extends Node> extends NodeList {

@@ -188,12 +188,14 @@ type Param =
     { Type : string
       Name : string
       Optional : bool
-      Variadic : bool }
+      Variadic : bool
+      Nullable : bool }
 
 /// Function overload
 type Overload =
     { ParamCombinations : Param list
-      ReturnTypes : string list }
+      ReturnTypes : string list 
+      Nullable : Boolean }
     member this.IsEmpty = this.ParamCombinations.IsEmpty && (this.ReturnTypes = [ "void" ] || this.ReturnTypes = [ "" ])
 
 type Function =
@@ -316,7 +318,8 @@ let knownWorkerInterfaces =
       "MSAppAsyncOperation"; "MSAppView"; "MSBaseReader"; "MSBlobBuilder"; "MSExecAtPriorityFunctionCallback";
       "MSLaunchUriCallback"; "MSStream"; "MSStreamReader"; "MSUnsafeFunctionCallback"; "NavigatorID"; "NavigatorOnLine";
       "Position"; "PositionCallback"; "PositionError"; "PositionErrorCallback"; "ProgressEvent"; "WebSocket";
-      "WindowBase64"; "WindowConsole"; "Worker"; "XMLHttpRequest"; "XMLHttpRequestEventTarget"; "XMLHttpRequestUpload" ]
+      "WindowBase64"; "WindowConsole"; "Worker"; "XMLHttpRequest"; "XMLHttpRequestEventTarget"; "XMLHttpRequestUpload";
+      "IDBObjectStoreParameters"; "IDBIndexParameters"; "IDBKeyPath"]
     |> set
 
 let GetAllInterfacesByFlavor flavor =
@@ -373,6 +376,19 @@ let eNameToETypeWithoutCase =
     |> Map.toList
     |> List.map (fun (k, v) -> (k.ToLower(), v))
     |> Map.ofList
+
+let getEventTypeInInterface eName iName =
+    match iName, eName with
+    | "IDBDatabase", "abort"
+    | "IDBTransaction", "abort"
+    | "XMLHttpRequest", "abort"
+    | "MSBaseReader", "abort"
+    | "XMLHttpRequestEventTarget", "abort"
+        -> "Event"
+    | _ -> 
+        match eNameToEType.TryFind eName with
+        | Some eType' -> eType'
+        | _ -> "Event"
 
 /// Tag name to element name map
 let tagNameToEleName =
@@ -539,25 +555,34 @@ let GetOverloads (f : Function) (decomposeMultipleTypes : bool) =
                   yield { Type = p.Type
                           Name = p.Name
                           Optional = p.Optional.IsSome
-                          Variadic = p.Variadic.IsSome } ]
+                          Variadic = p.Variadic.IsSome
+                          Nullable = p.Nullable.IsSome } ]
         | Ctor c ->
             [ for p in c.Params do
                   yield { Type = p.Type
                           Name = p.Name
                           Optional = p.Optional.IsSome
-                          Variadic = p.Variadic.IsSome } ]
+                          Variadic = p.Variadic.IsSome
+                          Nullable = p.Nullable.IsSome } ]
         | CallBackFun cb ->
             [ for p in cb.Params do
                   yield { Type = p.Type
                           Name = p.Name
                           Optional = p.Optional.IsSome
-                          Variadic = p.Variadic.IsSome } ]
+                          Variadic = p.Variadic.IsSome
+                          Nullable = p.Nullable.IsSome } ]
 
     let getReturnType (f : Function) =
         match f with
         | Method m -> m.Type
         | Ctor _ -> ""
         | CallBackFun cb -> cb.Type
+
+    let isNullable =
+        match f with
+        | Method m -> m.Nullable.IsSome
+        | Ctor _ -> false
+        | CallBackFun cb -> true
 
     // Some params have the type of "(DOMString or DOMString [] or Number)"
     // we need to transform it into [“DOMString", "DOMString []", "Number"]
@@ -568,7 +593,8 @@ let GetOverloads (f : Function) (decomposeMultipleTypes : bool) =
               yield { Type = t
                       Name = p.Name
                       Optional = p.Optional
-                      Variadic = p.Variadic } ]
+                      Variadic = p.Variadic
+                      Nullable = p.Nullable } ]
 
     let pCombList =
         let pCombs = List<_>()
@@ -594,10 +620,12 @@ let GetOverloads (f : Function) (decomposeMultipleTypes : bool) =
     if decomposeMultipleTypes then
         [ for pComb in pCombList do
               yield { ParamCombinations = pComb
-                      ReturnTypes = rTypes } ]
+                      ReturnTypes = rTypes 
+                      Nullable = isNullable } ]
     else
         [ { ParamCombinations = getParams f
-            ReturnTypes = rTypes } ]
+            ReturnTypes = rTypes 
+            Nullable = isNullable } ]
 
 /// Define the subset of events that dedicated workers will use
 let workerEventsMap =

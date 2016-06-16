@@ -77,6 +77,13 @@
     },
     {
         "kind": "property",
+        "interface": "Window",
+        "exposeGlobally": false,
+        "name": "Blob",
+        "type": "typeof Blob"
+    },
+    {
+        "kind": "property",
         "interface": "Element",
         "name": "innerHTML",
         "type": "string"
@@ -232,6 +239,11 @@
         "signatures": ["matches(selector: string): boolean"]
     },
     {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": ["closest(selector: string): Element | null"]
+    },
+    {
         "kind": "indexer",
         "interface": "HTMLCollection",
         "signatures": [
@@ -310,11 +322,6 @@
     },
     {
         "kind": "method",
-        "interface": "Node",
-        "signatures":["contains(node: Node): boolean"]
-    },
-    {
-        "kind": "method",
         "interface": "Navigator",
         "signatures": [
             "vibrate(pattern: number | number[]): boolean"
@@ -336,7 +343,7 @@
         "kind": "method",
         "interface": "HTMLCanvasElement",
         "name": "toBlob",
-        "signatures": ["toBlob(): Blob"]
+        "signatures": ["toBlob(callback: (result: Blob | null) => void, ... arguments: any[]): void"]
     },
     {
         "kind": "property",
@@ -441,5 +448,535 @@
         "interface": "WebGLContextAttributes",
         "name": "failIfMajorPerformanceCaveat?",
         "type": "boolean"
+    },
+    {
+        "kind": "typedef",
+        "name": "BufferSource",
+        "type": "ArrayBuffer | ArrayBufferView"
+    },
+    {
+        "kind": "interface",
+        "name": "RsaKeyGenParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "modulusLength",
+                "type": "number"
+            },
+            {
+                "name": "publicExponent",
+                "type": "Uint8Array"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaHashedKeyGenParams",
+        "extends": "RsaKeyGenParams",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaKeyAlgorithm",
+        "extends": "KeyAlgorithm",
+        "properties": [
+            {
+                "name": "modulusLength",
+                "type": "number"
+            },
+            {
+                "name": "publicExponent",
+                "type": "Uint8Array"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaHashedKeyAlgorithm",
+        "extends": "RsaKeyAlgorithm",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaHashedImportParams",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaPssParams",
+        "properties": [
+            {
+                "name": "saltLength",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaOaepParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "label?",
+                "type": "BufferSource"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EcdsaParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EcKeyGenParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "typedCurve",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EcKeyAlgorithm",
+        "extends": "KeyAlgorithm",
+        "properties": [
+            {
+                "name": "typedCurve",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EcKeyImportParams",
+        "properties": [
+            {
+                "name": "namedCurve",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EcdhKeyDeriveParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "public",
+                "type": "CryptoKey"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesCtrParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "counter",
+                "type": "BufferSource"
+            },
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesKeyAlgorithm",
+        "extends": "KeyAlgorithm",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesKeyGenParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesDerivedKeyParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesCbcParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "iv",
+                "type": "BufferSource"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesCmacParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesGcmParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "iv",
+                "type": "BufferSource"
+            },
+            {
+                "name": "additionalData?",
+                "type": "BufferSource"
+            },
+            {
+                "name": "tagLength?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AesCfbParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "iv",
+                "type": "BufferSource"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "HmacImportParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "hash?",
+                "type": "AlgorithmIdentifier"
+            },
+            {
+                "name": "length?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "HmacKeyAlgorithm",
+        "extends": "KeyAlgorithm",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            },
+            {
+                "name": "length",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "HmacKeyGenParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            },
+            {
+                "name": "length?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "DhKeyGenParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "prime",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "generator",
+                "type": "Uint8Array"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "DhKeyAlgorithm",
+        "extends": "KeyAlgorithm",
+        "properties": [
+            {
+                "name": "prime",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "generator",
+                "type": "Uint8Array"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "DhKeyDeriveParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "public",
+                "type": "CryptoKey"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "DhImportKeyParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "prime",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "generator",
+                "type": "Uint8Array"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ConcatParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "hash?",
+                "type": "AlgorithmIdentifier"
+            },
+            {
+                "name": "algorithmId",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "partyUInfo",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "partyVInfo",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "publicInfo?",
+                "type": "Uint8Array"
+            },
+            {
+                "name": "privateInfo?",
+                "type": "Uint8Array"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "HkdfCtrParams",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            },
+            {
+                "name": "label",
+                "type": "BufferSource"
+            },
+            {
+                "name": "context",
+                "type": "BufferSource"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "Pbkdf2Params",
+        "extends": "Algorithm",
+        "properties": [
+            {
+                "name": "salt",
+                "type": "BufferSource"
+            },
+            {
+                "name": "iterations",
+                "type": "number"
+            },
+            {
+                "name": "hash",
+                "type": "AlgorithmIdentifier"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "RsaOtherPrimesInfo",
+        "properties": [
+            {
+                "name": "r",
+                "type": "string"
+            },
+            {
+                "name": "d",
+                "type": "string"
+            },
+            {
+                "name": "t",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "JsonWebKey",
+        "properties": [
+            {
+                "name": "kty",
+                "type": "string"
+            },
+            {
+                "name": "use?",
+                "type": "string"
+            },
+            {
+                "name": "key_ops?",
+                "type": "string[]"
+            },
+            {
+                "name": "alg?",
+                "type": "string"
+            },
+            {
+                "name": "kid?",
+                "type": "string"
+            },
+            {
+                "name": "x5u?",
+                "type": "string"
+            },
+            {
+                "name": "x5c?",
+                "type": "string"
+            },
+            {
+                "name": "x5t?",
+                "type": "string"
+            },
+            {
+                "name": "ext?",
+                "type": "boolean"
+            },
+            {
+                "name": "crv?",
+                "type": "string"
+            },
+            {
+                "name": "x?",
+                "type": "string"
+            },
+            {
+                "name": "y?",
+                "type": "string"
+            },
+            {
+                "name": "d?",
+                "type": "string"
+            },
+            {
+                "name": "n?",
+                "type": "string"
+            },
+            {
+                "name": "e?",
+                "type": "string"
+            },
+            {
+                "name": "p?",
+                "type": "string"
+            },
+            {
+                "name": "q?",
+                "type": "string"
+            },
+            {
+                "name": "dp?",
+                "type": "string"
+            },
+            {
+                "name": "dq?",
+                "type": "string"
+            },
+            {
+                "name": "qi?",
+                "type": "string"
+            },
+            {
+                "name": "oth?",
+                "type": "RsaOtherPrimesInfo[]"
+            },
+            {
+                "name": "k?",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "name": "msCaching?",
+        "interface": "XMLHttpRequest",
+        "type": "string"
     }
 ]

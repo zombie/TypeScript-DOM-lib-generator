@@ -43,5 +43,10 @@
         "kind": "property",
         "interface": "StorageEvent",
         "name": "storageArea"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequest",
+        "name": "msCaching"
     }
 ]

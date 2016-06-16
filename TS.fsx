@@ -68,7 +68,7 @@ let rec DomTypeToTsType (objDomType: string) =
                     let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
                     let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                     match tName with
-                    | "Promise" -> 
+                    | "Promise" ->
                         "PromiseLike<" + paramName + ">"
                     | _ ->
                         if tName = "Array" then paramName + "[]"
@@ -77,6 +77,19 @@ let rec DomTypeToTsType (objDomType: string) =
                     let elementType = objDomType.Replace("[]", "").Trim() |> DomTypeToTsType
                     elementType + "[]"
                 else "any"
+
+
+let makeNullable (originalType: string) =
+    match originalType with
+    | "any" -> "any"
+    | "void" -> "void"
+    | t when t.Contains "| null" -> t
+    | functionType when functionType.Contains "=>" -> "(" + functionType + ") | null"
+    | _ -> originalType + " | null"
+
+let DomTypeToNullableTsType (objDomType: string) (nullable: bool) =
+    let resolvedType = DomTypeToTsType objDomType
+    if nullable then makeNullable resolvedType else resolvedType
 
 let EmitConstants (i: Browser.Interface) =
     let emitConstantFromJson (c: ItemsType.Root) = Pt.printl "readonly %s: %s;" c.Name.Value c.Type.Value
@@ -97,7 +110,7 @@ let EmitConstants (i: Browser.Interface) =
 
 let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMType expectedParamType =
     OptionCheckValue expectedMName m.Name &&
-    (DomTypeToTsType m.Type) = expectedMType &&
+    (DomTypeToNullableTsType m.Type m.Nullable.IsSome) = expectedMType &&
     m.Params.Length = 1 &&
     (DomTypeToTsType m.Params.[0].Type) = expectedParamType
 
@@ -116,6 +129,20 @@ let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
             Pt.printl "getElementsByTagName(%s: \"%s\"): NodeListOf<%s>;" m.Params.[0].Name (e.Key.ToLower()) e.Value
         Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
+/// Emit overloads for the querySelector method
+let EmitQuerySelectorOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
+        for e in tagNameToEleName do
+            Pt.printl "querySelector(selectors: \"%s\"): %s;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelector(selectors: string): Element;"
+
+/// Emit overloads for the querySelectorAll method
+let EmitQuerySelectorAllOverloads (m: Browser.Method) =
+    if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
+        for e in tagNameToEleName do
+            Pt.printl "querySelectorAll(selectors: \"%s\"): NodeListOf<%s>;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
+
 /// Emit overloads for the createEvent method
 let EmitCreateEventOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "createEvent" "Event" "string" then
@@ -130,10 +157,12 @@ let EmitCreateEventOverloads (m: Browser.Method) =
 /// Generate the parameters string for function signatures
 let ParamsToString (ps: Param list) =
     let paramToString (p: Param) =
+        let isOptional = not p.Variadic && p.Optional
+        let pType = if isOptional then DomTypeToTsType p.Type else DomTypeToNullableTsType p.Type p.Nullable
         (if p.Variadic then "..." else "") +
         (AdjustParamName p.Name) +
-        (if not p.Variadic && p.Optional then "?: " else ": ") +
-        (DomTypeToTsType p.Type) +
+        (if isOptional then "?: " else ": ") +
+        pType +
         (if p.Variadic then "[]" else "")
     String.Join(", ", (List.map paramToString ps))
 
@@ -164,6 +193,8 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
             | _, Some "createElement" -> EmitCreateElementOverloads m
             | _, Some "createEvent" -> EmitCreateEventOverloads m
             | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
+            | _, Some "querySelector" -> EmitQuerySelectorOverloads m
+            | _, Some "querySelectorAll" -> EmitQuerySelectorAllOverloads m
             | _ ->
                 if m.Name.IsSome then
                     // If there are added overloads from the json files, print them first
@@ -172,9 +203,11 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
                     | _ -> ()
 
                 let overloads = GetOverloads (Function.Method m) false
-                for { ParamCombinations = pCombList; ReturnTypes = rTypes } in overloads do
+                for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
                     let paramsString = ParamsToString pCombList
-                    let returnString = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                    let returnString = 
+                        let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                        if isNullable then makeNullable returnType else returnType
                     Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
 
 let EmitCallBackInterface (i:Browser.Interface) =
@@ -229,10 +262,20 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
             | None ->
                 let pType =
                     match p.Type with
-                    | "EventHandler" -> String.Format("(ev: {0}) => any", ehNameToEType.[p.Name])
+                    | "EventHandler" ->
+                        // Sometimes event handlers with the same name may actually handle different 
+                        // events in different interfaces. For example, "onerror" handles "ErrorEvent" 
+                        // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
+                        let eType = 
+                            if p.EventHandler.IsSome then
+                                getEventTypeInInterface p.EventHandler.Value i.Name
+                            else 
+                                "Event"
+                        String.Format("(ev: {0}) => any", eType)
                     | _ -> DomTypeToTsType p.Type
+                let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
-                Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name pType
+                Pt.printl "%s%s%s: %s;" prefix readOnlyModifier p.Name pTypeAndNull
 
     // Note: the schema file shows the property doesn't have "static" attribute,
     // therefore all properties are emited for the instance type.
@@ -298,19 +341,12 @@ let rec EmitAllMembers flavor (i:Browser.Interface) =
 
 let EmitEventHandlers (prefix: string) (i:Browser.Interface) =
     let emitEventHandler prefix (eHandler: EventHandler)  =
-        let actualEventType =
-            match i.Name, eHandler.EventName with
-            | "IDBDatabase", "abort"
-            | "IDBTransaction", "abort"
-            | "XMLHttpRequest", "abort"
-            | "MSBaseReader", "abort"
-            | "XMLHttpRequestEventTarget", "abort"
-                -> "Event"
-            | _ -> eHandler.EventType
+        let eventType =
+            getEventTypeInInterface eHandler.EventName i.Name
 
         Pt.printl
             "%saddEventListener(type: \"%s\", listener: (ev: %s) => any, useCapture?: boolean): void;"
-            prefix eHandler.EventName actualEventType
+            prefix eHandler.EventName eventType
 
     let fPrefix = if prefix.StartsWith "declare var" then "declare function " else ""
 
@@ -381,19 +417,27 @@ let EmitNamedConstructors () =
             let nc = i.NamedConstructor.Value
             let ncParams =
                 [for p in nc.Params do
-                    yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome}]
+                    yield {Type = p.Type; Name = p.Name; Optional = p.Optional.IsSome; Variadic = p.Variadic.IsSome; Nullable = p.Nullable.IsSome}]
             Pt.printl "declare var %s: {new(%s): %s; };" nc.Name (ParamsToString ncParams) i.Name)
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
-    let extendsFromSpec =
-        match i.Extends::(List.ofArray i.Implements) with
-        | [""] | [] | ["Object"] -> []
-        | specExtends -> specExtends
-    let extendsFromJson =
-        JsonItems.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
-        |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
-    match List.concat [extendsFromSpec; extendsFromJson] with
+    let finalExtends = 
+        let overridenExtendsFromJson =
+            JsonItems.getOverriddenItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+            |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+        if List.isEmpty overridenExtendsFromJson then
+            let extendsFromSpec =
+                match i.Extends::(List.ofArray i.Implements) with
+                | [""] | [] | ["Object"] -> []
+                | specExtends -> specExtends
+            let extendsFromJson =
+                JsonItems.getAddedItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
+                |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
+            List.concat [extendsFromSpec; extendsFromJson]
+        else
+            overridenExtendsFromJson
+    match finalExtends  with
     | [] -> ()
     | allExtends -> Pt.print " extends %s" (String.Join(", ", allExtends))
     Pt.print " {"
@@ -629,7 +673,10 @@ let EmitTypeDefs flavor =
     let EmitTypeDefFromJson (typeDef: ItemsType.Root) =
         Pt.printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
 
-    if flavor <> Flavor.Worker then
+    match flavor with
+    | Flavor.Worker ->
+        browser.Typedefs |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType) |> Array.iter EmitTypeDef
+    | _ ->
         browser.Typedefs |> Array.iter EmitTypeDef
 
     JsonItems.getAddedItems ItemKind.TypeDef flavor

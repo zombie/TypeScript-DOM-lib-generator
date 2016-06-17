@@ -954,5 +954,10 @@
         "name": "msCaching?",
         "interface": "XMLHttpRequest",
         "type": "string"
+    },
+    {
+        "kind": "typedef",
+        "name": "MouseWheelEvent",
+        "type": "WheelEvent"
     }
 ]

@@ -14208,7 +14208,6 @@ interface JsonWebKey {
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
-declare type MouseWheelEvent = WheelEvent;
 
 interface ErrorEventHandler {
     (message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void;
@@ -14582,3 +14581,4 @@ type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type payloadtype = number;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
+type MouseWheelEvent = WheelEvent;

@@ -1181,3 +1181,4 @@ declare function addEventListener(type: string, listener: EventListenerOrEventLi
 type IDBKeyPath = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
+type MouseWheelEvent = WheelEvent;

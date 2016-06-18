@@ -982,6 +982,7 @@
     {
         "kind": "typedef",
         "name": "MouseWheelEvent",
+        "flavor": "Web",
         "type": "WheelEvent"
     }
 ]

@@ -309,7 +309,8 @@ let allCallbackFuncs =
 
 let GetInterfaceByName = allInterfacesMap.TryFind
 let knownWorkerInterfaces =
-    [ "AbstractWorker"; "AudioBuffer"; "Blob"; "CloseEvent"; "Console"; "Coordinates"; "DecodeSuccessCallback";
+    [ "Algorithm"; "AlgorithmIdentifier"; "KeyAlgorithm"; "CryptoKey"; "AbstractWorker"; "AudioBuffer"; "Blob"; 
+      "CloseEvent"; "Console"; "Coordinates"; "DecodeSuccessCallback"; 
       "DecodeErrorCallback"; "DOMError"; "DOMException"; "DOMStringList"; "ErrorEvent"; "Event"; "ErrorEventHandler";
       "EventException"; "EventInit"; "EventListener"; "EventTarget"; "File"; "FileList"; "FileReader";
       "FunctionStringCallback"; "IDBCursor"; "IDBCursorWithValue"; "IDBDatabase"; "IDBFactory"; "IDBIndex";

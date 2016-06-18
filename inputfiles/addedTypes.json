@@ -46,7 +46,7 @@
             },
             {
                 "name": "[attribute: string]",
-                "type": "boolean | string"
+                "type": "boolean | string | undefined"
             }
         ]
     },

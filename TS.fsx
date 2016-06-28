@@ -243,10 +243,11 @@ let EmitEnums () =
     let emitEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
     browser.Enums |> Array.iter emitEnum
 
-let EmitEventHandlerThis = function
-| (_, "") -> "this: this"
-| (Worker, _) -> "this: WorkerGlobalScope"
-| _ -> "this: Window"
+let EmitEventHandlerThis flavor (prefix: string) =
+    if prefix = "" then "this: this, "
+    else match GetGlobalPollutor flavor with
+         | Some pollutor -> "this: " + pollutor.Name + ", "
+         | _ -> ""
 
 let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
     let emitPropertyFromJson (p: ItemsType.Root) =
@@ -276,7 +277,7 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
                                 getEventTypeInInterface p.EventHandler.Value i.Name
                             else 
                                 "Event"
-                        String.Format("({0}, ev: {1}) => any", EmitEventHandlerThis(flavor, prefix), eType)
+                        String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix, eType)
                     | _ -> DomTypeToTsType p.Type
                 let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
@@ -349,8 +350,8 @@ let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
         let eventType =
             getEventTypeInInterface eHandler.EventName i.Name
         Pt.printl
-            "%saddEventListener(type: \"%s\", listener: (%s, ev: %s) => any, useCapture?: boolean): void;"
-            prefix eHandler.EventName (EmitEventHandlerThis (flavor, prefix)) eventType
+            "%saddEventListener(type: \"%s\", listener: (%sev: %s) => any, useCapture?: boolean): void;"
+            prefix eHandler.EventName (EmitEventHandlerThis flavor prefix) eventType
 
     let fPrefix = if prefix.StartsWith "declare var" then "declare function " else ""
 

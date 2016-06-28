@@ -243,6 +243,12 @@ let EmitEnums () =
     let emitEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
     browser.Enums |> Array.iter emitEnum
 
+let EmitEventHandlerThis flavor (prefix: string) =
+    if prefix = "" then "this: this, "
+    else match GetGlobalPollutor flavor with
+         | Some pollutor -> "this: " + pollutor.Name + ", "
+         | _ -> ""
+
 let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
     let emitPropertyFromJson (p: ItemsType.Root) =
         let readOnlyModifier =
@@ -271,7 +277,7 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
                                 getEventTypeInInterface p.EventHandler.Value i.Name
                             else 
                                 "Event"
-                        String.Format("(ev: {0}) => any", eType)
+                        String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix, eType)
                     | _ -> DomTypeToTsType p.Type
                 let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
@@ -339,14 +345,13 @@ let rec EmitAllMembers flavor (i:Browser.Interface) =
         | Some i' -> EmitAllMembers flavor i'
         | _ -> ()
 
-let EmitEventHandlers (prefix: string) (i:Browser.Interface) =
+let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
     let emitEventHandler prefix (eHandler: EventHandler)  =
         let eventType =
             getEventTypeInInterface eHandler.EventName i.Name
-
         Pt.printl
-            "%saddEventListener(type: \"%s\", listener: (ev: %s) => any, useCapture?: boolean): void;"
-            prefix eHandler.EventName eventType
+            "%saddEventListener(type: \"%s\", listener: (%sev: %s) => any, useCapture?: boolean): void;"
+            prefix eHandler.EventName (EmitEventHandlerThis flavor prefix) eventType
 
     let fPrefix = if prefix.StartsWith "declare var" then "declare function " else ""
 
@@ -516,7 +521,7 @@ let EmitInterface flavor (i:Browser.Interface) =
     let prefix = ""
     EmitMembers flavor prefix EmitScope.InstanceOnly i
     EmitConstants i
-    EmitEventHandlers prefix i
+    EmitEventHandlers flavor prefix i
     EmitIndexers EmitScope.InstanceOnly i
 
     Pt.decreaseIndent()
@@ -571,7 +576,7 @@ let EmitStaticInterface flavor (i:Browser.Interface) =
 
         let prefix = ""
         EmitMembers flavor prefix EmitScope.InstanceOnly i
-        EmitEventHandlers prefix i
+        EmitEventHandlers flavor prefix i
         EmitIndexers EmitScope.InstanceOnly i
 
         Pt.decreaseIndent()
@@ -594,7 +599,7 @@ let EmitStaticInterface flavor (i:Browser.Interface) =
         let prefix = ""
         EmitMembers flavor prefix EmitScope.StaticOnly i
         EmitConstants i
-        EmitEventHandlers prefix i
+        EmitEventHandlers flavor prefix i
         EmitIndexers EmitScope.StaticOnly i
         emitAddedConstructor ()
         Pt.decreaseIndent()
@@ -709,7 +714,7 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     match GetGlobalPollutor flavor with
     | Some gp ->
         EmitAllMembers flavor gp
-        EmitEventHandlers "declare var " gp
+        EmitEventHandlers flavor "declare var " gp
     | _ -> ()
 
     EmitTypeDefs flavor

@@ -339,7 +339,7 @@
         "interface": "Element",
         "signatures": [
             "scrollBy(options?: ScrollToOptions): void",
-            "scroll(x: number, y: number): void"
+            "scrollBy(x: number, y: number): void"
         ]
     },
     {

@@ -3681,7 +3681,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     scrollTo(options?: ScrollToOptions): void;
     scrollTo(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
-    scroll(x: number, y: number): void;
+    scrollBy(x: number, y: number): void;
     addEventListener(type: "MSGestureChange", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "MSGestureDoubleTap", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "MSGestureEnd", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;

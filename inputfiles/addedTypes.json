@@ -442,7 +442,7 @@
         "kind": "method",
         "interface": "HTMLCanvasElement",
         "name": "toBlob",
-        "signatures": ["toBlob(callback: (result: Blob | null) => void, ... arguments: any[]): void"]
+        "signatures": ["toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"]
     },
     {
         "kind": "property",
@@ -1083,5 +1083,23 @@
         "name": "MouseWheelEvent",
         "flavor": "Web",
         "type": "WheelEvent"
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentElement",
+        "signatures": ["insertAdjacentElement(position: string, insertedElement: Element): Element | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentHTML",
+        "signatures": ["insertAdjacentHTML(where: string, html: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentText",
+        "signatures": ["insertAdjacentText(where: string, text: string): void"]
     }
 ]

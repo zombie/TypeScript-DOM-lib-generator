@@ -3682,6 +3682,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     scrollTo(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
     scrollBy(x: number, y: number): void;
+    insertAdjacentElement(position: string, insertedElement: Element): Element | null;
+    insertAdjacentHTML(where: string, html: string): void;
+    insertAdjacentText(where: string, text: string): void;
     addEventListener(type: "MSGestureChange", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "MSGestureDoubleTap", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "MSGestureEnd", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
@@ -4453,7 +4456,7 @@ interface HTMLCanvasElement extends HTMLElement {
       * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
       */
     toDataURL(type?: string, ...args: any[]): string;
-    toBlob(callback: (result: Blob | null) => void, ... arguments: any[]): void;
+    toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void;
 }
 
 declare var HTMLCanvasElement: {
@@ -4628,9 +4631,6 @@ interface HTMLElement extends Element {
     click(): void;
     dragDrop(): boolean;
     focus(): void;
-    insertAdjacentElement(position: string, insertedElement: Element): Element;
-    insertAdjacentHTML(where: string, html: string): void;
-    insertAdjacentText(where: string, text: string): void;
     msGetInputContext(): MSInputMethodContext;
     setActive(): void;
     addEventListener(type: "MSContentZoom", listener: (this: this, ev: UIEvent) => any, useCapture?: boolean): void;

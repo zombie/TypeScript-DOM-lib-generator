@@ -4446,7 +4446,7 @@ interface HTMLCanvasElement extends HTMLElement {
       * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
       */
     toDataURL(type?: string, ...args: any[]): string;
-    toBlob(callback: (result: Blob | null) => void, ... arguments: any[]): void;
+    toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void;
 }
 
 declare var HTMLCanvasElement: {

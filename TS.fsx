@@ -568,7 +568,7 @@ let EmitStaticInterface flavor (i:Browser.Interface) =
     // interface, and put the static members into the object literal type of 'declare var'
     // For static types with only static members, we put everything in the interface.
     // Because in the two cases the interface contains different things, it might be easier to
-    // read to seperate them into two functions.
+    // read to separate them into two functions.
     let emitStaticInterfaceWithNonStaticMembers () =
         Pt.resetIndent()
         EmitInterfaceDeclaration i

@@ -1101,5 +1101,12 @@
         "interface": "Element",
         "name": "insertAdjacentText",
         "signatures": ["insertAdjacentText(where: string, text: string): void"]
+    },
+    {
+        "kind": "property",
+        "name": "secureConnectionStart",
+        "interface": "PerformanceTiming",
+        "readonly": true,
+        "type": "number"
     }
 ]

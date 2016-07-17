@@ -9134,6 +9134,7 @@ interface PerformanceTiming {
     readonly responseStart: number;
     readonly unloadEventEnd: number;
     readonly unloadEventStart: number;
+    readonly secureConnectionStart: number;
     toJSON(): any;
 }
 

@@ -1108,5 +1108,17 @@
         "interface": "PerformanceTiming",
         "readonly": true,
         "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLinkElement",
+        "name": "integrity",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLScriptElement",
+        "name": "integrity",
+        "type": "string"
     }
 ]

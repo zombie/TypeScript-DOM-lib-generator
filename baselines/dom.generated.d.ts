@@ -5896,6 +5896,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
       */
     type: string;
     import?: Document;
+    integrity: string;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
@@ -6757,6 +6758,7 @@ interface HTMLScriptElement extends HTMLElement {
       * Sets or retrieves the MIME type for the associated scripting engine.
       */
     type: string;
+    integrity: string;
 }
 
 declare var HTMLScriptElement: {

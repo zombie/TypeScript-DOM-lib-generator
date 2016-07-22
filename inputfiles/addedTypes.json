@@ -653,7 +653,7 @@
         "extends": "Algorithm",
         "properties": [
             {
-                "name": "typedCurve",
+                "name": "namedCurve",
                 "type": "string"
             }
         ]

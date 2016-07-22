@@ -1120,5 +1120,12 @@
         "interface": "HTMLScriptElement",
         "name": "integrity",
         "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "KeyboardEvent",
+        "readonly": true,
+        "name": "code",
+        "type": "string"
     }
 ]

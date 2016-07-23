@@ -14098,7 +14098,7 @@ interface EcdsaParams extends Algorithm {
 }
 
 interface EcKeyGenParams extends Algorithm {
-    typedCurve: string;
+    namedCurve: string;
 }
 
 interface EcKeyAlgorithm extends KeyAlgorithm {

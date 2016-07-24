@@ -2288,7 +2288,7 @@ declare var DeviceRotationRate: {
     new(): DeviceRotationRate;
 }
 
-interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent {
+interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode {
     /**
       * Sets or gets the URL for the current document. 
       */
@@ -3351,7 +3351,7 @@ declare var Document: {
     new(): Document;
 }
 
-interface DocumentFragment extends Node, NodeSelector {
+interface DocumentFragment extends Node, NodeSelector, ParentNode {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
@@ -3420,7 +3420,7 @@ declare var EXT_texture_filter_anisotropic: {
     readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
 }
 
-interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelector, ChildNode {
+interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelector, ChildNode, ParentNode {
     readonly classList: DOMTokenList;
     className: string;
     readonly clientHeight: number;
@@ -14233,6 +14233,13 @@ interface JsonWebKey {
     qi?: string;
     oth?: RsaOtherPrimesInfo[];
     k?: string;
+}
+
+interface ParentNode {
+    readonly children: HTMLCollection;
+    readonly firstElementChild: Element;
+    readonly lastElementChild: Element;
+    readonly childElementCount: number;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

@@ -1127,5 +1127,11 @@
         "readonly": true,
         "name": "code",
         "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "KeyboardEventInit",
+        "name": "code?",
+        "type": "string"
     }
 ]

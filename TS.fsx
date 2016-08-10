@@ -262,7 +262,10 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
         | Some comment -> Pt.printl "%s" comment
         | _ -> ()
 
-        if Option.isNone (findRemovedItem p.Name ItemKind.Property i.Name) then
+        // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
+        if p.Name = "name" && i.Name = "Window" && emitScope = EmitScope.All then
+            Pt.printl "declare const name: never;"
+        elif Option.isNone (findRemovedItem p.Name ItemKind.Property i.Name) then
             match findOverriddenItem p.Name ItemKind.Property i.Name with
             | Some p' -> emitPropertyFromJson p'
             | None ->

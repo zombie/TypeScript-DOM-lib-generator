@@ -14305,7 +14305,7 @@ declare var location: Location;
 declare var locationbar: BarProp;
 declare var menubar: BarProp;
 declare var msCredentials: MSCredentials;
-declare var name: string;
+declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
 declare var onabort: (this: Window, ev: UIEvent) => any;

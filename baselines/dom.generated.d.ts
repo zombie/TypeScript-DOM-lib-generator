@@ -6185,7 +6185,7 @@ interface HTMLMediaElement extends HTMLElement {
       */
     canPlayType(type: string): string;
     /**
-      * Fires immediately after the client loads the object.
+      * Resets the audio or video object and loads a new media resource.
       */
     load(): void;
     /**

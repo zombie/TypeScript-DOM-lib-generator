@@ -126,6 +126,7 @@ interface KeyAlgorithm {
 }
 
 interface KeyboardEventInit extends EventModifierInit {
+    code?: string;
     key?: string;
     location?: number;
     repeat?: boolean;

@@ -1129,6 +1129,12 @@
         "type": "string"
     },
     {
+        "kind": "property",
+        "interface": "KeyboardEventInit",
+        "name": "code?",
+        "type": "string"
+    },
+    {
         "kind": "interface", 
         "name": "ParentNode",
         "flavor": "DOM",

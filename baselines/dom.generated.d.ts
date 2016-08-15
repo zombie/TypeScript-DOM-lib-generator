@@ -126,6 +126,7 @@ interface KeyAlgorithm {
 }
 
 interface KeyboardEventInit extends EventModifierInit {
+    code?: string;
     key?: string;
     location?: number;
     repeat?: boolean;
@@ -6185,7 +6186,7 @@ interface HTMLMediaElement extends HTMLElement {
       */
     canPlayType(type: string): string;
     /**
-      * Fires immediately after the client loads the object.
+      * Resets the audio or video object and loads a new media resource.
       */
     load(): void;
     /**
@@ -14312,7 +14313,7 @@ declare var location: Location;
 declare var locationbar: BarProp;
 declare var menubar: BarProp;
 declare var msCredentials: MSCredentials;
-declare var name: string;
+declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
 declare var onabort: (this: Window, ev: UIEvent) => any;

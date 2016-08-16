@@ -1133,5 +1133,47 @@
         "interface": "KeyboardEventInit",
         "name": "code?",
         "type": "string"
+    },
+    {
+        "kind": "interface", 
+        "name": "ParentNode",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "children",
+                "readonly": true,
+                "type": "HTMLCollection"
+            },
+            {
+                "name": "firstElementChild",
+                "readonly": true,
+                "type": "Element"
+            },
+            {
+                "name": "lastElementChild",
+                "readonly": true,
+                "type": "Element"
+            },
+            {
+                "name": "childElementCount",
+                "readonly": true,
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "Element"
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "Document"
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "DocumentFragment"
     }
 ]

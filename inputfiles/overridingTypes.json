@@ -809,5 +809,11 @@
          "readonly": true,
          "name": "files",
          "type": "FileList | null"
+     },
+     {
+         "kind": "property",
+         "interface": "Window",
+         "name": "opener",
+         "type": "any"
      }
  ]

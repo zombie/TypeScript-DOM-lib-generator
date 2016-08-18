@@ -12958,7 +12958,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onunload: (this: this, ev: Event) => any;
     onvolumechange: (this: this, ev: Event) => any;
     onwaiting: (this: this, ev: Event) => any;
-    readonly opener: Window;
+    opener: any;
     orientation: string | number;
     readonly outerHeight: number;
     readonly outerWidth: number;
@@ -14407,7 +14407,7 @@ declare var ontouchstart: (ev: TouchEvent) => any;
 declare var onunload: (this: Window, ev: Event) => any;
 declare var onvolumechange: (this: Window, ev: Event) => any;
 declare var onwaiting: (this: Window, ev: Event) => any;
-declare var opener: Window;
+declare var opener: any;
 declare var orientation: string | number;
 declare var outerHeight: number;
 declare var outerWidth: number;

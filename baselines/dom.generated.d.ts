@@ -13113,7 +13113,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     addEventListener(type: "waiting", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
     addEventListener(type: "wheel", listener: (this: this, ev: WheelEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-    [index: number]: Window;
 }
 
 declare var Window: {

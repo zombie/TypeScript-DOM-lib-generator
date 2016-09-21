@@ -133,8 +133,8 @@ let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
 let EmitQuerySelectorOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
         for e in tagNameToEleName do
-            Pt.printl "querySelector(selectors: \"%s\"): %s;" (e.Key.ToLower()) e.Value
-        Pt.printl "querySelector(selectors: string): Element;"
+            Pt.printl "querySelector(selectors: \"%s\"): %s | null;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelector(selectors: string): Element | null;"
 
 /// Emit overloads for the querySelectorAll method
 let EmitQuerySelectorAllOverloads (m: Browser.Method) =

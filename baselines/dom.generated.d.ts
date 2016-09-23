@@ -2173,7 +2173,7 @@ interface DataTransfer {
     effectAllowed: string;
     readonly files: FileList;
     readonly items: DataTransferItemList;
-    readonly types: DOMStringList;
+    readonly types: string[];
     clearData(format?: string): boolean;
     getData(format: string): string;
     setData(format: string, data: string): boolean;

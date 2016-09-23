@@ -845,5 +845,12 @@
         "interface": "History",
         "name": "replaceState",
         "signatures": ["replaceState(data: any, title: string, url?: string | null): void"]
+    },
+     {
+         "kind": "property",
+         "interface": "DataTransfer",
+         "readonly": true,
+         "name": "types",
+         "type": "string[]"
     }
  ]

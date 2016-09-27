@@ -7584,7 +7584,7 @@ declare var IDBCursorWithValue: {
 
 interface IDBDatabase extends EventTarget {
     readonly name: string;
-    readonly objectStoreNames: DOMStringList;
+    readonly objectStoreNames: string[];
     onabort: (this: this, ev: Event) => any;
     onerror: (this: this, ev: ErrorEvent) => any;
     version: number;
@@ -7650,7 +7650,7 @@ declare var IDBKeyRange: {
 }
 
 interface IDBObjectStore {
-    readonly indexNames: DOMStringList;
+    readonly indexNames: string[];
     keyPath: string | string[];
     readonly name: string;
     readonly transaction: IDBTransaction;

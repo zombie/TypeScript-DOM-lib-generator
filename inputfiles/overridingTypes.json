@@ -845,5 +845,47 @@
         "interface": "History",
         "name": "replaceState",
         "signatures": ["replaceState(data: any, title: string, url?: string | null): void"]
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "firstChild",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "lastChild",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "nextSibling",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "previousSibling",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "parentNode",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "parentElement",
+        "type": "HTMLElement | null"
     }
  ]

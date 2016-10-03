@@ -12996,6 +12996,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly window: Window;
     URL: typeof URL;
     Blob: typeof Blob;
+    customElements: CustomElementRegistry;
     alert(message?: any): void;
     blur(): void;
     cancelAnimationFrame(handle: number): void;
@@ -14282,6 +14283,16 @@ interface AssignedNodesOptions {
     flatten?: boolean;
 }
 
+interface ElementDefinitionOptions {
+    extends: string;
+}
+
+interface CustomElementRegistry {
+    define(name: string, constructor: Function, options?: ElementDefinitionOptions): void;
+    get(name: string): any;
+    whenDefined(name: string): Promise<void>;
+}
+
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface ErrorEventHandler {
@@ -14470,6 +14481,7 @@ declare var styleMedia: StyleMedia;
 declare var toolbar: BarProp;
 declare var top: Window;
 declare var window: Window;
+declare var customElements: CustomElementRegistry;
 declare function alert(message?: any): void;
 declare function blur(): void;
 declare function cancelAnimationFrame(handle: number): void;

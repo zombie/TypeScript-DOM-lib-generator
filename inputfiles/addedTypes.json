@@ -1155,7 +1155,7 @@
         "type": "string"
     },
     {
-        "kind": "interface", 
+        "kind": "interface",
         "name": "ParentNode",
         "flavor": "DOM",
         "properties": [
@@ -1220,5 +1220,149 @@
         "interface": "CanvasPattern",
         "name": "setTransform",
         "signatures": ["setTransform(matrix: SVGMatrix): void"]
+    },
+    {
+        "kind": "interface",
+        "name": "DocumentOrShadowRoot",
+        "flavor": "DOM",
+        "methods": [
+            {
+                "name": "getSelection",
+                "signatures": ["getSelection(): Selection | null"]
+            },
+            {
+                "name": "elementFromPoint",
+                "signatures": ["elementFromPoint(x: number, y: number): Element | null"]
+            },
+            {
+                "name": "elementsFromPoint",
+                "signatures": ["elementsFromPoint(x: number, y: number): Element[]"]
+            }
+        ],
+        "properties": [
+            {
+                "name": "activeElement",
+                "type": "Element | null",
+                "readonly": true
+            },
+            {
+                "name": "stylesheets",
+                "type": "StyleSheetList",
+                "readonly": true
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ShadowRoot",
+        "extends": "DocumentOrShadowRoot, DocumentFragment",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "host",
+                "type": "Element",
+                "readonly": true
+            },
+            {
+                "name": "innerHTML",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "attachShadow",
+        "signatures": ["attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"]
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "assignedSlot",
+        "type": "HTMLSlotElement | null",
+        "readonly": true
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "slot",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "shadowRoot",
+        "type": "ShadowRoot | null",
+        "readonly": true
+    },
+    {
+        "kind": "interface",
+        "name": "ShadowRootInit",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "mode",
+                "type": "'open'|'closed'"
+            },
+            {
+                "name": "delegatesFocus?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "Text",
+        "name": "assignedSlot",
+        "type": "HTMLSlotElement | null",
+        "readonly": true
+    },
+    {
+        "kind": "interface",
+        "name": "ShadowRootInit",
+        "extends": "HTMLElement",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "name",
+                "type": "string"
+            }
+        ],
+        "methods": [
+            {
+                "name": "assignedNodes",
+                "signatures": ["assignedNodes(options?: AssignedNodesOptions): Node[]"]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AssignedNodesOptions",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "flatten?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "EventInit",
+        "name": "scoped?",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "Event",
+        "name": "scoped",
+        "type": "boolean",
+        "readonly": true
+    },
+    {
+        "kind": "method",
+        "interface": "Event",
+        "name": "deepPath",
+        "signatures": ["deepPath(): EventTarget[]"]
     }
 ]

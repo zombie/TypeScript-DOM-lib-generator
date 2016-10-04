@@ -76,6 +76,7 @@ interface DoubleRange {
 }
 
 interface EventInit {
+    scoped?: boolean;
     bubbles?: boolean;
     cancelable?: boolean;
 }
@@ -2291,7 +2292,7 @@ declare var DeviceRotationRate: {
     new(): DeviceRotationRate;
 }
 
-interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode {
+interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode, DocumentOrShadowRoot {
     /**
       * Sets or gets the URL for the current document. 
       */
@@ -3467,6 +3468,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     readonly scrollWidth: number;
     readonly tagName: string;
     innerHTML: string;
+    readonly assignedSlot: HTMLSlotElement | null;
+    slot: string;
+    readonly shadowRoot: ShadowRoot | null;
     getAttribute(name: string): string | null;
     getAttributeNS(namespaceURI: string, localName: string): string;
     getAttributeNode(name: string): Attr;
@@ -3688,6 +3692,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     insertAdjacentElement(position: string, insertedElement: Element): Element | null;
     insertAdjacentHTML(where: string, html: string): void;
     insertAdjacentText(where: string, text: string): void;
+    attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
     addEventListener(type: "MSGestureChange", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "MSGestureDoubleTap", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "MSGestureEnd", listener: (this: this, ev: MSGestureEvent) => any, useCapture?: boolean): void;
@@ -3759,10 +3764,12 @@ interface Event {
     readonly target: EventTarget;
     readonly timeStamp: number;
     readonly type: string;
+    readonly scoped: boolean;
     initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
     preventDefault(): void;
     stopImmediatePropagation(): void;
     stopPropagation(): void;
+    deepPath(): EventTarget[];
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
     readonly CAPTURING_PHASE: number;
@@ -11521,6 +11528,7 @@ declare var SubtleCrypto: {
 
 interface Text extends CharacterData {
     readonly wholeText: string;
+    readonly assignedSlot: HTMLSlotElement | null;
     splitText(offset: number): Text;
 }
 
@@ -14245,6 +14253,33 @@ interface ParentNode {
     readonly firstElementChild: Element;
     readonly lastElementChild: Element;
     readonly childElementCount: number;
+}
+
+interface DocumentOrShadowRoot {
+    readonly activeElement: Element | null;
+    readonly stylesheets: StyleSheetList;
+    getSelection(): Selection | null;
+    elementFromPoint(x: number, y: number): Element | null;
+    elementsFromPoint(x: number, y: number): Element[];
+}
+
+interface ShadowRoot extends DocumentOrShadowRoot, DocumentFragment {
+    readonly host: Element;
+    innerHTML: string;
+}
+
+interface ShadowRootInit {
+    mode: 'open'|'closed';
+    delegatesFocus?: boolean;
+}
+
+interface ShadowRootInit extends HTMLElement {
+    name: string;
+    assignedNodes(options?: AssignedNodesOptions): Node[];
+}
+
+interface AssignedNodesOptions {
+    flatten?: boolean;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

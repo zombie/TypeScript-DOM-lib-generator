@@ -924,5 +924,10 @@
         "interface": "XPathExpression",
         "name": "evaluate",
         "signatures": ["evaluate(contextNode: Node, type: number, result: XPathResult | null): XPathResult"]
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode, DocumentOrShadowRoot",
+        "interface": "Document"
     }
  ]

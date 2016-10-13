@@ -902,6 +902,7 @@ declare var WorkerLocation: {
 }
 
 interface WorkerNavigator extends Object, NavigatorID, NavigatorOnLine {
+    readonly hardwareConcurrency: number;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

@@ -8715,6 +8715,7 @@ interface Navigator extends Object, NavigatorID, NavigatorOnLine, NavigatorConte
     readonly plugins: PluginArray;
     readonly pointerEnabled: boolean;
     readonly webdriver: boolean;
+    readonly hardwareConcurrency: number;
     getGamepads(): Gamepad[];
     javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;

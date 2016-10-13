@@ -13155,6 +13155,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly upload: XMLHttpRequestUpload;
     withCredentials: boolean;
     msCaching?: string;
+    readonly responseURL: string;
     abort(): void;
     getAllResponseHeaders(): string;
     getResponseHeader(header: string): string | null;

@@ -1187,5 +1187,12 @@
         "interface": "History",
         "name": "scrollRestoration",
         "type": "ScrollRestoration"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequest",
+        "readonly": true,
+        "name": "responseURL",
+        "type": "string"
     }
 ]

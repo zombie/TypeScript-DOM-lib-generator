@@ -428,6 +428,20 @@
     },
     {
         "kind": "property",
+        "interface": "Navigator",
+        "name": "hardwareConcurrency",
+        "readonly": true,
+        "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "WorkerNavigator",
+        "name": "hardwareConcurrency",
+        "readonly": true,
+        "type": "number"
+    },
+    {
+        "kind": "property",
         "interface": "HTMLLinkElement",
         "name": "import?",
         "type": "Document"

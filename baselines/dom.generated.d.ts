@@ -12855,7 +12855,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly devicePixelRatio: number;
     readonly doNotTrack: string;
     readonly document: Document;
-    event: Event;
+    event: Event | undefined;
     readonly external: External;
     readonly frameElement: Element;
     readonly frames: Window;
@@ -14304,7 +14304,7 @@ declare var defaultStatus: string;
 declare var devicePixelRatio: number;
 declare var doNotTrack: string;
 declare var document: Document;
-declare var event: Event;
+declare var event: Event | undefined;
 declare var external: External;
 declare var frameElement: Element;
 declare var frames: Window;

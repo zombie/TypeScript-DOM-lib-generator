@@ -1214,5 +1214,11 @@
         "readonly": true,
         "name": "responseURL",
         "type": "string"
+    },
+    {
+        "kind": "method",
+        "interface": "CanvasPattern",
+        "name": "setTransform",
+        "signatures": ["setTransform(matrix: SVGMatrix): void"]
     }
 ]

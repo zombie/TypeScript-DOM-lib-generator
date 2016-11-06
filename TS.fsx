@@ -28,7 +28,6 @@ let rec DomTypeToTsType (objDomType: string) =
     | "Date" -> "Date"
     | "DOMHighResTimeStamp" -> "number"
     | "DOMString" -> "string"
-    | "DOMStringList" -> "string[]"
     | "DOMTimeStamp" -> "number"
     | "EndOfStreamError" -> "number"
     | "EventListener" -> "EventListenerOrEventListenerObject"

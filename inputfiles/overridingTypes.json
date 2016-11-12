@@ -906,5 +906,23 @@
         "readonly": true,
         "name": "types",
         "type": "string[]"
+    },
+    {
+        "kind": "method",
+        "interface": "XPathEvaluator",
+        "name": "evaluate",
+        "signatures": ["evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "evaluate",
+        "signatures": ["evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"]
+    },
+    {
+        "kind": "method",
+        "interface": "XPathExpression",
+        "name": "evaluate",
+        "signatures": ["evaluate(contextNode: Node, type: number, result: XPathResult | null): XPathResult"]
     }
  ]

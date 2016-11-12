@@ -1319,7 +1319,7 @@
     },
     {
         "kind": "interface",
-        "name": "ShadowRootInit",
+        "name": "HTMLSlotElement",
         "extends": "HTMLElement",
         "flavor": "DOM",
         "properties": [

@@ -14273,7 +14273,7 @@ interface ShadowRootInit {
     delegatesFocus?: boolean;
 }
 
-interface ShadowRootInit extends HTMLElement {
+interface HTMLSlotElement extends HTMLElement {
     name: string;
     assignedNodes(options?: AssignedNodesOptions): Node[];
 }

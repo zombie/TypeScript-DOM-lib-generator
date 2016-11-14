@@ -14290,7 +14290,7 @@ interface ElementDefinitionOptions {
 interface CustomElementRegistry {
     define(name: string, constructor: Function, options?: ElementDefinitionOptions): void;
     get(name: string): any;
-    whenDefined(name: string): Promise<void>;
+    whenDefined(name: string): PromiseLike<void>;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

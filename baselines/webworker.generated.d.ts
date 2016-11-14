@@ -8,6 +8,7 @@ interface Algorithm {
 }
 
 interface EventInit {
+    scoped?: boolean;
     bubbles?: boolean;
     cancelable?: boolean;
 }
@@ -242,10 +243,12 @@ interface Event {
     readonly target: EventTarget;
     readonly timeStamp: number;
     readonly type: string;
+    readonly scoped: boolean;
     initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
     preventDefault(): void;
     stopImmediatePropagation(): void;
     stopPropagation(): void;
+    deepPath(): EventTarget[];
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
     readonly CAPTURING_PHASE: number;

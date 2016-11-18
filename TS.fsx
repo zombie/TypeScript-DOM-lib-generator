@@ -117,31 +117,41 @@ let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMT
 /// Emit overloads for the createElement method
 let EmitCreateElementOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "createElement" "Element" "string" then
-        for e in tagNameToEleName do
-            if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
-                Pt.printl "createElement(tagName: \"%s\"): %s;" e.Key e.Value
-        Pt.printl "createElement(tagName: string): HTMLElement;"
+        Pt.printl "createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];"
 
 /// Emit overloads for the getElementsByTagName method
 let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
-        for e in tagNameToEleName do
-            Pt.printl "getElementsByTagName(%s: \"%s\"): NodeListOf<%s>;" m.Params.[0].Name (e.Key.ToLower()) e.Value
-        Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
+        Pt.printl "getElementsByTagName<K extends keyof ElementTagNameMap>(%s: K): NodeListOf<ElementTagNameMap[K]>;" m.Params.[0].Name
 
 /// Emit overloads for the querySelector method
 let EmitQuerySelectorOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
-        for e in tagNameToEleName do
-            Pt.printl "querySelector(selectors: \"%s\"): %s | null;" (e.Key.ToLower()) e.Value
-        Pt.printl "querySelector(selectors: string): Element | null;"
+        Pt.printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
 
 /// Emit overloads for the querySelectorAll method
 let EmitQuerySelectorAllOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
-        for e in tagNameToEleName do
-            Pt.printl "querySelectorAll(selectors: \"%s\"): NodeListOf<%s>;" (e.Key.ToLower()) e.Value
-        Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
+        Pt.printl "querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;"
+let EmitHTMLElementTagNameMap () =
+    Pt.printl "interface HTMLElementTagNameMap {"
+    Pt.increaseIndent()
+    for e in tagNameToEleName do
+        if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
+            Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
+    Pt.printl "[x: string]: HTMLElement;"
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
+let EmitElementTagNameMap () =
+    Pt.printl "interface ElementTagNameMap {"
+    Pt.increaseIndent()
+    for e in tagNameToEleName do
+        Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
+    Pt.printl "[x: string]: Element;"
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
 
 /// Emit overloads for the createEvent method
 let EmitCreateEventOverloads (m: Browser.Method) =
@@ -726,6 +736,8 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     EmitCallBackFunctions flavor
 
     if flavor <> Worker then
+        EmitHTMLElementTagNameMap()
+        EmitElementTagNameMap()
         EmitNamedConstructors()
 
     match GetGlobalPollutor flavor with

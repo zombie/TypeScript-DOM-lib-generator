@@ -205,7 +205,7 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
                 let overloads = GetOverloads (Function.Method m) false
                 for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
                     let paramsString = ParamsToString pCombList
-                    let returnString = 
+                    let returnString =
                         let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
                         if isNullable then makeNullable returnType else returnType
                     Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
@@ -243,12 +243,11 @@ let EmitEnums () =
     let emitEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
     browser.Enums |> Array.iter emitEnum
 
-let EmitEventHandlerThis flavor (prefix: string) =
-    if prefix = "" then "this: this, "
+let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
+    if prefix = "" then "this: " + i.Name + ", "
     else match GetGlobalPollutor flavor with
          | Some pollutor -> "this: " + pollutor.Name + ", "
          | _ -> ""
-
 let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
     let emitPropertyFromJson (p: ItemsType.Root) =
         let readOnlyModifier =
@@ -272,15 +271,15 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
                 let pType =
                     match p.Type with
                     | "EventHandler" ->
-                        // Sometimes event handlers with the same name may actually handle different 
-                        // events in different interfaces. For example, "onerror" handles "ErrorEvent" 
+                        // Sometimes event handlers with the same name may actually handle different
+                        // events in different interfaces. For example, "onerror" handles "ErrorEvent"
                         // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
-                        let eType = 
+                        let eType =
                             if p.EventHandler.IsSome then
                                 getEventTypeInInterface p.EventHandler.Value i.Name
-                            else 
+                            else
                                 "Event"
-                        String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix, eType)
+                        String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix i, eType)
                     | _ -> DomTypeToTsType p.Type
                 let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
@@ -349,36 +348,24 @@ let rec EmitAllMembers flavor (i:Browser.Interface) =
         | _ -> ()
 
 let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
-    let emitEventHandler prefix (eHandler: EventHandler)  =
-        let eventType =
-            getEventTypeInInterface eHandler.EventName i.Name
+    let fPrefix =
+        if prefix.StartsWith "declare var" then "declare function " else ""
+
+    let emitEventHandler prefix (i:Browser.Interface) =
         Pt.printl
-            "%saddEventListener(type: \"%s\", listener: (%sev: %s) => any, useCapture?: boolean): void;"
-            prefix eHandler.EventName (EmitEventHandlerThis flavor prefix) eventType
+            "%saddEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, useCapture?: boolean): void;"
+            prefix i.Name i.Name i.Name
 
-    let fPrefix = if prefix.StartsWith "declare var" then "declare function " else ""
+    if iNameToEhList.ContainsKey i.Name  && not iNameToEhList.[i.Name].IsEmpty then
+        emitEventHandler fPrefix i
+    elif iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
+        iNameToEhParents.[i.Name]
+        |> List.sortBy (fun i -> i.Name)
+        |> List.iter (emitEventHandler fPrefix)
+        // let props = iNameToEhParents.[i.Name] |> List.map (fun i -> i.Name) |> List.fold (+) ""
+        // printfn "False --> %s -> [%s]" i.Name props
 
-    // Inheritance of "addEventListener" has two cases:
-    // 1. No own eventhandlers -> it inherits all the eventhandlers from base interfaces
-    // 2. Has own eventhandlers -> TypeScript's inherit mechanism erases all inherited eventhandler overloads
-    // so they need to be reprinted.
-    if iNameToEhList.ContainsKey i.Name then
-        iNameToEhList.[i.Name] |> List.sortBy (fun eh -> eh.EventName) |> List.iter (emitEventHandler fPrefix)
-        let shouldPrintAddEventListener =
-            if iNameToEhList.[i.Name].Length > 0 then true
-            else
-                match i.Extends, i.Implements.Length with
-                | _, 0 -> false
-                | "Object", 1 -> false
-                | _ ->
-                    let allParents = Array.append [|i.Extends|] i.Implements
-                    match allParents |> Array.filter iNameToEhList.ContainsKey |> Array.length with
-                    // only one of the implemented interface has EventHandlers
-                    | 0 | 1 -> false
-                    // multiple implemented interfaces have EventHandlers
-                    | _ -> true
-        if shouldPrintAddEventListener then
-           Pt.printl "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;" fPrefix
+    Pt.print ""
 
 let EmitConstructorSignature (i:Browser.Interface) =
     let emitConstructorSigFromJson (c: ItemsType.Root) =
@@ -430,7 +417,7 @@ let EmitNamedConstructors () =
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
-    let finalExtends = 
+    let finalExtends =
         let overridenExtendsFromJson =
             JsonItems.getOverriddenItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
             |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
@@ -516,7 +503,28 @@ let EmitIndexers emitScope (i: Browser.Interface) =
     |> Array.filter (matchInterface i.Name)
     |> Array.iter emitIndexerFromJson
 
+let EmitInterfaceEventMap flavor (i:Browser.Interface) =
+    let EmitInterfaceEventMapEntry (eHandler: EventHandler)  =
+        let eventType =
+            getEventTypeInInterface eHandler.EventName i.Name
+        Pt.printl "\"%s\": %s;" eHandler.EventName eventType
+
+    let ownEventHandles = if iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty then iNameToEhList.[i.Name] else []
+    if ownEventHandles.Length > 0 then
+        Pt.printl "interface %sEventMap extends EventMap" i.Name
+        if iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
+            let extends = iNameToEhParents.[i.Name] |> List.map (fun i -> i.Name + "EventMap")
+            Pt.print ", %s" (String.Join(", ", extends))
+        Pt.print " {"
+        Pt.increaseIndent()
+        ownEventHandles |> List.iter EmitInterfaceEventMapEntry
+        // Pt.printl "[x: string]: Event;"
+        Pt.decreaseIndent()
+        Pt.printl "}"
+        Pt.printl ""
 let EmitInterface flavor (i:Browser.Interface) =
+    EmitInterfaceEventMap flavor i
+
     Pt.resetIndent()
     EmitInterfaceDeclaration i
     Pt.increaseIndent()

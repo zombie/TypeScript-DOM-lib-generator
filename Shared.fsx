@@ -70,7 +70,7 @@ module JsonItems =
         | SignatureOverload
         | TypeDef
         | Extends
-        override x.ToString() = 
+        override x.ToString() =
             match x with
             | Property _ -> "property"
             | Method _ -> "method"
@@ -205,7 +205,7 @@ type Param =
 /// Function overload
 type Overload =
     { ParamCombinations : Param list
-      ReturnTypes : string list 
+      ReturnTypes : string list
       Nullable : Boolean }
     member this.IsEmpty = this.ParamCombinations.IsEmpty && (this.ReturnTypes = [ "void" ] || this.ReturnTypes = [ "" ])
 
@@ -320,8 +320,8 @@ let allCallbackFuncs =
 
 let GetInterfaceByName = allInterfacesMap.TryFind
 let knownWorkerInterfaces =
-    [ "Algorithm"; "AlgorithmIdentifier"; "KeyAlgorithm"; "CryptoKey"; "AbstractWorker"; "AudioBuffer"; "Blob"; 
-      "CloseEvent"; "Console"; "Coordinates"; "DecodeSuccessCallback"; 
+    [ "Algorithm"; "AlgorithmIdentifier"; "KeyAlgorithm"; "CryptoKey"; "AbstractWorker"; "AudioBuffer"; "Blob";
+      "CloseEvent"; "Console"; "Coordinates"; "DecodeSuccessCallback";
       "DecodeErrorCallback"; "DOMError"; "DOMException"; "DOMStringList"; "ErrorEvent"; "Event"; "ErrorEventHandler";
       "EventException"; "EventInit"; "EventListener"; "EventTarget"; "File"; "FileList"; "FileReader";
       "FunctionStringCallback"; "IDBCursor"; "IDBCursorWithValue"; "IDBDatabase"; "IDBFactory"; "IDBIndex";
@@ -400,7 +400,7 @@ let getEventTypeInInterface eName iName =
         -> "Event"
     | "XMLHttpRequest", _
         -> "ProgressEvent"
-    | _ -> 
+    | _ ->
         match eNameToEType.TryFind eName with
         | Some eType' -> eType'
         | _ -> "Event"
@@ -519,25 +519,31 @@ let iNameToEhList =
                        else None)
                 |> List.ofArray
             | None -> []
+        if ownEventHandler.Length > 0 then ownEventHandler else []
 
+    allInterfaces
+    |> Array.map (fun i -> (i.Name, GetEventHandler i))
+    |> Map.ofArray
+
+let iNameToEhParents =
+    let hasHandler (i : Browser.Interface) =
+        iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty
+
+    // Get all the event handlers from an interface and also from its inherited / implemented interfaces
+    let rec GetEventHandler(i : Browser.Interface) =
         let extendedEventHandler =
             match GetInterfaceByName i.Extends with
-            | Some i -> GetEventHandler i
-            | None -> []
+            | Some i when hasHandler i -> [i]
+            | _ -> []
 
         let implementedEventHandler =
             let implementis = i.Implements |> Array.map GetInterfaceByName
             [ for i' in implementis do
                   yield! match i' with
-                         | Some i -> GetEventHandler i
+                         | Some i ->  if hasHandler i then [i] else []
                          | None -> [] ]
 
-        // Reason is if an interface doesn't have its own string overload for the addEventListener method,
-        // the inherited overloads will be carried along; otherwise all of them will be overriten by its
-        // own overloads, therefore re-declaration is needed
-        if ownEventHandler.Length > 0 then
-            List.concat [ ownEventHandler; extendedEventHandler; implementedEventHandler ]
-        else []
+        List.concat [ extendedEventHandler; implementedEventHandler ]
 
     allInterfaces
     |> Array.map (fun i -> (i.Name, GetEventHandler i))
@@ -635,11 +641,11 @@ let GetOverloads (f : Function) (decomposeMultipleTypes : bool) =
     if decomposeMultipleTypes then
         [ for pComb in pCombList do
               yield { ParamCombinations = pComb
-                      ReturnTypes = rTypes 
+                      ReturnTypes = rTypes
                       Nullable = isNullable } ]
     else
         [ { ParamCombinations = getParams f
-            ReturnTypes = rTypes 
+            ReturnTypes = rTypes
             Nullable = isNullable } ]
 
 /// Define the subset of events that dedicated workers will use

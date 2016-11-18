@@ -1364,5 +1364,14 @@
         "interface": "Event",
         "name": "deepPath",
         "signatures": ["deepPath(): EventTarget[]"]
+    },
+    {
+        "kind": "interface",
+        "name": "EventMap",
+        "indexer": [
+            {
+                "signatures": ["[k: string]: Event"]
+            }
+        ]
     }
 ]

@@ -918,7 +918,7 @@ declare var AnimationEvent: {
     new(): AnimationEvent;
 }
 
-interface ApplicationCacheEventMap extends EventMap {
+interface ApplicationCacheEventMap {
     "cached": Event;
     "checking": Event;
     "downloading": Event;
@@ -949,6 +949,7 @@ interface ApplicationCache extends EventTarget {
     readonly UNCACHED: number;
     readonly UPDATEREADY: number;
     addEventListener<K extends keyof ApplicationCacheEventMap>(type: K, listener: (this: ApplicationCache, ev: ApplicationCacheEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var ApplicationCache: {
@@ -1000,7 +1001,7 @@ declare var AudioBuffer: {
     new(): AudioBuffer;
 }
 
-interface AudioBufferSourceNodeEventMap extends EventMap {
+interface AudioBufferSourceNodeEventMap {
     "ended": MediaStreamErrorEvent;
 }
 
@@ -1015,6 +1016,7 @@ interface AudioBufferSourceNode extends AudioNode {
     start(when?: number, offset?: number, duration?: number): void;
     stop(when?: number): void;
     addEventListener<K extends keyof AudioBufferSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioBufferSourceNodeEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var AudioBufferSourceNode: {
@@ -1135,7 +1137,7 @@ declare var AudioTrack: {
     new(): AudioTrack;
 }
 
-interface AudioTrackListEventMap extends EventMap {
+interface AudioTrackListEventMap {
     "addtrack": TrackEvent;
     "change": Event;
     "removetrack": TrackEvent;
@@ -1149,6 +1151,7 @@ interface AudioTrackList extends EventTarget {
     getTrackById(id: string): AudioTrack | null;
     item(index: number): AudioTrack;
     addEventListener<K extends keyof AudioTrackListEventMap>(type: K, listener: (this: AudioTrackList, ev: AudioTrackListEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [index: number]: AudioTrack;
 }
 
@@ -2173,6 +2176,7 @@ declare var DOMTokenList: {
 interface DataCue extends TextTrackCue {
     data: ArrayBuffer;
     addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var DataCue: {
@@ -2301,7 +2305,7 @@ declare var DeviceRotationRate: {
     new(): DeviceRotationRate;
 }
 
-interface DocumentEventMap extends EventMap, GlobalEventHandlersEventMap {
+interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "abort": UIEvent;
     "activate": UIEvent;
     "beforeactivate": UIEvent;
@@ -2890,6 +2894,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       * @param tagName The name of an element.
       */
     createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];
+    createElement(tagName: string): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "circle"): SVGCircleElement
@@ -3025,6 +3030,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       * @param name Specifies the name of an element.
       */
     getElementsByTagName<K extends keyof ElementTagNameMap>(tagname: K): NodeListOf<ElementTagNameMap[K]>;
+    getElementsByTagName(tagname: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
     getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
@@ -3095,6 +3101,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       */
     writeln(...content: string[]): void;
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var Document: {
@@ -3169,7 +3176,7 @@ declare var EXT_texture_filter_anisotropic: {
     readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
 }
 
-interface ElementEventMap extends EventMap, GlobalEventHandlersEventMap {
+interface ElementEventMap extends GlobalEventHandlersEventMap {
     "ariarequest": AriaRequestEvent;
     "command": CommandEvent;
     "gotpointercapture": PointerEvent;
@@ -3253,6 +3260,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getBoundingClientRect(): ClientRect;
     getClientRects(): ClientRectList;
     getElementsByTagName<K extends keyof ElementTagNameMap>(name: K): NodeListOf<ElementTagNameMap[K]>;
+    getElementsByTagName(name: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
     getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
@@ -3293,6 +3301,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     insertAdjacentText(where: string, text: string): void;
     attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
     addEventListener<K extends keyof ElementEventMap>(type: K, listener: (this: Element, ev: ElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var Element: {
@@ -3394,6 +3403,7 @@ interface FileReader extends EventTarget, MSBaseReader {
     readAsDataURL(blob: Blob): void;
     readAsText(blob: Blob, encoding?: string): void;
     addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var FileReader: {
@@ -3564,6 +3574,7 @@ interface HTMLAnchorElement extends HTMLElement {
       */
     toString(): string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLAnchorElement: {
@@ -3637,6 +3648,7 @@ interface HTMLAppletElement extends HTMLElement {
     vspace: number;
     width: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLAppletElement: {
@@ -3704,6 +3716,7 @@ interface HTMLAreaElement extends HTMLElement {
       */
     toString(): string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLAreaElement: {
@@ -3729,6 +3742,7 @@ declare var HTMLAreasCollection: {
 
 interface HTMLAudioElement extends HTMLMediaElement {
     addEventListener<K extends keyof HTMLMediaElementEventMap>(type: K, listener: (this: HTMLMediaElement, ev: HTMLMediaElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLAudioElement: {
@@ -3742,6 +3756,7 @@ interface HTMLBRElement extends HTMLElement {
       */
     clear: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLBRElement: {
@@ -3759,6 +3774,7 @@ interface HTMLBaseElement extends HTMLElement {
       */
     target: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLBaseElement: {
@@ -3776,6 +3792,7 @@ interface HTMLBaseFontElement extends HTMLElement, DOML2DeprecatedColorProperty 
       */
     size: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLBaseFontElement: {
@@ -3783,7 +3800,7 @@ declare var HTMLBaseFontElement: {
     new(): HTMLBaseFontElement;
 }
 
-interface HTMLBodyElementEventMap extends EventMap, HTMLElementEventMap {
+interface HTMLBodyElementEventMap extends HTMLElementEventMap {
     "afterprint": Event;
     "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
@@ -3832,6 +3849,7 @@ interface HTMLBodyElement extends HTMLElement {
     text: any;
     vLink: any;
     addEventListener<K extends keyof HTMLBodyElementEventMap>(type: K, listener: (this: HTMLBodyElement, ev: HTMLBodyElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLBodyElement: {
@@ -3904,6 +3922,7 @@ interface HTMLButtonElement extends HTMLElement {
       */
     setCustomValidity(error: string): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLButtonElement: {
@@ -3938,6 +3957,7 @@ interface HTMLCanvasElement extends HTMLElement {
     toDataURL(type?: string, ...args: any[]): string;
     toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLCanvasElement: {
@@ -3969,6 +3989,7 @@ declare var HTMLCollection: {
 interface HTMLDListElement extends HTMLElement {
     compact: boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLDListElement: {
@@ -3979,6 +4000,7 @@ declare var HTMLDListElement: {
 interface HTMLDataListElement extends HTMLElement {
     options: HTMLCollectionOf<HTMLOptionElement>;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLDataListElement: {
@@ -3989,6 +4011,7 @@ declare var HTMLDataListElement: {
 interface HTMLDirectoryElement extends HTMLElement {
     compact: boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLDirectoryElement: {
@@ -4006,6 +4029,7 @@ interface HTMLDivElement extends HTMLElement {
       */
     noWrap: boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLDivElement: {
@@ -4015,6 +4039,7 @@ declare var HTMLDivElement: {
 
 interface HTMLDocument extends Document {
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLDocument: {
@@ -4022,7 +4047,7 @@ declare var HTMLDocument: {
     new(): HTMLDocument;
 }
 
-interface HTMLElementEventMap extends EventMap, ElementEventMap {
+interface HTMLElementEventMap extends ElementEventMap {
     "abort": UIEvent;
     "activate": UIEvent;
     "beforeactivate": UIEvent;
@@ -4190,6 +4215,7 @@ interface HTMLElement extends Element {
     msGetInputContext(): MSInputMethodContext;
     setActive(): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLElement: {
@@ -4245,6 +4271,7 @@ interface HTMLEmbedElement extends HTMLElement, GetSVGDocument {
       */
     width: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLEmbedElement: {
@@ -4284,6 +4311,7 @@ interface HTMLFieldSetElement extends HTMLElement {
       */
     setCustomValidity(error: string): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLFieldSetElement: {
@@ -4297,6 +4325,7 @@ interface HTMLFontElement extends HTMLElement, DOML2DeprecatedColorProperty, DOM
       */
     face: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLFontElement: {
@@ -4372,6 +4401,7 @@ interface HTMLFormElement extends HTMLElement {
       */
     submit(): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [name: string]: any;
 }
 
@@ -4380,7 +4410,7 @@ declare var HTMLFormElement: {
     new(): HTMLFormElement;
 }
 
-interface HTMLFrameElementEventMap extends EventMap, HTMLElementEventMap {
+interface HTMLFrameElementEventMap extends HTMLElementEventMap {
     "load": Event;
 }
 
@@ -4450,6 +4480,7 @@ interface HTMLFrameElement extends HTMLElement, GetSVGDocument {
       */
     width: string | number;
     addEventListener<K extends keyof HTMLFrameElementEventMap>(type: K, listener: (this: HTMLFrameElement, ev: HTMLFrameElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLFrameElement: {
@@ -4457,7 +4488,7 @@ declare var HTMLFrameElement: {
     new(): HTMLFrameElement;
 }
 
-interface HTMLFrameSetElementEventMap extends EventMap, HTMLElementEventMap {
+interface HTMLFrameSetElementEventMap extends HTMLElementEventMap {
     "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
     "blur": FocusEvent;
@@ -4523,6 +4554,7 @@ interface HTMLFrameSetElement extends HTMLElement {
       */
     rows: string;
     addEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLFrameSetElement: {
@@ -4544,6 +4576,7 @@ interface HTMLHRElement extends HTMLElement, DOML2DeprecatedColorProperty, DOML2
       */
     width: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLHRElement: {
@@ -4554,6 +4587,7 @@ declare var HTMLHRElement: {
 interface HTMLHeadElement extends HTMLElement {
     profile: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLHeadElement: {
@@ -4567,6 +4601,7 @@ interface HTMLHeadingElement extends HTMLElement {
       */
     align: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLHeadingElement: {
@@ -4580,6 +4615,7 @@ interface HTMLHtmlElement extends HTMLElement {
       */
     version: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLHtmlElement: {
@@ -4587,7 +4623,7 @@ declare var HTMLHtmlElement: {
     new(): HTMLHtmlElement;
 }
 
-interface HTMLIFrameElementEventMap extends EventMap, HTMLElementEventMap {
+interface HTMLIFrameElementEventMap extends HTMLElementEventMap {
     "load": Event;
 }
 
@@ -4667,6 +4703,7 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
       */
     width: string;
     addEventListener<K extends keyof HTMLIFrameElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLIFrameElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLIFrameElement: {
@@ -4757,6 +4794,7 @@ interface HTMLImageElement extends HTMLElement {
     readonly y: number;
     msGetAsCastingSource(): any;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLImageElement: {
@@ -4969,6 +5007,7 @@ interface HTMLInputElement extends HTMLElement {
       */
     stepUp(n?: number): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLInputElement: {
@@ -4983,6 +5022,7 @@ interface HTMLLIElement extends HTMLElement {
       */
     value: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLLIElement: {
@@ -5000,6 +5040,7 @@ interface HTMLLabelElement extends HTMLElement {
       */
     htmlFor: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLLabelElement: {
@@ -5017,6 +5058,7 @@ interface HTMLLegendElement extends HTMLElement {
       */
     readonly form: HTMLFormElement;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLLegendElement: {
@@ -5061,6 +5103,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
     import?: Document;
     integrity: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLLinkElement: {
@@ -5078,6 +5121,7 @@ interface HTMLMapElement extends HTMLElement {
       */
     name: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLMapElement: {
@@ -5085,7 +5129,7 @@ declare var HTMLMapElement: {
     new(): HTMLMapElement;
 }
 
-interface HTMLMarqueeElementEventMap extends EventMap, HTMLElementEventMap {
+interface HTMLMarqueeElementEventMap extends HTMLElementEventMap {
     "bounce": Event;
     "finish": Event;
     "start": Event;
@@ -5109,6 +5153,7 @@ interface HTMLMarqueeElement extends HTMLElement {
     start(): void;
     stop(): void;
     addEventListener<K extends keyof HTMLMarqueeElementEventMap>(type: K, listener: (this: HTMLMarqueeElement, ev: HTMLMarqueeElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLMarqueeElement: {
@@ -5116,7 +5161,7 @@ declare var HTMLMarqueeElement: {
     new(): HTMLMarqueeElement;
 }
 
-interface HTMLMediaElementEventMap extends EventMap, HTMLElementEventMap {
+interface HTMLMediaElementEventMap extends HTMLElementEventMap {
     "encrypted": MediaEncryptedEvent;
     "msneedkey": MSMediaKeyNeededEvent;
 }
@@ -5290,6 +5335,7 @@ interface HTMLMediaElement extends HTMLElement {
     readonly NETWORK_LOADING: number;
     readonly NETWORK_NO_SOURCE: number;
     addEventListener<K extends keyof HTMLMediaElementEventMap>(type: K, listener: (this: HTMLMediaElement, ev: HTMLMediaElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLMediaElement: {
@@ -5310,6 +5356,7 @@ interface HTMLMenuElement extends HTMLElement {
     compact: boolean;
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLMenuElement: {
@@ -5343,6 +5390,7 @@ interface HTMLMetaElement extends HTMLElement {
       */
     url: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLMetaElement: {
@@ -5358,6 +5406,7 @@ interface HTMLMeterElement extends HTMLElement {
     optimum: number;
     value: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLMeterElement: {
@@ -5375,6 +5424,7 @@ interface HTMLModElement extends HTMLElement {
       */
     dateTime: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLModElement: {
@@ -5390,6 +5440,7 @@ interface HTMLOListElement extends HTMLElement {
     start: number;
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLOListElement: {
@@ -5510,6 +5561,7 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
       */
     setCustomValidity(error: string): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLObjectElement: {
@@ -5548,6 +5600,7 @@ interface HTMLOptGroupElement extends HTMLElement {
       */
     value: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLOptGroupElement: {
@@ -5586,6 +5639,7 @@ interface HTMLOptionElement extends HTMLElement {
       */
     value: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLOptionElement: {
@@ -5613,6 +5667,7 @@ interface HTMLParagraphElement extends HTMLElement {
     align: string;
     clear: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLParagraphElement: {
@@ -5638,6 +5693,7 @@ interface HTMLParamElement extends HTMLElement {
       */
     valueType: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLParamElement: {
@@ -5647,6 +5703,7 @@ declare var HTMLParamElement: {
 
 interface HTMLPictureElement extends HTMLElement {
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLPictureElement: {
@@ -5660,6 +5717,7 @@ interface HTMLPreElement extends HTMLElement {
       */
     width: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLPreElement: {
@@ -5685,6 +5743,7 @@ interface HTMLProgressElement extends HTMLElement {
       */
     value: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLProgressElement: {
@@ -5698,6 +5757,7 @@ interface HTMLQuoteElement extends HTMLElement {
       */
     cite: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLQuoteElement: {
@@ -5737,6 +5797,7 @@ interface HTMLScriptElement extends HTMLElement {
     type: string;
     integrity: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLScriptElement: {
@@ -5832,6 +5893,7 @@ interface HTMLSelectElement extends HTMLElement {
       */
     setCustomValidity(error: string): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [name: string]: any;
 }
 
@@ -5857,6 +5919,7 @@ interface HTMLSourceElement extends HTMLElement {
      */
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLSourceElement: {
@@ -5866,6 +5929,7 @@ declare var HTMLSourceElement: {
 
 interface HTMLSpanElement extends HTMLElement {
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLSpanElement: {
@@ -5884,6 +5948,7 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
       */
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLStyleElement: {
@@ -5901,6 +5966,7 @@ interface HTMLTableCaptionElement extends HTMLElement {
       */
     vAlign: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTableCaptionElement: {
@@ -5955,6 +6021,7 @@ interface HTMLTableCellElement extends HTMLElement, HTMLTableAlignment {
       */
     width: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTableCellElement: {
@@ -5976,6 +6043,7 @@ interface HTMLTableColElement extends HTMLElement, HTMLTableAlignment {
       */
     width: any;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTableColElement: {
@@ -6096,6 +6164,7 @@ interface HTMLTableElement extends HTMLElement {
       */
     insertRow(index?: number): HTMLTableRowElement;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTableElement: {
@@ -6148,6 +6217,7 @@ interface HTMLTableRowElement extends HTMLElement, HTMLTableAlignment {
       */
     insertCell(index?: number): HTMLTableDataCellElement;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTableRowElement: {
@@ -6175,6 +6245,7 @@ interface HTMLTableSectionElement extends HTMLElement, HTMLTableAlignment {
       */
     insertRow(index?: number): HTMLTableRowElement;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTableSectionElement: {
@@ -6185,6 +6256,7 @@ declare var HTMLTableSectionElement: {
 interface HTMLTemplateElement extends HTMLElement {
     readonly content: DocumentFragment;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTemplateElement: {
@@ -6291,6 +6363,7 @@ interface HTMLTextAreaElement extends HTMLElement {
       */
     setSelectionRange(start: number, end: number): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTextAreaElement: {
@@ -6304,6 +6377,7 @@ interface HTMLTitleElement extends HTMLElement {
       */
     text: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTitleElement: {
@@ -6324,6 +6398,7 @@ interface HTMLTrackElement extends HTMLElement {
     readonly LOADING: number;
     readonly NONE: number;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLTrackElement: {
@@ -6339,6 +6414,7 @@ interface HTMLUListElement extends HTMLElement {
     compact: boolean;
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLUListElement: {
@@ -6348,6 +6424,7 @@ declare var HTMLUListElement: {
 
 interface HTMLUnknownElement extends HTMLElement {
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLUnknownElement: {
@@ -6355,7 +6432,7 @@ declare var HTMLUnknownElement: {
     new(): HTMLUnknownElement;
 }
 
-interface HTMLVideoElementEventMap extends EventMap, HTMLMediaElementEventMap {
+interface HTMLVideoElementEventMap extends HTMLMediaElementEventMap {
     "MSVideoFormatChanged": Event;
     "MSVideoFrameStepCompleted": Event;
     "MSVideoOptimalLayoutChanged": Event;
@@ -6402,6 +6479,7 @@ interface HTMLVideoElement extends HTMLMediaElement {
     webkitExitFullScreen(): void;
     webkitExitFullscreen(): void;
     addEventListener<K extends keyof HTMLVideoElementEventMap>(type: K, listener: (this: HTMLVideoElement, ev: HTMLVideoElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var HTMLVideoElement: {
@@ -6468,7 +6546,7 @@ declare var IDBCursorWithValue: {
     new(): IDBCursorWithValue;
 }
 
-interface IDBDatabaseEventMap extends EventMap {
+interface IDBDatabaseEventMap {
     "abort": Event;
     "error": ErrorEvent;
 }
@@ -6486,6 +6564,7 @@ interface IDBDatabase extends EventTarget {
     transaction(storeNames: string | string[], mode?: string): IDBTransaction;
     addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBDatabase: {
@@ -6561,7 +6640,7 @@ declare var IDBObjectStore: {
     new(): IDBObjectStore;
 }
 
-interface IDBOpenDBRequestEventMap extends EventMap, IDBRequestEventMap {
+interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
     "blocked": Event;
     "upgradeneeded": IDBVersionChangeEvent;
 }
@@ -6570,6 +6649,7 @@ interface IDBOpenDBRequest extends IDBRequest {
     onblocked: (this: IDBOpenDBRequest, ev: Event) => any;
     onupgradeneeded: (this: IDBOpenDBRequest, ev: IDBVersionChangeEvent) => any;
     addEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBOpenDBRequest: {
@@ -6577,7 +6657,7 @@ declare var IDBOpenDBRequest: {
     new(): IDBOpenDBRequest;
 }
 
-interface IDBRequestEventMap extends EventMap {
+interface IDBRequestEventMap {
     "error": ErrorEvent;
     "success": Event;
 }
@@ -6591,6 +6671,7 @@ interface IDBRequest extends EventTarget {
     source: IDBObjectStore | IDBIndex | IDBCursor;
     readonly transaction: IDBTransaction;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBRequest: {
@@ -6598,7 +6679,7 @@ declare var IDBRequest: {
     new(): IDBRequest;
 }
 
-interface IDBTransactionEventMap extends EventMap {
+interface IDBTransactionEventMap {
     "abort": Event;
     "complete": Event;
     "error": ErrorEvent;
@@ -6617,6 +6698,7 @@ interface IDBTransaction extends EventTarget {
     readonly READ_WRITE: string;
     readonly VERSION_CHANGE: string;
     addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBTransaction: {
@@ -6748,7 +6830,7 @@ interface MSApp {
 }
 declare var MSApp: MSApp;
 
-interface MSAppAsyncOperationEventMap extends EventMap {
+interface MSAppAsyncOperationEventMap {
     "complete": Event;
     "error": ErrorEvent;
 }
@@ -6764,6 +6846,7 @@ interface MSAppAsyncOperation extends EventTarget {
     readonly ERROR: number;
     readonly STARTED: number;
     addEventListener<K extends keyof MSAppAsyncOperationEventMap>(type: K, listener: (this: MSAppAsyncOperation, ev: MSAppAsyncOperationEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSAppAsyncOperation: {
@@ -6918,6 +7001,7 @@ interface MSHTMLWebViewElement extends HTMLElement {
     refresh(): void;
     stop(): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSHTMLWebViewElement: {
@@ -6925,7 +7009,7 @@ declare var MSHTMLWebViewElement: {
     new(): MSHTMLWebViewElement;
 }
 
-interface MSInputMethodContextEventMap extends EventMap {
+interface MSInputMethodContextEventMap {
     "MSCandidateWindowHide": Event;
     "MSCandidateWindowShow": Event;
     "MSCandidateWindowUpdate": Event;
@@ -6943,6 +7027,7 @@ interface MSInputMethodContext extends EventTarget {
     hasComposition(): boolean;
     isCandidateWindowVisible(): boolean;
     addEventListener<K extends keyof MSInputMethodContextEventMap>(type: K, listener: (this: MSInputMethodContext, ev: MSInputMethodContextEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSInputMethodContext: {
@@ -7108,6 +7193,7 @@ interface MSStreamReader extends EventTarget, MSBaseReader {
     readAsDataURL(stream: MSStream, size?: number): void;
     readAsText(stream: MSStream, encoding?: string, size?: number): void;
     addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSStreamReader: {
@@ -7115,7 +7201,7 @@ declare var MSStreamReader: {
     new(): MSStreamReader;
 }
 
-interface MSWebViewAsyncOperationEventMap extends EventMap {
+interface MSWebViewAsyncOperationEventMap {
     "complete": Event;
     "error": ErrorEvent;
 }
@@ -7136,6 +7222,7 @@ interface MSWebViewAsyncOperation extends EventTarget {
     readonly TYPE_CREATE_DATA_PACKAGE_FROM_SELECTION: number;
     readonly TYPE_INVOKE_SCRIPT: number;
     addEventListener<K extends keyof MSWebViewAsyncOperationEventMap>(type: K, listener: (this: MSWebViewAsyncOperation, ev: MSWebViewAsyncOperationEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSWebViewAsyncOperation: {
@@ -7171,7 +7258,7 @@ declare var MediaDeviceInfo: {
     new(): MediaDeviceInfo;
 }
 
-interface MediaDevicesEventMap extends EventMap {
+interface MediaDevicesEventMap {
     "devicechange": Event;
 }
 
@@ -7181,6 +7268,7 @@ interface MediaDevices extends EventTarget {
     getSupportedConstraints(): MediaTrackSupportedConstraints;
     getUserMedia(constraints: MediaStreamConstraints): PromiseLike<MediaStream>;
     addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MediaDevices: {
@@ -7329,7 +7417,7 @@ declare var MediaSource: {
     isTypeSupported(type: string): boolean;
 }
 
-interface MediaStreamEventMap extends EventMap {
+interface MediaStreamEventMap {
     "active": Event;
     "addtrack": TrackEvent;
     "inactive": Event;
@@ -7352,6 +7440,7 @@ interface MediaStream extends EventTarget {
     removeTrack(track: MediaStreamTrack): void;
     stop(): void;
     addEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MediaStream: {
@@ -7387,7 +7476,7 @@ declare var MediaStreamErrorEvent: {
     new(type: string, eventInitDict?: MediaStreamErrorEventInit): MediaStreamErrorEvent;
 }
 
-interface MediaStreamTrackEventMap extends EventMap {
+interface MediaStreamTrackEventMap {
     "ended": MediaStreamErrorEvent;
     "mute": Event;
     "overconstrained": MediaStreamErrorEvent;
@@ -7414,6 +7503,7 @@ interface MediaStreamTrack extends EventTarget {
     getSettings(): MediaTrackSettings;
     stop(): void;
     addEventListener<K extends keyof MediaStreamTrackEventMap>(type: K, listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MediaStreamTrack: {
@@ -7453,7 +7543,7 @@ declare var MessageEvent: {
     new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
 }
 
-interface MessagePortEventMap extends EventMap {
+interface MessagePortEventMap {
     "message": MessageEvent;
 }
 
@@ -7463,6 +7553,7 @@ interface MessagePort extends EventTarget {
     postMessage(message?: any, ports?: any): void;
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MessagePort: {
@@ -7813,7 +7904,7 @@ declare var OfflineAudioCompletionEvent: {
     new(): OfflineAudioCompletionEvent;
 }
 
-interface OfflineAudioContextEventMap extends EventMap {
+interface OfflineAudioContextEventMap {
     "complete": Event;
 }
 
@@ -7821,6 +7912,7 @@ interface OfflineAudioContext extends AudioContext {
     oncomplete: (this: OfflineAudioContext, ev: Event) => any;
     startRendering(): PromiseLike<AudioBuffer>;
     addEventListener<K extends keyof OfflineAudioContextEventMap>(type: K, listener: (this: OfflineAudioContext, ev: OfflineAudioContextEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var OfflineAudioContext: {
@@ -7828,7 +7920,7 @@ declare var OfflineAudioContext: {
     new(numberOfChannels: number, length: number, sampleRate: number): OfflineAudioContext;
 }
 
-interface OscillatorNodeEventMap extends EventMap {
+interface OscillatorNodeEventMap {
     "ended": MediaStreamErrorEvent;
 }
 
@@ -7841,6 +7933,7 @@ interface OscillatorNode extends AudioNode {
     start(when?: number): void;
     stop(when?: number): void;
     addEventListener<K extends keyof OscillatorNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: OscillatorNodeEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var OscillatorNode: {
@@ -8218,7 +8311,7 @@ declare var RTCDTMFToneChangeEvent: {
     new(type: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
 }
 
-interface RTCDtlsTransportEventMap extends EventMap {
+interface RTCDtlsTransportEventMap {
     "dtlsstatechange": RTCDtlsTransportStateChangedEvent;
     "error": ErrorEvent;
 }
@@ -8234,6 +8327,7 @@ interface RTCDtlsTransport extends RTCStatsProvider {
     start(remoteParameters: RTCDtlsParameters): void;
     stop(): void;
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCDtlsTransport: {
@@ -8250,7 +8344,7 @@ declare var RTCDtlsTransportStateChangedEvent: {
     new(): RTCDtlsTransportStateChangedEvent;
 }
 
-interface RTCDtmfSenderEventMap extends EventMap {
+interface RTCDtmfSenderEventMap {
     "tonechange": RTCDTMFToneChangeEvent;
 }
 
@@ -8263,6 +8357,7 @@ interface RTCDtmfSender extends EventTarget {
     readonly toneBuffer: string;
     insertDTMF(tones: string, duration?: number, interToneGap?: number): void;
     addEventListener<K extends keyof RTCDtmfSenderEventMap>(type: K, listener: (this: RTCDtmfSender, ev: RTCDtmfSenderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCDtmfSender: {
@@ -8279,7 +8374,7 @@ declare var RTCIceCandidatePairChangedEvent: {
     new(): RTCIceCandidatePairChangedEvent;
 }
 
-interface RTCIceGathererEventMap extends EventMap {
+interface RTCIceGathererEventMap {
     "error": ErrorEvent;
     "localcandidate": RTCIceGathererEvent;
 }
@@ -8292,6 +8387,7 @@ interface RTCIceGatherer extends RTCStatsProvider {
     getLocalCandidates(): RTCIceCandidate[];
     getLocalParameters(): RTCIceParameters;
     addEventListener<K extends keyof RTCIceGathererEventMap>(type: K, listener: (this: RTCIceGatherer, ev: RTCIceGathererEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCIceGatherer: {
@@ -8308,7 +8404,7 @@ declare var RTCIceGathererEvent: {
     new(): RTCIceGathererEvent;
 }
 
-interface RTCIceTransportEventMap extends EventMap {
+interface RTCIceTransportEventMap {
     "candidatepairchange": RTCIceCandidatePairChangedEvent;
     "icestatechange": RTCIceTransportStateChangedEvent;
 }
@@ -8329,6 +8425,7 @@ interface RTCIceTransport extends RTCStatsProvider {
     start(gatherer: RTCIceGatherer, remoteParameters: RTCIceParameters, role?: string): void;
     stop(): void;
     addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCIceTransport: {
@@ -8345,7 +8442,7 @@ declare var RTCIceTransportStateChangedEvent: {
     new(): RTCIceTransportStateChangedEvent;
 }
 
-interface RTCRtpReceiverEventMap extends EventMap {
+interface RTCRtpReceiverEventMap {
     "error": ErrorEvent;
 }
 
@@ -8360,6 +8457,7 @@ interface RTCRtpReceiver extends RTCStatsProvider {
     setTransport(transport: RTCDtlsTransport | RTCSrtpSdesTransport, rtcpTransport?: RTCDtlsTransport): void;
     stop(): void;
     addEventListener<K extends keyof RTCRtpReceiverEventMap>(type: K, listener: (this: RTCRtpReceiver, ev: RTCRtpReceiverEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCRtpReceiver: {
@@ -8368,7 +8466,7 @@ declare var RTCRtpReceiver: {
     getCapabilities(kind?: string): RTCRtpCapabilities;
 }
 
-interface RTCRtpSenderEventMap extends EventMap {
+interface RTCRtpSenderEventMap {
     "error": ErrorEvent;
     "ssrcconflict": RTCSsrcConflictEvent;
 }
@@ -8384,6 +8482,7 @@ interface RTCRtpSender extends RTCStatsProvider {
     setTransport(transport: RTCDtlsTransport | RTCSrtpSdesTransport, rtcpTransport?: RTCDtlsTransport): void;
     stop(): void;
     addEventListener<K extends keyof RTCRtpSenderEventMap>(type: K, listener: (this: RTCRtpSender, ev: RTCRtpSenderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCRtpSender: {
@@ -8392,7 +8491,7 @@ declare var RTCRtpSender: {
     getCapabilities(kind?: string): RTCRtpCapabilities;
 }
 
-interface RTCSrtpSdesTransportEventMap extends EventMap {
+interface RTCSrtpSdesTransportEventMap {
     "error": ErrorEvent;
 }
 
@@ -8400,6 +8499,7 @@ interface RTCSrtpSdesTransport extends EventTarget {
     onerror: ((this: RTCSrtpSdesTransport, ev: ErrorEvent) => any) | null;
     readonly transport: RTCIceTransport;
     addEventListener<K extends keyof RTCSrtpSdesTransportEventMap>(type: K, listener: (this: RTCSrtpSdesTransport, ev: RTCSrtpSdesTransportEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var RTCSrtpSdesTransport: {
@@ -8474,6 +8574,7 @@ declare var Range: {
 interface SVGAElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired, SVGURIReference {
     readonly target: SVGAnimatedString;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGAElement: {
@@ -8630,6 +8731,7 @@ interface SVGCircleElement extends SVGElement, SVGStylable, SVGTransformable, SV
     readonly cy: SVGAnimatedLength;
     readonly r: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGCircleElement: {
@@ -8640,6 +8742,7 @@ declare var SVGCircleElement: {
 interface SVGClipPathElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired, SVGUnitTypes {
     readonly clipPathUnits: SVGAnimatedEnumeration;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGClipPathElement: {
@@ -8662,6 +8765,7 @@ interface SVGComponentTransferFunctionElement extends SVGElement {
     readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGComponentTransferFunctionElement: {
@@ -8677,6 +8781,7 @@ declare var SVGComponentTransferFunctionElement: {
 
 interface SVGDefsElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGDefsElement: {
@@ -8686,6 +8791,7 @@ declare var SVGDefsElement: {
 
 interface SVGDescElement extends SVGElement, SVGStylable, SVGLangSpace {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGDescElement: {
@@ -8693,7 +8799,7 @@ declare var SVGDescElement: {
     new(): SVGDescElement;
 }
 
-interface SVGElementEventMap extends EventMap, ElementEventMap {
+interface SVGElementEventMap extends ElementEventMap {
     "click": MouseEvent;
     "dblclick": MouseEvent;
     "focusin": FocusEvent;
@@ -8722,6 +8828,7 @@ interface SVGElement extends Element {
     xmlbase: string;
     className: any;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGElement: {
@@ -8761,6 +8868,7 @@ interface SVGEllipseElement extends SVGElement, SVGStylable, SVGTransformable, S
     readonly rx: SVGAnimatedLength;
     readonly ry: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGEllipseElement: {
@@ -8790,6 +8898,7 @@ interface SVGFEBlendElement extends SVGElement, SVGFilterPrimitiveStandardAttrib
     readonly SVG_FEBLEND_MODE_SOFT_LIGHT: number;
     readonly SVG_FEBLEND_MODE_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEBlendElement: {
@@ -8824,6 +8933,7 @@ interface SVGFEColorMatrixElement extends SVGElement, SVGFilterPrimitiveStandard
     readonly SVG_FECOLORMATRIX_TYPE_SATURATE: number;
     readonly SVG_FECOLORMATRIX_TYPE_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEColorMatrixElement: {
@@ -8839,6 +8949,7 @@ declare var SVGFEColorMatrixElement: {
 interface SVGFEComponentTransferElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
     readonly in1: SVGAnimatedString;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEComponentTransferElement: {
@@ -8862,6 +8973,7 @@ interface SVGFECompositeElement extends SVGElement, SVGFilterPrimitiveStandardAt
     readonly SVG_FECOMPOSITE_OPERATOR_UNKNOWN: number;
     readonly SVG_FECOMPOSITE_OPERATOR_XOR: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFECompositeElement: {
@@ -8894,6 +9006,7 @@ interface SVGFEConvolveMatrixElement extends SVGElement, SVGFilterPrimitiveStand
     readonly SVG_EDGEMODE_UNKNOWN: number;
     readonly SVG_EDGEMODE_WRAP: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEConvolveMatrixElement: {
@@ -8912,6 +9025,7 @@ interface SVGFEDiffuseLightingElement extends SVGElement, SVGFilterPrimitiveStan
     readonly kernelUnitLengthY: SVGAnimatedNumber;
     readonly surfaceScale: SVGAnimatedNumber;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEDiffuseLightingElement: {
@@ -8931,6 +9045,7 @@ interface SVGFEDisplacementMapElement extends SVGElement, SVGFilterPrimitiveStan
     readonly SVG_CHANNEL_R: number;
     readonly SVG_CHANNEL_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEDisplacementMapElement: {
@@ -8947,6 +9062,7 @@ interface SVGFEDistantLightElement extends SVGElement {
     readonly azimuth: SVGAnimatedNumber;
     readonly elevation: SVGAnimatedNumber;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEDistantLightElement: {
@@ -8956,6 +9072,7 @@ declare var SVGFEDistantLightElement: {
 
 interface SVGFEFloodElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEFloodElement: {
@@ -9001,6 +9118,7 @@ interface SVGFEGaussianBlurElement extends SVGElement, SVGFilterPrimitiveStandar
     readonly stdDeviationY: SVGAnimatedNumber;
     setStdDeviation(stdDeviationX: number, stdDeviationY: number): void;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEGaussianBlurElement: {
@@ -9011,6 +9129,7 @@ declare var SVGFEGaussianBlurElement: {
 interface SVGFEImageElement extends SVGElement, SVGFilterPrimitiveStandardAttributes, SVGLangSpace, SVGURIReference, SVGExternalResourcesRequired {
     readonly preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEImageElement: {
@@ -9020,6 +9139,7 @@ declare var SVGFEImageElement: {
 
 interface SVGFEMergeElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEMergeElement: {
@@ -9030,6 +9150,7 @@ declare var SVGFEMergeElement: {
 interface SVGFEMergeNodeElement extends SVGElement {
     readonly in1: SVGAnimatedString;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEMergeNodeElement: {
@@ -9046,6 +9167,7 @@ interface SVGFEMorphologyElement extends SVGElement, SVGFilterPrimitiveStandardA
     readonly SVG_MORPHOLOGY_OPERATOR_ERODE: number;
     readonly SVG_MORPHOLOGY_OPERATOR_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEMorphologyElement: {
@@ -9061,6 +9183,7 @@ interface SVGFEOffsetElement extends SVGElement, SVGFilterPrimitiveStandardAttri
     readonly dy: SVGAnimatedNumber;
     readonly in1: SVGAnimatedString;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEOffsetElement: {
@@ -9073,6 +9196,7 @@ interface SVGFEPointLightElement extends SVGElement {
     readonly y: SVGAnimatedNumber;
     readonly z: SVGAnimatedNumber;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFEPointLightElement: {
@@ -9088,6 +9212,7 @@ interface SVGFESpecularLightingElement extends SVGElement, SVGFilterPrimitiveSta
     readonly specularExponent: SVGAnimatedNumber;
     readonly surfaceScale: SVGAnimatedNumber;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFESpecularLightingElement: {
@@ -9105,6 +9230,7 @@ interface SVGFESpotLightElement extends SVGElement {
     readonly y: SVGAnimatedNumber;
     readonly z: SVGAnimatedNumber;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFESpotLightElement: {
@@ -9115,6 +9241,7 @@ declare var SVGFESpotLightElement: {
 interface SVGFETileElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
     readonly in1: SVGAnimatedString;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFETileElement: {
@@ -9136,6 +9263,7 @@ interface SVGFETurbulenceElement extends SVGElement, SVGFilterPrimitiveStandardA
     readonly SVG_TURBULENCE_TYPE_TURBULENCE: number;
     readonly SVG_TURBULENCE_TYPE_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFETurbulenceElement: {
@@ -9160,6 +9288,7 @@ interface SVGFilterElement extends SVGElement, SVGUnitTypes, SVGStylable, SVGLan
     readonly y: SVGAnimatedLength;
     setFilterRes(filterResX: number, filterResY: number): void;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGFilterElement: {
@@ -9173,6 +9302,7 @@ interface SVGForeignObjectElement extends SVGElement, SVGStylable, SVGTransforma
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGForeignObjectElement: {
@@ -9182,6 +9312,7 @@ declare var SVGForeignObjectElement: {
 
 interface SVGGElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGGElement: {
@@ -9198,6 +9329,7 @@ interface SVGGradientElement extends SVGElement, SVGStylable, SVGExternalResourc
     readonly SVG_SPREADMETHOD_REPEAT: number;
     readonly SVG_SPREADMETHOD_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGGradientElement: {
@@ -9216,6 +9348,7 @@ interface SVGImageElement extends SVGElement, SVGStylable, SVGTransformable, SVG
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGImageElement: {
@@ -9281,6 +9414,7 @@ interface SVGLineElement extends SVGElement, SVGStylable, SVGTransformable, SVGT
     readonly y1: SVGAnimatedLength;
     readonly y2: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGLineElement: {
@@ -9317,6 +9451,7 @@ interface SVGMarkerElement extends SVGElement, SVGStylable, SVGLangSpace, SVGExt
     readonly SVG_MARKER_ORIENT_AUTO: number;
     readonly SVG_MARKER_ORIENT_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGMarkerElement: {
@@ -9338,6 +9473,7 @@ interface SVGMaskElement extends SVGElement, SVGStylable, SVGTests, SVGLangSpace
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGMaskElement: {
@@ -9372,6 +9508,7 @@ declare var SVGMatrix: {
 
 interface SVGMetadataElement extends SVGElement {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGMetadataElement: {
@@ -9428,6 +9565,7 @@ interface SVGPathElement extends SVGElement, SVGStylable, SVGTransformable, SVGT
     getPointAtLength(distance: number): SVGPoint;
     getTotalLength(): number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGPathElement: {
@@ -9720,6 +9858,7 @@ interface SVGPatternElement extends SVGElement, SVGStylable, SVGTests, SVGLangSp
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGPatternElement: {
@@ -9756,6 +9895,7 @@ declare var SVGPointList: {
 
 interface SVGPolygonElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired, SVGAnimatedPoints {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGPolygonElement: {
@@ -9765,6 +9905,7 @@ declare var SVGPolygonElement: {
 
 interface SVGPolylineElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired, SVGAnimatedPoints {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGPolylineElement: {
@@ -9843,6 +9984,7 @@ interface SVGRectElement extends SVGElement, SVGStylable, SVGTransformable, SVGT
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGRectElement: {
@@ -9850,7 +9992,7 @@ declare var SVGRectElement: {
     new(): SVGRectElement;
 }
 
-interface SVGSVGElementEventMap extends EventMap, SVGElementEventMap {
+interface SVGSVGElementEventMap extends SVGElementEventMap {
     "SVGAbort": Event;
     "SVGError": Event;
     "resize": UIEvent;
@@ -9903,6 +10045,7 @@ interface SVGSVGElement extends SVGElement, DocumentEvent, SVGLocatable, SVGTest
     unsuspendRedraw(suspendHandleID: number): void;
     unsuspendRedrawAll(): void;
     addEventListener<K extends keyof SVGSVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGSVGElement: {
@@ -9913,6 +10056,7 @@ declare var SVGSVGElement: {
 interface SVGScriptElement extends SVGElement, SVGExternalResourcesRequired, SVGURIReference {
     type: string;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGScriptElement: {
@@ -9923,6 +10067,7 @@ declare var SVGScriptElement: {
 interface SVGStopElement extends SVGElement, SVGStylable {
     readonly offset: SVGAnimatedNumber;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGStopElement: {
@@ -9952,6 +10097,7 @@ interface SVGStyleElement extends SVGElement, SVGLangSpace {
     title: string;
     type: string;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGStyleElement: {
@@ -9961,6 +10107,7 @@ declare var SVGStyleElement: {
 
 interface SVGSwitchElement extends SVGElement, SVGStylable, SVGTransformable, SVGTests, SVGLangSpace, SVGExternalResourcesRequired {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGSwitchElement: {
@@ -9970,6 +10117,7 @@ declare var SVGSwitchElement: {
 
 interface SVGSymbolElement extends SVGElement, SVGStylable, SVGLangSpace, SVGExternalResourcesRequired, SVGFitToViewBox {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGSymbolElement: {
@@ -10001,6 +10149,7 @@ interface SVGTextContentElement extends SVGElement, SVGStylable, SVGTests, SVGLa
     readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
     readonly LENGTHADJUST_UNKNOWN: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGTextContentElement: {
@@ -10057,6 +10206,7 @@ declare var SVGTextPositioningElement: {
 
 interface SVGTitleElement extends SVGElement, SVGStylable, SVGLangSpace {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGTitleElement: {
@@ -10128,6 +10278,7 @@ interface SVGUseElement extends SVGElement, SVGStylable, SVGTransformable, SVGTe
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGUseElement: {
@@ -10138,6 +10289,7 @@ declare var SVGUseElement: {
 interface SVGViewElement extends SVGElement, SVGExternalResourcesRequired, SVGFitToViewBox, SVGZoomAndPan {
     readonly viewTarget: SVGStringList;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var SVGViewElement: {
@@ -10168,7 +10320,7 @@ declare var SVGZoomEvent: {
     new(): SVGZoomEvent;
 }
 
-interface ScreenEventMap extends EventMap {
+interface ScreenEventMap {
     "MSOrientationChange": Event;
 }
 
@@ -10192,6 +10344,7 @@ interface Screen extends EventTarget {
     msLockOrientation(orientations: string | string[]): boolean;
     msUnlockOrientation(): void;
     addEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var Screen: {
@@ -10209,7 +10362,7 @@ declare var ScriptNotifyEvent: {
     new(): ScriptNotifyEvent;
 }
 
-interface ScriptProcessorNodeEventMap extends EventMap {
+interface ScriptProcessorNodeEventMap {
     "audioprocess": AudioProcessingEvent;
 }
 
@@ -10217,6 +10370,7 @@ interface ScriptProcessorNode extends AudioNode {
     readonly bufferSize: number;
     onaudioprocess: (this: ScriptProcessorNode, ev: AudioProcessingEvent) => any;
     addEventListener<K extends keyof ScriptProcessorNodeEventMap>(type: K, listener: (this: ScriptProcessorNode, ev: ScriptProcessorNodeEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var ScriptProcessorNode: {
@@ -10447,7 +10601,7 @@ declare var TextMetrics: {
     new(): TextMetrics;
 }
 
-interface TextTrackEventMap extends EventMap {
+interface TextTrackEventMap {
     "cuechange": Event;
     "error": ErrorEvent;
     "load": Event;
@@ -10475,6 +10629,7 @@ interface TextTrack extends EventTarget {
     readonly NONE: number;
     readonly SHOWING: number;
     addEventListener<K extends keyof TextTrackEventMap>(type: K, listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var TextTrack: {
@@ -10489,7 +10644,7 @@ declare var TextTrack: {
     readonly SHOWING: number;
 }
 
-interface TextTrackCueEventMap extends EventMap {
+interface TextTrackCueEventMap {
     "enter": Event;
     "exit": Event;
 }
@@ -10505,6 +10660,7 @@ interface TextTrackCue extends EventTarget {
     readonly track: TextTrack;
     getCueAsHTML(): DocumentFragment;
     addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var TextTrackCue: {
@@ -10524,7 +10680,7 @@ declare var TextTrackCueList: {
     new(): TextTrackCueList;
 }
 
-interface TextTrackListEventMap extends EventMap {
+interface TextTrackListEventMap {
     "addtrack": TrackEvent;
 }
 
@@ -10533,6 +10689,7 @@ interface TextTrackList extends EventTarget {
     onaddtrack: ((this: TextTrackList, ev: TrackEvent) => any) | null;
     item(index: number): TextTrack;
     addEventListener<K extends keyof TextTrackListEventMap>(type: K, listener: (this: TextTrackList, ev: TextTrackListEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [index: number]: TextTrack;
 }
 
@@ -10721,7 +10878,7 @@ declare var VideoTrack: {
     new(): VideoTrack;
 }
 
-interface VideoTrackListEventMap extends EventMap {
+interface VideoTrackListEventMap {
     "addtrack": TrackEvent;
     "change": Event;
     "removetrack": TrackEvent;
@@ -10736,6 +10893,7 @@ interface VideoTrackList extends EventTarget {
     getTrackById(id: string): VideoTrack | null;
     item(index: number): VideoTrack;
     addEventListener<K extends keyof VideoTrackListEventMap>(type: K, listener: (this: VideoTrackList, ev: VideoTrackListEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [index: number]: VideoTrack;
 }
 
@@ -11680,7 +11838,7 @@ declare var WebKitPoint: {
     new(x?: number, y?: number): WebKitPoint;
 }
 
-interface WebSocketEventMap extends EventMap {
+interface WebSocketEventMap {
     "close": CloseEvent;
     "error": ErrorEvent;
     "message": MessageEvent;
@@ -11705,6 +11863,7 @@ interface WebSocket extends EventTarget {
     readonly CONNECTING: number;
     readonly OPEN: number;
     addEventListener<K extends keyof WebSocketEventMap>(type: K, listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var WebSocket: {
@@ -11739,7 +11898,7 @@ declare var WheelEvent: {
     readonly DOM_DELTA_PIXEL: number;
 }
 
-interface WindowEventMap extends EventMap, GlobalEventHandlersEventMap {
+interface WindowEventMap extends GlobalEventHandlersEventMap {
     "abort": UIEvent;
     "afterprint": Event;
     "beforeprint": Event;
@@ -12002,6 +12161,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     scrollTo(options?: ScrollToOptions): void;
     scrollBy(options?: ScrollToOptions): void;
     addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var Window: {
@@ -12009,7 +12169,7 @@ declare var Window: {
     new(): Window;
 }
 
-interface WorkerEventMap extends EventMap, AbstractWorkerEventMap {
+interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
 }
 
@@ -12018,6 +12178,7 @@ interface Worker extends EventTarget, AbstractWorker {
     postMessage(message: any, ports?: any): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var Worker: {
@@ -12027,6 +12188,7 @@ declare var Worker: {
 
 interface XMLDocument extends Document {
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var XMLDocument: {
@@ -12034,7 +12196,7 @@ declare var XMLDocument: {
     new(): XMLDocument;
 }
 
-interface XMLHttpRequestEventMap extends EventMap, XMLHttpRequestEventTargetEventMap {
+interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     "readystatechange": Event;
 }
 
@@ -12068,6 +12230,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly OPENED: number;
     readonly UNSENT: number;
     addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var XMLHttpRequest: {
@@ -12083,6 +12246,7 @@ declare var XMLHttpRequest: {
 
 interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var XMLHttpRequestUpload: {
@@ -12181,13 +12345,14 @@ declare var XSLTProcessor: {
     new(): XSLTProcessor;
 }
 
-interface AbstractWorkerEventMap extends EventMap {
+interface AbstractWorkerEventMap {
     "error": ErrorEvent;
 }
 
 interface AbstractWorker {
     onerror: (this: AbstractWorker, ev: ErrorEvent) => any;
     addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface CanvasPathMethods {
@@ -12297,7 +12462,7 @@ interface GetSVGDocument {
     getSVGDocument(): Document;
 }
 
-interface GlobalEventHandlersEventMap extends EventMap {
+interface GlobalEventHandlersEventMap {
     "pointercancel": PointerEvent;
     "pointerdown": PointerEvent;
     "pointerenter": PointerEvent;
@@ -12320,6 +12485,7 @@ interface GlobalEventHandlers {
     onpointerup: (this: GlobalEventHandlers, ev: PointerEvent) => any;
     onwheel: (this: GlobalEventHandlers, ev: WheelEvent) => any;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface HTMLTableAlignment {
@@ -12345,7 +12511,7 @@ interface LinkStyle {
     readonly sheet: StyleSheet;
 }
 
-interface MSBaseReaderEventMap extends EventMap {
+interface MSBaseReaderEventMap {
     "abort": Event;
     "error": ErrorEvent;
     "load": Event;
@@ -12368,6 +12534,7 @@ interface MSBaseReader {
     readonly EMPTY: number;
     readonly LOADING: number;
     addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface MSFileSaver {
@@ -12416,7 +12583,9 @@ interface NavigatorUserMedia {
 
 interface NodeSelector {
     querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
+    querySelector(selectors: string): Element | null;
     querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;
+    querySelectorAll(selectors: string): NodeListOf<Element>;
 }
 
 interface RandomSource {
@@ -12515,7 +12684,7 @@ interface WindowTimersExtension {
     setImmediate(handler: any, ...args: any[]): number;
 }
 
-interface XMLHttpRequestEventTargetEventMap extends EventMap {
+interface XMLHttpRequestEventTargetEventMap {
     "abort": Event;
     "error": ErrorEvent;
     "load": Event;
@@ -12534,6 +12703,7 @@ interface XMLHttpRequestEventTarget {
     onprogress: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
     ontimeout: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface StorageEventInit extends EventInit {
@@ -12819,10 +12989,6 @@ interface AssignedNodesOptions {
     flatten?: boolean;
 }
 
-interface EventMap {
-    [k: string]: Event;
-}
-
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface ErrorEventHandler {
@@ -12951,7 +13117,6 @@ interface HTMLElementTagNameMap {
     "video": HTMLVideoElement;
     "x-ms-webview": MSHTMLWebViewElement;
     "xmp": HTMLPreElement;
-    [x: string]: HTMLElement;
 }
 
 interface ElementTagNameMap {
@@ -13131,7 +13296,6 @@ interface ElementTagNameMap {
     "wbr": HTMLElement;
     "x-ms-webview": MSHTMLWebViewElement;
     "xmp": HTMLPreElement;
-    [x: string]: Element;
 }
 
 declare var Audio: {new(src?: string): HTMLAudioElement; };
@@ -13336,6 +13500,7 @@ declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
+declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type AAGUID = string;
 type AlgorithmIdentifier = string | Algorithm;
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;

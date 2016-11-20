@@ -302,6 +302,7 @@ interface FileReader extends EventTarget, MSBaseReader {
     readAsDataURL(blob: Blob): void;
     readAsText(blob: Blob, encoding?: string): void;
     addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var FileReader: {
@@ -342,7 +343,7 @@ declare var IDBCursorWithValue: {
     new(): IDBCursorWithValue;
 }
 
-interface IDBDatabaseEventMap extends EventMap {
+interface IDBDatabaseEventMap {
     "abort": Event;
     "error": ErrorEvent;
 }
@@ -360,6 +361,7 @@ interface IDBDatabase extends EventTarget {
     transaction(storeNames: string | string[], mode?: string): IDBTransaction;
     addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBDatabase: {
@@ -435,7 +437,7 @@ declare var IDBObjectStore: {
     new(): IDBObjectStore;
 }
 
-interface IDBOpenDBRequestEventMap extends EventMap, IDBRequestEventMap {
+interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
     "blocked": Event;
     "upgradeneeded": IDBVersionChangeEvent;
 }
@@ -444,6 +446,7 @@ interface IDBOpenDBRequest extends IDBRequest {
     onblocked: (this: IDBOpenDBRequest, ev: Event) => any;
     onupgradeneeded: (this: IDBOpenDBRequest, ev: IDBVersionChangeEvent) => any;
     addEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBOpenDBRequest: {
@@ -451,7 +454,7 @@ declare var IDBOpenDBRequest: {
     new(): IDBOpenDBRequest;
 }
 
-interface IDBRequestEventMap extends EventMap {
+interface IDBRequestEventMap {
     "error": ErrorEvent;
     "success": Event;
 }
@@ -465,6 +468,7 @@ interface IDBRequest extends EventTarget {
     source: IDBObjectStore | IDBIndex | IDBCursor;
     readonly transaction: IDBTransaction;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBRequest: {
@@ -472,7 +476,7 @@ declare var IDBRequest: {
     new(): IDBRequest;
 }
 
-interface IDBTransactionEventMap extends EventMap {
+interface IDBTransactionEventMap {
     "abort": Event;
     "complete": Event;
     "error": ErrorEvent;
@@ -491,6 +495,7 @@ interface IDBTransaction extends EventTarget {
     readonly READ_WRITE: string;
     readonly VERSION_CHANGE: string;
     addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var IDBTransaction: {
@@ -546,7 +551,7 @@ interface MSApp {
 }
 declare var MSApp: MSApp;
 
-interface MSAppAsyncOperationEventMap extends EventMap {
+interface MSAppAsyncOperationEventMap {
     "complete": Event;
     "error": ErrorEvent;
 }
@@ -562,6 +567,7 @@ interface MSAppAsyncOperation extends EventTarget {
     readonly ERROR: number;
     readonly STARTED: number;
     addEventListener<K extends keyof MSAppAsyncOperationEventMap>(type: K, listener: (this: MSAppAsyncOperation, ev: MSAppAsyncOperationEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSAppAsyncOperation: {
@@ -601,6 +607,7 @@ interface MSStreamReader extends EventTarget, MSBaseReader {
     readAsDataURL(stream: MSStream, size?: number): void;
     readAsText(stream: MSStream, encoding?: string, size?: number): void;
     addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MSStreamReader: {
@@ -643,7 +650,7 @@ declare var MessageEvent: {
     new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
 }
 
-interface MessagePortEventMap extends EventMap {
+interface MessagePortEventMap {
     "message": MessageEvent;
 }
 
@@ -653,6 +660,7 @@ interface MessagePort extends EventTarget {
     postMessage(message?: any, ports?: any): void;
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var MessagePort: {
@@ -699,7 +707,7 @@ declare var ProgressEvent: {
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
 }
 
-interface WebSocketEventMap extends EventMap {
+interface WebSocketEventMap {
     "close": CloseEvent;
     "error": ErrorEvent;
     "message": MessageEvent;
@@ -724,6 +732,7 @@ interface WebSocket extends EventTarget {
     readonly CONNECTING: number;
     readonly OPEN: number;
     addEventListener<K extends keyof WebSocketEventMap>(type: K, listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var WebSocket: {
@@ -735,7 +744,7 @@ declare var WebSocket: {
     readonly OPEN: number;
 }
 
-interface WorkerEventMap extends EventMap, AbstractWorkerEventMap {
+interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
 }
 
@@ -744,6 +753,7 @@ interface Worker extends EventTarget, AbstractWorker {
     postMessage(message: any, ports?: any): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var Worker: {
@@ -751,7 +761,7 @@ declare var Worker: {
     new(stringUrl: string): Worker;
 }
 
-interface XMLHttpRequestEventMap extends EventMap, XMLHttpRequestEventTargetEventMap {
+interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     "readystatechange": Event;
 }
 
@@ -784,6 +794,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly OPENED: number;
     readonly UNSENT: number;
     addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var XMLHttpRequest: {
@@ -799,6 +810,7 @@ declare var XMLHttpRequest: {
 
 interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var XMLHttpRequestUpload: {
@@ -806,16 +818,17 @@ declare var XMLHttpRequestUpload: {
     new(): XMLHttpRequestUpload;
 }
 
-interface AbstractWorkerEventMap extends EventMap {
+interface AbstractWorkerEventMap {
     "error": ErrorEvent;
 }
 
 interface AbstractWorker {
     onerror: (this: AbstractWorker, ev: ErrorEvent) => any;
     addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
-interface MSBaseReaderEventMap extends EventMap {
+interface MSBaseReaderEventMap {
     "abort": Event;
     "error": ErrorEvent;
     "load": Event;
@@ -838,6 +851,7 @@ interface MSBaseReader {
     readonly EMPTY: number;
     readonly LOADING: number;
     addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface NavigatorID {
@@ -864,7 +878,7 @@ interface WindowConsole {
     readonly console: Console;
 }
 
-interface XMLHttpRequestEventTargetEventMap extends EventMap {
+interface XMLHttpRequestEventTargetEventMap {
     "abort": Event;
     "error": ErrorEvent;
     "load": Event;
@@ -883,6 +897,7 @@ interface XMLHttpRequestEventTarget {
     onprogress: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
     ontimeout: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface FileReaderSync {
@@ -897,7 +912,7 @@ declare var FileReaderSync: {
     new(): FileReaderSync;
 }
 
-interface WorkerGlobalScopeEventMap extends EventMap, DedicatedWorkerGlobalScopeEventMap {
+interface WorkerGlobalScopeEventMap extends DedicatedWorkerGlobalScopeEventMap {
     "error": ErrorEvent;
 }
 
@@ -909,6 +924,7 @@ interface WorkerGlobalScope extends EventTarget, WorkerUtils, DedicatedWorkerGlo
     msWriteProfilerMark(profilerMarkName: string): void;
     toString(): string;
     addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 declare var WorkerGlobalScope: {
@@ -942,7 +958,7 @@ declare var WorkerNavigator: {
     new(): WorkerNavigator;
 }
 
-interface DedicatedWorkerGlobalScopeEventMap extends EventMap {
+interface DedicatedWorkerGlobalScopeEventMap {
     "message": MessageEvent;
 }
 
@@ -950,6 +966,7 @@ interface DedicatedWorkerGlobalScope {
     onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
     postMessage(data: any): void;
     addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
 interface WorkerUtils extends Object, WindowBase64 {
@@ -1171,10 +1188,6 @@ interface JsonWebKey {
     k?: string;
 }
 
-interface EventMap {
-    [k: string]: Event;
-}
-
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface ErrorEventHandler {
@@ -1235,6 +1248,7 @@ declare var onmessage: (this: WorkerGlobalScope, ev: MessageEvent) => any;
 declare function postMessage(data: any): void;
 declare var console: Console;
 declare function addEventListener<K extends keyof WorkerGlobalScopeEventMap>(type: K, listener: (this: WorkerGlobalScope, ev: WorkerGlobalScopeEventMap[K]) => any, useCapture?: boolean): void;
+declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 type AlgorithmIdentifier = string | Algorithm;
 type IDBKeyPath = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;

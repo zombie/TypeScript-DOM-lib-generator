@@ -118,28 +118,31 @@ let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMT
 let EmitCreateElementOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "createElement" "Element" "string" then
         Pt.printl "createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];"
+        Pt.printl "createElement(tagName: string): HTMLElement;"
 
 /// Emit overloads for the getElementsByTagName method
 let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
         Pt.printl "getElementsByTagName<K extends keyof ElementTagNameMap>(%s: K): NodeListOf<ElementTagNameMap[K]>;" m.Params.[0].Name
+        Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
 /// Emit overloads for the querySelector method
 let EmitQuerySelectorOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
         Pt.printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
+        Pt.printl "querySelector(selectors: string): Element | null;"
 
 /// Emit overloads for the querySelectorAll method
 let EmitQuerySelectorAllOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
         Pt.printl "querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;"
+        Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
 let EmitHTMLElementTagNameMap () =
     Pt.printl "interface HTMLElementTagNameMap {"
     Pt.increaseIndent()
     for e in tagNameToEleName do
         if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
             Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
-    Pt.printl "[x: string]: HTMLElement;"
     Pt.decreaseIndent()
     Pt.printl "}"
     Pt.printl ""
@@ -148,7 +151,6 @@ let EmitElementTagNameMap () =
     Pt.increaseIndent()
     for e in tagNameToEleName do
         Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
-    Pt.printl "[x: string]: Element;"
     Pt.decreaseIndent()
     Pt.printl "}"
     Pt.printl ""
@@ -366,16 +368,22 @@ let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
             "%saddEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, useCapture?: boolean): void;"
             prefix i.Name i.Name i.Name
 
-    if iNameToEhList.ContainsKey i.Name  && not iNameToEhList.[i.Name].IsEmpty then
-        emitEventHandler fPrefix i
-    elif iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
-        iNameToEhParents.[i.Name]
-        |> List.sortBy (fun i -> i.Name)
-        |> List.iter (emitEventHandler fPrefix)
-        // let props = iNameToEhParents.[i.Name] |> List.map (fun i -> i.Name) |> List.fold (+) ""
-        // printfn "False --> %s -> [%s]" i.Name props
+    let shouldEmitStringEventHandler =
+        if iNameToEhList.ContainsKey i.Name  && not iNameToEhList.[i.Name].IsEmpty then
+            emitEventHandler fPrefix i
+            true
+        elif iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
+            iNameToEhParents.[i.Name]
+            |> List.sortBy (fun i -> i.Name)
+            |> List.iter (emitEventHandler fPrefix)
+            true
+        else
+            false
 
-    Pt.print ""
+    if shouldEmitStringEventHandler then
+        Pt.printl
+            "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
+            fPrefix
 
 let EmitConstructorSignature (i:Browser.Interface) =
     let emitConstructorSigFromJson (c: ItemsType.Root) =
@@ -521,10 +529,10 @@ let EmitInterfaceEventMap flavor (i:Browser.Interface) =
 
     let ownEventHandles = if iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty then iNameToEhList.[i.Name] else []
     if ownEventHandles.Length > 0 then
-        Pt.printl "interface %sEventMap extends EventMap" i.Name
+        Pt.printl "interface %sEventMap" i.Name
         if iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
             let extends = iNameToEhParents.[i.Name] |> List.map (fun i -> i.Name + "EventMap")
-            Pt.print ", %s" (String.Join(", ", extends))
+            Pt.print " extends %s" (String.Join(", ", extends))
         Pt.print " {"
         Pt.increaseIndent()
         ownEventHandles |> List.iter EmitInterfaceEventMapEntry

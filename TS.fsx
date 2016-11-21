@@ -547,7 +547,6 @@ let EmitInterfaceEventMap flavor (i:Browser.Interface) =
         Pt.print " {"
         Pt.increaseIndent()
         ownEventHandles |> List.iter EmitInterfaceEventMapEntry
-        // Pt.printl "[x: string]: Event;"
         Pt.decreaseIndent()
         Pt.printl "}"
         Pt.printl ""

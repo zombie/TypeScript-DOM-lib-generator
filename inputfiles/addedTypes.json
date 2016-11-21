@@ -1364,5 +1364,35 @@
         "interface": "Event",
         "name": "deepPath",
         "signatures": ["deepPath(): EventTarget[]"]
+    },
+    {
+        "kind": "interface",
+        "name": "ElementDefinitionOptions",
+        "flavor": "DOM",
+        "properties": [{
+            "name": "extends",
+            "type": "string"
+        }]
+    },
+    {
+        "kind": "interface",
+        "name": "CustomElementRegistry",
+        "flavor": "DOM",
+        "methods": [{
+           "name": "define",
+           "signatures": ["define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"]
+        }, {
+            "name": "get",
+            "signatures": ["get(name: string): any"]
+        }, {
+            "name": "whenDefined",
+            "signatures": ["whenDefined(name: string): PromiseLike<void>"]
+        }]
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "name": "customElements",
+        "type": "CustomElementRegistry"
     }
 ]

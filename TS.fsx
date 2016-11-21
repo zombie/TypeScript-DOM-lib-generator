@@ -123,7 +123,7 @@ let EmitCreateElementOverloads (m: Browser.Method) =
 /// Emit overloads for the getElementsByTagName method
 let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
-        Pt.printl "getElementsByTagName<K extends keyof ElementTagNameMap>(%s: K): NodeListOf<ElementTagNameMap[K]>;" m.Params.[0].Name
+        Pt.printl "getElementsByTagName<K extends keyof ElementListTagNameMap>(%s: K): ElementListTagNameMap[K];" m.Params.[0].Name
         Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
 /// Emit overloads for the querySelector method
@@ -135,8 +135,9 @@ let EmitQuerySelectorOverloads (m: Browser.Method) =
 /// Emit overloads for the querySelectorAll method
 let EmitQuerySelectorAllOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
-        Pt.printl "querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;"
+        Pt.printl "querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];"
         Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
+
 let EmitHTMLElementTagNameMap () =
     Pt.printl "interface HTMLElementTagNameMap {"
     Pt.increaseIndent()
@@ -146,11 +147,21 @@ let EmitHTMLElementTagNameMap () =
     Pt.decreaseIndent()
     Pt.printl "}"
     Pt.printl ""
+
 let EmitElementTagNameMap () =
     Pt.printl "interface ElementTagNameMap {"
     Pt.increaseIndent()
     for e in tagNameToEleName do
         Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
+
+let EmitElementListTagNameMap () =
+    Pt.printl "interface ElementListTagNameMap {"
+    Pt.increaseIndent()
+    for e in tagNameToEleName do
+        Pt.printl "\"%s\": NodeListOf<%s>;" (e.Key.ToLower()) e.Value
     Pt.decreaseIndent()
     Pt.printl "}"
     Pt.printl ""
@@ -746,6 +757,7 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     if flavor <> Worker then
         EmitHTMLElementTagNameMap()
         EmitElementTagNameMap()
+        EmitElementListTagNameMap()
         EmitNamedConstructors()
 
     match GetGlobalPollutor flavor with

@@ -329,15 +329,11 @@ let EmitMethods flavor prefix (emitScope: EmitScope) (i: Browser.Interface) =
     let emitMethodFromJson (m: ItemsType.Root) =
         m.Signatures |> Array.iter (Pt.printl "%s%s;" prefix)
 
-    // Because eventhandler overload are not inherited between interfaces,
-    // they need to be taken care of seperately
-    let hasEventHandlers =
-        iNameToEhList.ContainsKey i.Name &&
-        not iNameToEhList.[i.Name].IsEmpty
-
+    // If prefix is not empty, then this is the global declare function addEventListener, we want to override this
+    // Otherwise, this is EventTarget.addEventListener, we want to keep that.
     let mFilter (m:Browser.Method) =
         matchScope emitScope m &&
-        not (hasEventHandlers && OptionCheckValue "addEventListener" m.Name)
+        not (prefix <> "" && OptionCheckValue "addEventListener" m.Name)
 
     if i.Methods.IsSome then
         i.Methods.Value.Methods

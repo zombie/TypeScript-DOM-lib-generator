@@ -1226,7 +1226,6 @@ declare var self: WorkerGlobalScope;
 declare function close(): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function toString(): string;
-declare function addEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 declare function dispatchEvent(evt: Event): boolean;
 declare function removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 declare var indexedDB: IDBFactory;

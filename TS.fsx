@@ -117,31 +117,54 @@ let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMT
 /// Emit overloads for the createElement method
 let EmitCreateElementOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "createElement" "Element" "string" then
-        for e in tagNameToEleName do
-            if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
-                Pt.printl "createElement(tagName: \"%s\"): %s;" e.Key e.Value
+        Pt.printl "createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];"
         Pt.printl "createElement(tagName: string): HTMLElement;"
 
 /// Emit overloads for the getElementsByTagName method
 let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
-        for e in tagNameToEleName do
-            Pt.printl "getElementsByTagName(%s: \"%s\"): NodeListOf<%s>;" m.Params.[0].Name (e.Key.ToLower()) e.Value
+        Pt.printl "getElementsByTagName<K extends keyof ElementListTagNameMap>(%s: K): ElementListTagNameMap[K];" m.Params.[0].Name
         Pt.printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
 /// Emit overloads for the querySelector method
 let EmitQuerySelectorOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
-        for e in tagNameToEleName do
-            Pt.printl "querySelector(selectors: \"%s\"): %s | null;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
         Pt.printl "querySelector(selectors: string): Element | null;"
 
 /// Emit overloads for the querySelectorAll method
 let EmitQuerySelectorAllOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
-        for e in tagNameToEleName do
-            Pt.printl "querySelectorAll(selectors: \"%s\"): NodeListOf<%s>;" (e.Key.ToLower()) e.Value
+        Pt.printl "querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];"
         Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
+
+let EmitHTMLElementTagNameMap () =
+    Pt.printl "interface HTMLElementTagNameMap {"
+    Pt.increaseIndent()
+    for e in tagNameToEleName do
+        if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
+            Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
+
+let EmitElementTagNameMap () =
+    Pt.printl "interface ElementTagNameMap {"
+    Pt.increaseIndent()
+    for e in tagNameToEleName do
+        Pt.printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
+
+let EmitElementListTagNameMap () =
+    Pt.printl "interface ElementListTagNameMap {"
+    Pt.increaseIndent()
+    for e in tagNameToEleName do
+        Pt.printl "\"%s\": NodeListOf<%s>;" (e.Key.ToLower()) e.Value
+    Pt.decreaseIndent()
+    Pt.printl "}"
+    Pt.printl ""
 
 /// Emit overloads for the createEvent method
 let EmitCreateEventOverloads (m: Browser.Method) =
@@ -205,7 +228,7 @@ let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
                 let overloads = GetOverloads (Function.Method m) false
                 for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
                     let paramsString = ParamsToString pCombList
-                    let returnString = 
+                    let returnString =
                         let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
                         if isNullable then makeNullable returnType else returnType
                     Pt.printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
@@ -243,12 +266,11 @@ let EmitEnums () =
     let emitEnum (e: Browser.Enum) = Pt.printl "declare var %s: string;" e.Name
     browser.Enums |> Array.iter emitEnum
 
-let EmitEventHandlerThis flavor (prefix: string) =
-    if prefix = "" then "this: this, "
+let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
+    if prefix = "" then "this: " + i.Name + ", "
     else match GetGlobalPollutor flavor with
          | Some pollutor -> "this: " + pollutor.Name + ", "
          | _ -> ""
-
 let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
     let emitPropertyFromJson (p: ItemsType.Root) =
         let readOnlyModifier =
@@ -272,15 +294,15 @@ let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
                 let pType =
                     match p.Type with
                     | "EventHandler" ->
-                        // Sometimes event handlers with the same name may actually handle different 
-                        // events in different interfaces. For example, "onerror" handles "ErrorEvent" 
+                        // Sometimes event handlers with the same name may actually handle different
+                        // events in different interfaces. For example, "onerror" handles "ErrorEvent"
                         // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
-                        let eType = 
+                        let eType =
                             if p.EventHandler.IsSome then
                                 getEventTypeInInterface p.EventHandler.Value i.Name
-                            else 
+                            else
                                 "Event"
-                        String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix, eType)
+                        String.Format("({0}ev: {1}) => any", EmitEventHandlerThis flavor prefix i, eType)
                     | _ -> DomTypeToTsType p.Type
                 let pTypeAndNull = if p.Nullable.IsSome then makeNullable pType else pType
                 let readOnlyModifier = if p.ReadOnly.IsSome && prefix = "" then "readonly " else ""
@@ -307,15 +329,11 @@ let EmitMethods flavor prefix (emitScope: EmitScope) (i: Browser.Interface) =
     let emitMethodFromJson (m: ItemsType.Root) =
         m.Signatures |> Array.iter (Pt.printl "%s%s;" prefix)
 
-    // Because eventhandler overload are not inherited between interfaces,
-    // they need to be taken care of seperately
-    let hasEventHandlers =
-        iNameToEhList.ContainsKey i.Name &&
-        not iNameToEhList.[i.Name].IsEmpty
-
+    // If prefix is not empty, then this is the global declare function addEventListener, we want to override this
+    // Otherwise, this is EventTarget.addEventListener, we want to keep that.
     let mFilter (m:Browser.Method) =
         matchScope emitScope m &&
-        not (hasEventHandlers && OptionCheckValue "addEventListener" m.Name)
+        not (prefix <> "" && OptionCheckValue "addEventListener" m.Name)
 
     if i.Methods.IsSome then
         i.Methods.Value.Methods
@@ -349,36 +367,30 @@ let rec EmitAllMembers flavor (i:Browser.Interface) =
         | _ -> ()
 
 let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
-    let emitEventHandler prefix (eHandler: EventHandler)  =
-        let eventType =
-            getEventTypeInInterface eHandler.EventName i.Name
+    let fPrefix =
+        if prefix.StartsWith "declare var" then "declare function " else ""
+
+    let emitEventHandler prefix (i:Browser.Interface) =
         Pt.printl
-            "%saddEventListener(type: \"%s\", listener: (%sev: %s) => any, useCapture?: boolean): void;"
-            prefix eHandler.EventName (EmitEventHandlerThis flavor prefix) eventType
+            "%saddEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, useCapture?: boolean): void;"
+            prefix i.Name i.Name i.Name
 
-    let fPrefix = if prefix.StartsWith "declare var" then "declare function " else ""
+    let shouldEmitStringEventHandler =
+        if iNameToEhList.ContainsKey i.Name  && not iNameToEhList.[i.Name].IsEmpty then
+            emitEventHandler fPrefix i
+            true
+        elif iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
+            iNameToEhParents.[i.Name]
+            |> List.sortBy (fun i -> i.Name)
+            |> List.iter (emitEventHandler fPrefix)
+            true
+        else
+            false
 
-    // Inheritance of "addEventListener" has two cases:
-    // 1. No own eventhandlers -> it inherits all the eventhandlers from base interfaces
-    // 2. Has own eventhandlers -> TypeScript's inherit mechanism erases all inherited eventhandler overloads
-    // so they need to be reprinted.
-    if iNameToEhList.ContainsKey i.Name then
-        iNameToEhList.[i.Name] |> List.sortBy (fun eh -> eh.EventName) |> List.iter (emitEventHandler fPrefix)
-        let shouldPrintAddEventListener =
-            if iNameToEhList.[i.Name].Length > 0 then true
-            else
-                match i.Extends, i.Implements.Length with
-                | _, 0 -> false
-                | "Object", 1 -> false
-                | _ ->
-                    let allParents = Array.append [|i.Extends|] i.Implements
-                    match allParents |> Array.filter iNameToEhList.ContainsKey |> Array.length with
-                    // only one of the implemented interface has EventHandlers
-                    | 0 | 1 -> false
-                    // multiple implemented interfaces have EventHandlers
-                    | _ -> true
-        if shouldPrintAddEventListener then
-           Pt.printl "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;" fPrefix
+    if shouldEmitStringEventHandler then
+        Pt.printl
+            "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
+            fPrefix
 
 let EmitConstructorSignature (i:Browser.Interface) =
     let emitConstructorSigFromJson (c: ItemsType.Root) =
@@ -430,7 +442,7 @@ let EmitNamedConstructors () =
 
 let EmitInterfaceDeclaration (i:Browser.Interface) =
     Pt.printl "interface %s" i.Name
-    let finalExtends = 
+    let finalExtends =
         let overridenExtendsFromJson =
             JsonItems.getOverriddenItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
             |> Array.map (fun e -> e.BaseInterface.Value) |> List.ofArray
@@ -516,7 +528,27 @@ let EmitIndexers emitScope (i: Browser.Interface) =
     |> Array.filter (matchInterface i.Name)
     |> Array.iter emitIndexerFromJson
 
+let EmitInterfaceEventMap flavor (i:Browser.Interface) =
+    let EmitInterfaceEventMapEntry (eHandler: EventHandler)  =
+        let eventType =
+            getEventTypeInInterface eHandler.EventName i.Name
+        Pt.printl "\"%s\": %s;" eHandler.EventName eventType
+
+    let ownEventHandles = if iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty then iNameToEhList.[i.Name] else []
+    if ownEventHandles.Length > 0 then
+        Pt.printl "interface %sEventMap" i.Name
+        if iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
+            let extends = iNameToEhParents.[i.Name] |> List.map (fun i -> i.Name + "EventMap")
+            Pt.print " extends %s" (String.Join(", ", extends))
+        Pt.print " {"
+        Pt.increaseIndent()
+        ownEventHandles |> List.iter EmitInterfaceEventMapEntry
+        Pt.decreaseIndent()
+        Pt.printl "}"
+        Pt.printl ""
 let EmitInterface flavor (i:Browser.Interface) =
+    EmitInterfaceEventMap flavor i
+
     Pt.resetIndent()
     EmitInterfaceDeclaration i
     Pt.increaseIndent()
@@ -718,6 +750,9 @@ let EmitTheWholeThing flavor (target:TextWriter) =
     EmitCallBackFunctions flavor
 
     if flavor <> Worker then
+        EmitHTMLElementTagNameMap()
+        EmitElementTagNameMap()
+        EmitElementListTagNameMap()
         EmitNamedConstructors()
 
     match GetGlobalPollutor flavor with

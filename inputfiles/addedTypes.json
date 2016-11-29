@@ -75,6 +75,47 @@
         "type": "boolean"
     },
     {
+        "kind": "interface",
+        "name": "URLSearchParams",
+        "flavor": "Web",
+        "constructorSignatures": [
+            "new (init?: string | URLSearchParams): URLSearchParams"
+        ],
+        "methods": [
+            {
+                "name": "append",
+                "signatures": ["append(name: string, value: string): void"]
+            },
+            {
+                "name": "delete",
+                "signatures": ["delete(name: string): void"]
+            },
+            {
+                "name": "get",
+                "signatures": ["get(name: string): string | null"]
+            },
+            {
+                "name": "getAll",
+                "signatures": ["getAll(name: string): string[]"]
+            },
+            {
+                "name": "has",
+                "signatures": ["has(name: string): boolean"]
+            },
+            {
+                "name": "set",
+                "signatures": ["set(name: string, value: string): void"]
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "URL",
+        "name": "searchparams",
+        "readonly": true,
+        "type": "URLSearchParams"
+    },
+    {
         "kind": "property",
         "interface": "Window",
         "exposeGlobally": false,

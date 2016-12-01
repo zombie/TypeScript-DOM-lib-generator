@@ -10814,6 +10814,7 @@ interface URL {
     protocol: string;
     search: string;
     username: string;
+    readonly searchparams: URLSearchParams;
     toString(): string;
 }
 
@@ -12720,6 +12721,20 @@ interface Canvas2DContextAttributes {
     willReadFrequently?: boolean;
     storage?: boolean;
     [attribute: string]: boolean | string | undefined;
+}
+
+interface URLSearchParams {
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    getAll(name: string): string[];
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+}
+
+declare var URLSearchParams: {
+    prototype: URLSearchParams;
+    new (init?: string | URLSearchParams): URLSearchParams;
 }
 
 interface NodeListOf<TNode extends Node> extends NodeList {

@@ -1,5 +1,31 @@
 [
     {
+        "kind": "interface",
+        "name": "ErrorEventInit",
+        "properties": [
+            {
+                "name": "message?",
+                "type": "string"
+            },
+            {
+                "name": "filename?",
+                "type": "string"
+            },
+            {
+                "name": "lineno?",
+                "type": "number"
+            },
+            {
+                "name": "conlno?",
+                "type": "number"
+            },
+            {
+                "name": "error?",
+                "type": "any"
+            }
+        ]
+    },
+    {
         "kind": "property",
         "interface": "CSSStyleDeclaration",
         "name": "resize",

@@ -130,12 +130,14 @@ let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
 let EmitQuerySelectorOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
         Pt.printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
+        Pt.printl "querySelector<E extends Element>(selectors: string): E | null;"
         Pt.printl "querySelector(selectors: string): Element | null;"
 
 /// Emit overloads for the querySelectorAll method
 let EmitQuerySelectorAllOverloads (m: Browser.Method) =
     if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
         Pt.printl "querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];"
+        Pt.printl "querySelectorAll<E extends Element>(selectors: string): NodeListOf<E>;"
         Pt.printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
 
 let EmitHTMLElementTagNameMap () =

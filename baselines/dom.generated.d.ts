@@ -12585,8 +12585,10 @@ interface NavigatorUserMedia {
 
 interface NodeSelector {
     querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
+    querySelector<E extends Element>(selectors: string): E | null;
     querySelector(selectors: string): Element | null;
     querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
+    querySelectorAll<E extends Element>(selectors: string): NodeListOf<E>;
     querySelectorAll(selectors: string): NodeListOf<Element>;
 }
 

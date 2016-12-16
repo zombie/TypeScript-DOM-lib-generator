@@ -1,5 +1,10 @@
  [
     {
+        "kind": "constructor",
+        "interface": "ErrorEvent",
+        "signatures": ["new(type: string, errorEventInitDict?: ErrorEventInit): ErrorEvent"]
+    },
+    {
         "kind": "property",
         "interface": "Window",
         "name": "event",

@@ -227,7 +227,7 @@ interface ErrorEvent extends Event {
 
 declare var ErrorEvent: {
     prototype: ErrorEvent;
-    new(): ErrorEvent;
+    new(type: string, errorEventInitDict?: ErrorEventInit): ErrorEvent;
 }
 
 interface Event {
@@ -983,6 +983,14 @@ interface WorkerUtils extends Object, WindowBase64 {
     setInterval(handler: any, timeout?: any, ...args: any[]): number;
     setTimeout(handler: (...args: any[]) => void, timeout: number): number;
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+}
+
+interface ErrorEventInit {
+    message?: string;
+    filename?: string;
+    lineno?: number;
+    conlno?: number;
+    error?: any;
 }
 
 interface BlobPropertyBag {

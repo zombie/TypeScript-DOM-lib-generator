@@ -12981,8 +12981,8 @@ interface JsonWebKey {
 
 interface ParentNode {
     readonly children: HTMLCollection;
-    readonly firstElementChild: Element;
-    readonly lastElementChild: Element;
+    readonly firstElementChild: Element | null;
+    readonly lastElementChild: Element | null;
     readonly childElementCount: number;
 }
 

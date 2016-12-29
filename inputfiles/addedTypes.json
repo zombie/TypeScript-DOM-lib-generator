@@ -1234,12 +1234,12 @@
             {
                 "name": "firstElementChild",
                 "readonly": true,
-                "type": "Element"
+                "type": "Element | null"
             },
             {
                 "name": "lastElementChild",
                 "readonly": true,
-                "type": "Element"
+                "type": "Element | null"
             },
             {
                 "name": "childElementCount",

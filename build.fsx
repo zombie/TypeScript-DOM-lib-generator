@@ -3,14 +3,14 @@
 #load "TS.fsx"
 
 open Fake
-open TS
+open TS.Emit
 open System
 open System.IO
 
 Target "Run" (fun _ ->
     // For typescript only generate for Dom
-    TS.EmitDomWeb()
-    TS.EmitDomWorker()
+    TS.Emit.EmitDomWeb()
+    TS.Emit.EmitDomWorker()
 )
 
 let testFile file =

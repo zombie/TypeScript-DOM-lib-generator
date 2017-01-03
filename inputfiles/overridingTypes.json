@@ -60,6 +60,12 @@
     },
     {
         "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "pixelStorei",
+        "signatures": ["pixelStorei(pname: number, param: number | boolean): void"]
+    },
+    {
+        "kind": "method",
         "interface": "XMLHttpRequest",
         "name": "send",
         "signatures": [

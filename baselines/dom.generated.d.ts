@@ -11103,7 +11103,7 @@ interface WebGLRenderingContext {
     isTexture(texture: WebGLTexture | null): boolean;
     lineWidth(width: number): void;
     linkProgram(program: WebGLProgram | null): void;
-    pixelStorei(pname: number, param: number): void;
+    pixelStorei(pname: number, param: number | boolean): void;
     polygonOffset(factor: number, units: number): void;
     readPixels(x: number, y: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView | null): void;
     renderbufferStorage(target: number, internalformat: number, width: number, height: number): void;

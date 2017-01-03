@@ -121,16 +121,16 @@ module InputJson =
     open Helpers
     open Types
 
-    type InputJsonItem = JsonProvider<"inputfiles/sample.json">
+    type InputJsonType = JsonProvider<"inputfiles/sample.json">
 
     let overriddenItems =
-        File.ReadAllText(GlobalVars.inputFolder + @"/overridingTypes.json") |> InputJsonItem.Parse
+        File.ReadAllText(GlobalVars.inputFolder + @"/overridingTypes.json") |> InputJsonType.Parse
 
     let removedItems =
-        File.ReadAllText(GlobalVars.inputFolder + @"/removedTypes.json") |> InputJsonItem.Parse
+        File.ReadAllText(GlobalVars.inputFolder + @"/removedTypes.json") |> InputJsonType.Parse
 
     let addedItems =
-        File.ReadAllText(GlobalVars.inputFolder + @"/addedTypes.json") |> InputJsonItem.Parse
+        File.ReadAllText(GlobalVars.inputFolder + @"/addedTypes.json") |> InputJsonType.Parse
 
     // This is the kind of items in the external json files that are used as a
     // correction for the spec.
@@ -158,14 +158,14 @@ module InputJson =
             | TypeDef _ -> "typedef"
             | Extends _ -> "extends"
 
-    let getItemByName (allItems: InputJsonItem.Root []) (itemName: string) (kind: ItemKind) otherFilter =
-        let filter (item: InputJsonItem.Root) =
+    let getItemByName (allItems: InputJsonType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
+        let filter (item: InputJsonType.Root) =
             OptionCheckValue itemName item.Name &&
             item.Kind.ToLower() = kind.ToString() &&
             otherFilter item
         allItems |> Array.tryFind filter
 
-    let matchInterface iName (item: InputJsonItem.Root) =
+    let matchInterface iName (item: InputJsonType.Root) =
         item.Interface.IsNone || item.Interface.Value = iName
 
     let getOverriddenItemByName itemName (kind: ItemKind) iName =
@@ -177,7 +177,7 @@ module InputJson =
     let getAddedItemByName itemName (kind: ItemKind) iName =
         getItemByName addedItems itemName kind (matchInterface iName)
 
-    let getItems (allItems: InputJsonItem.Root []) (kind: ItemKind) (flavor: Flavor) =
+    let getItems (allItems: InputJsonType.Root []) (kind: ItemKind) (flavor: Flavor) =
         allItems
         |> Array.filter (fun t ->
             t.Kind.ToLower() = kind.ToString() &&
@@ -199,24 +199,33 @@ module InputJson =
         getRemovedItems kind flavor |> Array.filter (matchInterface iName)
 
 module CommentJson =
-    type CommentType = JsonProvider<"inputfiles/comments.json">
+    type CommentJsonType = JsonProvider<"inputfiles/comments.json", InferTypesFromValues=false>
 
-    let comments = File.ReadAllText(__SOURCE_DIRECTORY__ + @"/inputfiles/comments.json") |> CommentType.Parse
+    let comments = File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "comments.json")) |> CommentJsonType.Parse
+
+    type InterfaceCommentItem = { Property: Map<string, string>; Method: Map<string, string>; Constructor: string option }
+
+    let commentMap =
+        comments.Interfaces
+        |> Array.map (fun i ->
+            let propertyMap = i.Members.Property |> Array.map (fun p -> (p.Name, p.Comment)) |> Map.ofArray
+            let methodMap = i.Members.Method |> Array.map (fun m -> (m.Name, m.Comment)) |> Map.ofArray
+            (i.Name, { Property = propertyMap; Method = methodMap; Constructor = i.Members.Constructor }))
+        |> Map.ofArray
 
     let GetCommentForProperty iName pName =
-        match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
-        | Some i ->
-            match i.Members.Property |> Array.tryFind (fun p -> p.Name = pName) with
-            | Some p -> Some p.Comment
-            | _ -> None
+        match commentMap.TryFind iName with
+        | Some i -> i.Property.TryFind pName
         | _ -> None
 
     let GetCommentForMethod iName mName =
-        match comments.Interfaces |> Array.tryFind (fun i -> i.Name = iName) with
-        | Some i ->
-            match i.Members.Method |> Array.tryFind (fun m -> m.Name = mName) with
-            | Some m -> Some m.Comment
-            | _ -> None
+        match commentMap.TryFind iName with
+        | Some i -> i.Method.TryFind mName
+        | _ -> None
+
+    let GetCommentForConstructor iName =
+        match commentMap.TryFind iName with
+        | Some i -> i.Constructor
         | _ -> None
 
 module Data =
@@ -232,7 +241,7 @@ module Data =
             if isStatic.IsSome then scope = EmitScope.StaticOnly
             else scope = EmitScope.InstanceOnly
 
-    let matchInterface iName (x: InputJson.InputJsonItem.Root) =
+    let matchInterface iName (x: InputJson.InputJsonType.Root) =
         x.Interface.IsNone || x.Interface.Value = iName
 
     /// Parameter cannot be named "default" in JavaScript/Typescript so we need to rename it.
@@ -442,7 +451,7 @@ module Data =
 
         let unUsedEvents =
             GetNonCallbackInterfacesByFlavor Flavor.All
-            |> Array.choose (fun i -> 
+            |> Array.choose (fun i ->
                 if i.Extends = "Event" && i.Name.EndsWith("Event") && not (List.contains i.Name usedEvents) then Some(i.Name) else None)
             |> Array.distinct
             |> List.ofArray
@@ -621,7 +630,7 @@ module Data =
                 Nullable = isNullable } ]
 
     /// Define the subset of events that dedicated workers will use
-    let workerEventsMap = 
+    let workerEventsMap =
         [
             ("close", "CloseEvent");
             ("error", "ErrorEvent");
@@ -725,7 +734,7 @@ module Emit =
         if nullable then makeNullable resolvedType else resolvedType
 
     let EmitConstants (i: Browser.Interface) =
-        let emitConstantFromJson (c: InputJsonItem.Root) = Pt.Printl "readonly %s: %s;" c.Name.Value c.Type.Value
+        let emitConstantFromJson (c: InputJsonType.Root) = Pt.Printl "readonly %s: %s;" c.Name.Value c.Type.Value
 
         let emitConstant (c: Browser.Constant) =
             if Option.isNone (getRemovedItemByName c.Name ItemKind.Constant i.Name) then
@@ -827,7 +836,7 @@ module Emit =
         Pt.Printl ""
 
     let EmitCallBackFunctions flavor =
-        let emitCallbackFunctionsFromJson (cb: InputJson.InputJsonItem.Root) =
+        let emitCallbackFunctionsFromJson (cb: InputJson.InputJsonType.Root) =
             Pt.Printl "interface %s {" cb.Name.Value
             cb.Signatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
             Pt.Printl "}"
@@ -859,7 +868,7 @@ module Emit =
              | Some pollutor -> "this: " + pollutor.Name + ", "
              | _ -> ""
     let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface)=
-        let emitPropertyFromJson (p: InputJsonItem.Root) =
+        let emitPropertyFromJson (p: InputJsonType.Root) =
             let readOnlyModifier =
                 match p.Readonly with
                 | Some(true) -> "readonly "
@@ -917,7 +926,7 @@ module Emit =
         // Note: two cases:
         // 1. emit the members inside a interface -> no need to add prefix
         // 2. emit the members outside to expose them (for "Window") -> need to add "declare"
-        let emitMethodFromJson (m: InputJsonItem.Root) =
+        let emitMethodFromJson (m: InputJsonType.Root) =
             m.Signatures |> Array.iter (Pt.Printl "%s%s;" prefix)
 
         let emitCommentForMethod (mName: string option) =
@@ -1032,7 +1041,7 @@ module Emit =
                 fPrefix
 
     let EmitConstructorSignature (i:Browser.Interface) =
-        let emitConstructorSigFromJson (c: InputJsonItem.Root) =
+        let emitConstructorSigFromJson (c: InputJsonType.Root) =
             c.Signatures |> Array.iter (Pt.Printl "%s;")
 
         let removedCtor = getRemovedItems ItemKind.Constructor Flavor.All  |> Array.tryFind (matchInterface i.Name)
@@ -1141,7 +1150,7 @@ module Emit =
             false
 
     let EmitIndexers emitScope (i: Browser.Interface) =
-        let emitIndexerFromJson (id: InputJsonItem.Root) =
+        let emitIndexerFromJson (id: InputJsonType.Root) =
             id.Signatures |> Array.iter (Pt.Printl "%s;")
 
         let removedIndexer = getRemovedItems ItemKind.Indexer Flavor.All |> Array.tryFind (matchInterface i.Name)
@@ -1185,6 +1194,7 @@ module Emit =
             Pt.DecreaseIndent()
             Pt.Printl "}"
             Pt.Printl ""
+
     let EmitInterface flavor (i:Browser.Interface) =
         EmitInterfaceEventMap flavor i
 
@@ -1298,7 +1308,7 @@ module Emit =
             | "Object" -> Pt.Printl "interface %s {" dict.Name
             | _ -> Pt.Printl "interface %s extends %s {" dict.Name dict.Extends
 
-            let emitJsonProperty (p: InputJsonItem.Root) =
+            let emitJsonProperty (p: InputJsonType.Root) =
                 Pt.Printl "%s: %s;" p.Name.Value p.Type.Value
 
             let removedPropNames =
@@ -1325,19 +1335,30 @@ module Emit =
         |> Array.filter (fun dict -> flavor <> Worker || knownWorkerInterfaces.Contains dict.Name)
         |> Array.iter emitDictionary
 
-    let EmitAddedInterface (ai: InputJson.InputJsonItem.Root) =
+    let EmitAddedInterface (ai: InputJsonType.Root) =
         match ai.Extends with
         | Some e -> Pt.Printl "interface %s extends %s {" ai.Name.Value ai.Extends.Value
         | None -> Pt.Printl "interface %s {" ai.Name.Value
 
-        for p in ai.Properties do
+        let emitProperty (p: InputJsonType.Property) =
             let readOnlyModifier =
                 match p.Readonly with
                 | Some(true) -> "readonly "
                 | _ -> ""
+            match CommentJson.GetCommentForProperty ai.Name.Value p.Name with
+            | Some comment -> Pt.PrintWithAddedIndent "%s" comment
+            | _ -> ()
             Pt.PrintWithAddedIndent "%s%s: %s;" readOnlyModifier p.Name p.Type
 
-        ai.Methods |> Array.collect (fun m -> m.Signatures) |> Array.iter (Pt.PrintWithAddedIndent "%s;")
+        let emitMethod (m: InputJsonType.Method) =
+            match CommentJson.GetCommentForMethod ai.Name.Value m.Name with
+            | Some comment -> Pt.PrintWithAddedIndent "%s" comment
+            | _ -> ()
+            m.Signatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
+
+
+        ai.Properties |> Array.iter emitProperty
+        ai.Methods |> Array.iter emitMethod
         ai.Indexer |> Array.collect (fun i -> i.Signatures) |> Array.iter (Pt.PrintWithAddedIndent "%s;")
         Pt.Printl "}"
         Pt.Printl ""
@@ -1345,6 +1366,9 @@ module Emit =
         if ai.ConstructorSignatures.Length > 0 then
             Pt.Printl "declare var %s: {" ai.Name.Value
             Pt.PrintWithAddedIndent "prototype: %s;" ai.Name.Value
+            match CommentJson.GetCommentForConstructor ai.Name.Value with
+            | Some comment -> Pt.PrintWithAddedIndent "%s" comment
+            | _ -> ()
             ai.ConstructorSignatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
             Pt.Printl "}"
             Pt.Printl ""
@@ -1352,12 +1376,12 @@ module Emit =
     let EmitTypeDefs flavor =
         let emitTypeDef (typeDef: Browser.Typedef) =
             Pt.Printl "type %s = %s;" typeDef.NewType (DomTypeToTsType typeDef.Type)
-        let emitTypeDefFromJson (typeDef: InputJsonItem.Root) =
+        let emitTypeDefFromJson (typeDef: InputJsonType.Root) =
             Pt.Printl "type %s = %s;" typeDef.Name.Value typeDef.Type.Value
 
         match flavor with
         | Flavor.Worker ->
-            browser.Typedefs 
+            browser.Typedefs
             |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType)
             |> Array.iter emitTypeDef
         | _ ->

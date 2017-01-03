@@ -1,5 +1,4 @@
 #r "packages/FAKE/tools/FakeLib.dll"
-#load "Shared.fsx"
 #load "TS.fsx"
 
 open Fake
@@ -8,7 +7,6 @@ open System
 open System.IO
 
 Target "Run" (fun _ ->
-    // For typescript only generate for Dom
     TS.Emit.EmitDomWeb()
     TS.Emit.EmitDomWorker()
 )

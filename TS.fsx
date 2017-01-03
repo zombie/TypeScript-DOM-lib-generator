@@ -11,14 +11,14 @@ open Microsoft.FSharp.Reflection
 open FSharp.Data
 
 module GlobalVars =
-    let inputFolder = __SOURCE_DIRECTORY__ + @"/inputfiles"
-    let outputFolder = __SOURCE_DIRECTORY__ + @"/generated"
+    let inputFolder = Path.Combine(__SOURCE_DIRECTORY__, "inputfiles")
+    let outputFolder = Path.Combine(__SOURCE_DIRECTORY__, "generated")
 
     // Create output folder
     if not (Directory.Exists(outputFolder)) then
         Directory.CreateDirectory(outputFolder) |> ignore
 
-    let makeTextWriter fileName = File.CreateText(outputFolder + fileName) :> TextWriter
+    let makeTextWriter fileName = File.CreateText(Path.Combine(outputFolder, fileName)) :> TextWriter
     let tsWebOutput = makeTextWriter "dom.generated.d.ts"
     let tsWorkerOutput = makeTextWriter "webworker.generated.d.ts"
     let defaultEventType = "Event"
@@ -339,8 +339,7 @@ module Data =
 
     let GetCallbackFuncsByFlavor flavor =
         browser.CallbackFunctions
-        |> Array.filter (ShouldKeep flavor)
-        |> Array.filter (fun cb -> flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name)
+        |> Array.filter (fun cb -> (flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name) && ShouldKeep flavor cb)
 
     /// Event name to event type map
     let eNameToEType =
@@ -443,9 +442,8 @@ module Data =
 
         let unUsedEvents =
             GetNonCallbackInterfacesByFlavor Flavor.All
-            |> Array.filter (fun i -> i.Extends = "Event")
-            |> Array.map (fun i -> i.Name)
-            |> Array.filter (fun n -> n.EndsWith("Event") && not (List.contains n usedEvents))
+            |> Array.choose (fun i -> 
+                if i.Extends = "Event" && i.Name.EndsWith("Event") && not (List.contains i.Name usedEvents) then Some(i.Name) else None)
             |> Array.distinct
             |> List.ofArray
 
@@ -639,7 +637,6 @@ module Data =
 
 module Emit =
     open Data
-    open CommentJson
     open Types
     open Helpers
     open InputJson
@@ -823,50 +820,6 @@ module Emit =
             (if p.Variadic then "[]" else "")
         String.Join(", ", (List.map paramToString ps))
 
-    let EmitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
-        // print comment
-        if m.Name.IsSome then
-            match GetCommentForMethod i.Name m.Name.Value with
-            | Some comment -> Pt.Printl "%s" comment
-            | _ -> ()
-
-        // Find if there are overriding signatures in the external json file
-        // - overriddenType: meaning there is a better definition of this type in the json file
-        // - removedType: meaning the type is marked as removed in the json file
-        // if there is any conflicts between the two, the "removedType" has a higher priority over
-        // the "overridenType".
-        let removedType = Option.bind (fun name -> InputJson.getRemovedItemByName name InputJson.ItemKind.Method i.Name) m.Name
-        let overridenType = Option.bind (fun mName -> InputJson.getOverriddenItemByName mName InputJson.ItemKind.Method i.Name) m.Name
-
-        if removedType.IsNone then
-            match overridenType with
-            | Some t ->
-                match flavor with
-                | Flavor.All | Flavor.Web -> t.WebOnlySignatures |> Array.iter (Pt.Printl "%s%s;" prefix)
-                | _ -> ()
-                t.Signatures |> Array.iter (Pt.Printl "%s%s;" prefix)
-            | None ->
-                match i.Name, m.Name with
-                | _, Some "createElement" -> EmitCreateElementOverloads m
-                | _, Some "createEvent" -> EmitCreateEventOverloads m
-                | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
-                | _, Some "querySelector" -> EmitQuerySelectorOverloads m
-                | _, Some "querySelectorAll" -> EmitQuerySelectorAllOverloads m
-                | _ ->
-                    if m.Name.IsSome then
-                        // If there are added overloads from the json files, print them first
-                        match getAddedItemByName m.Name.Value ItemKind.SignatureOverload i.Name with
-                        | Some ol -> ol.Signatures |> Array.iter (Pt.Printl "%s")
-                        | _ -> ()
-
-                    let overloads = GetOverloads (Function.Method m) false
-                    for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
-                        let paramsString = ParamsToString pCombList
-                        let returnString =
-                            let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
-                            if isNullable then makeNullable returnType else returnType
-                        Pt.Printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
-
     let EmitCallBackInterface (i:Browser.Interface) =
         Pt.Printl "interface %s {" i.Name
         Pt.PrintWithAddedIndent "(evt: Event): void;"
@@ -913,10 +866,13 @@ module Emit =
                 | _ -> ""
             Pt.Printl "%s%s%s: %s;" prefix readOnlyModifier p.Name.Value p.Type.Value
 
-        let emitProperty (p: Browser.Property) =
-            match GetCommentForProperty i.Name p.Name with
+        let emitCommentForProperty pName =
+            match CommentJson.GetCommentForProperty i.Name pName with
             | Some comment -> Pt.Printl "%s" comment
             | _ -> ()
+
+        let emitProperty (p: Browser.Property) =
+            emitCommentForProperty p.Name
 
             // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
             if p.Name = "name" && i.Name = "Window" && emitScope = EmitScope.All then
@@ -952,9 +908,10 @@ module Emit =
                 |> Array.iter emitProperty
             | None -> ()
 
-            getAddedItems ItemKind.Property flavor
-            |> Array.filter (fun addedItem -> (matchInterface i.Name addedItem) && (prefix <> "declare var " || not(OptionCheckValue false addedItem.ExposeGlobally)))
-            |> Array.iter emitPropertyFromJson
+            for addedItem in getAddedItems ItemKind.Property flavor do
+                if (matchInterface i.Name addedItem) && (prefix <> "declare var " || addedItem.ExposeGlobally.IsNone || addedItem.ExposeGlobally.Value) then
+                    emitCommentForProperty addedItem.Name.Value
+                    emitPropertyFromJson addedItem
 
     let EmitMethods flavor prefix (emitScope: EmitScope) (i: Browser.Interface) =
         // Note: two cases:
@@ -963,25 +920,73 @@ module Emit =
         let emitMethodFromJson (m: InputJsonItem.Root) =
             m.Signatures |> Array.iter (Pt.Printl "%s%s;" prefix)
 
+        let emitCommentForMethod (mName: string option) =
+            if mName.IsSome then
+                match CommentJson.GetCommentForMethod i.Name mName.Value with
+                | Some comment -> Pt.Printl "%s" comment
+                | _ -> ()
+
         // If prefix is not empty, then this is the global declare function addEventListener, we want to override this
         // Otherwise, this is EventTarget.addEventListener, we want to keep that.
         let mFilter (m:Browser.Method) =
             matchScope emitScope m &&
             not (prefix <> "" && OptionCheckValue "addEventListener" m.Name)
 
+        let emitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
+            // print comment
+            emitCommentForMethod m.Name
+
+            // Find if there are overriding signatures in the external json file
+            // - overriddenType: meaning there is a better definition of this type in the json file
+            // - removedType: meaning the type is marked as removed in the json file
+            // if there is any conflicts between the two, the "removedType" has a higher priority over
+            // the "overridenType".
+            let removedType = Option.bind (fun name -> InputJson.getRemovedItemByName name InputJson.ItemKind.Method i.Name) m.Name
+            let overridenType = Option.bind (fun mName -> InputJson.getOverriddenItemByName mName InputJson.ItemKind.Method i.Name) m.Name
+
+            if removedType.IsNone then
+                match overridenType with
+                | Some t ->
+                    match flavor with
+                    | Flavor.All | Flavor.Web -> t.WebOnlySignatures |> Array.iter (Pt.Printl "%s%s;" prefix)
+                    | _ -> ()
+                    t.Signatures |> Array.iter (Pt.Printl "%s%s;" prefix)
+                | None ->
+                    match i.Name, m.Name with
+                    | _, Some "createElement" -> EmitCreateElementOverloads m
+                    | _, Some "createEvent" -> EmitCreateEventOverloads m
+                    | _, Some "getElementsByTagName" -> EmitGetElementsByTagNameOverloads m
+                    | _, Some "querySelector" -> EmitQuerySelectorOverloads m
+                    | _, Some "querySelectorAll" -> EmitQuerySelectorAllOverloads m
+                    | _ ->
+                        if m.Name.IsSome then
+                            // If there are added overloads from the json files, print them first
+                            match getAddedItemByName m.Name.Value ItemKind.SignatureOverload i.Name with
+                            | Some ol -> ol.Signatures |> Array.iter (Pt.Printl "%s")
+                            | _ -> ()
+
+                        let overloads = GetOverloads (Function.Method m) false
+                        for { ParamCombinations = pCombList; ReturnTypes = rTypes; Nullable = isNullable } in overloads do
+                            let paramsString = ParamsToString pCombList
+                            let returnString =
+                                let returnType = rTypes |> List.map DomTypeToTsType |> String.concat " | "
+                                if isNullable then makeNullable returnType else returnType
+                            Pt.Printl "%s%s(%s): %s;" prefix (if m.Name.IsSome then m.Name.Value else "") paramsString returnString
+
         if i.Methods.IsSome then
             i.Methods.Value.Methods
             |> Array.filter mFilter
-            |> Array.iter (EmitMethod flavor prefix i)
+            |> Array.iter (emitMethod flavor prefix i)
 
-        getAddedItems ItemKind.Method flavor
-        |> Array.filter (fun m -> matchInterface i.Name m && matchScope emitScope m)
-        |> Array.iter emitMethodFromJson
+        for addedItem in getAddedItems ItemKind.Method flavor do
+            if (matchInterface i.Name addedItem && matchScope emitScope addedItem) then
+                emitCommentForMethod addedItem.Name
+                emitMethodFromJson addedItem
 
         // The window interface inherited some methods from "Object",
         // which need to explicitly exposed
         if i.Name = "Window" && prefix = "declare function " then
-            Pt.Printl "%stoString(): string;" prefix
+            Pt.Printl "declare function toString(): string;"
 
     /// Emit the properties and methods of a given interface
     let EmitMembers flavor (prefix: string) (emitScope: EmitScope) (i:Browser.Interface) =
@@ -1206,8 +1211,7 @@ module Emit =
                 let hasOwnNonStaticMethod =
                     i.Methods.IsSome &&
                     i.Methods.Value.Methods
-                    |> Array.filter (fun m -> m.Name.IsNone || (getRemovedItemByName m.Name.Value ItemKind.Method i.Name) |> Option.isNone)
-                    |> Array.exists (fun m -> m.Static.IsNone)
+                    |> Array.exists (fun m -> m.Static.IsNone && (m.Name.IsNone || (getRemovedItemByName m.Name.Value ItemKind.Method i.Name) |> Option.isNone))
                 let hasAddedNonStaticMethod =
                     match InputJson.getAddedItemsByInterfaceName ItemKind.Method flavor i.Name with
                     | [||] -> false
@@ -1217,8 +1221,7 @@ module Emit =
                 let hasOwnNonStaticProperty =
                     i.Properties.IsSome &&
                     i.Properties.Value.Properties
-                    |> Array.filter (fun p -> getRemovedItemByName p.Name ItemKind.Method i.Name |> Option.isNone)
-                    |> Array.isEmpty |> not
+                    |> Array.exists (fun p -> getRemovedItemByName p.Name ItemKind.Method i.Name |> Option.isNone)
                 let hasAddedNonStaticMethod =
                     match InputJson.getAddedItemsByInterfaceName ItemKind.Property flavor i.Name with
                     | [||] -> false
@@ -1300,8 +1303,7 @@ module Emit =
 
             let removedPropNames =
                 getRemovedItems ItemKind.Property flavor
-                |> Array.filter (matchInterface dict.Name)
-                |> Array.map (fun rp -> rp.Name.Value)
+                |> Array.choose (fun rp -> if matchInterface dict.Name rp then Some(rp.Name.Value) else None)
                 |> Set.ofArray
             let addedProps =
                 getAddedItems ItemKind.Property flavor
@@ -1355,9 +1357,12 @@ module Emit =
 
         match flavor with
         | Flavor.Worker ->
-            browser.Typedefs |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType) |> Array.iter emitTypeDef
+            browser.Typedefs 
+            |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType)
+            |> Array.iter emitTypeDef
         | _ ->
-            browser.Typedefs |> Array.iter emitTypeDef
+            browser.Typedefs
+            |> Array.iter emitTypeDef
 
         InputJson.getAddedItems ItemKind.TypeDef flavor
         |> Array.iter emitTypeDefFromJson

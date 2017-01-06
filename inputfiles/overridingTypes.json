@@ -18,6 +18,12 @@
     },
     {
         "kind": "method",
+        "interface": "Node",
+        "name": "appendChild",
+        "signatures": ["appendChild<T extends Node>(newChild: T): T"]
+    },
+    {
+        "kind": "method",
         "interface": "HTMLCollection",
         "name": "item",
         "signatures": ["item(index: number): Element"]

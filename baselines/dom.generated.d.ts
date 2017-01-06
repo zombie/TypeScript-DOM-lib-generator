@@ -7754,7 +7754,7 @@ interface Node extends EventTarget {
     readonly parentNode: Node | null;
     readonly previousSibling: Node | null;
     textContent: string | null;
-    appendChild(newChild: Node): Node;
+    appendChild<T extends Node>(newChild: T): T;
     cloneNode(deep?: boolean): Node;
     compareDocumentPosition(other: Node): number;
     contains(child: Node): boolean;

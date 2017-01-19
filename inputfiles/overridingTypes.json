@@ -252,6 +252,12 @@
     {
         "kind": "method",
         "interface": "Console",
+        "name": "debug",
+        "signatures": ["debug(message?: any, ...optionalParams: any[]): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
         "name": "dir",
         "signatures": ["dir(value?: any, ...optionalParams: any[]): void"]
     },

@@ -162,18 +162,6 @@
         "type": "typeof Blob"
     },
     {
-        "kind": "property",
-        "interface": "Element",
-        "name": "innerHTML",
-        "type": "string"
-    },
-    {
-        "kind": "property",
-        "interface": "SVGElement",
-        "name": "className",
-        "type": "any"
-    },
-    {
         "kind": "interface",
         "name": "NodeListOf<TNode extends Node>",
         "flavor": "Web",
@@ -209,13 +197,6 @@
             {
                 "name": "namedItem",
                 "signatures": ["namedItem(name: string): T"]
-            }
-        ],
-        "indexer": [
-            {
-                "signatures": [
-                    "[index: number]: T"
-                ]
             }
         ]
     },
@@ -258,35 +239,16 @@
         ]
     },
     {
-        "kind": "interface",
-        "name": "MessageEventInit",
-        "extends": "EventInit",
-        "properties": [
-            {
-                "name": "data?",
-                "type": "any"
-            },
-            {
-                "name": "origin?",
-                "type": "string"
-            },
-            {
-                "name": "lastEventId?",
-                "type": "string"
-            },
-            {
-                "name": "channel?",
-                "type": "string"
-            },
-            {
-                "name": "source?",
-                "type": "any"
-            },
-            {
-                "name": "ports?",
-                "type": "MessagePort[]"
-            }
-        ]
+        "kind": "property",
+        "interface": "MessageEventInit",
+        "name": "lastEventId?",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "MessageEventInit",
+        "name": "channel?",
+        "type": "string"
     },
     {
         "kind": "interface",
@@ -422,13 +384,6 @@
         ]
     },
     {
-        "kind": "indexer",
-        "interface": "HTMLCollection",
-        "signatures": [
-            "[index: number]: Element"
-        ]
-    },
-    {
         "kind": "signatureoverload",
         "name": "createElementNS",
         "interface": "Document",
@@ -524,12 +479,6 @@
         "interface": "HTMLLinkElement",
         "name": "import?",
         "type": "Document"
-    },
-    {
-        "kind": "property",
-        "interface": "AudioContext",
-        "name": "state",
-        "type": "string"
     },
     {
         "kind": "method",
@@ -1280,13 +1229,6 @@
         "interface": "History",
         "name": "scrollRestoration",
         "type": "ScrollRestoration"
-    },
-    {
-        "kind": "property",
-        "interface": "XMLHttpRequest",
-        "readonly": true,
-        "name": "responseURL",
-        "type": "string"
     },
     {
         "kind": "method",

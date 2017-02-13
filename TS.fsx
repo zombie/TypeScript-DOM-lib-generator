@@ -74,10 +74,10 @@ module Types =
 
         member this.Printl content =
             Printf.kprintf (fun s -> output.Append("\r\n" + this.GetCurIndent() + s) |> ignore) content
-        
+
         member this.PrintlToStack content =
             Printf.kprintf (fun s -> stack.Append("\r\n" + this.GetCurIndent() + s) |> ignore) content
-        
+
         member this.StackIsEmpty () = stack.Length = 0
 
         member this.IncreaseIndent() = curTabCount <- curTabCount + 1
@@ -324,8 +324,8 @@ module Data =
 
     type KnownWorkerInterfaceType = JsonProvider<"inputfiles/knownWorkerInterfaces.json", InferTypesFromValues=false>
     let knownWorkerInterfaces =
-        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownWorkerInterfaces.json")) 
-        |> KnownWorkerInterfaceType.Parse 
+        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownWorkerInterfaces.json"))
+        |> KnownWorkerInterfaceType.Parse
         |> set
 
     let GetAllInterfacesByFlavor flavor =
@@ -736,8 +736,6 @@ module Emit =
                         let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
                         let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)
                         match tName with
-                        | "Promise" ->
-                            "PromiseLike<" + paramName + ">"
                         | _ ->
                             if tName = "Array" then paramName + "[]"
                             else tName + "<" + paramName + ">"
@@ -894,7 +892,7 @@ module Emit =
              | Some pollutor -> "this: " + pollutor.Name + ", "
              | _ -> ""
 
-    let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface) (conflictedMembers: Set<string>) = 
+    let EmitProperties flavor prefix (emitScope: EmitScope) (i: Browser.Interface) (conflictedMembers: Set<string>) =
         let emitPropertyFromJson (p: InputJsonType.Root) =
             let readOnlyModifier =
                 match p.Readonly with
@@ -1030,7 +1028,7 @@ module Emit =
 
     /// Emit the properties and methods of a given interface
     let EmitMembers flavor (prefix: string) (emitScope: EmitScope) (i:Browser.Interface) =
-        let conflictedMembers = 
+        let conflictedMembers =
             match Map.tryFind i.Name extendConflictsBaseTypes with
             | Some conflict -> conflict.MemberNames
             | _ -> []
@@ -1129,7 +1127,7 @@ module Emit =
             match Map.tryFind iName extendConflictsBaseTypes with
             | Some _ -> iName + "Base"
             | _ -> iName
-        
+
         let processedIName = processIName i.Name
         if processedIName <> i.Name then
             Pt.PrintlToStack "interface %s extends %s {" i.Name processedIName
@@ -1462,7 +1460,7 @@ module Emit =
         Pt.Printl ""
 
         EmitDictionaries flavor
-        browser.CallbackInterfaces.Interfaces |> Array.iter EmitCallBackInterface 
+        browser.CallbackInterfaces.Interfaces |> Array.iter EmitCallBackInterface
         EmitNonCallbackInterfaces flavor
 
         // Add missed interface definition from the spec

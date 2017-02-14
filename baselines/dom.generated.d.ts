@@ -2452,7 +2452,7 @@ interface DOMImplementation {
     createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType): Document;
     createDocumentType(qualifiedName: string, publicId: string, systemId: string): DocumentType;
     createHTMLDocument(title: string): Document;
-    hasFeature(): boolean;
+    hasFeature(feature: string | null, version: string | null): boolean;
 }
 
 declare var DOMImplementation: {

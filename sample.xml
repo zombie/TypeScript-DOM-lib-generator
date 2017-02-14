@@ -3253,7 +3253,10 @@
         <method name="createHTMLDocument" type="Document">
           <param name="title" type="DOMString" />
         </method>
-        <method name="hasFeature" type="boolean" />
+        <method name="hasFeature" type="boolean">
+          <param name="feature" nullable="1" type="DOMString" />
+          <param name="version" nullable="1" type="DOMString" />
+        </method>
       </methods>
     </interface>
     <interface name="DOMParser" extends="Object">

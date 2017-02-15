@@ -985,5 +985,11 @@
         "kind": "indexer",
         "interface": "DOMStringMap",
         "signatures": ["[name: string]: string | undefined"]
+    },
+    {
+        "kind": "method",
+        "interface": "DOMImplementation",
+        "name": "hasFeature",
+        "signatures": ["hasFeature(feature: string | null, version: string | null): boolean"]
     }
  ]

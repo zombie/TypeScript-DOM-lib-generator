@@ -11837,7 +11837,7 @@ interface URL {
     protocol: string;
     search: string;
     username: string;
-    readonly searchparams: URLSearchParams;
+    readonly searchParams: URLSearchParams;
     toString(): string;
 }
 

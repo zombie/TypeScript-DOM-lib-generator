@@ -143,7 +143,7 @@
     {
         "kind": "property",
         "interface": "URL",
-        "name": "searchparams",
+        "name": "searchParams",
         "readonly": true,
         "type": "URLSearchParams"
     },

@@ -991,5 +991,11 @@
         "interface": "DOMImplementation",
         "name": "hasFeature",
         "signatures": ["hasFeature(feature: string | null, version: string | null): boolean"]
+    },
+    {
+        "kind": "method",
+        "interface": "DOMImplementation",
+        "name": "createDocument",
+        "signatures": ["createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document"]
     }
  ]

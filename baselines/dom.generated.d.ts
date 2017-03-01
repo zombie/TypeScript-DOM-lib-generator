@@ -1396,6 +1396,7 @@ interface AudioNode extends EventTarget {
     readonly numberOfInputs: number;
     readonly numberOfOutputs: number;
     connect(destination: AudioNode, output?: number, input?: number): AudioNode;
+    connect(destination: AudioParam, output?: number): void;
     disconnect(output?: number): void;
     disconnect(destination: AudioNode, output?: number, input?: number): void;
     disconnect(destination: AudioParam, output?: number): void;

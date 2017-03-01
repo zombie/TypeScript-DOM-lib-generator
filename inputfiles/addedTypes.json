@@ -1437,5 +1437,11 @@
             "name": "reason?",
             "type": "any"
         }]
+    },
+    {
+        "kind": "method",
+        "interface": "Body",
+        "name": "formData",
+        "signatures": ["formData(): Promise<FormData>"]
     }
 ]

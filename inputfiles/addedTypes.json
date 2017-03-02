@@ -89,6 +89,120 @@
         ]
     },
     {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "HTMLOrSVGImageElement",
+        "type": "HTMLImageElement | SVGImageElement"
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "CanvasImageSource",
+        "type": "HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap"
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "ImageBitmapSource",
+        "type": "CanvasImageSource | Blob | ImageData"
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "ImageOrientation",
+        "type": "\"none\" | \"flipY\""
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "PremultiplyAlpha",
+        "type": "\"none\" | \"premultiply\" | \"default\""
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "ColorSpaceConversion",
+        "type": "\"none\" | \"default\""
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Worker",
+        "name": "ResizeQuality",
+        "type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
+    },
+    {
+        "kind": "interface",
+        "flavor": "Worker",
+        "name": "ImageBitmapOptions",
+        "properties": [
+            {
+                "name": "imageOrientation?",
+                "type": "ImageOrientation"
+            },
+            {
+                "name": "premultiplyAlpha?",
+                "type": "PremultiplyAlpha"
+            },
+            {
+                "name": "colorSpaceConversion?",
+                "type": "ColorSpaceConversion"
+            },
+            {
+                "name": "resizeWidth?",
+                "type": "number"
+            },
+            {
+                "name": "resizeHeight?",
+                "type": "number"
+            },
+            {
+                "name": "resizeQuality?",
+                "type": "ResizeQuality"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ImageBitmap",
+        "flavor": "Worker",
+        "properties": [
+            {
+                "name": "width",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "height",
+                "readonly": true,
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(): void"]
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "WorkerGlobalScope",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
         "kind": "property",
         "interface": "IDBObjectStoreParameters",
         "name": "autoIncrement?",

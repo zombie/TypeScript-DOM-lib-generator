@@ -89,63 +89,21 @@
         ]
     },
     {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "HTMLOrSVGImageElement",
-        "type": "HTMLImageElement | SVGImageElement"
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "CanvasImageSource",
-        "type": "HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap"
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "ImageBitmapSource",
-        "type": "CanvasImageSource | Blob | ImageData"
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "ImageOrientation",
-        "type": "\"none\" | \"flipY\""
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "PremultiplyAlpha",
-        "type": "\"none\" | \"premultiply\" | \"default\""
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "ColorSpaceConversion",
-        "type": "\"none\" | \"default\""
-    },
-    {
-        "kind": "typedef",
-        "flavor": "Worker",
-        "name": "ResizeQuality",
-        "type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
-    },
-    {
         "kind": "interface",
         "flavor": "Worker",
         "name": "ImageBitmapOptions",
         "properties": [
             {
                 "name": "imageOrientation?",
-                "type": "ImageOrientation"
+                "type": "\"none\" | \"flipY\""
             },
             {
                 "name": "premultiplyAlpha?",
-                "type": "PremultiplyAlpha"
+                "type": "\"none\" | \"premultiply\" | \"default\""
             },
             {
                 "name": "colorSpaceConversion?",
-                "type": "ColorSpaceConversion"
+                "type": "\"none\" | \"default\""
             },
             {
                 "name": "resizeWidth?",
@@ -157,7 +115,7 @@
             },
             {
                 "name": "resizeQuality?",
-                "type": "ResizeQuality"
+                "type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
             }
         ]
     },
@@ -189,8 +147,8 @@
         "interface": "Window",
         "name": "createImageBitmap",
         "signatures": [
-             "createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-             "createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
         ]
     },
     {
@@ -198,8 +156,8 @@
         "interface": "WorkerGlobalScope",
         "name": "createImageBitmap",
         "signatures": [
-             "createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-             "createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
         ]
     },
     {

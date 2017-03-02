@@ -1134,7 +1134,6 @@ interface Body {
     blob(): Promise<Blob>;
     json(): Promise<any>;
     text(): Promise<string>;
-    formData(): Promise<FormData>;
 }
 
 interface GlobalFetch {

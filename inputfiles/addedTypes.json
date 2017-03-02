@@ -1442,6 +1442,7 @@
         "kind": "method",
         "interface": "Body",
         "name": "formData",
+        "flavor": "Web",
         "signatures": ["formData(): Promise<FormData>"]
     }
 ]

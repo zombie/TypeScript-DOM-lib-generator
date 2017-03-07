@@ -89,6 +89,78 @@
         ]
     },
     {
+        "kind": "interface",
+        "flavor": "Worker",
+        "name": "ImageBitmapOptions",
+        "properties": [
+            {
+                "name": "imageOrientation?",
+                "type": "\"none\" | \"flipY\""
+            },
+            {
+                "name": "premultiplyAlpha?",
+                "type": "\"none\" | \"premultiply\" | \"default\""
+            },
+            {
+                "name": "colorSpaceConversion?",
+                "type": "\"none\" | \"default\""
+            },
+            {
+                "name": "resizeWidth?",
+                "type": "number"
+            },
+            {
+                "name": "resizeHeight?",
+                "type": "number"
+            },
+            {
+                "name": "resizeQuality?",
+                "type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ImageBitmap",
+        "flavor": "Worker",
+        "properties": [
+            {
+                "name": "width",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "height",
+                "readonly": true,
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(): void"]
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "WorkerGlobalScope",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
         "kind": "property",
         "interface": "IDBObjectStoreParameters",
         "name": "autoIncrement?",

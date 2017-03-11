@@ -12164,11 +12164,11 @@ interface WebGLRenderingContext {
     stencilOp(fail: number, zfail: number, zpass: number): void;
     stencilOpSeparate(face: number, fail: number, zfail: number, zpass: number): void;
     texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels: ArrayBufferView | null): void;
-    texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void;
+    texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageBitmap | ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void;
     texParameterf(target: number, pname: number, param: number): void;
     texParameteri(target: number, pname: number, param: number): void;
     texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView | null): void;
-    texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void;
+    texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageBitmap | ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void;
     uniform1f(location: WebGLUniformLocation | null, x: number): void;
     uniform1fv(location: WebGLUniformLocation, v: Float32Array | number[]): void;
     uniform1i(location: WebGLUniformLocation | null, x: number): void;

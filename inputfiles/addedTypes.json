@@ -270,6 +270,11 @@
                 "name": "namedItem",
                 "signatures": ["namedItem(name: string): T"]
             }
+        ],
+        "indexer": [
+            {
+                "signatures": ["[index: number]: T"]
+            }
         ]
     },
     {

@@ -48,6 +48,16 @@
     },
     {
         "kind": "method",
+        "interface": "CanvasRenderingContext2D",
+        "name": "drawImage",
+        "signatures": [
+            "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number): void",
+            "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number, dstW: number, dstH: number): void",
+            "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void"
+        ]
+    },
+    {
+        "kind": "method",
         "interface": "WebGLRenderingContext",
         "name": "texSubImage2D",
         "signatures": [

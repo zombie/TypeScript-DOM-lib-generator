@@ -241,7 +241,106 @@
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": ["closest(selector: string): Element | null"]
+        "signatures": [ "closest(selector: string): Element | null" ]
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Web",
+        "name": "ScrollBehavior",
+        "type": "\"auto\" | \"instant\" | \"smooth\""
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "ScrollOptions",
+        "properties": [
+            {
+                "name": "behavior?",
+                "type": "ScrollBehavior"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "ScrollToOptions",
+        "extends": "ScrollOptions",
+        "properties": [
+            {
+                "name": "left?",
+                "type": "number"
+            },
+            {
+                "name": "top?",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "signatures": [ "scroll(options?: ScrollToOptions): void" ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "signatures": [ "scrollTo(options?: ScrollToOptions): void" ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "signatures": [ "scrollBy(options?: ScrollToOptions): void" ]
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Web",
+        "name": "ScrollLogicalPosition",
+        "type": "\"start\" | \"center\" | \"end\" | \"nearest\""
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "ScrollIntoViewOptions",
+        "extends": "ScrollOptions",
+        "properties": [
+            {
+                "name": "block?",
+                "type": "ScrollLogicalPosition"
+            },
+            {
+                "name": "inline?",
+                "type": "ScrollLogicalPosition"
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": [ "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void" ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": [
+            "scroll(options?: ScrollToOptions): void",
+            "scroll(x: number, y: number): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": [
+            "scrollTo(options?: ScrollToOptions): void",
+            "scrollTo(x: number, y: number): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": [
+            "scrollBy(options?: ScrollToOptions): void",
+            "scrollBy(x: number, y: number): void"
+        ]
     },
     {
         "kind": "indexer",
@@ -343,7 +442,7 @@
         "kind": "method",
         "interface": "HTMLCanvasElement",
         "name": "toBlob",
-        "signatures": ["toBlob(callback: (result: Blob | null) => void, ... arguments: any[]): void"]
+        "signatures": ["toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"]
     },
     {
         "kind": "property",
@@ -554,7 +653,7 @@
         "extends": "Algorithm",
         "properties": [
             {
-                "name": "typedCurve",
+                "name": "namedCurve",
                 "type": "string"
             }
         ]
@@ -984,5 +1083,49 @@
         "name": "MouseWheelEvent",
         "flavor": "Web",
         "type": "WheelEvent"
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentElement",
+        "signatures": ["insertAdjacentElement(position: string, insertedElement: Element): Element | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentHTML",
+        "signatures": ["insertAdjacentHTML(where: string, html: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentText",
+        "signatures": ["insertAdjacentText(where: string, text: string): void"]
+    },
+    {
+        "kind": "property",
+        "name": "secureConnectionStart",
+        "interface": "PerformanceTiming",
+        "readonly": true,
+        "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLinkElement",
+        "name": "integrity",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLScriptElement",
+        "name": "integrity",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "KeyboardEvent",
+        "readonly": true,
+        "name": "code",
+        "type": "string"
     }
 ]

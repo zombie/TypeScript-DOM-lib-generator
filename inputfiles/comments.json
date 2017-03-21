@@ -2657,7 +2657,7 @@
           },
           {
             "name": "load",
-            "comment": "/**\r\n      * Fires immediately after the client loads the object.\r\n      */"
+            "comment": "/**\r\n      * Resets the audio or video object and loads a new media resource.\r\n      */"
           },
           {
             "name": "canPlayType",
@@ -3042,6 +3042,39 @@
           }
         ],
         "method": []
+      }
+    },
+    {
+      "name": "URLSearchParams",
+      "members": {
+        "method": [
+          {
+            "name": "append",
+            "comment": "/**\r\n      * Appends a specified key/value pair as a new search parameter.\r\n      */"
+          },
+          {
+            "name": "delete",
+            "comment": "/**\r\n      * Deletes the given search parameter, and its associated value, from the list of all search parameters.\r\n      */"
+          },
+          {
+            "name": "get",
+            "comment": "/**\r\n      * Returns the first value associated to the given search parameter.\r\n      */"
+          },
+          {
+            "name": "getAll",
+            "comment": "/**\r\n      * Returns all the values association with a given search parameter.\r\n      */"
+          },
+          {
+            "name": "has",
+            "comment": "/**\r\n      * Returns a Boolean indicating if such a search parameter exists.\r\n      */"
+          },
+          {
+            "name": "set",
+            "comment": "/**\r\n      * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.\r\n      */"
+          }
+        ],
+        "property": [],
+        "constructor": "/**\r\n      * Constructor returning a URLSearchParams object.\r\n      */"
       }
     }
   ]

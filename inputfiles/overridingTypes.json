@@ -1,9 +1,26 @@
  [
     {
+        "kind": "constructor",
+        "interface": "ErrorEvent",
+        "signatures": ["new(type: string, errorEventInitDict?: ErrorEventInit): ErrorEvent"]
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "name": "event",
+        "type": "Event | undefined"
+    },
+    {
         "kind": "method",
         "interface": "Node",
         "name": "insertBefore",
         "signatures": ["insertBefore(newChild: Node, refChild: Node | null): Node"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "appendChild",
+        "signatures": ["appendChild<T extends Node>(newChild: T): T"]
     },
     {
         "kind": "method",
@@ -31,11 +48,21 @@
     },
     {
         "kind": "method",
+        "interface": "CanvasRenderingContext2D",
+        "name": "drawImage",
+        "signatures": [
+            "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number): void",
+            "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number, dstW: number, dstH: number): void",
+            "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void"
+        ]
+    },
+    {
+        "kind": "method",
         "interface": "WebGLRenderingContext",
         "name": "texSubImage2D",
         "signatures": [
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels?: ArrayBufferView): void",
-            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels?: ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView | null): void",
+            "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageBitmap | ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
         ]
     },
     {
@@ -43,9 +70,15 @@
         "interface": "WebGLRenderingContext",
         "name": "texImage2D",
         "signatures": [
-            "texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView): void",
-            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels?: ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
+            "texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels: ArrayBufferView | null): void",
+            "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageBitmap | ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "WebGLRenderingContext",
+        "name": "pixelStorei",
+        "signatures": ["pixelStorei(pname: number, param: number | boolean): void"]
     },
     {
         "kind": "method",
@@ -225,6 +258,12 @@
         "interface": "Window",
         "name": "orientation",
         "type": "string | number"
+    },
+    {
+        "kind": "method",
+        "interface": "Console",
+        "name": "debug",
+        "signatures": ["debug(message?: any, ...optionalParams: any[]): void"]
     },
     {
         "kind": "method",
@@ -455,6 +494,15 @@
         "interface": "Window",
         "name": "open",
         "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window"]
+    },
+    {
+        "kind": "method",
+        "interface": "AudioNode",
+        "name": "connect",
+        "signatures": [
+            "connect(destination: AudioNode, output?: number, input?: number): AudioNode",
+            "connect(destination: AudioParam, output?: number): void"
+        ]
     },
     {
         "kind": "method",
@@ -809,5 +857,164 @@
          "readonly": true,
          "name": "files",
          "type": "FileList | null"
-     }
+     },
+     {
+         "kind": "property",
+         "interface": "Window",
+         "name": "opener",
+         "type": "any"
+    },
+    {
+        "kind": "method",
+        "interface": "History",
+        "name": "back",
+        "signatures": ["back(): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "History",
+        "name": "forward",
+        "signatures": ["forward(): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "History",
+        "name": "go",
+        "signatures": ["go(delta?: number): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "History",
+        "name": "pushState",
+        "signatures": ["pushState(data: any, title: string, url?: string | null): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "History",
+        "name": "replaceState",
+        "signatures": ["replaceState(data: any, title: string, url?: string | null): void"]
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "firstChild",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "lastChild",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "nextSibling",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "previousSibling",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "parentNode",
+        "type": "Node | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Node",
+        "readonly": true,
+        "name": "parentElement",
+        "type": "HTMLElement | null"
+    },
+    {
+        "kind": "method",
+        "interface": "MouseEvent",
+        "name": "initMouseEvent",
+        "signatures": ["initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void"]
+    },
+    {
+        "kind": "property",
+        "interface": "DataTransfer",
+        "readonly": true,
+        "name": "types",
+        "type": "string[]"
+    },
+    {
+        "kind": "method",
+        "interface": "XPathEvaluator",
+        "name": "evaluate",
+        "signatures": ["evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "evaluate",
+        "signatures": ["evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"]
+    },
+    {
+        "kind": "method",
+        "interface": "XPathExpression",
+        "name": "evaluate",
+        "signatures": ["evaluate(contextNode: Node, type: number, result: XPathResult | null): XPathResult"]
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode, DocumentOrShadowRoot",
+        "interface": "Document"
+    },
+    {
+        "kind": "property",
+        "interface": "ElementTraversal",
+        "readonly": true,
+        "name": "firstElementChild",
+        "type": "Element | null"
+    },
+    {
+        "kind": "property",
+        "interface": "ElementTraversal",
+        "readonly": true,
+        "name": "lastElementChild",
+        "type": "Element | null"
+    },
+    {
+        "kind": "property",
+        "interface": "ElementTraversal",
+        "readonly": true,
+        "name": "nextElementSibling",
+        "type": "Element | null"
+    },
+    {
+        "kind": "property",
+        "interface": "ElementTraversal",
+        "readonly": true,
+        "name": "previousElementSibling",
+        "type": "Element | null"
+    },
+    {
+        "kind": "indexer",
+        "interface": "DOMStringMap",
+        "signatures": ["[name: string]: string | undefined"]
+    },
+    {
+        "kind": "method",
+        "interface": "DOMImplementation",
+        "name": "hasFeature",
+        "signatures": ["hasFeature(feature: string | null, version: string | null): boolean"]
+    },
+    {
+        "kind": "method",
+        "interface": "DOMImplementation",
+        "name": "createDocument",
+        "signatures": ["createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document"]
+    }
  ]

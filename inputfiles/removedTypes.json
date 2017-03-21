@@ -68,5 +68,14 @@
         "kind": "method",
         "interface": "HTMLElement",
         "name": "insertAdjacentText"
+    },
+    {
+        "kind": "indexer",
+        "interface": "Window",
+        "signatures": [ "[index: number]: Window" ]
+    },
+    {
+        "kind": "typedef",
+        "name": "JSON"
     }
 ]

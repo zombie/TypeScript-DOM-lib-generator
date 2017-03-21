@@ -1,6 +1,44 @@
 [
     {
         "kind": "interface",
+        "name": "ErrorEventInit",
+        "properties": [
+            {
+                "name": "message?",
+                "type": "string"
+            },
+            {
+                "name": "filename?",
+                "type": "string"
+            },
+            {
+                "name": "lineno?",
+                "type": "number"
+            },
+            {
+                "name": "conlno?",
+                "type": "number"
+            },
+            {
+                "name": "error?",
+                "type": "any"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "CSSStyleDeclaration",
+        "name": "resize",
+        "type": "string | null"
+    },
+    {
+        "kind": "property",
+        "interface": "CSSStyleDeclaration",
+        "name": "userSelect",
+        "type": "string | null"
+    },
+    {
+        "kind": "interface",
         "name": "StorageEventInit",
         "flavor":  "Web",
         "extends": "EventInit",
@@ -51,6 +89,78 @@
         ]
     },
     {
+        "kind": "interface",
+        "flavor": "Worker",
+        "name": "ImageBitmapOptions",
+        "properties": [
+            {
+                "name": "imageOrientation?",
+                "type": "\"none\" | \"flipY\""
+            },
+            {
+                "name": "premultiplyAlpha?",
+                "type": "\"none\" | \"premultiply\" | \"default\""
+            },
+            {
+                "name": "colorSpaceConversion?",
+                "type": "\"none\" | \"default\""
+            },
+            {
+                "name": "resizeWidth?",
+                "type": "number"
+            },
+            {
+                "name": "resizeHeight?",
+                "type": "number"
+            },
+            {
+                "name": "resizeQuality?",
+                "type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ImageBitmap",
+        "flavor": "Worker",
+        "properties": [
+            {
+                "name": "width",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "height",
+                "readonly": true,
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(): void"]
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "WorkerGlobalScope",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
         "kind": "property",
         "interface": "IDBObjectStoreParameters",
         "name": "autoIncrement?",
@@ -69,6 +179,47 @@
         "type": "boolean"
     },
     {
+        "kind": "interface",
+        "name": "URLSearchParams",
+        "flavor": "Web",
+        "constructorSignatures": [
+            "new (init?: string | URLSearchParams): URLSearchParams"
+        ],
+        "methods": [
+            {
+                "name": "append",
+                "signatures": ["append(name: string, value: string): void"]
+            },
+            {
+                "name": "delete",
+                "signatures": ["delete(name: string): void"]
+            },
+            {
+                "name": "get",
+                "signatures": ["get(name: string): string | null"]
+            },
+            {
+                "name": "getAll",
+                "signatures": ["getAll(name: string): string[]"]
+            },
+            {
+                "name": "has",
+                "signatures": ["has(name: string): boolean"]
+            },
+            {
+                "name": "set",
+                "signatures": ["set(name: string, value: string): void"]
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "URL",
+        "name": "searchParams",
+        "readonly": true,
+        "type": "URLSearchParams"
+    },
+    {
         "kind": "property",
         "interface": "Window",
         "exposeGlobally": false,
@@ -81,18 +232,6 @@
         "exposeGlobally": false,
         "name": "Blob",
         "type": "typeof Blob"
-    },
-    {
-        "kind": "property",
-        "interface": "Element",
-        "name": "innerHTML",
-        "type": "string"
-    },
-    {
-        "kind": "property",
-        "interface": "SVGElement",
-        "name": "className",
-        "type": "any"
     },
     {
         "kind": "interface",
@@ -134,9 +273,7 @@
         ],
         "indexer": [
             {
-                "signatures": [
-                    "[index: number]: T"
-                ]
+                "signatures": ["[index: number]: T"]
             }
         ]
     },
@@ -179,35 +316,16 @@
         ]
     },
     {
-        "kind": "interface",
-        "name": "MessageEventInit",
-        "extends": "EventInit",
-        "properties": [
-            {
-                "name": "data?",
-                "type": "any"
-            },
-            {
-                "name": "origin?",
-                "type": "string"
-            },
-            {
-                "name": "lastEventId?",
-                "type": "string"
-            },
-            {
-                "name": "channel?",
-                "type": "string"
-            },
-            {
-                "name": "source?",
-                "type": "any"
-            },
-            {
-                "name": "ports?",
-                "type": "MessagePort[]"
-            }
-        ]
+        "kind": "property",
+        "interface": "MessageEventInit",
+        "name": "lastEventId?",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "MessageEventInit",
+        "name": "channel?",
+        "type": "string"
     },
     {
         "kind": "interface",
@@ -343,13 +461,6 @@
         ]
     },
     {
-        "kind": "indexer",
-        "interface": "HTMLCollection",
-        "signatures": [
-            "[index: number]: Element"
-        ]
-    },
-    {
         "kind": "signatureoverload",
         "name": "createElementNS",
         "interface": "Document",
@@ -428,15 +539,23 @@
     },
     {
         "kind": "property",
-        "interface": "HTMLLinkElement",
-        "name": "import?",
-        "type": "Document"
+        "interface": "Navigator",
+        "name": "hardwareConcurrency",
+        "readonly": true,
+        "type": "number"
     },
     {
         "kind": "property",
-        "interface": "AudioContext",
-        "name": "state",
-        "type": "string"
+        "interface": "WorkerNavigator",
+        "name": "hardwareConcurrency",
+        "readonly": true,
+        "type": "number"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLinkElement",
+        "name": "import?",
+        "type": "Document"
     },
     {
         "kind": "method",
@@ -1127,5 +1246,287 @@
         "readonly": true,
         "name": "code",
         "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "KeyboardEventInit",
+        "name": "code?",
+        "type": "string"
+    },
+    {
+        "kind": "interface",
+        "name": "ParentNode",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "children",
+                "readonly": true,
+                "type": "HTMLCollection"
+            },
+            {
+                "name": "firstElementChild",
+                "readonly": true,
+                "type": "Element | null"
+            },
+            {
+                "name": "lastElementChild",
+                "readonly": true,
+                "type": "Element | null"
+            },
+            {
+                "name": "childElementCount",
+                "readonly": true,
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "Element"
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "Document"
+    },
+    {
+        "kind": "extends",
+        "baseInterface": "ParentNode",
+        "interface": "DocumentFragment"
+    },
+    {
+        "kind": "typedef",
+        "name": "ScrollRestoration",
+        "flavor": "DOM",
+        "type": "\"auto\" | \"manual\""
+    },
+    {
+        "kind": "property",
+        "interface": "History",
+        "name": "scrollRestoration",
+        "type": "ScrollRestoration"
+    },
+    {
+        "kind": "method",
+        "interface": "CanvasPattern",
+        "name": "setTransform",
+        "signatures": ["setTransform(matrix: SVGMatrix): void"]
+    },
+    {
+        "kind": "interface",
+        "name": "DocumentOrShadowRoot",
+        "flavor": "DOM",
+        "methods": [
+            {
+                "name": "getSelection",
+                "signatures": ["getSelection(): Selection | null"]
+            },
+            {
+                "name": "elementFromPoint",
+                "signatures": ["elementFromPoint(x: number, y: number): Element | null"]
+            },
+            {
+                "name": "elementsFromPoint",
+                "signatures": ["elementsFromPoint(x: number, y: number): Element[]"]
+            }
+        ],
+        "properties": [
+            {
+                "name": "activeElement",
+                "type": "Element | null",
+                "readonly": true
+            },
+            {
+                "name": "stylesheets",
+                "type": "StyleSheetList",
+                "readonly": true
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ShadowRoot",
+        "extends": "DocumentOrShadowRoot, DocumentFragment",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "host",
+                "type": "Element",
+                "readonly": true
+            },
+            {
+                "name": "innerHTML",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "attachShadow",
+        "signatures": ["attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"]
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "assignedSlot",
+        "type": "HTMLSlotElement | null",
+        "readonly": true
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "slot",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "Element",
+        "name": "shadowRoot",
+        "type": "ShadowRoot | null",
+        "readonly": true
+    },
+    {
+        "kind": "interface",
+        "name": "ShadowRootInit",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "mode",
+                "type": "'open'|'closed'"
+            },
+            {
+                "name": "delegatesFocus?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "Text",
+        "name": "assignedSlot",
+        "type": "HTMLSlotElement | null",
+        "readonly": true
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLSlotElement",
+        "extends": "HTMLElement",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "name",
+                "type": "string"
+            }
+        ],
+        "methods": [
+            {
+                "name": "assignedNodes",
+                "signatures": ["assignedNodes(options?: AssignedNodesOptions): Node[]"]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AssignedNodesOptions",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "flatten?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "EventInit",
+        "name": "scoped?",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "Event",
+        "name": "scoped",
+        "type": "boolean",
+        "readonly": true
+    },
+    {
+        "kind": "method",
+        "interface": "Event",
+        "name": "deepPath",
+        "signatures": ["deepPath(): EventTarget[]"]
+    },
+    {
+        "kind": "interface",
+        "name": "ElementDefinitionOptions",
+        "flavor": "DOM",
+        "properties": [{
+            "name": "extends",
+            "type": "string"
+        }]
+    },
+    {
+        "kind": "interface",
+        "name": "CustomElementRegistry",
+        "flavor": "DOM",
+        "methods": [{
+           "name": "define",
+           "signatures": ["define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"]
+        }, {
+            "name": "get",
+            "signatures": ["get(name: string): any"]
+        }, {
+            "name": "whenDefined",
+            "signatures": ["whenDefined(name: string): PromiseLike<void>"]
+        }]
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "name": "customElements",
+        "type": "CustomElementRegistry"
+    },
+    {
+        "kind": "interface",
+        "name": "PromiseRejectionEvent",
+        "extends": "Event",
+        "flavor": "Web",
+        "properties": [{
+            "name": "promise",
+            "type": "PromiseLike<any>",
+            "readonly": true
+        }, {
+            "name": "reason",
+            "type": "any",
+            "readonly": true
+        }]
+    },
+    {
+        "kind": "interface",
+        "name": "PromiseRejectionEventInit",
+        "extends": "EventInit",
+        "flavor": "Web",
+        "properties": [{
+            "name": "promise",
+            "type": "PromiseLike<any>"
+        }, {
+            "name": "reason?",
+            "type": "any"
+        }]
+    },
+    {
+        "kind": "method",
+        "interface": "Body",
+        "name": "formData",
+        "flavor": "Web",
+        "signatures": ["formData(): Promise<FormData>"]
+    },
+    {
+        "kind": "method",
+        "interface": "DocumentFragment",
+        "name": "getElementById",
+        "flavor": "DOM",
+        "signatures": ["getElementById(elementId: string): HTMLElement | null"]
     }
 ]

@@ -2538,6 +2538,7 @@ interface DataTransfer {
     clearData(format?: string): boolean;
     getData(format: string): string;
     setData(format: string, data: string): boolean;
+    setDragImage(image: Element, x: number, y: number): void;
 }
 
 declare var DataTransfer: {

@@ -1534,5 +1534,40 @@
         "name": "getElementById",
         "flavor": "DOM",
         "signatures": ["getElementById(elementId: string): HTMLElement | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "delete",
+        "flavor": "Web",
+        "signatures": ["delete(name: any): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "get",
+        "flavor": "Web",
+        "signatures": ["get(name: any): any"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "getAll",
+        "flavor": "Web",
+        "signatures": ["getAll(name: any): any"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "has",
+        "flavor": "Web",
+        "signatures": ["has(name: any): any"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "set",
+        "flavor": "Web",
+        "signatures": ["set(name: any, value: any, fileName?: string): void"]
     }
 ]

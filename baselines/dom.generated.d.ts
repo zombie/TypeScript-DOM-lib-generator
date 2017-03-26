@@ -3796,7 +3796,12 @@ declare var FocusNavigationEvent: {
 }
 
 interface FormData {
-    append(name: any, value: any, blobName?: string): void;
+    append(name: any, value: any, fileName?: string): void;
+    delete(name: any): void;
+    get(name: any): any;
+    getAll(name: any): any;
+    has(name: any): any;
+    set(name: any, value: any, fileName?: string): void;
 }
 
 declare var FormData: {

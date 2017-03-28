@@ -1406,6 +1406,8 @@ interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, Glo
     onerror: (this: WorkerGlobalScope, ev: ErrorEvent) => any;
     readonly performance: Performance;
     readonly self: WorkerGlobalScope;
+    URL: typeof URL;
+    URLSearchParams: typeof URLSearchParams;
     msWriteProfilerMark(profilerMarkName: string): void;
     createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
@@ -1482,6 +1484,25 @@ interface ImageBitmap {
     readonly width: number;
     readonly height: number;
     close(): void;
+}
+
+interface URL {
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    toJSON(): string;
+}
+
+declare var URL: {
+    prototype: URL;
+    new (url: string, base?: string): URL;
 }
 
 interface BlobPropertyBag {

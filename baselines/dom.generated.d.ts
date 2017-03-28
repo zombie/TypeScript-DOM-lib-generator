@@ -13232,6 +13232,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly top: Window;
     readonly window: Window;
     URL: typeof URL;
+    URLSearchParams: typeof URLSearchParams;
     Blob: typeof Blob;
     customElements: CustomElementRegistry;
     alert(message?: any): void;
@@ -13856,6 +13857,25 @@ interface ImageBitmap {
     readonly width: number;
     readonly height: number;
     close(): void;
+}
+
+interface URL {
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    toJSON(): string;
+}
+
+declare var URL: {
+    prototype: URL;
+    new (url: string, base?: string): URL;
 }
 
 interface URLSearchParams {

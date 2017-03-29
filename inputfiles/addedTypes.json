@@ -1536,6 +1536,11 @@
         "signatures": ["getElementById(elementId: string): HTMLElement | null"]
     },
     {
+        "kind": "typedef",
+        "name": "FormDataEntryValue",
+        "type": "string | File"
+    },
+    {
         "kind": "method",
         "interface": "FormData",
         "name": "delete",

@@ -1746,3 +1746,4 @@ type RequestInfo = Request | string;
 type USVString = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
+type FormDataEntryValue = string | File;

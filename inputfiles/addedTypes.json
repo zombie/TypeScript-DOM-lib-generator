@@ -1534,5 +1534,45 @@
         "name": "getElementById",
         "flavor": "DOM",
         "signatures": ["getElementById(elementId: string): HTMLElement | null"]
+    },
+    {
+        "kind": "typedef",
+        "name": "FormDataEntryValue",
+        "type": "string | File"
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "delete",
+        "flavor": "Web",
+        "signatures": ["delete(name: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "get",
+        "flavor": "Web",
+        "signatures": ["get(name: string): FormDataEntryValue | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "getAll",
+        "flavor": "Web",
+        "signatures": ["getAll(name: string): FormDataEntryValue[]"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "has",
+        "flavor": "Web",
+        "signatures": ["has(name: string): boolean"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "set",
+        "flavor": "Web",
+        "signatures": ["set(name: string, value: string | Blob, fileName?: string): void"]
     }
 ]

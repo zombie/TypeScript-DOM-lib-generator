@@ -1016,5 +1016,12 @@
         "interface": "DOMImplementation",
         "name": "createDocument",
         "signatures": ["createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "append",
+        "flavor": "Web",
+        "signatures": ["append(name: string, value: string | Blob, fileName?: string): void"]
     }
  ]

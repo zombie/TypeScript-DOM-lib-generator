@@ -61,6 +61,10 @@ interface NotificationOptions {
     icon?: string;
 }
 
+interface ObjectURLOptions {
+    oneTimeOnly?: boolean;
+}
+
 interface PushSubscriptionOptionsInit {
     userVisibleOnly?: boolean;
     applicationServerKey?: any;

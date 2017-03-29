@@ -1547,14 +1547,14 @@
         "interface": "FormData",
         "name": "get",
         "flavor": "Web",
-        "signatures": ["get(name: string): any"]
+        "signatures": ["get(name: string): FormDataEntryValue | null"]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "getAll",
         "flavor": "Web",
-        "signatures": ["getAll(name: string): any[]"]
+        "signatures": ["getAll(name: string): FormDataEntryValue[]"]
     },
     {
         "kind": "method",
@@ -1568,6 +1568,6 @@
         "interface": "FormData",
         "name": "set",
         "flavor": "Web",
-        "signatures": ["set(name: string, value: any, fileName?: string): void"]
+        "signatures": ["set(name: string, value: string | blob, fileName?: string): void"]
     }
 ]

@@ -1022,6 +1022,6 @@
         "interface": "FormData",
         "name": "append",
         "flavor": "Web",
-        "signatures": ["append(name: string, value: any, fileName?: string): void"]
+        "signatures": ["append(name: string, value: string | blob, fileName?: string): void"]
     }
  ]

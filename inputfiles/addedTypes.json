@@ -181,7 +181,6 @@
     {
         "kind": "interface",
         "name": "URLSearchParams",
-        "flavor": "Web",
         "constructorSignatures": [
             "new (init?: string | URLSearchParams): URLSearchParams"
         ],
@@ -225,6 +224,13 @@
         "exposeGlobally": false,
         "name": "URL",
         "type": "typeof URL"
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "exposeGlobally": false,
+        "name": "URLSearchParams",
+        "type": "typeof URLSearchParams"
     },
     {
         "kind": "property",

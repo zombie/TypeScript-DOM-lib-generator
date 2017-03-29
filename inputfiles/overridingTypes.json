@@ -12,15 +12,39 @@
     },
     {
         "kind": "method",
-        "interface": "Node",
-        "name": "insertBefore",
-        "signatures": ["insertBefore(newChild: Node, refChild: Node | null): Node"]
+        "interface": "Document",
+        "name": "adoptNode",
+        "signatures": ["adoptNode<T extends Node>(source: T): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Document",
+        "name": "importNode",
+        "signatures": ["importNode<T extends Node>(importedNode: T, deep: boolean): T"]
     },
     {
         "kind": "method",
         "interface": "Node",
         "name": "appendChild",
         "signatures": ["appendChild<T extends Node>(newChild: T): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "insertBefore",
+        "signatures": ["insertBefore<T extends Node>(newChild: T, refChild: Node | null): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "removeChild",
+        "signatures": ["removeChild<T extends Node>(oldChild: T): T"]
+    },
+    {
+        "kind": "method",
+        "interface": "Node",
+        "name": "replaceChild",
+        "signatures": ["replaceChild<T extends Node>(newChild: Node, oldChild: T): T"]
     },
     {
         "kind": "method",

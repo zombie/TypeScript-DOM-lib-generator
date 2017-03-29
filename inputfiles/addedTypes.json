@@ -180,65 +180,7 @@
     },
     {
         "kind": "interface",
-        "name": "URL",
-        "flavor": "Worker",
-        "constructorSignatures": [
-            "new (url: string, base?: string): URL"
-        ],
-        "properties": [
-          {
-              "name": "href",
-              "type": "string"
-          },
-          {
-              "name": "origin",
-              "type": "string",
-              "readonly": true
-          },
-          {
-              "name": "protocol",
-              "type": "string"
-          },
-          {
-              "name": "username",
-              "type": "string"
-          },
-          {
-              "name": "password",
-              "type": "string"
-          },
-          {
-              "name": "host",
-              "type": "string"
-          },
-          {
-              "name": "hostname",
-              "type": "string"
-          },
-          {
-              "name": "port",
-              "type": "string"
-          },
-          {
-              "name": "pathname",
-              "type": "string"
-          },
-          {
-              "name": "search",
-              "type": "string"
-          }
-        ],
-        "methods": [
-            {
-                "name": "toJSON",
-                "signatures": ["toJSON(): string"]
-            }
-        ]
-    },
-    {
-        "kind": "interface",
         "name": "URLSearchParams",
-        "flavor": "All",
         "constructorSignatures": [
             "new (init?: string | URLSearchParams): URLSearchParams"
         ],

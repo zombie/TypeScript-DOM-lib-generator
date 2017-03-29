@@ -13859,25 +13859,6 @@ interface ImageBitmap {
     close(): void;
 }
 
-interface URL {
-    href: string;
-    readonly origin: string;
-    protocol: string;
-    username: string;
-    password: string;
-    host: string;
-    hostname: string;
-    port: string;
-    pathname: string;
-    search: string;
-    toJSON(): string;
-}
-
-declare var URL: {
-    prototype: URL;
-    new (url: string, base?: string): URL;
-}
-
 interface URLSearchParams {
     /**
       * Appends a specified key/value pair as a new search parameter.

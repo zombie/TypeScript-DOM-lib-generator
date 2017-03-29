@@ -91,6 +91,8 @@
     "SyncEventInit",
     "SyncManager",
     "USVString",
+    "URL",
+    "URLSearchParams",
     "WebSocket",
     "WindowBase64",
     "WindowConsole",

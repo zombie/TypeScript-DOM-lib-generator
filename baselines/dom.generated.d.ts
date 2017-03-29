@@ -2538,6 +2538,7 @@ interface DataTransfer {
     clearData(format?: string): boolean;
     getData(format: string): string;
     setData(format: string, data: string): boolean;
+    setDragImage(image: Element, x: number, y: number): void;
 }
 
 declare var DataTransfer: {
@@ -3207,7 +3208,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       * Gets or sets the version attribute specified in the declaration of an XML document.
       */
     xmlVersion: string | null;
-    adoptNode(source: Node): Node;
+    adoptNode<T extends Node>(source: T): T;
     captureEvents(): void;
     caretRangeFromPoint(x: number, y: number): Range;
     clear(): void;
@@ -3384,7 +3385,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
       * Gets a value indicating whether the object currently has focus.
       */
     hasFocus(): boolean;
-    importNode(importedNode: Node, deep: boolean): Node;
+    importNode<T extends Node>(importedNode: T, deep: boolean): T;
     msElementsFromPoint(x: number, y: number): NodeListOf<Element>;
     msElementsFromRect(left: number, top: number, width: number, height: number): NodeListOf<Element>;
     /**
@@ -3795,7 +3796,12 @@ declare var FocusNavigationEvent: {
 }
 
 interface FormData {
-    append(name: any, value: any, blobName?: string): void;
+    append(name: string, value: string | Blob, fileName?: string): void;
+    delete(name: string): void;
+    get(name: string): FormDataEntryValue | null;
+    getAll(name: string): FormDataEntryValue[];
+    has(name: string): boolean;
+    set(name: string, value: string | Blob, fileName?: string): void;
 }
 
 declare var FormData: {
@@ -8253,15 +8259,15 @@ interface Node extends EventTarget {
     contains(child: Node): boolean;
     hasAttributes(): boolean;
     hasChildNodes(): boolean;
-    insertBefore(newChild: Node, refChild: Node | null): Node;
+    insertBefore<T extends Node>(newChild: T, refChild: Node | null): T;
     isDefaultNamespace(namespaceURI: string | null): boolean;
     isEqualNode(arg: Node): boolean;
     isSameNode(other: Node): boolean;
     lookupNamespaceURI(prefix: string | null): string | null;
     lookupPrefix(namespaceURI: string | null): string | null;
     normalize(): void;
-    removeChild(oldChild: Node): Node;
-    replaceChild(newChild: Node, oldChild: Node): Node;
+    removeChild<T extends Node>(oldChild: T): T;
+    replaceChild<T extends Node>(newChild: Node, oldChild: T): T;
     readonly ATTRIBUTE_NODE: number;
     readonly CDATA_SECTION_NODE: number;
     readonly COMMENT_NODE: number;
@@ -13231,6 +13237,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly top: Window;
     readonly window: Window;
     URL: typeof URL;
+    URLSearchParams: typeof URLSearchParams;
     Blob: typeof Blob;
     customElements: CustomElementRegistry;
     alert(message?: any): void;
@@ -14940,6 +14947,7 @@ type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
+type FormDataEntryValue = string | File;
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";

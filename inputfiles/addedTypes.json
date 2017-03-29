@@ -181,7 +181,6 @@
     {
         "kind": "interface",
         "name": "URLSearchParams",
-        "flavor": "Web",
         "constructorSignatures": [
             "new (init?: string | URLSearchParams): URLSearchParams"
         ],
@@ -225,6 +224,13 @@
         "exposeGlobally": false,
         "name": "URL",
         "type": "typeof URL"
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "exposeGlobally": false,
+        "name": "URLSearchParams",
+        "type": "typeof URLSearchParams"
     },
     {
         "kind": "property",
@@ -1205,6 +1211,12 @@
     },
     {
         "kind": "method",
+        "interface": "DataTransfer",
+        "name": "setDragImage",
+        "signatures": ["setDragImage(image: Element, x: number, y: number): void"]
+    },
+    {
+        "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentElement",
         "signatures": ["insertAdjacentElement(position: string, insertedElement: Element): Element | null"]
@@ -1528,5 +1540,45 @@
         "name": "getElementById",
         "flavor": "DOM",
         "signatures": ["getElementById(elementId: string): HTMLElement | null"]
+    },
+    {
+        "kind": "typedef",
+        "name": "FormDataEntryValue",
+        "type": "string | File"
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "delete",
+        "flavor": "Web",
+        "signatures": ["delete(name: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "get",
+        "flavor": "Web",
+        "signatures": ["get(name: string): FormDataEntryValue | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "getAll",
+        "flavor": "Web",
+        "signatures": ["getAll(name: string): FormDataEntryValue[]"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "has",
+        "flavor": "Web",
+        "signatures": ["has(name: string): boolean"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "set",
+        "flavor": "Web",
+        "signatures": ["set(name: string, value: string | Blob, fileName?: string): void"]
     }
 ]

@@ -1573,6 +1573,6 @@
         "interface": "FormData",
         "name": "set",
         "flavor": "Web",
-        "signatures": ["set(name: string, value: string | blob, fileName?: string): void"]
+        "signatures": ["set(name: string, value: string | Blob, fileName?: string): void"]
     }
 ]

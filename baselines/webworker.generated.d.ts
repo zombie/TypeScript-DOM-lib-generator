@@ -1429,8 +1429,6 @@ interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, Glo
     onerror: (this: WorkerGlobalScope, ev: ErrorEvent) => any;
     readonly performance: Performance;
     readonly self: WorkerGlobalScope;
-    URL: typeof URL;
-    URLSearchParams: typeof URLSearchParams;
     msWriteProfilerMark(profilerMarkName: string): void;
     createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;

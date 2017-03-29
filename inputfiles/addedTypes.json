@@ -227,21 +227,7 @@
     },
     {
         "kind": "property",
-        "interface": "WorkerGlobalScope",
-        "exposeGlobally": false,
-        "name": "URL",
-        "type": "typeof URL"
-    },
-    {
-        "kind": "property",
         "interface": "Window",
-        "exposeGlobally": false,
-        "name": "URLSearchParams",
-        "type": "typeof URLSearchParams"
-    },
-    {
-        "kind": "property",
-        "interface": "WorkerGlobalScope",
         "exposeGlobally": false,
         "name": "URLSearchParams",
         "type": "typeof URLSearchParams"

@@ -328,6 +328,11 @@ module Data =
         |> KnownWorkerInterfaceType.Parse
         |> set
 
+    let knownWorkerEnums =
+        File.ReadAllText(Path.Combine(GlobalVars.inputFolder, "knownWorkerEnums.json"))
+        |> KnownWorkerInterfaceType.Parse
+        |> set
+
     let GetAllInterfacesByFlavor flavor =
         match flavor with
         | Flavor.Web -> allWebInterfaces |> Array.filter (ShouldKeep Web)
@@ -354,6 +359,13 @@ module Data =
     let GetCallbackFuncsByFlavor flavor =
         browser.CallbackFunctions
         |> Array.filter (fun cb -> (flavor <> Flavor.Worker || knownWorkerInterfaces.Contains cb.Name) && ShouldKeep flavor cb)
+
+    let GetEnumsByFlavor flavor =
+        match flavor with
+        | Flavor.Web | Flavor.All -> browser.Enums
+        | Flavor.Worker ->
+            let isFromBrowserXml = browser.Enums |> Array.filter (fun i -> knownWorkerEnums.Contains i.Name)
+            Array.append isFromBrowserXml worker.Enums
 
     /// Event name to event type map
     let eNameToEType =
@@ -717,12 +729,11 @@ module Emit =
                 // Name of an interface / enum / dict. Just return itself
                 if allInterfacesMap.ContainsKey objDomType ||
                     allCallbackFuncs.ContainsKey objDomType ||
-                    allDictionariesMap.ContainsKey objDomType then
+                    allDictionariesMap.ContainsKey objDomType || 
+                    allEnumsMap.ContainsKey objDomType then
                     objDomType
                 // Name of a type alias. Just return itself
                 elif typeDefSet.Contains objDomType then objDomType
-                // Enum types are all treated as string
-                elif allEnumsMap.ContainsKey objDomType then "string"
                 // Union types
                 elif objDomType.Contains(" or ") then
                     let allTypes = objDomType.Trim('(', ')').Split([|" or "|], StringSplitOptions.None)
@@ -882,9 +893,10 @@ module Emit =
 
         GetCallbackFuncsByFlavor flavor |> Array.iter emitCallBackFunction
 
-    let EmitEnums () =
-        let emitEnum (e: Browser.Enum) = Pt.Printl "declare var %s: string;" e.Name
-        browser.Enums |> Array.iter emitEnum
+    let EmitEnums flavor =
+        let emitEnum (e: Browser.Enum) =
+            Pt.Printl "type %s = %s;" e.Name (String.Join(" | ", e.Values |> Array.map (fun value -> "\"" + value + "\"")))
+        GetEnumsByFlavor flavor |> Array.iter emitEnum
 
     let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
         if prefix = "" then "this: " + i.Name + ", "
@@ -1484,6 +1496,7 @@ module Emit =
         | _ -> ()
 
         EmitTypeDefs flavor
+        EmitEnums flavor
 
         fprintf target "%s" (Pt.GetResult())
         target.Flush()

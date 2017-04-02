@@ -1059,5 +1059,12 @@
         "interface": "EventTarget",
         "name": "removeEventListener",
         "signatures": ["removeEventListener(type: string, listener?: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void"]
+    },
+    {
+        "kind": "constructor",
+        "interface": "TouchEvent",
+        "signatures": [
+            "new(type: string, touchEventInit?: TouchEventInit): TouchEvent"
+        ]
     }
  ]

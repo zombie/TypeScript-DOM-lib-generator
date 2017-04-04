@@ -11587,7 +11587,7 @@ interface Text extends CharacterData {
 
 declare var Text: {
     prototype: Text;
-    new(): Text;
+    new(data?: string): Text;
 }
 
 interface TextEvent extends UIEvent {

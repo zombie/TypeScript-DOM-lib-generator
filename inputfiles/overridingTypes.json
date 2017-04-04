@@ -1066,5 +1066,12 @@
         "signatures": [
             "new(type: string, touchEventInit?: TouchEventInit): TouchEvent"
         ]
+    },
+    {
+        "kind": "constructor",
+        "interface": "Text",
+        "signatures": [
+            "new(data?: string): Text"
+        ]
     }
  ]

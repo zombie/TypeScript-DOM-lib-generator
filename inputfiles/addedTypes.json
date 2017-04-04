@@ -1600,5 +1600,21 @@
             "name": "once?",
             "type": "boolean"
         }]
+    },
+    {
+        "kind": "interface",
+        "name": "TouchEventInit",
+        "flavor":  "Web",
+        "extends": "EventModifierInit",
+        "properties": [{
+            "name": "touches?",
+            "type": "Touch[]"
+        }, {
+            "name": "targetTouches?",
+            "type": "Touch[]"
+        }, {
+            "name": "changedTouches?",
+            "type": "Touch[]"
+        }]
     }
 ]

@@ -11770,7 +11770,7 @@ interface TouchEvent extends UIEvent {
 
 declare var TouchEvent: {
     prototype: TouchEvent;
-    new(): TouchEvent;
+    new(type: string, touchEventInit?: TouchEventInit): TouchEvent;
 }
 
 interface TouchList {
@@ -14185,6 +14185,12 @@ interface EventListenerOptions {
 interface AddEventListenerOptions extends EventListenerOptions {
     passive?: boolean;
     once?: boolean;
+}
+
+interface TouchEventInit extends EventModifierInit {
+    touches?: Touch[];
+    targetTouches?: Touch[];
+    changedTouches?: Touch[];
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

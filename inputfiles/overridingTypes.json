@@ -359,6 +359,7 @@
     {
         "kind": "constructor",
         "interface": "FormData",
+        "flavor": "Web",
         "signatures": ["new (form?: HTMLFormElement): FormData"]
     },
     {

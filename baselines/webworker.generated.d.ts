@@ -8,16 +8,16 @@ interface Algorithm {
 }
 
 interface CacheQueryOptions {
-    ignoreSearch?: boolean;
-    ignoreMethod?: boolean;
-    ignoreVary?: boolean;
     cacheName?: string;
+    ignoreMethod?: boolean;
+    ignoreSearch?: boolean;
+    ignoreVary?: boolean;
 }
 
 interface CloseEventInit extends EventInit {
-    wasClean?: boolean;
     code?: number;
     reason?: string;
+    wasClean?: boolean;
 }
 
 interface EventInit {
@@ -49,16 +49,16 @@ interface MessageEventInit extends EventInit {
     channel?: string;
     data?: any;
     origin?: string;
-    source?: any;
     ports?: MessagePort[];
+    source?: any;
 }
 
 interface NotificationOptions {
-    dir?: NotificationDirection;
-    lang?: string;
     body?: string;
-    tag?: string;
+    dir?: NotificationDirection;
     icon?: string;
+    lang?: string;
+    tag?: string;
 }
 
 interface ObjectURLOptions {
@@ -66,29 +66,29 @@ interface ObjectURLOptions {
 }
 
 interface PushSubscriptionOptionsInit {
-    userVisibleOnly?: boolean;
     applicationServerKey?: any;
+    userVisibleOnly?: boolean;
 }
 
 interface RequestInit {
-    method?: string;
-    headers?: any;
     body?: any;
-    referrer?: string;
-    referrerPolicy?: ReferrerPolicy;
-    mode?: RequestMode;
-    credentials?: RequestCredentials;
     cache?: RequestCache;
-    redirect?: RequestRedirect;
+    credentials?: RequestCredentials;
+    headers?: any;
     integrity?: string;
     keepalive?: boolean;
+    method?: string;
+    mode?: RequestMode;
+    redirect?: RequestRedirect;
+    referrer?: string;
+    referrerPolicy?: ReferrerPolicy;
     window?: any;
 }
 
 interface ResponseInit {
+    headers?: any;
     status?: number;
     statusText?: string;
-    headers?: any;
 }
 
 interface ClientQueryOptions {
@@ -296,10 +296,10 @@ interface DOMException {
     readonly INVALID_STATE_ERR: number;
     readonly NAMESPACE_ERR: number;
     readonly NETWORK_ERR: number;
-    readonly NOT_FOUND_ERR: number;
-    readonly NOT_SUPPORTED_ERR: number;
     readonly NO_DATA_ALLOWED_ERR: number;
     readonly NO_MODIFICATION_ALLOWED_ERR: number;
+    readonly NOT_FOUND_ERR: number;
+    readonly NOT_SUPPORTED_ERR: number;
     readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
@@ -328,10 +328,10 @@ declare var DOMException: {
     readonly INVALID_STATE_ERR: number;
     readonly NAMESPACE_ERR: number;
     readonly NETWORK_ERR: number;
-    readonly NOT_FOUND_ERR: number;
-    readonly NOT_SUPPORTED_ERR: number;
     readonly NO_DATA_ALLOWED_ERR: number;
     readonly NO_MODIFICATION_ALLOWED_ERR: number;
+    readonly NOT_FOUND_ERR: number;
+    readonly NOT_SUPPORTED_ERR: number;
     readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
@@ -372,8 +372,8 @@ declare var ErrorEvent: {
 
 interface Event {
     readonly bubbles: boolean;
-    cancelBubble: boolean;
     readonly cancelable: boolean;
+    cancelBubble: boolean;
     readonly currentTarget: EventTarget;
     readonly defaultPrevented: boolean;
     readonly eventPhase: number;
@@ -798,13 +798,13 @@ declare var PerformanceNavigation: {
 interface PerformanceTiming {
     readonly connectEnd: number;
     readonly connectStart: number;
+    readonly domainLookupEnd: number;
+    readonly domainLookupStart: number;
     readonly domComplete: number;
     readonly domContentLoadedEventEnd: number;
     readonly domContentLoadedEventStart: number;
     readonly domInteractive: number;
     readonly domLoading: number;
-    readonly domainLookupEnd: number;
-    readonly domainLookupStart: number;
     readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
@@ -1751,29 +1751,29 @@ interface AddEventListenerOptions extends EventListenerOptions {
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
+interface DecodeErrorCallback {
+    (error: DOMException): void;
+}
+interface DecodeSuccessCallback {
+    (decodedData: AudioBuffer): void;
+}
 interface ErrorEventHandler {
     (message: string, filename?: string, lineno?: number, colno?: number, error?:Error): void;
+}
+interface ForEachCallback {
+    (keyId: any, status: MediaKeyStatus): void;
+}
+interface FunctionStringCallback {
+    (data: string): void;
+}
+interface NotificationPermissionCallback {
+    (permission: NotificationPermission): void;
 }
 interface PositionCallback {
     (position: Position): void;
 }
 interface PositionErrorCallback {
     (error: PositionError): void;
-}
-interface DecodeSuccessCallback {
-    (decodedData: AudioBuffer): void;
-}
-interface DecodeErrorCallback {
-    (error: DOMException): void;
-}
-interface FunctionStringCallback {
-    (data: string): void;
-}
-interface ForEachCallback {
-    (keyId: any, status: MediaKeyStatus): void;
-}
-interface NotificationPermissionCallback {
-    (permission: NotificationPermission): void;
 }
 declare var onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
 declare function close(): void;

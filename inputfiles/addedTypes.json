@@ -1406,7 +1406,7 @@
         "properties": [
             {
                 "name": "mode",
-                "type": "'open'|'closed'"
+                "type": "\"open\" | \"closed\""
             },
             {
                 "name": "delegatesFocus?",

@@ -9366,6 +9366,8 @@ interface Response extends Object, Body {
 declare var Response: {
     prototype: Response;
     new(body?: any, init?: ResponseInit): Response;
+    error: () => Response;
+    redirect: (url: string, status?: number) => Response;
 }
 
 interface SVGAElement extends SVGGraphicsElement, SVGURIReference {

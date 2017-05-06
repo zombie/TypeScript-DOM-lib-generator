@@ -1073,5 +1073,29 @@
         "signatures": [
             "new(data?: string): Text"
         ]
+    },
+    {
+        "kind": "typedef",
+        "name": "InsertPosition",
+        "flavor": "Web",
+        "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentElement",
+        "signatures": ["insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentHTML",
+        "signatures": ["insertAdjacentHTML(where: InsertPosition, html: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "insertAdjacentText",
+        "signatures": ["insertAdjacentText(where: InsertPosition, text: string): void"]
     }
  ]

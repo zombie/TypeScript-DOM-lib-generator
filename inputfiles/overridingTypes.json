@@ -1075,12 +1075,6 @@
         ]
     },
     {
-        "kind": "typedef",
-        "name": "InsertPosition",
-        "flavor": "Web",
-        "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
-    },
-    {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentElement",

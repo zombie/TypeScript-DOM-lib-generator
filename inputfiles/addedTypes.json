@@ -1616,5 +1616,11 @@
             "name": "changedTouches?",
             "type": "Touch[]"
         }]
+    },
+    {
+        "kind": "typedef",
+        "name": "InsertPosition",
+        "flavor": "Web",
+        "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
     }
 ]

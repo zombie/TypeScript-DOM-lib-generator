@@ -3641,9 +3641,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     scrollTo(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
     scrollBy(x: number, y: number): void;
-    insertAdjacentElement(position: string, insertedElement: Element): Element | null;
-    insertAdjacentHTML(where: string, html: string): void;
-    insertAdjacentText(where: string, text: string): void;
+    insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null;
+    insertAdjacentHTML(where: InsertPosition, html: string): void;
+    insertAdjacentText(where: InsertPosition, text: string): void;
     attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
     addEventListener<K extends keyof ElementEventMap>(type: K, listener: (this: Element, ev: ElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;

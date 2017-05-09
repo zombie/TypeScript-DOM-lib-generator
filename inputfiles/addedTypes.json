@@ -1219,19 +1219,19 @@
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentElement",
-        "signatures": ["insertAdjacentElement(position: string, insertedElement: Element): Element | null"]
+        "signatures": ["insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentHTML",
-        "signatures": ["insertAdjacentHTML(where: string, html: string): void"]
+        "signatures": ["insertAdjacentHTML(where: InsertPosition, html: string): void"]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentText",
-        "signatures": ["insertAdjacentText(where: string, text: string): void"]
+        "signatures": ["insertAdjacentText(where: InsertPosition, text: string): void"]
     },
     {
         "kind": "property",

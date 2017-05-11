@@ -325,6 +325,18 @@
         "name": "warn",
         "signatures": ["warn(message?: any, ...optionalParams: any[]): void"]
     },
+     {
+        "kind": "method",
+        "interface": "Console",
+        "name": "group",
+        "signatures": ["group(groupTitle?: string, ...optionalParams: any[]): void"]
+    },
+     {
+        "kind": "method",
+        "interface": "Console",
+        "name": "groupCollapsed",
+        "signatures": ["groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void"]
+    },
     {
         "kind": "callback",
         "name": "ErrorEventHandler",

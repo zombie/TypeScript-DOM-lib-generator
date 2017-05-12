@@ -1,6 +1,15 @@
  [
     {
         "kind": "constructor",
+        "interface": "Response",
+        "signatures": [
+            "new(body?: any, init?: ResponseInit): Response",
+            "error: () => Response",
+            "redirect: (url: string, status?: number) => Response"
+        ]
+    },
+    {
+        "kind": "constructor",
         "interface": "ErrorEvent",
         "signatures": ["new(type: string, errorEventInitDict?: ErrorEventInit): ErrorEvent"]
     },
@@ -324,6 +333,18 @@
         "interface": "Console",
         "name": "warn",
         "signatures": ["warn(message?: any, ...optionalParams: any[]): void"]
+    },
+     {
+        "kind": "method",
+        "interface": "Console",
+        "name": "group",
+        "signatures": ["group(groupTitle?: string, ...optionalParams: any[]): void"]
+    },
+     {
+        "kind": "method",
+        "interface": "Console",
+        "name": "groupCollapsed",
+        "signatures": ["groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void"]
     },
     {
         "kind": "callback",
@@ -1072,6 +1093,14 @@
         "interface": "Text",
         "signatures": [
             "new(data?: string): Text"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLMediaElement",
+        "name": "play",
+        "signatures": [
+            "play(): Promise<void>"
         ]
     }
  ]

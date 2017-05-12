@@ -2288,8 +2288,8 @@ interface Console {
     dirxml(value: any): void;
     error(message?: any, ...optionalParams: any[]): void;
     exception(message?: string, ...optionalParams: any[]): void;
-    group(groupTitle?: string): void;
-    groupCollapsed(groupTitle?: string): void;
+    group(groupTitle?: string, ...optionalParams: any[]): void;
+    groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void;
     groupEnd(): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -3641,9 +3641,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     scrollTo(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
     scrollBy(x: number, y: number): void;
-    insertAdjacentElement(position: string, insertedElement: Element): Element | null;
-    insertAdjacentHTML(where: string, html: string): void;
-    insertAdjacentText(where: string, text: string): void;
+    insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null;
+    insertAdjacentHTML(where: InsertPosition, html: string): void;
+    insertAdjacentText(where: InsertPosition, text: string): void;
     attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
     addEventListener<K extends keyof ElementEventMap>(type: K, listener: (this: Element, ev: ElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -5725,7 +5725,7 @@ interface HTMLMediaElement extends HTMLElement {
     /**
       * Loads and starts playback of a media resource.
       */
-    play(): void;
+    play(): Promise<void>;
     setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
     readonly HAVE_CURRENT_DATA: number;
     readonly HAVE_ENOUGH_DATA: number;
@@ -9366,6 +9366,8 @@ interface Response extends Object, Body {
 declare var Response: {
     prototype: Response;
     new(body?: any, init?: ResponseInit): Response;
+    error: () => Response;
+    redirect: (url: string, status?: number) => Response;
 }
 
 interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
@@ -14963,6 +14965,7 @@ type BufferSource = ArrayBuffer | ArrayBufferView;
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
+type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";

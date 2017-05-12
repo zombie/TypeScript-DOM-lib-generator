@@ -20,6 +20,7 @@ module GlobalVars =
 
     let makeTextWriter fileName = File.CreateText(Path.Combine(outputFolder, fileName)) :> TextWriter
     let tsWebOutput = makeTextWriter "dom.generated.d.ts"
+    let tsWebES6Output = makeTextWriter "dom.es6.generated.d.ts"
     let tsWorkerOutput = makeTextWriter "webworker.generated.d.ts"
     let defaultEventType = "Event"
 
@@ -698,6 +699,9 @@ module Emit =
     let extendedTypes =
         ["ArrayBuffer";"ArrayBufferView";"Int8Array";"Uint8Array";"Int16Array";"Uint16Array";"Int32Array";"Uint32Array";"Float32Array";"Float64Array"]
 
+    let integerTypes = 
+        ["byte";"octet";"short";"unsigned short";"long";"unsigned long";"long long";"unsigned long long"]
+
     /// Get typescript type using object dom type, object name, and it's associated interface name
     let rec DomTypeToTsType (objDomType: string) =
         match objDomType.Trim('?') with
@@ -713,15 +717,13 @@ module Emit =
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" -> "number"
         | "Function" -> "Function"
-        | "long" | "long long" | "signed long" | "signed long long" | "unsigned long" | "unsigned long long" -> "number"
-        | "octet" | "byte" -> "number"
         | "object" -> "any"
         | "Promise" -> "Promise"
         | "ReadyState" -> "string"
         | "sequence" -> "Array"
-        | "short" | "signed short" | "unsigned short" -> "number"
         | "UnrestrictedDouble" -> "number"
         | "void" -> "void"
+        | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
         | _ ->
             if ignoreDOMTypes && Seq.contains objDomType ["Element"; "Window"; "Document"] then "any"
@@ -1466,8 +1468,8 @@ module Emit =
         Pt.Reset()
         Pt.Printl "/////////////////////////////"
         match flavor with
-        | Worker -> Pt.Printl "/// IE Worker APIs"
-        | _ -> Pt.Printl "/// IE DOM APIs"
+        | Worker -> Pt.Printl "/// Worker APIs"
+        | _ -> Pt.Printl "/// DOM APIs"
         Pt.Printl "/////////////////////////////"
         Pt.Printl ""
 
@@ -1502,8 +1504,53 @@ module Emit =
         target.Flush()
         target.Close()
 
+    let EmitIterator (i: Browser.Interface) =
+        let isIntegerKeyParam (p: Browser.Param) =
+            List.contains p.Type integerTypes
+
+        // check anonymous unsigned long getter and length property
+        let isIterableGetter (m: Browser.Method) = 
+            m.Getter = Some 1 && m.Params.Length = 1 && isIntegerKeyParam m.Params.[0]
+
+        let findIterableGetter() =
+            let anonymousGetter = 
+                if (i.AnonymousMethods.IsSome) then Array.tryFind isIterableGetter i.AnonymousMethods.Value.Methods
+                else None
+
+            if (anonymousGetter.IsSome) then anonymousGetter
+            else if (i.Methods.IsSome) then Array.tryFind isIterableGetter i.Methods.Value.Methods
+            else None
+
+        let findLengthProperty (p: Browser.Property) =
+            p.Name = "length" && List.contains p.Type integerTypes
+
+        if i.Name <> "Window" && i.Properties.IsSome then
+            let iterableGetter = findIterableGetter()
+            let lengthProperty = Array.tryFind findLengthProperty i.Properties.Value.Properties
+            if iterableGetter.IsSome && lengthProperty.IsSome then
+                Pt.Printl "interface %s {" i.Name
+                Pt.IncreaseIndent()
+                Pt.Printl "[Symbol.iterator](): IterableIterator<%s>" (DomTypeToTsType iterableGetter.Value.Type)
+                Pt.DecreaseIndent()
+                Pt.Printl "}"
+                Pt.Printl ""
+
+    let EmitES6Thing (target: TextWriter) =
+        Pt.Reset()
+        Pt.Printl "/////////////////////////////"
+        Pt.Printl "/// DOM ES6 APIs"
+        Pt.Printl "/////////////////////////////"
+        Pt.Printl ""
+
+        browser.Interfaces |> Array.iter EmitIterator
+        
+        fprintf target "%s" (Pt.GetResult())
+        target.Flush()
+        target.Close()
+
     let EmitDomWeb () =
         EmitTheWholeThing Flavor.All GlobalVars.tsWebOutput
+        EmitES6Thing GlobalVars.tsWebES6Output
 
     let EmitDomWorker () =
         ignoreDOMTypes <- true

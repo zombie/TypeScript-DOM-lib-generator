@@ -1,6 +1,6 @@
 language: csharp
 mono:
-  - 4.8.1
+  - latest
 
 script:
   - ./build.sh

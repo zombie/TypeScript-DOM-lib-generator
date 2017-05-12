@@ -512,7 +512,7 @@ interface IDBDatabase extends EventTarget {
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
-    transaction(storeNames: string | string[], mode?: string): IDBTransaction;
+    transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -543,8 +543,8 @@ interface IDBIndex {
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     get(key: IDBKeyRange | IDBValidKey): IDBRequest;
     getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
-    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
-    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -582,7 +582,7 @@ interface IDBObjectStore {
     deleteIndex(indexName: string): void;
     get(key: any): IDBRequest;
     index(name: string): IDBIndex;
-    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
 }
 
@@ -614,7 +614,7 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
-    readonly error: DOMError;
+    readonly error: DOMException;
     onerror: (this: IDBRequest, ev: Event) => any;
     onsuccess: (this: IDBRequest, ev: Event) => any;
     readonly readyState: IDBRequestReadyState;
@@ -638,7 +638,7 @@ interface IDBTransactionEventMap {
 
 interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
-    readonly error: DOMError;
+    readonly error: DOMException;
     readonly mode: IDBTransactionMode;
     onabort: (this: IDBTransaction, ev: Event) => any;
     oncomplete: (this: IDBTransaction, ev: Event) => any;

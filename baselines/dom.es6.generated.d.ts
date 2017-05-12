@@ -1,6 +1,6 @@
 
 /////////////////////////////
-/// MSEdge DOM ES6 APIs
+/// DOM ES6 APIs
 /////////////////////////////
 
 interface AudioTrackList {

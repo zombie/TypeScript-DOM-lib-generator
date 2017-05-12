@@ -1468,8 +1468,8 @@ module Emit =
         Pt.Reset()
         Pt.Printl "/////////////////////////////"
         match flavor with
-        | Worker -> Pt.Printl "/// MSEdge Worker APIs"
-        | _ -> Pt.Printl "/// MSEdge DOM APIs"
+        | Worker -> Pt.Printl "/// Worker APIs"
+        | _ -> Pt.Printl "/// DOM APIs"
         Pt.Printl "/////////////////////////////"
         Pt.Printl ""
 
@@ -1538,7 +1538,7 @@ module Emit =
     let EmitES6Thing (target: TextWriter) =
         Pt.Reset()
         Pt.Printl "/////////////////////////////"
-        Pt.Printl "/// MSEdge DOM ES6 APIs"
+        Pt.Printl "/// DOM ES6 APIs"
         Pt.Printl "/////////////////////////////"
         Pt.Printl ""
 

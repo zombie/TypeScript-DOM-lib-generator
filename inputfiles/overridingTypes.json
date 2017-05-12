@@ -1094,5 +1094,13 @@
         "signatures": [
             "new(data?: string): Text"
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLMediaElement",
+        "name": "play",
+        "signatures": [
+            "play(): Promise<void>"
+        ]
     }
  ]

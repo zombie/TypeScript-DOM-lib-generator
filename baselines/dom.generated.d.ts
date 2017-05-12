@@ -1,6 +1,6 @@
 
 /////////////////////////////
-/// IE DOM APIs
+/// DOM APIs
 /////////////////////////////
 
 interface Account {
@@ -2288,8 +2288,8 @@ interface Console {
     dirxml(value: any): void;
     error(message?: any, ...optionalParams: any[]): void;
     exception(message?: string, ...optionalParams: any[]): void;
-    group(groupTitle?: string): void;
-    groupCollapsed(groupTitle?: string): void;
+    group(groupTitle?: string, ...optionalParams: any[]): void;
+    groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void;
     groupEnd(): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -3641,9 +3641,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     scrollTo(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
     scrollBy(x: number, y: number): void;
-    insertAdjacentElement(position: string, insertedElement: Element): Element | null;
-    insertAdjacentHTML(where: string, html: string): void;
-    insertAdjacentText(where: string, text: string): void;
+    insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null;
+    insertAdjacentHTML(where: InsertPosition, html: string): void;
+    insertAdjacentText(where: InsertPosition, text: string): void;
     attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
     addEventListener<K extends keyof ElementEventMap>(type: K, listener: (this: Element, ev: ElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -5725,7 +5725,7 @@ interface HTMLMediaElement extends HTMLElement {
     /**
      * Loads and starts playback of a media resource.
      */
-    play(): void;
+    play(): Promise<void>;
     setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
     readonly HAVE_CURRENT_DATA: number;
     readonly HAVE_ENOUGH_DATA: number;
@@ -7010,7 +7010,7 @@ interface IDBDatabase extends EventTarget {
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
-    transaction(storeNames: string | string[], mode?: string): IDBTransaction;
+    transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -7041,8 +7041,8 @@ interface IDBIndex {
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     get(key: IDBKeyRange | IDBValidKey): IDBRequest;
     getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
-    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
-    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -7080,7 +7080,7 @@ interface IDBObjectStore {
     deleteIndex(indexName: string): void;
     get(key: any): IDBRequest;
     index(name: string): IDBIndex;
-    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
 }
 
@@ -7112,7 +7112,7 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
-    readonly error: DOMError;
+    readonly error: DOMException;
     onerror: (this: IDBRequest, ev: Event) => any;
     onsuccess: (this: IDBRequest, ev: Event) => any;
     readonly readyState: IDBRequestReadyState;
@@ -7136,7 +7136,7 @@ interface IDBTransactionEventMap {
 
 interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
-    readonly error: DOMError;
+    readonly error: DOMException;
     readonly mode: IDBTransactionMode;
     onabort: (this: IDBTransaction, ev: Event) => any;
     oncomplete: (this: IDBTransaction, ev: Event) => any;
@@ -9366,6 +9366,8 @@ interface Response extends Object, Body {
 declare var Response: {
     prototype: Response;
     new(body?: any, init?: ResponseInit): Response;
+    error: () => Response;
+    redirect: (url: string, status?: number) => Response;
 };
 
 interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
@@ -14344,48 +14346,27 @@ interface HTMLElementTagNameMap {
     "xmp": HTMLPreElement;
 }
 
-interface ElementTagNameMap {
-    "a": HTMLAnchorElement;
+interface ElementTagNameMap extends HTMLElementTagNameMap {
     "abbr": HTMLElement;
     "acronym": HTMLElement;
     "address": HTMLElement;
-    "applet": HTMLAppletElement;
-    "area": HTMLAreaElement;
     "article": HTMLElement;
     "aside": HTMLElement;
-    "audio": HTMLAudioElement;
     "b": HTMLElement;
-    "base": HTMLBaseElement;
-    "basefont": HTMLBaseFontElement;
     "bdo": HTMLElement;
     "big": HTMLElement;
-    "blockquote": HTMLQuoteElement;
-    "body": HTMLBodyElement;
-    "br": HTMLBRElement;
-    "button": HTMLButtonElement;
-    "canvas": HTMLCanvasElement;
-    "caption": HTMLTableCaptionElement;
     "center": HTMLElement;
     "circle": SVGCircleElement;
     "cite": HTMLElement;
     "clippath": SVGClipPathElement;
     "code": HTMLElement;
-    "col": HTMLTableColElement;
-    "colgroup": HTMLTableColElement;
-    "data": HTMLDataElement;
-    "datalist": HTMLDataListElement;
     "dd": HTMLElement;
     "defs": SVGDefsElement;
-    "del": HTMLModElement;
     "desc": SVGDescElement;
     "dfn": HTMLElement;
-    "dir": HTMLDirectoryElement;
-    "div": HTMLDivElement;
-    "dl": HTMLDListElement;
     "dt": HTMLElement;
     "ellipse": SVGEllipseElement;
     "em": HTMLElement;
-    "embed": HTMLEmbedElement;
     "feblend": SVGFEBlendElement;
     "fecolormatrix": SVGFEColorMatrixElement;
     "fecomponenttransfer": SVGFEComponentTransferElement;
@@ -14410,303 +14391,63 @@ interface ElementTagNameMap {
     "fespotlight": SVGFESpotLightElement;
     "fetile": SVGFETileElement;
     "feturbulence": SVGFETurbulenceElement;
-    "fieldset": HTMLFieldSetElement;
     "figcaption": HTMLElement;
     "figure": HTMLElement;
     "filter": SVGFilterElement;
-    "font": HTMLFontElement;
     "footer": HTMLElement;
     "foreignobject": SVGForeignObjectElement;
-    "form": HTMLFormElement;
-    "frame": HTMLFrameElement;
-    "frameset": HTMLFrameSetElement;
     "g": SVGGElement;
-    "h1": HTMLHeadingElement;
-    "h2": HTMLHeadingElement;
-    "h3": HTMLHeadingElement;
-    "h4": HTMLHeadingElement;
-    "h5": HTMLHeadingElement;
-    "h6": HTMLHeadingElement;
-    "head": HTMLHeadElement;
     "header": HTMLElement;
     "hgroup": HTMLElement;
-    "hr": HTMLHRElement;
-    "html": HTMLHtmlElement;
     "i": HTMLElement;
-    "iframe": HTMLIFrameElement;
     "image": SVGImageElement;
-    "img": HTMLImageElement;
-    "input": HTMLInputElement;
-    "ins": HTMLModElement;
-    "isindex": HTMLUnknownElement;
     "kbd": HTMLElement;
     "keygen": HTMLElement;
-    "label": HTMLLabelElement;
-    "legend": HTMLLegendElement;
-    "li": HTMLLIElement;
     "line": SVGLineElement;
     "lineargradient": SVGLinearGradientElement;
-    "link": HTMLLinkElement;
-    "listing": HTMLPreElement;
-    "map": HTMLMapElement;
     "mark": HTMLElement;
     "marker": SVGMarkerElement;
-    "marquee": HTMLMarqueeElement;
     "mask": SVGMaskElement;
-    "menu": HTMLMenuElement;
-    "meta": HTMLMetaElement;
     "metadata": SVGMetadataElement;
-    "meter": HTMLMeterElement;
     "nav": HTMLElement;
-    "nextid": HTMLUnknownElement;
     "nobr": HTMLElement;
     "noframes": HTMLElement;
     "noscript": HTMLElement;
-    "object": HTMLObjectElement;
-    "ol": HTMLOListElement;
-    "optgroup": HTMLOptGroupElement;
-    "option": HTMLOptionElement;
-    "output": HTMLOutputElement;
-    "p": HTMLParagraphElement;
-    "param": HTMLParamElement;
     "path": SVGPathElement;
     "pattern": SVGPatternElement;
-    "picture": HTMLPictureElement;
     "plaintext": HTMLElement;
     "polygon": SVGPolygonElement;
     "polyline": SVGPolylineElement;
-    "pre": HTMLPreElement;
-    "progress": HTMLProgressElement;
-    "q": HTMLQuoteElement;
     "radialgradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
     "rt": HTMLElement;
     "ruby": HTMLElement;
     "s": HTMLElement;
     "samp": HTMLElement;
-    "script": HTMLScriptElement;
     "section": HTMLElement;
-    "select": HTMLSelectElement;
     "small": HTMLElement;
-    "source": HTMLSourceElement;
-    "span": HTMLSpanElement;
     "stop": SVGStopElement;
     "strike": HTMLElement;
     "strong": HTMLElement;
-    "style": HTMLStyleElement;
     "sub": HTMLElement;
     "sup": HTMLElement;
     "svg": SVGSVGElement;
     "switch": SVGSwitchElement;
     "symbol": SVGSymbolElement;
-    "table": HTMLTableElement;
-    "tbody": HTMLTableSectionElement;
-    "td": HTMLTableDataCellElement;
-    "template": HTMLTemplateElement;
     "text": SVGTextElement;
     "textpath": SVGTextPathElement;
-    "textarea": HTMLTextAreaElement;
-    "tfoot": HTMLTableSectionElement;
-    "th": HTMLTableHeaderCellElement;
-    "thead": HTMLTableSectionElement;
-    "time": HTMLTimeElement;
-    "title": HTMLTitleElement;
-    "tr": HTMLTableRowElement;
-    "track": HTMLTrackElement;
     "tspan": SVGTSpanElement;
     "tt": HTMLElement;
     "u": HTMLElement;
-    "ul": HTMLUListElement;
     "use": SVGUseElement;
     "var": HTMLElement;
-    "video": HTMLVideoElement;
     "view": SVGViewElement;
     "wbr": HTMLElement;
-    "x-ms-webview": MSHTMLWebViewElement;
-    "xmp": HTMLPreElement;
 }
 
-interface ElementListTagNameMap {
-    "a": NodeListOf<HTMLAnchorElement>;
-    "abbr": NodeListOf<HTMLElement>;
-    "acronym": NodeListOf<HTMLElement>;
-    "address": NodeListOf<HTMLElement>;
-    "applet": NodeListOf<HTMLAppletElement>;
-    "area": NodeListOf<HTMLAreaElement>;
-    "article": NodeListOf<HTMLElement>;
-    "aside": NodeListOf<HTMLElement>;
-    "audio": NodeListOf<HTMLAudioElement>;
-    "b": NodeListOf<HTMLElement>;
-    "base": NodeListOf<HTMLBaseElement>;
-    "basefont": NodeListOf<HTMLBaseFontElement>;
-    "bdo": NodeListOf<HTMLElement>;
-    "big": NodeListOf<HTMLElement>;
-    "blockquote": NodeListOf<HTMLQuoteElement>;
-    "body": NodeListOf<HTMLBodyElement>;
-    "br": NodeListOf<HTMLBRElement>;
-    "button": NodeListOf<HTMLButtonElement>;
-    "canvas": NodeListOf<HTMLCanvasElement>;
-    "caption": NodeListOf<HTMLTableCaptionElement>;
-    "center": NodeListOf<HTMLElement>;
-    "circle": NodeListOf<SVGCircleElement>;
-    "cite": NodeListOf<HTMLElement>;
-    "clippath": NodeListOf<SVGClipPathElement>;
-    "code": NodeListOf<HTMLElement>;
-    "col": NodeListOf<HTMLTableColElement>;
-    "colgroup": NodeListOf<HTMLTableColElement>;
-    "data": NodeListOf<HTMLDataElement>;
-    "datalist": NodeListOf<HTMLDataListElement>;
-    "dd": NodeListOf<HTMLElement>;
-    "defs": NodeListOf<SVGDefsElement>;
-    "del": NodeListOf<HTMLModElement>;
-    "desc": NodeListOf<SVGDescElement>;
-    "dfn": NodeListOf<HTMLElement>;
-    "dir": NodeListOf<HTMLDirectoryElement>;
-    "div": NodeListOf<HTMLDivElement>;
-    "dl": NodeListOf<HTMLDListElement>;
-    "dt": NodeListOf<HTMLElement>;
-    "ellipse": NodeListOf<SVGEllipseElement>;
-    "em": NodeListOf<HTMLElement>;
-    "embed": NodeListOf<HTMLEmbedElement>;
-    "feblend": NodeListOf<SVGFEBlendElement>;
-    "fecolormatrix": NodeListOf<SVGFEColorMatrixElement>;
-    "fecomponenttransfer": NodeListOf<SVGFEComponentTransferElement>;
-    "fecomposite": NodeListOf<SVGFECompositeElement>;
-    "feconvolvematrix": NodeListOf<SVGFEConvolveMatrixElement>;
-    "fediffuselighting": NodeListOf<SVGFEDiffuseLightingElement>;
-    "fedisplacementmap": NodeListOf<SVGFEDisplacementMapElement>;
-    "fedistantlight": NodeListOf<SVGFEDistantLightElement>;
-    "feflood": NodeListOf<SVGFEFloodElement>;
-    "fefunca": NodeListOf<SVGFEFuncAElement>;
-    "fefuncb": NodeListOf<SVGFEFuncBElement>;
-    "fefuncg": NodeListOf<SVGFEFuncGElement>;
-    "fefuncr": NodeListOf<SVGFEFuncRElement>;
-    "fegaussianblur": NodeListOf<SVGFEGaussianBlurElement>;
-    "feimage": NodeListOf<SVGFEImageElement>;
-    "femerge": NodeListOf<SVGFEMergeElement>;
-    "femergenode": NodeListOf<SVGFEMergeNodeElement>;
-    "femorphology": NodeListOf<SVGFEMorphologyElement>;
-    "feoffset": NodeListOf<SVGFEOffsetElement>;
-    "fepointlight": NodeListOf<SVGFEPointLightElement>;
-    "fespecularlighting": NodeListOf<SVGFESpecularLightingElement>;
-    "fespotlight": NodeListOf<SVGFESpotLightElement>;
-    "fetile": NodeListOf<SVGFETileElement>;
-    "feturbulence": NodeListOf<SVGFETurbulenceElement>;
-    "fieldset": NodeListOf<HTMLFieldSetElement>;
-    "figcaption": NodeListOf<HTMLElement>;
-    "figure": NodeListOf<HTMLElement>;
-    "filter": NodeListOf<SVGFilterElement>;
-    "font": NodeListOf<HTMLFontElement>;
-    "footer": NodeListOf<HTMLElement>;
-    "foreignobject": NodeListOf<SVGForeignObjectElement>;
-    "form": NodeListOf<HTMLFormElement>;
-    "frame": NodeListOf<HTMLFrameElement>;
-    "frameset": NodeListOf<HTMLFrameSetElement>;
-    "g": NodeListOf<SVGGElement>;
-    "h1": NodeListOf<HTMLHeadingElement>;
-    "h2": NodeListOf<HTMLHeadingElement>;
-    "h3": NodeListOf<HTMLHeadingElement>;
-    "h4": NodeListOf<HTMLHeadingElement>;
-    "h5": NodeListOf<HTMLHeadingElement>;
-    "h6": NodeListOf<HTMLHeadingElement>;
-    "head": NodeListOf<HTMLHeadElement>;
-    "header": NodeListOf<HTMLElement>;
-    "hgroup": NodeListOf<HTMLElement>;
-    "hr": NodeListOf<HTMLHRElement>;
-    "html": NodeListOf<HTMLHtmlElement>;
-    "i": NodeListOf<HTMLElement>;
-    "iframe": NodeListOf<HTMLIFrameElement>;
-    "image": NodeListOf<SVGImageElement>;
-    "img": NodeListOf<HTMLImageElement>;
-    "input": NodeListOf<HTMLInputElement>;
-    "ins": NodeListOf<HTMLModElement>;
-    "isindex": NodeListOf<HTMLUnknownElement>;
-    "kbd": NodeListOf<HTMLElement>;
-    "keygen": NodeListOf<HTMLElement>;
-    "label": NodeListOf<HTMLLabelElement>;
-    "legend": NodeListOf<HTMLLegendElement>;
-    "li": NodeListOf<HTMLLIElement>;
-    "line": NodeListOf<SVGLineElement>;
-    "lineargradient": NodeListOf<SVGLinearGradientElement>;
-    "link": NodeListOf<HTMLLinkElement>;
-    "listing": NodeListOf<HTMLPreElement>;
-    "map": NodeListOf<HTMLMapElement>;
-    "mark": NodeListOf<HTMLElement>;
-    "marker": NodeListOf<SVGMarkerElement>;
-    "marquee": NodeListOf<HTMLMarqueeElement>;
-    "mask": NodeListOf<SVGMaskElement>;
-    "menu": NodeListOf<HTMLMenuElement>;
-    "meta": NodeListOf<HTMLMetaElement>;
-    "metadata": NodeListOf<SVGMetadataElement>;
-    "meter": NodeListOf<HTMLMeterElement>;
-    "nav": NodeListOf<HTMLElement>;
-    "nextid": NodeListOf<HTMLUnknownElement>;
-    "nobr": NodeListOf<HTMLElement>;
-    "noframes": NodeListOf<HTMLElement>;
-    "noscript": NodeListOf<HTMLElement>;
-    "object": NodeListOf<HTMLObjectElement>;
-    "ol": NodeListOf<HTMLOListElement>;
-    "optgroup": NodeListOf<HTMLOptGroupElement>;
-    "option": NodeListOf<HTMLOptionElement>;
-    "output": NodeListOf<HTMLOutputElement>;
-    "p": NodeListOf<HTMLParagraphElement>;
-    "param": NodeListOf<HTMLParamElement>;
-    "path": NodeListOf<SVGPathElement>;
-    "pattern": NodeListOf<SVGPatternElement>;
-    "picture": NodeListOf<HTMLPictureElement>;
-    "plaintext": NodeListOf<HTMLElement>;
-    "polygon": NodeListOf<SVGPolygonElement>;
-    "polyline": NodeListOf<SVGPolylineElement>;
-    "pre": NodeListOf<HTMLPreElement>;
-    "progress": NodeListOf<HTMLProgressElement>;
-    "q": NodeListOf<HTMLQuoteElement>;
-    "radialgradient": NodeListOf<SVGRadialGradientElement>;
-    "rect": NodeListOf<SVGRectElement>;
-    "rt": NodeListOf<HTMLElement>;
-    "ruby": NodeListOf<HTMLElement>;
-    "s": NodeListOf<HTMLElement>;
-    "samp": NodeListOf<HTMLElement>;
-    "script": NodeListOf<HTMLScriptElement>;
-    "section": NodeListOf<HTMLElement>;
-    "select": NodeListOf<HTMLSelectElement>;
-    "small": NodeListOf<HTMLElement>;
-    "source": NodeListOf<HTMLSourceElement>;
-    "span": NodeListOf<HTMLSpanElement>;
-    "stop": NodeListOf<SVGStopElement>;
-    "strike": NodeListOf<HTMLElement>;
-    "strong": NodeListOf<HTMLElement>;
-    "style": NodeListOf<HTMLStyleElement>;
-    "sub": NodeListOf<HTMLElement>;
-    "sup": NodeListOf<HTMLElement>;
-    "svg": NodeListOf<SVGSVGElement>;
-    "switch": NodeListOf<SVGSwitchElement>;
-    "symbol": NodeListOf<SVGSymbolElement>;
-    "table": NodeListOf<HTMLTableElement>;
-    "tbody": NodeListOf<HTMLTableSectionElement>;
-    "td": NodeListOf<HTMLTableDataCellElement>;
-    "template": NodeListOf<HTMLTemplateElement>;
-    "text": NodeListOf<SVGTextElement>;
-    "textpath": NodeListOf<SVGTextPathElement>;
-    "textarea": NodeListOf<HTMLTextAreaElement>;
-    "tfoot": NodeListOf<HTMLTableSectionElement>;
-    "th": NodeListOf<HTMLTableHeaderCellElement>;
-    "thead": NodeListOf<HTMLTableSectionElement>;
-    "time": NodeListOf<HTMLTimeElement>;
-    "title": NodeListOf<HTMLTitleElement>;
-    "tr": NodeListOf<HTMLTableRowElement>;
-    "track": NodeListOf<HTMLTrackElement>;
-    "tspan": NodeListOf<SVGTSpanElement>;
-    "tt": NodeListOf<HTMLElement>;
-    "u": NodeListOf<HTMLElement>;
-    "ul": NodeListOf<HTMLUListElement>;
-    "use": NodeListOf<SVGUseElement>;
-    "var": NodeListOf<HTMLElement>;
-    "video": NodeListOf<HTMLVideoElement>;
-    "view": NodeListOf<SVGViewElement>;
-    "wbr": NodeListOf<HTMLElement>;
-    "x-ms-webview": NodeListOf<MSHTMLWebViewElement>;
-    "xmp": NodeListOf<HTMLPreElement>;
-}
+type ElementListTagNameMap = {
+    [key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>
+};
 
 declare var Audio: { new(src?: string): HTMLAudioElement; };
 declare var Image: { new(width?: number, height?: number): HTMLImageElement; };
@@ -14963,6 +14704,7 @@ type BufferSource = ArrayBuffer | ArrayBufferView;
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
+type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";

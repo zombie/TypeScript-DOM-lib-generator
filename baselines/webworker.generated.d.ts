@@ -1,6 +1,6 @@
 
 /////////////////////////////
-/// IE Worker APIs
+/// Worker APIs
 /////////////////////////////
 
 interface Algorithm {
@@ -220,8 +220,8 @@ interface Console {
     dirxml(value: any): void;
     error(message?: any, ...optionalParams: any[]): void;
     exception(message?: string, ...optionalParams: any[]): void;
-    group(groupTitle?: string): void;
-    groupCollapsed(groupTitle?: string): void;
+    group(groupTitle?: string, ...optionalParams: any[]): void;
+    groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void;
     groupEnd(): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -512,7 +512,7 @@ interface IDBDatabase extends EventTarget {
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
-    transaction(storeNames: string | string[], mode?: string): IDBTransaction;
+    transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -543,8 +543,8 @@ interface IDBIndex {
     count(key?: IDBKeyRange | IDBValidKey): IDBRequest;
     get(key: IDBKeyRange | IDBValidKey): IDBRequest;
     getKey(key: IDBKeyRange | IDBValidKey): IDBRequest;
-    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
-    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -582,7 +582,7 @@ interface IDBObjectStore {
     deleteIndex(indexName: string): void;
     get(key: any): IDBRequest;
     index(name: string): IDBIndex;
-    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest;
+    openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBKeyRange | IDBValidKey): IDBRequest;
 }
 
@@ -614,7 +614,7 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
-    readonly error: DOMError;
+    readonly error: DOMException;
     onerror: (this: IDBRequest, ev: Event) => any;
     onsuccess: (this: IDBRequest, ev: Event) => any;
     readonly readyState: IDBRequestReadyState;
@@ -638,7 +638,7 @@ interface IDBTransactionEventMap {
 
 interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
-    readonly error: DOMError;
+    readonly error: DOMException;
     readonly mode: IDBTransactionMode;
     onabort: (this: IDBTransaction, ev: Event) => any;
     oncomplete: (this: IDBTransaction, ev: Event) => any;
@@ -957,6 +957,8 @@ interface Response extends Object, Body {
 declare var Response: {
     prototype: Response;
     new(body?: any, init?: ResponseInit): Response;
+    error: () => Response;
+    redirect: (url: string, status?: number) => Response;
 };
 
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {

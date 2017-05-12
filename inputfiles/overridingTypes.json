@@ -1,6 +1,15 @@
  [
     {
         "kind": "constructor",
+        "interface": "Response",
+        "signatures": [
+            "new(body?: any, init?: ResponseInit): Response",
+            "error: () => Response",
+            "redirect: (url: string, status?: number) => Response"
+        ]
+    },
+    {
+        "kind": "constructor",
         "interface": "ErrorEvent",
         "signatures": ["new(type: string, errorEventInitDict?: ErrorEventInit): ErrorEvent"]
     },
@@ -325,6 +334,18 @@
         "name": "warn",
         "signatures": ["warn(message?: any, ...optionalParams: any[]): void"]
     },
+     {
+        "kind": "method",
+        "interface": "Console",
+        "name": "group",
+        "signatures": ["group(groupTitle?: string, ...optionalParams: any[]): void"]
+    },
+     {
+        "kind": "method",
+        "interface": "Console",
+        "name": "groupCollapsed",
+        "signatures": ["groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void"]
+    },
     {
         "kind": "callback",
         "name": "ErrorEventHandler",
@@ -499,7 +520,7 @@
         "kind": "method",
         "interface": "IDBDatabase",
         "name": "transaction",
-        "signatures": ["transaction(storeNames: string | string[], mode?: string): IDBTransaction"]
+        "signatures": ["transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction"]
     },
     {
         "kind": "property",
@@ -510,8 +531,22 @@
     {
         "kind": "property",
         "interface": "IDBRequest",
+        "readonly": true,
+        "name": "error",
+        "type": "DOMException"
+    },
+    {
+        "kind": "property",
+        "interface": "IDBRequest",
         "name": "source",
         "type": "IDBObjectStore | IDBIndex | IDBCursor"
+    },
+    {
+        "kind": "property",
+        "interface": "IDBTransaction",
+        "readonly": true,
+        "name": "error",
+        "type": "DOMException"
     },
     {
         "kind": "method",
@@ -580,19 +615,19 @@
         "kind": "method",
         "interface": "IDBIndex",
         "name": "openCursor",
-        "signatures": ["openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest"]
+        "signatures": ["openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest"]
     },
     {
         "kind": "method",
         "interface": "IDBIndex",
         "name": "openKeyCursor",
-        "signatures": ["openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest"]
+        "signatures": ["openKeyCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest"]
     },
     {
         "kind": "method",
         "interface": "IDBObjectStore",
         "name": "openCursor",
-        "signatures": ["openCursor(range?: IDBKeyRange | IDBValidKey, direction?: string): IDBRequest"]
+        "signatures": ["openCursor(range?: IDBKeyRange | IDBValidKey, direction?: IDBCursorDirection): IDBRequest"]
     },
     {
         "kind": "method",
@@ -1072,6 +1107,14 @@
         "interface": "Text",
         "signatures": [
             "new(data?: string): Text"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLMediaElement",
+        "name": "play",
+        "signatures": [
+            "play(): Promise<void>"
         ]
     }
  ]

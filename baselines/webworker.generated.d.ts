@@ -450,6 +450,15 @@ declare var FileReader: {
     new(): FileReader;
 };
 
+interface FormData {
+    append(name: string, value: string | Blob, fileName?: string): void;
+}
+
+declare var FormData: {
+    prototype: FormData;
+    new(): FormData;
+};
+
 interface Headers {
     append(name: string, value: string): void;
     delete(name: string): void;

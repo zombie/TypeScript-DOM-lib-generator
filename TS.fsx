@@ -807,12 +807,14 @@ module Emit =
     let EmitQuerySelectorOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
             Pt.Printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
+            Pt.Printl "querySelector<E extends Element>(selectors: string): E | null;"
             Pt.Printl "querySelector(selectors: string): Element | null;"
 
     /// Emit overloads for the querySelectorAll method
     let EmitQuerySelectorAllOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
             Pt.Printl "querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];"
+            Pt.Printl "querySelectorAll<E extends Element>(selectors: string): NodeListOf<E>;"
             Pt.Printl "querySelectorAll(selectors: string): NodeListOf<Element>;"
 
     let EmitHTMLElementTagNameMap () =

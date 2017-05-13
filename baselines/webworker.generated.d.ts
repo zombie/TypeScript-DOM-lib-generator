@@ -456,8 +456,8 @@ interface FormData {
 
 declare var FormData: {
     prototype: FormData;
-    new (form?: HTMLFormElement): FormData;
-}
+    new(): FormData;
+};
 
 interface Headers {
     append(name: string, value: string): void;

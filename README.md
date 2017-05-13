@@ -1,6 +1,6 @@
 # TypeScript and JavaScript lib generator
 
-AppVeyor Status: [![Build status](https://ci.appveyor.com/api/projects/status/8oj3j7u6nvag1xvu/branch/master?svg=true)](https://ci.appveyor.com/project/zhengbli/tsjs-lib-generator/branch/master) 
+AppVeyor Status: [![Build status](https://ci.appveyor.com/api/projects/status/8oj3j7u6nvag1xvu/branch/master?svg=true)](https://ci.appveyor.com/project/zhengbli/tsjs-lib-generator/branch/master)
 Travis CI Status: [![Build Status](https://travis-ci.org/Microsoft/TSJS-lib-generator.svg?branch=master)](https://travis-ci.org/Microsoft/TSJS-lib-generator)
 
 This tool is used to generate `dom.generated.d.ts` and `webworker.generated.d.ts` for TypeScript, and `domWeb.js` and `domWindows.js` for Visual Studio JavaScript language service.
@@ -29,6 +29,23 @@ The common steps to send a pull request are:
 1. Add missing elements to `inputfiles/addedTypes.json`, overriding elements to `inputfiles/overridingTypes.json`, or elements to remove to `inputfiles/removedTypes.json`.
 2. Run the script locally to obtain new `dom.generated.d.ts` and `webworker.generated.d.ts`.
 3. Update the files in the `baselines` folder using the newly generated files.
+
+### When should a DOM API be included here?
+
+If a DOM API is still a draft, it belongs on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped#readme).
+When it graduates past draft stage, it can be added here and removed from DefinitelyTyped.
+A feature is considered a draft if:
+
+#### W3C
+
+A Working Draft should go on DefinitelyTyped.
+A feature that is a Candidate Recommendation (or has passed that stage) should be added here.
+
+#### WhatWG
+
+A "Working Draft" ([example](https://whatwg.org/specs/web-controls/current-work/)) should go on DefinitelyTyped.
+A "Living Standard" ([example](https://xhr.spec.whatwg.org/)) should be added here.
+
 
 ## Code Structure
 

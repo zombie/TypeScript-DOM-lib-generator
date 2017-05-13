@@ -1,8 +1,40 @@
 [
     {
+        "kind": "interface",
+        "name": "ErrorEventInit",
+        "properties": [
+            {
+                "name": "message?",
+                "type": "string"
+            },
+            {
+                "name": "filename?",
+                "type": "string"
+            },
+            {
+                "name": "lineno?",
+                "type": "number"
+            },
+            {
+                "name": "conlno?",
+                "type": "number"
+            },
+            {
+                "name": "error?",
+                "type": "any"
+            }
+        ]
+    },
+    {
         "kind": "property",
         "interface": "CSSStyleDeclaration",
         "name": "resize",
+        "type": "string | null"
+    },
+    {
+        "kind": "property",
+        "interface": "CSSStyleDeclaration",
+        "name": "userSelect",
         "type": "string | null"
     },
     {
@@ -57,6 +89,78 @@
         ]
     },
     {
+        "kind": "interface",
+        "flavor": "Worker",
+        "name": "ImageBitmapOptions",
+        "properties": [
+            {
+                "name": "imageOrientation?",
+                "type": "\"none\" | \"flipY\""
+            },
+            {
+                "name": "premultiplyAlpha?",
+                "type": "\"none\" | \"premultiply\" | \"default\""
+            },
+            {
+                "name": "colorSpaceConversion?",
+                "type": "\"none\" | \"default\""
+            },
+            {
+                "name": "resizeWidth?",
+                "type": "number"
+            },
+            {
+                "name": "resizeHeight?",
+                "type": "number"
+            },
+            {
+                "name": "resizeQuality?",
+                "type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "ImageBitmap",
+        "flavor": "Worker",
+        "properties": [
+            {
+                "name": "width",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "height",
+                "readonly": true,
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(): void"]
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Window",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "WorkerGlobalScope",
+        "name": "createImageBitmap",
+        "signatures": [
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+             "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+        ]
+    },
+    {
         "kind": "property",
         "interface": "IDBObjectStoreParameters",
         "name": "autoIncrement?",
@@ -77,7 +181,6 @@
     {
         "kind": "interface",
         "name": "URLSearchParams",
-        "flavor": "Web",
         "constructorSignatures": [
             "new (init?: string | URLSearchParams): URLSearchParams"
         ],
@@ -111,7 +214,7 @@
     {
         "kind": "property",
         "interface": "URL",
-        "name": "searchparams",
+        "name": "searchParams",
         "readonly": true,
         "type": "URLSearchParams"
     },
@@ -126,20 +229,15 @@
         "kind": "property",
         "interface": "Window",
         "exposeGlobally": false,
+        "name": "URLSearchParams",
+        "type": "typeof URLSearchParams"
+    },
+    {
+        "kind": "property",
+        "interface": "Window",
+        "exposeGlobally": false,
         "name": "Blob",
         "type": "typeof Blob"
-    },
-    {
-        "kind": "property",
-        "interface": "Element",
-        "name": "innerHTML",
-        "type": "string"
-    },
-    {
-        "kind": "property",
-        "interface": "SVGElement",
-        "name": "className",
-        "type": "any"
     },
     {
         "kind": "interface",
@@ -181,9 +279,7 @@
         ],
         "indexer": [
             {
-                "signatures": [
-                    "[index: number]: T"
-                ]
+                "signatures": ["[index: number]: T"]
             }
         ]
     },
@@ -226,35 +322,16 @@
         ]
     },
     {
-        "kind": "interface",
-        "name": "MessageEventInit",
-        "extends": "EventInit",
-        "properties": [
-            {
-                "name": "data?",
-                "type": "any"
-            },
-            {
-                "name": "origin?",
-                "type": "string"
-            },
-            {
-                "name": "lastEventId?",
-                "type": "string"
-            },
-            {
-                "name": "channel?",
-                "type": "string"
-            },
-            {
-                "name": "source?",
-                "type": "any"
-            },
-            {
-                "name": "ports?",
-                "type": "MessagePort[]"
-            }
-        ]
+        "kind": "property",
+        "interface": "MessageEventInit",
+        "name": "lastEventId?",
+        "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "MessageEventInit",
+        "name": "channel?",
+        "type": "string"
     },
     {
         "kind": "interface",
@@ -390,13 +467,6 @@
         ]
     },
     {
-        "kind": "indexer",
-        "interface": "HTMLCollection",
-        "signatures": [
-            "[index: number]: Element"
-        ]
-    },
-    {
         "kind": "signatureoverload",
         "name": "createElementNS",
         "interface": "Document",
@@ -492,12 +562,6 @@
         "interface": "HTMLLinkElement",
         "name": "import?",
         "type": "Document"
-    },
-    {
-        "kind": "property",
-        "interface": "AudioContext",
-        "name": "state",
-        "type": "string"
     },
     {
         "kind": "method",
@@ -1147,21 +1211,27 @@
     },
     {
         "kind": "method",
+        "interface": "DataTransfer",
+        "name": "setDragImage",
+        "signatures": ["setDragImage(image: Element, x: number, y: number): void"]
+    },
+    {
+        "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentElement",
-        "signatures": ["insertAdjacentElement(position: string, insertedElement: Element): Element | null"]
+        "signatures": ["insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentHTML",
-        "signatures": ["insertAdjacentHTML(where: string, html: string): void"]
+        "signatures": ["insertAdjacentHTML(where: InsertPosition, html: string): void"]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentText",
-        "signatures": ["insertAdjacentText(where: string, text: string): void"]
+        "signatures": ["insertAdjacentText(where: InsertPosition, text: string): void"]
     },
     {
         "kind": "property",
@@ -1208,12 +1278,12 @@
             {
                 "name": "firstElementChild",
                 "readonly": true,
-                "type": "Element"
+                "type": "Element | null"
             },
             {
                 "name": "lastElementChild",
                 "readonly": true,
-                "type": "Element"
+                "type": "Element | null"
             },
             {
                 "name": "childElementCount",
@@ -1248,13 +1318,6 @@
         "interface": "History",
         "name": "scrollRestoration",
         "type": "ScrollRestoration"
-    },
-    {
-        "kind": "property",
-        "interface": "XMLHttpRequest",
-        "readonly": true,
-        "name": "responseURL",
-        "type": "string"
     },
     {
         "kind": "method",
@@ -1343,7 +1406,7 @@
         "properties": [
             {
                 "name": "mode",
-                "type": "'open'|'closed'"
+                "type": "\"open\" | \"closed\""
             },
             {
                 "name": "delegatesFocus?",
@@ -1435,5 +1498,129 @@
         "interface": "Window",
         "name": "customElements",
         "type": "CustomElementRegistry"
+    },
+    {
+        "kind": "interface",
+        "name": "PromiseRejectionEvent",
+        "extends": "Event",
+        "flavor": "Web",
+        "properties": [{
+            "name": "promise",
+            "type": "PromiseLike<any>",
+            "readonly": true
+        }, {
+            "name": "reason",
+            "type": "any",
+            "readonly": true
+        }]
+    },
+    {
+        "kind": "interface",
+        "name": "PromiseRejectionEventInit",
+        "extends": "EventInit",
+        "flavor": "Web",
+        "properties": [{
+            "name": "promise",
+            "type": "PromiseLike<any>"
+        }, {
+            "name": "reason?",
+            "type": "any"
+        }]
+    },
+    {
+        "kind": "method",
+        "interface": "Body",
+        "name": "formData",
+        "flavor": "Web",
+        "signatures": ["formData(): Promise<FormData>"]
+    },
+    {
+        "kind": "method",
+        "interface": "DocumentFragment",
+        "name": "getElementById",
+        "flavor": "DOM",
+        "signatures": ["getElementById(elementId: string): HTMLElement | null"]
+    },
+    {
+        "kind": "typedef",
+        "name": "FormDataEntryValue",
+        "type": "string | File"
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "delete",
+        "flavor": "Web",
+        "signatures": ["delete(name: string): void"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "get",
+        "flavor": "Web",
+        "signatures": ["get(name: string): FormDataEntryValue | null"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "getAll",
+        "flavor": "Web",
+        "signatures": ["getAll(name: string): FormDataEntryValue[]"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "has",
+        "flavor": "Web",
+        "signatures": ["has(name: string): boolean"]
+    },
+    {
+        "kind": "method",
+        "interface": "FormData",
+        "name": "set",
+        "flavor": "Web",
+        "signatures": ["set(name: string, value: string | Blob, fileName?: string): void"]
+    },
+    {
+        "kind": "interface",
+        "name": "EventListenerOptions",
+        "properties": [{
+            "name": "capture?",
+            "type": "boolean"
+        }]
+    },
+    {
+        "kind": "interface",
+        "name": "AddEventListenerOptions",
+        "extends": "EventListenerOptions",
+        "properties": [{
+            "name": "passive?",
+            "type": "boolean"
+        }, {
+            "name": "once?",
+            "type": "boolean"
+        }]
+    },
+    {
+        "kind": "interface",
+        "name": "TouchEventInit",
+        "flavor":  "Web",
+        "extends": "EventModifierInit",
+        "properties": [{
+            "name": "touches?",
+            "type": "Touch[]"
+        }, {
+            "name": "targetTouches?",
+            "type": "Touch[]"
+        }, {
+            "name": "changedTouches?",
+            "type": "Touch[]"
+        }]
+    },
+    {
+        "kind": "typedef",
+        "name": "InsertPosition",
+        "flavor": "Web",
+        "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
     }
 ]

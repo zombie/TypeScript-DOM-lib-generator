@@ -4,11 +4,11 @@
 /////////////////////////////
 
 interface Account {
-    rpDisplayName?: string;
     displayName?: string;
     id?: string;
-    name?: string;
     imageURL?: string;
+    name?: string;
+    rpDisplayName?: string;
 }
 
 interface Algorithm {
@@ -21,32 +21,32 @@ interface AnimationEventInit extends EventInit {
 }
 
 interface AssertionOptions {
-    timeoutSeconds?: number;
-    rpId?: USVString;
     allowList?: ScopedCredentialDescriptor[];
     extensions?: WebAuthnExtensions;
+    rpId?: USVString;
+    timeoutSeconds?: number;
 }
 
 interface CacheQueryOptions {
-    ignoreSearch?: boolean;
-    ignoreMethod?: boolean;
-    ignoreVary?: boolean;
     cacheName?: string;
+    ignoreMethod?: boolean;
+    ignoreSearch?: boolean;
+    ignoreVary?: boolean;
 }
 
 interface ClientData {
     challenge?: string;
+    extensions?: WebAuthnExtensions;
+    hashAlg?: string | Algorithm;
     origin?: string;
     rpId?: string;
-    hashAlg?: string | Algorithm;
     tokenBinding?: string;
-    extensions?: WebAuthnExtensions;
 }
 
 interface CloseEventInit extends EventInit {
-    wasClean?: boolean;
     code?: number;
     reason?: string;
+    wasClean?: boolean;
 }
 
 interface CompositionEventInit extends UIEventInit {
@@ -86,13 +86,6 @@ interface CustomEventInit extends EventInit {
     detail?: any;
 }
 
-interface DOMRectInit {
-    x?: any;
-    y?: any;
-    width?: any;
-    height?: any;
-}
-
 interface DeviceAccelerationDict {
     x?: number;
     y?: number;
@@ -106,15 +99,15 @@ interface DeviceLightEventInit extends EventInit {
 interface DeviceMotionEventInit extends EventInit {
     acceleration?: DeviceAccelerationDict;
     accelerationIncludingGravity?: DeviceAccelerationDict;
-    rotationRate?: DeviceRotationRateDict;
     interval?: number;
+    rotationRate?: DeviceRotationRateDict;
 }
 
 interface DeviceOrientationEventInit extends EventInit {
+    absolute?: boolean;
     alpha?: number;
     beta?: number;
     gamma?: number;
-    absolute?: boolean;
 }
 
 interface DeviceRotationRateDict {
@@ -123,17 +116,24 @@ interface DeviceRotationRateDict {
     gamma?: number;
 }
 
+interface DOMRectInit {
+    height?: any;
+    width?: any;
+    x?: any;
+    y?: any;
+}
+
 interface DoubleRange {
     max?: number;
     min?: number;
 }
 
 interface ErrorEventInit extends EventInit {
-    message?: string;
-    filename?: string;
-    lineno?: number;
     colno?: number;
     error?: any;
+    filename?: string;
+    lineno?: number;
+    message?: string;
 }
 
 interface EventInit {
@@ -143,9 +143,8 @@ interface EventInit {
 }
 
 interface EventModifierInit extends UIEventInit {
-    ctrlKey?: boolean;
-    shiftKey?: boolean;
     altKey?: boolean;
+    ctrlKey?: boolean;
     metaKey?: boolean;
     modifierAltGraph?: boolean;
     modifierCapsLock?: boolean;
@@ -158,6 +157,7 @@ interface EventModifierInit extends UIEventInit {
     modifierSuper?: boolean;
     modifierSymbol?: boolean;
     modifierSymbolLock?: boolean;
+    shiftKey?: boolean;
 }
 
 interface ExceptionInformation {
@@ -170,17 +170,17 @@ interface FocusEventInit extends UIEventInit {
 
 interface FocusNavigationEventInit extends EventInit {
     navigationReason?: string;
+    originHeight?: number;
     originLeft?: number;
     originTop?: number;
     originWidth?: number;
-    originHeight?: number;
 }
 
 interface FocusNavigationOrigin {
+    originHeight?: number;
     originLeft?: number;
     originTop?: number;
     originWidth?: number;
-    originHeight?: number;
 }
 
 interface GamepadEventInit extends EventInit {
@@ -207,11 +207,11 @@ interface IDBObjectStoreParameters {
 }
 
 interface IntersectionObserverEntryInit {
-    time?: number;
-    rootBounds?: DOMRectInit;
     boundingClientRect?: DOMRectInit;
     intersectionRect?: DOMRectInit;
+    rootBounds?: DOMRectInit;
     target?: Element;
+    time?: number;
 }
 
 interface IntersectionObserverInit {
@@ -236,39 +236,153 @@ interface LongRange {
     min?: number;
 }
 
+interface MediaEncryptedEventInit extends EventInit {
+    initData?: ArrayBuffer;
+    initDataType?: string;
+}
+
+interface MediaKeyMessageEventInit extends EventInit {
+    message?: ArrayBuffer;
+    messageType?: MediaKeyMessageType;
+}
+
+interface MediaKeySystemConfiguration {
+    audioCapabilities?: MediaKeySystemMediaCapability[];
+    distinctiveIdentifier?: MediaKeysRequirement;
+    initDataTypes?: string[];
+    persistentState?: MediaKeysRequirement;
+    videoCapabilities?: MediaKeySystemMediaCapability[];
+}
+
+interface MediaKeySystemMediaCapability {
+    contentType?: string;
+    robustness?: string;
+}
+
+interface MediaStreamConstraints {
+    audio?: boolean | MediaTrackConstraints;
+    video?: boolean | MediaTrackConstraints;
+}
+
+interface MediaStreamErrorEventInit extends EventInit {
+    error?: MediaStreamError;
+}
+
+interface MediaStreamEventInit extends EventInit {
+    stream?: MediaStream;
+}
+
+interface MediaStreamTrackEventInit extends EventInit {
+    track?: MediaStreamTrack;
+}
+
+interface MediaTrackCapabilities {
+    aspectRatio?: number | DoubleRange;
+    deviceId?: string;
+    echoCancellation?: boolean[];
+    facingMode?: string;
+    frameRate?: number | DoubleRange;
+    groupId?: string;
+    height?: number | LongRange;
+    sampleRate?: number | LongRange;
+    sampleSize?: number | LongRange;
+    volume?: number | DoubleRange;
+    width?: number | LongRange;
+}
+
+interface MediaTrackConstraints extends MediaTrackConstraintSet {
+    advanced?: MediaTrackConstraintSet[];
+}
+
+interface MediaTrackConstraintSet {
+    aspectRatio?: number | ConstrainDoubleRange;
+    deviceId?: string | string[] | ConstrainDOMStringParameters;
+    echoCancelation?: boolean | ConstrainBooleanParameters;
+    facingMode?: string | string[] | ConstrainDOMStringParameters;
+    frameRate?: number | ConstrainDoubleRange;
+    groupId?: string | string[] | ConstrainDOMStringParameters;
+    height?: number | ConstrainLongRange;
+    sampleRate?: number | ConstrainLongRange;
+    sampleSize?: number | ConstrainLongRange;
+    volume?: number | ConstrainDoubleRange;
+    width?: number | ConstrainLongRange;
+}
+
+interface MediaTrackSettings {
+    aspectRatio?: number;
+    deviceId?: string;
+    echoCancellation?: boolean;
+    facingMode?: string;
+    frameRate?: number;
+    groupId?: string;
+    height?: number;
+    sampleRate?: number;
+    sampleSize?: number;
+    volume?: number;
+    width?: number;
+}
+
+interface MediaTrackSupportedConstraints {
+    aspectRatio?: boolean;
+    deviceId?: boolean;
+    echoCancellation?: boolean;
+    facingMode?: boolean;
+    frameRate?: boolean;
+    groupId?: boolean;
+    height?: boolean;
+    sampleRate?: boolean;
+    sampleSize?: boolean;
+    volume?: boolean;
+    width?: boolean;
+}
+
+interface MessageEventInit extends EventInit {
+    lastEventId?: string;
+    channel?: string;
+    data?: any;
+    origin?: string;
+    ports?: MessagePort[];
+    source?: Window;
+}
+
+interface MouseEventInit extends EventModifierInit {
+    button?: number;
+    buttons?: number;
+    clientX?: number;
+    clientY?: number;
+    relatedTarget?: EventTarget;
+    screenX?: number;
+    screenY?: number;
+}
+
 interface MSAccountInfo {
+    accountImageUri?: string;
+    accountName?: string;
     rpDisplayName?: string;
     userDisplayName?: string;
-    accountName?: string;
     userId?: string;
-    accountImageUri?: string;
 }
 
 interface MSAudioLocalClientEvent extends MSLocalClientEventBase {
-    networkSendQualityEventRatio?: number;
-    networkDelayEventRatio?: number;
     cpuInsufficientEventRatio?: number;
-    deviceHalfDuplexAECEventRatio?: number;
-    deviceRenderNotFunctioningEventRatio?: number;
     deviceCaptureNotFunctioningEventRatio?: number;
-    deviceGlitchesEventRatio?: number;
-    deviceLowSNREventRatio?: number;
-    deviceLowSpeechLevelEventRatio?: number;
     deviceClippingEventRatio?: number;
     deviceEchoEventRatio?: number;
-    deviceNearEndToEchoRatioEventRatio?: number;
-    deviceRenderZeroVolumeEventRatio?: number;
-    deviceRenderMuteEventRatio?: number;
-    deviceMultipleEndpointsEventCount?: number;
+    deviceGlitchesEventRatio?: number;
+    deviceHalfDuplexAECEventRatio?: number;
     deviceHowlingEventCount?: number;
+    deviceLowSNREventRatio?: number;
+    deviceLowSpeechLevelEventRatio?: number;
+    deviceMultipleEndpointsEventCount?: number;
+    deviceNearEndToEchoRatioEventRatio?: number;
+    deviceRenderMuteEventRatio?: number;
+    deviceRenderNotFunctioningEventRatio?: number;
+    deviceRenderZeroVolumeEventRatio?: number;
+    networkDelayEventRatio?: number;
+    networkSendQualityEventRatio?: number;
 }
 
 interface MSAudioRecvPayload extends MSPayloadBase {
-    samplingRate?: number;
-    signal?: MSAudioRecvSignal;
-    packetReorderRatio?: number;
-    packetReorderDepthAvg?: number;
-    packetReorderDepthMax?: number;
     burstLossLength1?: number;
     burstLossLength2?: number;
     burstLossLength3?: number;
@@ -280,31 +394,36 @@ interface MSAudioRecvPayload extends MSPayloadBase {
     fecRecvDistance1?: number;
     fecRecvDistance2?: number;
     fecRecvDistance3?: number;
+    packetReorderDepthAvg?: number;
+    packetReorderDepthMax?: number;
+    packetReorderRatio?: number;
+    ratioCompressedSamplesAvg?: number;
     ratioConcealedSamplesAvg?: number;
     ratioStretchedSamplesAvg?: number;
-    ratioCompressedSamplesAvg?: number;
+    samplingRate?: number;
+    signal?: MSAudioRecvSignal;
 }
 
 interface MSAudioRecvSignal {
     initialSignalLevelRMS?: number;
-    recvSignalLevelCh1?: number;
     recvNoiseLevelCh1?: number;
-    renderSignalLevel?: number;
-    renderNoiseLevel?: number;
+    recvSignalLevelCh1?: number;
     renderLoopbackSignalLevel?: number;
+    renderNoiseLevel?: number;
+    renderSignalLevel?: number;
 }
 
 interface MSAudioSendPayload extends MSPayloadBase {
-    samplingRate?: number;
-    signal?: MSAudioSendSignal;
     audioFECUsed?: boolean;
+    samplingRate?: number;
     sendMutePercent?: number;
+    signal?: MSAudioSendSignal;
 }
 
 interface MSAudioSendSignal {
     noiseLevel?: number;
-    sendSignalLevelCh1?: number;
     sendNoiseLevelCh1?: number;
+    sendSignalLevelCh1?: number;
 }
 
 interface MSConnectivity {
@@ -322,8 +441,8 @@ interface MSCredentialParameters {
 }
 
 interface MSCredentialSpec {
-    type?: MSCredentialType;
     id?: string;
+    type?: MSCredentialType;
 }
 
 interface MSDelay {
@@ -333,12 +452,12 @@ interface MSDelay {
 
 interface MSDescription extends RTCStats {
     connectivity?: MSConnectivity;
-    transport?: RTCIceProtocol;
-    networkconnectivity?: MSNetworkConnectivityInfo;
-    localAddr?: MSIPAddressInfo;
-    remoteAddr?: MSIPAddressInfo;
     deviceDevName?: string;
+    localAddr?: MSIPAddressInfo;
+    networkconnectivity?: MSNetworkConnectivityInfo;
     reflexiveLocalIPAddr?: MSIPAddressInfo;
+    remoteAddr?: MSIPAddressInfo;
+    transport?: RTCIceProtocol;
 }
 
 interface MSFIDOCredentialParameters extends MSCredentialParameters {
@@ -346,35 +465,35 @@ interface MSFIDOCredentialParameters extends MSCredentialParameters {
     authenticators?: AAGUID[];
 }
 
-interface MSIPAddressInfo {
-    ipAddr?: string;
-    port?: number;
-    manufacturerMacAddrMask?: string;
-}
-
 interface MSIceWarningFlags {
-    turnTcpTimedOut?: boolean;
-    turnUdpAllocateFailed?: boolean;
-    turnUdpSendFailed?: boolean;
+    allocationMessageIntegrityFailed?: boolean;
+    alternateServerReceived?: boolean;
+    connCheckMessageIntegrityFailed?: boolean;
+    connCheckOtherError?: boolean;
+    fipsAllocationFailure?: boolean;
+    multipleRelayServersAttempted?: boolean;
+    noRelayServersConfigured?: boolean;
+    portRangeExhausted?: boolean;
+    pseudoTLSFailure?: boolean;
+    tcpNatConnectivityFailed?: boolean;
+    tcpRelayConnectivityFailed?: boolean;
+    turnAuthUnknownUsernameError?: boolean;
     turnTcpAllocateFailed?: boolean;
     turnTcpSendFailed?: boolean;
+    turnTcpTimedOut?: boolean;
+    turnTurnTcpConnectivityFailed?: boolean;
+    turnUdpAllocateFailed?: boolean;
+    turnUdpSendFailed?: boolean;
     udpLocalConnectivityFailed?: boolean;
     udpNatConnectivityFailed?: boolean;
     udpRelayConnectivityFailed?: boolean;
-    tcpNatConnectivityFailed?: boolean;
-    tcpRelayConnectivityFailed?: boolean;
-    connCheckMessageIntegrityFailed?: boolean;
-    allocationMessageIntegrityFailed?: boolean;
-    connCheckOtherError?: boolean;
-    turnAuthUnknownUsernameError?: boolean;
-    noRelayServersConfigured?: boolean;
-    multipleRelayServersAttempted?: boolean;
-    portRangeExhausted?: boolean;
-    alternateServerReceived?: boolean;
-    pseudoTLSFailure?: boolean;
-    turnTurnTcpConnectivityFailed?: boolean;
     useCandidateChecksFailed?: boolean;
-    fipsAllocationFailure?: boolean;
+}
+
+interface MSIPAddressInfo {
+    ipAddr?: string;
+    manufacturerMacAddrMask?: string;
+    port?: number;
 }
 
 interface MSJitter {
@@ -384,28 +503,28 @@ interface MSJitter {
 }
 
 interface MSLocalClientEventBase extends RTCStats {
-    networkReceiveQualityEventRatio?: number;
     networkBandwidthLowEventRatio?: number;
+    networkReceiveQualityEventRatio?: number;
 }
 
 interface MSNetwork extends RTCStats {
-    jitter?: MSJitter;
     delay?: MSDelay;
+    jitter?: MSJitter;
     packetLoss?: MSPacketLoss;
     utilization?: MSUtilization;
 }
 
 interface MSNetworkConnectivityInfo {
-    vpn?: boolean;
     linkspeed?: number;
     networkConnectionDetails?: string;
+    vpn?: boolean;
 }
 
 interface MSNetworkInterfaceType {
     interfaceTypeEthernet?: boolean;
-    interfaceTypeWireless?: boolean;
     interfaceTypePPP?: boolean;
     interfaceTypeTunnel?: boolean;
+    interfaceTypeWireless?: boolean;
     interfaceTypeWWAN?: boolean;
 }
 
@@ -423,13 +542,13 @@ interface MSPayloadBase extends RTCStats {
 }
 
 interface MSPortRange {
-    min?: number;
     max?: number;
+    min?: number;
 }
 
 interface MSRelayAddress {
-    relayAddress?: string;
     port?: number;
+    relayAddress?: string;
 }
 
 interface MSSignatureParameters {
@@ -437,241 +556,122 @@ interface MSSignatureParameters {
 }
 
 interface MSTransportDiagnosticsStats extends RTCStats {
-    baseAddress?: string;
-    localAddress?: string;
-    localSite?: string;
-    networkName?: string;
-    remoteAddress?: string;
-    remoteSite?: string;
-    localMR?: string;
-    remoteMR?: string;
-    iceWarningFlags?: MSIceWarningFlags;
-    portRangeMin?: number;
-    portRangeMax?: number;
-    localMRTCPPort?: number;
-    remoteMRTCPPort?: number;
-    stunVer?: number;
-    numConsentReqSent?: number;
-    numConsentReqReceived?: number;
-    numConsentRespSent?: number;
-    numConsentRespReceived?: number;
-    interfaces?: MSNetworkInterfaceType;
-    baseInterface?: MSNetworkInterfaceType;
-    protocol?: RTCIceProtocol;
-    localInterface?: MSNetworkInterfaceType;
-    localAddrType?: MSIceAddrType;
-    remoteAddrType?: MSIceAddrType;
-    iceRole?: RTCIceRole;
-    rtpRtcpMux?: boolean;
     allocationTimeInMs?: number;
+    baseAddress?: string;
+    baseInterface?: MSNetworkInterfaceType;
+    iceRole?: RTCIceRole;
+    iceWarningFlags?: MSIceWarningFlags;
+    interfaces?: MSNetworkInterfaceType;
+    localAddress?: string;
+    localAddrType?: MSIceAddrType;
+    localInterface?: MSNetworkInterfaceType;
+    localMR?: string;
+    localMRTCPPort?: number;
+    localSite?: string;
     msRtcEngineVersion?: string;
+    networkName?: string;
+    numConsentReqReceived?: number;
+    numConsentReqSent?: number;
+    numConsentRespReceived?: number;
+    numConsentRespSent?: number;
+    portRangeMax?: number;
+    portRangeMin?: number;
+    protocol?: RTCIceProtocol;
+    remoteAddress?: string;
+    remoteAddrType?: MSIceAddrType;
+    remoteMR?: string;
+    remoteMRTCPPort?: number;
+    remoteSite?: string;
+    rtpRtcpMux?: boolean;
+    stunVer?: number;
 }
 
 interface MSUtilization {
-    packets?: number;
     bandwidthEstimation?: number;
-    bandwidthEstimationMin?: number;
-    bandwidthEstimationMax?: number;
-    bandwidthEstimationStdDev?: number;
     bandwidthEstimationAvg?: number;
+    bandwidthEstimationMax?: number;
+    bandwidthEstimationMin?: number;
+    bandwidthEstimationStdDev?: number;
+    packets?: number;
 }
 
 interface MSVideoPayload extends MSPayloadBase {
+    durationSeconds?: number;
     resolution?: string;
     videoBitRateAvg?: number;
     videoBitRateMax?: number;
     videoFrameRateAvg?: number;
     videoPacketLossRate?: number;
-    durationSeconds?: number;
 }
 
 interface MSVideoRecvPayload extends MSVideoPayload {
-    videoFrameLossRate?: number;
-    recvCodecType?: string;
-    recvResolutionWidth?: number;
-    recvResolutionHeight?: number;
-    videoResolutions?: MSVideoResolutionDistribution;
-    recvFrameRateAverage?: number;
-    recvBitRateMaximum?: number;
+    lowBitRateCallPercent?: number;
+    lowFrameRateCallPercent?: number;
     recvBitRateAverage?: number;
+    recvBitRateMaximum?: number;
+    recvCodecType?: string;
+    recvFpsHarmonicAverage?: number;
+    recvFrameRateAverage?: number;
+    recvNumResSwitches?: number;
+    recvReorderBufferMaxSuccessfullyOrderedExtent?: number;
+    recvReorderBufferMaxSuccessfullyOrderedLateTime?: number;
+    recvReorderBufferPacketsDroppedDueToBufferExhaustion?: number;
+    recvReorderBufferPacketsDroppedDueToTimeout?: number;
+    recvReorderBufferReorderedPackets?: number;
+    recvResolutionHeight?: number;
+    recvResolutionWidth?: number;
     recvVideoStreamsMax?: number;
     recvVideoStreamsMin?: number;
     recvVideoStreamsMode?: number;
-    videoPostFECPLR?: number;
-    lowBitRateCallPercent?: number;
-    lowFrameRateCallPercent?: number;
     reorderBufferTotalPackets?: number;
-    recvReorderBufferReorderedPackets?: number;
-    recvReorderBufferPacketsDroppedDueToBufferExhaustion?: number;
-    recvReorderBufferMaxSuccessfullyOrderedExtent?: number;
-    recvReorderBufferMaxSuccessfullyOrderedLateTime?: number;
-    recvReorderBufferPacketsDroppedDueToTimeout?: number;
-    recvFpsHarmonicAverage?: number;
-    recvNumResSwitches?: number;
+    videoFrameLossRate?: number;
+    videoPostFECPLR?: number;
+    videoResolutions?: MSVideoResolutionDistribution;
 }
 
 interface MSVideoResolutionDistribution {
     cifQuality?: number;
-    vgaQuality?: number;
-    h720Quality?: number;
     h1080Quality?: number;
     h1440Quality?: number;
     h2160Quality?: number;
+    h720Quality?: number;
+    vgaQuality?: number;
 }
 
 interface MSVideoSendPayload extends MSVideoPayload {
-    sendFrameRateAverage?: number;
-    sendBitRateMaximum?: number;
     sendBitRateAverage?: number;
-    sendVideoStreamsMax?: number;
-    sendResolutionWidth?: number;
+    sendBitRateMaximum?: number;
+    sendFrameRateAverage?: number;
     sendResolutionHeight?: number;
-}
-
-interface MediaEncryptedEventInit extends EventInit {
-    initDataType?: string;
-    initData?: ArrayBuffer;
-}
-
-interface MediaKeyMessageEventInit extends EventInit {
-    messageType?: MediaKeyMessageType;
-    message?: ArrayBuffer;
-}
-
-interface MediaKeySystemConfiguration {
-    initDataTypes?: string[];
-    audioCapabilities?: MediaKeySystemMediaCapability[];
-    videoCapabilities?: MediaKeySystemMediaCapability[];
-    distinctiveIdentifier?: MediaKeysRequirement;
-    persistentState?: MediaKeysRequirement;
-}
-
-interface MediaKeySystemMediaCapability {
-    contentType?: string;
-    robustness?: string;
-}
-
-interface MediaStreamConstraints {
-    video?: boolean | MediaTrackConstraints;
-    audio?: boolean | MediaTrackConstraints;
-}
-
-interface MediaStreamErrorEventInit extends EventInit {
-    error?: MediaStreamError;
-}
-
-interface MediaStreamEventInit extends EventInit {
-    stream?: MediaStream;
-}
-
-interface MediaStreamTrackEventInit extends EventInit {
-    track?: MediaStreamTrack;
-}
-
-interface MediaTrackCapabilities {
-    width?: number | LongRange;
-    height?: number | LongRange;
-    aspectRatio?: number | DoubleRange;
-    frameRate?: number | DoubleRange;
-    facingMode?: string;
-    volume?: number | DoubleRange;
-    sampleRate?: number | LongRange;
-    sampleSize?: number | LongRange;
-    echoCancellation?: boolean[];
-    deviceId?: string;
-    groupId?: string;
-}
-
-interface MediaTrackConstraintSet {
-    width?: number | ConstrainLongRange;
-    height?: number | ConstrainLongRange;
-    aspectRatio?: number | ConstrainDoubleRange;
-    frameRate?: number | ConstrainDoubleRange;
-    facingMode?: string | string[] | ConstrainDOMStringParameters;
-    volume?: number | ConstrainDoubleRange;
-    sampleRate?: number | ConstrainLongRange;
-    sampleSize?: number | ConstrainLongRange;
-    echoCancelation?: boolean | ConstrainBooleanParameters;
-    deviceId?: string | string[] | ConstrainDOMStringParameters;
-    groupId?: string | string[] | ConstrainDOMStringParameters;
-}
-
-interface MediaTrackConstraints extends MediaTrackConstraintSet {
-    advanced?: MediaTrackConstraintSet[];
-}
-
-interface MediaTrackSettings {
-    width?: number;
-    height?: number;
-    aspectRatio?: number;
-    frameRate?: number;
-    facingMode?: string;
-    volume?: number;
-    sampleRate?: number;
-    sampleSize?: number;
-    echoCancellation?: boolean;
-    deviceId?: string;
-    groupId?: string;
-}
-
-interface MediaTrackSupportedConstraints {
-    width?: boolean;
-    height?: boolean;
-    aspectRatio?: boolean;
-    frameRate?: boolean;
-    facingMode?: boolean;
-    volume?: boolean;
-    sampleRate?: boolean;
-    sampleSize?: boolean;
-    echoCancellation?: boolean;
-    deviceId?: boolean;
-    groupId?: boolean;
-}
-
-interface MessageEventInit extends EventInit {
-    lastEventId?: string;
-    channel?: string;
-    data?: any;
-    origin?: string;
-    source?: Window;
-    ports?: MessagePort[];
-}
-
-interface MouseEventInit extends EventModifierInit {
-    screenX?: number;
-    screenY?: number;
-    clientX?: number;
-    clientY?: number;
-    button?: number;
-    buttons?: number;
-    relatedTarget?: EventTarget;
+    sendResolutionWidth?: number;
+    sendVideoStreamsMax?: number;
 }
 
 interface MsZoomToOptions {
+    animate?: string;
     contentX?: number;
     contentY?: number;
+    scaleFactor?: number;
     viewportX?: string;
     viewportY?: string;
-    scaleFactor?: number;
-    animate?: string;
 }
 
 interface MutationObserverInit {
-    childList?: boolean;
+    attributeFilter?: string[];
+    attributeOldValue?: boolean;
     attributes?: boolean;
     characterData?: boolean;
-    subtree?: boolean;
-    attributeOldValue?: boolean;
     characterDataOldValue?: boolean;
-    attributeFilter?: string[];
+    childList?: boolean;
+    subtree?: boolean;
 }
 
 interface NotificationOptions {
-    dir?: NotificationDirection;
-    lang?: string;
     body?: string;
-    tag?: string;
+    dir?: NotificationDirection;
     icon?: string;
+    lang?: string;
+    tag?: string;
 }
 
 interface ObjectURLOptions {
@@ -680,39 +680,39 @@ interface ObjectURLOptions {
 
 interface PaymentCurrencyAmount {
     currency?: string;
-    value?: string;
     currencySystem?: string;
+    value?: string;
 }
 
 interface PaymentDetails {
-    total?: PaymentItem;
     displayItems?: PaymentItem[];
-    shippingOptions?: PaymentShippingOption[];
-    modifiers?: PaymentDetailsModifier[];
     error?: string;
+    modifiers?: PaymentDetailsModifier[];
+    shippingOptions?: PaymentShippingOption[];
+    total?: PaymentItem;
 }
 
 interface PaymentDetailsModifier {
-    supportedMethods?: string[];
-    total?: PaymentItem;
     additionalDisplayItems?: PaymentItem[];
     data?: any;
+    supportedMethods?: string[];
+    total?: PaymentItem;
 }
 
 interface PaymentItem {
-    label?: string;
     amount?: PaymentCurrencyAmount;
+    label?: string;
     pending?: boolean;
 }
 
 interface PaymentMethodData {
-    supportedMethods?: string[];
     data?: any;
+    supportedMethods?: string[];
 }
 
 interface PaymentOptions {
-    requestPayerName?: boolean;
     requestPayerEmail?: boolean;
+    requestPayerName?: boolean;
     requestPayerPhone?: boolean;
     requestShipping?: boolean;
     shippingType?: string;
@@ -722,9 +722,9 @@ interface PaymentRequestUpdateEventInit extends EventInit {
 }
 
 interface PaymentShippingOption {
+    amount?: PaymentCurrencyAmount;
     id?: string;
     label?: string;
-    amount?: PaymentCurrencyAmount;
     selected?: boolean;
 }
 
@@ -733,14 +733,14 @@ interface PeriodicWaveConstraints {
 }
 
 interface PointerEventInit extends MouseEventInit {
-    pointerId?: number;
-    width?: number;
     height?: number;
+    isPrimary?: boolean;
+    pointerId?: number;
+    pointerType?: string;
     pressure?: number;
     tiltX?: number;
     tiltY?: number;
-    pointerType?: string;
-    isPrimary?: boolean;
+    width?: number;
 }
 
 interface PopStateEventInit extends EventInit {
@@ -749,8 +749,8 @@ interface PopStateEventInit extends EventInit {
 
 interface PositionOptions {
     enableHighAccuracy?: boolean;
-    timeout?: number;
     maximumAge?: number;
+    timeout?: number;
 }
 
 interface ProgressEventInit extends EventInit {
@@ -760,19 +760,40 @@ interface ProgressEventInit extends EventInit {
 }
 
 interface PushSubscriptionOptionsInit {
-    userVisibleOnly?: boolean;
     applicationServerKey?: any;
+    userVisibleOnly?: boolean;
+}
+
+interface RegistrationOptions {
+    scope?: string;
+}
+
+interface RequestInit {
+    body?: any;
+    cache?: RequestCache;
+    credentials?: RequestCredentials;
+    headers?: any;
+    integrity?: string;
+    keepalive?: boolean;
+    method?: string;
+    mode?: RequestMode;
+    redirect?: RequestRedirect;
+    referrer?: string;
+    referrerPolicy?: ReferrerPolicy;
+    window?: any;
+}
+
+interface ResponseInit {
+    headers?: any;
+    status?: number;
+    statusText?: string;
 }
 
 interface RTCConfiguration {
+    bundlePolicy?: RTCBundlePolicy;
     iceServers?: RTCIceServer[];
     iceTransportPolicy?: RTCIceTransportPolicy;
-    bundlePolicy?: RTCBundlePolicy;
     peerIdentity?: string;
-}
-
-interface RTCDTMFToneChangeEventInit extends EventInit {
-    tone?: string;
 }
 
 interface RTCDtlsFingerprint {
@@ -781,17 +802,21 @@ interface RTCDtlsFingerprint {
 }
 
 interface RTCDtlsParameters {
-    role?: RTCDtlsRole;
     fingerprints?: RTCDtlsFingerprint[];
+    role?: RTCDtlsRole;
+}
+
+interface RTCDTMFToneChangeEventInit extends EventInit {
+    tone?: string;
 }
 
 interface RTCIceCandidateAttributes extends RTCStats {
+    addressSourceUrl?: string;
+    candidateType?: RTCStatsIceCandidateType;
     ipAddress?: string;
     portNumber?: number;
-    transport?: string;
-    candidateType?: RTCStatsIceCandidateType;
     priority?: number;
-    addressSourceUrl?: string;
+    transport?: string;
 }
 
 interface RTCIceCandidateComplete {
@@ -799,15 +824,15 @@ interface RTCIceCandidateComplete {
 
 interface RTCIceCandidateDictionary {
     foundation?: string;
-    priority?: number;
     ip?: string;
-    protocol?: RTCIceProtocol;
+    msMTurnSessionId?: string;
     port?: number;
-    type?: RTCIceCandidateType;
-    tcpType?: RTCIceTcpCandidateType;
+    priority?: number;
+    protocol?: RTCIceProtocol;
     relatedAddress?: string;
     relatedPort?: number;
-    msMTurnSessionId?: string;
+    tcpType?: RTCIceTcpCandidateType;
+    type?: RTCIceCandidateType;
 }
 
 interface RTCIceCandidateInit {
@@ -822,19 +847,19 @@ interface RTCIceCandidatePair {
 }
 
 interface RTCIceCandidatePairStats extends RTCStats {
-    transportId?: string;
-    localCandidateId?: string;
-    remoteCandidateId?: string;
-    state?: RTCStatsIceCandidatePairState;
-    priority?: number;
-    nominated?: boolean;
-    writable?: boolean;
-    readable?: boolean;
-    bytesSent?: number;
-    bytesReceived?: number;
-    roundTripTime?: number;
-    availableOutgoingBitrate?: number;
     availableIncomingBitrate?: number;
+    availableOutgoingBitrate?: number;
+    bytesReceived?: number;
+    bytesSent?: number;
+    localCandidateId?: string;
+    nominated?: boolean;
+    priority?: number;
+    readable?: boolean;
+    remoteCandidateId?: string;
+    roundTripTime?: number;
+    state?: RTCStatsIceCandidatePairState;
+    transportId?: string;
+    writable?: boolean;
 }
 
 interface RTCIceGatherOptions {
@@ -844,285 +869,260 @@ interface RTCIceGatherOptions {
 }
 
 interface RTCIceParameters {
-    usernameFragment?: string;
-    password?: string;
     iceLite?: boolean;
+    password?: string;
+    usernameFragment?: string;
 }
 
 interface RTCIceServer {
+    credential?: string;
     urls?: any;
     username?: string;
-    credential?: string;
 }
 
 interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
-    packetsReceived?: number;
     bytesReceived?: number;
-    packetsLost?: number;
-    jitter?: number;
     fractionLost?: number;
+    jitter?: number;
+    packetsLost?: number;
+    packetsReceived?: number;
 }
 
 interface RTCMediaStreamTrackStats extends RTCStats {
-    trackIdentifier?: string;
-    remoteSource?: boolean;
-    ssrcIds?: string[];
-    frameWidth?: number;
-    frameHeight?: number;
-    framesPerSecond?: number;
-    framesSent?: number;
-    framesReceived?: number;
-    framesDecoded?: number;
-    framesDropped?: number;
-    framesCorrupted?: number;
     audioLevel?: number;
     echoReturnLoss?: number;
     echoReturnLossEnhancement?: number;
+    frameHeight?: number;
+    framesCorrupted?: number;
+    framesDecoded?: number;
+    framesDropped?: number;
+    framesPerSecond?: number;
+    framesReceived?: number;
+    framesSent?: number;
+    frameWidth?: number;
+    remoteSource?: boolean;
+    ssrcIds?: string[];
+    trackIdentifier?: string;
 }
 
 interface RTCOfferOptions {
-    offerToReceiveVideo?: number;
-    offerToReceiveAudio?: number;
-    voiceActivityDetection?: boolean;
     iceRestart?: boolean;
+    offerToReceiveAudio?: number;
+    offerToReceiveVideo?: number;
+    voiceActivityDetection?: boolean;
 }
 
 interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
-    packetsSent?: number;
     bytesSent?: number;
-    targetBitrate?: number;
+    packetsSent?: number;
     roundTripTime?: number;
+    targetBitrate?: number;
 }
 
 interface RTCPeerConnectionIceEventInit extends EventInit {
     candidate?: RTCIceCandidate;
 }
 
-interface RTCRTPStreamStats extends RTCStats {
-    ssrc?: string;
-    associateStatsId?: string;
-    isRemote?: boolean;
-    mediaTrackId?: string;
-    transportId?: string;
-    codecId?: string;
-    firCount?: number;
-    pliCount?: number;
-    nackCount?: number;
-    sliCount?: number;
-}
-
 interface RTCRtcpFeedback {
-    type?: string;
     parameter?: string;
+    type?: string;
 }
 
 interface RTCRtcpParameters {
-    ssrc?: number;
     cname?: string;
-    reducedSize?: boolean;
     mux?: boolean;
+    reducedSize?: boolean;
+    ssrc?: number;
 }
 
 interface RTCRtpCapabilities {
     codecs?: RTCRtpCodecCapability[];
-    headerExtensions?: RTCRtpHeaderExtension[];
     fecMechanisms?: string[];
+    headerExtensions?: RTCRtpHeaderExtension[];
 }
 
 interface RTCRtpCodecCapability {
-    name?: string;
-    kind?: string;
     clockRate?: number;
-    preferredPayloadType?: number;
+    kind?: string;
     maxptime?: number;
-    ptime?: number;
-    numChannels?: number;
-    rtcpFeedback?: RTCRtcpFeedback[];
-    parameters?: any;
-    options?: any;
-    maxTemporalLayers?: number;
     maxSpatialLayers?: number;
+    maxTemporalLayers?: number;
+    name?: string;
+    numChannels?: number;
+    options?: any;
+    parameters?: any;
+    preferredPayloadType?: number;
+    ptime?: number;
+    rtcpFeedback?: RTCRtcpFeedback[];
     svcMultiStreamSupport?: boolean;
 }
 
 interface RTCRtpCodecParameters {
-    name?: string;
-    payloadType?: any;
     clockRate?: number;
     maxptime?: number;
-    ptime?: number;
+    name?: string;
     numChannels?: number;
-    rtcpFeedback?: RTCRtcpFeedback[];
     parameters?: any;
+    payloadType?: any;
+    ptime?: number;
+    rtcpFeedback?: RTCRtcpFeedback[];
 }
 
 interface RTCRtpContributingSource {
-    timestamp?: number;
-    csrc?: number;
     audioLevel?: number;
+    csrc?: number;
+    timestamp?: number;
 }
 
 interface RTCRtpEncodingParameters {
-    ssrc?: number;
-    codecPayloadType?: number;
-    fec?: RTCRtpFecParameters;
-    rtx?: RTCRtpRtxParameters;
-    priority?: number;
-    maxBitrate?: number;
-    minQuality?: number;
-    resolutionScale?: number;
-    framerateScale?: number;
-    maxFramerate?: number;
     active?: boolean;
-    encodingId?: string;
+    codecPayloadType?: number;
     dependencyEncodingIds?: string[];
+    encodingId?: string;
+    fec?: RTCRtpFecParameters;
+    framerateScale?: number;
+    maxBitrate?: number;
+    maxFramerate?: number;
+    minQuality?: number;
+    priority?: number;
+    resolutionScale?: number;
+    rtx?: RTCRtpRtxParameters;
+    ssrc?: number;
     ssrcRange?: RTCSsrcRange;
 }
 
 interface RTCRtpFecParameters {
-    ssrc?: number;
     mechanism?: string;
+    ssrc?: number;
 }
 
 interface RTCRtpHeaderExtension {
     kind?: string;
-    uri?: string;
-    preferredId?: number;
     preferredEncrypt?: boolean;
+    preferredId?: number;
+    uri?: string;
 }
 
 interface RTCRtpHeaderExtensionParameters {
-    uri?: string;
-    id?: number;
     encrypt?: boolean;
+    id?: number;
+    uri?: string;
 }
 
 interface RTCRtpParameters {
-    muxId?: string;
     codecs?: RTCRtpCodecParameters[];
-    headerExtensions?: RTCRtpHeaderExtensionParameters[];
-    encodings?: RTCRtpEncodingParameters[];
-    rtcp?: RTCRtcpParameters;
     degradationPreference?: RTCDegradationPreference;
+    encodings?: RTCRtpEncodingParameters[];
+    headerExtensions?: RTCRtpHeaderExtensionParameters[];
+    muxId?: string;
+    rtcp?: RTCRtcpParameters;
 }
 
 interface RTCRtpRtxParameters {
     ssrc?: number;
 }
 
+interface RTCRTPStreamStats extends RTCStats {
+    associateStatsId?: string;
+    codecId?: string;
+    firCount?: number;
+    isRemote?: boolean;
+    mediaTrackId?: string;
+    nackCount?: number;
+    pliCount?: number;
+    sliCount?: number;
+    ssrc?: string;
+    transportId?: string;
+}
+
 interface RTCRtpUnhandled {
-    ssrc?: number;
-    payloadType?: number;
     muxId?: string;
+    payloadType?: number;
+    ssrc?: number;
 }
 
 interface RTCSessionDescriptionInit {
-    type?: RTCSdpType;
     sdp?: string;
+    type?: RTCSdpType;
 }
 
 interface RTCSrtpKeyParam {
     keyMethod?: string;
     keySalt?: string;
     lifetime?: string;
-    mkiValue?: number;
     mkiLength?: number;
+    mkiValue?: number;
 }
 
 interface RTCSrtpSdesParameters {
-    tag?: number;
     cryptoSuite?: string;
     keyParams?: RTCSrtpKeyParam[];
     sessionParams?: string[];
+    tag?: number;
 }
 
 interface RTCSsrcRange {
-    min?: number;
     max?: number;
+    min?: number;
 }
 
 interface RTCStats {
-    timestamp?: number;
-    type?: RTCStatsType;
     id?: string;
     msType?: MSStatsType;
+    timestamp?: number;
+    type?: RTCStatsType;
 }
 
 interface RTCStatsReport {
 }
 
 interface RTCTransportStats extends RTCStats {
-    bytesSent?: number;
-    bytesReceived?: number;
-    rtcpTransportStatsId?: string;
     activeConnection?: boolean;
-    selectedCandidatePairId?: string;
+    bytesReceived?: number;
+    bytesSent?: number;
     localCertificateId?: string;
     remoteCertificateId?: string;
-}
-
-interface RegistrationOptions {
-    scope?: string;
-}
-
-interface RequestInit {
-    method?: string;
-    headers?: any;
-    body?: any;
-    referrer?: string;
-    referrerPolicy?: ReferrerPolicy;
-    mode?: RequestMode;
-    credentials?: RequestCredentials;
-    cache?: RequestCache;
-    redirect?: RequestRedirect;
-    integrity?: string;
-    keepalive?: boolean;
-    window?: any;
-}
-
-interface ResponseInit {
-    status?: number;
-    statusText?: string;
-    headers?: any;
+    rtcpTransportStatsId?: string;
+    selectedCandidatePairId?: string;
 }
 
 interface ScopedCredentialDescriptor {
-    type?: ScopedCredentialType;
     id?: any;
     transports?: Transport[];
+    type?: ScopedCredentialType;
 }
 
 interface ScopedCredentialOptions {
-    timeoutSeconds?: number;
-    rpId?: USVString;
     excludeList?: ScopedCredentialDescriptor[];
     extensions?: WebAuthnExtensions;
+    rpId?: USVString;
+    timeoutSeconds?: number;
 }
 
 interface ScopedCredentialParameters {
-    type?: ScopedCredentialType;
     algorithm?: string | Algorithm;
+    type?: ScopedCredentialType;
 }
 
 interface ServiceWorkerMessageEventInit extends EventInit {
     data?: any;
-    origin?: string;
     lastEventId?: string;
-    source?: ServiceWorker | MessagePort;
+    origin?: string;
     ports?: MessagePort[];
+    source?: ServiceWorker | MessagePort;
 }
 
 interface SpeechSynthesisEventInit extends EventInit {
-    utterance?: SpeechSynthesisUtterance;
     charIndex?: number;
     elapsedTime?: number;
     name?: string;
+    utterance?: SpeechSynthesisUtterance;
 }
 
 interface StoreExceptionsInformation extends ExceptionInformation {
-    siteName?: string;
-    explanationString?: string;
     detailURI?: string;
+    explanationString?: string;
+    siteName?: string;
 }
 
 interface StoreSiteSpecificExceptionsInformation extends StoreExceptionsInformation {
@@ -1134,13 +1134,13 @@ interface TrackEventInit extends EventInit {
 }
 
 interface TransitionEventInit extends EventInit {
-    propertyName?: string;
     elapsedTime?: number;
+    propertyName?: string;
 }
 
 interface UIEventInit extends EventInit {
-    view?: Window;
     detail?: number;
+    view?: Window;
 }
 
 interface WebAuthnExtensions {
@@ -1149,11 +1149,11 @@ interface WebAuthnExtensions {
 interface WebGLContextAttributes {
     failIfMajorPerformanceCaveat?: boolean;
     alpha?: boolean;
-    depth?: boolean;
-    stencil?: boolean;
     antialias?: boolean;
+    depth?: boolean;
     premultipliedAlpha?: boolean;
     preserveDrawingBuffer?: boolean;
+    stencil?: boolean;
 }
 
 interface WebGLContextEventInit extends EventInit {
@@ -1161,10 +1161,10 @@ interface WebGLContextEventInit extends EventInit {
 }
 
 interface WheelEventInit extends MouseEventInit {
+    deltaMode?: number;
     deltaX?: number;
     deltaY?: number;
     deltaZ?: number;
-    deltaMode?: number;
 }
 
 interface EventListener {
@@ -1183,19 +1183,6 @@ interface WebKitFileCallback {
     (evt: Event): void;
 }
 
-interface ANGLE_instanced_arrays {
-    drawArraysInstancedANGLE(mode: number, first: number, count: number, primcount: number): void;
-    drawElementsInstancedANGLE(mode: number, count: number, type: number, offset: number, primcount: number): void;
-    vertexAttribDivisorANGLE(index: number, divisor: number): void;
-    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: number;
-}
-
-declare var ANGLE_instanced_arrays: {
-    prototype: ANGLE_instanced_arrays;
-    new(): ANGLE_instanced_arrays;
-    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: number;
-};
-
 interface AnalyserNode extends AudioNode {
     fftSize: number;
     readonly frequencyBinCount: number;
@@ -1211,6 +1198,19 @@ interface AnalyserNode extends AudioNode {
 declare var AnalyserNode: {
     prototype: AnalyserNode;
     new(): AnalyserNode;
+};
+
+interface ANGLE_instanced_arrays {
+    drawArraysInstancedANGLE(mode: number, first: number, count: number, primcount: number): void;
+    drawElementsInstancedANGLE(mode: number, count: number, type: number, offset: number, primcount: number): void;
+    vertexAttribDivisorANGLE(index: number, divisor: number): void;
+    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: number;
+}
+
+declare var ANGLE_instanced_arrays: {
+    prototype: ANGLE_instanced_arrays;
+    new(): ANGLE_instanced_arrays;
+    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: number;
 };
 
 interface AnimationEvent extends Event {
@@ -1490,10 +1490,10 @@ declare var BeforeUnloadEvent: {
 };
 
 interface BiquadFilterNode extends AudioNode {
-    readonly Q: AudioParam;
     readonly detune: AudioParam;
     readonly frequency: AudioParam;
     readonly gain: AudioParam;
+    readonly Q: AudioParam;
     type: BiquadFilterType;
     getFrequencyResponse(frequencyHz: Float32Array, magResponse: Float32Array, phaseResponse: Float32Array): void;
 }
@@ -1514,566 +1514,6 @@ interface Blob {
 declare var Blob: {
     prototype: Blob;
     new (blobParts?: any[], options?: BlobPropertyBag): Blob;
-};
-
-interface CDATASection extends Text {
-}
-
-declare var CDATASection: {
-    prototype: CDATASection;
-    new(): CDATASection;
-};
-
-interface CSS {
-    supports(property: string, value?: string): boolean;
-}
-declare var CSS: CSS;
-
-interface CSSConditionRule extends CSSGroupingRule {
-    conditionText: string;
-}
-
-declare var CSSConditionRule: {
-    prototype: CSSConditionRule;
-    new(): CSSConditionRule;
-};
-
-interface CSSFontFaceRule extends CSSRule {
-    readonly style: CSSStyleDeclaration;
-}
-
-declare var CSSFontFaceRule: {
-    prototype: CSSFontFaceRule;
-    new(): CSSFontFaceRule;
-};
-
-interface CSSGroupingRule extends CSSRule {
-    readonly cssRules: CSSRuleList;
-    deleteRule(index: number): void;
-    insertRule(rule: string, index: number): number;
-}
-
-declare var CSSGroupingRule: {
-    prototype: CSSGroupingRule;
-    new(): CSSGroupingRule;
-};
-
-interface CSSImportRule extends CSSRule {
-    readonly href: string;
-    readonly media: MediaList;
-    readonly styleSheet: CSSStyleSheet;
-}
-
-declare var CSSImportRule: {
-    prototype: CSSImportRule;
-    new(): CSSImportRule;
-};
-
-interface CSSKeyframeRule extends CSSRule {
-    keyText: string;
-    readonly style: CSSStyleDeclaration;
-}
-
-declare var CSSKeyframeRule: {
-    prototype: CSSKeyframeRule;
-    new(): CSSKeyframeRule;
-};
-
-interface CSSKeyframesRule extends CSSRule {
-    readonly cssRules: CSSRuleList;
-    name: string;
-    appendRule(rule: string): void;
-    deleteRule(rule: string): void;
-    findRule(rule: string): CSSKeyframeRule;
-}
-
-declare var CSSKeyframesRule: {
-    prototype: CSSKeyframesRule;
-    new(): CSSKeyframesRule;
-};
-
-interface CSSMediaRule extends CSSConditionRule {
-    readonly media: MediaList;
-}
-
-declare var CSSMediaRule: {
-    prototype: CSSMediaRule;
-    new(): CSSMediaRule;
-};
-
-interface CSSNamespaceRule extends CSSRule {
-    readonly namespaceURI: string;
-    readonly prefix: string;
-}
-
-declare var CSSNamespaceRule: {
-    prototype: CSSNamespaceRule;
-    new(): CSSNamespaceRule;
-};
-
-interface CSSPageRule extends CSSRule {
-    readonly pseudoClass: string;
-    readonly selector: string;
-    selectorText: string;
-    readonly style: CSSStyleDeclaration;
-}
-
-declare var CSSPageRule: {
-    prototype: CSSPageRule;
-    new(): CSSPageRule;
-};
-
-interface CSSRule {
-    cssText: string;
-    readonly parentRule: CSSRule;
-    readonly parentStyleSheet: CSSStyleSheet;
-    readonly type: number;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
-}
-
-declare var CSSRule: {
-    prototype: CSSRule;
-    new(): CSSRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
-};
-
-interface CSSRuleList {
-    readonly length: number;
-    item(index: number): CSSRule;
-    [index: number]: CSSRule;
-}
-
-declare var CSSRuleList: {
-    prototype: CSSRuleList;
-    new(): CSSRuleList;
-};
-
-interface CSSStyleDeclaration {
-    alignContent: string | null;
-    alignItems: string | null;
-    alignSelf: string | null;
-    alignmentBaseline: string | null;
-    animation: string | null;
-    animationDelay: string | null;
-    animationDirection: string | null;
-    animationDuration: string | null;
-    animationFillMode: string | null;
-    animationIterationCount: string | null;
-    animationName: string | null;
-    animationPlayState: string | null;
-    animationTimingFunction: string | null;
-    backfaceVisibility: string | null;
-    background: string | null;
-    backgroundAttachment: string | null;
-    backgroundClip: string | null;
-    backgroundColor: string | null;
-    backgroundImage: string | null;
-    backgroundOrigin: string | null;
-    backgroundPosition: string | null;
-    backgroundPositionX: string | null;
-    backgroundPositionY: string | null;
-    backgroundRepeat: string | null;
-    backgroundSize: string | null;
-    baselineShift: string | null;
-    border: string | null;
-    borderBottom: string | null;
-    borderBottomColor: string | null;
-    borderBottomLeftRadius: string | null;
-    borderBottomRightRadius: string | null;
-    borderBottomStyle: string | null;
-    borderBottomWidth: string | null;
-    borderCollapse: string | null;
-    borderColor: string | null;
-    borderImage: string | null;
-    borderImageOutset: string | null;
-    borderImageRepeat: string | null;
-    borderImageSlice: string | null;
-    borderImageSource: string | null;
-    borderImageWidth: string | null;
-    borderLeft: string | null;
-    borderLeftColor: string | null;
-    borderLeftStyle: string | null;
-    borderLeftWidth: string | null;
-    borderRadius: string | null;
-    borderRight: string | null;
-    borderRightColor: string | null;
-    borderRightStyle: string | null;
-    borderRightWidth: string | null;
-    borderSpacing: string | null;
-    borderStyle: string | null;
-    borderTop: string | null;
-    borderTopColor: string | null;
-    borderTopLeftRadius: string | null;
-    borderTopRightRadius: string | null;
-    borderTopStyle: string | null;
-    borderTopWidth: string | null;
-    borderWidth: string | null;
-    bottom: string | null;
-    boxShadow: string | null;
-    boxSizing: string | null;
-    breakAfter: string | null;
-    breakBefore: string | null;
-    breakInside: string | null;
-    captionSide: string | null;
-    clear: string | null;
-    clip: string | null;
-    clipPath: string | null;
-    clipRule: string | null;
-    color: string | null;
-    colorInterpolationFilters: string | null;
-    columnCount: any;
-    columnFill: string | null;
-    columnGap: any;
-    columnRule: string | null;
-    columnRuleColor: any;
-    columnRuleStyle: string | null;
-    columnRuleWidth: any;
-    columnSpan: string | null;
-    columnWidth: any;
-    columns: string | null;
-    content: string | null;
-    counterIncrement: string | null;
-    counterReset: string | null;
-    cssFloat: string | null;
-    cssText: string;
-    cursor: string | null;
-    direction: string | null;
-    display: string | null;
-    dominantBaseline: string | null;
-    emptyCells: string | null;
-    enableBackground: string | null;
-    fill: string | null;
-    fillOpacity: string | null;
-    fillRule: string | null;
-    filter: string | null;
-    flex: string | null;
-    flexBasis: string | null;
-    flexDirection: string | null;
-    flexFlow: string | null;
-    flexGrow: string | null;
-    flexShrink: string | null;
-    flexWrap: string | null;
-    floodColor: string | null;
-    floodOpacity: string | null;
-    font: string | null;
-    fontFamily: string | null;
-    fontFeatureSettings: string | null;
-    fontSize: string | null;
-    fontSizeAdjust: string | null;
-    fontStretch: string | null;
-    fontStyle: string | null;
-    fontVariant: string | null;
-    fontWeight: string | null;
-    glyphOrientationHorizontal: string | null;
-    glyphOrientationVertical: string | null;
-    height: string | null;
-    imeMode: string | null;
-    justifyContent: string | null;
-    kerning: string | null;
-    layoutGrid: string | null;
-    layoutGridChar: string | null;
-    layoutGridLine: string | null;
-    layoutGridMode: string | null;
-    layoutGridType: string | null;
-    left: string | null;
-    readonly length: number;
-    letterSpacing: string | null;
-    lightingColor: string | null;
-    lineBreak: string | null;
-    lineHeight: string | null;
-    listStyle: string | null;
-    listStyleImage: string | null;
-    listStylePosition: string | null;
-    listStyleType: string | null;
-    margin: string | null;
-    marginBottom: string | null;
-    marginLeft: string | null;
-    marginRight: string | null;
-    marginTop: string | null;
-    marker: string | null;
-    markerEnd: string | null;
-    markerMid: string | null;
-    markerStart: string | null;
-    mask: string | null;
-    maxHeight: string | null;
-    maxWidth: string | null;
-    minHeight: string | null;
-    minWidth: string | null;
-    msContentZoomChaining: string | null;
-    msContentZoomLimit: string | null;
-    msContentZoomLimitMax: any;
-    msContentZoomLimitMin: any;
-    msContentZoomSnap: string | null;
-    msContentZoomSnapPoints: string | null;
-    msContentZoomSnapType: string | null;
-    msContentZooming: string | null;
-    msFlowFrom: string | null;
-    msFlowInto: string | null;
-    msFontFeatureSettings: string | null;
-    msGridColumn: any;
-    msGridColumnAlign: string | null;
-    msGridColumnSpan: any;
-    msGridColumns: string | null;
-    msGridRow: any;
-    msGridRowAlign: string | null;
-    msGridRowSpan: any;
-    msGridRows: string | null;
-    msHighContrastAdjust: string | null;
-    msHyphenateLimitChars: string | null;
-    msHyphenateLimitLines: any;
-    msHyphenateLimitZone: any;
-    msHyphens: string | null;
-    msImeAlign: string | null;
-    msOverflowStyle: string | null;
-    msScrollChaining: string | null;
-    msScrollLimit: string | null;
-    msScrollLimitXMax: any;
-    msScrollLimitXMin: any;
-    msScrollLimitYMax: any;
-    msScrollLimitYMin: any;
-    msScrollRails: string | null;
-    msScrollSnapPointsX: string | null;
-    msScrollSnapPointsY: string | null;
-    msScrollSnapType: string | null;
-    msScrollSnapX: string | null;
-    msScrollSnapY: string | null;
-    msScrollTranslation: string | null;
-    msTextCombineHorizontal: string | null;
-    msTextSizeAdjust: any;
-    msTouchAction: string | null;
-    msTouchSelect: string | null;
-    msUserSelect: string | null;
-    msWrapFlow: string;
-    msWrapMargin: any;
-    msWrapThrough: string;
-    opacity: string | null;
-    order: string | null;
-    orphans: string | null;
-    outline: string | null;
-    outlineColor: string | null;
-    outlineOffset: string | null;
-    outlineStyle: string | null;
-    outlineWidth: string | null;
-    overflow: string | null;
-    overflowX: string | null;
-    overflowY: string | null;
-    padding: string | null;
-    paddingBottom: string | null;
-    paddingLeft: string | null;
-    paddingRight: string | null;
-    paddingTop: string | null;
-    pageBreakAfter: string | null;
-    pageBreakBefore: string | null;
-    pageBreakInside: string | null;
-    readonly parentRule: CSSRule;
-    perspective: string | null;
-    perspectiveOrigin: string | null;
-    pointerEvents: string | null;
-    position: string | null;
-    quotes: string | null;
-    right: string | null;
-    rotate: string | null;
-    rubyAlign: string | null;
-    rubyOverhang: string | null;
-    rubyPosition: string | null;
-    scale: string | null;
-    stopColor: string | null;
-    stopOpacity: string | null;
-    stroke: string | null;
-    strokeDasharray: string | null;
-    strokeDashoffset: string | null;
-    strokeLinecap: string | null;
-    strokeLinejoin: string | null;
-    strokeMiterlimit: string | null;
-    strokeOpacity: string | null;
-    strokeWidth: string | null;
-    tableLayout: string | null;
-    textAlign: string | null;
-    textAlignLast: string | null;
-    textAnchor: string | null;
-    textDecoration: string | null;
-    textIndent: string | null;
-    textJustify: string | null;
-    textKashida: string | null;
-    textKashidaSpace: string | null;
-    textOverflow: string | null;
-    textShadow: string | null;
-    textTransform: string | null;
-    textUnderlinePosition: string | null;
-    top: string | null;
-    touchAction: string | null;
-    transform: string | null;
-    transformOrigin: string | null;
-    transformStyle: string | null;
-    transition: string | null;
-    transitionDelay: string | null;
-    transitionDuration: string | null;
-    transitionProperty: string | null;
-    transitionTimingFunction: string | null;
-    translate: string | null;
-    unicodeBidi: string | null;
-    verticalAlign: string | null;
-    visibility: string | null;
-    webkitAlignContent: string | null;
-    webkitAlignItems: string | null;
-    webkitAlignSelf: string | null;
-    webkitAnimation: string | null;
-    webkitAnimationDelay: string | null;
-    webkitAnimationDirection: string | null;
-    webkitAnimationDuration: string | null;
-    webkitAnimationFillMode: string | null;
-    webkitAnimationIterationCount: string | null;
-    webkitAnimationName: string | null;
-    webkitAnimationPlayState: string | null;
-    webkitAnimationTimingFunction: string | null;
-    webkitAppearance: string | null;
-    webkitBackfaceVisibility: string | null;
-    webkitBackgroundClip: string | null;
-    webkitBackgroundOrigin: string | null;
-    webkitBackgroundSize: string | null;
-    webkitBorderBottomLeftRadius: string | null;
-    webkitBorderBottomRightRadius: string | null;
-    webkitBorderImage: string | null;
-    webkitBorderRadius: string | null;
-    webkitBorderTopLeftRadius: string | null;
-    webkitBorderTopRightRadius: string | null;
-    webkitBoxAlign: string | null;
-    webkitBoxDirection: string | null;
-    webkitBoxFlex: string | null;
-    webkitBoxOrdinalGroup: string | null;
-    webkitBoxOrient: string | null;
-    webkitBoxPack: string | null;
-    webkitBoxSizing: string | null;
-    webkitColumnBreakAfter: string | null;
-    webkitColumnBreakBefore: string | null;
-    webkitColumnBreakInside: string | null;
-    webkitColumnCount: any;
-    webkitColumnGap: any;
-    webkitColumnRule: string | null;
-    webkitColumnRuleColor: any;
-    webkitColumnRuleStyle: string | null;
-    webkitColumnRuleWidth: any;
-    webkitColumnSpan: string | null;
-    webkitColumnWidth: any;
-    webkitColumns: string | null;
-    webkitFilter: string | null;
-    webkitFlex: string | null;
-    webkitFlexBasis: string | null;
-    webkitFlexDirection: string | null;
-    webkitFlexFlow: string | null;
-    webkitFlexGrow: string | null;
-    webkitFlexShrink: string | null;
-    webkitFlexWrap: string | null;
-    webkitJustifyContent: string | null;
-    webkitOrder: string | null;
-    webkitPerspective: string | null;
-    webkitPerspectiveOrigin: string | null;
-    webkitTapHighlightColor: string | null;
-    webkitTextFillColor: string | null;
-    webkitTextSizeAdjust: any;
-    webkitTextStroke: string | null;
-    webkitTextStrokeColor: string | null;
-    webkitTextStrokeWidth: string | null;
-    webkitTransform: string | null;
-    webkitTransformOrigin: string | null;
-    webkitTransformStyle: string | null;
-    webkitTransition: string | null;
-    webkitTransitionDelay: string | null;
-    webkitTransitionDuration: string | null;
-    webkitTransitionProperty: string | null;
-    webkitTransitionTimingFunction: string | null;
-    webkitUserModify: string | null;
-    webkitUserSelect: string | null;
-    webkitWritingMode: string | null;
-    whiteSpace: string | null;
-    widows: string | null;
-    width: string | null;
-    wordBreak: string | null;
-    wordSpacing: string | null;
-    wordWrap: string | null;
-    writingMode: string | null;
-    zIndex: string | null;
-    zoom: string | null;
-    resize: string | null;
-    userSelect: string | null;
-    getPropertyPriority(propertyName: string): string;
-    getPropertyValue(propertyName: string): string;
-    item(index: number): string;
-    removeProperty(propertyName: string): string;
-    setProperty(propertyName: string, value: string | null, priority?: string): void;
-    [index: number]: string;
-}
-
-declare var CSSStyleDeclaration: {
-    prototype: CSSStyleDeclaration;
-    new(): CSSStyleDeclaration;
-};
-
-interface CSSStyleRule extends CSSRule {
-    readonly readOnly: boolean;
-    selectorText: string;
-    readonly style: CSSStyleDeclaration;
-}
-
-declare var CSSStyleRule: {
-    prototype: CSSStyleRule;
-    new(): CSSStyleRule;
-};
-
-interface CSSStyleSheet extends StyleSheet {
-    readonly cssRules: CSSRuleList;
-    cssText: string;
-    readonly id: string;
-    readonly imports: StyleSheetList;
-    readonly isAlternate: boolean;
-    readonly isPrefAlternate: boolean;
-    readonly ownerRule: CSSRule;
-    readonly owningElement: Element;
-    readonly pages: StyleSheetPageList;
-    readonly readOnly: boolean;
-    readonly rules: CSSRuleList;
-    addImport(bstrURL: string, lIndex?: number): number;
-    addPageRule(bstrSelector: string, bstrStyle: string, lIndex?: number): number;
-    addRule(bstrSelector: string, bstrStyle?: string, lIndex?: number): number;
-    deleteRule(index?: number): void;
-    insertRule(rule: string, index?: number): number;
-    removeImport(lIndex: number): void;
-    removeRule(lIndex: number): void;
-}
-
-declare var CSSStyleSheet: {
-    prototype: CSSStyleSheet;
-    new(): CSSStyleSheet;
-};
-
-interface CSSSupportsRule extends CSSConditionRule {
-}
-
-declare var CSSSupportsRule: {
-    prototype: CSSSupportsRule;
-    new(): CSSSupportsRule;
 };
 
 interface Cache {
@@ -2180,6 +1620,14 @@ interface CanvasRenderingContext2D extends Object, CanvasPathMethods {
 declare var CanvasRenderingContext2D: {
     prototype: CanvasRenderingContext2D;
     new(): CanvasRenderingContext2D;
+};
+
+interface CDATASection extends Text {
+}
+
+declare var CDATASection: {
+    prototype: CDATASection;
+    new(): CDATASection;
 };
 
 interface ChannelMergerNode extends AudioNode {
@@ -2365,6 +1813,558 @@ declare var CryptoKeyPair: {
     new(): CryptoKeyPair;
 };
 
+interface CSS {
+    supports(property: string, value?: string): boolean;
+}
+declare var CSS: CSS;
+
+interface CSSConditionRule extends CSSGroupingRule {
+    conditionText: string;
+}
+
+declare var CSSConditionRule: {
+    prototype: CSSConditionRule;
+    new(): CSSConditionRule;
+};
+
+interface CSSFontFaceRule extends CSSRule {
+    readonly style: CSSStyleDeclaration;
+}
+
+declare var CSSFontFaceRule: {
+    prototype: CSSFontFaceRule;
+    new(): CSSFontFaceRule;
+};
+
+interface CSSGroupingRule extends CSSRule {
+    readonly cssRules: CSSRuleList;
+    deleteRule(index: number): void;
+    insertRule(rule: string, index: number): number;
+}
+
+declare var CSSGroupingRule: {
+    prototype: CSSGroupingRule;
+    new(): CSSGroupingRule;
+};
+
+interface CSSImportRule extends CSSRule {
+    readonly href: string;
+    readonly media: MediaList;
+    readonly styleSheet: CSSStyleSheet;
+}
+
+declare var CSSImportRule: {
+    prototype: CSSImportRule;
+    new(): CSSImportRule;
+};
+
+interface CSSKeyframeRule extends CSSRule {
+    keyText: string;
+    readonly style: CSSStyleDeclaration;
+}
+
+declare var CSSKeyframeRule: {
+    prototype: CSSKeyframeRule;
+    new(): CSSKeyframeRule;
+};
+
+interface CSSKeyframesRule extends CSSRule {
+    readonly cssRules: CSSRuleList;
+    name: string;
+    appendRule(rule: string): void;
+    deleteRule(rule: string): void;
+    findRule(rule: string): CSSKeyframeRule;
+}
+
+declare var CSSKeyframesRule: {
+    prototype: CSSKeyframesRule;
+    new(): CSSKeyframesRule;
+};
+
+interface CSSMediaRule extends CSSConditionRule {
+    readonly media: MediaList;
+}
+
+declare var CSSMediaRule: {
+    prototype: CSSMediaRule;
+    new(): CSSMediaRule;
+};
+
+interface CSSNamespaceRule extends CSSRule {
+    readonly namespaceURI: string;
+    readonly prefix: string;
+}
+
+declare var CSSNamespaceRule: {
+    prototype: CSSNamespaceRule;
+    new(): CSSNamespaceRule;
+};
+
+interface CSSPageRule extends CSSRule {
+    readonly pseudoClass: string;
+    readonly selector: string;
+    selectorText: string;
+    readonly style: CSSStyleDeclaration;
+}
+
+declare var CSSPageRule: {
+    prototype: CSSPageRule;
+    new(): CSSPageRule;
+};
+
+interface CSSRule {
+    cssText: string;
+    readonly parentRule: CSSRule;
+    readonly parentStyleSheet: CSSStyleSheet;
+    readonly type: number;
+    readonly CHARSET_RULE: number;
+    readonly FONT_FACE_RULE: number;
+    readonly IMPORT_RULE: number;
+    readonly KEYFRAME_RULE: number;
+    readonly KEYFRAMES_RULE: number;
+    readonly MEDIA_RULE: number;
+    readonly NAMESPACE_RULE: number;
+    readonly PAGE_RULE: number;
+    readonly STYLE_RULE: number;
+    readonly SUPPORTS_RULE: number;
+    readonly UNKNOWN_RULE: number;
+    readonly VIEWPORT_RULE: number;
+}
+
+declare var CSSRule: {
+    prototype: CSSRule;
+    new(): CSSRule;
+    readonly CHARSET_RULE: number;
+    readonly FONT_FACE_RULE: number;
+    readonly IMPORT_RULE: number;
+    readonly KEYFRAME_RULE: number;
+    readonly KEYFRAMES_RULE: number;
+    readonly MEDIA_RULE: number;
+    readonly NAMESPACE_RULE: number;
+    readonly PAGE_RULE: number;
+    readonly STYLE_RULE: number;
+    readonly SUPPORTS_RULE: number;
+    readonly UNKNOWN_RULE: number;
+    readonly VIEWPORT_RULE: number;
+};
+
+interface CSSRuleList {
+    readonly length: number;
+    item(index: number): CSSRule;
+    [index: number]: CSSRule;
+}
+
+declare var CSSRuleList: {
+    prototype: CSSRuleList;
+    new(): CSSRuleList;
+};
+
+interface CSSStyleDeclaration {
+    alignContent: string | null;
+    alignItems: string | null;
+    alignmentBaseline: string | null;
+    alignSelf: string | null;
+    animation: string | null;
+    animationDelay: string | null;
+    animationDirection: string | null;
+    animationDuration: string | null;
+    animationFillMode: string | null;
+    animationIterationCount: string | null;
+    animationName: string | null;
+    animationPlayState: string | null;
+    animationTimingFunction: string | null;
+    backfaceVisibility: string | null;
+    background: string | null;
+    backgroundAttachment: string | null;
+    backgroundClip: string | null;
+    backgroundColor: string | null;
+    backgroundImage: string | null;
+    backgroundOrigin: string | null;
+    backgroundPosition: string | null;
+    backgroundPositionX: string | null;
+    backgroundPositionY: string | null;
+    backgroundRepeat: string | null;
+    backgroundSize: string | null;
+    baselineShift: string | null;
+    border: string | null;
+    borderBottom: string | null;
+    borderBottomColor: string | null;
+    borderBottomLeftRadius: string | null;
+    borderBottomRightRadius: string | null;
+    borderBottomStyle: string | null;
+    borderBottomWidth: string | null;
+    borderCollapse: string | null;
+    borderColor: string | null;
+    borderImage: string | null;
+    borderImageOutset: string | null;
+    borderImageRepeat: string | null;
+    borderImageSlice: string | null;
+    borderImageSource: string | null;
+    borderImageWidth: string | null;
+    borderLeft: string | null;
+    borderLeftColor: string | null;
+    borderLeftStyle: string | null;
+    borderLeftWidth: string | null;
+    borderRadius: string | null;
+    borderRight: string | null;
+    borderRightColor: string | null;
+    borderRightStyle: string | null;
+    borderRightWidth: string | null;
+    borderSpacing: string | null;
+    borderStyle: string | null;
+    borderTop: string | null;
+    borderTopColor: string | null;
+    borderTopLeftRadius: string | null;
+    borderTopRightRadius: string | null;
+    borderTopStyle: string | null;
+    borderTopWidth: string | null;
+    borderWidth: string | null;
+    bottom: string | null;
+    boxShadow: string | null;
+    boxSizing: string | null;
+    breakAfter: string | null;
+    breakBefore: string | null;
+    breakInside: string | null;
+    captionSide: string | null;
+    clear: string | null;
+    clip: string | null;
+    clipPath: string | null;
+    clipRule: string | null;
+    color: string | null;
+    colorInterpolationFilters: string | null;
+    columnCount: any;
+    columnFill: string | null;
+    columnGap: any;
+    columnRule: string | null;
+    columnRuleColor: any;
+    columnRuleStyle: string | null;
+    columnRuleWidth: any;
+    columns: string | null;
+    columnSpan: string | null;
+    columnWidth: any;
+    content: string | null;
+    counterIncrement: string | null;
+    counterReset: string | null;
+    cssFloat: string | null;
+    cssText: string;
+    cursor: string | null;
+    direction: string | null;
+    display: string | null;
+    dominantBaseline: string | null;
+    emptyCells: string | null;
+    enableBackground: string | null;
+    fill: string | null;
+    fillOpacity: string | null;
+    fillRule: string | null;
+    filter: string | null;
+    flex: string | null;
+    flexBasis: string | null;
+    flexDirection: string | null;
+    flexFlow: string | null;
+    flexGrow: string | null;
+    flexShrink: string | null;
+    flexWrap: string | null;
+    floodColor: string | null;
+    floodOpacity: string | null;
+    font: string | null;
+    fontFamily: string | null;
+    fontFeatureSettings: string | null;
+    fontSize: string | null;
+    fontSizeAdjust: string | null;
+    fontStretch: string | null;
+    fontStyle: string | null;
+    fontVariant: string | null;
+    fontWeight: string | null;
+    glyphOrientationHorizontal: string | null;
+    glyphOrientationVertical: string | null;
+    height: string | null;
+    imeMode: string | null;
+    justifyContent: string | null;
+    kerning: string | null;
+    layoutGrid: string | null;
+    layoutGridChar: string | null;
+    layoutGridLine: string | null;
+    layoutGridMode: string | null;
+    layoutGridType: string | null;
+    left: string | null;
+    readonly length: number;
+    letterSpacing: string | null;
+    lightingColor: string | null;
+    lineBreak: string | null;
+    lineHeight: string | null;
+    listStyle: string | null;
+    listStyleImage: string | null;
+    listStylePosition: string | null;
+    listStyleType: string | null;
+    margin: string | null;
+    marginBottom: string | null;
+    marginLeft: string | null;
+    marginRight: string | null;
+    marginTop: string | null;
+    marker: string | null;
+    markerEnd: string | null;
+    markerMid: string | null;
+    markerStart: string | null;
+    mask: string | null;
+    maxHeight: string | null;
+    maxWidth: string | null;
+    minHeight: string | null;
+    minWidth: string | null;
+    msContentZoomChaining: string | null;
+    msContentZooming: string | null;
+    msContentZoomLimit: string | null;
+    msContentZoomLimitMax: any;
+    msContentZoomLimitMin: any;
+    msContentZoomSnap: string | null;
+    msContentZoomSnapPoints: string | null;
+    msContentZoomSnapType: string | null;
+    msFlowFrom: string | null;
+    msFlowInto: string | null;
+    msFontFeatureSettings: string | null;
+    msGridColumn: any;
+    msGridColumnAlign: string | null;
+    msGridColumns: string | null;
+    msGridColumnSpan: any;
+    msGridRow: any;
+    msGridRowAlign: string | null;
+    msGridRows: string | null;
+    msGridRowSpan: any;
+    msHighContrastAdjust: string | null;
+    msHyphenateLimitChars: string | null;
+    msHyphenateLimitLines: any;
+    msHyphenateLimitZone: any;
+    msHyphens: string | null;
+    msImeAlign: string | null;
+    msOverflowStyle: string | null;
+    msScrollChaining: string | null;
+    msScrollLimit: string | null;
+    msScrollLimitXMax: any;
+    msScrollLimitXMin: any;
+    msScrollLimitYMax: any;
+    msScrollLimitYMin: any;
+    msScrollRails: string | null;
+    msScrollSnapPointsX: string | null;
+    msScrollSnapPointsY: string | null;
+    msScrollSnapType: string | null;
+    msScrollSnapX: string | null;
+    msScrollSnapY: string | null;
+    msScrollTranslation: string | null;
+    msTextCombineHorizontal: string | null;
+    msTextSizeAdjust: any;
+    msTouchAction: string | null;
+    msTouchSelect: string | null;
+    msUserSelect: string | null;
+    msWrapFlow: string;
+    msWrapMargin: any;
+    msWrapThrough: string;
+    opacity: string | null;
+    order: string | null;
+    orphans: string | null;
+    outline: string | null;
+    outlineColor: string | null;
+    outlineOffset: string | null;
+    outlineStyle: string | null;
+    outlineWidth: string | null;
+    overflow: string | null;
+    overflowX: string | null;
+    overflowY: string | null;
+    padding: string | null;
+    paddingBottom: string | null;
+    paddingLeft: string | null;
+    paddingRight: string | null;
+    paddingTop: string | null;
+    pageBreakAfter: string | null;
+    pageBreakBefore: string | null;
+    pageBreakInside: string | null;
+    readonly parentRule: CSSRule;
+    perspective: string | null;
+    perspectiveOrigin: string | null;
+    pointerEvents: string | null;
+    position: string | null;
+    quotes: string | null;
+    right: string | null;
+    rotate: string | null;
+    rubyAlign: string | null;
+    rubyOverhang: string | null;
+    rubyPosition: string | null;
+    scale: string | null;
+    stopColor: string | null;
+    stopOpacity: string | null;
+    stroke: string | null;
+    strokeDasharray: string | null;
+    strokeDashoffset: string | null;
+    strokeLinecap: string | null;
+    strokeLinejoin: string | null;
+    strokeMiterlimit: string | null;
+    strokeOpacity: string | null;
+    strokeWidth: string | null;
+    tableLayout: string | null;
+    textAlign: string | null;
+    textAlignLast: string | null;
+    textAnchor: string | null;
+    textDecoration: string | null;
+    textIndent: string | null;
+    textJustify: string | null;
+    textKashida: string | null;
+    textKashidaSpace: string | null;
+    textOverflow: string | null;
+    textShadow: string | null;
+    textTransform: string | null;
+    textUnderlinePosition: string | null;
+    top: string | null;
+    touchAction: string | null;
+    transform: string | null;
+    transformOrigin: string | null;
+    transformStyle: string | null;
+    transition: string | null;
+    transitionDelay: string | null;
+    transitionDuration: string | null;
+    transitionProperty: string | null;
+    transitionTimingFunction: string | null;
+    translate: string | null;
+    unicodeBidi: string | null;
+    verticalAlign: string | null;
+    visibility: string | null;
+    webkitAlignContent: string | null;
+    webkitAlignItems: string | null;
+    webkitAlignSelf: string | null;
+    webkitAnimation: string | null;
+    webkitAnimationDelay: string | null;
+    webkitAnimationDirection: string | null;
+    webkitAnimationDuration: string | null;
+    webkitAnimationFillMode: string | null;
+    webkitAnimationIterationCount: string | null;
+    webkitAnimationName: string | null;
+    webkitAnimationPlayState: string | null;
+    webkitAnimationTimingFunction: string | null;
+    webkitAppearance: string | null;
+    webkitBackfaceVisibility: string | null;
+    webkitBackgroundClip: string | null;
+    webkitBackgroundOrigin: string | null;
+    webkitBackgroundSize: string | null;
+    webkitBorderBottomLeftRadius: string | null;
+    webkitBorderBottomRightRadius: string | null;
+    webkitBorderImage: string | null;
+    webkitBorderRadius: string | null;
+    webkitBorderTopLeftRadius: string | null;
+    webkitBorderTopRightRadius: string | null;
+    webkitBoxAlign: string | null;
+    webkitBoxDirection: string | null;
+    webkitBoxFlex: string | null;
+    webkitBoxOrdinalGroup: string | null;
+    webkitBoxOrient: string | null;
+    webkitBoxPack: string | null;
+    webkitBoxSizing: string | null;
+    webkitColumnBreakAfter: string | null;
+    webkitColumnBreakBefore: string | null;
+    webkitColumnBreakInside: string | null;
+    webkitColumnCount: any;
+    webkitColumnGap: any;
+    webkitColumnRule: string | null;
+    webkitColumnRuleColor: any;
+    webkitColumnRuleStyle: string | null;
+    webkitColumnRuleWidth: any;
+    webkitColumns: string | null;
+    webkitColumnSpan: string | null;
+    webkitColumnWidth: any;
+    webkitFilter: string | null;
+    webkitFlex: string | null;
+    webkitFlexBasis: string | null;
+    webkitFlexDirection: string | null;
+    webkitFlexFlow: string | null;
+    webkitFlexGrow: string | null;
+    webkitFlexShrink: string | null;
+    webkitFlexWrap: string | null;
+    webkitJustifyContent: string | null;
+    webkitOrder: string | null;
+    webkitPerspective: string | null;
+    webkitPerspectiveOrigin: string | null;
+    webkitTapHighlightColor: string | null;
+    webkitTextFillColor: string | null;
+    webkitTextSizeAdjust: any;
+    webkitTextStroke: string | null;
+    webkitTextStrokeColor: string | null;
+    webkitTextStrokeWidth: string | null;
+    webkitTransform: string | null;
+    webkitTransformOrigin: string | null;
+    webkitTransformStyle: string | null;
+    webkitTransition: string | null;
+    webkitTransitionDelay: string | null;
+    webkitTransitionDuration: string | null;
+    webkitTransitionProperty: string | null;
+    webkitTransitionTimingFunction: string | null;
+    webkitUserModify: string | null;
+    webkitUserSelect: string | null;
+    webkitWritingMode: string | null;
+    whiteSpace: string | null;
+    widows: string | null;
+    width: string | null;
+    wordBreak: string | null;
+    wordSpacing: string | null;
+    wordWrap: string | null;
+    writingMode: string | null;
+    zIndex: string | null;
+    zoom: string | null;
+    resize: string | null;
+    userSelect: string | null;
+    getPropertyPriority(propertyName: string): string;
+    getPropertyValue(propertyName: string): string;
+    item(index: number): string;
+    removeProperty(propertyName: string): string;
+    setProperty(propertyName: string, value: string | null, priority?: string): void;
+    [index: number]: string;
+}
+
+declare var CSSStyleDeclaration: {
+    prototype: CSSStyleDeclaration;
+    new(): CSSStyleDeclaration;
+};
+
+interface CSSStyleRule extends CSSRule {
+    readonly readOnly: boolean;
+    selectorText: string;
+    readonly style: CSSStyleDeclaration;
+}
+
+declare var CSSStyleRule: {
+    prototype: CSSStyleRule;
+    new(): CSSStyleRule;
+};
+
+interface CSSStyleSheet extends StyleSheet {
+    readonly cssRules: CSSRuleList;
+    cssText: string;
+    readonly id: string;
+    readonly imports: StyleSheetList;
+    readonly isAlternate: boolean;
+    readonly isPrefAlternate: boolean;
+    readonly ownerRule: CSSRule;
+    readonly owningElement: Element;
+    readonly pages: StyleSheetPageList;
+    readonly readOnly: boolean;
+    readonly rules: CSSRuleList;
+    addImport(bstrURL: string, lIndex?: number): number;
+    addPageRule(bstrSelector: string, bstrStyle: string, lIndex?: number): number;
+    addRule(bstrSelector: string, bstrStyle?: string, lIndex?: number): number;
+    deleteRule(index?: number): void;
+    insertRule(rule: string, index?: number): number;
+    removeImport(lIndex: number): void;
+    removeRule(lIndex: number): void;
+}
+
+declare var CSSStyleSheet: {
+    prototype: CSSStyleSheet;
+    new(): CSSStyleSheet;
+};
+
+interface CSSSupportsRule extends CSSConditionRule {
+}
+
+declare var CSSSupportsRule: {
+    prototype: CSSSupportsRule;
+    new(): CSSSupportsRule;
+};
+
 interface CustomEvent extends Event {
     readonly detail: any;
     initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: any): void;
@@ -2373,149 +2373,6 @@ interface CustomEvent extends Event {
 declare var CustomEvent: {
     prototype: CustomEvent;
     new(typeArg: string, eventInitDict?: CustomEventInit): CustomEvent;
-};
-
-interface DOMError {
-    readonly name: string;
-    toString(): string;
-}
-
-declare var DOMError: {
-    prototype: DOMError;
-    new(): DOMError;
-};
-
-interface DOMException {
-    readonly code: number;
-    readonly message: string;
-    readonly name: string;
-    toString(): string;
-    readonly ABORT_ERR: number;
-    readonly DATA_CLONE_ERR: number;
-    readonly DOMSTRING_SIZE_ERR: number;
-    readonly HIERARCHY_REQUEST_ERR: number;
-    readonly INDEX_SIZE_ERR: number;
-    readonly INUSE_ATTRIBUTE_ERR: number;
-    readonly INVALID_ACCESS_ERR: number;
-    readonly INVALID_CHARACTER_ERR: number;
-    readonly INVALID_MODIFICATION_ERR: number;
-    readonly INVALID_NODE_TYPE_ERR: number;
-    readonly INVALID_STATE_ERR: number;
-    readonly NAMESPACE_ERR: number;
-    readonly NETWORK_ERR: number;
-    readonly NOT_FOUND_ERR: number;
-    readonly NOT_SUPPORTED_ERR: number;
-    readonly NO_DATA_ALLOWED_ERR: number;
-    readonly NO_MODIFICATION_ALLOWED_ERR: number;
-    readonly PARSE_ERR: number;
-    readonly QUOTA_EXCEEDED_ERR: number;
-    readonly SECURITY_ERR: number;
-    readonly SERIALIZE_ERR: number;
-    readonly SYNTAX_ERR: number;
-    readonly TIMEOUT_ERR: number;
-    readonly TYPE_MISMATCH_ERR: number;
-    readonly URL_MISMATCH_ERR: number;
-    readonly VALIDATION_ERR: number;
-    readonly WRONG_DOCUMENT_ERR: number;
-}
-
-declare var DOMException: {
-    prototype: DOMException;
-    new(): DOMException;
-    readonly ABORT_ERR: number;
-    readonly DATA_CLONE_ERR: number;
-    readonly DOMSTRING_SIZE_ERR: number;
-    readonly HIERARCHY_REQUEST_ERR: number;
-    readonly INDEX_SIZE_ERR: number;
-    readonly INUSE_ATTRIBUTE_ERR: number;
-    readonly INVALID_ACCESS_ERR: number;
-    readonly INVALID_CHARACTER_ERR: number;
-    readonly INVALID_MODIFICATION_ERR: number;
-    readonly INVALID_NODE_TYPE_ERR: number;
-    readonly INVALID_STATE_ERR: number;
-    readonly NAMESPACE_ERR: number;
-    readonly NETWORK_ERR: number;
-    readonly NOT_FOUND_ERR: number;
-    readonly NOT_SUPPORTED_ERR: number;
-    readonly NO_DATA_ALLOWED_ERR: number;
-    readonly NO_MODIFICATION_ALLOWED_ERR: number;
-    readonly PARSE_ERR: number;
-    readonly QUOTA_EXCEEDED_ERR: number;
-    readonly SECURITY_ERR: number;
-    readonly SERIALIZE_ERR: number;
-    readonly SYNTAX_ERR: number;
-    readonly TIMEOUT_ERR: number;
-    readonly TYPE_MISMATCH_ERR: number;
-    readonly URL_MISMATCH_ERR: number;
-    readonly VALIDATION_ERR: number;
-    readonly WRONG_DOCUMENT_ERR: number;
-};
-
-interface DOMImplementation {
-    createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document;
-    createDocumentType(qualifiedName: string, publicId: string, systemId: string): DocumentType;
-    createHTMLDocument(title: string): Document;
-    hasFeature(feature: string | null, version: string | null): boolean;
-}
-
-declare var DOMImplementation: {
-    prototype: DOMImplementation;
-    new(): DOMImplementation;
-};
-
-interface DOMParser {
-    parseFromString(source: string, mimeType: string): Document;
-}
-
-declare var DOMParser: {
-    prototype: DOMParser;
-    new(): DOMParser;
-};
-
-interface DOMSettableTokenList extends DOMTokenList {
-    value: string;
-}
-
-declare var DOMSettableTokenList: {
-    prototype: DOMSettableTokenList;
-    new(): DOMSettableTokenList;
-};
-
-interface DOMStringList {
-    readonly length: number;
-    contains(str: string): boolean;
-    item(index: number): string | null;
-    [index: number]: string;
-}
-
-declare var DOMStringList: {
-    prototype: DOMStringList;
-    new(): DOMStringList;
-};
-
-interface DOMStringMap {
-    [name: string]: string | undefined;
-}
-
-declare var DOMStringMap: {
-    prototype: DOMStringMap;
-    new(): DOMStringMap;
-};
-
-interface DOMTokenList {
-    readonly length: number;
-    add(...token: string[]): void;
-    contains(token: string): boolean;
-    item(index: number): string;
-    remove(...token: string[]): void;
-    toString(): string;
-    toggle(token: string, force?: boolean): boolean;
-    [index: number]: string;
-}
-
-declare var DOMTokenList: {
-    prototype: DOMTokenList;
-    new(): DOMTokenList;
 };
 
 interface DataCue extends TextTrackCue {
@@ -2745,14 +2602,6 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
 
 interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode, DocumentOrShadowRoot {
     /**
-     * Sets or gets the URL for the current document.
-     */
-    readonly URL: string;
-    /**
-     * Gets the URL for the document, stripped of any character encoding.
-     */
-    readonly URLUnencoded: string;
-    /**
      * Gets the object that has the focus when the parent document has focus.
      */
     readonly activeElement: Element;
@@ -2856,8 +2705,8 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * Contains information about the current URL.
      */
     readonly location: Location;
-    msCSSOMElementFloatMetrics: boolean;
     msCapsLockWarningOff: boolean;
+    msCSSOMElementFloatMetrics: boolean;
     /**
      * Fires when the user aborts the download.
      * @param ev The event.
@@ -3193,6 +3042,14 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * Contains the title of the document.
      */
     title: string;
+    /**
+     * Sets or gets the URL for the current document.
+     */
+    readonly URL: string;
+    /**
+     * Gets the URL for the document, stripped of any character encoding.
+     */
+    readonly URLUnencoded: string;
     readonly visibilityState: VisibilityState;
     /**
      * Sets or gets the color of the links that the user has visited.
@@ -3303,7 +3160,6 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: string): SVGElement;
     createElementNS(namespaceURI: string | null, qualifiedName: string): Element;
     createExpression(expression: string, resolver: XPathNSResolver): XPathExpression;
-    createNSResolver(nodeResolver: Node): XPathNSResolver;
     /**
      * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.
      * @param root The root element or node to start traversing on.
@@ -3312,6 +3168,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.
      */
     createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter, entityReferenceExpansion?: boolean): NodeIterator;
+    createNSResolver(nodeResolver: Node): XPathNSResolver;
     createProcessingInstruction(target: string, data: string): ProcessingInstruction;
     /**
      *  Returns an empty range object that has both of its boundary points positioned at the beginning of the document.
@@ -3475,6 +3332,149 @@ declare var DocumentType: {
     new(): DocumentType;
 };
 
+interface DOMError {
+    readonly name: string;
+    toString(): string;
+}
+
+declare var DOMError: {
+    prototype: DOMError;
+    new(): DOMError;
+};
+
+interface DOMException {
+    readonly code: number;
+    readonly message: string;
+    readonly name: string;
+    toString(): string;
+    readonly ABORT_ERR: number;
+    readonly DATA_CLONE_ERR: number;
+    readonly DOMSTRING_SIZE_ERR: number;
+    readonly HIERARCHY_REQUEST_ERR: number;
+    readonly INDEX_SIZE_ERR: number;
+    readonly INUSE_ATTRIBUTE_ERR: number;
+    readonly INVALID_ACCESS_ERR: number;
+    readonly INVALID_CHARACTER_ERR: number;
+    readonly INVALID_MODIFICATION_ERR: number;
+    readonly INVALID_NODE_TYPE_ERR: number;
+    readonly INVALID_STATE_ERR: number;
+    readonly NAMESPACE_ERR: number;
+    readonly NETWORK_ERR: number;
+    readonly NO_DATA_ALLOWED_ERR: number;
+    readonly NO_MODIFICATION_ALLOWED_ERR: number;
+    readonly NOT_FOUND_ERR: number;
+    readonly NOT_SUPPORTED_ERR: number;
+    readonly PARSE_ERR: number;
+    readonly QUOTA_EXCEEDED_ERR: number;
+    readonly SECURITY_ERR: number;
+    readonly SERIALIZE_ERR: number;
+    readonly SYNTAX_ERR: number;
+    readonly TIMEOUT_ERR: number;
+    readonly TYPE_MISMATCH_ERR: number;
+    readonly URL_MISMATCH_ERR: number;
+    readonly VALIDATION_ERR: number;
+    readonly WRONG_DOCUMENT_ERR: number;
+}
+
+declare var DOMException: {
+    prototype: DOMException;
+    new(): DOMException;
+    readonly ABORT_ERR: number;
+    readonly DATA_CLONE_ERR: number;
+    readonly DOMSTRING_SIZE_ERR: number;
+    readonly HIERARCHY_REQUEST_ERR: number;
+    readonly INDEX_SIZE_ERR: number;
+    readonly INUSE_ATTRIBUTE_ERR: number;
+    readonly INVALID_ACCESS_ERR: number;
+    readonly INVALID_CHARACTER_ERR: number;
+    readonly INVALID_MODIFICATION_ERR: number;
+    readonly INVALID_NODE_TYPE_ERR: number;
+    readonly INVALID_STATE_ERR: number;
+    readonly NAMESPACE_ERR: number;
+    readonly NETWORK_ERR: number;
+    readonly NO_DATA_ALLOWED_ERR: number;
+    readonly NO_MODIFICATION_ALLOWED_ERR: number;
+    readonly NOT_FOUND_ERR: number;
+    readonly NOT_SUPPORTED_ERR: number;
+    readonly PARSE_ERR: number;
+    readonly QUOTA_EXCEEDED_ERR: number;
+    readonly SECURITY_ERR: number;
+    readonly SERIALIZE_ERR: number;
+    readonly SYNTAX_ERR: number;
+    readonly TIMEOUT_ERR: number;
+    readonly TYPE_MISMATCH_ERR: number;
+    readonly URL_MISMATCH_ERR: number;
+    readonly VALIDATION_ERR: number;
+    readonly WRONG_DOCUMENT_ERR: number;
+};
+
+interface DOMImplementation {
+    createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document;
+    createDocumentType(qualifiedName: string, publicId: string, systemId: string): DocumentType;
+    createHTMLDocument(title: string): Document;
+    hasFeature(feature: string | null, version: string | null): boolean;
+}
+
+declare var DOMImplementation: {
+    prototype: DOMImplementation;
+    new(): DOMImplementation;
+};
+
+interface DOMParser {
+    parseFromString(source: string, mimeType: string): Document;
+}
+
+declare var DOMParser: {
+    prototype: DOMParser;
+    new(): DOMParser;
+};
+
+interface DOMSettableTokenList extends DOMTokenList {
+    value: string;
+}
+
+declare var DOMSettableTokenList: {
+    prototype: DOMSettableTokenList;
+    new(): DOMSettableTokenList;
+};
+
+interface DOMStringList {
+    readonly length: number;
+    contains(str: string): boolean;
+    item(index: number): string | null;
+    [index: number]: string;
+}
+
+declare var DOMStringList: {
+    prototype: DOMStringList;
+    new(): DOMStringList;
+};
+
+interface DOMStringMap {
+    [name: string]: string | undefined;
+}
+
+declare var DOMStringMap: {
+    prototype: DOMStringMap;
+    new(): DOMStringMap;
+};
+
+interface DOMTokenList {
+    readonly length: number;
+    add(...token: string[]): void;
+    contains(token: string): boolean;
+    item(index: number): string;
+    remove(...token: string[]): void;
+    toggle(token: string, force?: boolean): boolean;
+    toString(): string;
+    [index: number]: string;
+}
+
+declare var DOMTokenList: {
+    prototype: DOMTokenList;
+    new(): DOMTokenList;
+};
+
 interface DragEvent extends MouseEvent {
     readonly dataTransfer: DataTransfer;
     initDragEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget, dataTransferArg: DataTransfer): void;
@@ -3498,26 +3498,6 @@ interface DynamicsCompressorNode extends AudioNode {
 declare var DynamicsCompressorNode: {
     prototype: DynamicsCompressorNode;
     new(): DynamicsCompressorNode;
-};
-
-interface EXT_frag_depth {
-}
-
-declare var EXT_frag_depth: {
-    prototype: EXT_frag_depth;
-    new(): EXT_frag_depth;
-};
-
-interface EXT_texture_filter_anisotropic {
-    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: number;
-    readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
-}
-
-declare var EXT_texture_filter_anisotropic: {
-    prototype: EXT_texture_filter_anisotropic;
-    new(): EXT_texture_filter_anisotropic;
-    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: number;
-    readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
 };
 
 interface ElementEventMap extends GlobalEventHandlersEventMap {
@@ -3599,9 +3579,9 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     slot: string;
     readonly shadowRoot: ShadowRoot | null;
     getAttribute(name: string): string | null;
-    getAttributeNS(namespaceURI: string, localName: string): string;
     getAttributeNode(name: string): Attr;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr;
+    getAttributeNS(namespaceURI: string, localName: string): string;
     getBoundingClientRect(): ClientRect;
     getClientRects(): ClientRectList;
     getElementsByTagName<K extends keyof ElementListTagNameMap>(name: K): ElementListTagNameMap[K];
@@ -3619,18 +3599,18 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     msZoomTo(args: MsZoomToOptions): void;
     releasePointerCapture(pointerId: number): void;
     removeAttribute(qualifiedName: string): void;
-    removeAttributeNS(namespaceURI: string, localName: string): void;
     removeAttributeNode(oldAttr: Attr): Attr;
+    removeAttributeNS(namespaceURI: string, localName: string): void;
     requestFullscreen(): void;
     requestPointerLock(): void;
     setAttribute(name: string, value: string): void;
-    setAttributeNS(namespaceURI: string, qualifiedName: string, value: string): void;
     setAttributeNode(newAttr: Attr): Attr;
     setAttributeNodeNS(newAttr: Attr): Attr;
+    setAttributeNS(namespaceURI: string, qualifiedName: string, value: string): void;
     setPointerCapture(pointerId: number): void;
     webkitMatchesSelector(selectors: string): boolean;
-    webkitRequestFullScreen(): void;
     webkitRequestFullscreen(): void;
+    webkitRequestFullScreen(): void;
     getElementsByClassName(classNames: string): NodeListOf<Element>;
     matches(selector: string): boolean;
     closest(selector: string): Element | null;
@@ -3670,8 +3650,8 @@ declare var ErrorEvent: {
 
 interface Event {
     readonly bubbles: boolean;
-    cancelBubble: boolean;
     readonly cancelable: boolean;
+    cancelBubble: boolean;
     readonly currentTarget: EventTarget;
     readonly defaultPrevented: boolean;
     readonly eventPhase: number;
@@ -3709,6 +3689,26 @@ interface EventTarget {
 declare var EventTarget: {
     prototype: EventTarget;
     new(): EventTarget;
+};
+
+interface EXT_frag_depth {
+}
+
+declare var EXT_frag_depth: {
+    prototype: EXT_frag_depth;
+    new(): EXT_frag_depth;
+};
+
+interface EXT_texture_filter_anisotropic {
+    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: number;
+    readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
+}
+
+declare var EXT_texture_filter_anisotropic: {
+    prototype: EXT_texture_filter_anisotropic;
+    new(): EXT_texture_filter_anisotropic;
+    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: number;
+    readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
 };
 
 interface ExtensionScriptApis {
@@ -3863,6 +3863,46 @@ declare var Geolocation: {
     new(): Geolocation;
 };
 
+interface HashChangeEvent extends Event {
+    readonly newURL: string | null;
+    readonly oldURL: string | null;
+}
+
+declare var HashChangeEvent: {
+    prototype: HashChangeEvent;
+    new(typeArg: string, eventInitDict?: HashChangeEventInit): HashChangeEvent;
+};
+
+interface Headers {
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    forEach(callback: ForEachCallback): void;
+    get(name: string): string | null;
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+}
+
+declare var Headers: {
+    prototype: Headers;
+    new(init?: any): Headers;
+};
+
+interface History {
+    readonly length: number;
+    readonly state: any;
+    scrollRestoration: ScrollRestoration;
+    back(): void;
+    forward(): void;
+    go(delta?: number): void;
+    pushState(data: any, title: string, url?: string | null): void;
+    replaceState(data: any, title: string, url?: string | null): void;
+}
+
+declare var History: {
+    prototype: History;
+    new(): History;
+};
+
 interface HTMLAllCollection {
     readonly length: number;
     item(nameOrIndex?: string): HTMLCollection | Element | null;
@@ -3876,7 +3916,6 @@ declare var HTMLAllCollection: {
 };
 
 interface HTMLAnchorElement extends HTMLElement {
-    Methods: string;
     /**
      * Sets or retrieves the character set used to encode the object.
      */
@@ -3906,6 +3945,7 @@ interface HTMLAnchorElement extends HTMLElement {
      * Sets or retrieves the language code of the object.
      */
     hreflang: string;
+    Methods: string;
     readonly mimeType: string;
     /**
      * Sets or retrieves the shape of the object.
@@ -3965,10 +4005,6 @@ declare var HTMLAnchorElement: {
 };
 
 interface HTMLAppletElement extends HTMLElement {
-    /**
-     * Retrieves a string of the URL where the object tag can be found. This is often the href of the document that the object is in, or the value set by a base element.
-     */
-    readonly BaseHref: string;
     align: string;
     /**
      * Sets or retrieves a text alternative to the graphic.
@@ -3982,6 +4018,10 @@ interface HTMLAppletElement extends HTMLElement {
      * Sets or retrieves a character string that can be used to implement your own archive functionality for the object.
      */
     archive: string;
+    /**
+     * Retrieves a string of the URL where the object tag can be found. This is often the href of the document that the object is in, or the value set by a base element.
+     */
+    readonly BaseHref: string;
     border: string;
     code: string;
     /**
@@ -4124,20 +4164,6 @@ declare var HTMLAudioElement: {
     new(): HTMLAudioElement;
 };
 
-interface HTMLBRElement extends HTMLElement {
-    /**
-     * Sets or retrieves the side on which floating objects are not to be positioned when any IHTMLBlockElement is inserted into the document.
-     */
-    clear: string;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLBRElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var HTMLBRElement: {
-    prototype: HTMLBRElement;
-    new(): HTMLBRElement;
-};
-
 interface HTMLBaseElement extends HTMLElement {
     /**
      * Gets or sets the baseline URL on which relative links are based.
@@ -4231,6 +4257,20 @@ interface HTMLBodyElement extends HTMLElement {
 declare var HTMLBodyElement: {
     prototype: HTMLBodyElement;
     new(): HTMLBodyElement;
+};
+
+interface HTMLBRElement extends HTMLElement {
+    /**
+     * Sets or retrieves the side on which floating objects are not to be positioned when any IHTMLBlockElement is inserted into the document.
+     */
+    clear: string;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLBRElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var HTMLBRElement: {
+    prototype: HTMLBRElement;
+    new(): HTMLBRElement;
 };
 
 interface HTMLButtonElement extends HTMLElement {
@@ -4365,17 +4405,6 @@ declare var HTMLCollection: {
     new(): HTMLCollection;
 };
 
-interface HTMLDListElement extends HTMLElement {
-    compact: boolean;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDListElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var HTMLDListElement: {
-    prototype: HTMLDListElement;
-    new(): HTMLDListElement;
-};
-
 interface HTMLDataElement extends HTMLElement {
     value: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDataElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
@@ -4425,6 +4454,17 @@ interface HTMLDivElement extends HTMLElement {
 declare var HTMLDivElement: {
     prototype: HTMLDivElement;
     new(): HTMLDivElement;
+};
+
+interface HTMLDListElement extends HTMLElement {
+    compact: boolean;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDListElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var HTMLDListElement: {
+    prototype: HTMLDListElement;
+    new(): HTMLDListElement;
 };
 
 interface HTMLDocument extends Document {
@@ -4964,28 +5004,6 @@ declare var HTMLFrameSetElement: {
     new(): HTMLFrameSetElement;
 };
 
-interface HTMLHRElement extends HTMLElement, DOML2DeprecatedColorProperty, DOML2DeprecatedSizeProperty {
-    /**
-     * Sets or retrieves how the object is aligned with adjacent text.
-     */
-    align: string;
-    /**
-     * Sets or retrieves whether the horizontal rule is drawn with 3-D shading.
-     */
-    noShade: boolean;
-    /**
-     * Sets or retrieves the width of the object.
-     */
-    width: number;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHRElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var HTMLHRElement: {
-    prototype: HTMLHRElement;
-    new(): HTMLHRElement;
-};
-
 interface HTMLHeadElement extends HTMLElement {
     profile: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
@@ -5009,6 +5027,28 @@ interface HTMLHeadingElement extends HTMLElement {
 declare var HTMLHeadingElement: {
     prototype: HTMLHeadingElement;
     new(): HTMLHeadingElement;
+};
+
+interface HTMLHRElement extends HTMLElement, DOML2DeprecatedColorProperty, DOML2DeprecatedSizeProperty {
+    /**
+     * Sets or retrieves how the object is aligned with adjacent text.
+     */
+    align: string;
+    /**
+     * Sets or retrieves whether the horizontal rule is drawn with 3-D shading.
+     */
+    noShade: boolean;
+    /**
+     * Sets or retrieves the width of the object.
+     */
+    width: number;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHRElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var HTMLHRElement: {
+    prototype: HTMLHRElement;
+    new(): HTMLHRElement;
 };
 
 interface HTMLHtmlElement extends HTMLElement {
@@ -5417,21 +5457,6 @@ declare var HTMLInputElement: {
     new(): HTMLInputElement;
 };
 
-interface HTMLLIElement extends HTMLElement {
-    type: string;
-    /**
-     * Sets or retrieves the value of a list item.
-     */
-    value: number;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLLIElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var HTMLLIElement: {
-    prototype: HTMLLIElement;
-    new(): HTMLLIElement;
-};
-
 interface HTMLLabelElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
@@ -5466,6 +5491,21 @@ interface HTMLLegendElement extends HTMLElement {
 declare var HTMLLegendElement: {
     prototype: HTMLLegendElement;
     new(): HTMLLegendElement;
+};
+
+interface HTMLLIElement extends HTMLElement {
+    type: string;
+    /**
+     * Sets or retrieves the value of a list item.
+     */
+    value: number;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLLIElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var HTMLLIElement: {
+    prototype: HTMLLIElement;
+    new(): HTMLLIElement;
 };
 
 interface HTMLLinkElement extends HTMLElement, LinkStyle {
@@ -5834,27 +5874,7 @@ declare var HTMLModElement: {
     new(): HTMLModElement;
 };
 
-interface HTMLOListElement extends HTMLElement {
-    compact: boolean;
-    /**
-     * The starting number.
-     */
-    start: number;
-    type: string;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLOListElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var HTMLOListElement: {
-    prototype: HTMLOListElement;
-    new(): HTMLOListElement;
-};
-
 interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
-    /**
-     * Retrieves a string of the URL where the object tag can be found. This is often the href of the document that the object is in, or the value set by a base element.
-     */
-    readonly BaseHref: string;
     align: string;
     /**
      * Sets or retrieves a text alternative to the graphic.
@@ -5868,6 +5888,10 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves a character string that can be used to implement your own archive functionality for the object.
      */
     archive: string;
+    /**
+     * Retrieves a string of the URL where the object tag can be found. This is often the href of the document that the object is in, or the value set by a base element.
+     */
+    readonly BaseHref: string;
     border: string;
     /**
      * Sets or retrieves the URL of the file containing the compiled Java class.
@@ -5965,6 +5989,22 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
 declare var HTMLObjectElement: {
     prototype: HTMLObjectElement;
     new(): HTMLObjectElement;
+};
+
+interface HTMLOListElement extends HTMLElement {
+    compact: boolean;
+    /**
+     * The starting number.
+     */
+    start: number;
+    type: string;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLOListElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var HTMLOListElement: {
+    prototype: HTMLOListElement;
+    new(): HTMLOListElement;
 };
 
 interface HTMLOptGroupElement extends HTMLElement {
@@ -6909,10 +6949,10 @@ interface HTMLVideoElement extends HTMLMediaElement {
     msFrameStep(forward: boolean): void;
     msInsertVideoEffect(activatableClassId: string, effectRequired: boolean, config?: any): void;
     msSetVideoRectangle(left: number, top: number, right: number, bottom: number): void;
-    webkitEnterFullScreen(): void;
     webkitEnterFullscreen(): void;
-    webkitExitFullScreen(): void;
+    webkitEnterFullScreen(): void;
     webkitExitFullscreen(): void;
+    webkitExitFullScreen(): void;
     addEventListener<K extends keyof HTMLVideoElementEventMap>(type: K, listener: (this: HTMLVideoElement, ev: HTMLVideoElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -6920,46 +6960,6 @@ interface HTMLVideoElement extends HTMLMediaElement {
 declare var HTMLVideoElement: {
     prototype: HTMLVideoElement;
     new(): HTMLVideoElement;
-};
-
-interface HashChangeEvent extends Event {
-    readonly newURL: string | null;
-    readonly oldURL: string | null;
-}
-
-declare var HashChangeEvent: {
-    prototype: HashChangeEvent;
-    new(typeArg: string, eventInitDict?: HashChangeEventInit): HashChangeEvent;
-};
-
-interface Headers {
-    append(name: string, value: string): void;
-    delete(name: string): void;
-    forEach(callback: ForEachCallback): void;
-    get(name: string): string | null;
-    has(name: string): boolean;
-    set(name: string, value: string): void;
-}
-
-declare var Headers: {
-    prototype: Headers;
-    new(init?: any): Headers;
-};
-
-interface History {
-    readonly length: number;
-    readonly state: any;
-    scrollRestoration: ScrollRestoration;
-    back(): void;
-    forward(): void;
-    go(delta?: number): void;
-    pushState(data: any, title: string, url?: string | null): void;
-    replaceState(data: any, title: string, url?: string | null): void;
-}
-
-declare var History: {
-    prototype: History;
-    new(): History;
 };
 
 interface IDBCursor {
@@ -7294,6 +7294,388 @@ declare var LongRunningScriptDetectedEvent: {
     new(): LongRunningScriptDetectedEvent;
 };
 
+interface MediaDeviceInfo {
+    readonly deviceId: string;
+    readonly groupId: string;
+    readonly kind: MediaDeviceKind;
+    readonly label: string;
+}
+
+declare var MediaDeviceInfo: {
+    prototype: MediaDeviceInfo;
+    new(): MediaDeviceInfo;
+};
+
+interface MediaDevicesEventMap {
+    "devicechange": Event;
+}
+
+interface MediaDevices extends EventTarget {
+    ondevicechange: (this: MediaDevices, ev: Event) => any;
+    enumerateDevices(): any;
+    getSupportedConstraints(): MediaTrackSupportedConstraints;
+    getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
+    addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var MediaDevices: {
+    prototype: MediaDevices;
+    new(): MediaDevices;
+};
+
+interface MediaElementAudioSourceNode extends AudioNode {
+}
+
+declare var MediaElementAudioSourceNode: {
+    prototype: MediaElementAudioSourceNode;
+    new(): MediaElementAudioSourceNode;
+};
+
+interface MediaEncryptedEvent extends Event {
+    readonly initData: ArrayBuffer | null;
+    readonly initDataType: string;
+}
+
+declare var MediaEncryptedEvent: {
+    prototype: MediaEncryptedEvent;
+    new(type: string, eventInitDict?: MediaEncryptedEventInit): MediaEncryptedEvent;
+};
+
+interface MediaError {
+    readonly code: number;
+    readonly msExtendedCode: number;
+    readonly MEDIA_ERR_ABORTED: number;
+    readonly MEDIA_ERR_DECODE: number;
+    readonly MEDIA_ERR_NETWORK: number;
+    readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
+    readonly MS_MEDIA_ERR_ENCRYPTED: number;
+}
+
+declare var MediaError: {
+    prototype: MediaError;
+    new(): MediaError;
+    readonly MEDIA_ERR_ABORTED: number;
+    readonly MEDIA_ERR_DECODE: number;
+    readonly MEDIA_ERR_NETWORK: number;
+    readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
+    readonly MS_MEDIA_ERR_ENCRYPTED: number;
+};
+
+interface MediaKeyMessageEvent extends Event {
+    readonly message: ArrayBuffer;
+    readonly messageType: MediaKeyMessageType;
+}
+
+declare var MediaKeyMessageEvent: {
+    prototype: MediaKeyMessageEvent;
+    new(type: string, eventInitDict?: MediaKeyMessageEventInit): MediaKeyMessageEvent;
+};
+
+interface MediaKeys {
+    createSession(sessionType?: MediaKeySessionType): MediaKeySession;
+    setServerCertificate(serverCertificate: any): Promise<void>;
+}
+
+declare var MediaKeys: {
+    prototype: MediaKeys;
+    new(): MediaKeys;
+};
+
+interface MediaKeySession extends EventTarget {
+    readonly closed: Promise<void>;
+    readonly expiration: number;
+    readonly keyStatuses: MediaKeyStatusMap;
+    readonly sessionId: string;
+    close(): Promise<void>;
+    generateRequest(initDataType: string, initData: any): Promise<void>;
+    load(sessionId: string): Promise<boolean>;
+    remove(): Promise<void>;
+    update(response: any): Promise<void>;
+}
+
+declare var MediaKeySession: {
+    prototype: MediaKeySession;
+    new(): MediaKeySession;
+};
+
+interface MediaKeyStatusMap {
+    readonly size: number;
+    forEach(callback: ForEachCallback): void;
+    get(keyId: any): MediaKeyStatus;
+    has(keyId: any): boolean;
+}
+
+declare var MediaKeyStatusMap: {
+    prototype: MediaKeyStatusMap;
+    new(): MediaKeyStatusMap;
+};
+
+interface MediaKeySystemAccess {
+    readonly keySystem: string;
+    createMediaKeys(): Promise<MediaKeys>;
+    getConfiguration(): MediaKeySystemConfiguration;
+}
+
+declare var MediaKeySystemAccess: {
+    prototype: MediaKeySystemAccess;
+    new(): MediaKeySystemAccess;
+};
+
+interface MediaList {
+    readonly length: number;
+    mediaText: string;
+    appendMedium(newMedium: string): void;
+    deleteMedium(oldMedium: string): void;
+    item(index: number): string;
+    toString(): string;
+    [index: number]: string;
+}
+
+declare var MediaList: {
+    prototype: MediaList;
+    new(): MediaList;
+};
+
+interface MediaQueryList {
+    readonly matches: boolean;
+    readonly media: string;
+    addListener(listener: MediaQueryListListener): void;
+    removeListener(listener: MediaQueryListListener): void;
+}
+
+declare var MediaQueryList: {
+    prototype: MediaQueryList;
+    new(): MediaQueryList;
+};
+
+interface MediaSource extends EventTarget {
+    readonly activeSourceBuffers: SourceBufferList;
+    duration: number;
+    readonly readyState: string;
+    readonly sourceBuffers: SourceBufferList;
+    addSourceBuffer(type: string): SourceBuffer;
+    endOfStream(error?: number): void;
+    removeSourceBuffer(sourceBuffer: SourceBuffer): void;
+}
+
+declare var MediaSource: {
+    prototype: MediaSource;
+    new(): MediaSource;
+    isTypeSupported(type: string): boolean;
+};
+
+interface MediaStreamEventMap {
+    "active": Event;
+    "addtrack": MediaStreamTrackEvent;
+    "inactive": Event;
+    "removetrack": MediaStreamTrackEvent;
+}
+
+interface MediaStream extends EventTarget {
+    readonly active: boolean;
+    readonly id: string;
+    onactive: (this: MediaStream, ev: Event) => any;
+    onaddtrack: (this: MediaStream, ev: MediaStreamTrackEvent) => any;
+    oninactive: (this: MediaStream, ev: Event) => any;
+    onremovetrack: (this: MediaStream, ev: MediaStreamTrackEvent) => any;
+    addTrack(track: MediaStreamTrack): void;
+    clone(): MediaStream;
+    getAudioTracks(): MediaStreamTrack[];
+    getTrackById(trackId: string): MediaStreamTrack | null;
+    getTracks(): MediaStreamTrack[];
+    getVideoTracks(): MediaStreamTrack[];
+    removeTrack(track: MediaStreamTrack): void;
+    stop(): void;
+    addEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var MediaStream: {
+    prototype: MediaStream;
+    new(streamOrTracks?: MediaStream | MediaStreamTrack[]): MediaStream;
+};
+
+interface MediaStreamAudioSourceNode extends AudioNode {
+}
+
+declare var MediaStreamAudioSourceNode: {
+    prototype: MediaStreamAudioSourceNode;
+    new(): MediaStreamAudioSourceNode;
+};
+
+interface MediaStreamError {
+    readonly constraintName: string | null;
+    readonly message: string | null;
+    readonly name: string;
+}
+
+declare var MediaStreamError: {
+    prototype: MediaStreamError;
+    new(): MediaStreamError;
+};
+
+interface MediaStreamErrorEvent extends Event {
+    readonly error: MediaStreamError | null;
+}
+
+declare var MediaStreamErrorEvent: {
+    prototype: MediaStreamErrorEvent;
+    new(typeArg: string, eventInitDict?: MediaStreamErrorEventInit): MediaStreamErrorEvent;
+};
+
+interface MediaStreamEvent extends Event {
+    readonly stream: MediaStream | null;
+}
+
+declare var MediaStreamEvent: {
+    prototype: MediaStreamEvent;
+    new(type: string, eventInitDict: MediaStreamEventInit): MediaStreamEvent;
+};
+
+interface MediaStreamTrackEventMap {
+    "ended": MediaStreamErrorEvent;
+    "mute": Event;
+    "overconstrained": MediaStreamErrorEvent;
+    "unmute": Event;
+}
+
+interface MediaStreamTrack extends EventTarget {
+    enabled: boolean;
+    readonly id: string;
+    readonly kind: string;
+    readonly label: string;
+    readonly muted: boolean;
+    onended: (this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any;
+    onmute: (this: MediaStreamTrack, ev: Event) => any;
+    onoverconstrained: (this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any;
+    onunmute: (this: MediaStreamTrack, ev: Event) => any;
+    readonly readonly: boolean;
+    readonly readyState: MediaStreamTrackState;
+    readonly remote: boolean;
+    applyConstraints(constraints: MediaTrackConstraints): Promise<void>;
+    clone(): MediaStreamTrack;
+    getCapabilities(): MediaTrackCapabilities;
+    getConstraints(): MediaTrackConstraints;
+    getSettings(): MediaTrackSettings;
+    stop(): void;
+    addEventListener<K extends keyof MediaStreamTrackEventMap>(type: K, listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var MediaStreamTrack: {
+    prototype: MediaStreamTrack;
+    new(): MediaStreamTrack;
+};
+
+interface MediaStreamTrackEvent extends Event {
+    readonly track: MediaStreamTrack;
+}
+
+declare var MediaStreamTrackEvent: {
+    prototype: MediaStreamTrackEvent;
+    new(typeArg: string, eventInitDict?: MediaStreamTrackEventInit): MediaStreamTrackEvent;
+};
+
+interface MessageChannel {
+    readonly port1: MessagePort;
+    readonly port2: MessagePort;
+}
+
+declare var MessageChannel: {
+    prototype: MessageChannel;
+    new(): MessageChannel;
+};
+
+interface MessageEvent extends Event {
+    readonly data: any;
+    readonly origin: string;
+    readonly ports: any;
+    readonly source: Window;
+    initMessageEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, dataArg: any, originArg: string, lastEventIdArg: string, sourceArg: Window): void;
+}
+
+declare var MessageEvent: {
+    prototype: MessageEvent;
+    new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
+};
+
+interface MessagePortEventMap {
+    "message": MessageEvent;
+}
+
+interface MessagePort extends EventTarget {
+    onmessage: (this: MessagePort, ev: MessageEvent) => any;
+    close(): void;
+    postMessage(message?: any, transfer?: any[]): void;
+    start(): void;
+    addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var MessagePort: {
+    prototype: MessagePort;
+    new(): MessagePort;
+};
+
+interface MimeType {
+    readonly description: string;
+    readonly enabledPlugin: Plugin;
+    readonly suffixes: string;
+    readonly type: string;
+}
+
+declare var MimeType: {
+    prototype: MimeType;
+    new(): MimeType;
+};
+
+interface MimeTypeArray {
+    readonly length: number;
+    item(index: number): Plugin;
+    namedItem(type: string): Plugin;
+    [index: number]: Plugin;
+}
+
+declare var MimeTypeArray: {
+    prototype: MimeTypeArray;
+    new(): MimeTypeArray;
+};
+
+interface MouseEvent extends UIEvent {
+    readonly altKey: boolean;
+    readonly button: number;
+    readonly buttons: number;
+    readonly clientX: number;
+    readonly clientY: number;
+    readonly ctrlKey: boolean;
+    readonly fromElement: Element;
+    readonly layerX: number;
+    readonly layerY: number;
+    readonly metaKey: boolean;
+    readonly movementX: number;
+    readonly movementY: number;
+    readonly offsetX: number;
+    readonly offsetY: number;
+    readonly pageX: number;
+    readonly pageY: number;
+    readonly relatedTarget: EventTarget;
+    readonly screenX: number;
+    readonly screenY: number;
+    readonly shiftKey: boolean;
+    readonly toElement: Element;
+    readonly which: number;
+    readonly x: number;
+    readonly y: number;
+    getModifierState(keyArg: string): boolean;
+    initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void;
+}
+
+declare var MouseEvent: {
+    prototype: MouseEvent;
+    new(typeArg: string, eventInitDict?: MouseEventInit): MouseEvent;
+};
+
 interface MSApp {
     clearTemporaryWebDataAsync(): MSAppAsyncOperation;
     createBlobFromRandomAccessStream(type: string, seeker: any): Blob;
@@ -7593,6 +7975,18 @@ declare var MSMediaKeyNeededEvent: {
     new(): MSMediaKeyNeededEvent;
 };
 
+interface MSMediaKeys {
+    readonly keySystem: string;
+    createSession(type: string, initData: Uint8Array, cdmData?: Uint8Array): MSMediaKeySession;
+}
+
+declare var MSMediaKeys: {
+    prototype: MSMediaKeys;
+    new(keySystem: string): MSMediaKeys;
+    isTypeSupported(keySystem: string, type?: string): boolean;
+    isTypeSupportedWithFeatures(keySystem: string, type?: string): string;
+};
+
 interface MSMediaKeySession extends EventTarget {
     readonly error: MSMediaKeyError | null;
     readonly keySystem: string;
@@ -7604,18 +7998,6 @@ interface MSMediaKeySession extends EventTarget {
 declare var MSMediaKeySession: {
     prototype: MSMediaKeySession;
     new(): MSMediaKeySession;
-};
-
-interface MSMediaKeys {
-    readonly keySystem: string;
-    createSession(type: string, initData: Uint8Array, cdmData?: Uint8Array): MSMediaKeySession;
-}
-
-declare var MSMediaKeys: {
-    prototype: MSMediaKeys;
-    new(keySystem: string): MSMediaKeys;
-    isTypeSupported(keySystem: string, type?: string): boolean;
-    isTypeSupportedWithFeatures(keySystem: string, type?: string): string;
 };
 
 interface MSPointerEvent extends MouseEvent {
@@ -7732,388 +8114,6 @@ interface MSWebViewSettings {
 declare var MSWebViewSettings: {
     prototype: MSWebViewSettings;
     new(): MSWebViewSettings;
-};
-
-interface MediaDeviceInfo {
-    readonly deviceId: string;
-    readonly groupId: string;
-    readonly kind: MediaDeviceKind;
-    readonly label: string;
-}
-
-declare var MediaDeviceInfo: {
-    prototype: MediaDeviceInfo;
-    new(): MediaDeviceInfo;
-};
-
-interface MediaDevicesEventMap {
-    "devicechange": Event;
-}
-
-interface MediaDevices extends EventTarget {
-    ondevicechange: (this: MediaDevices, ev: Event) => any;
-    enumerateDevices(): any;
-    getSupportedConstraints(): MediaTrackSupportedConstraints;
-    getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
-    addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var MediaDevices: {
-    prototype: MediaDevices;
-    new(): MediaDevices;
-};
-
-interface MediaElementAudioSourceNode extends AudioNode {
-}
-
-declare var MediaElementAudioSourceNode: {
-    prototype: MediaElementAudioSourceNode;
-    new(): MediaElementAudioSourceNode;
-};
-
-interface MediaEncryptedEvent extends Event {
-    readonly initData: ArrayBuffer | null;
-    readonly initDataType: string;
-}
-
-declare var MediaEncryptedEvent: {
-    prototype: MediaEncryptedEvent;
-    new(type: string, eventInitDict?: MediaEncryptedEventInit): MediaEncryptedEvent;
-};
-
-interface MediaError {
-    readonly code: number;
-    readonly msExtendedCode: number;
-    readonly MEDIA_ERR_ABORTED: number;
-    readonly MEDIA_ERR_DECODE: number;
-    readonly MEDIA_ERR_NETWORK: number;
-    readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
-    readonly MS_MEDIA_ERR_ENCRYPTED: number;
-}
-
-declare var MediaError: {
-    prototype: MediaError;
-    new(): MediaError;
-    readonly MEDIA_ERR_ABORTED: number;
-    readonly MEDIA_ERR_DECODE: number;
-    readonly MEDIA_ERR_NETWORK: number;
-    readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
-    readonly MS_MEDIA_ERR_ENCRYPTED: number;
-};
-
-interface MediaKeyMessageEvent extends Event {
-    readonly message: ArrayBuffer;
-    readonly messageType: MediaKeyMessageType;
-}
-
-declare var MediaKeyMessageEvent: {
-    prototype: MediaKeyMessageEvent;
-    new(type: string, eventInitDict?: MediaKeyMessageEventInit): MediaKeyMessageEvent;
-};
-
-interface MediaKeySession extends EventTarget {
-    readonly closed: Promise<void>;
-    readonly expiration: number;
-    readonly keyStatuses: MediaKeyStatusMap;
-    readonly sessionId: string;
-    close(): Promise<void>;
-    generateRequest(initDataType: string, initData: any): Promise<void>;
-    load(sessionId: string): Promise<boolean>;
-    remove(): Promise<void>;
-    update(response: any): Promise<void>;
-}
-
-declare var MediaKeySession: {
-    prototype: MediaKeySession;
-    new(): MediaKeySession;
-};
-
-interface MediaKeyStatusMap {
-    readonly size: number;
-    forEach(callback: ForEachCallback): void;
-    get(keyId: any): MediaKeyStatus;
-    has(keyId: any): boolean;
-}
-
-declare var MediaKeyStatusMap: {
-    prototype: MediaKeyStatusMap;
-    new(): MediaKeyStatusMap;
-};
-
-interface MediaKeySystemAccess {
-    readonly keySystem: string;
-    createMediaKeys(): Promise<MediaKeys>;
-    getConfiguration(): MediaKeySystemConfiguration;
-}
-
-declare var MediaKeySystemAccess: {
-    prototype: MediaKeySystemAccess;
-    new(): MediaKeySystemAccess;
-};
-
-interface MediaKeys {
-    createSession(sessionType?: MediaKeySessionType): MediaKeySession;
-    setServerCertificate(serverCertificate: any): Promise<void>;
-}
-
-declare var MediaKeys: {
-    prototype: MediaKeys;
-    new(): MediaKeys;
-};
-
-interface MediaList {
-    readonly length: number;
-    mediaText: string;
-    appendMedium(newMedium: string): void;
-    deleteMedium(oldMedium: string): void;
-    item(index: number): string;
-    toString(): string;
-    [index: number]: string;
-}
-
-declare var MediaList: {
-    prototype: MediaList;
-    new(): MediaList;
-};
-
-interface MediaQueryList {
-    readonly matches: boolean;
-    readonly media: string;
-    addListener(listener: MediaQueryListListener): void;
-    removeListener(listener: MediaQueryListListener): void;
-}
-
-declare var MediaQueryList: {
-    prototype: MediaQueryList;
-    new(): MediaQueryList;
-};
-
-interface MediaSource extends EventTarget {
-    readonly activeSourceBuffers: SourceBufferList;
-    duration: number;
-    readonly readyState: string;
-    readonly sourceBuffers: SourceBufferList;
-    addSourceBuffer(type: string): SourceBuffer;
-    endOfStream(error?: number): void;
-    removeSourceBuffer(sourceBuffer: SourceBuffer): void;
-}
-
-declare var MediaSource: {
-    prototype: MediaSource;
-    new(): MediaSource;
-    isTypeSupported(type: string): boolean;
-};
-
-interface MediaStreamEventMap {
-    "active": Event;
-    "addtrack": MediaStreamTrackEvent;
-    "inactive": Event;
-    "removetrack": MediaStreamTrackEvent;
-}
-
-interface MediaStream extends EventTarget {
-    readonly active: boolean;
-    readonly id: string;
-    onactive: (this: MediaStream, ev: Event) => any;
-    onaddtrack: (this: MediaStream, ev: MediaStreamTrackEvent) => any;
-    oninactive: (this: MediaStream, ev: Event) => any;
-    onremovetrack: (this: MediaStream, ev: MediaStreamTrackEvent) => any;
-    addTrack(track: MediaStreamTrack): void;
-    clone(): MediaStream;
-    getAudioTracks(): MediaStreamTrack[];
-    getTrackById(trackId: string): MediaStreamTrack | null;
-    getTracks(): MediaStreamTrack[];
-    getVideoTracks(): MediaStreamTrack[];
-    removeTrack(track: MediaStreamTrack): void;
-    stop(): void;
-    addEventListener<K extends keyof MediaStreamEventMap>(type: K, listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var MediaStream: {
-    prototype: MediaStream;
-    new(streamOrTracks?: MediaStream | MediaStreamTrack[]): MediaStream;
-};
-
-interface MediaStreamAudioSourceNode extends AudioNode {
-}
-
-declare var MediaStreamAudioSourceNode: {
-    prototype: MediaStreamAudioSourceNode;
-    new(): MediaStreamAudioSourceNode;
-};
-
-interface MediaStreamError {
-    readonly constraintName: string | null;
-    readonly message: string | null;
-    readonly name: string;
-}
-
-declare var MediaStreamError: {
-    prototype: MediaStreamError;
-    new(): MediaStreamError;
-};
-
-interface MediaStreamErrorEvent extends Event {
-    readonly error: MediaStreamError | null;
-}
-
-declare var MediaStreamErrorEvent: {
-    prototype: MediaStreamErrorEvent;
-    new(typeArg: string, eventInitDict?: MediaStreamErrorEventInit): MediaStreamErrorEvent;
-};
-
-interface MediaStreamEvent extends Event {
-    readonly stream: MediaStream | null;
-}
-
-declare var MediaStreamEvent: {
-    prototype: MediaStreamEvent;
-    new(type: string, eventInitDict: MediaStreamEventInit): MediaStreamEvent;
-};
-
-interface MediaStreamTrackEventMap {
-    "ended": MediaStreamErrorEvent;
-    "mute": Event;
-    "overconstrained": MediaStreamErrorEvent;
-    "unmute": Event;
-}
-
-interface MediaStreamTrack extends EventTarget {
-    enabled: boolean;
-    readonly id: string;
-    readonly kind: string;
-    readonly label: string;
-    readonly muted: boolean;
-    onended: (this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any;
-    onmute: (this: MediaStreamTrack, ev: Event) => any;
-    onoverconstrained: (this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any;
-    onunmute: (this: MediaStreamTrack, ev: Event) => any;
-    readonly readonly: boolean;
-    readonly readyState: MediaStreamTrackState;
-    readonly remote: boolean;
-    applyConstraints(constraints: MediaTrackConstraints): Promise<void>;
-    clone(): MediaStreamTrack;
-    getCapabilities(): MediaTrackCapabilities;
-    getConstraints(): MediaTrackConstraints;
-    getSettings(): MediaTrackSettings;
-    stop(): void;
-    addEventListener<K extends keyof MediaStreamTrackEventMap>(type: K, listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var MediaStreamTrack: {
-    prototype: MediaStreamTrack;
-    new(): MediaStreamTrack;
-};
-
-interface MediaStreamTrackEvent extends Event {
-    readonly track: MediaStreamTrack;
-}
-
-declare var MediaStreamTrackEvent: {
-    prototype: MediaStreamTrackEvent;
-    new(typeArg: string, eventInitDict?: MediaStreamTrackEventInit): MediaStreamTrackEvent;
-};
-
-interface MessageChannel {
-    readonly port1: MessagePort;
-    readonly port2: MessagePort;
-}
-
-declare var MessageChannel: {
-    prototype: MessageChannel;
-    new(): MessageChannel;
-};
-
-interface MessageEvent extends Event {
-    readonly data: any;
-    readonly origin: string;
-    readonly ports: any;
-    readonly source: Window;
-    initMessageEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, dataArg: any, originArg: string, lastEventIdArg: string, sourceArg: Window): void;
-}
-
-declare var MessageEvent: {
-    prototype: MessageEvent;
-    new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
-};
-
-interface MessagePortEventMap {
-    "message": MessageEvent;
-}
-
-interface MessagePort extends EventTarget {
-    onmessage: (this: MessagePort, ev: MessageEvent) => any;
-    close(): void;
-    postMessage(message?: any, transfer?: any[]): void;
-    start(): void;
-    addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var MessagePort: {
-    prototype: MessagePort;
-    new(): MessagePort;
-};
-
-interface MimeType {
-    readonly description: string;
-    readonly enabledPlugin: Plugin;
-    readonly suffixes: string;
-    readonly type: string;
-}
-
-declare var MimeType: {
-    prototype: MimeType;
-    new(): MimeType;
-};
-
-interface MimeTypeArray {
-    readonly length: number;
-    item(index: number): Plugin;
-    namedItem(type: string): Plugin;
-    [index: number]: Plugin;
-}
-
-declare var MimeTypeArray: {
-    prototype: MimeTypeArray;
-    new(): MimeTypeArray;
-};
-
-interface MouseEvent extends UIEvent {
-    readonly altKey: boolean;
-    readonly button: number;
-    readonly buttons: number;
-    readonly clientX: number;
-    readonly clientY: number;
-    readonly ctrlKey: boolean;
-    readonly fromElement: Element;
-    readonly layerX: number;
-    readonly layerY: number;
-    readonly metaKey: boolean;
-    readonly movementX: number;
-    readonly movementY: number;
-    readonly offsetX: number;
-    readonly offsetY: number;
-    readonly pageX: number;
-    readonly pageY: number;
-    readonly relatedTarget: EventTarget;
-    readonly screenX: number;
-    readonly screenY: number;
-    readonly shiftKey: boolean;
-    readonly toElement: Element;
-    readonly which: number;
-    readonly x: number;
-    readonly y: number;
-    getModifierState(keyArg: string): boolean;
-    initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void;
-}
-
-declare var MouseEvent: {
-    prototype: MouseEvent;
-    new(typeArg: string, eventInitDict?: MouseEventInit): MouseEvent;
 };
 
 interface MutationEvent extends Event {
@@ -8611,35 +8611,6 @@ declare var PaymentResponse: {
     new(): PaymentResponse;
 };
 
-interface PerfWidgetExternal {
-    readonly activeNetworkRequestCount: number;
-    readonly averageFrameTime: number;
-    readonly averagePaintTime: number;
-    readonly extraInformationEnabled: boolean;
-    readonly independentRenderingEnabled: boolean;
-    readonly irDisablingContentString: string;
-    readonly irStatusAvailable: boolean;
-    readonly maxCpuSpeed: number;
-    readonly paintRequestsPerSecond: number;
-    readonly performanceCounter: number;
-    readonly performanceCounterFrequency: number;
-    addEventListener(eventType: string, callback: Function): void;
-    getMemoryUsage(): number;
-    getProcessCpuUsage(): number;
-    getRecentCpuUsage(last: number | null): any;
-    getRecentFrames(last: number | null): any;
-    getRecentMemoryUsage(last: number | null): any;
-    getRecentPaintRequests(last: number | null): any;
-    removeEventListener(eventType: string, callback: Function): void;
-    repositionWindow(x: number, y: number): void;
-    resizeWindow(width: number, height: number): void;
-}
-
-declare var PerfWidgetExternal: {
-    prototype: PerfWidgetExternal;
-    new(): PerfWidgetExternal;
-};
-
 interface Performance {
     readonly navigation: PerformanceNavigation;
     readonly timing: PerformanceTiming;
@@ -8713,13 +8684,13 @@ declare var PerformanceNavigation: {
 interface PerformanceNavigationTiming extends PerformanceEntry {
     readonly connectEnd: number;
     readonly connectStart: number;
+    readonly domainLookupEnd: number;
+    readonly domainLookupStart: number;
     readonly domComplete: number;
     readonly domContentLoadedEventEnd: number;
     readonly domContentLoadedEventStart: number;
     readonly domInteractive: number;
     readonly domLoading: number;
-    readonly domainLookupEnd: number;
-    readonly domainLookupStart: number;
     readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
@@ -8762,13 +8733,13 @@ declare var PerformanceResourceTiming: {
 interface PerformanceTiming {
     readonly connectEnd: number;
     readonly connectStart: number;
+    readonly domainLookupEnd: number;
+    readonly domainLookupStart: number;
     readonly domComplete: number;
     readonly domContentLoadedEventEnd: number;
     readonly domContentLoadedEventStart: number;
     readonly domInteractive: number;
     readonly domLoading: number;
-    readonly domainLookupEnd: number;
-    readonly domainLookupStart: number;
     readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
@@ -8788,6 +8759,35 @@ interface PerformanceTiming {
 declare var PerformanceTiming: {
     prototype: PerformanceTiming;
     new(): PerformanceTiming;
+};
+
+interface PerfWidgetExternal {
+    readonly activeNetworkRequestCount: number;
+    readonly averageFrameTime: number;
+    readonly averagePaintTime: number;
+    readonly extraInformationEnabled: boolean;
+    readonly independentRenderingEnabled: boolean;
+    readonly irDisablingContentString: string;
+    readonly irStatusAvailable: boolean;
+    readonly maxCpuSpeed: number;
+    readonly paintRequestsPerSecond: number;
+    readonly performanceCounter: number;
+    readonly performanceCounterFrequency: number;
+    addEventListener(eventType: string, callback: Function): void;
+    getMemoryUsage(): number;
+    getProcessCpuUsage(): number;
+    getRecentCpuUsage(last: number | null): any;
+    getRecentFrames(last: number | null): any;
+    getRecentMemoryUsage(last: number | null): any;
+    getRecentPaintRequests(last: number | null): any;
+    removeEventListener(eventType: string, callback: Function): void;
+    repositionWindow(x: number, y: number): void;
+    resizeWindow(width: number, height: number): void;
+}
+
+declare var PerfWidgetExternal: {
+    prototype: PerfWidgetExternal;
+    new(): PerfWidgetExternal;
 };
 
 interface PeriodicWave {
@@ -8961,13 +8961,110 @@ declare var PushSubscriptionOptions: {
     new(): PushSubscriptionOptions;
 };
 
-interface RTCDTMFToneChangeEvent extends Event {
-    readonly tone: string;
+interface Range {
+    readonly collapsed: boolean;
+    readonly commonAncestorContainer: Node;
+    readonly endContainer: Node;
+    readonly endOffset: number;
+    readonly startContainer: Node;
+    readonly startOffset: number;
+    cloneContents(): DocumentFragment;
+    cloneRange(): Range;
+    collapse(toStart: boolean): void;
+    compareBoundaryPoints(how: number, sourceRange: Range): number;
+    createContextualFragment(fragment: string): DocumentFragment;
+    deleteContents(): void;
+    detach(): void;
+    expand(Unit: ExpandGranularity): boolean;
+    extractContents(): DocumentFragment;
+    getBoundingClientRect(): ClientRect;
+    getClientRects(): ClientRectList;
+    insertNode(newNode: Node): void;
+    selectNode(refNode: Node): void;
+    selectNodeContents(refNode: Node): void;
+    setEnd(refNode: Node, offset: number): void;
+    setEndAfter(refNode: Node): void;
+    setEndBefore(refNode: Node): void;
+    setStart(refNode: Node, offset: number): void;
+    setStartAfter(refNode: Node): void;
+    setStartBefore(refNode: Node): void;
+    surroundContents(newParent: Node): void;
+    toString(): string;
+    readonly END_TO_END: number;
+    readonly END_TO_START: number;
+    readonly START_TO_END: number;
+    readonly START_TO_START: number;
 }
 
-declare var RTCDTMFToneChangeEvent: {
-    prototype: RTCDTMFToneChangeEvent;
-    new(typeArg: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
+declare var Range: {
+    prototype: Range;
+    new(): Range;
+    readonly END_TO_END: number;
+    readonly END_TO_START: number;
+    readonly START_TO_END: number;
+    readonly START_TO_START: number;
+};
+
+interface ReadableStream {
+    readonly locked: boolean;
+    cancel(): Promise<void>;
+    getReader(): ReadableStreamReader;
+}
+
+declare var ReadableStream: {
+    prototype: ReadableStream;
+    new(): ReadableStream;
+};
+
+interface ReadableStreamReader {
+    cancel(): Promise<void>;
+    read(): Promise<any>;
+    releaseLock(): void;
+}
+
+declare var ReadableStreamReader: {
+    prototype: ReadableStreamReader;
+    new(): ReadableStreamReader;
+};
+
+interface Request extends Object, Body {
+    readonly cache: RequestCache;
+    readonly credentials: RequestCredentials;
+    readonly destination: RequestDestination;
+    readonly headers: Headers;
+    readonly integrity: string;
+    readonly keepalive: boolean;
+    readonly method: string;
+    readonly mode: RequestMode;
+    readonly redirect: RequestRedirect;
+    readonly referrer: string;
+    readonly referrerPolicy: ReferrerPolicy;
+    readonly type: RequestType;
+    readonly url: string;
+    clone(): Request;
+}
+
+declare var Request: {
+    prototype: Request;
+    new(input: Request | string, init?: RequestInit): Request;
+};
+
+interface Response extends Object, Body {
+    readonly body: ReadableStream | null;
+    readonly headers: Headers;
+    readonly ok: boolean;
+    readonly status: number;
+    readonly statusText: string;
+    readonly type: ResponseType;
+    readonly url: string;
+    clone(): Response;
+}
+
+declare var Response: {
+    prototype: Response;
+    new(body?: any, init?: ResponseInit): Response;
+    error: () => Response;
+    redirect: (url: string, status?: number) => Response;
 };
 
 interface RTCDtlsTransportEventMap {
@@ -9024,10 +9121,19 @@ declare var RTCDtmfSender: {
     new(sender: RTCRtpSender): RTCDtmfSender;
 };
 
+interface RTCDTMFToneChangeEvent extends Event {
+    readonly tone: string;
+}
+
+declare var RTCDTMFToneChangeEvent: {
+    prototype: RTCDTMFToneChangeEvent;
+    new(typeArg: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
+};
+
 interface RTCIceCandidate {
     candidate: string | null;
-    sdpMLineIndex: number | null;
     sdpMid: string | null;
+    sdpMLineIndex: number | null;
     toJSON(): any;
 }
 
@@ -9264,110 +9370,417 @@ declare var RTCStatsProvider: {
     new(): RTCStatsProvider;
 };
 
-interface Range {
-    readonly collapsed: boolean;
-    readonly commonAncestorContainer: Node;
-    readonly endContainer: Node;
-    readonly endOffset: number;
-    readonly startContainer: Node;
-    readonly startOffset: number;
-    cloneContents(): DocumentFragment;
-    cloneRange(): Range;
-    collapse(toStart: boolean): void;
-    compareBoundaryPoints(how: number, sourceRange: Range): number;
-    createContextualFragment(fragment: string): DocumentFragment;
-    deleteContents(): void;
-    detach(): void;
-    expand(Unit: ExpandGranularity): boolean;
-    extractContents(): DocumentFragment;
-    getBoundingClientRect(): ClientRect;
-    getClientRects(): ClientRectList;
-    insertNode(newNode: Node): void;
-    selectNode(refNode: Node): void;
-    selectNodeContents(refNode: Node): void;
-    setEnd(refNode: Node, offset: number): void;
-    setEndAfter(refNode: Node): void;
-    setEndBefore(refNode: Node): void;
-    setStart(refNode: Node, offset: number): void;
-    setStartAfter(refNode: Node): void;
-    setStartBefore(refNode: Node): void;
-    surroundContents(newParent: Node): void;
+interface ScopedCredential {
+    readonly id: ArrayBuffer;
+    readonly type: ScopedCredentialType;
+}
+
+declare var ScopedCredential: {
+    prototype: ScopedCredential;
+    new(): ScopedCredential;
+};
+
+interface ScopedCredentialInfo {
+    readonly credential: ScopedCredential;
+    readonly publicKey: CryptoKey;
+}
+
+declare var ScopedCredentialInfo: {
+    prototype: ScopedCredentialInfo;
+    new(): ScopedCredentialInfo;
+};
+
+interface ScreenEventMap {
+    "MSOrientationChange": Event;
+}
+
+interface Screen extends EventTarget {
+    readonly availHeight: number;
+    readonly availWidth: number;
+    bufferDepth: number;
+    readonly colorDepth: number;
+    readonly deviceXDPI: number;
+    readonly deviceYDPI: number;
+    readonly fontSmoothingEnabled: boolean;
+    readonly height: number;
+    readonly logicalXDPI: number;
+    readonly logicalYDPI: number;
+    readonly msOrientation: string;
+    onmsorientationchange: (this: Screen, ev: Event) => any;
+    readonly pixelDepth: number;
+    readonly systemXDPI: number;
+    readonly systemYDPI: number;
+    readonly width: number;
+    msLockOrientation(orientations: string | string[]): boolean;
+    msUnlockOrientation(): void;
+    addEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var Screen: {
+    prototype: Screen;
+    new(): Screen;
+};
+
+interface ScriptNotifyEvent extends Event {
+    readonly callingUri: string;
+    readonly value: string;
+}
+
+declare var ScriptNotifyEvent: {
+    prototype: ScriptNotifyEvent;
+    new(): ScriptNotifyEvent;
+};
+
+interface ScriptProcessorNodeEventMap {
+    "audioprocess": AudioProcessingEvent;
+}
+
+interface ScriptProcessorNode extends AudioNode {
+    readonly bufferSize: number;
+    onaudioprocess: (this: ScriptProcessorNode, ev: AudioProcessingEvent) => any;
+    addEventListener<K extends keyof ScriptProcessorNodeEventMap>(type: K, listener: (this: ScriptProcessorNode, ev: ScriptProcessorNodeEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var ScriptProcessorNode: {
+    prototype: ScriptProcessorNode;
+    new(): ScriptProcessorNode;
+};
+
+interface Selection {
+    readonly anchorNode: Node;
+    readonly anchorOffset: number;
+    readonly baseNode: Node;
+    readonly baseOffset: number;
+    readonly extentNode: Node;
+    readonly extentOffset: number;
+    readonly focusNode: Node;
+    readonly focusOffset: number;
+    readonly isCollapsed: boolean;
+    readonly rangeCount: number;
+    readonly type: string;
+    addRange(range: Range): void;
+    collapse(parentNode: Node, offset: number): void;
+    collapseToEnd(): void;
+    collapseToStart(): void;
+    containsNode(node: Node, partlyContained: boolean): boolean;
+    deleteFromDocument(): void;
+    empty(): void;
+    extend(newNode: Node, offset: number): void;
+    getRangeAt(index: number): Range;
+    removeAllRanges(): void;
+    removeRange(range: Range): void;
+    selectAllChildren(parentNode: Node): void;
+    setBaseAndExtent(baseNode: Node, baseOffset: number, extentNode: Node, extentOffset: number): void;
+    setPosition(parentNode: Node, offset: number): void;
     toString(): string;
-    readonly END_TO_END: number;
-    readonly END_TO_START: number;
-    readonly START_TO_END: number;
-    readonly START_TO_START: number;
 }
 
-declare var Range: {
-    prototype: Range;
-    new(): Range;
-    readonly END_TO_END: number;
-    readonly END_TO_START: number;
-    readonly START_TO_END: number;
-    readonly START_TO_START: number;
+declare var Selection: {
+    prototype: Selection;
+    new(): Selection;
 };
 
-interface ReadableStream {
-    readonly locked: boolean;
-    cancel(): Promise<void>;
-    getReader(): ReadableStreamReader;
+interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
+    "statechange": Event;
 }
 
-declare var ReadableStream: {
-    prototype: ReadableStream;
-    new(): ReadableStream;
-};
-
-interface ReadableStreamReader {
-    cancel(): Promise<void>;
-    read(): Promise<any>;
-    releaseLock(): void;
+interface ServiceWorker extends EventTarget, AbstractWorker {
+    onstatechange: (this: ServiceWorker, ev: Event) => any;
+    readonly scriptURL: USVString;
+    readonly state: ServiceWorkerState;
+    postMessage(message: any, transfer?: any[]): void;
+    addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
-declare var ReadableStreamReader: {
-    prototype: ReadableStreamReader;
-    new(): ReadableStreamReader;
+declare var ServiceWorker: {
+    prototype: ServiceWorker;
+    new(): ServiceWorker;
 };
 
-interface Request extends Object, Body {
-    readonly cache: RequestCache;
-    readonly credentials: RequestCredentials;
-    readonly destination: RequestDestination;
-    readonly headers: Headers;
-    readonly integrity: string;
-    readonly keepalive: boolean;
-    readonly method: string;
-    readonly mode: RequestMode;
-    readonly redirect: RequestRedirect;
-    readonly referrer: string;
-    readonly referrerPolicy: ReferrerPolicy;
-    readonly type: RequestType;
+interface ServiceWorkerContainerEventMap {
+    "controllerchange": Event;
+    "message": ServiceWorkerMessageEvent;
+}
+
+interface ServiceWorkerContainer extends EventTarget {
+    readonly controller: ServiceWorker | null;
+    oncontrollerchange: (this: ServiceWorkerContainer, ev: Event) => any;
+    onmessage: (this: ServiceWorkerContainer, ev: ServiceWorkerMessageEvent) => any;
+    readonly ready: Promise<ServiceWorkerRegistration>;
+    getRegistration(clientURL?: USVString): Promise<any>;
+    getRegistrations(): any;
+    register(scriptURL: USVString, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
+    addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var ServiceWorkerContainer: {
+    prototype: ServiceWorkerContainer;
+    new(): ServiceWorkerContainer;
+};
+
+interface ServiceWorkerMessageEvent extends Event {
+    readonly data: any;
+    readonly lastEventId: string;
+    readonly origin: string;
+    readonly ports: MessagePort[] | null;
+    readonly source: ServiceWorker | MessagePort | null;
+}
+
+declare var ServiceWorkerMessageEvent: {
+    prototype: ServiceWorkerMessageEvent;
+    new(type: string, eventInitDict?: ServiceWorkerMessageEventInit): ServiceWorkerMessageEvent;
+};
+
+interface ServiceWorkerRegistrationEventMap {
+    "updatefound": Event;
+}
+
+interface ServiceWorkerRegistration extends EventTarget {
+    readonly active: ServiceWorker | null;
+    readonly installing: ServiceWorker | null;
+    onupdatefound: (this: ServiceWorkerRegistration, ev: Event) => any;
+    readonly pushManager: PushManager;
+    readonly scope: USVString;
+    readonly sync: SyncManager;
+    readonly waiting: ServiceWorker | null;
+    getNotifications(filter?: GetNotificationOptions): any;
+    showNotification(title: string, options?: NotificationOptions): Promise<void>;
+    unregister(): Promise<boolean>;
+    update(): Promise<void>;
+    addEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var ServiceWorkerRegistration: {
+    prototype: ServiceWorkerRegistration;
+    new(): ServiceWorkerRegistration;
+};
+
+interface SourceBuffer extends EventTarget {
+    appendWindowEnd: number;
+    appendWindowStart: number;
+    readonly audioTracks: AudioTrackList;
+    readonly buffered: TimeRanges;
+    mode: AppendMode;
+    timestampOffset: number;
+    readonly updating: boolean;
+    readonly videoTracks: VideoTrackList;
+    abort(): void;
+    appendBuffer(data: ArrayBuffer | ArrayBufferView): void;
+    appendStream(stream: MSStream, maxSize?: number): void;
+    remove(start: number, end: number): void;
+}
+
+declare var SourceBuffer: {
+    prototype: SourceBuffer;
+    new(): SourceBuffer;
+};
+
+interface SourceBufferList extends EventTarget {
+    readonly length: number;
+    item(index: number): SourceBuffer;
+    [index: number]: SourceBuffer;
+}
+
+declare var SourceBufferList: {
+    prototype: SourceBufferList;
+    new(): SourceBufferList;
+};
+
+interface SpeechSynthesisEventMap {
+    "voiceschanged": Event;
+}
+
+interface SpeechSynthesis extends EventTarget {
+    onvoiceschanged: (this: SpeechSynthesis, ev: Event) => any;
+    readonly paused: boolean;
+    readonly pending: boolean;
+    readonly speaking: boolean;
+    cancel(): void;
+    getVoices(): SpeechSynthesisVoice[];
+    pause(): void;
+    resume(): void;
+    speak(utterance: SpeechSynthesisUtterance): void;
+    addEventListener<K extends keyof SpeechSynthesisEventMap>(type: K, listener: (this: SpeechSynthesis, ev: SpeechSynthesisEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SpeechSynthesis: {
+    prototype: SpeechSynthesis;
+    new(): SpeechSynthesis;
+};
+
+interface SpeechSynthesisEvent extends Event {
+    readonly charIndex: number;
+    readonly elapsedTime: number;
+    readonly name: string;
+    readonly utterance: SpeechSynthesisUtterance | null;
+}
+
+declare var SpeechSynthesisEvent: {
+    prototype: SpeechSynthesisEvent;
+    new(type: string, eventInitDict?: SpeechSynthesisEventInit): SpeechSynthesisEvent;
+};
+
+interface SpeechSynthesisUtteranceEventMap {
+    "boundary": Event;
+    "end": Event;
+    "error": Event;
+    "mark": Event;
+    "pause": Event;
+    "resume": Event;
+    "start": Event;
+}
+
+interface SpeechSynthesisUtterance extends EventTarget {
+    lang: string;
+    onboundary: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onend: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onerror: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onmark: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onpause: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onresume: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    onstart: (this: SpeechSynthesisUtterance, ev: Event) => any;
+    pitch: number;
+    rate: number;
+    text: string;
+    voice: SpeechSynthesisVoice;
+    volume: number;
+    addEventListener<K extends keyof SpeechSynthesisUtteranceEventMap>(type: K, listener: (this: SpeechSynthesisUtterance, ev: SpeechSynthesisUtteranceEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SpeechSynthesisUtterance: {
+    prototype: SpeechSynthesisUtterance;
+    new(text?: string): SpeechSynthesisUtterance;
+};
+
+interface SpeechSynthesisVoice {
+    readonly default: boolean;
+    readonly lang: string;
+    readonly localService: boolean;
+    readonly name: string;
+    readonly voiceURI: string;
+}
+
+declare var SpeechSynthesisVoice: {
+    prototype: SpeechSynthesisVoice;
+    new(): SpeechSynthesisVoice;
+};
+
+interface StereoPannerNode extends AudioNode {
+    readonly pan: AudioParam;
+}
+
+declare var StereoPannerNode: {
+    prototype: StereoPannerNode;
+    new(): StereoPannerNode;
+};
+
+interface Storage {
+    readonly length: number;
+    clear(): void;
+    getItem(key: string): string | null;
+    key(index: number): string | null;
+    removeItem(key: string): void;
+    setItem(key: string, data: string): void;
+    [key: string]: any;
+    [index: number]: string;
+}
+
+declare var Storage: {
+    prototype: Storage;
+    new(): Storage;
+};
+
+interface StorageEvent extends Event {
     readonly url: string;
-    clone(): Request;
+    key?: string;
+    oldValue?: string;
+    newValue?: string;
+    storageArea?: Storage;
 }
 
-declare var Request: {
-    prototype: Request;
-    new(input: Request | string, init?: RequestInit): Request;
+declare var StorageEvent: {
+    prototype: StorageEvent;
+    new (type: string, eventInitDict?: StorageEventInit): StorageEvent;
 };
 
-interface Response extends Object, Body {
-    readonly body: ReadableStream | null;
-    readonly headers: Headers;
-    readonly ok: boolean;
-    readonly status: number;
-    readonly statusText: string;
-    readonly type: ResponseType;
-    readonly url: string;
-    clone(): Response;
+interface StyleMedia {
+    readonly type: string;
+    matchMedium(mediaquery: string): boolean;
 }
 
-declare var Response: {
-    prototype: Response;
-    new(body?: any, init?: ResponseInit): Response;
-    error: () => Response;
-    redirect: (url: string, status?: number) => Response;
+declare var StyleMedia: {
+    prototype: StyleMedia;
+    new(): StyleMedia;
+};
+
+interface StyleSheet {
+    disabled: boolean;
+    readonly href: string;
+    readonly media: MediaList;
+    readonly ownerNode: Node;
+    readonly parentStyleSheet: StyleSheet;
+    readonly title: string;
+    readonly type: string;
+}
+
+declare var StyleSheet: {
+    prototype: StyleSheet;
+    new(): StyleSheet;
+};
+
+interface StyleSheetList {
+    readonly length: number;
+    item(index?: number): StyleSheet;
+    [index: number]: StyleSheet;
+}
+
+declare var StyleSheetList: {
+    prototype: StyleSheetList;
+    new(): StyleSheetList;
+};
+
+interface StyleSheetPageList {
+    readonly length: number;
+    item(index: number): CSSPageRule;
+    [index: number]: CSSPageRule;
+}
+
+declare var StyleSheetPageList: {
+    prototype: StyleSheetPageList;
+    new(): StyleSheetPageList;
+};
+
+interface SubtleCrypto {
+    decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+    deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>;
+    deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    digest(algorithm: AlgorithmIdentifier, data: BufferSource): PromiseLike<ArrayBuffer>;
+    encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+    exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
+    exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
+    exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
+    generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair | CryptoKey>;
+    generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair>;
+    generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
+    unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+    verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>;
+    wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>;
+}
+
+declare var SubtleCrypto: {
+    prototype: SubtleCrypto;
+    new(): SubtleCrypto;
 };
 
 interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
@@ -10233,20 +10646,6 @@ declare var SVGLengthList: {
     new(): SVGLengthList;
 };
 
-interface SVGLineElement extends SVGGraphicsElement {
-    readonly x1: SVGAnimatedLength;
-    readonly x2: SVGAnimatedLength;
-    readonly y1: SVGAnimatedLength;
-    readonly y2: SVGAnimatedLength;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGLineElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SVGLineElement: {
-    prototype: SVGLineElement;
-    new(): SVGLineElement;
-};
-
 interface SVGLinearGradientElement extends SVGGradientElement {
     readonly x1: SVGAnimatedLength;
     readonly x2: SVGAnimatedLength;
@@ -10261,6 +10660,20 @@ declare var SVGLinearGradientElement: {
     new(): SVGLinearGradientElement;
 };
 
+interface SVGLineElement extends SVGGraphicsElement {
+    readonly x1: SVGAnimatedLength;
+    readonly x2: SVGAnimatedLength;
+    readonly y1: SVGAnimatedLength;
+    readonly y2: SVGAnimatedLength;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGLineElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SVGLineElement: {
+    prototype: SVGLineElement;
+    new(): SVGLineElement;
+};
+
 interface SVGMarkerElement extends SVGElement, SVGFitToViewBox {
     readonly markerHeight: SVGAnimatedLength;
     readonly markerUnits: SVGAnimatedEnumeration;
@@ -10271,12 +10684,12 @@ interface SVGMarkerElement extends SVGElement, SVGFitToViewBox {
     readonly refY: SVGAnimatedLength;
     setOrientToAngle(angle: SVGAngle): void;
     setOrientToAuto(): void;
-    readonly SVG_MARKERUNITS_STROKEWIDTH: number;
-    readonly SVG_MARKERUNITS_UNKNOWN: number;
-    readonly SVG_MARKERUNITS_USERSPACEONUSE: number;
     readonly SVG_MARKER_ORIENT_ANGLE: number;
     readonly SVG_MARKER_ORIENT_AUTO: number;
     readonly SVG_MARKER_ORIENT_UNKNOWN: number;
+    readonly SVG_MARKERUNITS_STROKEWIDTH: number;
+    readonly SVG_MARKERUNITS_UNKNOWN: number;
+    readonly SVG_MARKERUNITS_USERSPACEONUSE: number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGMarkerElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -10284,12 +10697,12 @@ interface SVGMarkerElement extends SVGElement, SVGFitToViewBox {
 declare var SVGMarkerElement: {
     prototype: SVGMarkerElement;
     new(): SVGMarkerElement;
-    readonly SVG_MARKERUNITS_STROKEWIDTH: number;
-    readonly SVG_MARKERUNITS_UNKNOWN: number;
-    readonly SVG_MARKERUNITS_USERSPACEONUSE: number;
     readonly SVG_MARKER_ORIENT_ANGLE: number;
     readonly SVG_MARKER_ORIENT_AUTO: number;
     readonly SVG_MARKER_ORIENT_UNKNOWN: number;
+    readonly SVG_MARKERUNITS_STROKEWIDTH: number;
+    readonly SVG_MARKERUNITS_UNKNOWN: number;
+    readonly SVG_MARKERUNITS_USERSPACEONUSE: number;
 };
 
 interface SVGMaskElement extends SVGElement, SVGTests, SVGUnitTypes {
@@ -10822,6 +11235,58 @@ declare var SVGRectElement: {
     new(): SVGRectElement;
 };
 
+interface SVGScriptElement extends SVGElement, SVGURIReference {
+    type: string;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGScriptElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SVGScriptElement: {
+    prototype: SVGScriptElement;
+    new(): SVGScriptElement;
+};
+
+interface SVGStopElement extends SVGElement {
+    readonly offset: SVGAnimatedNumber;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGStopElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SVGStopElement: {
+    prototype: SVGStopElement;
+    new(): SVGStopElement;
+};
+
+interface SVGStringList {
+    readonly numberOfItems: number;
+    appendItem(newItem: string): string;
+    clear(): void;
+    getItem(index: number): string;
+    initialize(newItem: string): string;
+    insertItemBefore(newItem: string, index: number): string;
+    removeItem(index: number): string;
+    replaceItem(newItem: string, index: number): string;
+}
+
+declare var SVGStringList: {
+    prototype: SVGStringList;
+    new(): SVGStringList;
+};
+
+interface SVGStyleElement extends SVGElement {
+    disabled: boolean;
+    media: string;
+    title: string;
+    type: string;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGStyleElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SVGStyleElement: {
+    prototype: SVGStyleElement;
+    new(): SVGStyleElement;
+};
+
 interface SVGSVGElementEventMap extends SVGElementEventMap {
     "SVGAbort": Event;
     "SVGError": Event;
@@ -10883,58 +11348,6 @@ declare var SVGSVGElement: {
     new(): SVGSVGElement;
 };
 
-interface SVGScriptElement extends SVGElement, SVGURIReference {
-    type: string;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGScriptElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SVGScriptElement: {
-    prototype: SVGScriptElement;
-    new(): SVGScriptElement;
-};
-
-interface SVGStopElement extends SVGElement {
-    readonly offset: SVGAnimatedNumber;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGStopElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SVGStopElement: {
-    prototype: SVGStopElement;
-    new(): SVGStopElement;
-};
-
-interface SVGStringList {
-    readonly numberOfItems: number;
-    appendItem(newItem: string): string;
-    clear(): void;
-    getItem(index: number): string;
-    initialize(newItem: string): string;
-    insertItemBefore(newItem: string, index: number): string;
-    removeItem(index: number): string;
-    replaceItem(newItem: string, index: number): string;
-}
-
-declare var SVGStringList: {
-    prototype: SVGStringList;
-    new(): SVGStringList;
-};
-
-interface SVGStyleElement extends SVGElement {
-    disabled: boolean;
-    media: string;
-    title: string;
-    type: string;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGStyleElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SVGStyleElement: {
-    prototype: SVGStyleElement;
-    new(): SVGStyleElement;
-};
-
 interface SVGSwitchElement extends SVGGraphicsElement {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSwitchElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -10953,16 +11366,6 @@ interface SVGSymbolElement extends SVGElement, SVGFitToViewBox {
 declare var SVGSymbolElement: {
     prototype: SVGSymbolElement;
     new(): SVGSymbolElement;
-};
-
-interface SVGTSpanElement extends SVGTextPositioningElement {
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGTSpanElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SVGTSpanElement: {
-    prototype: SVGTSpanElement;
-    new(): SVGTSpanElement;
 };
 
 interface SVGTextContentElement extends SVGGraphicsElement {
@@ -11101,6 +11504,16 @@ declare var SVGTransformList: {
     new(): SVGTransformList;
 };
 
+interface SVGTSpanElement extends SVGTextPositioningElement {
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGTSpanElement, ev: SVGElementEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var SVGTSpanElement: {
+    prototype: SVGTSpanElement;
+    new(): SVGTSpanElement;
+};
+
 interface SVGUnitTypes {
     readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
@@ -11156,419 +11569,6 @@ interface SVGZoomEvent extends UIEvent {
 declare var SVGZoomEvent: {
     prototype: SVGZoomEvent;
     new(): SVGZoomEvent;
-};
-
-interface ScopedCredential {
-    readonly id: ArrayBuffer;
-    readonly type: ScopedCredentialType;
-}
-
-declare var ScopedCredential: {
-    prototype: ScopedCredential;
-    new(): ScopedCredential;
-};
-
-interface ScopedCredentialInfo {
-    readonly credential: ScopedCredential;
-    readonly publicKey: CryptoKey;
-}
-
-declare var ScopedCredentialInfo: {
-    prototype: ScopedCredentialInfo;
-    new(): ScopedCredentialInfo;
-};
-
-interface ScreenEventMap {
-    "MSOrientationChange": Event;
-}
-
-interface Screen extends EventTarget {
-    readonly availHeight: number;
-    readonly availWidth: number;
-    bufferDepth: number;
-    readonly colorDepth: number;
-    readonly deviceXDPI: number;
-    readonly deviceYDPI: number;
-    readonly fontSmoothingEnabled: boolean;
-    readonly height: number;
-    readonly logicalXDPI: number;
-    readonly logicalYDPI: number;
-    readonly msOrientation: string;
-    onmsorientationchange: (this: Screen, ev: Event) => any;
-    readonly pixelDepth: number;
-    readonly systemXDPI: number;
-    readonly systemYDPI: number;
-    readonly width: number;
-    msLockOrientation(orientations: string | string[]): boolean;
-    msUnlockOrientation(): void;
-    addEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var Screen: {
-    prototype: Screen;
-    new(): Screen;
-};
-
-interface ScriptNotifyEvent extends Event {
-    readonly callingUri: string;
-    readonly value: string;
-}
-
-declare var ScriptNotifyEvent: {
-    prototype: ScriptNotifyEvent;
-    new(): ScriptNotifyEvent;
-};
-
-interface ScriptProcessorNodeEventMap {
-    "audioprocess": AudioProcessingEvent;
-}
-
-interface ScriptProcessorNode extends AudioNode {
-    readonly bufferSize: number;
-    onaudioprocess: (this: ScriptProcessorNode, ev: AudioProcessingEvent) => any;
-    addEventListener<K extends keyof ScriptProcessorNodeEventMap>(type: K, listener: (this: ScriptProcessorNode, ev: ScriptProcessorNodeEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var ScriptProcessorNode: {
-    prototype: ScriptProcessorNode;
-    new(): ScriptProcessorNode;
-};
-
-interface Selection {
-    readonly anchorNode: Node;
-    readonly anchorOffset: number;
-    readonly baseNode: Node;
-    readonly baseOffset: number;
-    readonly extentNode: Node;
-    readonly extentOffset: number;
-    readonly focusNode: Node;
-    readonly focusOffset: number;
-    readonly isCollapsed: boolean;
-    readonly rangeCount: number;
-    readonly type: string;
-    addRange(range: Range): void;
-    collapse(parentNode: Node, offset: number): void;
-    collapseToEnd(): void;
-    collapseToStart(): void;
-    containsNode(node: Node, partlyContained: boolean): boolean;
-    deleteFromDocument(): void;
-    empty(): void;
-    extend(newNode: Node, offset: number): void;
-    getRangeAt(index: number): Range;
-    removeAllRanges(): void;
-    removeRange(range: Range): void;
-    selectAllChildren(parentNode: Node): void;
-    setBaseAndExtent(baseNode: Node, baseOffset: number, extentNode: Node, extentOffset: number): void;
-    setPosition(parentNode: Node, offset: number): void;
-    toString(): string;
-}
-
-declare var Selection: {
-    prototype: Selection;
-    new(): Selection;
-};
-
-interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
-    "statechange": Event;
-}
-
-interface ServiceWorker extends EventTarget, AbstractWorker {
-    onstatechange: (this: ServiceWorker, ev: Event) => any;
-    readonly scriptURL: USVString;
-    readonly state: ServiceWorkerState;
-    postMessage(message: any, transfer?: any[]): void;
-    addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var ServiceWorker: {
-    prototype: ServiceWorker;
-    new(): ServiceWorker;
-};
-
-interface ServiceWorkerContainerEventMap {
-    "controllerchange": Event;
-    "message": ServiceWorkerMessageEvent;
-}
-
-interface ServiceWorkerContainer extends EventTarget {
-    readonly controller: ServiceWorker | null;
-    oncontrollerchange: (this: ServiceWorkerContainer, ev: Event) => any;
-    onmessage: (this: ServiceWorkerContainer, ev: ServiceWorkerMessageEvent) => any;
-    readonly ready: Promise<ServiceWorkerRegistration>;
-    getRegistration(clientURL?: USVString): Promise<any>;
-    getRegistrations(): any;
-    register(scriptURL: USVString, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
-    addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var ServiceWorkerContainer: {
-    prototype: ServiceWorkerContainer;
-    new(): ServiceWorkerContainer;
-};
-
-interface ServiceWorkerMessageEvent extends Event {
-    readonly data: any;
-    readonly lastEventId: string;
-    readonly origin: string;
-    readonly ports: MessagePort[] | null;
-    readonly source: ServiceWorker | MessagePort | null;
-}
-
-declare var ServiceWorkerMessageEvent: {
-    prototype: ServiceWorkerMessageEvent;
-    new(type: string, eventInitDict?: ServiceWorkerMessageEventInit): ServiceWorkerMessageEvent;
-};
-
-interface ServiceWorkerRegistrationEventMap {
-    "updatefound": Event;
-}
-
-interface ServiceWorkerRegistration extends EventTarget {
-    readonly active: ServiceWorker | null;
-    readonly installing: ServiceWorker | null;
-    onupdatefound: (this: ServiceWorkerRegistration, ev: Event) => any;
-    readonly pushManager: PushManager;
-    readonly scope: USVString;
-    readonly sync: SyncManager;
-    readonly waiting: ServiceWorker | null;
-    getNotifications(filter?: GetNotificationOptions): any;
-    showNotification(title: string, options?: NotificationOptions): Promise<void>;
-    unregister(): Promise<boolean>;
-    update(): Promise<void>;
-    addEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(type: K, listener: (this: ServiceWorkerRegistration, ev: ServiceWorkerRegistrationEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var ServiceWorkerRegistration: {
-    prototype: ServiceWorkerRegistration;
-    new(): ServiceWorkerRegistration;
-};
-
-interface SourceBuffer extends EventTarget {
-    appendWindowEnd: number;
-    appendWindowStart: number;
-    readonly audioTracks: AudioTrackList;
-    readonly buffered: TimeRanges;
-    mode: AppendMode;
-    timestampOffset: number;
-    readonly updating: boolean;
-    readonly videoTracks: VideoTrackList;
-    abort(): void;
-    appendBuffer(data: ArrayBuffer | ArrayBufferView): void;
-    appendStream(stream: MSStream, maxSize?: number): void;
-    remove(start: number, end: number): void;
-}
-
-declare var SourceBuffer: {
-    prototype: SourceBuffer;
-    new(): SourceBuffer;
-};
-
-interface SourceBufferList extends EventTarget {
-    readonly length: number;
-    item(index: number): SourceBuffer;
-    [index: number]: SourceBuffer;
-}
-
-declare var SourceBufferList: {
-    prototype: SourceBufferList;
-    new(): SourceBufferList;
-};
-
-interface SpeechSynthesisEventMap {
-    "voiceschanged": Event;
-}
-
-interface SpeechSynthesis extends EventTarget {
-    onvoiceschanged: (this: SpeechSynthesis, ev: Event) => any;
-    readonly paused: boolean;
-    readonly pending: boolean;
-    readonly speaking: boolean;
-    cancel(): void;
-    getVoices(): SpeechSynthesisVoice[];
-    pause(): void;
-    resume(): void;
-    speak(utterance: SpeechSynthesisUtterance): void;
-    addEventListener<K extends keyof SpeechSynthesisEventMap>(type: K, listener: (this: SpeechSynthesis, ev: SpeechSynthesisEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SpeechSynthesis: {
-    prototype: SpeechSynthesis;
-    new(): SpeechSynthesis;
-};
-
-interface SpeechSynthesisEvent extends Event {
-    readonly charIndex: number;
-    readonly elapsedTime: number;
-    readonly name: string;
-    readonly utterance: SpeechSynthesisUtterance | null;
-}
-
-declare var SpeechSynthesisEvent: {
-    prototype: SpeechSynthesisEvent;
-    new(type: string, eventInitDict?: SpeechSynthesisEventInit): SpeechSynthesisEvent;
-};
-
-interface SpeechSynthesisUtteranceEventMap {
-    "boundary": Event;
-    "end": Event;
-    "error": Event;
-    "mark": Event;
-    "pause": Event;
-    "resume": Event;
-    "start": Event;
-}
-
-interface SpeechSynthesisUtterance extends EventTarget {
-    lang: string;
-    onboundary: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    onend: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    onerror: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    onmark: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    onpause: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    onresume: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    onstart: (this: SpeechSynthesisUtterance, ev: Event) => any;
-    pitch: number;
-    rate: number;
-    text: string;
-    voice: SpeechSynthesisVoice;
-    volume: number;
-    addEventListener<K extends keyof SpeechSynthesisUtteranceEventMap>(type: K, listener: (this: SpeechSynthesisUtterance, ev: SpeechSynthesisUtteranceEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var SpeechSynthesisUtterance: {
-    prototype: SpeechSynthesisUtterance;
-    new(text?: string): SpeechSynthesisUtterance;
-};
-
-interface SpeechSynthesisVoice {
-    readonly default: boolean;
-    readonly lang: string;
-    readonly localService: boolean;
-    readonly name: string;
-    readonly voiceURI: string;
-}
-
-declare var SpeechSynthesisVoice: {
-    prototype: SpeechSynthesisVoice;
-    new(): SpeechSynthesisVoice;
-};
-
-interface StereoPannerNode extends AudioNode {
-    readonly pan: AudioParam;
-}
-
-declare var StereoPannerNode: {
-    prototype: StereoPannerNode;
-    new(): StereoPannerNode;
-};
-
-interface Storage {
-    readonly length: number;
-    clear(): void;
-    getItem(key: string): string | null;
-    key(index: number): string | null;
-    removeItem(key: string): void;
-    setItem(key: string, data: string): void;
-    [key: string]: any;
-    [index: number]: string;
-}
-
-declare var Storage: {
-    prototype: Storage;
-    new(): Storage;
-};
-
-interface StorageEvent extends Event {
-    readonly url: string;
-    key?: string;
-    oldValue?: string;
-    newValue?: string;
-    storageArea?: Storage;
-}
-
-declare var StorageEvent: {
-    prototype: StorageEvent;
-    new (type: string, eventInitDict?: StorageEventInit): StorageEvent;
-};
-
-interface StyleMedia {
-    readonly type: string;
-    matchMedium(mediaquery: string): boolean;
-}
-
-declare var StyleMedia: {
-    prototype: StyleMedia;
-    new(): StyleMedia;
-};
-
-interface StyleSheet {
-    disabled: boolean;
-    readonly href: string;
-    readonly media: MediaList;
-    readonly ownerNode: Node;
-    readonly parentStyleSheet: StyleSheet;
-    readonly title: string;
-    readonly type: string;
-}
-
-declare var StyleSheet: {
-    prototype: StyleSheet;
-    new(): StyleSheet;
-};
-
-interface StyleSheetList {
-    readonly length: number;
-    item(index?: number): StyleSheet;
-    [index: number]: StyleSheet;
-}
-
-declare var StyleSheetList: {
-    prototype: StyleSheetList;
-    new(): StyleSheetList;
-};
-
-interface StyleSheetPageList {
-    readonly length: number;
-    item(index: number): CSSPageRule;
-    [index: number]: CSSPageRule;
-}
-
-declare var StyleSheetPageList: {
-    prototype: StyleSheetPageList;
-    new(): StyleSheetPageList;
-};
-
-interface SubtleCrypto {
-    decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-    deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>;
-    deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-    digest(algorithm: AlgorithmIdentifier, data: BufferSource): PromiseLike<ArrayBuffer>;
-    encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-    exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
-    exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
-    exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
-    generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair | CryptoKey>;
-    generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKeyPair>;
-    generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-    importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-    importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-    importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-    sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
-    unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier, unwrappedKeyAlgorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-    verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>;
-    wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): PromiseLike<ArrayBuffer>;
-}
-
-declare var SubtleCrypto: {
-    prototype: SubtleCrypto;
-    new(): SubtleCrypto;
 };
 
 interface SyncManager {
@@ -11837,6 +11837,15 @@ declare var UIEvent: {
     new(typeArg: string, eventInitDict?: UIEventInit): UIEvent;
 };
 
+interface UnviewableContentIdentifiedEvent extends NavigationEventWithReferrer {
+    readonly mediaType: string;
+}
+
+declare var UnviewableContentIdentifiedEvent: {
+    prototype: UnviewableContentIdentifiedEvent;
+    new(): UnviewableContentIdentifiedEvent;
+};
+
 interface URL {
     hash: string;
     host: string;
@@ -11858,15 +11867,6 @@ declare var URL: {
     new(url: string, base?: string): URL;
     createObjectURL(object: any, options?: ObjectURLOptions): string;
     revokeObjectURL(url: string): void;
-};
-
-interface UnviewableContentIdentifiedEvent extends NavigationEventWithReferrer {
-    readonly mediaType: string;
-}
-
-declare var UnviewableContentIdentifiedEvent: {
-    prototype: UnviewableContentIdentifiedEvent;
-    new(): UnviewableContentIdentifiedEvent;
 };
 
 interface ValidityState {
@@ -11938,44 +11938,6 @@ declare var VideoTrackList: {
     new(): VideoTrackList;
 };
 
-interface WEBGL_compressed_texture_s3tc {
-    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: number;
-    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: number;
-}
-
-declare var WEBGL_compressed_texture_s3tc: {
-    prototype: WEBGL_compressed_texture_s3tc;
-    new(): WEBGL_compressed_texture_s3tc;
-    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: number;
-    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: number;
-};
-
-interface WEBGL_debug_renderer_info {
-    readonly UNMASKED_RENDERER_WEBGL: number;
-    readonly UNMASKED_VENDOR_WEBGL: number;
-}
-
-declare var WEBGL_debug_renderer_info: {
-    prototype: WEBGL_debug_renderer_info;
-    new(): WEBGL_debug_renderer_info;
-    readonly UNMASKED_RENDERER_WEBGL: number;
-    readonly UNMASKED_VENDOR_WEBGL: number;
-};
-
-interface WEBGL_depth_texture {
-    readonly UNSIGNED_INT_24_8_WEBGL: number;
-}
-
-declare var WEBGL_depth_texture: {
-    prototype: WEBGL_depth_texture;
-    new(): WEBGL_depth_texture;
-    readonly UNSIGNED_INT_24_8_WEBGL: number;
-};
-
 interface WaveShaperNode extends AudioNode {
     curve: Float32Array | null;
     oversample: OverSampleType;
@@ -12006,6 +11968,44 @@ interface WebAuthnAssertion {
 declare var WebAuthnAssertion: {
     prototype: WebAuthnAssertion;
     new(): WebAuthnAssertion;
+};
+
+interface WEBGL_compressed_texture_s3tc {
+    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: number;
+}
+
+declare var WEBGL_compressed_texture_s3tc: {
+    prototype: WEBGL_compressed_texture_s3tc;
+    new(): WEBGL_compressed_texture_s3tc;
+    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: number;
+};
+
+interface WEBGL_debug_renderer_info {
+    readonly UNMASKED_RENDERER_WEBGL: number;
+    readonly UNMASKED_VENDOR_WEBGL: number;
+}
+
+declare var WEBGL_debug_renderer_info: {
+    prototype: WEBGL_debug_renderer_info;
+    new(): WEBGL_debug_renderer_info;
+    readonly UNMASKED_RENDERER_WEBGL: number;
+    readonly UNMASKED_VENDOR_WEBGL: number;
+};
+
+interface WEBGL_depth_texture {
+    readonly UNSIGNED_INT_24_8_WEBGL: number;
+}
+
+declare var WEBGL_depth_texture: {
+    prototype: WEBGL_depth_texture;
+    new(): WEBGL_depth_texture;
+    readonly UNSIGNED_INT_24_8_WEBGL: number;
 };
 
 interface WebGLActiveInfo {
@@ -12327,13 +12327,13 @@ interface WebGLRenderingContext {
     readonly KEEP: number;
     readonly LEQUAL: number;
     readonly LESS: number;
+    readonly LINE_LOOP: number;
+    readonly LINE_STRIP: number;
+    readonly LINE_WIDTH: number;
     readonly LINEAR: number;
     readonly LINEAR_MIPMAP_LINEAR: number;
     readonly LINEAR_MIPMAP_NEAREST: number;
     readonly LINES: number;
-    readonly LINE_LOOP: number;
-    readonly LINE_STRIP: number;
-    readonly LINE_WIDTH: number;
     readonly LINK_STATUS: number;
     readonly LOW_FLOAT: number;
     readonly LOW_INT: number;
@@ -12358,9 +12358,9 @@ interface WebGLRenderingContext {
     readonly NEAREST_MIPMAP_NEAREST: number;
     readonly NEVER: number;
     readonly NICEST: number;
+    readonly NO_ERROR: number;
     readonly NONE: number;
     readonly NOTEQUAL: number;
-    readonly NO_ERROR: number;
     readonly ONE: number;
     readonly ONE_MINUS_CONSTANT_ALPHA: number;
     readonly ONE_MINUS_CONSTANT_COLOR: number;
@@ -12390,18 +12390,18 @@ interface WebGLRenderingContext {
     readonly REPEAT: number;
     readonly REPLACE: number;
     readonly RGB: number;
-    readonly RGB565: number;
     readonly RGB5_A1: number;
+    readonly RGB565: number;
     readonly RGBA: number;
     readonly RGBA4: number;
-    readonly SAMPLER_2D: number;
-    readonly SAMPLER_CUBE: number;
-    readonly SAMPLES: number;
     readonly SAMPLE_ALPHA_TO_COVERAGE: number;
     readonly SAMPLE_BUFFERS: number;
     readonly SAMPLE_COVERAGE: number;
     readonly SAMPLE_COVERAGE_INVERT: number;
     readonly SAMPLE_COVERAGE_VALUE: number;
+    readonly SAMPLER_2D: number;
+    readonly SAMPLER_CUBE: number;
+    readonly SAMPLES: number;
     readonly SCISSOR_BOX: number;
     readonly SCISSOR_TEST: number;
     readonly SHADER_TYPE: number;
@@ -12435,6 +12435,20 @@ interface WebGLRenderingContext {
     readonly STREAM_DRAW: number;
     readonly SUBPIXEL_BITS: number;
     readonly TEXTURE: number;
+    readonly TEXTURE_2D: number;
+    readonly TEXTURE_BINDING_2D: number;
+    readonly TEXTURE_BINDING_CUBE_MAP: number;
+    readonly TEXTURE_CUBE_MAP: number;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_X: number;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_Y: number;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_Z: number;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_X: number;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_Y: number;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_Z: number;
+    readonly TEXTURE_MAG_FILTER: number;
+    readonly TEXTURE_MIN_FILTER: number;
+    readonly TEXTURE_WRAP_S: number;
+    readonly TEXTURE_WRAP_T: number;
     readonly TEXTURE0: number;
     readonly TEXTURE1: number;
     readonly TEXTURE10: number;
@@ -12467,23 +12481,9 @@ interface WebGLRenderingContext {
     readonly TEXTURE7: number;
     readonly TEXTURE8: number;
     readonly TEXTURE9: number;
-    readonly TEXTURE_2D: number;
-    readonly TEXTURE_BINDING_2D: number;
-    readonly TEXTURE_BINDING_CUBE_MAP: number;
-    readonly TEXTURE_CUBE_MAP: number;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_X: number;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_Y: number;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_Z: number;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_X: number;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_Y: number;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_Z: number;
-    readonly TEXTURE_MAG_FILTER: number;
-    readonly TEXTURE_MIN_FILTER: number;
-    readonly TEXTURE_WRAP_S: number;
-    readonly TEXTURE_WRAP_T: number;
-    readonly TRIANGLES: number;
     readonly TRIANGLE_FAN: number;
     readonly TRIANGLE_STRIP: number;
+    readonly TRIANGLES: number;
     readonly UNPACK_ALIGNMENT: number;
     readonly UNPACK_COLORSPACE_CONVERSION_WEBGL: number;
     readonly UNPACK_FLIP_Y_WEBGL: number;
@@ -12629,13 +12629,13 @@ declare var WebGLRenderingContext: {
     readonly KEEP: number;
     readonly LEQUAL: number;
     readonly LESS: number;
+    readonly LINE_LOOP: number;
+    readonly LINE_STRIP: number;
+    readonly LINE_WIDTH: number;
     readonly LINEAR: number;
     readonly LINEAR_MIPMAP_LINEAR: number;
     readonly LINEAR_MIPMAP_NEAREST: number;
     readonly LINES: number;
-    readonly LINE_LOOP: number;
-    readonly LINE_STRIP: number;
-    readonly LINE_WIDTH: number;
     readonly LINK_STATUS: number;
     readonly LOW_FLOAT: number;
     readonly LOW_INT: number;
@@ -12660,9 +12660,9 @@ declare var WebGLRenderingContext: {
     readonly NEAREST_MIPMAP_NEAREST: number;
     readonly NEVER: number;
     readonly NICEST: number;
+    readonly NO_ERROR: number;
     readonly NONE: number;
     readonly NOTEQUAL: number;
-    readonly NO_ERROR: number;
     readonly ONE: number;
     readonly ONE_MINUS_CONSTANT_ALPHA: number;
     readonly ONE_MINUS_CONSTANT_COLOR: number;
@@ -12692,18 +12692,18 @@ declare var WebGLRenderingContext: {
     readonly REPEAT: number;
     readonly REPLACE: number;
     readonly RGB: number;
-    readonly RGB565: number;
     readonly RGB5_A1: number;
+    readonly RGB565: number;
     readonly RGBA: number;
     readonly RGBA4: number;
-    readonly SAMPLER_2D: number;
-    readonly SAMPLER_CUBE: number;
-    readonly SAMPLES: number;
     readonly SAMPLE_ALPHA_TO_COVERAGE: number;
     readonly SAMPLE_BUFFERS: number;
     readonly SAMPLE_COVERAGE: number;
     readonly SAMPLE_COVERAGE_INVERT: number;
     readonly SAMPLE_COVERAGE_VALUE: number;
+    readonly SAMPLER_2D: number;
+    readonly SAMPLER_CUBE: number;
+    readonly SAMPLES: number;
     readonly SCISSOR_BOX: number;
     readonly SCISSOR_TEST: number;
     readonly SHADER_TYPE: number;
@@ -12737,6 +12737,20 @@ declare var WebGLRenderingContext: {
     readonly STREAM_DRAW: number;
     readonly SUBPIXEL_BITS: number;
     readonly TEXTURE: number;
+    readonly TEXTURE_2D: number;
+    readonly TEXTURE_BINDING_2D: number;
+    readonly TEXTURE_BINDING_CUBE_MAP: number;
+    readonly TEXTURE_CUBE_MAP: number;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_X: number;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_Y: number;
+    readonly TEXTURE_CUBE_MAP_NEGATIVE_Z: number;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_X: number;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_Y: number;
+    readonly TEXTURE_CUBE_MAP_POSITIVE_Z: number;
+    readonly TEXTURE_MAG_FILTER: number;
+    readonly TEXTURE_MIN_FILTER: number;
+    readonly TEXTURE_WRAP_S: number;
+    readonly TEXTURE_WRAP_T: number;
     readonly TEXTURE0: number;
     readonly TEXTURE1: number;
     readonly TEXTURE10: number;
@@ -12769,23 +12783,9 @@ declare var WebGLRenderingContext: {
     readonly TEXTURE7: number;
     readonly TEXTURE8: number;
     readonly TEXTURE9: number;
-    readonly TEXTURE_2D: number;
-    readonly TEXTURE_BINDING_2D: number;
-    readonly TEXTURE_BINDING_CUBE_MAP: number;
-    readonly TEXTURE_CUBE_MAP: number;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_X: number;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_Y: number;
-    readonly TEXTURE_CUBE_MAP_NEGATIVE_Z: number;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_X: number;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_Y: number;
-    readonly TEXTURE_CUBE_MAP_POSITIVE_Z: number;
-    readonly TEXTURE_MAG_FILTER: number;
-    readonly TEXTURE_MIN_FILTER: number;
-    readonly TEXTURE_WRAP_S: number;
-    readonly TEXTURE_WRAP_T: number;
-    readonly TRIANGLES: number;
     readonly TRIANGLE_FAN: number;
     readonly TRIANGLE_STRIP: number;
+    readonly TRIANGLES: number;
     readonly UNPACK_ALIGNMENT: number;
     readonly UNPACK_COLORSPACE_CONVERSION_WEBGL: number;
     readonly UNPACK_FLIP_Y_WEBGL: number;
@@ -12946,6 +12946,16 @@ declare var WebKitPoint: {
     new(x?: number, y?: number): WebKitPoint;
 };
 
+interface webkitRTCPeerConnection extends RTCPeerConnection {
+    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: webkitRTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var webkitRTCPeerConnection: {
+    prototype: webkitRTCPeerConnection;
+    new(configuration: RTCConfiguration): webkitRTCPeerConnection;
+};
+
 interface WebSocketEventMap {
     "close": CloseEvent;
     "error": Event;
@@ -13103,8 +13113,8 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly crypto: Crypto;
     defaultStatus: string;
     readonly devicePixelRatio: number;
-    readonly doNotTrack: string;
     readonly document: Document;
+    readonly doNotTrack: string;
     event: Event | undefined;
     readonly external: External;
     readonly frameElement: Element;
@@ -13227,9 +13237,9 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly screenTop: number;
     readonly screenX: number;
     readonly screenY: number;
+    readonly scrollbars: BarProp;
     readonly scrollX: number;
     readonly scrollY: number;
-    readonly scrollbars: BarProp;
     readonly self: Window;
     readonly speechSynthesis: SpeechSynthesis;
     status: string;
@@ -13462,16 +13472,6 @@ declare var XSLTProcessor: {
     new(): XSLTProcessor;
 };
 
-interface webkitRTCPeerConnection extends RTCPeerConnection {
-    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: webkitRTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-declare var webkitRTCPeerConnection: {
-    prototype: webkitRTCPeerConnection;
-    new(configuration: RTCConfiguration): webkitRTCPeerConnection;
-};
-
 interface AbstractWorkerEventMap {
     "error": ErrorEvent;
 }
@@ -13505,14 +13505,6 @@ interface CanvasPathMethods {
 
 interface ChildNode {
     remove(): void;
-}
-
-interface DOML2DeprecatedColorProperty {
-    color: string;
-}
-
-interface DOML2DeprecatedSizeProperty {
-    size: number;
 }
 
 interface DocumentEvent {
@@ -13588,6 +13580,14 @@ interface DocumentEvent {
     createEvent(eventInterface: "WebGLContextEvent"): WebGLContextEvent;
     createEvent(eventInterface: "WheelEvent"): WheelEvent;
     createEvent(eventInterface: string): Event;
+}
+
+interface DOML2DeprecatedColorProperty {
+    color: string;
+}
+
+interface DOML2DeprecatedSizeProperty {
+    size: number;
 }
 
 interface ElementTraversal {
@@ -14197,8 +14197,50 @@ interface TouchEventInit extends EventModifierInit {
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
+interface DecodeErrorCallback {
+    (error: DOMException): void;
+}
+interface DecodeSuccessCallback {
+    (decodedData: AudioBuffer): void;
+}
 interface ErrorEventHandler {
     (message: string, filename?: string, lineno?: number, colno?: number, error?: Error): void;
+}
+interface ForEachCallback {
+    (keyId: any, status: MediaKeyStatus): void;
+}
+interface FrameRequestCallback {
+    (time: number): void;
+}
+interface FunctionStringCallback {
+    (data: string): void;
+}
+interface IntersectionObserverCallback {
+    (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
+}
+interface MediaQueryListListener {
+    (mql: MediaQueryList): void;
+}
+interface MSExecAtPriorityFunctionCallback {
+    (...args: any[]): any;
+}
+interface MSLaunchUriCallback {
+    (): void;
+}
+interface MSUnsafeFunctionCallback {
+    (): any;
+}
+interface MutationCallback {
+    (mutations: MutationRecord[], observer: MutationObserver): void;
+}
+interface NavigatorUserMediaErrorCallback {
+    (error: MediaStreamError): void;
+}
+interface NavigatorUserMediaSuccessCallback {
+    (stream: MediaStream): void;
+}
+interface NotificationPermissionCallback {
+    (permission: NotificationPermission): void;
 }
 interface PositionCallback {
     (position: Position): void;
@@ -14206,59 +14248,17 @@ interface PositionCallback {
 interface PositionErrorCallback {
     (error: PositionError): void;
 }
-interface MediaQueryListListener {
-    (mql: MediaQueryList): void;
-}
-interface MSLaunchUriCallback {
-    (): void;
-}
-interface FrameRequestCallback {
-    (time: number): void;
-}
-interface MSUnsafeFunctionCallback {
-    (): any;
-}
-interface MSExecAtPriorityFunctionCallback {
-    (...args: any[]): any;
-}
-interface MutationCallback {
-    (mutations: MutationRecord[], observer: MutationObserver): void;
-}
-interface DecodeSuccessCallback {
-    (decodedData: AudioBuffer): void;
-}
-interface DecodeErrorCallback {
-    (error: DOMException): void;
-}
-interface VoidFunction {
-    (): void;
+interface RTCPeerConnectionErrorCallback {
+    (error: DOMError): void;
 }
 interface RTCSessionDescriptionCallback {
     (sdp: RTCSessionDescription): void;
 }
-interface RTCPeerConnectionErrorCallback {
-    (error: DOMError): void;
-}
 interface RTCStatsCallback {
     (report: RTCStatsReport): void;
 }
-interface FunctionStringCallback {
-    (data: string): void;
-}
-interface NavigatorUserMediaSuccessCallback {
-    (stream: MediaStream): void;
-}
-interface NavigatorUserMediaErrorCallback {
-    (error: MediaStreamError): void;
-}
-interface ForEachCallback {
-    (keyId: any, status: MediaKeyStatus): void;
-}
-interface NotificationPermissionCallback {
-    (permission: NotificationPermission): void;
-}
-interface IntersectionObserverCallback {
-    (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
+interface VoidFunction {
+    (): void;
 }
 interface HTMLElementTagNameMap {
     "a": HTMLAnchorElement;
@@ -14459,8 +14459,8 @@ declare var closed: boolean;
 declare var crypto: Crypto;
 declare var defaultStatus: string;
 declare var devicePixelRatio: number;
-declare var doNotTrack: string;
 declare var document: Document;
+declare var doNotTrack: string;
 declare var event: Event | undefined;
 declare var external: External;
 declare var frameElement: Element;
@@ -14583,9 +14583,9 @@ declare var screenLeft: number;
 declare var screenTop: number;
 declare var screenX: number;
 declare var screenY: number;
+declare var scrollbars: BarProp;
 declare var scrollX: number;
 declare var scrollY: number;
-declare var scrollbars: BarProp;
 declare var self: Window;
 declare var speechSynthesis: SpeechSynthesis;
 declare var status: string;
@@ -14718,6 +14718,12 @@ type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
 type ListeningState = "inactive" | "active" | "disambiguation";
+type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
+type MediaKeyMessageType = "license-request" | "license-renewal" | "license-release" | "individualization-request";
+type MediaKeySessionType = "temporary" | "persistent-license" | "persistent-release-message";
+type MediaKeysRequirement = "required" | "optional" | "not-allowed";
+type MediaKeyStatus = "usable" | "expired" | "output-downscaled" | "output-not-allowed" | "status-pending" | "internal-error";
+type MediaStreamTrackState = "live" | "ended";
 type MSCredentialType = "FIDO_2_0";
 type MSIceAddrType = "os" | "stun" | "turn" | "peer-derived";
 type MSIceType = "failed" | "direct" | "relay";
@@ -14725,12 +14731,6 @@ type MSStatsType = "description" | "localclientevent" | "inbound-network" | "out
 type MSTransportType = "Embedded" | "USB" | "NFC" | "BT";
 type MSWebViewPermissionState = "unknown" | "defer" | "allow" | "deny";
 type MSWebViewPermissionType = "geolocation" | "unlimitedIndexedDBQuota" | "media" | "pointerlock" | "webnotifications";
-type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
-type MediaKeyMessageType = "license-request" | "license-renewal" | "license-release" | "individualization-request";
-type MediaKeySessionType = "temporary" | "persistent-license" | "persistent-release-message";
-type MediaKeyStatus = "usable" | "expired" | "output-downscaled" | "output-not-allowed" | "status-pending" | "internal-error";
-type MediaKeysRequirement = "required" | "optional" | "not-allowed";
-type MediaStreamTrackState = "live" | "ended";
 type NavigationReason = "up" | "down" | "left" | "right";
 type NavigationType = "navigate" | "reload" | "back_forward" | "prerender";
 type NotificationDirection = "auto" | "ltr" | "rtl";
@@ -14742,6 +14742,14 @@ type PaymentComplete = "success" | "fail" | "";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "granted" | "denied" | "prompt";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
+type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+type RequestCredentials = "omit" | "same-origin" | "include";
+type RequestDestination = "" | "document" | "sharedworker" | "subresource" | "unknown" | "worker";
+type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
+type RequestRedirect = "follow" | "error" | "manual";
+type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
 type RTCDegradationPreference = "maintain-framerate" | "maintain-resolution" | "balanced";
 type RTCDtlsRole = "auto" | "client" | "server";
@@ -14749,9 +14757,9 @@ type RTCDtlsTransportState = "new" | "connecting" | "connected" | "closed";
 type RTCIceCandidateType = "host" | "srflx" | "prflx" | "relay";
 type RTCIceComponent = "RTP" | "RTCP";
 type RTCIceConnectionState = "new" | "checking" | "connected" | "completed" | "failed" | "disconnected" | "closed";
-type RTCIceGatherPolicy = "all" | "nohost" | "relay";
 type RTCIceGathererState = "new" | "gathering" | "complete";
 type RTCIceGatheringState = "new" | "gathering" | "complete";
+type RTCIceGatherPolicy = "all" | "nohost" | "relay";
 type RTCIceProtocol = "udp" | "tcp";
 type RTCIceRole = "controlling" | "controlled";
 type RTCIceTcpCandidateType = "active" | "passive" | "so";
@@ -14762,14 +14770,6 @@ type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "
 type RTCStatsIceCandidatePairState = "frozen" | "waiting" | "inprogress" | "failed" | "succeeded" | "cancelled";
 type RTCStatsIceCandidateType = "host" | "serverreflexive" | "peerreflexive" | "relayed";
 type RTCStatsType = "inboundrtp" | "outboundrtp" | "session" | "datachannel" | "track" | "transport" | "candidatepair" | "localcandidate" | "remotecandidate";
-type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
-type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache";
-type RequestCredentials = "omit" | "same-origin" | "include";
-type RequestDestination = "" | "document" | "sharedworker" | "subresource" | "unknown" | "worker";
-type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
-type RequestRedirect = "follow" | "error" | "manual";
-type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
-type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type Transport = "usb" | "nfc" | "ble";

@@ -7,6 +7,10 @@ interface AudioTrackList {
     [Symbol.iterator](): IterableIterator<AudioTrack>
 }
 
+interface ClientRectList {
+    [Symbol.iterator](): IterableIterator<ClientRect>
+}
+
 interface CSSRuleList {
     [Symbol.iterator](): IterableIterator<CSSRule>
 }
@@ -15,8 +19,8 @@ interface CSSStyleDeclaration {
     [Symbol.iterator](): IterableIterator<string>
 }
 
-interface ClientRectList {
-    [Symbol.iterator](): IterableIterator<ClientRect>
+interface DataTransferItemList {
+    [Symbol.iterator](): IterableIterator<File>
 }
 
 interface DOMStringList {
@@ -25,10 +29,6 @@ interface DOMStringList {
 
 interface DOMTokenList {
     [Symbol.iterator](): IterableIterator<string>
-}
-
-interface DataTransferItemList {
-    [Symbol.iterator](): IterableIterator<File>
 }
 
 interface FileList {
@@ -43,16 +43,16 @@ interface HTMLCollection {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
-interface MSRangeCollection {
-    [Symbol.iterator](): IterableIterator<Range>
-}
-
 interface MediaList {
     [Symbol.iterator](): IterableIterator<string>
 }
 
 interface MimeTypeArray {
     [Symbol.iterator](): IterableIterator<Plugin>
+}
+
+interface MSRangeCollection {
+    [Symbol.iterator](): IterableIterator<Range>
 }
 
 interface NamedNodeMap {

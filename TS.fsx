@@ -807,8 +807,7 @@ module Emit =
     let EmitQuerySelectorOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
             Pt.Printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
-            Pt.Printl "querySelector<E extends Element>(selectors: string): E | null;"
-            Pt.Printl "querySelector(selectors: string): Element | null;"
+            Pt.Printl "querySelector<E extends Element = Element>(selectors: string): E | null;"
 
     /// Emit overloads for the querySelectorAll method
     let EmitQuerySelectorAllOverloads (m: Browser.Method) =

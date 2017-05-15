@@ -1622,5 +1622,13 @@
         "name": "InsertPosition",
         "flavor": "Web",
         "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
+    },
+    {
+        "kind": "property",
+        "interface": "ValidityState",
+        "name": "tooShort",
+        "flavor": "Web",
+        "readonly": true,
+        "type": "boolean"
     }
 ]

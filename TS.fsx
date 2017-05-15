@@ -744,7 +744,7 @@ module Emit =
                 else
                     // Check if is array type, which looks like "sequence<DOMString>"
                     let unescaped = System.Web.HttpUtility.HtmlDecode(objDomType)
-                    let genericMatch = Regex.Match(unescaped, @"^(\w+)<(\w+)>$")
+                    let genericMatch = Regex.Match(unescaped, @"^(\w+)<([\w, <>]+)>$")
                     if genericMatch.Success then
                         let tName = DomTypeToTsType (genericMatch.Groups.[1].Value)
                         let paramName = DomTypeToTsType (genericMatch.Groups.[2].Value)

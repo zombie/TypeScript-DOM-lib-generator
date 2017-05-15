@@ -721,7 +721,7 @@ module Emit =
         | "Promise" -> "Promise"
         | "ReadyState" -> "string"
         | "sequence" -> "Array"
-        | "UnrestrictedDouble" -> "number"
+        | "UnrestrictedDouble" | "unrestricted double" -> "number"
         | "void" -> "void"
         | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType

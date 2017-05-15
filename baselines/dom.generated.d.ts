@@ -117,10 +117,10 @@ interface DeviceRotationRateDict {
 }
 
 interface DOMRectInit {
-    height?: any;
-    width?: any;
-    x?: any;
-    y?: any;
+    height?: number;
+    width?: number;
+    x?: number;
+    y?: number;
 }
 
 interface DoubleRange {

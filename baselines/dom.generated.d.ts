@@ -13042,6 +13042,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "durationchange": Event;
     "emptied": Event;
     "ended": MediaStreamErrorEvent;
+    "error": ErrorEvent;
     "focus": FocusEvent;
     "hashchange": HashChangeEvent;
     "input": Event;
@@ -13100,6 +13101,10 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
     "unload": Event;
     "volumechange": Event;
     "waiting": Event;

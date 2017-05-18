@@ -524,7 +524,7 @@ module Data =
                 | Some ps ->
                     ps.Properties
                     |> Array.choose (fun p' ->
-                        if p'.Type = "EventHandler" && p'.EventHandler.IsSome then
+                        if p'.EventHandler.IsSome then
                             Some({ Name = p'.Name; EventName = p'.EventHandler.Value; EventType = getEventTypeFromHandler p' i })
                         else None)
                     |> List.ofArray

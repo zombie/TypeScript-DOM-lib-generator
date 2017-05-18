@@ -660,18 +660,6 @@ module Data =
                 ReturnTypes = rTypes
                 Nullable = isNullable } ]
 
-    /// Define the subset of events that dedicated workers will use
-    let workerEventsMap =
-        [
-            ("close", "CloseEvent");
-            ("error", "ErrorEvent");
-            ("upgradeneeded", "IDBVersionChangeEvent");
-            ("message", "MessageEvent");
-            ("loadend", "ProgressEvent");
-            ("progress", "ProgressEvent");
-        ]
-        |> Map.ofList
-
     let typeDefSet =
         browser.Typedefs |> Array.map (fun td -> td.NewType) |> Set.ofArray
 

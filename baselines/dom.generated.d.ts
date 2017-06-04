@@ -8224,6 +8224,7 @@ interface Navigator extends Object, NavigatorID, NavigatorOnLine, NavigatorConte
     readonly serviceWorker: ServiceWorkerContainer;
     readonly webdriver: boolean;
     readonly hardwareConcurrency: number;
+    readonly languages: string[];
     getGamepads(): Gamepad[];
     javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;

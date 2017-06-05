@@ -552,6 +552,13 @@
     },
     {
         "kind": "property",
+        "interface": "Navigator",
+        "name": "languages",
+        "readonly": true,
+        "type": "string[]"
+    },
+    {
+        "kind": "property",
         "interface": "WorkerNavigator",
         "name": "hardwareConcurrency",
         "readonly": true,

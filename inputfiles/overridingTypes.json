@@ -1117,5 +1117,12 @@
         "signatures": [
             "play(): Promise<void>"
         ]
+    },
+    {
+        "kind": "constructor",
+        "interface": "DragEvent",
+        "signatures": [
+            "new(type: \"drag\" | \"dragend\" | \"dragenter\" | \"dragexit\" | \"dragleave\" | \"dragover\" | \"dragstart\" | \"drop\", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent"
+        ]
     }
  ]

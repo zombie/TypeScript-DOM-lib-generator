@@ -3483,7 +3483,7 @@ interface DragEvent extends MouseEvent {
 
 declare var DragEvent: {
     prototype: DragEvent;
-    new(): DragEvent;
+    new(type: "drag" | "dragend" | "dragenter" | "dragexit" | "dragleave" | "dragover" | "dragstart" | "drop", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent;
 };
 
 interface DynamicsCompressorNode extends AudioNode {

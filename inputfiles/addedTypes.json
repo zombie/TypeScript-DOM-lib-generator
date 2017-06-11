@@ -300,11 +300,8 @@
     {
         "kind": "interface",
         "name": "FilePropertyBag",
+        "extends": "BlobPropertyBag",
         "properties": [
-            {
-                "name": "type?",
-                "type": "string"
-            },
             {
                 "name": "lastModified?",
                 "type": "number"

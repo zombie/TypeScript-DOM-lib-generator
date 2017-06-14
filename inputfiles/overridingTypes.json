@@ -386,6 +386,13 @@
         ]
     },
     {
+        "kind": "constructor",
+        "interface": "DOMException",
+        "signatures": [
+            "new(message?: string, name?: string): DOMException"
+        ]
+    },
+    {
         "kind": "property",
         "interface": "HTMLSelectElement",
         "name": "selectedOptions",

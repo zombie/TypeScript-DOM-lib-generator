@@ -4044,7 +4044,7 @@ interface HTMLAppletElement extends HTMLElement {
      * Sets or retrieves a character string that can be used to implement your own declare functionality for the object.
      */
     declare: boolean;
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the height of the object.
      */
@@ -4282,7 +4282,7 @@ interface HTMLButtonElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Overrides the action attribute (where the data on a form is sent) on the parent form element.
      */
@@ -4715,7 +4715,7 @@ interface HTMLFieldSetElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     name: string;
     /**
      * Returns the error message that would be displayed if the user submits the form, or an empty string if no error message. It also triggers the standard error message, such as "this is a required field". The result is that the user sees validation messages without actually submitting.
@@ -5294,7 +5294,7 @@ interface HTMLInputElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Overrides the action attribute (where the data on a form is sent) on the parent form element.
      */
@@ -5461,7 +5461,7 @@ interface HTMLLabelElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the object to which the given label object is assigned.
      */
@@ -5483,7 +5483,7 @@ interface HTMLLegendElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLLegendElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
@@ -5917,7 +5917,7 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the height of the object.
      */
@@ -6016,7 +6016,7 @@ interface HTMLOptGroupElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the ordinal position of an option in a list box.
      */
@@ -6055,7 +6055,7 @@ interface HTMLOptionElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the ordinal position of an option in a list box.
      */
@@ -6099,7 +6099,7 @@ declare var HTMLOptionsCollection: {
 
 interface HTMLOutputElement extends HTMLElement {
     defaultValue: string;
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     readonly htmlFor: DOMSettableTokenList;
     name: string;
     readonly type: string;
@@ -6188,7 +6188,7 @@ interface HTMLProgressElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Defines the maximum, or "done" value for a progress element.
      */
@@ -6274,7 +6274,7 @@ interface HTMLSelectElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the number of objects in a collection.
      */
@@ -6745,7 +6745,7 @@ interface HTMLTextAreaElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    readonly form: HTMLFormElement;
+    readonly form: HTMLFormElement | null;
     /**
      * Sets or retrieves the maximum number of characters that the user can enter in a text control.
      */

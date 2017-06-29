@@ -1629,5 +1629,18 @@
         "name": "InsertPosition",
         "flavor": "Web",
         "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntryInit",
+        "name": "isIntersecting",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntry",
+        "name": "isIntersecting",
+        "type": "boolean",
+        "readonly": true
     }
 ]

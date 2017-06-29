@@ -4,11 +4,11 @@
 /////////////////////////////
 
 interface Account {
-    displayName?: string;
-    id?: string;
+    displayName: string;
+    id: string;
     imageURL?: string;
     name?: string;
-    rpDisplayName?: string;
+    rpDisplayName: string;
 }
 
 interface Algorithm {
@@ -35,11 +35,11 @@ interface CacheQueryOptions {
 }
 
 interface ClientData {
-    challenge?: string;
+    challenge: string;
     extensions?: WebAuthnExtensions;
-    hashAlg?: string | Algorithm;
-    origin?: string;
-    rpId?: string;
+    hashAlg: string | Algorithm;
+    origin: string;
+    rpId: string;
     tokenBinding?: string;
 }
 
@@ -87,9 +87,9 @@ interface CustomEventInit extends EventInit {
 }
 
 interface DeviceAccelerationDict {
-    x?: number;
-    y?: number;
-    z?: number;
+    x?: number | null;
+    y?: number | null;
+    z?: number | null;
 }
 
 interface DeviceLightEventInit extends EventInit {
@@ -97,23 +97,23 @@ interface DeviceLightEventInit extends EventInit {
 }
 
 interface DeviceMotionEventInit extends EventInit {
-    acceleration?: DeviceAccelerationDict;
-    accelerationIncludingGravity?: DeviceAccelerationDict;
-    interval?: number;
-    rotationRate?: DeviceRotationRateDict;
+    acceleration?: DeviceAccelerationDict | null;
+    accelerationIncludingGravity?: DeviceAccelerationDict | null;
+    interval?: number | null;
+    rotationRate?: DeviceRotationRateDict | null;
 }
 
 interface DeviceOrientationEventInit extends EventInit {
     absolute?: boolean;
-    alpha?: number;
-    beta?: number;
-    gamma?: number;
+    alpha?: number | null;
+    beta?: number | null;
+    gamma?: number | null;
 }
 
 interface DeviceRotationRateDict {
-    alpha?: number;
-    beta?: number;
-    gamma?: number;
+    alpha?: number | null;
+    beta?: number | null;
+    gamma?: number | null;
 }
 
 interface DOMRectInit {
@@ -161,15 +161,15 @@ interface EventModifierInit extends UIEventInit {
 }
 
 interface ExceptionInformation {
-    domain?: string;
+    domain?: string | null;
 }
 
 interface FocusEventInit extends UIEventInit {
-    relatedTarget?: EventTarget;
+    relatedTarget?: EventTarget | null;
 }
 
 interface FocusNavigationEventInit extends EventInit {
-    navigationReason?: string;
+    navigationReason?: string | null;
     originHeight?: number;
     originLeft?: number;
     originTop?: number;
@@ -184,7 +184,7 @@ interface FocusNavigationOrigin {
 }
 
 interface GamepadEventInit extends EventInit {
-    gamepad?: Gamepad;
+    gamepad?: Gamepad | null;
 }
 
 interface GetNotificationOptions {
@@ -192,8 +192,8 @@ interface GetNotificationOptions {
 }
 
 interface HashChangeEventInit extends EventInit {
-    newURL?: string;
-    oldURL?: string;
+    newURL?: string | null;
+    oldURL?: string | null;
 }
 
 interface IDBIndexParameters {
@@ -203,19 +203,19 @@ interface IDBIndexParameters {
 
 interface IDBObjectStoreParameters {
     autoIncrement?: boolean;
-    keyPath?: IDBKeyPath;
+    keyPath?: IDBKeyPath | null;
 }
 
 interface IntersectionObserverEntryInit {
-    boundingClientRect?: DOMRectInit;
-    intersectionRect?: DOMRectInit;
-    rootBounds?: DOMRectInit;
-    target?: Element;
-    time?: number;
+    boundingClientRect: DOMRectInit;
+    intersectionRect: DOMRectInit;
+    rootBounds: DOMRectInit;
+    target: Element;
+    time: number;
 }
 
 interface IntersectionObserverInit {
-    root?: Element;
+    root?: Element | null;
     rootMargin?: string;
     threshold?: number | number[];
 }
@@ -237,12 +237,12 @@ interface LongRange {
 }
 
 interface MediaEncryptedEventInit extends EventInit {
-    initData?: ArrayBuffer;
+    initData?: ArrayBuffer | null;
     initDataType?: string;
 }
 
 interface MediaKeyMessageEventInit extends EventInit {
-    message?: ArrayBuffer;
+    message?: ArrayBuffer | null;
     messageType?: MediaKeyMessageType;
 }
 
@@ -265,7 +265,7 @@ interface MediaStreamConstraints {
 }
 
 interface MediaStreamErrorEventInit extends EventInit {
-    error?: MediaStreamError;
+    error?: MediaStreamError | null;
 }
 
 interface MediaStreamEventInit extends EventInit {
@@ -273,7 +273,7 @@ interface MediaStreamEventInit extends EventInit {
 }
 
 interface MediaStreamTrackEventInit extends EventInit {
-    track?: MediaStreamTrack;
+    track?: MediaStreamTrack | null;
 }
 
 interface MediaTrackCapabilities {
@@ -350,7 +350,7 @@ interface MouseEventInit extends EventModifierInit {
     buttons?: number;
     clientX?: number;
     clientY?: number;
-    relatedTarget?: EventTarget;
+    relatedTarget?: EventTarget | null;
     screenX?: number;
     screenY?: number;
 }
@@ -358,8 +358,8 @@ interface MouseEventInit extends EventModifierInit {
 interface MSAccountInfo {
     accountImageUri?: string;
     accountName?: string;
-    rpDisplayName?: string;
-    userDisplayName?: string;
+    rpDisplayName: string;
+    userDisplayName: string;
     userId?: string;
 }
 
@@ -442,7 +442,7 @@ interface MSCredentialParameters {
 
 interface MSCredentialSpec {
     id?: string;
-    type?: MSCredentialType;
+    type: MSCredentialType;
 }
 
 interface MSDelay {
@@ -652,8 +652,8 @@ interface MsZoomToOptions {
     contentX?: number;
     contentY?: number;
     scaleFactor?: number;
-    viewportX?: string;
-    viewportY?: string;
+    viewportX?: string | null;
+    viewportY?: string | null;
 }
 
 interface MutationObserverInit {
@@ -679,9 +679,9 @@ interface ObjectURLOptions {
 }
 
 interface PaymentCurrencyAmount {
-    currency?: string;
+    currency: string;
     currencySystem?: string;
-    value?: string;
+    value: string;
 }
 
 interface PaymentDetails {
@@ -695,19 +695,19 @@ interface PaymentDetails {
 interface PaymentDetailsModifier {
     additionalDisplayItems?: PaymentItem[];
     data?: any;
-    supportedMethods?: string[];
+    supportedMethods: string[];
     total?: PaymentItem;
 }
 
 interface PaymentItem {
-    amount?: PaymentCurrencyAmount;
-    label?: string;
+    amount: PaymentCurrencyAmount;
+    label: string;
     pending?: boolean;
 }
 
 interface PaymentMethodData {
     data?: any;
-    supportedMethods?: string[];
+    supportedMethods: string[];
 }
 
 interface PaymentOptions {
@@ -722,9 +722,9 @@ interface PaymentRequestUpdateEventInit extends EventInit {
 }
 
 interface PaymentShippingOption {
-    amount?: PaymentCurrencyAmount;
-    id?: string;
-    label?: string;
+    amount: PaymentCurrencyAmount;
+    id: string;
+    label: string;
     selected?: boolean;
 }
 
@@ -869,15 +869,15 @@ interface RTCIceGatherOptions {
 }
 
 interface RTCIceParameters {
-    iceLite?: boolean;
+    iceLite?: boolean | null;
     password?: string;
     usernameFragment?: string;
 }
 
 interface RTCIceServer {
-    credential?: string;
+    credential?: string | null;
     urls?: any;
-    username?: string;
+    username?: string | null;
 }
 
 interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
@@ -1087,9 +1087,9 @@ interface RTCTransportStats extends RTCStats {
 }
 
 interface ScopedCredentialDescriptor {
-    id?: any;
+    id: any;
     transports?: Transport[];
-    type?: ScopedCredentialType;
+    type: ScopedCredentialType;
 }
 
 interface ScopedCredentialOptions {
@@ -1100,29 +1100,29 @@ interface ScopedCredentialOptions {
 }
 
 interface ScopedCredentialParameters {
-    algorithm?: string | Algorithm;
-    type?: ScopedCredentialType;
+    algorithm: string | Algorithm;
+    type: ScopedCredentialType;
 }
 
 interface ServiceWorkerMessageEventInit extends EventInit {
     data?: any;
     lastEventId?: string;
     origin?: string;
-    ports?: MessagePort[];
-    source?: ServiceWorker | MessagePort;
+    ports?: MessagePort[] | null;
+    source?: ServiceWorker | MessagePort | null;
 }
 
 interface SpeechSynthesisEventInit extends EventInit {
     charIndex?: number;
     elapsedTime?: number;
     name?: string;
-    utterance?: SpeechSynthesisUtterance;
+    utterance?: SpeechSynthesisUtterance | null;
 }
 
 interface StoreExceptionsInformation extends ExceptionInformation {
-    detailURI?: string;
-    explanationString?: string;
-    siteName?: string;
+    detailURI?: string | null;
+    explanationString?: string | null;
+    siteName?: string | null;
 }
 
 interface StoreSiteSpecificExceptionsInformation extends StoreExceptionsInformation {
@@ -1130,7 +1130,7 @@ interface StoreSiteSpecificExceptionsInformation extends StoreExceptionsInformat
 }
 
 interface TrackEventInit extends EventInit {
-    track?: VideoTrack | AudioTrack | TextTrack;
+    track?: VideoTrack | AudioTrack | TextTrack | null;
 }
 
 interface TransitionEventInit extends EventInit {
@@ -1140,7 +1140,7 @@ interface TransitionEventInit extends EventInit {
 
 interface UIEventInit extends EventInit {
     detail?: number;
-    view?: Window;
+    view?: Window | null;
 }
 
 interface WebAuthnExtensions {

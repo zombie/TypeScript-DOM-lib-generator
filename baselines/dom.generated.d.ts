@@ -14201,6 +14201,14 @@ interface TouchEventInit extends EventModifierInit {
     changedTouches?: Touch[];
 }
 
+interface HTMLDialogElement extends HTMLElement {
+    open: boolean;
+    returnValue: string;
+    close(returnValue?: string): void;
+    show(): void;
+    showModal(): void;
+}
+
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface DecodeErrorCallback {

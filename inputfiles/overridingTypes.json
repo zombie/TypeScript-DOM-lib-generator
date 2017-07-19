@@ -114,6 +114,54 @@
         "signatures": ["pixelStorei(pname: number, param: number | boolean): void"]
     },
     {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onload",
+        "type": "(this: XMLHttpRequest, ev: Event) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onabort",
+        "type": "(this: XMLHttpRequest, ev: Event) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onerror",
+        "type": "(this: XMLHttpRequest, ev: ErrorEvent) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onloadend",
+        "type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onloadstart",
+        "type": "(this: XMLHttpRequest, ev: Event) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onprogress",
+        "type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "onprogress",
+        "type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
+    },
+    {
+        "kind": "property",
+        "interface": "XMLHttpRequestEventTarget",
+        "name": "ontimeout",
+        "type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
+    },
+    {
         "kind": "method",
         "interface": "XMLHttpRequest",
         "name": "send",

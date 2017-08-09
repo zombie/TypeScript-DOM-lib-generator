@@ -13748,7 +13748,7 @@ interface NodeSelector {
 }
 
 interface RandomSource {
-    getRandomValues<T extends ArrayBufferView>(array: T): T;
+    getRandomValues<T extends Int8Array | Uint8ClampedArray | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array>(array: T): T;
 }
 
 interface SVGAnimatedPoints {

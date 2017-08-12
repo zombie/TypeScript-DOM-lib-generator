@@ -9058,6 +9058,7 @@ interface Response extends Object, Body {
     readonly statusText: string;
     readonly type: ResponseType;
     readonly url: string;
+    readonly redirected: boolean;
     clone(): Response;
 }
 

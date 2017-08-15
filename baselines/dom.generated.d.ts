@@ -207,6 +207,7 @@ interface IDBObjectStoreParameters {
 }
 
 interface IntersectionObserverEntryInit {
+    isIntersecting: boolean;
     boundingClientRect?: DOMRectInit;
     intersectionRect?: DOMRectInit;
     rootBounds?: DOMRectInit;
@@ -7211,6 +7212,7 @@ interface IntersectionObserverEntry {
     readonly rootBounds: ClientRect;
     readonly target: Element;
     readonly time: number;
+    readonly isIntersecting: boolean;
 }
 
 declare var IntersectionObserverEntry: {

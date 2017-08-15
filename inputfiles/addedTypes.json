@@ -1632,6 +1632,19 @@
     },
     {
         "kind": "property",
+        "interface": "IntersectionObserverEntryInit",
+        "name": "isIntersecting",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntry",
+        "name": "isIntersecting",
+        "type": "boolean",
+        "readonly": true
+    },
+    {
+        "kind": "property",
         "interface": "ValidityState",
         "name": "tooShort",
         "flavor": "Web",

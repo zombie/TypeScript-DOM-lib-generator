@@ -13746,9 +13746,9 @@ interface NavigatorUserMedia {
 
 interface NodeSelector {
     querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
-    querySelector(selectors: string): Element | null;
+    querySelector<E extends Element = Element>(selectors: string): E | null;
     querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
-    querySelectorAll(selectors: string): NodeListOf<Element>;
+    querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
 }
 
 interface RandomSource {

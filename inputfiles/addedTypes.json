@@ -1631,6 +1631,14 @@
         "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
     },
     {
+        "kind": "property",
+        "interface": "ValidityState",
+        "name": "tooShort",
+        "flavor": "Web",
+        "readonly": true,
+        "type": "boolean"
+    },
+    {
         "kind": "interface",
         "name": "HTMLDialogElement",
         "extends": "HTMLElement",

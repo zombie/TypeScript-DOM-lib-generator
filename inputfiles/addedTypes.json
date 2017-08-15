@@ -300,11 +300,8 @@
     {
         "kind": "interface",
         "name": "FilePropertyBag",
+        "extends": "BlobPropertyBag",
         "properties": [
-            {
-                "name": "type?",
-                "type": "string"
-            },
             {
                 "name": "lastModified?",
                 "type": "number"
@@ -1629,5 +1626,63 @@
         "name": "InsertPosition",
         "flavor": "Web",
         "type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\""
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntryInit",
+        "name": "isIntersecting",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntry",
+        "name": "isIntersecting",
+        "type": "boolean",
+        "readonly": true
+    },
+    {
+        "kind": "property",
+        "interface": "ValidityState",
+        "name": "tooShort",
+        "flavor": "Web",
+        "readonly": true,
+        "type": "boolean"
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLDialogElement",
+        "extends": "HTMLElement",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "open",
+                "type": "boolean"
+            },
+            {
+                "name": "returnValue",
+                "type": "string"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(returnValue?: string): void"]
+            },
+            {
+                "name": "show",
+                "signatures": ["show(): void"]
+            },
+            {
+                "name": "showModal",
+                "signatures": ["showModal(): void"]
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "Response",
+        "name": "redirected",
+        "readonly": true,
+        "type": "boolean"
     }
 ]

@@ -9060,6 +9060,7 @@ interface Response extends Object, Body {
     readonly statusText: string;
     readonly type: ResponseType;
     readonly url: string;
+    readonly redirected: boolean;
     clone(): Response;
 }
 
@@ -13750,7 +13751,7 @@ interface NodeSelector {
 }
 
 interface RandomSource {
-    getRandomValues(array: ArrayBufferView): ArrayBufferView;
+    getRandomValues<T extends ArrayBufferView>(array: T): T;
 }
 
 interface SVGAnimatedPoints {
@@ -14201,6 +14202,14 @@ interface TouchEventInit extends EventModifierInit {
     touches?: Touch[];
     targetTouches?: Touch[];
     changedTouches?: Touch[];
+}
+
+interface HTMLDialogElement extends HTMLElement {
+    open: boolean;
+    returnValue: string;
+    close(returnValue?: string): void;
+    show(): void;
+    showModal(): void;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

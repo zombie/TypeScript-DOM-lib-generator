@@ -1278,5 +1278,96 @@
         "signatures": [
             "getRandomValues<T extends Int8Array | Uint8ClampedArray | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array>(array: T): T"
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLAppletElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLButtonElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLFieldSetElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLInputElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLabelElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLegendElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLObjectElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLOptGroupElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLOptionElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLOutputElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLProgressElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLSelectElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLTextAreaElement",
+        "readonly": true,
+        "name": "form",
+        "type": "HTMLFormElement | null"
     }
  ]

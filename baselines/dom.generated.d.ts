@@ -117,10 +117,10 @@ interface DeviceRotationRateDict {
 }
 
 interface DOMRectInit {
-    height?: any;
-    width?: any;
-    x?: any;
-    y?: any;
+    height?: number;
+    width?: number;
+    x?: number;
+    y?: number;
 }
 
 interface DoubleRange {
@@ -207,6 +207,7 @@ interface IDBObjectStoreParameters {
 }
 
 interface IntersectionObserverEntryInit {
+    isIntersecting: boolean;
     boundingClientRect?: DOMRectInit;
     intersectionRect?: DOMRectInit;
     rootBounds?: DOMRectInit;
@@ -772,7 +773,7 @@ interface RequestInit {
     body?: any;
     cache?: RequestCache;
     credentials?: RequestCredentials;
-    headers?: any;
+    headers?: Headers | string[][];
     integrity?: string;
     keepalive?: boolean;
     method?: string;
@@ -784,7 +785,7 @@ interface RequestInit {
 }
 
 interface ResponseInit {
-    headers?: any;
+    headers?: Headers | string[][];
     status?: number;
     statusText?: string;
 }
@@ -1520,9 +1521,9 @@ interface Cache {
     add(request: RequestInfo): Promise<void>;
     addAll(requests: RequestInfo[]): Promise<void>;
     delete(request: RequestInfo, options?: CacheQueryOptions): Promise<boolean>;
-    keys(request?: RequestInfo, options?: CacheQueryOptions): any;
+    keys(request?: RequestInfo, options?: CacheQueryOptions): Promise<Request[]>;
     match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response>;
-    matchAll(request?: RequestInfo, options?: CacheQueryOptions): any;
+    matchAll(request?: RequestInfo, options?: CacheQueryOptions): Promise<Response[]>;
     put(request: RequestInfo, response: Response): Promise<void>;
 }
 
@@ -1534,7 +1535,7 @@ declare var Cache: {
 interface CacheStorage {
     delete(cacheName: string): Promise<boolean>;
     has(cacheName: string): Promise<boolean>;
-    keys(): any;
+    keys(): Promise<string[]>;
     match(request: RequestInfo, options?: CacheQueryOptions): Promise<any>;
     open(cacheName: string): Promise<Cache>;
 }
@@ -3378,7 +3379,7 @@ interface DOMException {
 
 declare var DOMException: {
     prototype: DOMException;
-    new(): DOMException;
+    new(message?: string, name?: string): DOMException;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
     readonly DOMSTRING_SIZE_ERR: number;
@@ -3884,7 +3885,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new(init?: any): Headers;
+    new(init?: Headers | string[][]): Headers;
 };
 
 interface History {
@@ -7211,6 +7212,7 @@ interface IntersectionObserverEntry {
     readonly rootBounds: ClientRect;
     readonly target: Element;
     readonly time: number;
+    readonly isIntersecting: boolean;
 }
 
 declare var IntersectionObserverEntry: {
@@ -7312,7 +7314,7 @@ interface MediaDevicesEventMap {
 
 interface MediaDevices extends EventTarget {
     ondevicechange: (this: MediaDevices, ev: Event) => any;
-    enumerateDevices(): any;
+    enumerateDevices(): Promise<MediaDeviceInfo[]>;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
     getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
     addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, useCapture?: boolean): void;
@@ -9058,6 +9060,7 @@ interface Response extends Object, Body {
     readonly statusText: string;
     readonly type: ResponseType;
     readonly url: string;
+    readonly redirected: boolean;
     clone(): Response;
 }
 
@@ -9512,7 +9515,7 @@ interface ServiceWorkerContainer extends EventTarget {
     onmessage: (this: ServiceWorkerContainer, ev: ServiceWorkerMessageEvent) => any;
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: USVString): Promise<any>;
-    getRegistrations(): any;
+    getRegistrations(): Promise<ServiceWorkerRegistration[]>;
     register(scriptURL: USVString, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -9548,7 +9551,7 @@ interface ServiceWorkerRegistration extends EventTarget {
     readonly scope: USVString;
     readonly sync: SyncManager;
     readonly waiting: ServiceWorker | null;
-    getNotifications(filter?: GetNotificationOptions): any;
+    getNotifications(filter?: GetNotificationOptions): Promise<Notification[]>;
     showNotification(title: string, options?: NotificationOptions): Promise<void>;
     unregister(): Promise<boolean>;
     update(): Promise<void>;
@@ -11573,7 +11576,7 @@ declare var SVGZoomEvent: {
 };
 
 interface SyncManager {
-    getTags(): any;
+    getTags(): Promise<string[]>;
     register(tag: string): Promise<void>;
 }
 
@@ -11881,6 +11884,7 @@ interface ValidityState {
     readonly typeMismatch: boolean;
     readonly valid: boolean;
     readonly valueMissing: boolean;
+    readonly tooShort: boolean;
 }
 
 declare var ValidityState: {
@@ -13748,7 +13752,7 @@ interface NodeSelector {
 }
 
 interface RandomSource {
-    getRandomValues(array: ArrayBufferView): ArrayBufferView;
+    getRandomValues<T extends Int8Array | Uint8ClampedArray | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array>(array: T): T;
 }
 
 interface SVGAnimatedPoints {
@@ -14199,6 +14203,14 @@ interface TouchEventInit extends EventModifierInit {
     touches?: Touch[];
     targetTouches?: Touch[];
     changedTouches?: Touch[];
+}
+
+interface HTMLDialogElement extends HTMLElement {
+    open: boolean;
+    returnValue: string;
+    close(returnValue?: string): void;
+    show(): void;
+    showModal(): void;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
@@ -14690,7 +14702,7 @@ type GLsizeiptr = number;
 type GLubyte = number;
 type GLuint = number;
 type GLushort = number;
-type HeadersInit = any;
+type HeadersInit = Headers | string[][];
 type IDBKeyPath = string;
 type KeyFormat = string;
 type KeyType = string;

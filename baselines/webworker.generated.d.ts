@@ -74,7 +74,7 @@ interface RequestInit {
     body?: any;
     cache?: RequestCache;
     credentials?: RequestCredentials;
-    headers?: any;
+    headers?: Headers | string[][];
     integrity?: string;
     keepalive?: boolean;
     method?: string;
@@ -86,7 +86,7 @@ interface RequestInit {
 }
 
 interface ResponseInit {
-    headers?: any;
+    headers?: Headers | string[][];
     status?: number;
     statusText?: string;
 }
@@ -175,9 +175,9 @@ interface Cache {
     add(request: RequestInfo): Promise<void>;
     addAll(requests: RequestInfo[]): Promise<void>;
     delete(request: RequestInfo, options?: CacheQueryOptions): Promise<boolean>;
-    keys(request?: RequestInfo, options?: CacheQueryOptions): any;
+    keys(request?: RequestInfo, options?: CacheQueryOptions): Promise<Request[]>;
     match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response>;
-    matchAll(request?: RequestInfo, options?: CacheQueryOptions): any;
+    matchAll(request?: RequestInfo, options?: CacheQueryOptions): Promise<Response[]>;
     put(request: RequestInfo, response: Response): Promise<void>;
 }
 
@@ -189,7 +189,7 @@ declare var Cache: {
 interface CacheStorage {
     delete(cacheName: string): Promise<boolean>;
     has(cacheName: string): Promise<boolean>;
-    keys(): any;
+    keys(): Promise<string[]>;
     match(request: RequestInfo, options?: CacheQueryOptions): Promise<any>;
     open(cacheName: string): Promise<Cache>;
 }
@@ -314,7 +314,7 @@ interface DOMException {
 
 declare var DOMException: {
     prototype: DOMException;
-    new(): DOMException;
+    new(message?: string, name?: string): DOMException;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
     readonly DOMSTRING_SIZE_ERR: number;
@@ -470,7 +470,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new(init?: any): Headers;
+    new(init?: Headers | string[][]): Headers;
 };
 
 interface IDBCursor {
@@ -960,6 +960,7 @@ interface Response extends Object, Body {
     readonly statusText: string;
     readonly type: ResponseType;
     readonly url: string;
+    readonly redirected: boolean;
     clone(): Response;
 }
 
@@ -1000,7 +1001,7 @@ interface ServiceWorkerRegistration extends EventTarget {
     readonly scope: USVString;
     readonly sync: SyncManager;
     readonly waiting: ServiceWorker | null;
-    getNotifications(filter?: GetNotificationOptions): any;
+    getNotifications(filter?: GetNotificationOptions): Promise<Notification[]>;
     showNotification(title: string, options?: NotificationOptions): Promise<void>;
     unregister(): Promise<boolean>;
     update(): Promise<void>;
@@ -1014,7 +1015,7 @@ declare var ServiceWorkerRegistration: {
 };
 
 interface SyncManager {
-    getTags(): any;
+    getTags(): Promise<string[]>;
     register(tag: string): Promise<void>;
 }
 
@@ -1274,7 +1275,7 @@ declare var Client: {
 interface Clients {
     claim(): Promise<void>;
     get(id: string): Promise<any>;
-    matchAll(options?: ClientQueryOptions): any;
+    matchAll(options?: ClientQueryOptions): Promise<Client[]>;
     openWindow(url: USVString): Promise<WindowClient>;
 }
 

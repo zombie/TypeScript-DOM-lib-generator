@@ -11884,6 +11884,7 @@ interface ValidityState {
     readonly typeMismatch: boolean;
     readonly valid: boolean;
     readonly valueMissing: boolean;
+    readonly tooShort: boolean;
 }
 
 declare var ValidityState: {

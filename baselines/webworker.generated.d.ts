@@ -1563,8 +1563,7 @@ interface BlobPropertyBag {
     endings?: string;
 }
 
-interface FilePropertyBag {
-    type?: string;
+interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
 }
 

@@ -1500,6 +1500,26 @@ interface WorkerUtils extends Object, WindowBase64 {
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 }
 
+interface BroadcastChannel extends EventTarget {
+    readonly name: string;
+    onmessage: (ev: MessageEvent) => any;
+    onmessageerror: (ev: MessageEvent) => any;
+    close(): void;
+    postMessage(message: any): void;
+    addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare var BroadcastChannel: {
+    prototype: BroadcastChannel;
+    new(name: string): BroadcastChannel;
+};
+
+interface BroadcastChannelEventMap {
+    message: MessageEvent;
+    messageerror: MessageEvent;
+}
+
 interface ErrorEventInit {
     message?: string;
     filename?: string;

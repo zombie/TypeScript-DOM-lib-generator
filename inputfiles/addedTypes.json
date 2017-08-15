@@ -1,6 +1,58 @@
 [
     {
         "kind": "interface",
+        "name": "BroadcastChannel",
+        "extends": "EventTarget",
+        "constructorSignatures": ["new(name: string): BroadcastChannel"],
+        "properties": [
+            {
+                "readonly": true,
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "onmessage",
+                "type": "(ev: MessageEvent) => any"
+            },
+            {
+                "name": "onmessageerror",
+                "type": "(ev: MessageEvent) => any"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(): void"]
+            },
+            {
+                "name": "postMessage",
+                "signatures": ["postMessage(message: any): void"]
+            },
+            {
+                "name": "addEventListener",
+                "signatures": [
+		    "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, useCapture?: boolean): void",
+		    "addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void"
+		]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "BroadcastChannelEventMap",
+        "properties": [
+            {
+                "name": "message",
+                "type": "MessageEvent"
+            },
+            {
+                "name": "messageerror",
+                "type": "MessageEvent"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
         "name": "ErrorEventInit",
         "properties": [
             {

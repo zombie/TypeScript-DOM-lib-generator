@@ -13827,13 +13827,13 @@ interface XMLHttpRequestEventTargetEventMap {
 }
 
 interface XMLHttpRequestEventTarget {
-    onabort: (this: XMLHttpRequestEventTarget, ev: Event) => any;
-    onerror: (this: XMLHttpRequestEventTarget, ev: ErrorEvent) => any;
-    onload: (this: XMLHttpRequestEventTarget, ev: Event) => any;
-    onloadend: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
-    onloadstart: (this: XMLHttpRequestEventTarget, ev: Event) => any;
-    onprogress: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
-    ontimeout: (this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any;
+    onabort: (this: XMLHttpRequest, ev: Event) => any;
+    onerror: (this: XMLHttpRequest, ev: ErrorEvent) => any;
+    onload: (this: XMLHttpRequest, ev: Event) => any;
+    onloadend: (this: XMLHttpRequest, ev: ProgressEvent) => any;
+    onloadstart: (this: XMLHttpRequest, ev: Event) => any;
+    onprogress: (this: XMLHttpRequest, ev: ProgressEvent) => any;
+    ontimeout: (this: XMLHttpRequest, ev: ProgressEvent) => any;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }

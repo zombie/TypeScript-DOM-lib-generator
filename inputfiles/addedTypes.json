@@ -1659,5 +1659,12 @@
                 "signatures": ["showModal(): void"]
             }
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "Response",
+        "name": "redirected",
+        "readonly": true,
+        "type": "boolean"
     }
 ]

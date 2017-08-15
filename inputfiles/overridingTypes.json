@@ -1131,5 +1131,13 @@
         "signatures": [
             "new(type: \"drag\" | \"dragend\" | \"dragenter\" | \"dragexit\" | \"dragleave\" | \"dragover\" | \"dragstart\" | \"drop\", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent"
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "RandomSource",
+        "name": "getRandomValues",
+        "signatures": [
+            "getRandomValues<T extends ArrayBufferView>(array: T): T"
+        ]
     }
  ]

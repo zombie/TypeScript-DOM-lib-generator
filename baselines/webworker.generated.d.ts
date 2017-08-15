@@ -314,7 +314,7 @@ interface DOMException {
 
 declare var DOMException: {
     prototype: DOMException;
-    new(): DOMException;
+    new(message?: string, name?: string): DOMException;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
     readonly DOMSTRING_SIZE_ERR: number;
@@ -960,6 +960,7 @@ interface Response extends Object, Body {
     readonly statusText: string;
     readonly type: ResponseType;
     readonly url: string;
+    readonly redirected: boolean;
     clone(): Response;
 }
 

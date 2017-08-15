@@ -524,7 +524,7 @@ module Data =
                 | Some ps ->
                     ps.Properties
                     |> Array.choose (fun p' ->
-                        if p'.Type = "EventHandler" && p'.EventHandler.IsSome then
+                        if p'.EventHandler.IsSome then
                             Some({ Name = p'.Name; EventName = p'.EventHandler.Value; EventType = getEventTypeFromHandler p' i })
                         else None)
                     |> List.ofArray
@@ -659,18 +659,6 @@ module Data =
             [ { ParamCombinations = getParams f
                 ReturnTypes = rTypes
                 Nullable = isNullable } ]
-
-    /// Define the subset of events that dedicated workers will use
-    let workerEventsMap =
-        [
-            ("close", "CloseEvent");
-            ("error", "ErrorEvent");
-            ("upgradeneeded", "IDBVersionChangeEvent");
-            ("message", "MessageEvent");
-            ("loadend", "ProgressEvent");
-            ("progress", "ProgressEvent");
-        ]
-        |> Map.ofList
 
     let typeDefSet =
         browser.Typedefs |> Array.map (fun td -> td.NewType) |> Set.ofArray

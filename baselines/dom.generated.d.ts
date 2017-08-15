@@ -3378,7 +3378,7 @@ interface DOMException {
 
 declare var DOMException: {
     prototype: DOMException;
-    new(): DOMException;
+    new(message?: string, name?: string): DOMException;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
     readonly DOMSTRING_SIZE_ERR: number;
@@ -3483,7 +3483,7 @@ interface DragEvent extends MouseEvent {
 
 declare var DragEvent: {
     prototype: DragEvent;
-    new(): DragEvent;
+    new(type: "drag" | "dragend" | "dragenter" | "dragexit" | "dragleave" | "dragover" | "dragstart" | "drop", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent;
 };
 
 interface DynamicsCompressorNode extends AudioNode {
@@ -8224,6 +8224,7 @@ interface Navigator extends Object, NavigatorID, NavigatorOnLine, NavigatorConte
     readonly serviceWorker: ServiceWorkerContainer;
     readonly webdriver: boolean;
     readonly hardwareConcurrency: number;
+    readonly languages: string[];
     getGamepads(): Gamepad[];
     javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;
@@ -9057,6 +9058,7 @@ interface Response extends Object, Body {
     readonly statusText: string;
     readonly type: ResponseType;
     readonly url: string;
+    readonly redirected: boolean;
     clone(): Response;
 }
 
@@ -13043,6 +13045,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "durationchange": Event;
     "emptied": Event;
     "ended": MediaStreamErrorEvent;
+    "error": ErrorEvent;
     "focus": FocusEvent;
     "hashchange": HashChangeEvent;
     "input": Event;
@@ -13101,6 +13104,10 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
     "unload": Event;
     "volumechange": Event;
     "waiting": Event;
@@ -13743,7 +13750,7 @@ interface NodeSelector {
 }
 
 interface RandomSource {
-    getRandomValues(array: ArrayBufferView): ArrayBufferView;
+    getRandomValues<T extends ArrayBufferView>(array: T): T;
 }
 
 interface SVGAnimatedPoints {
@@ -14194,6 +14201,14 @@ interface TouchEventInit extends EventModifierInit {
     touches?: Touch[];
     targetTouches?: Touch[];
     changedTouches?: Touch[];
+}
+
+interface HTMLDialogElement extends HTMLElement {
+    open: boolean;
+    returnValue: string;
+    close(returnValue?: string): void;
+    show(): void;
+    showModal(): void;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

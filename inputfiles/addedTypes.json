@@ -552,6 +552,13 @@
     },
     {
         "kind": "property",
+        "interface": "Navigator",
+        "name": "languages",
+        "readonly": true,
+        "type": "string[]"
+    },
+    {
+        "kind": "property",
         "interface": "WorkerNavigator",
         "name": "hardwareConcurrency",
         "readonly": true,
@@ -1628,6 +1635,43 @@
         "interface": "ValidityState",
         "name": "tooShort",
         "flavor": "Web",
+        "readonly": true,
+        "type": "boolean"
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLDialogElement",
+        "extends": "HTMLElement",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "open",
+                "type": "boolean"
+            },
+            {
+                "name": "returnValue",
+                "type": "string"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": ["close(returnValue?: string): void"]
+            },
+            {
+                "name": "show",
+                "signatures": ["show(): void"]
+            },
+            {
+                "name": "showModal",
+                "signatures": ["showModal(): void"]
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "Response",
+        "name": "redirected",
         "readonly": true,
         "type": "boolean"
     }

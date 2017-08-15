@@ -1381,7 +1381,11 @@ module Emit =
                 |> Array.iter (fun m ->
                     match (getOverriddenItemByName m.Name ItemKind.Property dict.Name) with
                     | Some om -> emitJsonProperty om
-                    | None -> Pt.Printl "%s?: %s;" m.Name (DomTypeToTsType m.Type))
+                    | None ->
+                        let tsType = DomTypeToTsType m.Type
+                        let tsTypeAndNull = if m.Nullable.IsSome then makeNullable tsType else tsType
+                        let requiredModifier = if m.Required.IsSome then "" else "?"
+                        Pt.Printl "%s%s: %s;" m.Name requiredModifier tsTypeAndNull)
             Pt.DecreaseIndent()
             Pt.Printl "}"
             Pt.Printl ""

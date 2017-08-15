@@ -37,7 +37,7 @@ interface IDBIndexParameters {
 
 interface IDBObjectStoreParameters {
     autoIncrement?: boolean;
-    keyPath?: IDBKeyPath;
+    keyPath?: IDBKeyPath | null;
 }
 
 interface KeyAlgorithm {
@@ -103,18 +103,18 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
     data?: any;
     origin?: string;
     lastEventId?: string;
-    source?: Client | ServiceWorker | MessagePort;
-    ports?: MessagePort[];
+    source?: Client | ServiceWorker | MessagePort | null;
+    ports?: MessagePort[] | null;
 }
 
 interface FetchEventInit extends ExtendableEventInit {
-    request?: Request;
-    clientId?: string;
+    request: Request;
+    clientId?: string | null;
     isReload?: boolean;
 }
 
 interface NotificationEventInit extends ExtendableEventInit {
-    notification?: Notification;
+    notification: Notification;
     action?: string;
 }
 
@@ -123,7 +123,7 @@ interface PushEventInit extends ExtendableEventInit {
 }
 
 interface SyncEventInit extends ExtendableEventInit {
-    tag?: string;
+    tag: string;
     lastChance?: boolean;
 }
 

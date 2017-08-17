@@ -14232,6 +14232,36 @@ interface HTMLDialogElement extends HTMLElement {
     showModal(): void;
 }
 
+declare var HTMLDialogElement: {
+    prototype: HTMLDialogElement;
+    new(): HTMLDialogElement;
+};
+
+interface HTMLMainElement extends HTMLElement {
+}
+
+declare var HTMLMainElement: {
+    prototype: HTMLMainElement;
+    new(): HTMLMainElement;
+};
+
+interface HTMLDetailsElement extends HTMLElement {
+    open: boolean;
+}
+
+declare var HTMLDetailsElement: {
+    prototype: HTMLDetailsElement;
+    new(): HTMLDetailsElement;
+};
+
+interface HTMLSummaryElement extends HTMLElement {
+}
+
+declare var HTMLSummaryElement: {
+    prototype: HTMLSummaryElement;
+    new(): HTMLSummaryElement;
+};
+
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
 interface DecodeErrorCallback {

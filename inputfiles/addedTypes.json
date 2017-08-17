@@ -1703,6 +1703,7 @@
     {
         "kind": "interface",
         "name": "HTMLDialogElement",
+        "constructorSignatures": ["new(): HTMLDialogElement"],
         "extends": "HTMLElement",
         "flavor": "DOM",
         "properties": [
@@ -1736,5 +1737,32 @@
         "name": "redirected",
         "readonly": true,
         "type": "boolean"
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLMainElement",
+        "constructorSignatures": ["new(): HTMLMainElement"],
+        "extends": "HTMLElement",
+        "flavor": "DOM"
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLDetailsElement",
+        "constructorSignatures": ["new(): HTMLDetailsElement"],
+        "extends": "HTMLElement",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "name": "open",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLSummaryElement",
+        "constructorSignatures": ["new(): HTMLSummaryElement"],
+        "extends": "HTMLElement",
+        "flavor": "DOM"
     }
 ]

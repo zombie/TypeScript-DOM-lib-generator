@@ -2640,7 +2640,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      */
     readonly compatMode: string;
     cookie: string;
-    readonly currentScript: HTMLScriptElement | SVGScriptElement;
+    readonly currentScript: HTMLScriptElement | SVGScriptElement | null;
     readonly defaultView: Window;
     /**
      * Sets or gets a value that indicates whether the document can be edited.

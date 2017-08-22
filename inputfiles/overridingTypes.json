@@ -26,6 +26,13 @@
         "signatures": ["adoptNode<T extends Node>(source: T): T"]
     },
     {
+        "kind": "property",
+        "interface": "Document",
+        "readonly": true,
+        "name": "currentScript",
+        "type": "HTMLScriptElement | SVGScriptElement | null"
+    },
+    {
         "kind": "method",
         "interface": "Document",
         "name": "importNode",

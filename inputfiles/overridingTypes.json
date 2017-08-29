@@ -1376,5 +1376,12 @@
         "readonly": true,
         "name": "form",
         "type": "HTMLFormElement | null"
+    },
+    {
+        "kind": "constructor",
+        "interface": "Headers",
+        "signatures": [
+            "new (init?: Headers | string[][] | object): Headers;"
+        ]
     }
  ]

@@ -1383,5 +1383,11 @@
         "signatures": [
             "new (init?: Headers | string[][] | object): Headers;"
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "ServiceWorkerContainer",
+        "name": "getRegistration",
+        "signatures": ["getRegistration(): Promise<ServiceWorkerRegistration | undefined>"]
     }
  ]

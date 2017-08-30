@@ -1381,7 +1381,7 @@
         "kind": "constructor",
         "interface": "Headers",
         "signatures": [
-            "new (init?: Headers | string[][] | object): Headers;"
+            "new(init?: Headers | string[][] | object): Headers"
         ]
     },
     {

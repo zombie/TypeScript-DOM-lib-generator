@@ -3885,7 +3885,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new (init?: Headers | string[][] | object): Headers;;
+    new(init?: Headers | string[][] | object): Headers;
 };
 
 interface History {

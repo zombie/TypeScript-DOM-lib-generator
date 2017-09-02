@@ -13277,7 +13277,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     moveBy(x?: number, y?: number): void;
     moveTo(x?: number, y?: number): void;
     msWriteProfilerMark(profilerMarkName: string): void;
-    open(url?: string, target?: string, features?: string, replace?: boolean): Window;
+    open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
     postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
     print(): void;
     prompt(message?: string, _default?: string): string | null;
@@ -14677,7 +14677,7 @@ declare function matchMedia(mediaQuery: string): MediaQueryList;
 declare function moveBy(x?: number, y?: number): void;
 declare function moveTo(x?: number, y?: number): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
-declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window;
+declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
 declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;

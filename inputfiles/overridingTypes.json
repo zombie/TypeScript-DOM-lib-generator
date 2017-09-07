@@ -615,7 +615,7 @@
         "kind": "method",
         "interface": "Window",
         "name": "open",
-        "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window"]
+        "signatures": ["open(url?: string, target?: string, features?: string, replace?: boolean): Window | null"]
     },
     {
         "kind": "method",

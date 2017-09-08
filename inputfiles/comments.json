@@ -1696,6 +1696,10 @@
             "comment": "/**\r\n     * Sets or retrieves a URL to be loaded by the object.\r\n     */"
           },
           {
+            "name": "srcdoc",
+            "comment": "/**\r\n     * Sets or retrives the content of the page that is to contain.\r\n     */"
+          },
+          {
             "name": "name",
             "comment": "/**\r\n     * Sets or retrieves the frame name.\r\n     */"
           },

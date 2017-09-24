@@ -1389,5 +1389,56 @@
         "interface": "ServiceWorkerContainer",
         "name": "getRegistration",
         "signatures": ["getRegistration(): Promise<ServiceWorkerRegistration | undefined>"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "getBoundingClientRect",
+        "signatures": ["getBoundingClientRect(): ClientRect | DOMRect"]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "getClientRects",
+        "signatures": [
+            "getClientRects(): ClientRectList | DOMRectList"
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntry",
+        "name": "boundingClientRect",
+        "readonly": true,
+        "type": "ClientRect | DOMRect"
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntry",
+        "name": "intersectionRect",
+        "readonly": true,
+        "type": "ClientRect | DOMRect"
+    },
+    {
+        "kind": "property",
+        "interface": "IntersectionObserverEntry",
+        "name": "rootBounds",
+        "readonly": true,
+        "type": "ClientRect | DOMRect"
+    },
+    {
+        "kind": "method",
+        "interface": "Range",
+        "name": "getBoundingClientRect",
+        "signatures": [
+            "getBoundingClientRect(): ClientRect | DOMRect"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Range",
+        "name": "getClientRects",
+        "signatures": [
+            "getClientRects(): ClientRectList | DOMRectList"
+        ]
     }
  ]

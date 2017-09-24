@@ -1764,5 +1764,108 @@
         "constructorSignatures": ["new(): HTMLSummaryElement"],
         "extends": "HTMLElement",
         "flavor": "DOM"
+    },
+    {
+        "kind": "interface",
+        "name": "DOMRectReadOnly",
+        "properties": [
+            {
+                "name": "bottom",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "height",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "left",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "right",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "top",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "width",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "x",
+                "readonly": true,
+                "type": "number"
+            },
+            {
+                "name": "y",
+                "readonly": true,
+                "type": "number"
+            }
+        ],
+        "constructorSignatures": [
+            "new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly",
+            "fromRect(rectangle?: DOMRectInit): DOMRectReadOnly"
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "DOMRect",
+        "extends": "DOMRectReadOnly",        
+        "properties": [
+            {
+                "name": "height",
+                "type": "number"
+            },
+            {
+                "name": "width",
+                "type": "number"
+            },
+            {
+                "name": "x",
+                "type": "number"
+            },
+            {
+                "name": "y",
+                "type": "number"
+            }
+        ],
+        "constructorSignatures": [
+            "new (x?: number, y?: number, width?: number, height?: number): DOMRect",
+            "fromRect(rectangle?: DOMRectInit): DOMRect"
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "DOMRectList",
+        "properties": [
+            {
+                "name": "length",
+                "type": "number",
+                "readonly": true
+            }
+        ],
+        "indexer": [
+            {
+                "signatures": [
+                    "[index: number]: DOMRect"
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "item",
+                "signatures": [
+                    "item(index: number): DOMRect | null"
+                ]
+            }
+        ]
     }
 ]

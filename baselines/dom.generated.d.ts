@@ -3583,8 +3583,8 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getAttributeNode(name: string): Attr;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr;
     getAttributeNS(namespaceURI: string, localName: string): string;
-    getBoundingClientRect(): ClientRect;
-    getClientRects(): ClientRectList;
+    getBoundingClientRect(): ClientRect | DOMRect;
+    getClientRects(): ClientRectList | DOMRectList;
     getElementsByTagName<K extends keyof ElementListTagNameMap>(name: K): ElementListTagNameMap[K];
     getElementsByTagName(name: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
@@ -7206,10 +7206,10 @@ declare var IntersectionObserver: {
 };
 
 interface IntersectionObserverEntry {
-    readonly boundingClientRect: ClientRect;
+    readonly boundingClientRect: ClientRect | DOMRect;
     readonly intersectionRatio: number;
-    readonly intersectionRect: ClientRect;
-    readonly rootBounds: ClientRect;
+    readonly intersectionRect: ClientRect | DOMRect;
+    readonly rootBounds: ClientRect | DOMRect;
     readonly target: Element;
     readonly time: number;
     readonly isIntersecting: boolean;
@@ -8980,8 +8980,8 @@ interface Range {
     detach(): void;
     expand(Unit: ExpandGranularity): boolean;
     extractContents(): DocumentFragment;
-    getBoundingClientRect(): ClientRect;
-    getClientRects(): ClientRectList;
+    getBoundingClientRect(): ClientRect | DOMRect;
+    getClientRects(): ClientRectList | DOMRectList;
     insertNode(newNode: Node): void;
     selectNode(refNode: Node): void;
     selectNodeContents(refNode: Node): void;
@@ -14261,6 +14261,42 @@ declare var HTMLSummaryElement: {
     prototype: HTMLSummaryElement;
     new(): HTMLSummaryElement;
 };
+
+interface DOMRectReadOnly {
+    readonly bottom: number;
+    readonly height: number;
+    readonly left: number;
+    readonly right: number;
+    readonly top: number;
+    readonly width: number;
+    readonly x: number;
+    readonly y: number;
+}
+
+declare var DOMRectReadOnly: {
+    prototype: DOMRectReadOnly;
+    new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
+    fromRect(rectangle?: DOMRectInit): DOMRectReadOnly;
+};
+
+interface DOMRect extends DOMRectReadOnly {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+}
+
+declare var DOMRect: {
+    prototype: DOMRect;
+    new (x?: number, y?: number, width?: number, height?: number): DOMRect;
+    fromRect(rectangle?: DOMRectInit): DOMRect;
+};
+
+interface DOMRectList {
+    readonly length: number;
+    item(index: number): DOMRect | null;
+    [index: number]: DOMRect;
+}
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 

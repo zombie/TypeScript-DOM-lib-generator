@@ -853,6 +853,7 @@
     {
         "kind": "interface",
         "name": "EcKeyImportParams",
+        "extends": "Algorithm",
         "properties": [
             {
                 "name": "namedCurve",

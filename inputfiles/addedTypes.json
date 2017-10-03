@@ -1765,5 +1765,14 @@
         "constructorSignatures": ["new(): HTMLSummaryElement"],
         "extends": "HTMLElement",
         "flavor": "DOM"
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLFormElement",
+        "name": "reportValidity",
+        "flavor": "DOM",
+        "signatures": [
+            "reportValidity(): boolean"
+        ]
     }
 ]

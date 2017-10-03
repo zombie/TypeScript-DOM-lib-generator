@@ -4838,6 +4838,7 @@ interface HTMLFormElement extends HTMLElement {
      * Fires when a FORM is about to be submitted.
      */
     submit(): void;
+    reportValidity(): boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     [name: string]: any;

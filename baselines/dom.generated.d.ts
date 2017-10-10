@@ -8226,6 +8226,7 @@ interface Navigator extends Object, NavigatorID, NavigatorOnLine, NavigatorConte
     readonly pointerEnabled: boolean;
     readonly serviceWorker: ServiceWorkerContainer;
     readonly webdriver: boolean;
+    readonly doNotTrack: string | null;
     readonly hardwareConcurrency: number;
     readonly languages: string[];
     getGamepads(): Gamepad[];

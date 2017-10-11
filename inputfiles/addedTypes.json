@@ -1537,6 +1537,15 @@
     },
     {
         "kind": "interface",
+        "name": "ElementCreationOptions",
+        "flavor": "DOM",
+        "properties": [{
+            "name": "is?",
+            "type": "string"
+        }]
+    },
+    {
+        "kind": "interface",
         "name": "CustomElementRegistry",
         "flavor": "DOM",
         "methods": [{

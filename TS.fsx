@@ -782,8 +782,8 @@ module Emit =
     /// Emit overloads for the createElement method
     let EmitCreateElementOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "createElement" "Element" "string" then
-            Pt.Printl "createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];"
-            Pt.Printl "createElement(tagName: string): HTMLElement;"
+            Pt.Printl "createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];"
+            Pt.Printl "createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;"
 
     /// Emit overloads for the getElementsByTagName method
     let EmitGetElementsByTagNameOverloads (m: Browser.Method) =

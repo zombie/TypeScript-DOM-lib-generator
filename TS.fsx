@@ -535,6 +535,7 @@ module Data =
         |> Array.map (fun i -> (i.Name, getEventHandler i))
         |> Map.ofArray
 
+    // Map of interface.Name -> List of base interfaces with event handlers
     let iNameToEhParents =
         let hasHandler (i : Browser.Interface) =
             iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty
@@ -905,6 +906,13 @@ module Emit =
             | Some comment -> printLine "%s" comment
             | _ -> ()
 
+        let isNotUnsafeEventHandler (p: Browser.Property) =
+            let hasHandler (i : Browser.Interface) =
+                iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty && iNameToEhList.[i.Name] |> List.exists (fun e-> e.Name = p.Name)
+            let hasParentHandler (i : Browser.Interface) =
+                iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty && iNameToEhParents.[i.Name] |> List.exists hasHandler
+            p.Type <> "EventHandler" || not (hasHandler i) || not (hasParentHandler i)
+
         let emitProperty (p: Browser.Property) =
             let printLine content =
                 if conflictedMembers.Contains p.Name then Pt.PrintlToStack content else Pt.Printl content
@@ -941,6 +949,7 @@ module Emit =
             | Some ps ->
                 ps.Properties
                 |> Array.filter (ShouldKeep flavor)
+                |> Array.filter isNotUnsafeEventHandler
                 |> Array.iter emitProperty
             | None -> ()
 

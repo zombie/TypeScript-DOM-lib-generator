@@ -906,12 +906,15 @@ module Emit =
             | Some comment -> printLine "%s" comment
             | _ -> ()
 
-        let isNotUnsafeEventHandler (p: Browser.Property) =
-            let hasHandler (i : Browser.Interface) =
-                iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty && iNameToEhList.[i.Name] |> List.exists (fun e-> e.Name = p.Name)
-            let hasParentHandler (i : Browser.Interface) =
-                iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty && iNameToEhParents.[i.Name] |> List.exists hasHandler
-            p.Type <> "EventHandler" || not (hasHandler i) || not (hasParentHandler i)
+        // A covariant  EventHandler is one that is defined in a parent interface as then redefined in current interface with a more specific argument types
+        // These patterns are unsafe, and flagged as error under --strictFunctionTypes.
+        // Here we know the property is already defined on the interface, we elide its declaration if the parent has the same handler defined
+        let isCovariantEventHandler (p: Browser.Property) =
+            p.Type = "EventHandler" &&
+                iNameToEhParents.ContainsKey i.Name &&
+                not iNameToEhParents.[i.Name].IsEmpty &&
+                iNameToEhParents.[i.Name]
+                    |> List.exists (fun i -> iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty && iNameToEhList.[i.Name] |> List.exists (fun e-> e.Name = p.Name))
 
         let emitProperty (p: Browser.Property) =
             let printLine content =
@@ -949,7 +952,7 @@ module Emit =
             | Some ps ->
                 ps.Properties
                 |> Array.filter (ShouldKeep flavor)
-                |> Array.filter isNotUnsafeEventHandler
+                |> Array.filter (isCovariantEventHandler >> not)
                 |> Array.iter emitProperty
             | None -> ()
 

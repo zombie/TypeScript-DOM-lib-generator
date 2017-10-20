@@ -595,6 +595,13 @@
     {
         "kind": "property",
         "interface": "Navigator",
+        "readonly": true,
+        "name": "doNotTrack",
+        "type": "string | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Navigator",
         "name": "hardwareConcurrency",
         "readonly": true,
         "type": "number"
@@ -853,6 +860,7 @@
     {
         "kind": "interface",
         "name": "EcKeyImportParams",
+        "extends": "Algorithm",
         "properties": [
             {
                 "name": "namedCurve",
@@ -1867,5 +1875,13 @@
                 ]
             }
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLFormElement",
+        "name": "reportValidity",
+        "flavor": "DOM",
+        "signatures": [
+            "reportValidity(): boolean"
     }
 ]

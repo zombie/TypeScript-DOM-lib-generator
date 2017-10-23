@@ -978,7 +978,12 @@ module Emit =
         // Otherwise, this is EventTarget.addEventListener, we want to keep that.
         let mFilter (m:Browser.Method) =
             matchScope emitScope m &&
-            not (prefix <> "" && OptionCheckValue "addEventListener" m.Name)
+            not (
+                prefix <> "" && (
+                    (OptionCheckValue "addEventListener" m.Name) ||
+                    (OptionCheckValue "removeEventListener" m.Name)
+                )
+            )
 
         let emitMethod flavor prefix (i:Browser.Interface) (m:Browser.Method) =
             let printLine content =
@@ -1064,27 +1069,37 @@ module Emit =
         let fPrefix =
             if prefix.StartsWith "declare var" then "declare function " else ""
 
-        let emitEventHandler prefix (iParent:Browser.Interface) =
+        let emitTypedEventHandler (prefix: string) (addOrRemove: string) (iParent:Browser.Interface) =
             Pt.Printl
-                "%saddEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, useCapture?: boolean): void;"
-                prefix iParent.Name i.Name iParent.Name
+                "%s%sEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, useCapture?: boolean): void;"
+                prefix addOrRemove iParent.Name i.Name iParent.Name
 
-        let shouldEmitStringEventHandler =
+        let emitStringEventHandler (addOrRemove: string) =
+            Pt.Printl
+                "%s%sEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
+                fPrefix addOrRemove
+
+        let tryEmitTypedEventHandlerForInterface (addOrRemove: string) =
             if iNameToEhList.ContainsKey i.Name  && not iNameToEhList.[i.Name].IsEmpty then
-                emitEventHandler fPrefix i
+                emitTypedEventHandler fPrefix addOrRemove i
                 true
             elif iNameToEhParents.ContainsKey i.Name && not iNameToEhParents.[i.Name].IsEmpty then
                 iNameToEhParents.[i.Name]
                 |> List.sortBy (fun i -> i.Name)
-                |> List.iter (emitEventHandler fPrefix)
+                |> List.iter (emitTypedEventHandler fPrefix addOrRemove)
                 true
             else
                 false
 
-        if shouldEmitStringEventHandler then
-            Pt.Printl
-                "%saddEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
-                fPrefix
+        let emitEventHandler (addOrRemove: string) =
+            if tryEmitTypedEventHandlerForInterface addOrRemove then
+                // only emit the string event handler if we just emited a typed handler
+                emitStringEventHandler addOrRemove
+
+
+        emitEventHandler "add"
+        emitEventHandler "remove"
+
 
     let EmitConstructorSignature flavor (i:Browser.Interface) =
         let emitConstructorSigFromJson (c: InputJsonType.Root) =

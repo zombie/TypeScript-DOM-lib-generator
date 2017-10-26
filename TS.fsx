@@ -1066,18 +1066,21 @@ module Emit =
             | _ -> ()
 
     let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
+        let getOptionsType (addOrRemove: string) = 
+            if addOrRemove = "add" then "AddEventListenerOptions" else "EventListenerOptions"
+
         let fPrefix =
             if prefix.StartsWith "declare var" then "declare function " else ""
 
         let emitTypedEventHandler (prefix: string) (addOrRemove: string) (iParent:Browser.Interface) =
             Pt.Printl
-                "%s%sEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, useCapture?: boolean): void;"
-                prefix addOrRemove iParent.Name i.Name iParent.Name
+                "%s%sEventListener<K extends keyof %sEventMap>(type: K, listener: (this: %s, ev: %sEventMap[K]) => any, options?: boolean | %s): void;"
+                prefix addOrRemove iParent.Name i.Name iParent.Name (getOptionsType addOrRemove)
 
         let emitStringEventHandler (addOrRemove: string) =
             Pt.Printl
-                "%s%sEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;"
-                fPrefix addOrRemove
+                "%s%sEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | %s): void;"
+                fPrefix addOrRemove (getOptionsType addOrRemove)
 
         let tryEmitTypedEventHandlerForInterface (addOrRemove: string) =
             if iNameToEhList.ContainsKey i.Name  && not iNameToEhList.[i.Name].IsEmpty then

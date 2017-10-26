@@ -524,8 +524,8 @@ interface IDBDatabase extends EventTarget {
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
     deleteObjectStore(name: string): void;
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
-    addEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener(type: "versionchange", listener: (ev: IDBVersionChangeEvent) => any, options?: boolean | EventListenerOptions): void;
+    addEventListener(type: "versionchange", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: "versionchange", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | EventListenerOptions): void;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

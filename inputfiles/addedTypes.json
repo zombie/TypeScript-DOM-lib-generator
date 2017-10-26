@@ -1794,5 +1794,12 @@
         "signatures": [
             "reportValidity(): boolean"
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLabelElement",
+        "readonly": true,
+        "name": "control",
+        "type": "HTMLInputElement | null"
     }
 ]

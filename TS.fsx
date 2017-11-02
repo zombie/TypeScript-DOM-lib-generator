@@ -175,7 +175,7 @@ module InputJson =
 
     let getItemByName (allItems: InputJsonType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
         let filter (item: InputJsonType.Root) =
-            OptionCheckValue itemName item.Name &&
+            (OptionCheckValue itemName item.Name || OptionCheckValue (sprintf "%s?" itemName) item.Name) &&
             item.Kind.ToLower() = kind.ToString() &&
             otherFilter item
         allItems |> Array.tryFind filter
@@ -1066,7 +1066,7 @@ module Emit =
             | _ -> ()
 
     let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
-        let getOptionsType (addOrRemove: string) = 
+        let getOptionsType (addOrRemove: string) =
             if addOrRemove = "add" then "AddEventListenerOptions" else "EventListenerOptions"
 
         let fPrefix =
@@ -1393,7 +1393,11 @@ module Emit =
             | _ -> Pt.Printl "interface %s extends %s {" dict.Name dict.Extends
 
             let emitJsonProperty (p: InputJsonType.Root) =
-                Pt.Printl "%s: %s;" p.Name.Value p.Type.Value
+                let readOnlyModifier =
+                    match p.Readonly with
+                    | Some(true) -> "readonly "
+                    | _ -> ""
+                Pt.Printl "%s%s: %s;" readOnlyModifier p.Name.Value p.Type.Value
 
             let removedPropNames =
                 getRemovedItems ItemKind.Property flavor

@@ -3,7 +3,9 @@
         "kind": "interface",
         "name": "BroadcastChannel",
         "extends": "EventTarget",
-        "constructorSignatures": ["new(name: string): BroadcastChannel"],
+        "constructorSignatures": [
+            "new(name: string): BroadcastChannel"
+        ],
         "properties": [
             {
                 "readonly": true,
@@ -22,18 +24,22 @@
         "methods": [
             {
                 "name": "close",
-                "signatures": ["close(): void"]
+                "signatures": [
+                    "close(): void"
+                ]
             },
             {
                 "name": "postMessage",
-                "signatures": ["postMessage(message: any): void"]
+                "signatures": [
+                    "postMessage(message: any): void"
+                ]
             },
             {
                 "name": "addEventListener",
                 "signatures": [
                     "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void",
                     "addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void"
-		        ]
+                ]
             },
             {
                 "name": "removeEventListener",
@@ -99,7 +105,7 @@
     {
         "kind": "interface",
         "name": "StorageEventInit",
-        "flavor":  "Web",
+        "flavor": "Web",
         "extends": "EventInit",
         "properties": [
             {
@@ -197,7 +203,9 @@
         "methods": [
             {
                 "name": "close",
-                "signatures": ["close(): void"]
+                "signatures": [
+                    "close(): void"
+                ]
             }
         ]
     },
@@ -206,8 +214,8 @@
         "interface": "Window",
         "name": "createImageBitmap",
         "signatures": [
-             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+            "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+            "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
         ]
     },
     {
@@ -215,8 +223,8 @@
         "interface": "WorkerGlobalScope",
         "name": "createImageBitmap",
         "signatures": [
-             "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-             "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+            "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+            "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
         ]
     },
     {
@@ -246,27 +254,39 @@
         "methods": [
             {
                 "name": "append",
-                "signatures": ["append(name: string, value: string): void"]
+                "signatures": [
+                    "append(name: string, value: string): void"
+                ]
             },
             {
                 "name": "delete",
-                "signatures": ["delete(name: string): void"]
+                "signatures": [
+                    "delete(name: string): void"
+                ]
             },
             {
                 "name": "get",
-                "signatures": ["get(name: string): string | null"]
+                "signatures": [
+                    "get(name: string): string | null"
+                ]
             },
             {
                 "name": "getAll",
-                "signatures": ["getAll(name: string): string[]"]
+                "signatures": [
+                    "getAll(name: string): string[]"
+                ]
             },
             {
                 "name": "has",
-                "signatures": ["has(name: string): boolean"]
+                "signatures": [
+                    "has(name: string): boolean"
+                ]
             },
             {
                 "name": "set",
-                "signatures": ["set(name: string, value: string): void"]
+                "signatures": [
+                    "set(name: string, value: string): void"
+                ]
             }
         ]
     },
@@ -312,12 +332,16 @@
         "methods": [
             {
                 "name": "item",
-                "signatures": ["item(index: number): TNode"]
+                "signatures": [
+                    "item(index: number): TNode"
+                ]
             }
         ],
         "indexer": [
             {
-                "signatures": ["[index: number]: TNode"]
+                "signatures": [
+                    "[index: number]: TNode"
+                ]
             }
         ]
     },
@@ -329,16 +353,22 @@
         "methods": [
             {
                 "name": "item",
-                "signatures": ["item(index: number): T"]
+                "signatures": [
+                    "item(index: number): T"
+                ]
             },
             {
                 "name": "namedItem",
-                "signatures": ["namedItem(name: string): T"]
+                "signatures": [
+                    "namedItem(name: string): T"
+                ]
             }
         ],
         "indexer": [
             {
-                "signatures": ["[index: number]: T"]
+                "signatures": [
+                    "[index: number]: T"
+                ]
             }
         ]
     },
@@ -373,7 +403,9 @@
         "methods": [
             {
                 "name": "handleEvent",
-                "signatures": ["handleEvent(evt: Event): void"]
+                "signatures": [
+                    "handleEvent(evt: Event): void"
+                ]
             }
         ]
     },
@@ -411,17 +443,23 @@
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+        "signatures": [
+            "getElementsByClassName(classNames: string): NodeListOf<Element>"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": ["matches(selector: string): boolean"]
+        "signatures": [
+            "matches(selector: string): boolean"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": [ "closest(selector: string): Element | null" ]
+        "signatures": [
+            "closest(selector: string): Element | null"
+        ]
     },
     {
         "kind": "typedef",
@@ -459,17 +497,23 @@
     {
         "kind": "method",
         "interface": "Window",
-        "signatures": [ "scroll(options?: ScrollToOptions): void" ]
+        "signatures": [
+            "scroll(options?: ScrollToOptions): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Window",
-        "signatures": [ "scrollTo(options?: ScrollToOptions): void" ]
+        "signatures": [
+            "scrollTo(options?: ScrollToOptions): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Window",
-        "signatures": [ "scrollBy(options?: ScrollToOptions): void" ]
+        "signatures": [
+            "scrollBy(options?: ScrollToOptions): void"
+        ]
     },
     {
         "kind": "typedef",
@@ -496,7 +540,9 @@
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": [ "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void" ]
+        "signatures": [
+            "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void"
+        ]
     },
     {
         "kind": "method",
@@ -637,7 +683,9 @@
         "kind": "method",
         "interface": "HTMLCanvasElement",
         "name": "toBlob",
-        "signatures": ["toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"]
+        "signatures": [
+            "toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"
+        ]
     },
     {
         "kind": "property",
@@ -717,13 +765,17 @@
         "kind": "method",
         "interface": "IDBDatabase",
         "name": "addEventListener",
-        "signatures": ["addEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | AddEventListenerOptions): void"]
+        "signatures": [
+            "addEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | AddEventListenerOptions): void"
+        ]
     },
     {
-      "kind": "method",
-      "interface": "IDBDatabase",
-      "name": "removeEventListener",
-      "signatures": ["removeEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | EventListenerOptions): void"]
+        "kind": "method",
+        "interface": "IDBDatabase",
+        "name": "removeEventListener",
+        "signatures": [
+            "removeEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | EventListenerOptions): void"
+        ]
     },
     {
         "kind": "property",
@@ -1290,25 +1342,33 @@
         "kind": "method",
         "interface": "DataTransfer",
         "name": "setDragImage",
-        "signatures": ["setDragImage(image: Element, x: number, y: number): void"]
+        "signatures": [
+            "setDragImage(image: Element, x: number, y: number): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentElement",
-        "signatures": ["insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"]
+        "signatures": [
+            "insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentHTML",
-        "signatures": ["insertAdjacentHTML(where: InsertPosition, html: string): void"]
+        "signatures": [
+            "insertAdjacentHTML(where: InsertPosition, html: string): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentText",
-        "signatures": ["insertAdjacentText(where: InsertPosition, text: string): void"]
+        "signatures": [
+            "insertAdjacentText(where: InsertPosition, text: string): void"
+        ]
     },
     {
         "kind": "property",
@@ -1400,7 +1460,9 @@
         "kind": "method",
         "interface": "CanvasPattern",
         "name": "setTransform",
-        "signatures": ["setTransform(matrix: SVGMatrix): void"]
+        "signatures": [
+            "setTransform(matrix: SVGMatrix): void"
+        ]
     },
     {
         "kind": "interface",
@@ -1409,15 +1471,21 @@
         "methods": [
             {
                 "name": "getSelection",
-                "signatures": ["getSelection(): Selection | null"]
+                "signatures": [
+                    "getSelection(): Selection | null"
+                ]
             },
             {
                 "name": "elementFromPoint",
-                "signatures": ["elementFromPoint(x: number, y: number): Element | null"]
+                "signatures": [
+                    "elementFromPoint(x: number, y: number): Element | null"
+                ]
             },
             {
                 "name": "elementsFromPoint",
-                "signatures": ["elementsFromPoint(x: number, y: number): Element[]"]
+                "signatures": [
+                    "elementsFromPoint(x: number, y: number): Element[]"
+                ]
             }
         ],
         "properties": [
@@ -1454,7 +1522,9 @@
         "kind": "method",
         "interface": "Element",
         "name": "attachShadow",
-        "signatures": ["attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"]
+        "signatures": [
+            "attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"
+        ]
     },
     {
         "kind": "property",
@@ -1512,7 +1582,9 @@
         "methods": [
             {
                 "name": "assignedNodes",
-                "signatures": ["assignedNodes(options?: AssignedNodesOptions): Node[]"]
+                "signatures": [
+                    "assignedNodes(options?: AssignedNodesOptions): Node[]"
+                ]
             }
         ]
     },
@@ -1544,31 +1616,45 @@
         "kind": "method",
         "interface": "Event",
         "name": "deepPath",
-        "signatures": ["deepPath(): EventTarget[]"]
+        "signatures": [
+            "deepPath(): EventTarget[]"
+        ]
     },
     {
         "kind": "interface",
         "name": "ElementDefinitionOptions",
         "flavor": "DOM",
-        "properties": [{
-            "name": "extends",
-            "type": "string"
-        }]
+        "properties": [
+            {
+                "name": "extends",
+                "type": "string"
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "CustomElementRegistry",
         "flavor": "DOM",
-        "methods": [{
-           "name": "define",
-           "signatures": ["define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"]
-        }, {
-            "name": "get",
-            "signatures": ["get(name: string): any"]
-        }, {
-            "name": "whenDefined",
-            "signatures": ["whenDefined(name: string): PromiseLike<void>"]
-        }]
+        "methods": [
+            {
+                "name": "define",
+                "signatures": [
+                    "define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"
+                ]
+            },
+            {
+                "name": "get",
+                "signatures": [
+                    "get(name: string): any"
+                ]
+            },
+            {
+                "name": "whenDefined",
+                "signatures": [
+                    "whenDefined(name: string): PromiseLike<void>"
+                ]
+            }
+        ]
     },
     {
         "kind": "property",
@@ -1581,42 +1667,52 @@
         "name": "PromiseRejectionEvent",
         "extends": "Event",
         "flavor": "Web",
-        "properties": [{
-            "name": "promise",
-            "type": "PromiseLike<any>",
-            "readonly": true
-        }, {
-            "name": "reason",
-            "type": "any",
-            "readonly": true
-        }]
+        "properties": [
+            {
+                "name": "promise",
+                "type": "PromiseLike<any>",
+                "readonly": true
+            },
+            {
+                "name": "reason",
+                "type": "any",
+                "readonly": true
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "PromiseRejectionEventInit",
         "extends": "EventInit",
         "flavor": "Web",
-        "properties": [{
-            "name": "promise",
-            "type": "PromiseLike<any>"
-        }, {
-            "name": "reason?",
-            "type": "any"
-        }]
+        "properties": [
+            {
+                "name": "promise",
+                "type": "PromiseLike<any>"
+            },
+            {
+                "name": "reason?",
+                "type": "any"
+            }
+        ]
     },
     {
         "kind": "method",
         "interface": "Body",
         "name": "formData",
         "flavor": "Web",
-        "signatures": ["formData(): Promise<FormData>"]
+        "signatures": [
+            "formData(): Promise<FormData>"
+        ]
     },
     {
         "kind": "method",
         "interface": "DocumentFragment",
         "name": "getElementById",
         "flavor": "DOM",
-        "signatures": ["getElementById(elementId: string): HTMLElement | null"]
+        "signatures": [
+            "getElementById(elementId: string): HTMLElement | null"
+        ]
     },
     {
         "kind": "typedef",
@@ -1628,71 +1724,90 @@
         "interface": "FormData",
         "name": "delete",
         "flavor": "Web",
-        "signatures": ["delete(name: string): void"]
+        "signatures": [
+            "delete(name: string): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "get",
         "flavor": "Web",
-        "signatures": ["get(name: string): FormDataEntryValue | null"]
+        "signatures": [
+            "get(name: string): FormDataEntryValue | null"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "getAll",
         "flavor": "Web",
-        "signatures": ["getAll(name: string): FormDataEntryValue[]"]
+        "signatures": [
+            "getAll(name: string): FormDataEntryValue[]"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "has",
         "flavor": "Web",
-        "signatures": ["has(name: string): boolean"]
+        "signatures": [
+            "has(name: string): boolean"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "set",
         "flavor": "Web",
-        "signatures": ["set(name: string, value: string | Blob, fileName?: string): void"]
+        "signatures": [
+            "set(name: string, value: string | Blob, fileName?: string): void"
+        ]
     },
     {
         "kind": "interface",
         "name": "EventListenerOptions",
-        "properties": [{
-            "name": "capture?",
-            "type": "boolean"
-        }]
+        "properties": [
+            {
+                "name": "capture?",
+                "type": "boolean"
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "AddEventListenerOptions",
         "extends": "EventListenerOptions",
-        "properties": [{
-            "name": "passive?",
-            "type": "boolean"
-        }, {
-            "name": "once?",
-            "type": "boolean"
-        }]
+        "properties": [
+            {
+                "name": "passive?",
+                "type": "boolean"
+            },
+            {
+                "name": "once?",
+                "type": "boolean"
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "TouchEventInit",
-        "flavor":  "Web",
+        "flavor": "Web",
         "extends": "EventModifierInit",
-        "properties": [{
-            "name": "touches?",
-            "type": "Touch[]"
-        }, {
-            "name": "targetTouches?",
-            "type": "Touch[]"
-        }, {
-            "name": "changedTouches?",
-            "type": "Touch[]"
-        }]
+        "properties": [
+            {
+                "name": "touches?",
+                "type": "Touch[]"
+            },
+            {
+                "name": "targetTouches?",
+                "type": "Touch[]"
+            },
+            {
+                "name": "changedTouches?",
+                "type": "Touch[]"
+            }
+        ]
     },
     {
         "kind": "typedef",
@@ -1724,7 +1839,9 @@
     {
         "kind": "interface",
         "name": "HTMLDialogElement",
-        "constructorSignatures": ["new(): HTMLDialogElement"],
+        "constructorSignatures": [
+            "new(): HTMLDialogElement"
+        ],
         "extends": "HTMLElement",
         "flavor": "DOM",
         "properties": [
@@ -1740,15 +1857,21 @@
         "methods": [
             {
                 "name": "close",
-                "signatures": ["close(returnValue?: string): void"]
+                "signatures": [
+                    "close(returnValue?: string): void"
+                ]
             },
             {
                 "name": "show",
-                "signatures": ["show(): void"]
+                "signatures": [
+                    "show(): void"
+                ]
             },
             {
                 "name": "showModal",
-                "signatures": ["showModal(): void"]
+                "signatures": [
+                    "showModal(): void"
+                ]
             }
         ]
     },
@@ -1762,14 +1885,18 @@
     {
         "kind": "interface",
         "name": "HTMLMainElement",
-        "constructorSignatures": ["new(): HTMLMainElement"],
+        "constructorSignatures": [
+            "new(): HTMLMainElement"
+        ],
         "extends": "HTMLElement",
         "flavor": "DOM"
     },
     {
         "kind": "interface",
         "name": "HTMLDetailsElement",
-        "constructorSignatures": ["new(): HTMLDetailsElement"],
+        "constructorSignatures": [
+            "new(): HTMLDetailsElement"
+        ],
         "extends": "HTMLElement",
         "flavor": "DOM",
         "properties": [
@@ -1782,7 +1909,9 @@
     {
         "kind": "interface",
         "name": "HTMLSummaryElement",
-        "constructorSignatures": ["new(): HTMLSummaryElement"],
+        "constructorSignatures": [
+            "new(): HTMLSummaryElement"
+        ],
         "extends": "HTMLElement",
         "flavor": "DOM"
     },

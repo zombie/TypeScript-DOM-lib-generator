@@ -1381,7 +1381,7 @@
         "kind": "constructor",
         "interface": "Headers",
         "signatures": [
-            "new(init?: Headers | string[][] | object): Headers"
+            "new(init?: HeadersInit): Headers"
         ]
     },
     {
@@ -1389,5 +1389,17 @@
         "interface": "ServiceWorkerContainer",
         "name": "getRegistration",
         "signatures": ["getRegistration(): Promise<ServiceWorkerRegistration | undefined>"]
+    },
+    {
+        "kind": "property",
+        "interface": "RequestInit",
+        "name": "headers?",
+        "type": "HeadersInit"
+    },
+    {
+        "kind": "property",
+        "interface": "ResponseInit",
+        "name": "headers?",
+        "type": "HeadersInit"
     }
  ]

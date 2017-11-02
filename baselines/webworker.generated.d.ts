@@ -472,7 +472,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new(init?: Headers | string[][] | object): Headers;
+    new(init?: HeadersInit): Headers;
 };
 
 interface IDBCursor {
@@ -1890,6 +1890,7 @@ type USVString = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
 type FormDataEntryValue = string | File;
+type HeadersInit = string[][] | { [key: string]: string };
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";

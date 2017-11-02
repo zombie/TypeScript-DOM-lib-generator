@@ -3901,7 +3901,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new(init?: Headers | string[][] | object): Headers;
+    new(init?: HeadersInit): Headers;
 };
 
 interface History {
@@ -15115,7 +15115,6 @@ type GLsizeiptr = number;
 type GLubyte = number;
 type GLuint = number;
 type GLushort = number;
-type HeadersInit = Headers | string[][];
 type IDBKeyPath = string;
 type KeyFormat = string;
 type KeyType = string;
@@ -15136,6 +15135,7 @@ type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
+type HeadersInit = string[][] | { [key: string]: string };
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";

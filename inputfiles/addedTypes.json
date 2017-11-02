@@ -1794,5 +1794,10 @@
         "signatures": [
             "reportValidity(): boolean"
         ]
+    },
+    {
+        "kind": "typedef",
+        "name": "HeadersInit",
+        "type": "string[][] | { [key: string]: string }"
     }
 ]

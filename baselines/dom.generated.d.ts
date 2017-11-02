@@ -203,7 +203,7 @@ interface IDBIndexParameters {
 
 interface IDBObjectStoreParameters {
     autoIncrement?: boolean;
-    keyPath?: IDBKeyPath | null;
+    keyPath?: string | string[];
 }
 
 interface IntersectionObserverEntryInit {
@@ -773,7 +773,7 @@ interface RequestInit {
     body?: any;
     cache?: RequestCache;
     credentials?: RequestCredentials;
-    headers?: Headers | string[][];
+    headers?: HeadersInit;
     integrity?: string;
     keepalive?: boolean;
     method?: string;
@@ -785,7 +785,7 @@ interface RequestInit {
 }
 
 interface ResponseInit {
-    headers?: Headers | string[][];
+    headers?: HeadersInit;
     status?: number;
     statusText?: string;
 }

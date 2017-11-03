@@ -1935,5 +1935,12 @@
         "kind": "typedef",
         "name": "HeadersInit",
         "type": "string[][] | { [key: string]: string }"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLabelElement",
+        "readonly": true,
+        "name": "control",
+        "type": "HTMLInputElement | null"
     }
 ]

@@ -37,7 +37,7 @@ interface IDBIndexParameters {
 
 interface IDBObjectStoreParameters {
     autoIncrement?: boolean;
-    keyPath?: IDBKeyPath | null;
+    keyPath?: string | string[];
 }
 
 interface KeyAlgorithm {
@@ -74,7 +74,7 @@ interface RequestInit {
     body?: any;
     cache?: RequestCache;
     credentials?: RequestCredentials;
-    headers?: Headers | string[][];
+    headers?: HeadersInit;
     integrity?: string;
     keepalive?: boolean;
     method?: string;
@@ -86,7 +86,7 @@ interface RequestInit {
 }
 
 interface ResponseInit {
-    headers?: Headers | string[][];
+    headers?: HeadersInit;
     status?: number;
     statusText?: string;
 }
@@ -472,7 +472,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new(init?: Headers | string[][] | object): Headers;
+    new(init?: HeadersInit): Headers;
 };
 
 interface IDBCursor {
@@ -1890,6 +1890,7 @@ type USVString = string;
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
 type FormDataEntryValue = string | File;
+type HeadersInit = string[][] | { [key: string]: string };
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";

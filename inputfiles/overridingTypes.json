@@ -1611,5 +1611,11 @@
         "interface": "PaymentMethodData",
         "name": "supportedMethods",
         "type": "string"
+    },
+    {
+        "kind": "property",
+        "interface": "PaymentDetailsModifier",
+        "name": "supportedMethods",
+        "type": "string"
     }
 ]

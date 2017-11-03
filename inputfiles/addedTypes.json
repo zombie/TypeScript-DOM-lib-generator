@@ -458,14 +458,14 @@
         "kind": "method",
         "interface": "Element",
         "signatures": [
-            "closest(selector: string): Element | null"
+            "closest<K extends keyof ElementTagNameMap>(selector: K): ElementTagNameMap[K] | null"
         ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "signatures": [
-            "closest<K extends keyof ElementTagNameMap>(selector: K): ElementTagNameMap[K] | null"
+            "closest(selector: string): Element | null"
         ]
     },
     {

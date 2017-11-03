@@ -462,6 +462,13 @@
         ]
     },
     {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": [
+            "closest<K extends keyof ElementTagNameMap>(selector: K): ElementTagNameMap[K] | null"
+        ]
+    },
+    {
         "kind": "typedef",
         "flavor": "Web",
         "name": "ScrollBehavior",

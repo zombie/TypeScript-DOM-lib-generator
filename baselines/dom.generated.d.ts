@@ -3627,6 +3627,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getElementsByClassName(classNames: string): NodeListOf<Element>;
     matches(selector: string): boolean;
     closest(selector: string): Element | null;
+    closest<K extends keyof ElementTagNameMap>(selector: K): ElementTagNameMap[K] | null;
     scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void;
     scroll(options?: ScrollToOptions): void;
     scroll(x: number, y: number): void;

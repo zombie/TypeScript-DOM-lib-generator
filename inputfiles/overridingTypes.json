@@ -1,5 +1,40 @@
 [
     {
+        "kind": "typedinterface",
+        "interface": "CustomEventInit",
+        "parameters": [
+            "T = any"
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "CustomEventInit",
+        "name": "detail",
+        "type": "T"
+    },
+    {
+        "kind": "typedinterface",
+        "interface": "CustomEvent",
+        "parameters": [
+            "T = any"
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "CustomEvent",
+        "readonly": true,
+        "name": "detail",
+        "type": "T"
+    },
+    {
+        "kind": "method",
+        "interface": "CustomEvent",
+        "name": "initCustomEvent",
+        "signatures": [
+            "(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void"
+        ]
+    },
+    {
         "kind": "constructor",
         "interface": "Response",
         "signatures": [

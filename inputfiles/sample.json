@@ -338,6 +338,13 @@
         "interface": "Document"
     },
     {
+        "kind": "typedinterface",
+        "interface": "CustomEventInit",
+        "parameters": [
+            "T = any"
+        ]
+    },
+    {
         "kind": "interface", 
         "name": "ParentNode",
         "flavor": "DOM",

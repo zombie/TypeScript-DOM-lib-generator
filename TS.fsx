@@ -160,6 +160,7 @@ module InputJson =
         | SignatureOverload
         | TypeDef
         | Extends
+        | TypedInterface
         override x.ToString() =
             match x with
             | Property _ -> "property"
@@ -172,6 +173,7 @@ module InputJson =
             | SignatureOverload _ -> "signatureoverload"
             | TypeDef _ -> "typedef"
             | Extends _ -> "extends"
+            | TypedInterface _ -> "typedinterface"
 
     let getItemByName (allItems: InputJsonType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
         let filter (item: InputJsonType.Root) =
@@ -779,6 +781,10 @@ module Emit =
         (DomTypeToNullableTsType m.Type m.Nullable.IsSome) = expectedMType &&
         m.Params.Length = 1 &&
         (DomTypeToTsType m.Params.[0].Type) = expectedParamType
+    let processInterfaceType iName =
+        match getOverriddenItems ItemKind.TypedInterface Flavor.All |> Array.tryFind (matchInterface iName) with
+        | Some it -> iName + "<" + (it.Parameters |> String.concat ", ") + ">"
+        | _ -> iName
 
     /// Emit overloads for the createElement method
     let EmitCreateElementOverloads (m: Browser.Method) =
@@ -1160,9 +1166,9 @@ module Emit =
 
         let processedIName = processIName i.Name
         if processedIName <> i.Name then
-            Pt.PrintlToStack "interface %s extends %s {" i.Name processedIName
+            Pt.PrintlToStack "interface %s extends %s {" (processInterfaceType i.Name) processedIName
 
-        Pt.Printl "interface %s" processedIName
+        Pt.Printl "interface %s" (processInterfaceType processedIName)
         let finalExtends =
             let overridenExtendsFromJson =
                 InputJson.getOverriddenItemsByInterfaceName ItemKind.Extends Flavor.All i.Name
@@ -1387,10 +1393,11 @@ module Emit =
                 EmitConstructor flavor i
 
     let EmitDictionaries flavor =
+
         let emitDictionary (dict:Browser.Dictionary) =
             match dict.Extends with
-            | "Object" -> Pt.Printl "interface %s {" dict.Name
-            | _ -> Pt.Printl "interface %s extends %s {" dict.Name dict.Extends
+            | "Object" -> Pt.Printl "interface %s {" (processInterfaceType dict.Name)
+            | _ -> Pt.Printl "interface %s extends %s {" (processInterfaceType dict.Name) dict.Extends
 
             let emitJsonProperty (p: InputJsonType.Root) =
                 let readOnlyModifier =

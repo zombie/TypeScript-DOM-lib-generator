@@ -1934,7 +1934,7 @@
     {
         "kind": "typedef",
         "name": "HeadersInit",
-        "type": "string[][] | { [key: string]: string }"
+        "type": "Headers | string[][] | { [key: string]: string }"
     },
     {
         "kind": "property",

@@ -1610,12 +1610,12 @@
         "kind": "property",
         "interface": "PaymentMethodData",
         "name": "supportedMethods",
-        "type": "string"
+        "type": "string | string[]"
     },
     {
         "kind": "property",
         "interface": "PaymentDetailsModifier",
         "name": "supportedMethods",
-        "type": "string"
+        "type": "string | string[]"
     }
 ]

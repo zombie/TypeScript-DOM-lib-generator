@@ -160,7 +160,6 @@ module InputJson =
         | SignatureOverload
         | TypeDef
         | Extends
-        | TypedInterface
         override x.ToString() =
             match x with
             | Property _ -> "property"
@@ -173,7 +172,6 @@ module InputJson =
             | SignatureOverload _ -> "signatureoverload"
             | TypeDef _ -> "typedef"
             | Extends _ -> "extends"
-            | TypedInterface _ -> "typedinterface"
 
     let getItemByName (allItems: InputJsonType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
         let filter (item: InputJsonType.Root) =
@@ -782,8 +780,8 @@ module Emit =
         m.Params.Length = 1 &&
         (DomTypeToTsType m.Params.[0].Type) = expectedParamType
     let processInterfaceType iName =
-        match getOverriddenItems ItemKind.TypedInterface Flavor.All |> Array.tryFind (matchInterface iName) with
-        | Some it -> iName + "<" + (it.Parameters |> String.concat ", ") + ">"
+        match getOverriddenItems ItemKind.Interface Flavor.All |> Array.tryFind (matchInterface iName) with
+        | Some it -> iName + "<" + (it.TypeParameters |> String.concat ", ") + ">"
         | _ -> iName
 
     /// Emit overloads for the createElement method

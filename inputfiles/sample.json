@@ -338,9 +338,9 @@
         "interface": "Document"
     },
     {
-        "kind": "typedinterface",
+        "kind": "interface",
         "interface": "CustomEventInit",
-        "parameters": [
+        "typeParameters": [
             "T = any"
         ]
     },

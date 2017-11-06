@@ -31,7 +31,14 @@
         "interface": "CustomEvent",
         "name": "initCustomEvent",
         "signatures": [
-            "(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void"
+            "initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void"
+        ]
+    },
+    {
+        "kind": "constructor",
+        "interface": "CustomEvent",
+        "signatures": [
+            "new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>"
         ]
     },
     {

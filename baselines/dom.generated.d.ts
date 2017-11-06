@@ -2376,12 +2376,12 @@ declare var CSSSupportsRule: {
 
 interface CustomEvent<T = any> extends Event {
     readonly detail: T;
-    (typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
+    initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
 }
 
 declare var CustomEvent: {
     prototype: CustomEvent;
-    new(typeArg: string, eventInitDict?: CustomEventInit): CustomEvent;
+    new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
 };
 
 interface DataCue extends TextTrackCue {

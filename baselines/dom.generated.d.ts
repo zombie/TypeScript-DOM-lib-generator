@@ -83,7 +83,7 @@ interface ConstrainVideoFacingModeParameters {
 }
 
 interface CustomEventInit<T = any> extends EventInit {
-    detail: T;
+    detail?: T;
 }
 
 interface DeviceAccelerationDict {

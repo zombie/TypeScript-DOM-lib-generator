@@ -1926,9 +1926,6 @@
         "kind": "interface",
         "name": "EXT_blend_minmax",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): EXT_blend_minmax"
-        ],
         "properties": [
             {
                 "readonly": true,
@@ -2466,9 +2463,6 @@
         "kind": "interface",
         "name": "WEBGL_lose_context",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WEBGL_lose_context"
-        ],
         "methods": [
             {
                 "name": "loseContext",

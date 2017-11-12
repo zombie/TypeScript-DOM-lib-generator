@@ -14654,11 +14654,6 @@ interface EXT_blend_minmax {
     readonly MAX_EXT: number;
 }
 
-declare var EXT_blend_minmax: {
-    prototype: EXT_blend_minmax;
-    new(): EXT_blend_minmax;
-};
-
 interface EXT_frag_depth {
 }
 
@@ -14825,11 +14820,6 @@ interface WEBGL_lose_context {
     loseContext(): void;
     restoreContext(): void;
 }
-
-declare var WEBGL_lose_context: {
-    prototype: WEBGL_lose_context;
-    new(): WEBGL_lose_context;
-};
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 

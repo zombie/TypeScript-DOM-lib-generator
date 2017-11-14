@@ -12479,7 +12479,29 @@ interface WebGLRenderingContext {
     getBufferParameter(target: number, pname: number): any;
     getContextAttributes(): WebGLContextAttributes;
     getError(): number;
-    getExtension(name: string): any;
+    getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
+    getExtension(extensionName: "EXT_texture_filter_anisotropic"): EXT_texture_filter_anisotropic | null;
+    getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
+    getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
+    getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
+    getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
+    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
+    getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
+    getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
+    getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
+    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture | null;
+    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc | null;
+    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear | null;
+    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float | null;
+    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear | null;
+    getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
+    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
+    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
+    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
+    getExtension(extensionName: string): any;
     getFramebufferAttachmentParameter(target: number, attachment: number, pname: number): any;
     getParameter(pname: number): any;
     getProgramInfoLog(program: WebGLProgram | null): string | null;
@@ -14626,6 +14648,128 @@ declare var HTMLSummaryElement: {
     prototype: HTMLSummaryElement;
     new(): HTMLSummaryElement;
 };
+
+interface EXT_blend_minmax {
+    readonly MIN_EXT: number;
+    readonly MAX_EXT: number;
+}
+
+interface EXT_frag_depth {
+}
+
+interface EXT_shader_texture_lod {
+}
+
+interface EXT_sRGB {
+    readonly SRGB_EXT: number;
+    readonly SRGB_ALPHA_EXT: number;
+    readonly SRGB8_ALPHA8_EXT: number;
+    readonly FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT: number;
+}
+
+interface OES_vertex_array_object {
+    readonly VERTEX_ARRAY_BINDING_OES: number;
+    createVertexArrayOES(): WebGLVertexArrayObjectOES;
+    deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
+    isVertexArrayOES(value: any): value is WebGLVertexArrayObjectOES;
+    bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
+}
+
+interface WebGLVertexArrayObjectOES {
+}
+
+interface WEBGL_color_buffer_float {
+    readonly RGBA32F_EXT: number;
+    readonly RGB32F_EXT: number;
+    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: number;
+    readonly UNSIGNED_NORMALIZED_EXT: number;
+}
+
+interface WEBGL_compressed_texture_astc {
+    readonly COMPRESSED_RGBA_ASTC_4x4_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_5x4_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_5x5_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_6x5_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_6x6_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_8x5_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_8x6_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_8x8_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_10x5_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_10x6_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_10x8_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_10x10_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_12x10_KHR: number;
+    readonly COMPRESSED_RGBA_ASTC_12x12_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR: number;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR: number;
+    getSupportedProfiles(): string[];
+}
+
+interface WEBGL_compressed_texture_s3tc_srgb {
+    readonly COMPRESSED_SRGB_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT: number;
+    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT: number;
+}
+
+interface WEBGL_debug_shaders {
+    getTranslatedShaderSource(shader: WebGLShader): string;
+}
+
+interface WEBGL_draw_buffers {
+    readonly COLOR_ATTACHMENT0_WEBGL: number;
+    readonly COLOR_ATTACHMENT1_WEBGL: number;
+    readonly COLOR_ATTACHMENT2_WEBGL: number;
+    readonly COLOR_ATTACHMENT3_WEBGL: number;
+    readonly COLOR_ATTACHMENT4_WEBGL: number;
+    readonly COLOR_ATTACHMENT5_WEBGL: number;
+    readonly COLOR_ATTACHMENT6_WEBGL: number;
+    readonly COLOR_ATTACHMENT7_WEBGL: number;
+    readonly COLOR_ATTACHMENT8_WEBGL: number;
+    readonly COLOR_ATTACHMENT9_WEBGL: number;
+    readonly COLOR_ATTACHMENT10_WEBGL: number;
+    readonly COLOR_ATTACHMENT11_WEBGL: number;
+    readonly COLOR_ATTACHMENT12_WEBGL: number;
+    readonly COLOR_ATTACHMENT13_WEBGL: number;
+    readonly COLOR_ATTACHMENT14_WEBGL: number;
+    readonly COLOR_ATTACHMENT15_WEBGL: number;
+    readonly DRAW_BUFFER0_WEBGL: number;
+    readonly DRAW_BUFFER1_WEBGL: number;
+    readonly DRAW_BUFFER2_WEBGL: number;
+    readonly DRAW_BUFFER3_WEBGL: number;
+    readonly DRAW_BUFFER4_WEBGL: number;
+    readonly DRAW_BUFFER5_WEBGL: number;
+    readonly DRAW_BUFFER6_WEBGL: number;
+    readonly DRAW_BUFFER7_WEBGL: number;
+    readonly DRAW_BUFFER8_WEBGL: number;
+    readonly DRAW_BUFFER9_WEBGL: number;
+    readonly DRAW_BUFFER10_WEBGL: number;
+    readonly DRAW_BUFFER11_WEBGL: number;
+    readonly DRAW_BUFFER12_WEBGL: number;
+    readonly DRAW_BUFFER13_WEBGL: number;
+    readonly DRAW_BUFFER14_WEBGL: number;
+    readonly DRAW_BUFFER15_WEBGL: number;
+    readonly MAX_COLOR_ATTACHMENTS_WEBGL: number;
+    readonly MAX_DRAW_BUFFERS_WEBGL: number;
+    drawBuffersWEBGL(buffers: number[]): void;
+}
+
+interface WEBGL_lose_context {
+    loseContext(): void;
+    restoreContext(): void;
+}
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 

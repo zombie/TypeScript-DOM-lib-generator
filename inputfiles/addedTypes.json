@@ -1923,6 +1923,532 @@
         "flavor": "DOM"
     },
     {
+        "kind": "interface",
+        "name": "EXT_blend_minmax",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "MIN_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "MAX_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_frag_depth",
+        "flavor": "DOM",
+        "properties": []
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_shader_texture_lod",
+        "flavor": "DOM",
+        "properties": []
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_sRGB",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "SRGB_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "SRGB_ALPHA_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "SRGB8_ALPHA8_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "OES_vertex_array_object",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "VERTEX_ARRAY_BINDING_OES",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "createVertexArrayOES",
+                "signatures": [
+                    "createVertexArrayOES(): WebGLVertexArrayObjectOES"
+                ]
+            },
+            {
+                "name": "deleteVertexArrayOES",
+                "signatures": [
+                    "deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void"
+                ]
+            },
+            {
+                "name": "isVertexArrayOES",
+                "signatures": [
+                    "isVertexArrayOES(value: any): value is WebGLVertexArrayObjectOES"
+                ]
+            },
+            {
+                "name": "bindVertexArrayOES",
+                "signatures": [
+                    "bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WebGLVertexArrayObjectOES",
+        "flavor": "DOM",
+        "properties": []
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_color_buffer_float",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "RGBA32F_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "RGB32F_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "UNSIGNED_NORMALIZED_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_compressed_texture_astc",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_4x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_5x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_5x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_6x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_6x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_8x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_8x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_8x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_12x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_12x12_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "getSupportedProfiles",
+                "signatures": [
+                    "getSupportedProfiles(): string[]"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_compressed_texture_s3tc_srgb",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_S3TC_DXT1_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_debug_shaders",
+        "flavor": "DOM",
+        "methods": [
+            {
+                "name": "getTranslatedShaderSource",
+                "signatures": [
+                    "getTranslatedShaderSource(shader: WebGLShader): string"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_draw_buffers",
+        "flavor": "DOM",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT0_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT1_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT2_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT3_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT4_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT5_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT6_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT7_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT8_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT9_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT10_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT11_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT12_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT13_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT14_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT15_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER0_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER1_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER2_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER3_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER4_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER5_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER6_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER7_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER8_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER9_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER10_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER11_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER12_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER13_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER14_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER15_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "MAX_COLOR_ATTACHMENTS_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "MAX_DRAW_BUFFERS_WEBGL",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "drawBuffersWEBGL",
+                "signatures": [
+                    "drawBuffersWEBGL(buffers: number[]): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_lose_context",
+        "flavor": "DOM",
+        "methods": [
+            {
+                "name": "loseContext",
+                "signatures": [
+                    "loseContext(): void"
+                ]
+            },
+            {
+                "name": "restoreContext",
+                "signatures": [
+                    "restoreContext(): void"
+                ]
+            }
+        ]
+    },
+    {
         "kind": "method",
         "interface": "HTMLFormElement",
         "name": "reportValidity",

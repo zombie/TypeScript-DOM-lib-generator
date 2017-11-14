@@ -12491,16 +12491,16 @@ interface WebGLRenderingContext {
     getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
     getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
     getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
-    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture|null;
-    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info|null;
-    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc|null;
-    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear|null;
-    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float|null;
-    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear|null;
-    getExtension(extensionName: "OES_texture_float"): OES_texture_float|null;
-    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives|null;
-    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint|null;
-    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays|null;
+    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture | null;
+    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc | null;
+    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear | null;
+    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float | null;
+    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear | null;
+    getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
+    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
+    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
+    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
     getExtension(extensionName: string): any;
     getFramebufferAttachmentParameter(target: number, attachment: number, pname: number): any;
     getParameter(pname: number): any;
@@ -14657,18 +14657,8 @@ interface EXT_blend_minmax {
 interface EXT_frag_depth {
 }
 
-declare var EXT_frag_depth: {
-    prototype: EXT_frag_depth;
-    new(): EXT_frag_depth;
-};
-
 interface EXT_shader_texture_lod {
 }
-
-declare var EXT_shader_texture_lod: {
-    prototype: EXT_shader_texture_lod;
-    new(): EXT_shader_texture_lod;
-};
 
 interface EXT_sRGB {
     readonly SRGB_EXT: number;
@@ -14676,11 +14666,6 @@ interface EXT_sRGB {
     readonly SRGB8_ALPHA8_EXT: number;
     readonly FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT: number;
 }
-
-declare var EXT_sRGB: {
-    prototype: EXT_sRGB;
-    new(): EXT_sRGB;
-};
 
 interface OES_vertex_array_object {
     readonly VERTEX_ARRAY_BINDING_OES: number;
@@ -14690,18 +14675,8 @@ interface OES_vertex_array_object {
     bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
 }
 
-declare var OES_vertex_array_object: {
-    prototype: OES_vertex_array_object;
-    new(): OES_vertex_array_object;
-};
-
 interface WebGLVertexArrayObjectOES {
 }
-
-declare var WebGLVertexArrayObjectOES: {
-    prototype: WebGLVertexArrayObjectOES;
-    new(): WebGLVertexArrayObjectOES;
-};
 
 interface WEBGL_color_buffer_float {
     readonly RGBA32F_EXT: number;
@@ -14709,11 +14684,6 @@ interface WEBGL_color_buffer_float {
     readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: number;
     readonly UNSIGNED_NORMALIZED_EXT: number;
 }
-
-declare var WEBGL_color_buffer_float: {
-    prototype: WEBGL_color_buffer_float;
-    new(): WEBGL_color_buffer_float;
-};
 
 interface WEBGL_compressed_texture_astc {
     readonly COMPRESSED_RGBA_ASTC_4x4_KHR: number;
@@ -14747,11 +14717,6 @@ interface WEBGL_compressed_texture_astc {
     getSupportedProfiles(): string[];
 }
 
-declare var WEBGL_compressed_texture_astc: {
-    prototype: WEBGL_compressed_texture_astc;
-    new(): WEBGL_compressed_texture_astc;
-};
-
 interface WEBGL_compressed_texture_s3tc_srgb {
     readonly COMPRESSED_SRGB_S3TC_DXT1_EXT: number;
     readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT: number;
@@ -14759,19 +14724,9 @@ interface WEBGL_compressed_texture_s3tc_srgb {
     readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT: number;
 }
 
-declare var WEBGL_compressed_texture_s3tc_srgb: {
-    prototype: WEBGL_compressed_texture_s3tc_srgb;
-    new(): WEBGL_compressed_texture_s3tc_srgb;
-};
-
 interface WEBGL_debug_shaders {
     getTranslatedShaderSource(shader: WebGLShader): string;
 }
-
-declare var WEBGL_debug_shaders: {
-    prototype: WEBGL_debug_shaders;
-    new(): WEBGL_debug_shaders;
-};
 
 interface WEBGL_draw_buffers {
     readonly COLOR_ATTACHMENT0_WEBGL: number;
@@ -14810,11 +14765,6 @@ interface WEBGL_draw_buffers {
     readonly MAX_DRAW_BUFFERS_WEBGL: number;
     drawBuffersWEBGL(buffers: number[]): void;
 }
-
-declare var WEBGL_draw_buffers: {
-    prototype: WEBGL_draw_buffers;
-    new(): WEBGL_draw_buffers;
-};
 
 interface WEBGL_lose_context {
     loseContext(): void;

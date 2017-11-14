@@ -1943,27 +1943,18 @@
         "kind": "interface",
         "name": "EXT_frag_depth",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): EXT_frag_depth"
-        ],
         "properties": []
     },
     {
         "kind": "interface",
         "name": "EXT_shader_texture_lod",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): EXT_shader_texture_lod"
-        ],
         "properties": []
     },
     {
         "kind": "interface",
         "name": "EXT_sRGB",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): EXT_sRGB"
-        ],
         "properties": [
             {
                 "readonly": true,
@@ -1991,9 +1982,6 @@
         "kind": "interface",
         "name": "OES_vertex_array_object",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): OES_vertex_array_object"
-        ],
         "properties": [
             {
                 "readonly": true,
@@ -2032,18 +2020,12 @@
         "kind": "interface",
         "name": "WebGLVertexArrayObjectOES",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WebGLVertexArrayObjectOES"
-        ],
         "properties": []
     },
     {
         "kind": "interface",
         "name": "WEBGL_color_buffer_float",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WEBGL_color_buffer_float"
-        ],
         "properties": [
             {
                 "readonly": true,
@@ -2071,9 +2053,6 @@
         "kind": "interface",
         "name": "WEBGL_compressed_texture_astc",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WEBGL_compressed_texture_astc"
-        ],
         "properties": [
             {
                 "readonly": true,
@@ -2229,9 +2208,6 @@
         "kind": "interface",
         "name": "WEBGL_compressed_texture_s3tc_srgb",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WEBGL_compressed_texture_s3tc_srgb"
-        ],
         "properties": [
             {
                 "readonly": true,
@@ -2259,9 +2235,6 @@
         "kind": "interface",
         "name": "WEBGL_debug_shaders",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WEBGL_debug_shaders"
-        ],
         "methods": [
             {
                 "name": "getTranslatedShaderSource",
@@ -2275,9 +2248,6 @@
         "kind": "interface",
         "name": "WEBGL_draw_buffers",
         "flavor": "DOM",
-        "constructorSignatures": [
-            "new(): WEBGL_draw_buffers"
-        ],
         "properties": [
             {
                 "readonly": true,

@@ -812,7 +812,7 @@ module Emit =
         Pt.Printl "interface HTMLElementTagNameMap {"
         Pt.IncreaseIndent()
         for e in tagNameToEleName do
-            if iNameToIDependList.ContainsKey e.Value && Seq.contains "HTMLElement" iNameToIDependList.[e.Value] then
+            if iNameToIDependList.ContainsKey e.Value && not (Seq.contains "SVGElement" iNameToIDependList.[e.Value]) then
                 Pt.Printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
         Pt.DecreaseIndent()
         Pt.Printl "}"
@@ -829,13 +829,7 @@ module Emit =
         Pt.Printl ""
 
     let EmitElementTagNameMap () =
-        Pt.Printl "interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap {"
-        Pt.IncreaseIndent()
-        for e in tagNameToEleName do
-            if iNameToIDependList.ContainsKey e.Value && not (Seq.contains "HTMLElement" iNameToIDependList.[e.Value]) && not (Seq.contains "SVGElement" iNameToIDependList.[e.Value]) then
-                Pt.Printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
-        Pt.DecreaseIndent()
-        Pt.Printl "}"
+        Pt.Printl "interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }"
         Pt.Printl ""
 
     let EmitElementListTagNameMap () =

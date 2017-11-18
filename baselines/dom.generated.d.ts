@@ -9713,7 +9713,7 @@ interface ServiceWorkerContainer extends EventTarget {
     oncontrollerchange: (this: ServiceWorkerContainer, ev: Event) => any;
     onmessage: (this: ServiceWorkerContainer, ev: ServiceWorkerMessageEvent) => any;
     readonly ready: Promise<ServiceWorkerRegistration>;
-    getRegistration(): Promise<ServiceWorkerRegistration | undefined>;
+    getRegistration(clientURL?: USVString): Promise<ServiceWorkerRegistration | undefined>;
     getRegistrations(): Promise<ServiceWorkerRegistration[]>;
     register(scriptURL: USVString, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;

@@ -1689,5 +1689,41 @@
         "interface": "PaymentDetailsModifier",
         "name": "supportedMethods",
         "type": "string | string[]"
+    },
+    {
+        "kind": "method",
+        "interface": "CanvasRenderingContext2D",
+        "name": "clip",
+        "signatures": [
+            "clip(fillRule?: CanvasFillRule): void",
+            "clip(path: Path2D, fillRule?: CanvasFillRule): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "CanvasRenderingContext2D",
+        "name": "fill",
+        "signatures": [
+            "fill(fillRule?: CanvasFillRule): void",
+            "fill(path: Path2D, fillRule?: CanvasFillRule): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "CanvasRenderingContext2D",
+        "name": "isPointInPath",
+        "signatures": [
+            "isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean",
+            "isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "CanvasRenderingContext2D",
+        "name": "isPointInStroke",
+        "signatures": [
+            "isPointInStroke(x: number, y: number, fillRule?: CanvasFillRule): boolean",
+            "isPointInStroke(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean"
+        ]
     }
 ]

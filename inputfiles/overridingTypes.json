@@ -1663,7 +1663,7 @@
         "interface": "ServiceWorkerContainer",
         "name": "getRegistration",
         "signatures": [
-            "getRegistration(): Promise<ServiceWorkerRegistration | undefined>"
+            "getRegistration(clientURL?: USVString): Promise<ServiceWorkerRegistration | undefined>"
         ]
     },
     {

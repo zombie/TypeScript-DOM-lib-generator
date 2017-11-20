@@ -3243,7 +3243,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * Retrieves a collection of objects based on the specified element name.
      * @param name Specifies the name of an element.
      */
-    getElementsByTagName<K extends keyof ElementListTagNameMap>(tagname: K): ElementListTagNameMap[K];
+    getElementsByTagName<K extends keyof ElementTagNameMap>(tagname: K): NodeListOf<ElementTagNameMap[K]>;
     getElementsByTagName(tagname: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
@@ -3600,7 +3600,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getAttributeNS(namespaceURI: string, localName: string): string;
     getBoundingClientRect(): ClientRect;
     getClientRects(): ClientRectList;
-    getElementsByTagName<K extends keyof ElementListTagNameMap>(name: K): ElementListTagNameMap[K];
+    getElementsByTagName<K extends keyof ElementTagNameMap>(name: K): NodeListOf<ElementTagNameMap[K]>;
     getElementsByTagName(name: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
@@ -14133,7 +14133,7 @@ interface NavigatorUserMedia {
 interface NodeSelector {
     querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
     querySelector<E extends Element = Element>(selectors: string): E | null;
-    querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
+    querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
 }
 
@@ -15025,10 +15025,6 @@ interface SVGElementTagNameMap {
 }
 
 interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }
-
-type ElementListTagNameMap = {
-    [key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>
-};
 
 declare var Audio: { new(src?: string): HTMLAudioElement; };
 declare var Image: { new(width?: number, height?: number): HTMLImageElement; };

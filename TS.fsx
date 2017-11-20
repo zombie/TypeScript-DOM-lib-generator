@@ -793,19 +793,22 @@ module Emit =
     /// Emit overloads for the getElementsByTagName method
     let EmitGetElementsByTagNameOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "getElementsByTagName" "NodeList" "string" then
-            Pt.Printl "getElementsByTagName<K extends keyof ElementTagNameMap>(%s: K): NodeListOf<ElementTagNameMap[K]>;" m.Params.[0].Name
+            Pt.Printl "getElementsByTagName<K extends keyof HTMLElementTagNameMap>(%s: K): NodeListOf<HTMLElementTagNameMap[K]>;" m.Params.[0].Name
+            Pt.Printl "getElementsByTagName<K extends keyof SVGElementTagNameMap>(%s: K): NodeListOf<SVGElementTagNameMap[K]>;" m.Params.[0].Name
             Pt.Printl "getElementsByTagName(%s: string): NodeListOf<Element>;" m.Params.[0].Name
 
     /// Emit overloads for the querySelector method
     let EmitQuerySelectorOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "querySelector" "Element" "string" then
-            Pt.Printl "querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;"
+            Pt.Printl "querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;"
+            Pt.Printl "querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;"
             Pt.Printl "querySelector<E extends Element = Element>(selectors: string): E | null;"
 
     /// Emit overloads for the querySelectorAll method
     let EmitQuerySelectorAllOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "querySelectorAll" "NodeList" "string" then
-            Pt.Printl "querySelectorAll<K extends keyof ElementTagNameMap>(selectors: K): NodeListOf<ElementTagNameMap[K]>;"
+            Pt.Printl "querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;"
+            Pt.Printl "querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;"
             Pt.Printl "querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;"
 
     let EmitHTMLElementTagNameMap () =
@@ -826,10 +829,6 @@ module Emit =
                 Pt.Printl "\"%s\": %s;" (e.Key.ToLower()) e.Value
         Pt.DecreaseIndent()
         Pt.Printl "}"
-        Pt.Printl ""
-
-    let EmitElementTagNameMap () =
-        Pt.Printl "interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }"
         Pt.Printl ""
 
     /// Emit overloads for the createEvent method
@@ -1515,7 +1514,6 @@ module Emit =
         if flavor <> Worker then
             EmitHTMLElementTagNameMap()
             EmitSVGElementTagNameMap()
-            EmitElementTagNameMap()
             EmitNamedConstructors()
 
         match GetGlobalPollutor flavor with

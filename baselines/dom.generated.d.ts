@@ -3243,7 +3243,8 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * Retrieves a collection of objects based on the specified element name.
      * @param name Specifies the name of an element.
      */
-    getElementsByTagName<K extends keyof ElementListTagNameMap>(tagname: K): ElementListTagNameMap[K];
+    getElementsByTagName<K extends keyof HTMLElementTagNameMap>(tagname: K): NodeListOf<HTMLElementTagNameMap[K]>;
+    getElementsByTagName<K extends keyof SVGElementTagNameMap>(tagname: K): NodeListOf<SVGElementTagNameMap[K]>;
     getElementsByTagName(tagname: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
@@ -3600,7 +3601,8 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getAttributeNS(namespaceURI: string, localName: string): string;
     getBoundingClientRect(): ClientRect;
     getClientRects(): ClientRectList;
-    getElementsByTagName<K extends keyof ElementListTagNameMap>(name: K): ElementListTagNameMap[K];
+    getElementsByTagName<K extends keyof HTMLElementTagNameMap>(name: K): NodeListOf<HTMLElementTagNameMap[K]>;
+    getElementsByTagName<K extends keyof SVGElementTagNameMap>(name: K): NodeListOf<SVGElementTagNameMap[K]>;
     getElementsByTagName(name: string): NodeListOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
@@ -3629,7 +3631,8 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     webkitRequestFullScreen(): void;
     getElementsByClassName(classNames: string): NodeListOf<Element>;
     matches(selector: string): boolean;
-    closest<K extends keyof ElementTagNameMap>(selector: K): ElementTagNameMap[K] | null;
+    closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
+    closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null;
     closest(selector: string): Element | null;
     scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void;
     scroll(options?: ScrollToOptions): void;
@@ -14131,9 +14134,11 @@ interface NavigatorUserMedia {
 }
 
 interface NodeSelector {
-    querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
+    querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
+    querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
     querySelector<E extends Element = Element>(selectors: string): E | null;
-    querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
+    querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
+    querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
 }
 
@@ -15023,12 +15028,6 @@ interface SVGElementTagNameMap {
     "use": SVGUseElement;
     "view": SVGViewElement;
 }
-
-interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }
-
-type ElementListTagNameMap = {
-    [key in keyof ElementTagNameMap]: NodeListOf<ElementTagNameMap[key]>
-};
 
 declare var Audio: { new(src?: string): HTMLAudioElement; };
 declare var Image: { new(width?: number, height?: number): HTMLImageElement; };

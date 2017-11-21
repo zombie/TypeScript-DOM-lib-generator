@@ -1413,7 +1413,7 @@
     {
         "kind": "interface",
         "name": "ParentNode",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "children",
@@ -1455,7 +1455,7 @@
     {
         "kind": "typedef",
         "name": "ScrollRestoration",
-        "flavor": "DOM",
+        "flavor": "Web",
         "type": "\"auto\" | \"manual\""
     },
     {
@@ -1475,7 +1475,7 @@
     {
         "kind": "interface",
         "name": "DocumentOrShadowRoot",
-        "flavor": "DOM",
+        "flavor": "Web",
         "methods": [
             {
                 "name": "getSelection",
@@ -1513,7 +1513,7 @@
         "kind": "interface",
         "name": "ShadowRoot",
         "extends": "DocumentOrShadowRoot, DocumentFragment",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "host",
@@ -1557,7 +1557,7 @@
     {
         "kind": "interface",
         "name": "ShadowRootInit",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "mode",
@@ -1580,7 +1580,7 @@
         "kind": "interface",
         "name": "HTMLSlotElement",
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "name",
@@ -1599,7 +1599,7 @@
     {
         "kind": "interface",
         "name": "AssignedNodesOptions",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "flatten?",
@@ -1631,7 +1631,7 @@
     {
         "kind": "interface",
         "name": "ElementDefinitionOptions",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "extends",
@@ -1642,7 +1642,7 @@
     {
         "kind": "interface",
         "name": "CustomElementRegistry",
-        "flavor": "DOM",
+        "flavor": "Web",
         "methods": [
             {
                 "name": "define",
@@ -1717,7 +1717,7 @@
         "kind": "method",
         "interface": "DocumentFragment",
         "name": "getElementById",
-        "flavor": "DOM",
+        "flavor": "Web",
         "signatures": [
             "getElementById(elementId: string): HTMLElement | null"
         ]
@@ -1851,7 +1851,7 @@
             "new(): HTMLDialogElement"
         ],
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "open",
@@ -1897,7 +1897,7 @@
             "new(): HTMLMainElement"
         ],
         "extends": "HTMLElement",
-        "flavor": "DOM"
+        "flavor": "Web"
     },
     {
         "kind": "interface",
@@ -1906,7 +1906,7 @@
             "new(): HTMLDetailsElement"
         ],
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "open",
@@ -1921,12 +1921,12 @@
             "new(): HTMLSummaryElement"
         ],
         "extends": "HTMLElement",
-        "flavor": "DOM"
+        "flavor": "Web"
     },
     {
         "kind": "interface",
         "name": "EXT_blend_minmax",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -1943,19 +1943,19 @@
     {
         "kind": "interface",
         "name": "EXT_frag_depth",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": []
     },
     {
         "kind": "interface",
         "name": "EXT_shader_texture_lod",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": []
     },
     {
         "kind": "interface",
         "name": "EXT_sRGB",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -1982,7 +1982,7 @@
     {
         "kind": "interface",
         "name": "OES_vertex_array_object",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -2020,13 +2020,13 @@
     {
         "kind": "interface",
         "name": "WebGLVertexArrayObjectOES",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": []
     },
     {
         "kind": "interface",
         "name": "WEBGL_color_buffer_float",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -2053,7 +2053,7 @@
     {
         "kind": "interface",
         "name": "WEBGL_compressed_texture_astc",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -2208,7 +2208,7 @@
     {
         "kind": "interface",
         "name": "WEBGL_compressed_texture_s3tc_srgb",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -2235,7 +2235,7 @@
     {
         "kind": "interface",
         "name": "WEBGL_debug_shaders",
-        "flavor": "DOM",
+        "flavor": "Web",
         "methods": [
             {
                 "name": "getTranslatedShaderSource",
@@ -2248,7 +2248,7 @@
     {
         "kind": "interface",
         "name": "WEBGL_draw_buffers",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "readonly": true,
@@ -2433,7 +2433,7 @@
     {
         "kind": "interface",
         "name": "WEBGL_lose_context",
-        "flavor": "DOM",
+        "flavor": "Web",
         "methods": [
             {
                 "name": "loseContext",
@@ -2453,7 +2453,7 @@
         "kind": "method",
         "interface": "HTMLFormElement",
         "name": "reportValidity",
-        "flavor": "DOM",
+        "flavor": "Web",
         "signatures": [
             "reportValidity(): boolean"
         ]

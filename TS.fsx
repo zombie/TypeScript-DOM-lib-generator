@@ -831,6 +831,10 @@ module Emit =
         Pt.Printl "}"
         Pt.Printl ""
 
+    let EmitElementTagNameMap () =
+        Pt.Printl "interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }"
+        Pt.Printl ""
+
     /// Emit overloads for the createEvent method
     let EmitCreateEventOverloads (m: Browser.Method) =
         if matchSingleParamMethodSignature m "createEvent" "Event" "string" then
@@ -1514,6 +1518,7 @@ module Emit =
         if flavor <> Worker then
             EmitHTMLElementTagNameMap()
             EmitSVGElementTagNameMap()
+            EmitElementTagNameMap()
             EmitNamedConstructors()
 
         match GetGlobalPollutor flavor with

@@ -832,6 +832,7 @@ module Emit =
         Pt.Printl ""
 
     let EmitElementTagNameMap () =
+        Pt.Printl "/** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */"
         Pt.Printl "interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }"
         Pt.Printl ""
 

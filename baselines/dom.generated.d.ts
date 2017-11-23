@@ -15029,6 +15029,7 @@ interface SVGElementTagNameMap {
     "view": SVGViewElement;
 }
 
+/** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */
 interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }
 
 declare var Audio: { new(src?: string): HTMLAudioElement; };

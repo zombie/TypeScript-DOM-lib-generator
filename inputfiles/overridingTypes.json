@@ -1725,5 +1725,12 @@
             "isPointInStroke(x: number, y: number, fillRule?: CanvasFillRule): boolean",
             "isPointInStroke(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean"
         ]
+    },
+    {
+        "kind": "constructor",
+        "interface": "URL",
+        "signatures": [
+            "new(url: string, base?: string | URL): URL"
+        ]
     }
 ]

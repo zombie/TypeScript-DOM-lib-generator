@@ -5200,6 +5200,10 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves the width of the object.
      */
     width: string;
+    /**
+     * Sets or retrives the content of the page that is to contain.
+     */
+    srcdoc: string;
     addEventListener<K extends keyof HTMLIFrameElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLIFrameElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLIFrameElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLIFrameElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

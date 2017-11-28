@@ -759,6 +759,12 @@
     },
     {
         "kind": "property",
+        "interface": "HTMLIFrameElement",
+        "name": "srcdoc",
+        "type": "string"
+    },
+    {
+        "kind": "property",
         "interface": "HTMLTextAreaElement",
         "name": "minLength",
         "type": "number"

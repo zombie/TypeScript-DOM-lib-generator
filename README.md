@@ -29,7 +29,7 @@ The common steps to send a pull request are:
 1. Add missing elements to `inputfiles/addedTypes.json`, overriding elements to `inputfiles/overridingTypes.json`, or elements to remove to `inputfiles/removedTypes.json`.
 2. Run the build script locally to obtain new `dom.generated.d.ts` and `webworker.generated.d.ts`.
 3. Update the files in the `baselines` folder using the newly generated files
-   under `generated` folder (`cp ./generated/* ./baseline/`).
+   under `generated` folder (`cp ./generated/* ./baselines/`).
 
 ### When should a DOM API be included here?
 

@@ -3,7 +3,9 @@
         "kind": "interface",
         "name": "BroadcastChannel",
         "extends": "EventTarget",
-        "constructorSignatures": ["new(name: string): BroadcastChannel"],
+        "constructorSignatures": [
+            "new(name: string): BroadcastChannel"
+        ],
         "properties": [
             {
                 "readonly": true,
@@ -22,18 +24,29 @@
         "methods": [
             {
                 "name": "close",
-                "signatures": ["close(): void"]
+                "signatures": [
+                    "close(): void"
+                ]
             },
             {
                 "name": "postMessage",
-                "signatures": ["postMessage(message: any): void"]
+                "signatures": [
+                    "postMessage(message: any): void"
+                ]
             },
             {
                 "name": "addEventListener",
                 "signatures": [
-		    "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, useCapture?: boolean): void",
-		    "addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void"
-		]
+                    "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void",
+                    "addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void"
+                ]
+            },
+            {
+                "name": "removeEventListener",
+                "signatures": [
+                    "removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void",
+                    "removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void"
+                ]
             }
         ]
     },
@@ -92,7 +105,7 @@
     {
         "kind": "interface",
         "name": "StorageEventInit",
-        "flavor":  "Web",
+        "flavor": "Web",
         "extends": "EventInit",
         "properties": [
             {
@@ -190,7 +203,9 @@
         "methods": [
             {
                 "name": "close",
-                "signatures": ["close(): void"]
+                "signatures": [
+                    "close(): void"
+                ]
             }
         ]
     },
@@ -199,8 +214,8 @@
         "interface": "Window",
         "name": "createImageBitmap",
         "signatures": [
-             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-             "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+            "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+            "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
         ]
     },
     {
@@ -208,8 +223,8 @@
         "interface": "WorkerGlobalScope",
         "name": "createImageBitmap",
         "signatures": [
-             "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-             "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+            "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+            "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
         ]
     },
     {
@@ -239,27 +254,39 @@
         "methods": [
             {
                 "name": "append",
-                "signatures": ["append(name: string, value: string): void"]
+                "signatures": [
+                    "append(name: string, value: string): void"
+                ]
             },
             {
                 "name": "delete",
-                "signatures": ["delete(name: string): void"]
+                "signatures": [
+                    "delete(name: string): void"
+                ]
             },
             {
                 "name": "get",
-                "signatures": ["get(name: string): string | null"]
+                "signatures": [
+                    "get(name: string): string | null"
+                ]
             },
             {
                 "name": "getAll",
-                "signatures": ["getAll(name: string): string[]"]
+                "signatures": [
+                    "getAll(name: string): string[]"
+                ]
             },
             {
                 "name": "has",
-                "signatures": ["has(name: string): boolean"]
+                "signatures": [
+                    "has(name: string): boolean"
+                ]
             },
             {
                 "name": "set",
-                "signatures": ["set(name: string, value: string): void"]
+                "signatures": [
+                    "set(name: string, value: string): void"
+                ]
             }
         ]
     },
@@ -305,12 +332,16 @@
         "methods": [
             {
                 "name": "item",
-                "signatures": ["item(index: number): TNode"]
+                "signatures": [
+                    "item(index: number): TNode"
+                ]
             }
         ],
         "indexer": [
             {
-                "signatures": ["[index: number]: TNode"]
+                "signatures": [
+                    "[index: number]: TNode"
+                ]
             }
         ]
     },
@@ -322,16 +353,22 @@
         "methods": [
             {
                 "name": "item",
-                "signatures": ["item(index: number): T"]
+                "signatures": [
+                    "item(index: number): T"
+                ]
             },
             {
                 "name": "namedItem",
-                "signatures": ["namedItem(name: string): T"]
+                "signatures": [
+                    "namedItem(name: string): T"
+                ]
             }
         ],
         "indexer": [
             {
-                "signatures": ["[index: number]: T"]
+                "signatures": [
+                    "[index: number]: T"
+                ]
             }
         ]
     },
@@ -366,7 +403,9 @@
         "methods": [
             {
                 "name": "handleEvent",
-                "signatures": ["handleEvent(evt: Event): void"]
+                "signatures": [
+                    "handleEvent(evt: Event): void"
+                ]
             }
         ]
     },
@@ -404,17 +443,31 @@
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": ["getElementsByClassName(classNames: string): NodeListOf<Element>"]
+        "signatures": [
+            "getElementsByClassName(classNames: string): NodeListOf<Element>"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": ["matches(selector: string): boolean"]
+        "signatures": [
+            "matches(selector: string): boolean"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": [ "closest(selector: string): Element | null" ]
+        "signatures": [
+            "closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null",
+            "closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "signatures": [
+            "closest(selector: string): Element | null"
+        ]
     },
     {
         "kind": "typedef",
@@ -452,17 +505,23 @@
     {
         "kind": "method",
         "interface": "Window",
-        "signatures": [ "scroll(options?: ScrollToOptions): void" ]
+        "signatures": [
+            "scroll(options?: ScrollToOptions): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Window",
-        "signatures": [ "scrollTo(options?: ScrollToOptions): void" ]
+        "signatures": [
+            "scrollTo(options?: ScrollToOptions): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Window",
-        "signatures": [ "scrollBy(options?: ScrollToOptions): void" ]
+        "signatures": [
+            "scrollBy(options?: ScrollToOptions): void"
+        ]
     },
     {
         "kind": "typedef",
@@ -489,7 +548,9 @@
     {
         "kind": "method",
         "interface": "Element",
-        "signatures": [ "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void" ]
+        "signatures": [
+            "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void"
+        ]
     },
     {
         "kind": "method",
@@ -595,6 +656,13 @@
     {
         "kind": "property",
         "interface": "Navigator",
+        "readonly": true,
+        "name": "doNotTrack",
+        "type": "string | null"
+    },
+    {
+        "kind": "property",
+        "interface": "Navigator",
         "name": "hardwareConcurrency",
         "readonly": true,
         "type": "number"
@@ -623,7 +691,9 @@
         "kind": "method",
         "interface": "HTMLCanvasElement",
         "name": "toBlob",
-        "signatures": ["toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"]
+        "signatures": [
+            "toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"
+        ]
     },
     {
         "kind": "property",
@@ -709,7 +779,17 @@
         "kind": "method",
         "interface": "IDBDatabase",
         "name": "addEventListener",
-        "signatures": ["addEventListener(type: \"versionchange\", listener: (ev: IDBVersionChangeEvent) => any, useCapture?: boolean): void"]
+        "signatures": [
+            "addEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | AddEventListenerOptions): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "IDBDatabase",
+        "name": "removeEventListener",
+        "signatures": [
+            "removeEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | EventListenerOptions): void"
+        ]
     },
     {
         "kind": "property",
@@ -859,6 +939,7 @@
     {
         "kind": "interface",
         "name": "EcKeyImportParams",
+        "extends": "Algorithm",
         "properties": [
             {
                 "name": "namedCurve",
@@ -1275,25 +1356,33 @@
         "kind": "method",
         "interface": "DataTransfer",
         "name": "setDragImage",
-        "signatures": ["setDragImage(image: Element, x: number, y: number): void"]
+        "signatures": [
+            "setDragImage(image: Element, x: number, y: number): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentElement",
-        "signatures": ["insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"]
+        "signatures": [
+            "insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentHTML",
-        "signatures": ["insertAdjacentHTML(where: InsertPosition, html: string): void"]
+        "signatures": [
+            "insertAdjacentHTML(where: InsertPosition, html: string): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "Element",
         "name": "insertAdjacentText",
-        "signatures": ["insertAdjacentText(where: InsertPosition, text: string): void"]
+        "signatures": [
+            "insertAdjacentText(where: InsertPosition, text: string): void"
+        ]
     },
     {
         "kind": "property",
@@ -1330,7 +1419,7 @@
     {
         "kind": "interface",
         "name": "ParentNode",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "children",
@@ -1372,7 +1461,7 @@
     {
         "kind": "typedef",
         "name": "ScrollRestoration",
-        "flavor": "DOM",
+        "flavor": "Web",
         "type": "\"auto\" | \"manual\""
     },
     {
@@ -1385,24 +1474,32 @@
         "kind": "method",
         "interface": "CanvasPattern",
         "name": "setTransform",
-        "signatures": ["setTransform(matrix: SVGMatrix): void"]
+        "signatures": [
+            "setTransform(matrix: SVGMatrix): void"
+        ]
     },
     {
         "kind": "interface",
         "name": "DocumentOrShadowRoot",
-        "flavor": "DOM",
+        "flavor": "Web",
         "methods": [
             {
                 "name": "getSelection",
-                "signatures": ["getSelection(): Selection | null"]
+                "signatures": [
+                    "getSelection(): Selection | null"
+                ]
             },
             {
                 "name": "elementFromPoint",
-                "signatures": ["elementFromPoint(x: number, y: number): Element | null"]
+                "signatures": [
+                    "elementFromPoint(x: number, y: number): Element | null"
+                ]
             },
             {
                 "name": "elementsFromPoint",
-                "signatures": ["elementsFromPoint(x: number, y: number): Element[]"]
+                "signatures": [
+                    "elementsFromPoint(x: number, y: number): Element[]"
+                ]
             }
         ],
         "properties": [
@@ -1422,7 +1519,7 @@
         "kind": "interface",
         "name": "ShadowRoot",
         "extends": "DocumentOrShadowRoot, DocumentFragment",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "host",
@@ -1439,7 +1536,9 @@
         "kind": "method",
         "interface": "Element",
         "name": "attachShadow",
-        "signatures": ["attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"]
+        "signatures": [
+            "attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"
+        ]
     },
     {
         "kind": "property",
@@ -1464,7 +1563,7 @@
     {
         "kind": "interface",
         "name": "ShadowRootInit",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "mode",
@@ -1487,7 +1586,7 @@
         "kind": "interface",
         "name": "HTMLSlotElement",
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "name",
@@ -1497,14 +1596,16 @@
         "methods": [
             {
                 "name": "assignedNodes",
-                "signatures": ["assignedNodes(options?: AssignedNodesOptions): Node[]"]
+                "signatures": [
+                    "assignedNodes(options?: AssignedNodesOptions): Node[]"
+                ]
             }
         ]
     },
     {
         "kind": "interface",
         "name": "AssignedNodesOptions",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "flatten?",
@@ -1529,31 +1630,45 @@
         "kind": "method",
         "interface": "Event",
         "name": "deepPath",
-        "signatures": ["deepPath(): EventTarget[]"]
+        "signatures": [
+            "deepPath(): EventTarget[]"
+        ]
     },
     {
         "kind": "interface",
         "name": "ElementDefinitionOptions",
-        "flavor": "DOM",
-        "properties": [{
-            "name": "extends",
-            "type": "string"
-        }]
+        "flavor": "Web",
+        "properties": [
+            {
+                "name": "extends",
+                "type": "string"
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "CustomElementRegistry",
-        "flavor": "DOM",
-        "methods": [{
-           "name": "define",
-           "signatures": ["define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"]
-        }, {
-            "name": "get",
-            "signatures": ["get(name: string): any"]
-        }, {
-            "name": "whenDefined",
-            "signatures": ["whenDefined(name: string): PromiseLike<void>"]
-        }]
+        "flavor": "Web",
+        "methods": [
+            {
+                "name": "define",
+                "signatures": [
+                    "define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"
+                ]
+            },
+            {
+                "name": "get",
+                "signatures": [
+                    "get(name: string): any"
+                ]
+            },
+            {
+                "name": "whenDefined",
+                "signatures": [
+                    "whenDefined(name: string): PromiseLike<void>"
+                ]
+            }
+        ]
     },
     {
         "kind": "property",
@@ -1566,42 +1681,52 @@
         "name": "PromiseRejectionEvent",
         "extends": "Event",
         "flavor": "Web",
-        "properties": [{
-            "name": "promise",
-            "type": "PromiseLike<any>",
-            "readonly": true
-        }, {
-            "name": "reason",
-            "type": "any",
-            "readonly": true
-        }]
+        "properties": [
+            {
+                "name": "promise",
+                "type": "PromiseLike<any>",
+                "readonly": true
+            },
+            {
+                "name": "reason",
+                "type": "any",
+                "readonly": true
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "PromiseRejectionEventInit",
         "extends": "EventInit",
         "flavor": "Web",
-        "properties": [{
-            "name": "promise",
-            "type": "PromiseLike<any>"
-        }, {
-            "name": "reason?",
-            "type": "any"
-        }]
+        "properties": [
+            {
+                "name": "promise",
+                "type": "PromiseLike<any>"
+            },
+            {
+                "name": "reason?",
+                "type": "any"
+            }
+        ]
     },
     {
         "kind": "method",
         "interface": "Body",
         "name": "formData",
         "flavor": "Web",
-        "signatures": ["formData(): Promise<FormData>"]
+        "signatures": [
+            "formData(): Promise<FormData>"
+        ]
     },
     {
         "kind": "method",
         "interface": "DocumentFragment",
         "name": "getElementById",
-        "flavor": "DOM",
-        "signatures": ["getElementById(elementId: string): HTMLElement | null"]
+        "flavor": "Web",
+        "signatures": [
+            "getElementById(elementId: string): HTMLElement | null"
+        ]
     },
     {
         "kind": "typedef",
@@ -1613,71 +1738,90 @@
         "interface": "FormData",
         "name": "delete",
         "flavor": "Web",
-        "signatures": ["delete(name: string): void"]
+        "signatures": [
+            "delete(name: string): void"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "get",
         "flavor": "Web",
-        "signatures": ["get(name: string): FormDataEntryValue | null"]
+        "signatures": [
+            "get(name: string): FormDataEntryValue | null"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "getAll",
         "flavor": "Web",
-        "signatures": ["getAll(name: string): FormDataEntryValue[]"]
+        "signatures": [
+            "getAll(name: string): FormDataEntryValue[]"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "has",
         "flavor": "Web",
-        "signatures": ["has(name: string): boolean"]
+        "signatures": [
+            "has(name: string): boolean"
+        ]
     },
     {
         "kind": "method",
         "interface": "FormData",
         "name": "set",
         "flavor": "Web",
-        "signatures": ["set(name: string, value: string | Blob, fileName?: string): void"]
+        "signatures": [
+            "set(name: string, value: string | Blob, fileName?: string): void"
+        ]
     },
     {
         "kind": "interface",
         "name": "EventListenerOptions",
-        "properties": [{
-            "name": "capture?",
-            "type": "boolean"
-        }]
+        "properties": [
+            {
+                "name": "capture?",
+                "type": "boolean"
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "AddEventListenerOptions",
         "extends": "EventListenerOptions",
-        "properties": [{
-            "name": "passive?",
-            "type": "boolean"
-        }, {
-            "name": "once?",
-            "type": "boolean"
-        }]
+        "properties": [
+            {
+                "name": "passive?",
+                "type": "boolean"
+            },
+            {
+                "name": "once?",
+                "type": "boolean"
+            }
+        ]
     },
     {
         "kind": "interface",
         "name": "TouchEventInit",
-        "flavor":  "Web",
+        "flavor": "Web",
         "extends": "EventModifierInit",
-        "properties": [{
-            "name": "touches?",
-            "type": "Touch[]"
-        }, {
-            "name": "targetTouches?",
-            "type": "Touch[]"
-        }, {
-            "name": "changedTouches?",
-            "type": "Touch[]"
-        }]
+        "properties": [
+            {
+                "name": "touches?",
+                "type": "Touch[]"
+            },
+            {
+                "name": "targetTouches?",
+                "type": "Touch[]"
+            },
+            {
+                "name": "changedTouches?",
+                "type": "Touch[]"
+            }
+        ]
     },
     {
         "kind": "typedef",
@@ -1709,9 +1853,11 @@
     {
         "kind": "interface",
         "name": "HTMLDialogElement",
-        "constructorSignatures": ["new(): HTMLDialogElement"],
+        "constructorSignatures": [
+            "new(): HTMLDialogElement"
+        ],
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "open",
@@ -1725,15 +1871,21 @@
         "methods": [
             {
                 "name": "close",
-                "signatures": ["close(returnValue?: string): void"]
+                "signatures": [
+                    "close(returnValue?: string): void"
+                ]
             },
             {
                 "name": "show",
-                "signatures": ["show(): void"]
+                "signatures": [
+                    "show(): void"
+                ]
             },
             {
                 "name": "showModal",
-                "signatures": ["showModal(): void"]
+                "signatures": [
+                    "showModal(): void"
+                ]
             }
         ]
     },
@@ -1747,16 +1899,20 @@
     {
         "kind": "interface",
         "name": "HTMLMainElement",
-        "constructorSignatures": ["new(): HTMLMainElement"],
+        "constructorSignatures": [
+            "new(): HTMLMainElement"
+        ],
         "extends": "HTMLElement",
-        "flavor": "DOM"
+        "flavor": "Web"
     },
     {
         "kind": "interface",
         "name": "HTMLDetailsElement",
-        "constructorSignatures": ["new(): HTMLDetailsElement"],
+        "constructorSignatures": [
+            "new(): HTMLDetailsElement"
+        ],
         "extends": "HTMLElement",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "open",
@@ -1767,8 +1923,557 @@
     {
         "kind": "interface",
         "name": "HTMLSummaryElement",
-        "constructorSignatures": ["new(): HTMLSummaryElement"],
+        "constructorSignatures": [
+            "new(): HTMLSummaryElement"
+        ],
         "extends": "HTMLElement",
-        "flavor": "DOM"
+        "flavor": "Web"
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_blend_minmax",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "MIN_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "MAX_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_frag_depth",
+        "flavor": "Web",
+        "properties": []
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_shader_texture_lod",
+        "flavor": "Web",
+        "properties": []
+    },
+    {
+        "kind": "interface",
+        "name": "EXT_sRGB",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "SRGB_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "SRGB_ALPHA_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "SRGB8_ALPHA8_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "OES_vertex_array_object",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "VERTEX_ARRAY_BINDING_OES",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "createVertexArrayOES",
+                "signatures": [
+                    "createVertexArrayOES(): WebGLVertexArrayObjectOES"
+                ]
+            },
+            {
+                "name": "deleteVertexArrayOES",
+                "signatures": [
+                    "deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void"
+                ]
+            },
+            {
+                "name": "isVertexArrayOES",
+                "signatures": [
+                    "isVertexArrayOES(value: any): value is WebGLVertexArrayObjectOES"
+                ]
+            },
+            {
+                "name": "bindVertexArrayOES",
+                "signatures": [
+                    "bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WebGLVertexArrayObjectOES",
+        "flavor": "Web",
+        "properties": []
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_color_buffer_float",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "RGBA32F_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "RGB32F_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "UNSIGNED_NORMALIZED_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_compressed_texture_astc",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_4x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_5x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_5x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_6x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_6x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_8x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_8x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_8x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_10x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_12x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_RGBA_ASTC_12x12_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "getSupportedProfiles",
+                "signatures": [
+                    "getSupportedProfiles(): string[]"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_compressed_texture_s3tc_srgb",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_S3TC_DXT1_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT",
+                "type": "number"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_debug_shaders",
+        "flavor": "Web",
+        "methods": [
+            {
+                "name": "getTranslatedShaderSource",
+                "signatures": [
+                    "getTranslatedShaderSource(shader: WebGLShader): string"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_draw_buffers",
+        "flavor": "Web",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT0_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT1_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT2_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT3_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT4_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT5_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT6_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT7_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT8_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT9_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT10_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT11_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT12_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT13_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT14_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "COLOR_ATTACHMENT15_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER0_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER1_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER2_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER3_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER4_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER5_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER6_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER7_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER8_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER9_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER10_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER11_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER12_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER13_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER14_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "DRAW_BUFFER15_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "MAX_COLOR_ATTACHMENTS_WEBGL",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "MAX_DRAW_BUFFERS_WEBGL",
+                "type": "number"
+            }
+        ],
+        "methods": [
+            {
+                "name": "drawBuffersWEBGL",
+                "signatures": [
+                    "drawBuffersWEBGL(buffers: number[]): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "WEBGL_lose_context",
+        "flavor": "Web",
+        "methods": [
+            {
+                "name": "loseContext",
+                "signatures": [
+                    "loseContext(): void"
+                ]
+            },
+            {
+                "name": "restoreContext",
+                "signatures": [
+                    "restoreContext(): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLFormElement",
+        "name": "reportValidity",
+        "flavor": "Web",
+        "signatures": [
+            "reportValidity(): boolean"
+        ]
+    },
+    {
+        "kind": "typedef",
+        "name": "HeadersInit",
+        "type": "Headers | string[][] | { [key: string]: string }"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLLabelElement",
+        "readonly": true,
+        "name": "control",
+        "type": "HTMLInputElement | null"
     }
 ]

@@ -1732,5 +1732,12 @@
         "signatures": [
             "new(url: string, base?: string | URL): URL"
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "File",
+        "readonly": true,
+        "name": "lastModifiedDate",
+        "type": "Date"
     }
 ]

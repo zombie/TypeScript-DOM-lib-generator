@@ -414,9 +414,10 @@ declare var EventTarget: {
 };
 
 interface File extends Blob {
-    readonly lastModifiedDate: any;
+    readonly lastModifiedDate: Date;
     readonly name: string;
     readonly webkitRelativePath: string;
+    readonly lastModified: number;
 }
 
 declare var File: {

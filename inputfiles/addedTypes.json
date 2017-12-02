@@ -2475,5 +2475,12 @@
         "readonly": true,
         "name": "control",
         "type": "HTMLInputElement | null"
+    },
+    {
+        "kind": "property",
+        "interface": "File",
+        "readonly": true,
+        "name": "lastModified",
+        "type": "number"
     }
 ]

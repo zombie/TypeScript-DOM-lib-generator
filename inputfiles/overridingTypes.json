@@ -1739,5 +1739,21 @@
         "readonly": true,
         "name": "lastModifiedDate",
         "type": "Date"
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLInputElement",
+        "name": "setSelectionRange",
+        "signatures": [
+            "setSelectionRange(start: number, end: number, direction?: \"forward\" | \"backward\" | \"none\"): void"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "HTMLTextAreaElement",
+        "name": "setSelectionRange",
+        "signatures": [
+            "setSelectionRange(start: number, end: number, direction?: \"forward\" | \"backward\" | \"none\"): void"
+        ]
     }
 ]

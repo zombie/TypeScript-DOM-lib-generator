@@ -5500,8 +5500,9 @@ interface HTMLInputElement extends HTMLElement {
      * Sets the start and end positions of a selection in a text field.
      * @param start The offset into the text field for the start of the selection.
      * @param end The offset into the text field for the end of the selection.
+     * @param direction The direction in which the selection is performed.
      */
-    setSelectionRange(start?: number, end?: number, direction?: string): void;
+    setSelectionRange(start: number, end: number, direction?: "forward" | "backward" | "none"): void;
     /**
      * Decrements a range input control's value by the value given by the Step attribute. If the optional parameter is used, it will decrement the input control's step value multiplied by the parameter's value.
      * @param n Value to decrement the value by.
@@ -6963,8 +6964,9 @@ interface HTMLTextAreaElement extends HTMLElement {
      * Sets the start and end positions of a selection in a text field.
      * @param start The offset into the text field for the start of the selection.
      * @param end The offset into the text field for the end of the selection.
+     * @param direction The direction in which the selection is performed.
      */
-    setSelectionRange(start: number, end: number): void;
+    setSelectionRange(start: number, end: number, direction?: "forward" | "backward" | "none"): void;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTextAreaElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTextAreaElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

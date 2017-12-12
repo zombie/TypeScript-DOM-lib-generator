@@ -72,10 +72,16 @@
     {
         "kind": "indexer",
         "interface": "Window",
-        "signatures": [ "[index: number]: Window" ]
+        "signatures": [
+            "[index: number]: Window"
+        ]
     },
     {
         "kind": "typedef",
         "name": "JSON"
+    },
+    {
+        "kind": "typedef",
+        "name": "HeadersInit"
     }
 ]

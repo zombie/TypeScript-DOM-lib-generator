@@ -6062,6 +6062,7 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
      * Returns whether an element will successfully validate based on forms validation rules and constraints.
      */
     readonly willValidate: boolean;
+    typemustmatch: boolean;
     /**
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */

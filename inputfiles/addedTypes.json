@@ -2478,6 +2478,12 @@
     },
     {
         "kind": "property",
+        "interface": "HTMLObjectElement",
+        "name": "typemustmatch",
+        "type": "boolean"
+    },
+    {
+        "kind": "property",
         "interface": "File",
         "readonly": true,
         "name": "lastModified",

@@ -761,7 +761,7 @@ interface ProgressEventInit extends EventInit {
 }
 
 interface PushSubscriptionOptionsInit {
-    applicationServerKey?: any;
+    applicationServerKey?: BufferSource | null;
     userVisibleOnly?: boolean;
 }
 
@@ -770,7 +770,7 @@ interface RegistrationOptions {
 }
 
 interface RequestInit {
-    body?: any;
+    body?: Blob | BufferSource | FormData | string | null;
     cache?: RequestCache;
     credentials?: RequestCredentials;
     headers?: HeadersInit;
@@ -1088,7 +1088,7 @@ interface RTCTransportStats extends RTCStats {
 }
 
 interface ScopedCredentialDescriptor {
-    id: any;
+    id: BufferSource;
     transports?: Transport[];
     type: ScopedCredentialType;
 }
@@ -7540,7 +7540,7 @@ declare var MediaKeyMessageEvent: {
 
 interface MediaKeys {
     createSession(sessionType?: MediaKeySessionType): MediaKeySession;
-    setServerCertificate(serverCertificate: any): Promise<void>;
+    setServerCertificate(serverCertificate: BufferSource): Promise<void>;
 }
 
 declare var MediaKeys: {
@@ -7554,10 +7554,10 @@ interface MediaKeySession extends EventTarget {
     readonly keyStatuses: MediaKeyStatusMap;
     readonly sessionId: string;
     close(): Promise<void>;
-    generateRequest(initDataType: string, initData: any): Promise<void>;
+    generateRequest(initDataType: string, initData: BufferSource): Promise<void>;
     load(sessionId: string): Promise<boolean>;
     remove(): Promise<void>;
-    update(response: any): Promise<void>;
+    update(response: BufferSource): Promise<void>;
 }
 
 declare var MediaKeySession: {
@@ -7568,8 +7568,8 @@ declare var MediaKeySession: {
 interface MediaKeyStatusMap {
     readonly size: number;
     forEach(callback: ForEachCallback): void;
-    get(keyId: any): MediaKeyStatus;
-    has(keyId: any): boolean;
+    get(keyId: BufferSource): MediaKeyStatus;
+    has(keyId: BufferSource): boolean;
 }
 
 declare var MediaKeyStatusMap: {
@@ -12307,8 +12307,8 @@ declare var WaveShaperNode: {
 };
 
 interface WebAuthentication {
-    getAssertion(assertionChallenge: any, options?: AssertionOptions): Promise<WebAuthnAssertion>;
-    makeCredential(accountInformation: Account, cryptoParameters: ScopedCredentialParameters[], attestationChallenge: any, options?: ScopedCredentialOptions): Promise<ScopedCredentialInfo>;
+    getAssertion(assertionChallenge: BufferSource, options?: AssertionOptions): Promise<WebAuthnAssertion>;
+    makeCredential(accountInformation: Account, cryptoParameters: ScopedCredentialParameters[], attestationChallenge: BufferSource, options?: ScopedCredentialOptions): Promise<ScopedCredentialInfo>;
 }
 
 declare var WebAuthentication: {
@@ -14797,7 +14797,7 @@ interface ErrorEventHandler {
     (message: string, filename?: string, lineno?: number, colno?: number, error?: Error): void;
 }
 interface ForEachCallback {
-    (keyId: any, status: MediaKeyStatus): void;
+    (keyId: BufferSource, status: MediaKeyStatus): void;
 }
 interface FrameRequestCallback {
     (time: number): void;
@@ -15253,7 +15253,7 @@ declare function removeEventListener<K extends keyof WindowEventMap>(type: K, li
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 type AAGUID = string;
 type AlgorithmIdentifier = string | Algorithm;
-type BodyInit = any;
+type BodyInit = Blob | BufferSource | FormData | string;
 type ByteString = string;
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;

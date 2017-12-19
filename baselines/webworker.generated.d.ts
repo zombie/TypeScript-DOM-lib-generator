@@ -66,12 +66,12 @@ interface ObjectURLOptions {
 }
 
 interface PushSubscriptionOptionsInit {
-    applicationServerKey?: any;
+    applicationServerKey?: BufferSource | null;
     userVisibleOnly?: boolean;
 }
 
 interface RequestInit {
-    body?: any;
+    body?: Blob | BufferSource | FormData | string | null;
     cache?: RequestCache;
     credentials?: RequestCredentials;
     headers?: HeadersInit;
@@ -119,7 +119,7 @@ interface NotificationEventInit extends ExtendableEventInit {
 }
 
 interface PushEventInit extends ExtendableEventInit {
-    data?: any;
+    data?: BufferSource | USVString;
 }
 
 interface SyncEventInit extends ExtendableEventInit {
@@ -1834,7 +1834,7 @@ interface ErrorEventHandler {
     (message: string, filename?: string, lineno?: number, colno?: number, error?: Error): void;
 }
 interface ForEachCallback {
-    (keyId: any, status: MediaKeyStatus): void;
+    (keyId: BufferSource, status: MediaKeyStatus): void;
 }
 interface FunctionStringCallback {
     (data: string): void;
@@ -1884,7 +1884,7 @@ declare function addEventListener(type: string, listener: EventListenerOrEventLi
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 type AlgorithmIdentifier = string | Algorithm;
-type BodyInit = any;
+type BodyInit = Blob | BufferSource | FormData | string;
 type IDBKeyPath = string;
 type RequestInfo = Request | string;
 type USVString = string;

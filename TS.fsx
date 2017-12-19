@@ -695,23 +695,19 @@ module Emit =
     let rec DomTypeToTsType (objDomType: string) =
         match objDomType with
         | "AbortMode" -> "String"
-        | "any" -> "any"
         | "bool" | "boolean" | "Boolean" -> "boolean"
         | "CanvasPixelArray" -> "number[]"
-        | "Date" -> "Date"
         | "DOMHighResTimeStamp" -> "number"
         | "DOMString" -> "string"
         | "DOMTimeStamp" -> "number"
         | "EndOfStreamError" -> "number"
         | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" -> "number"
-        | "Function" -> "Function"
         | "object" -> "any"
-        | "Promise" -> "Promise"
         | "ReadyState" -> "string"
         | "sequence" -> "Array"
         | "UnrestrictedDouble" | "unrestricted double" -> "number"
-        | "void" -> "void"
+        | "any" | "BufferSource" | "Date" | "Function" | "Promise" | "void" -> objDomType
         | integerType when List.contains integerType integerTypes -> "number"
         | extendedType when List.contains extendedType extendedTypes -> extendedType
         | _ ->

@@ -770,6 +770,7 @@ interface RegistrationOptions {
 }
 
 interface RequestInit {
+    signal?: AbortSignal;
     body?: any;
     cache?: RequestCache;
     credentials?: RequestCredentials;
@@ -9233,6 +9234,7 @@ interface Request extends Object, Body {
     readonly referrerPolicy: ReferrerPolicy;
     readonly type: RequestType;
     readonly url: string;
+    readonly signal: AbortSignal;
     clone(): Request;
 }
 
@@ -14783,6 +14785,21 @@ interface WEBGL_draw_buffers {
 interface WEBGL_lose_context {
     loseContext(): void;
     restoreContext(): void;
+}
+
+interface AbortController {
+    readonly signal: AbortSignal;
+    abort(): void;
+}
+
+declare var AbortController: {
+    prototype: AbortController;
+    new(): AbortController;
+};
+
+interface AbortSignal extends EventTarget {
+    readonly aborted: boolean;
+    onabort: (ev: Event) => any;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

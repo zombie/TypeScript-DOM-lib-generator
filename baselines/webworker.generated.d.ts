@@ -1824,6 +1824,28 @@ interface AddEventListenerOptions extends EventListenerOptions {
     once?: boolean;
 }
 
+interface EventSource extends EventTarget {
+    readonly url: string;
+    readonly withCredentials: boolean;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+    readonly CLOSED: number;
+    readonly readyState: number;
+    onopen: (evt: MessageEvent) => any;
+    onmessage: (evt: MessageEvent) => any;
+    onerror: (evt: MessageEvent) => any;
+    close(): void;
+}
+
+declare var EventSource: {
+    prototype: EventSource;
+    new(url: string, eventSourceInitDict?: EventSourceInit): EventSource;
+};
+
+interface EventSourceInit {
+    readonly withCredentials: boolean;
+}
+
 interface AbortController {
     readonly signal: AbortSignal;
     abort(): void;

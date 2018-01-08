@@ -1755,5 +1755,21 @@
         "signatures": [
             "setSelectionRange(start: number, end: number, direction?: \"forward\" | \"backward\" | \"none\"): void"
         ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "getAttributeNodeNS",
+        "signatures": [
+            "getAttributeNodeNS(namespaceURI: string, localName: string): Attr | null"
+        ]
+    },
+    {
+        "kind": "method",
+        "interface": "Element",
+        "name": "getAttributeNode",
+        "signatures": [
+            "getAttributeNode(name: string): Attr | null"
+        ]
     }
 ]

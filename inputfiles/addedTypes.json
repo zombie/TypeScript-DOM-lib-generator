@@ -2616,7 +2616,7 @@
                 "name": "signal",
                 "type": "AbortSignal"
             }
-	],
+	      ],
         "methods": [
             {
                 "name": "abort",
@@ -2654,5 +2654,76 @@
         "interface": "RequestInit",
         "name": "signal?",
         "type": "AbortSignal"
+    },
+    {
+        "kind": "interface",
+        "name": "EventSource",
+        "extends": "EventTarget",
+        "constructorSignatures": [
+            "new(url: string, eventSourceInitDict?: EventSourceInit): EventSource"
+        ],
+        "properties": [
+            {
+                "readonly": true,
+                "name": "url",
+                "type": "string"
+            },
+            {
+                "readonly": true,
+                "name": "withCredentials",
+                "type": "boolean"
+            },
+            {
+                "readonly": true,
+                "name": "CONNECTING",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "OPEN",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "CLOSED",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "readyState",
+                "type": "number"
+            },
+            {
+                "name": "onopen",
+                "type": "(evt: MessageEvent) => any"
+            },
+            {
+                "name": "onmessage",
+                "type": "(evt: MessageEvent) => any"
+            },
+            {
+                "name": "onerror",
+                "type": "(evt: MessageEvent) => any"
+            }
+        ],
+        "methods": [
+            {
+                "name": "close",
+                "signatures": [
+                    "close(): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "EventSourceInit",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "withCredentials",
+                "type": "boolean"
+            }
+        ]
     }
 ]

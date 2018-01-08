@@ -2488,5 +2488,56 @@
         "readonly": true,
         "name": "lastModified",
         "type": "number"
+    },
+    {
+        "kind": "interface",
+        "name": "AbortController",
+        "constructorSignatures": [
+            "new(): AbortController"
+        ],
+        "properties": [
+            {
+                "readonly": true,
+                "name": "signal",
+                "type": "AbortSignal"
+            }
+	],
+        "methods": [
+            {
+                "name": "abort",
+                "signatures": [
+                    "abort(): void"
+                ]
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "name": "AbortSignal",
+        "extends": "EventTarget",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "aborted",
+                "type": "boolean"
+            },
+            {
+                "name": "onabort",
+                "type": "(ev: Event) => any"
+            }
+        ]
+    },
+    {
+        "kind": "property",
+        "interface": "Request",
+        "readonly": true,
+        "name": "signal",
+        "type": "AbortSignal"
+    },
+    {
+        "kind": "property",
+        "interface": "RequestInit",
+        "name": "signal?",
+        "type": "AbortSignal"
     }
 ]

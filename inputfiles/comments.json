@@ -1948,7 +1948,7 @@
           },
           {
             "name": "setSelectionRange",
-            "comment": "/**\r\n     * Sets the start and end positions of a selection in a text field.\r\n     * @param start The offset into the text field for the start of the selection.\r\n     * @param end The offset into the text field for the end of the selection.\r\n     */"
+            "comment": "/**\r\n     * Sets the start and end positions of a selection in a text field.\r\n     * @param start The offset into the text field for the start of the selection.\r\n     * @param end The offset into the text field for the end of the selection.\r\n     * @param direction The direction in which the selection is performed.\r\n     */"
           },
           {
             "name": "select",
@@ -2335,7 +2335,7 @@
           },
           {
             "name": "setSelectionRange",
-            "comment": "/**\r\n     * Sets the start and end positions of a selection in a text field.\r\n     * @param start The offset into the text field for the start of the selection.\r\n     * @param end The offset into the text field for the end of the selection.\r\n     */"
+            "comment": "/**\r\n     * Sets the start and end positions of a selection in a text field.\r\n     * @param start The offset into the text field for the start of the selection.\r\n     * @param end The offset into the text field for the end of the selection.\r\n     * @param direction The direction in which the selection is performed.\r\n     */"
           },
           {
             "name": "select",

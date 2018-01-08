@@ -3600,8 +3600,8 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, NodeSelec
     getAttributeNode(name: string): Attr | null;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr | null;
     getAttributeNS(namespaceURI: string, localName: string): string;
-    getBoundingClientRect(): ClientRect;
-    getClientRects(): ClientRectList;
+    getBoundingClientRect(): ClientRect | DOMRect;
+    getClientRects(): ClientRectList | DOMRectList;
     getElementsByTagName<K extends keyof HTMLElementTagNameMap>(name: K): NodeListOf<HTMLElementTagNameMap[K]>;
     getElementsByTagName<K extends keyof SVGElementTagNameMap>(name: K): NodeListOf<SVGElementTagNameMap[K]>;
     getElementsByTagName(name: string): NodeListOf<Element>;
@@ -4898,6 +4898,7 @@ interface HTMLFormElement extends HTMLElement {
      * Fires when a FORM is about to be submitted.
      */
     submit(): void;
+    reportValidity(): boolean;
     reportValidity(): boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -7371,10 +7372,10 @@ declare var IntersectionObserver: {
 };
 
 interface IntersectionObserverEntry {
-    readonly boundingClientRect: ClientRect;
+    readonly boundingClientRect: ClientRect | DOMRect;
     readonly intersectionRatio: number;
-    readonly intersectionRect: ClientRect;
-    readonly rootBounds: ClientRect;
+    readonly intersectionRect: ClientRect | DOMRect;
+    readonly rootBounds: ClientRect | DOMRect;
     readonly target: Element;
     readonly time: number;
     readonly isIntersecting: boolean;
@@ -9172,8 +9173,8 @@ interface Range {
     detach(): void;
     expand(Unit: ExpandGranularity): boolean;
     extractContents(): DocumentFragment;
-    getBoundingClientRect(): ClientRect;
-    getClientRects(): ClientRectList;
+    getBoundingClientRect(): ClientRect | DOMRect;
+    getClientRects(): ClientRectList | DOMRectList;
     insertNode(newNode: Node): void;
     selectNode(refNode: Node): void;
     selectNodeContents(refNode: Node): void;
@@ -14667,6 +14668,23 @@ declare var HTMLSummaryElement: {
     new(): HTMLSummaryElement;
 };
 
+interface DOMRectReadOnly {
+    readonly bottom: number;
+    readonly height: number;
+    readonly left: number;
+    readonly right: number;
+    readonly top: number;
+    readonly width: number;
+    readonly x: number;
+    readonly y: number;
+}
+
+declare var DOMRectReadOnly: {
+    prototype: DOMRectReadOnly;
+    new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
+    fromRect(rectangle?: DOMRectInit): DOMRectReadOnly;
+};
+
 interface EXT_blend_minmax {
     readonly MIN_EXT: number;
     readonly MAX_EXT: number;
@@ -14683,6 +14701,25 @@ interface EXT_sRGB {
     readonly SRGB_ALPHA_EXT: number;
     readonly SRGB8_ALPHA8_EXT: number;
     readonly FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT: number;
+}
+
+interface DOMRect extends DOMRectReadOnly {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+}
+
+declare var DOMRect: {
+    prototype: DOMRect;
+    new (x?: number, y?: number, width?: number, height?: number): DOMRect;
+    fromRect(rectangle?: DOMRectInit): DOMRect;
+};
+
+interface DOMRectList {
+    readonly length: number;
+    item(index: number): DOMRect | null;
+    [index: number]: DOMRect;
 }
 
 interface OES_vertex_array_object {

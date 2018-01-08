@@ -14826,6 +14826,20 @@ interface WEBGL_lose_context {
     restoreContext(): void;
 }
 
+interface AbortController {
+    readonly signal: AbortSignal;
+    abort(): void;
+}
+
+declare var AbortController: {
+    prototype: AbortController;
+    new(): AbortController;
+};
+
+interface AbortSignal extends EventTarget {
+    readonly aborted: boolean;
+    onabort: (ev: Event) => any;
+}
 
 interface EventSource extends EventTarget {
     readonly url: string;
@@ -14847,21 +14861,6 @@ declare var EventSource: {
 
 interface EventSourceInit {
     readonly withCredentials: boolean;
-}
-
-interface AbortController {
-    readonly signal: AbortSignal;
-    abort(): void;
-}
-
-declare var AbortController: {
-    prototype: AbortController;
-    new(): AbortController;
-};
-
-interface AbortSignal extends EventTarget {
-    readonly aborted: boolean;
-    onabort: (ev: Event) => any;
 }
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;

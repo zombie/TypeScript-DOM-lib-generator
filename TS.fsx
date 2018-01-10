@@ -855,11 +855,14 @@ module Emit =
             (if p.Variadic then "[]" else "")
         String.Join(", ", (List.map paramToString ps))
 
-    let EmitCallBackInterface (i:Browser.Interface) =
-        Pt.Printl "interface %s {" i.Name
-        Pt.PrintWithAddedIndent "(evt: Event): void;"
-        Pt.Printl "}"
-        Pt.Printl ""
+    let EmitCallBackInterface flavor (i:Browser.Interface) =
+        if ShouldKeep flavor i then
+            let m = i.Methods.Value.Methods.[0]
+            let overload = (GetOverloads (Function.Method m) false).[0]
+            let paramsString = ParamsToString overload.ParamCombinations
+            let returnType = DomTypeToTsType m.Type
+            Pt.Printl "type %s = (%s) => %s | { %s(%s): %s; };" i.Name paramsString returnType m.Name.Value paramsString returnType
+            Pt.Printl ""
 
     let EmitCallBackFunctions flavor =
         let emitCallbackFunctionsFromJson (cb: InputJson.InputJsonType.Root) =
@@ -1501,7 +1504,7 @@ module Emit =
         Pt.Printl ""
 
         EmitDictionaries flavor
-        browser.CallbackInterfaces.Interfaces |> Array.iter EmitCallBackInterface
+        browser.CallbackInterfaces.Interfaces |> Array.iter (EmitCallBackInterface flavor)
         EmitNonCallbackInterfaces flavor
 
         // Add missed interface definition from the spec

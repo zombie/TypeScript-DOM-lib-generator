@@ -6,7 +6,6 @@ open System.Collections.Generic
 open System.IO
 open System.Text
 open System.Text.RegularExpressions
-open System.Web
 open Microsoft.FSharp.Reflection
 open FSharp.Data
 
@@ -63,13 +62,13 @@ module Types =
         let output = StringBuilder()
         let stack = StringBuilder()
         let mutable curTabCount = 0
-        member this.GetCurIndent() = String.replicate curTabCount "    "
+        member __.GetCurIndent() = String.replicate curTabCount "    "
 
-        member this.Print content = Printf.kprintf (output.Append >> ignore) content
+        member __.Print content = Printf.kprintf (output.Append >> ignore) content
 
-        member this.PrintToStack content = Printf.kprintf (stack.Append >> ignore) content
+        member __.PrintToStack content = Printf.kprintf (stack.Append >> ignore) content
 
-        member this.ClearStack () = stack.Clear() |> ignore
+        member __.ClearStack () = stack.Clear() |> ignore
 
         member this.PrintStackContent () = this.Print "%s" (stack.ToString())
 
@@ -79,22 +78,22 @@ module Types =
         member this.PrintlToStack content =
             Printf.kprintf (fun s -> stack.Append("\r\n" + this.GetCurIndent() + s) |> ignore) content
 
-        member this.StackIsEmpty () = stack.Length = 0
+        member __.StackIsEmpty () = stack.Length = 0
 
-        member this.IncreaseIndent() = curTabCount <- curTabCount + 1
+        member __.IncreaseIndent() = curTabCount <- curTabCount + 1
 
-        member this.SetIndent indentNum = curTabCount <- indentNum
+        member __.SetIndent indentNum = curTabCount <- indentNum
 
-        member this.DecreaseIndent() = curTabCount <- Math.Max(curTabCount - 1, 0)
+        member __.DecreaseIndent() = curTabCount <- Math.Max(curTabCount - 1, 0)
 
-        member this.ResetIndent() = curTabCount <- 0
+        member __.ResetIndent() = curTabCount <- 0
 
         member this.PrintWithAddedIndent content =
             Printf.kprintf (fun s -> output.Append("\r\n" + this.GetCurIndent() + "    " + s) |> ignore) content
 
-        member this.GetResult() = output.ToString()
+        member __.GetResult() = output.ToString()
 
-        member this.Clear() = output.Clear() |> ignore
+        member __.Clear() = output.Clear() |> ignore
 
         member this.Reset() =
             this.Clear()
@@ -244,7 +243,6 @@ module CommentJson =
         | _ -> None
 
 module Data =
-    open Helpers
     open Types
 
     // Used to decide if a member should be emitted given its static property and
@@ -389,12 +387,6 @@ module Data =
             (e.Name, eType))
         |> Map.ofList
 
-    let eNameToETypeWithoutCase =
-        eNameToEType
-        |> Map.toList
-        |> List.map (fun (k, v) -> (k.ToLower(), v))
-        |> Map.ofList
-
     let getEventTypeInInterface eName (i: Browser.Interface) =
         match i.Name, eName with
         | "IDBDatabase", "abort"
@@ -440,8 +432,7 @@ module Data =
             yield! [ for e in i.Elements do
                         yield (e.Name, i.Name) ] ]
         |> Seq.groupBy fst
-        |> Seq.map (fun (key, group) -> (key, Seq.map snd group))
-        |> Seq.map (fun (key, group) ->
+        |> Seq.map ((fun (key, group) -> (key, Seq.map snd group)) >> fun (key, group) ->
             key,
             match Seq.length group with
             | 1 -> Seq.head group
@@ -500,7 +491,7 @@ module Data =
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
     /// And they don't NOT just differ by an "on" prefix!
     let iNameToEhList =
-        let getEventTypeFromHandler (p : Browser.Property) (i : Browser.Interface) =
+        let getEventTypeFromHandler (p : Browser.Property) =
             let eType =
                 // Check the "event-handler" attribute of the event handler property,
                 // which is the corresponding event name
@@ -525,7 +516,7 @@ module Data =
                     ps.Properties
                     |> Array.choose (fun p' ->
                         if p'.EventHandler.IsSome then
-                            Some({ Name = p'.Name; EventName = p'.EventHandler.Value; EventType = getEventTypeFromHandler p' i })
+                            Some({ Name = p'.Name; EventName = p'.EventHandler.Value; EventType = getEventTypeFromHandler p' })
                         else None)
                     |> List.ofArray
                 | None -> []
@@ -561,14 +552,6 @@ module Data =
         allInterfaces
         |> Array.map (fun i -> (i.Name, getParentsWithEventHandler i))
         |> Map.ofArray
-
-    /// Event handler name to event type map
-    let ehNameToEType =
-        let t =
-            [ for KeyValue(_, ehList) in iNameToEhList do
-                yield! (List.map (fun eh -> (eh.Name, eh.EventType)) ehList) ]
-            |> List.distinct
-        t |> Map.ofList
 
     let GetGlobalPollutor flavor =
         match flavor with
@@ -616,7 +599,7 @@ module Data =
             match f with
             | Method m -> m.Nullable.IsSome
             | Ctor _ -> false
-            | CallBackFun cb -> true
+            | CallBackFun _ -> true
 
         // Some params have the type of "(DOMString or DOMString [] or Number)"
         // we need to transform it into [“DOMString", "DOMString []", "Number"]
@@ -1069,7 +1052,7 @@ module Emit =
             | Some i' -> EmitAllMembers flavor i'
             | _ -> ()
 
-    let EmitEventHandlers (flavor: Flavor) (prefix: string) (i:Browser.Interface) =
+    let EmitEventHandlers (prefix: string) (i:Browser.Interface) =
         let getOptionsType (addOrRemove: string) =
             if addOrRemove = "add" then "AddEventListenerOptions" else "EventListenerOptions"
 
@@ -1258,7 +1241,7 @@ module Emit =
         |> Array.filter (matchInterface i.Name)
         |> Array.iter emitIndexerFromJson
 
-    let EmitInterfaceEventMap flavor (i:Browser.Interface) =
+    let EmitInterfaceEventMap (i:Browser.Interface) =
         let emitInterfaceEventMapEntry (eHandler: EventHandler)  =
             let eventType =
                 getEventTypeInInterface eHandler.EventName i
@@ -1279,7 +1262,7 @@ module Emit =
 
     let EmitInterface flavor (i:Browser.Interface) =
         Pt.ClearStack()
-        EmitInterfaceEventMap flavor i
+        EmitInterfaceEventMap i
 
         Pt.ResetIndent()
         EmitInterfaceDeclaration i
@@ -1288,7 +1271,7 @@ module Emit =
         let prefix = ""
         EmitMembers flavor prefix EmitScope.InstanceOnly i
         EmitConstants i
-        EmitEventHandlers flavor prefix i
+        EmitEventHandlers prefix i
         EmitIndexers EmitScope.InstanceOnly i
 
         Pt.DecreaseIndent()
@@ -1346,7 +1329,7 @@ module Emit =
 
             let prefix = ""
             EmitMembers flavor prefix EmitScope.InstanceOnly i
-            EmitEventHandlers flavor prefix i
+            EmitEventHandlers prefix i
             EmitIndexers EmitScope.InstanceOnly i
 
             Pt.DecreaseIndent()
@@ -1369,7 +1352,7 @@ module Emit =
             let prefix = ""
             EmitMembers flavor prefix EmitScope.StaticOnly i
             EmitConstants i
-            EmitEventHandlers flavor prefix i
+            EmitEventHandlers prefix i
             EmitIndexers EmitScope.StaticOnly i
             emitAddedConstructor ()
             Pt.DecreaseIndent()
@@ -1438,7 +1421,7 @@ module Emit =
 
     let EmitAddedInterface (ai: InputJsonType.Root) =
         match ai.Extends with
-        | Some e -> Pt.Printl "interface %s extends %s {" ai.Name.Value ai.Extends.Value
+        | Some e -> Pt.Printl "interface %s extends %s {" ai.Name.Value e
         | None -> Pt.Printl "interface %s {" ai.Name.Value
 
         let emitProperty (p: InputJsonType.Property) =
@@ -1520,7 +1503,7 @@ module Emit =
         match GetGlobalPollutor flavor with
         | Some gp ->
             EmitAllMembers flavor gp
-            EmitEventHandlers flavor "declare var " gp
+            EmitEventHandlers "declare var " gp
         | _ -> ()
 
         EmitTypeDefs flavor

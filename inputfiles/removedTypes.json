@@ -83,5 +83,10 @@
     {
         "kind": "typedef",
         "name": "HeadersInit"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLObjectElement",
+        "name": "alt"
     }
 ]

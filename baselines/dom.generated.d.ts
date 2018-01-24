@@ -5961,10 +5961,6 @@ declare var HTMLModElement: {
 interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
     align: string;
     /**
-     * Sets or retrieves a text alternative to the graphic.
-     */
-    alt: string;
-    /**
      * Gets or sets the optional alternative HTML script to execute if the object fails to load.
      */
     altHtml: string;

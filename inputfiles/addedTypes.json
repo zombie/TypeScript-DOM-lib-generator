@@ -1497,7 +1497,7 @@
                 "readonly": true
             },
             {
-                "name": "stylesheets",
+                "name": "styleSheets",
                 "type": "StyleSheetList",
                 "readonly": true
             }

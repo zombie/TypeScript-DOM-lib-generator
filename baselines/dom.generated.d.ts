@@ -3100,8 +3100,8 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * Creates an instance of the element for the specified tag.
      * @param tagName The name of an element.
      */
-    createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];
-    createElement(tagName: string): HTMLElement;
+    createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];
+    createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "circle"): SVGCircleElement;
@@ -14585,6 +14585,10 @@ interface AssignedNodesOptions {
 
 interface ElementDefinitionOptions {
     extends: string;
+}
+
+interface ElementCreationOptions {
+    is?: string;
 }
 
 interface CustomElementRegistry {

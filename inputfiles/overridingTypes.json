@@ -1707,7 +1707,7 @@
         "name": "getBoundingClientRect",
         "signatures": [
             "getBoundingClientRect(): ClientRect | DOMRect"
-        ]
+        ]        
     },
     {
         "kind": "property",
@@ -1821,14 +1821,6 @@
         "name": "getAttributeNode",
         "signatures": [
             "getAttributeNode(name: string): Attr | null"
-        ]
-    },
-    {
-        "kind": "method",
-        "interface": "WebSocket",
-        "name": "send",
-        "signatures": [
-            "send(data: USVString | ArrayBuffer | Blob | ArrayBufferView): void;"
         ]
     }
 ]

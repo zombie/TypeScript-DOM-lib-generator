@@ -14558,7 +14558,7 @@ interface ParentNode {
 
 interface DocumentOrShadowRoot {
     readonly activeElement: Element | null;
-    readonly stylesheets: StyleSheetList;
+    readonly styleSheets: StyleSheetList;
     getSelection(): Selection | null;
     elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];

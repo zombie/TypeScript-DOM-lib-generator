@@ -2808,10 +2808,6 @@
             "comment": "/**\r\n     * Sets or retrieves a message to be displayed while an object is loading.\r\n     */"
           },
           {
-            "name": "alt",
-            "comment": "/**\r\n     * Sets or retrieves a text alternative to the graphic.\r\n     */"
-          },
-          {
             "name": "classid",
             "comment": "/**\r\n     * Sets or retrieves the class identifier for the object.\r\n     */"
           },

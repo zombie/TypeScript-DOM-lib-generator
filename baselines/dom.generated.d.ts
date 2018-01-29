@@ -3072,6 +3072,7 @@ interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEven
      * Gets or sets the version attribute specified in the declaration of an XML document.
      */
     xmlVersion: string | null;
+    onvisibilitychange: (this: Document, ev: Event) => any;
     adoptNode<T extends Node>(source: T): T;
     captureEvents(): void;
     caretRangeFromPoint(x: number, y: number): Range;

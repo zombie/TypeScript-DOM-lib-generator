@@ -2722,5 +2722,11 @@
                 "type": "boolean"
             }
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "Document",
+        "name": "onvisibilitychange",
+        "type": "(this: Document, ev: Event) => any"
     }
 ]

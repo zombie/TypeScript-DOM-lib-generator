@@ -1830,5 +1830,12 @@
         "signatures": [
             "send(data: USVString | ArrayBuffer | Blob | ArrayBufferView): void"
         ]
+    },
+    {
+        "kind": "callback",
+        "name": "ForEachCallback",
+        "signatures": [
+            "(keyId: any, status: MediaKeyStatus): void"
+        ]
     }
 ]

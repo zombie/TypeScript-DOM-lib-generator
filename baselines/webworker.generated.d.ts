@@ -1917,6 +1917,7 @@ type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
 type FormDataEntryValue = string | File;
 type HeadersInit = Headers | string[][] | { [key: string]: string };
+type DOMString = string;
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";

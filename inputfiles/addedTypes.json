@@ -2731,14 +2731,9 @@
     },
     {
         "kind": "typedef",
-        "name": "DOMString",
-        "type": "string"
-    },
-    {
-        "kind": "typedef",
         "flavor": "Web",
         "name": "AnimationKeyFrame",
-        "type": "{[key: string]: string | number | [string | number, string | number] | undefined}"
+        "type": "{offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]}"
     },       
     {
         "kind": "interface",
@@ -2747,7 +2742,7 @@
         "properties": [
             {
                 "name": "id?",
-                "type": "DOMString"
+                "type": "string"
             },
             {
                 "name": "delay?",
@@ -2776,7 +2771,11 @@
             {
                 "name": "iterationStart?",
                 "type": "number"
-            }           
+            },
+            {
+                "name": "iterations?",
+                "type": "number"
+            }
         ]
     },       
     {
@@ -2837,7 +2836,44 @@
                 ]
             }         
         ]        
-    },       
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationPlaybackEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "currentTime?",
+                "type": "number | null"
+            },
+            {
+                "name": "timelineTime?",
+                "type": "number | null"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationPlaybackEvent",
+        "extends": "Event",
+        "constructorSignatures": [
+            "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
+        ],        
+        "properties": [
+            {
+                "readonly": true,
+                "name": "currentTime",
+                "type": "number | null"
+            },
+            {
+                "readonly": true,
+                "name": "timelineTime",
+                "type": "number | null"
+            }
+        ]
+    },    
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2895,13 +2931,13 @@
             {
                 "name": "oncancel",
                 "signatures": [
-                    "oncancel() => void"
+                    "oncancel: (this: Animation, ev: AnimationPlaybackEvent) => any"
                 ]
             },
             {
                 "name": "onfinish",
                 "signatures": [
-                    "oncancel() => void"
+                    "onfinish: (this: Animation, ev: AnimationPlaybackEvent) => any"
                 ]
             },
             {

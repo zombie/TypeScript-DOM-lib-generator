@@ -14854,7 +14854,7 @@ interface EventSourceInit {
 }
 
 interface AnimationOptions {
-    id?: DOMString;
+    id?: string;
     delay?: number;
     direction?: "normal" | "reverse" | "alternate" | "alternate-reverse";
     duration?: number;
@@ -14862,6 +14862,7 @@ interface AnimationOptions {
     endDelay?: number;
     fill?: "none" | "forwards" | "backwards" | "both"| "auto";
     iterationStart?: number;
+    iterations?: number;
 }
 
 interface AnimationTimeline {
@@ -14881,6 +14882,21 @@ interface AnimationEffectReadOnly {
     getComputedTiming() => ComputedTimingProperties;
 }
 
+interface AnimationPlaybackEventInit extends EventInit {
+    currentTime?: number | null;
+    timelineTime?: number | null;
+}
+
+interface AnimationPlaybackEvent extends Event {
+    readonly currentTime: number | null;
+    readonly timelineTime: number | null;
+}
+
+declare var AnimationPlaybackEvent: {
+    prototype: AnimationPlaybackEvent;
+    new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent;
+};
+
 interface Animation {
     currentTime: number | null;
     effect: AnimationEffectReadOnly;
@@ -14892,8 +14908,8 @@ interface Animation {
     readonly ready: Promise<Animation>;
     startTime: number;
     timeline: AnimationTimeline;
-    oncancel() => void;
-    oncancel() => void;
+    oncancel: (this: Animation, ev: AnimationPlaybackEvent) => any;
+    onfinish: (this: Animation, ev: AnimationPlaybackEvent) => any;
     cancel(): void;
     finish(): void;
     pause(): void;
@@ -15414,8 +15430,7 @@ type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type HeadersInit = Headers | string[][] | { [key: string]: string };
-type DOMString = string;
-type AnimationKeyFrame = {[key: string]: string | number | [string | number, string | number] | undefined};
+type AnimationKeyFrame = {offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]};
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";

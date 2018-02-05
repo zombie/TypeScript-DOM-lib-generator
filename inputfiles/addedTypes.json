@@ -2728,5 +2728,256 @@
         "interface": "Document",
         "name": "onvisibilitychange",
         "type": "(this: Document, ev: Event) => any"
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Web",
+        "name": "AnimationKeyFrame",
+        "type": "{offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]}"
+    },       
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationOptions",
+        "properties": [
+            {
+                "name": "id?",
+                "type": "string"
+            },
+            {
+                "name": "delay?",
+                "type": "number"
+            },
+            {
+                "name": "direction?",
+                "type": "\"normal\" | \"reverse\" | \"alternate\" | \"alternate-reverse\""
+            },
+            {
+                "name": "duration?",
+                "type": "number"
+            },
+            {
+                "name": "easing?",
+                "type": "string"
+            }, 
+            {
+                "name": "endDelay?",
+                "type": "number"
+            },             
+            {
+                "name": "fill?",
+                "type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\""
+            },  
+            {
+                "name": "iterationStart?",
+                "type": "number"
+            },
+            {
+                "name": "iterations?",
+                "type": "number"
+            }
+        ]
+    },       
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationTimeline",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "currentTime",
+                "type": "number | null"
+            }   
+        ]
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "ComputedTimingProperties",
+        "properties": [
+            {
+                "name": "endTime",
+                "type": "number"
+            },
+            {
+                "name": "activeDuration",
+                "type": "number"
+            },  
+            {
+                "name": "localTime",
+                "type": "number | null"
+            },
+            {
+                "name": "progress",
+                "type": "number | null"
+            },
+            {
+                "name": "currentIteration",
+                "type": "number | null"
+            }           
+        ]       
+    },      
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationEffectReadOnly",
+        "properties": [
+            {
+                "readonly": true,
+                "name": "timing",
+                "type": "number"
+            }   
+        ],
+        "methods": [
+            {
+                "name": "getComputedTiming",
+                "signatures": [
+                    "getComputedTiming() => ComputedTimingProperties"
+                ]
+            }         
+        ]        
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationPlaybackEventInit",
+        "extends": "EventInit",
+        "properties": [
+            {
+                "name": "currentTime?",
+                "type": "number | null"
+            },
+            {
+                "name": "timelineTime?",
+                "type": "number | null"
+            }
+        ]
+    },
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "AnimationPlaybackEvent",
+        "extends": "Event",
+        "constructorSignatures": [
+            "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
+        ],        
+        "properties": [
+            {
+                "readonly": true,
+                "name": "currentTime",
+                "type": "number | null"
+            },
+            {
+                "readonly": true,
+                "name": "timelineTime",
+                "type": "number | null"
+            }
+        ]
+    },    
+    {
+        "kind": "interface",
+        "flavor": "Web",
+        "name": "Animation",
+        "constructorSignatures": [
+            "new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation"
+        ],
+        "properties": [
+            {
+                "name": "currentTime",
+                "type": "number | null"
+            },
+            {
+                "name": "effect",
+                "type": "AnimationEffectReadOnly"
+            },
+            {
+                "readonly": true,
+                "name": "finished",
+                "type": "Promise<Animation>"
+            },
+            {
+                "name": "id",
+                "type": "string"
+            },
+            {
+                "readonly": true,
+                "name": "pending",
+                "type": "boolean"
+            },
+            {
+                "readonly": true,
+                "name": "playState",
+                "type": "\"idle\" | \"running\" | \"paused\" | \"finished\""
+            },
+            {
+                "name": "playbackRate",
+                "type": "number"
+            },
+            {
+                "readonly": true,
+                "name": "ready",
+                "type": "Promise<Animation>"
+            },
+            {
+                "name": "startTime",
+                "type": "number"
+            },
+            {
+                "name": "timeline",
+                "type": "AnimationTimeline"
+            }          
+        ],
+        "methods": [
+            {
+                "name": "oncancel",
+                "signatures": [
+                    "oncancel: (this: Animation, ev: AnimationPlaybackEvent) => any"
+                ]
+            },
+            {
+                "name": "onfinish",
+                "signatures": [
+                    "onfinish: (this: Animation, ev: AnimationPlaybackEvent) => any"
+                ]
+            },
+            {
+                "name": "cancel",
+                "signatures": [
+                    "cancel(): void"
+                ]
+            },
+            {
+                "name": "finish",
+                "signatures": [
+                    "finish(): void"
+                ]
+            },
+            {
+                "name": "pause",
+                "signatures": [
+                    "pause(): void"
+                ]
+            },
+            {
+                "name": "play",
+                "signatures": [
+                    "play(): void"
+                ]
+            },
+            {
+                "name": "reverse",
+                "signatures": [
+                    "reverse(): void"
+                ]
+            }            
+        ]
+    },    
+    {
+        "kind": "method",
+        "name": "animate",
+        "interface": "HTMLElement",
+        "signatures": [
+            "animate(keyframes: AnimationKeyFrame | AnimationKeyFrame[], options: number | AnimationOptions): Animation"
+        ]
     }
 ]

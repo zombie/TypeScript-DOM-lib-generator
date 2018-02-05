@@ -4687,6 +4687,7 @@ interface HTMLElement extends Element {
     dragDrop(): boolean;
     focus(): void;
     msGetInputContext(): MSInputMethodContext;
+    animate(keyframes: AnimationKeyFrame | AnimationKeyFrame[], options: number | AnimationOptions): Animation;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -14852,6 +14853,75 @@ interface EventSourceInit {
     readonly withCredentials: boolean;
 }
 
+interface AnimationOptions {
+    id?: string;
+    delay?: number;
+    direction?: "normal" | "reverse" | "alternate" | "alternate-reverse";
+    duration?: number;
+    easing?: string;
+    endDelay?: number;
+    fill?: "none" | "forwards" | "backwards" | "both"| "auto";
+    iterationStart?: number;
+    iterations?: number;
+}
+
+interface AnimationTimeline {
+    readonly currentTime: number | null;
+}
+
+interface ComputedTimingProperties {
+    endTime: number;
+    activeDuration: number;
+    localTime: number | null;
+    progress: number | null;
+    currentIteration: number | null;
+}
+
+interface AnimationEffectReadOnly {
+    readonly timing: number;
+    getComputedTiming() => ComputedTimingProperties;
+}
+
+interface AnimationPlaybackEventInit extends EventInit {
+    currentTime?: number | null;
+    timelineTime?: number | null;
+}
+
+interface AnimationPlaybackEvent extends Event {
+    readonly currentTime: number | null;
+    readonly timelineTime: number | null;
+}
+
+declare var AnimationPlaybackEvent: {
+    prototype: AnimationPlaybackEvent;
+    new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent;
+};
+
+interface Animation {
+    currentTime: number | null;
+    effect: AnimationEffectReadOnly;
+    readonly finished: Promise<Animation>;
+    id: string;
+    readonly pending: boolean;
+    readonly playState: "idle" | "running" | "paused" | "finished";
+    playbackRate: number;
+    readonly ready: Promise<Animation>;
+    startTime: number;
+    timeline: AnimationTimeline;
+    oncancel: (this: Animation, ev: AnimationPlaybackEvent) => any;
+    onfinish: (this: Animation, ev: AnimationPlaybackEvent) => any;
+    cancel(): void;
+    finish(): void;
+    pause(): void;
+    play(): void;
+    reverse(): void;
+}
+
+declare var Animation: {
+    prototype: Animation;
+    new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation;
+};
+
 interface DecodeErrorCallback {
     (error: DOMException): void;
 }
@@ -15360,6 +15430,7 @@ type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type HeadersInit = Headers | string[][] | { [key: string]: string };
+type AnimationKeyFrame = {offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]};
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";

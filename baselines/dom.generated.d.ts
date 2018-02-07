@@ -15084,6 +15084,7 @@ interface HTMLElementTagNameMap {
     "script": HTMLScriptElement;
     "section": HTMLElement;
     "select": HTMLSelectElement;
+    "slot": HTMLSlotElement;
     "small": HTMLElement;
     "source": HTMLSourceElement;
     "span": HTMLSpanElement;

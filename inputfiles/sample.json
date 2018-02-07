@@ -355,5 +355,26 @@
                 "type": "HTMLCollection"
             }
         ]
+    },
+    {
+        "kind": "interface",
+        "name": "HTMLSlotElement",
+        "extends": "HTMLElement",
+        "flavor": "Web",
+        "tagNames": [ "slot" ],
+        "properties": [
+            {
+                "name": "name",
+                "type": "string"
+            }
+        ],
+        "methods": [
+            {
+                "name": "assignedNodes",
+                "signatures": [
+                    "assignedNodes(options?: AssignedNodesOptions): Node[]"
+                ]
+            }
+        ]
     }
 ]

@@ -428,9 +428,20 @@ module Data =
             | name when Seq.contains name iNames -> name
             | _ -> raise (Exception("Element conflict occured! Typename: " + tagName))
 
-        [ for i in GetNonCallbackInterfacesByFlavor Flavor.All do
-            yield! [ for e in i.Elements do
-                        yield (e.Name, i.Name) ] ]
+        let nativeTagNamesToInterface =
+            [ for i in GetNonCallbackInterfacesByFlavor Flavor.All do
+                yield! [ for e in i.Elements do
+                            yield (e.Name, i.Name) ] ]
+
+        let addedTagNamesToInterface =
+            [ for i in InputJson.getAddedItems InputJson.ItemKind.Interface Flavor.All
+            |> Array.filter (fun i -> Seq.length i.TagNames > 0) do
+                yield! [ for e in i.TagNames do
+                            match i.Name with
+                            | Some name -> yield (e, name)
+                            | _ -> () ] ]
+        
+        nativeTagNamesToInterface @ addedTagNamesToInterface
         |> Seq.groupBy fst
         |> Seq.map ((fun (key, group) -> (key, Seq.map snd group)) >> fun (key, group) ->
             key,
@@ -448,15 +459,33 @@ module Data =
                 match i.Extends with
                 | "Object" -> []
                 | super -> super :: (getExtendList super)
-            | _ -> []
+            | _ ->
+                match InputJson.getAddedItemByName iName InputJson.ItemKind.Interface iName with
+                | Some i ->
+                    match i.Extends with
+                    | Some extends -> 
+                        match extends with
+                        | "Object" -> []
+                        | super -> super :: (getExtendList super)
+                    | _ -> []
+                | _ -> []
 
         let getImplementList(iName : string) =
             match GetInterfaceByName iName with
             | Some i -> List.ofArray i.Implements
             | _ -> []
+        
+        let addedINameToIDependList =
+            InputJson.getAddedItems InputJson.ItemKind.Interface Flavor.All
+            |> Array.ofSeq
+            |> Array.filter (fun i -> i.Name.IsSome)
+            |> Array.map (fun i -> (Option.get i.Name, List.concat [ (getExtendList (Option.get i.Name)); (getImplementList (Option.get i.Name)) ]))
 
-        Array.concat [| allWebNonCallbackInterfaces; worker.Interfaces; worker.MixinInterfaces.Interfaces |]
-        |> Array.map (fun i -> (i.Name, List.concat [ (getExtendList i.Name); (getImplementList i.Name) ]))
+        let nativeINameToIDependList =
+            Array.concat [| allWebNonCallbackInterfaces; worker.Interfaces; worker.MixinInterfaces.Interfaces |]
+            |> Array.map (fun i -> (i.Name, List.concat [ (getExtendList i.Name); (getImplementList i.Name) ]))
+        
+        Array.concat [| addedINameToIDependList; nativeINameToIDependList |]
         |> Map.ofArray
 
     /// Distinct event type list, used in the "createEvent" function

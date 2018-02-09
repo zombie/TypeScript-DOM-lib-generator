@@ -1837,5 +1837,13 @@
         "signatures": [
             "(keyId: any, status: MediaKeyStatus): void"
         ]
+    },
+    {
+        "kind": "method",
+        "name": "getSubscription",
+        "interface": "PushManager",
+        "signatures":[
+            "getSubscription(): Promise<PushSubscription | null>"
+        ]
     }
 ]

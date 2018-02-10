@@ -927,7 +927,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform1fv",
         "signatures": [
-            "uniform1fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"
+            "uniform1fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -935,7 +935,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform2fv",
         "signatures": [
-            "uniform2fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"
+            "uniform2fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -943,7 +943,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform3fv",
         "signatures": [
-            "uniform3fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"
+            "uniform3fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -951,7 +951,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform4fv",
         "signatures": [
-            "uniform4fv(location: WebGLUniformLocation, v: Float32Array | number[]): void"
+            "uniform4fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -959,7 +959,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform1iv",
         "signatures": [
-            "uniform1iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"
+            "uniform1iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -967,7 +967,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform2iv",
         "signatures": [
-            "uniform2iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"
+            "uniform2iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -975,7 +975,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform3iv",
         "signatures": [
-            "uniform3iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"
+            "uniform3iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -983,7 +983,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniform4iv",
         "signatures": [
-            "uniform4iv(location: WebGLUniformLocation, v: Int32Array | number[]): void"
+            "uniform4iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -991,7 +991,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniformMatrix2fv",
         "signatures": [
-            "uniformMatrix2fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void"
+            "uniformMatrix2fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -999,7 +999,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniformMatrix3fv",
         "signatures": [
-            "uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void"
+            "uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
         ]
     },
     {
@@ -1007,7 +1007,7 @@
         "interface": "WebGLRenderingContext",
         "name": "uniformMatrix4fv",
         "signatures": [
-            "uniformMatrix4fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | number[]): void"
+            "uniformMatrix4fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
         ]
     },
     {

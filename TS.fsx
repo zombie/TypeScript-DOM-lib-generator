@@ -195,7 +195,7 @@ module InputJson =
         allItems
         |> Array.filter (fun t ->
             t.Kind.ToLower() = kind.ToString() &&
-            (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || flavor = Flavor.All))
+            (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || t.Flavor.Value = Flavor.All.ToString() || flavor = Flavor.All))
 
     let getOverriddenItems = getItems overriddenItems
 
@@ -281,8 +281,9 @@ module Data =
             | Some tags ->
                 match flavor with
                 | Flavor.All -> true
-                | Flavor.Web -> tags <> "MSAppOnly" && tags <> "WinPhoneOnly"
+                //| Flavor.Web -> tags <> "MSAppOnly" && tags <> "WinPhoneOnly"
                 | Flavor.Worker -> tags <> "IEOnly"
+                | _ -> true
             | _ -> true
         filterByTag
 
@@ -440,7 +441,7 @@ module Data =
                             match i.Name with
                             | Some name -> yield (e, name)
                             | _ -> () ] ]
-        
+
         nativeTagNamesToInterface @ addedTagNamesToInterface
         |> Seq.groupBy fst
         |> Seq.map ((fun (key, group) -> (key, Seq.map snd group)) >> fun (key, group) ->
@@ -463,7 +464,7 @@ module Data =
                 match InputJson.getAddedItemByName iName InputJson.ItemKind.Interface iName with
                 | Some i ->
                     match i.Extends with
-                    | Some extends -> 
+                    | Some extends ->
                         match extends with
                         | "Object" -> []
                         | super -> super :: (getExtendList super)
@@ -474,7 +475,7 @@ module Data =
             match GetInterfaceByName iName with
             | Some i -> List.ofArray i.Implements
             | _ -> []
-        
+
         let addedINameToIDependList =
             InputJson.getAddedItems InputJson.ItemKind.Interface Flavor.All
             |> Array.ofSeq
@@ -484,7 +485,7 @@ module Data =
         let nativeINameToIDependList =
             Array.concat [| allWebNonCallbackInterfaces; worker.Interfaces; worker.MixinInterfaces.Interfaces |]
             |> Array.map (fun i -> (i.Name, List.concat [ (getExtendList i.Name); (getImplementList i.Name) ]))
-        
+
         Array.concat [| addedINameToIDependList; nativeINameToIDependList |]
         |> Map.ofArray
 
@@ -868,12 +869,13 @@ module Emit =
 
     let EmitCallBackInterface flavor (i:Browser.Interface) =
         if ShouldKeep flavor i then
-            let m = i.Methods.Value.Methods.[0]
-            let overload = (GetOverloads (Function.Method m) false).[0]
-            let paramsString = ParamsToString overload.ParamCombinations
-            let returnType = DomTypeToTsType m.Type
-            Pt.Printl "type %s = (%s) => %s | { %s(%s): %s; };" i.Name paramsString returnType m.Name.Value paramsString returnType
-            Pt.Printl ""
+            if getRemovedItemsByInterfaceName ItemKind.Interface flavor i.Name  |> Array.isEmpty then
+                let m = i.Methods.Value.Methods.[0]
+                let overload = (GetOverloads (Function.Method m) false).[0]
+                let paramsString = ParamsToString overload.ParamCombinations
+                let returnType = DomTypeToTsType m.Type
+                Pt.Printl "type %s = (%s) => %s | { %s(%s): %s; };" i.Name paramsString returnType m.Name.Value paramsString returnType
+                Pt.Printl ""
 
     let EmitCallBackFunctions flavor =
         let emitCallbackFunctionsFromJson (cb: InputJson.InputJsonType.Root) =
@@ -1587,7 +1589,7 @@ module Emit =
         target.Close()
 
     let EmitDomWeb () =
-        EmitTheWholeThing Flavor.All GlobalVars.tsWebOutput
+        EmitTheWholeThing Flavor.Web GlobalVars.tsWebOutput
         EmitES6Thing GlobalVars.tsWebES6Output
 
     let EmitDomWorker () =

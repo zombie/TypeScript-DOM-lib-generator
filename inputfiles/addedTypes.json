@@ -155,7 +155,7 @@
     },
     {
         "kind": "interface",
-        "flavor": "Worker",
+        "flavor": "All",
         "name": "ImageBitmapOptions",
         "properties": [
             {
@@ -187,7 +187,7 @@
     {
         "kind": "interface",
         "name": "ImageBitmap",
-        "flavor": "Worker",
+        "flavor": "All",
         "properties": [
             {
                 "name": "width",
@@ -1637,7 +1637,7 @@
     {
         "kind": "interface",
         "name": "ElementCreationOptions",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [{
             "name": "is?",
             "type": "string"
@@ -1930,7 +1930,7 @@
     {
         "kind": "interface",
         "name": "DOMRectReadOnly",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "bottom",
@@ -2038,7 +2038,7 @@
         "kind": "interface",
         "name": "DOMRect",
         "extends": "DOMRectReadOnly",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "height",
@@ -2065,7 +2065,7 @@
     {
         "kind": "interface",
         "name": "DOMRectList",
-        "flavor": "DOM",
+        "flavor": "Web",
         "properties": [
             {
                 "name": "length",
@@ -2093,7 +2093,7 @@
         "kind": "method",
         "interface": "HTMLFormElement",
         "name": "reportValidity",
-        "flavor": "DOM",
+        "flavor": "Web",
         "signatures": [
             "reportValidity(): boolean"
         ]

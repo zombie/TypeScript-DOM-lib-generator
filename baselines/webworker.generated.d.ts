@@ -130,12 +130,6 @@ interface SyncEventInit extends ExtendableEventInit {
 
 type EventListener = (evt: Event) => void | { handleEvent(evt: Event): void; };
 
-type WebKitEntriesCallback = (entries: WebKitEntry[]) => void | { handleEvent(entries: WebKitEntry[]): void; };
-
-type WebKitErrorCallback = (err: DOMError) => void | { handleEvent(err: DOMError): void; };
-
-type WebKitFileCallback = (file: File) => void | { handleEvent(file: File): void; };
-
 interface AudioBuffer {
     readonly duration: number;
     readonly length: number;

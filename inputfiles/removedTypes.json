@@ -88,5 +88,20 @@
         "kind": "property",
         "interface": "HTMLObjectElement",
         "name": "alt"
+    },
+    {
+        "kind": "interface",
+        "interface": "WebKitEntriesCallback",
+        "flavor": "Worker"
+    },
+    {
+        "kind": "interface",
+        "interface": "WebKitErrorCallback",
+        "flavor": "Worker"
+    },
+    {
+        "kind": "interface",
+        "interface": "WebKitFileCallback",
+        "flavor": "Worker"
     }
 ]

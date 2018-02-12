@@ -14879,7 +14879,7 @@ interface ComputedTimingProperties {
 
 interface AnimationEffectReadOnly {
     readonly timing: number;
-    getComputedTiming() => ComputedTimingProperties;
+    getComputedTiming(): ComputedTimingProperties;
 }
 
 interface AnimationPlaybackEventInit extends EventInit {

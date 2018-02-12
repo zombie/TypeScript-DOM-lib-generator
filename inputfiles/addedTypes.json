@@ -2735,7 +2735,7 @@
         "flavor": "Web",
         "name": "AnimationKeyFrame",
         "type": "{offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]}"
-    },       
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2760,15 +2760,15 @@
             {
                 "name": "easing?",
                 "type": "string"
-            }, 
+            },
             {
                 "name": "endDelay?",
                 "type": "number"
-            },             
+            },
             {
                 "name": "fill?",
                 "type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\""
-            },  
+            },
             {
                 "name": "iterationStart?",
                 "type": "number"
@@ -2778,7 +2778,7 @@
                 "type": "number"
             }
         ]
-    },       
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2788,7 +2788,7 @@
                 "readonly": true,
                 "name": "currentTime",
                 "type": "number | null"
-            }   
+            }
         ]
     },
     {
@@ -2803,7 +2803,7 @@
             {
                 "name": "activeDuration",
                 "type": "number"
-            },  
+            },
             {
                 "name": "localTime",
                 "type": "number | null"
@@ -2815,9 +2815,9 @@
             {
                 "name": "currentIteration",
                 "type": "number | null"
-            }           
-        ]       
-    },      
+            }
+        ]
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2827,16 +2827,16 @@
                 "readonly": true,
                 "name": "timing",
                 "type": "number"
-            }   
+            }
         ],
         "methods": [
             {
                 "name": "getComputedTiming",
                 "signatures": [
-                    "getComputedTiming() => ComputedTimingProperties"
+                    "getComputedTiming(): ComputedTimingProperties"
                 ]
-            }         
-        ]        
+            }
+        ]
     },
     {
         "kind": "interface",
@@ -2861,7 +2861,7 @@
         "extends": "Event",
         "constructorSignatures": [
             "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
-        ],        
+        ],
         "properties": [
             {
                 "readonly": true,
@@ -2874,7 +2874,7 @@
                 "type": "number | null"
             }
         ]
-    },    
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2926,7 +2926,7 @@
             {
                 "name": "timeline",
                 "type": "AnimationTimeline"
-            }          
+            }
         ],
         "methods": [
             {
@@ -2970,9 +2970,9 @@
                 "signatures": [
                     "reverse(): void"
                 ]
-            }            
+            }
         ]
-    },    
+    },
     {
         "kind": "method",
         "name": "animate",

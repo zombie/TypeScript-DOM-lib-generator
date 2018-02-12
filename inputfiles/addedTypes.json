@@ -2980,5 +2980,21 @@
         "signatures": [
             "animate(keyframes: AnimationKeyFrame | AnimationKeyFrame[], options: number | AnimationOptions): Animation"
         ]
+    },
+    {
+        "kind": "method",
+        "name": "lockOrientation",
+        "interface": "Screen",
+        "signatures": [
+            "lockOrientation(orientations: string | string[]): boolean"
+        ]
+    },
+    {
+        "kind": "method",
+        "name": "unlockOrientation",
+        "interface": "Screen",
+        "signatures": [
+            "unlockOrientation(): void"
+        ]
     }
 ]

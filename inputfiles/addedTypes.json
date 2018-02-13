@@ -2926,7 +2926,7 @@
             {
                 "name": "timeline",
                 "type": "AnimationTimeline"
-            }          
+            }
         ],
         "methods": [
             {
@@ -2970,9 +2970,9 @@
                 "signatures": [
                     "reverse(): void"
                 ]
-            }            
+            }
         ]
-    },    
+    },
     {
         "kind": "method",
         "name": "animate",
@@ -2982,11 +2982,17 @@
         ]
     },
     {
+        "kind": "typedef",
+        "flavor": "Web",
+        "name": "OrientationLockType",
+        "type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\""
+    },
+    {
         "kind": "method",
         "name": "lockOrientation",
         "interface": "Screen",
         "signatures": [
-            "lockOrientation(orientations: string | string[]): boolean"
+            "lockOrientation(orientations: OrientationLockType | OrientationLockType[]): boolean"
         ]
     },
     {

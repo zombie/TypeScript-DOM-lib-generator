@@ -2735,7 +2735,7 @@
         "flavor": "Web",
         "name": "AnimationKeyFrame",
         "type": "{offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]}"
-    },       
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2764,7 +2764,7 @@
             {
                 "name": "endDelay?",
                 "type": "number"
-            },             
+            },
             {
                 "name": "fill?",
                 "type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\""
@@ -2778,7 +2778,7 @@
                 "type": "number"
             }
         ]
-    },       
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2788,7 +2788,7 @@
                 "readonly": true,
                 "name": "currentTime",
                 "type": "number | null"
-            }   
+            }
         ]
     },
     {
@@ -2815,9 +2815,9 @@
             {
                 "name": "currentIteration",
                 "type": "number | null"
-            }           
-        ]       
-    },      
+            }
+        ]
+    },
     {
         "kind": "interface",
         "flavor": "Web",
@@ -2835,8 +2835,8 @@
                 "signatures": [
                     "getComputedTiming() => ComputedTimingProperties"
                 ]
-            }         
-        ]        
+            }
+        ]
     },
     {
         "kind": "interface",
@@ -2861,7 +2861,7 @@
         "extends": "Event",
         "constructorSignatures": [
             "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
-        ],        
+        ],
         "properties": [
             {
                 "readonly": true,

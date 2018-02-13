@@ -2980,5 +2980,27 @@
         "signatures": [
             "animate(keyframes: AnimationKeyFrame | AnimationKeyFrame[], options: number | AnimationOptions): Animation"
         ]
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Web",
+        "name": "OrientationLockType",
+        "type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\""
+    },
+    {
+        "kind": "method",
+        "name": "lockOrientation",
+        "interface": "Screen",
+        "signatures": [
+            "lockOrientation(orientations: OrientationLockType | OrientationLockType[]): boolean"
+        ]
+    },
+    {
+        "kind": "method",
+        "name": "unlockOrientation",
+        "interface": "Screen",
+        "signatures": [
+            "unlockOrientation(): void"
+        ]
     }
 ]

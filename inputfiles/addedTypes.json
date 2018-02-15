@@ -3002,5 +3002,11 @@
         "signatures": [
             "unlockOrientation(): void"
         ]
+    },
+    {
+        "kind": "typedef",
+        "flavor": "All",
+        "name": "EventListenerOrEventListenerObject",
+        "type": "EventListener"
     }
 ]

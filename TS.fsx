@@ -714,6 +714,7 @@ module Emit =
         | "DOMString" -> "string"
         | "DOMTimeStamp" -> "number"
         | "EndOfStreamError" -> "number"
+        | "EventListener" -> "EventListenerOrEventListenerObject"
         | "double" | "float" -> "number"
         | "object" -> "any"
         | "ReadyState" -> "string"
@@ -1097,7 +1098,7 @@ module Emit =
 
         let emitStringEventHandler (addOrRemove: string) =
             Pt.Printl
-                "%s%sEventListener(type: string, listener: EventListener, options?: boolean | %s): void;"
+                "%s%sEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | %s): void;"
                 fPrefix addOrRemove (getOptionsType addOrRemove)
 
         let tryEmitTypedEventHandlerForInterface (addOrRemove: string) =
@@ -1522,6 +1523,9 @@ module Emit =
 
         // Add missed interface definition from the spec
         InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
+
+        Pt.Printl "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
+        Pt.Printl ""
 
         EmitCallBackFunctions flavor
 

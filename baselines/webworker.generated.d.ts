@@ -128,7 +128,9 @@ interface SyncEventInit extends ExtendableEventInit {
     lastChance?: boolean;
 }
 
-type EventListener = ((evt: Event) => void) | { handleEvent(evt: Event): void; };
+interface EventListener {
+    (evt: Event): void;
+}
 
 interface AudioBuffer {
     readonly duration: number;

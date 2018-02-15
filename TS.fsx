@@ -871,11 +871,16 @@ module Emit =
     let EmitCallBackInterface flavor (i:Browser.Interface) =
         if ShouldKeep flavor i then
             if getRemovedItemsByInterfaceName ItemKind.Interface flavor i.Name  |> Array.isEmpty then
-                let m = i.Methods.Value.Methods.[0]
-                let overload = (GetOverloads (Function.Method m) false).[0]
-                let paramsString = ParamsToString overload.ParamCombinations
-                let returnType = DomTypeToTsType m.Type
-                Pt.Printl "type %s = ((%s) => %s) | { %s(%s): %s; };" i.Name paramsString returnType m.Name.Value paramsString returnType
+                if i.Name = "EventListener" then
+                    Pt.Printl "interface %s {" i.Name
+                    Pt.PrintWithAddedIndent "(evt: Event): void;"
+                    Pt.Printl "}"
+                else 
+                    let m = i.Methods.Value.Methods.[0]
+                    let overload = (GetOverloads (Function.Method m) false).[0]
+                    let paramsString = ParamsToString overload.ParamCombinations
+                    let returnType = DomTypeToTsType m.Type
+                    Pt.Printl "type %s = ((%s) => %s) | { %s(%s): %s; };" i.Name paramsString returnType m.Name.Value paramsString returnType
                 Pt.Printl ""
 
     let EmitCallBackFunctions flavor =

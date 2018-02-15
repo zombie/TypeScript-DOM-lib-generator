@@ -1169,7 +1169,9 @@ interface WheelEventInit extends MouseEventInit {
     deltaZ?: number;
 }
 
-type EventListener = ((evt: Event) => void) | { handleEvent(evt: Event): void; };
+interface EventListener {
+    (evt: Event): void;
+}
 
 type WebKitEntriesCallback = ((entries: WebKitEntry[]) => void) | { handleEvent(entries: WebKitEntry[]): void; };
 

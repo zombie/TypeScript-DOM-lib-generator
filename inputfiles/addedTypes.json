@@ -2763,7 +2763,7 @@
         "indexer": [
             {
                 "signatures": [
-                    "[index: string]: string | number | number[] | string[] | null | (number | null)[]"
+                    "[index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined"
                 ]
             }
         ]

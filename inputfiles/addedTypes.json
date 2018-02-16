@@ -1587,7 +1587,9 @@
         "name": "HTMLSlotElement",
         "extends": "HTMLElement",
         "flavor": "Web",
-        "tagNames": [ "slot" ],
+        "tagNames": [
+            "slot"
+        ],
         "properties": [
             {
                 "name": "name",
@@ -1650,10 +1652,12 @@
         "kind": "interface",
         "name": "ElementCreationOptions",
         "flavor": "Web",
-        "properties": [{
-            "name": "is?",
-            "type": "string"
-        }]
+        "properties": [
+            {
+                "name": "is?",
+                "type": "string"
+            }
+        ]
     },
     {
         "kind": "interface",
@@ -2626,7 +2630,7 @@
                 "name": "signal",
                 "type": "AbortSignal"
             }
-	      ],
+        ],
         "methods": [
             {
                 "name": "abort",
@@ -2743,10 +2747,26 @@
         "type": "(this: Document, ev: Event) => any"
     },
     {
-        "kind": "typedef",
+        "kind": "interface",
         "flavor": "Web",
         "name": "AnimationKeyFrame",
-        "type": "{offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]}"
+        "properties": [
+            {
+                "name": "offset?",
+                "type": "number | null | (number | null)[]"
+            },
+            {
+                "name": "easing?",
+                "type": "string | string[]"
+            }
+        ],
+        "indexer": [
+            {
+                "signatures": [
+                    "[index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined"
+                ]
+            }
+        ]
     },
     {
         "kind": "interface",

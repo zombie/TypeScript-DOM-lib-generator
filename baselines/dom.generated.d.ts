@@ -14861,6 +14861,12 @@ interface EventSourceInit {
     readonly withCredentials: boolean;
 }
 
+interface AnimationKeyFrame {
+    offset?: number | null | (number | null)[];
+    easing?: string | string[];
+    [index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined;
+}
+
 interface AnimationOptions {
     id?: string;
     delay?: number;
@@ -15441,7 +15447,6 @@ type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type HeadersInit = Headers | string[][] | { [key: string]: string };
-type AnimationKeyFrame = {offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]};
 type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
 type AppendMode = "segments" | "sequence";
 type AudioContextState = "suspended" | "running" | "closed";

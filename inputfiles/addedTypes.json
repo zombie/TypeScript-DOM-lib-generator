@@ -2743,10 +2743,22 @@
         "type": "(this: Document, ev: Event) => any"
     },
     {
-        "kind": "typedef",
+        "kind": "interface",
         "flavor": "Web",
         "name": "AnimationKeyFrame",
-        "type": "{offset?: number | null | (number | null)[]} & {[key: string]: string | number | number[] | string[]}"
+        "properties": [
+            {
+                "name": "offset?",
+                "type": "number | null | (number | null)[]"
+            }
+        ],
+        "indexer": [
+            {
+                "signatures": [
+                    "[index: string]: string | number | number[] | string[]"
+                ]
+            }
+        ]
     },
     {
         "kind": "interface",

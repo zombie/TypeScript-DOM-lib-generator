@@ -2754,12 +2754,16 @@
             {
                 "name": "offset?",
                 "type": "number | null | (number | null)[]"
+            },
+            {
+                "name": "easing?",
+                "type": "string | string[]"
             }
         ],
         "indexer": [
             {
                 "signatures": [
-                    "[index: string]: string | number | number[] | string[]"
+                    "[index: string]: string | number | number[] | string[] | null | (number | null)[]"
                 ]
             }
         ]

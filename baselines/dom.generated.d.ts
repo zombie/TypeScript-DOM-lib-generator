@@ -2605,6 +2605,8 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "waiting": Event;
     "webkitfullscreenchange": Event;
     "webkitfullscreenerror": Event;
+    "focusin": FocusEvent;
+    "focusout": FocusEvent;
 }
 
 interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent, ParentNode, DocumentOrShadowRoot {
@@ -4591,6 +4593,8 @@ interface HTMLElementEventMap extends ElementEventMap {
     "timeupdate": Event;
     "volumechange": Event;
     "waiting": Event;
+    "focusin": FocusEvent;
+    "focusout": FocusEvent;
 }
 
 interface HTMLElement extends Element {

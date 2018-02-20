@@ -3,6 +3,11 @@
         "target": "es6",
         "module": "commonjs",
         "strict": true,
-        "esModuleInterop": true
-    }
+        "esModuleInterop": true,
+        "sourceMap": true
+    },
+    "files": [
+        "index.ts",
+        "types.d.ts"
+    ]
 }

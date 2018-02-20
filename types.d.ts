@@ -43,6 +43,7 @@ export type Property = {
     "lenient-this"?: string;
     "treat-null-as"?: string;
     "event-handler-map-to-window"?: string;
+    "static"?: string;
 };
 
 export type Event = {
@@ -83,6 +84,11 @@ export type Constructor = {
     "param"?: Param[];
 };
 
+export type NamedConstructor = {
+    "name": string;
+    "param": Param[];
+};
+
 export type Constant = {
     "name": string;
     "type": string;
@@ -118,9 +124,7 @@ export type Interface = {
     "properties"?: {
         "property": Property[]
     };
-    "constructor"?: (string | null | {
-        "param": Param[];
-    })[];
+    "constructor"?: Constructor;
     "secure-context"?: string;
     "implements"?: string[];
     "static"?: undefined;
@@ -131,10 +135,7 @@ export type Interface = {
         "parsedattribute": ParsedAttribute[]
     };
     "element"?: Element[];
-    "named-constructor"?: {
-        "name": string;
-        "param": Param[];
-    };
+    "named-constructor"?: NamedConstructor;
     "override-builtins"?: string;
     "exposed"?: string;
     "tags"?: string;
@@ -161,6 +162,7 @@ export type Dictionary = {
     "members": {
         "member": Member[];
     };
+    "type-parameters"?: string[];
 };
 
 export type WebIdl = {

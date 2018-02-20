@@ -1284,6 +1284,13 @@ module Emit =
                 getEventTypeInInterface eHandler.EventName i
             Pt.Printl "\"%s\": %s;" eHandler.EventName eventType
 
+        let emitJsonProperty (p: InputJsonType.Root) =
+            let readOnlyModifier =
+                match p.Readonly with
+                | Some(true) -> "readonly "
+                | _ -> ""
+            Pt.Printl "%s%s: %s;" readOnlyModifier p.Name.Value p.Type.Value
+
         let ownEventHandles = if iNameToEhList.ContainsKey i.Name && not iNameToEhList.[i.Name].IsEmpty then iNameToEhList.[i.Name] else []
         if ownEventHandles.Length > 0 then
             Pt.Printl "interface %sEventMap" i.Name
@@ -1293,6 +1300,13 @@ module Emit =
             Pt.Print " {"
             Pt.IncreaseIndent()
             ownEventHandles |> List.iter emitInterfaceEventMapEntry
+
+            let addedProps =
+                getAddedItems ItemKind.Property Flavor.Web
+                |> Array.filter (fun m -> m.Interface.IsNone || m.Interface.Value = i.Name + "EventMap")
+
+            Array.iter emitJsonProperty addedProps
+
             Pt.DecreaseIndent()
             Pt.Printl "}"
             Pt.Printl ""

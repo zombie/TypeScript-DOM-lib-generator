@@ -3034,5 +3034,29 @@
         "signatures": [
             "unlockOrientation(): void"
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "DocumentEventMap",
+        "name": "\"focusin\"",
+        "type": "FocusEvent"
+    },
+    {
+        "kind": "property",
+        "interface": "DocumentEventMap",
+        "name": "\"focusout\"",
+        "type": "FocusEvent"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLElementEventMap",
+        "name": "\"focusin\"",
+        "type": "FocusEvent"
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLElementEventMap",
+        "name": "\"focusout\"",
+        "type": "FocusEvent"
     }
 ]

@@ -281,22 +281,19 @@
             {
                 "name": "ExtendableEvent",
                 "extends": "Event",
-                "constructor": [
-                    null,
-                    {
-                        "param": [
-                            {
-                                "name": "type",
-                                "type": "DOMString"
-                            },
-                            {
-                                "name": "eventInitDict",
-                                "optional": "1",
-                                "type": "ExtendableEventInit"
-                            }
-                        ]
-                    }
-                ],
+                "constructor": {
+                    "param": [
+                        {
+                            "name": "type",
+                            "type": "DOMString"
+                        },
+                        {
+                            "name": "eventInitDict",
+                            "optional": "1",
+                            "type": "ExtendableEventInit"
+                        }
+                    ]
+                },
                 "methods": {
                     "method": [
                         {
@@ -315,22 +312,19 @@
             {
                 "name": "ExtendableMessageEvent",
                 "extends": "ExtendableEvent",
-                "constructor": [
-                    null,
-                    {
-                        "param": [
-                            {
-                                "name": "type",
-                                "type": "DOMString"
-                            },
-                            {
-                                "name": "eventInitDict",
-                                "optional": "1",
-                                "type": "ExtendableMessageEventInit"
-                            }
-                        ]
-                    }
-                ],
+                "constructor": {
+                    "param": [
+                        {
+                            "name": "type",
+                            "type": "DOMString"
+                        },
+                        {
+                            "name": "eventInitDict",
+                            "optional": "1",
+                            "type": "ExtendableMessageEventInit"
+                        }
+                    ]
+                },
                 "properties": {
                     "property": [
                         {
@@ -367,21 +361,18 @@
             {
                 "name": "FetchEvent",
                 "extends": "ExtendableEvent",
-                "constructor": [
-                    null,
-                    {
-                        "param": [
-                            {
-                                "name": "type",
-                                "type": "DOMString"
-                            },
-                            {
-                                "name": "eventInitDict",
-                                "type": "FetchEventInit"
-                            }
-                        ]
-                    }
-                ],
+                "constructor": {
+                    "param": [
+                        {
+                            "name": "type",
+                            "type": "DOMString"
+                        },
+                        {
+                            "name": "eventInitDict",
+                            "type": "FetchEventInit"
+                        }
+                    ]
+                },
                 "methods": {
                     "method": [
                         {
@@ -421,10 +412,7 @@
             {
                 "name": "FileReaderSync",
                 "extends": "Object",
-                "constructor": [
-                    null,
-                    ""
-                ],
+                "constructor": {},
                 "methods": {
                     "method": [
                         {
@@ -478,21 +466,18 @@
             {
                 "name": "NotificationEvent",
                 "extends": "ExtendableEvent",
-                "constructor": [
-                    null,
-                    {
-                        "param": [
-                            {
-                                "name": "type",
-                                "type": "DOMString"
-                            },
-                            {
-                                "name": "eventInitDict",
-                                "type": "NotificationEventInit"
-                            }
-                        ]
-                    }
-                ],
+                "constructor": {
+                    "param": [
+                        {
+                            "name": "type",
+                            "type": "DOMString"
+                        },
+                        {
+                            "name": "eventInitDict",
+                            "type": "NotificationEventInit"
+                        }
+                    ]
+                },
                 "properties": {
                     "property": [
                         {
@@ -511,22 +496,19 @@
             {
                 "name": "PushEvent",
                 "extends": "ExtendableEvent",
-                "constructor": [
-                    null,
-                    {
-                        "param": [
-                            {
-                                "name": "type",
-                                "type": "DOMString"
-                            },
-                            {
-                                "name": "eventInitDict",
-                                "optional": "1",
-                                "type": "PushEventInit"
-                            }
-                        ]
-                    }
-                ],
+                "constructor": {
+                    "param": [
+                        {
+                            "name": "type",
+                            "type": "DOMString"
+                        },
+                        {
+                            "name": "eventInitDict",
+                            "optional": "1",
+                            "type": "PushEventInit"
+                        }
+                    ]
+                },
                 "properties": {
                     "property": [
                         {
@@ -679,21 +661,18 @@
             {
                 "name": "SyncEvent",
                 "extends": "ExtendableEvent",
-                "constructor": [
-                    null,
-                    {
-                        "param": [
-                            {
-                                "name": "type",
-                                "type": "DOMString"
-                            },
-                            {
-                                "name": "init",
-                                "type": "SyncEventInit"
-                            }
-                        ]
-                    }
-                ],
+                "constructor": {
+                    "param": [
+                        {
+                            "name": "type",
+                            "type": "DOMString"
+                        },
+                        {
+                            "name": "init",
+                            "type": "SyncEventInit"
+                        }
+                    ]
+                },
                 "properties": {
                     "property": [
                         {
@@ -889,7 +868,9 @@
             "name": "WorkerUtils",
             "extends": "Object",
             "no-interface-object": "1",
-            "implements": "WindowBase64",
+            "implements": [
+                "WindowBase64"
+            ],
             "methods": {
                 "method": [
                     {
@@ -1014,9 +995,11 @@
         }
     },
     "typedefs": {
-        "typedef": {
-            "new-type": "PushMessageDataInit",
-            "type": "(BufferSource or USVString)"
-        }
+        "typedef": [
+            {
+                "new-type": "PushMessageDataInit",
+                "type": "(BufferSource or USVString)"
+            }
+        ]
     }
 }

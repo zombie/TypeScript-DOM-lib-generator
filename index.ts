@@ -170,6 +170,10 @@ function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
     return b ? a.concat(b) : a;
 }
 
+function distinct<T>(a: T[]): T[] {
+    return Array.from(new Set(a).values());
+}
+
 let allWebNonCallbackInterfaces = concat(browser.interfaces && browser.interfaces.interface, browser["mixin-interfaces"] && browser["mixin-interfaces"]!.interface);
 
 let allWebInterfaces = concat(concat(browser.interfaces && browser.interfaces.interface, browser["callback-interfaces"] && browser["callback-interfaces"]!.interface),
@@ -318,9 +322,9 @@ let tagNameToEleName = (function() {
     }
 
     function resolveElementConflict(tagName: string, iNames: string[]) {
-        if (iNames.indexOf(tagName) != -1) return tagName;
-        // throw new Error("Element conflict occured! Typename: " + tagName);
-        return tagName;
+        const name = preferedElementMap(tagName);
+        if (iNames.indexOf(name) != -1) return name;
+        throw new Error("Element conflict occured! Typename: " + tagName);
     }
 
     let nativeTagNamesToInterface = (function() {
@@ -400,27 +404,21 @@ let iNameToIDependList = (function() {
 
 /// Distinct event type list, used in the "createEvent" function
 let distinctETypeList = (function() {
-    let usedEvents;
-    let usedEventsMap: Record<string, true> = {};
-
-    let unUsedEvents;
-    let unUsedEventsMap: Record<string, true> = {};
+    let eventsMap: Record<string, true> = {};
 
     for (const i of GetNonCallbackInterfacesByFlavor(Flavor.All)) {
         if (i.events) {
             for (const e of i.events.event) {
-                usedEventsMap[e.type] = true;
+                eventsMap[e.type] = true;
             }
         }
 
-        if (i.extends === "Event" && i.name.endsWith("Event") && !usedEventsMap[i.name]) {
-            unUsedEventsMap[i.name] = true;
+        if (i.extends === "Event" && i.name.endsWith("Event")) {
+            eventsMap[i.name] = true;
         }
     }
-    usedEvents = Object.keys(usedEventsMap);
-    unUsedEvents = Object.keys(unUsedEventsMap);
 
-    return concat(usedEvents, unUsedEvents).sort();
+    return Object.keys(eventsMap).sort();
 })();
 
 /// Determine if interface1 depends on interface2
@@ -758,7 +756,7 @@ namespace Emit {
                 if (typeDefSet.has(objDomType)) return objDomType;
                 // Union types
                 if (objDomType.indexOf(" or ") > -1) {
-                    let allTypes: string[] = decomposeTypes(objDomType).map(t => DomTypeToTsType(t.replace('?', ' ')));
+                    let allTypes: string[] = decomposeTypes(objDomType).map(t => DomTypeToTsType(t.replace("?", "")));
                     return allTypes.indexOf("any") > -1 ? "any" : allTypes.join(" | ");
                 }
                 else {
@@ -852,7 +850,7 @@ namespace Emit {
     function EmitHTMLElementTagNameMap() {
         Pt.Printl("interface HTMLElementTagNameMap {");
         Pt.IncreaseIndent();
-        for (const e in tagNameToEleName) {
+        for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
             if (iNameToIDependList[value] && iNameToIDependList[value].indexOf("SVGElement") === -1) {
                 Pt.Printl(`"${e.toLowerCase()}": ${value};`);
@@ -867,7 +865,7 @@ namespace Emit {
     function EmitSVGElementTagNameMap() {
         Pt.Printl("interface SVGElementTagNameMap {");
         Pt.IncreaseIndent();
-        for (const e in tagNameToEleName) {
+        for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
             if (iNameToIDependList[value] && iNameToIDependList[value].indexOf("SVGElement") > -1) {
                 Pt.Printl(`"${e.toLowerCase()}": ${value};`);
@@ -1218,9 +1216,9 @@ namespace Emit {
                     if (DomTypeToTsType(m.type) === "any") {
                         return true;
                     }
-                    let mTypes = i.methods && i.methods.method.map(m => m.type).filter(t => t !== "void") || []; //  |> Array.distinct
-                    let amTypes = i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.type).filter(t => t !== "void") || []; // |>  Array.distinct
-                    let pTypes = i.properties && i.properties.property.map(m => m.type).filter(t => t !== "void") || []; // |>  Array.distinct
+                    let mTypes = distinct(i.methods && i.methods.method.map(m => m.type).filter(t => t !== "void") || []);
+                    let amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
+                    let pTypes = distinct(i.properties && i.properties.property.map(m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
 
                     if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 0) return amTypes[0] === m.type;
                     if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 0) return mTypes[0] === amTypes[0] && amTypes[0] === m.type;

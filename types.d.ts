@@ -44,6 +44,7 @@ export type Property = {
     "treat-null-as"?: string;
     "event-handler-map-to-window"?: string;
     "static"?: string;
+    "comment"?: string;
 };
 
 export type Event = {
@@ -70,6 +71,7 @@ export type Method = {
     "serializer"?: string;
     "serializer-info"?: string;
     "param"?: Param[];
+    "comment"?: string;
 };
 
 export type CallbackFunction = {

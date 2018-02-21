@@ -48,7 +48,7 @@ type ExtendConflict = { BaseType: string; ExtendType: string[]; MemberNames: str
 // let overriddenItems = JSON.parse(fs.readFileSync(inputFolder + "/overridingTypes.json").toString());
 // let removedItems = JSON.parse(fs.readFileSync(inputFolder + "/removedTypes.json").toString());
 // let addedItems = JSON.parse(fs.readFileSync(inputFolder + "/addedTypes.json").toString());
-// let comments = JSON.parse(fs.readFileSync(inputFolder + "/comments.json").toString());
+let comments = require(inputFolder + "/comments.json");
 
 /// Parse the xml input file
 let browser: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/browser.webidl.xml.json").toString());
@@ -709,7 +709,7 @@ namespace Emit {
 
             ClearStack() { stack = []; },
             StackIsEmpty() { return stack.length === 0; },
-            PrintlToStack(c: string) { this.Printl(c); },
+            PrintlToStack(c: string) { stack.push(c); },
             PrintStackContent() { stack.forEach(e => this.Printl(e)) },
 
             GetResult() { return output; }
@@ -821,8 +821,8 @@ namespace Emit {
             DomTypeToTsType(m.param[0].type) === expectedParamType;
     }
 
-    function processInterfaceType(i: Browser.Interface | Browser.Dictionary) {
-        return i["type-parameters"] ? i.name + "<" + i["type-parameters"]!.join(", ") + ">" : i.name;
+    function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
+        return i["type-parameters"] ? name + "<" + i["type-parameters"]!.join(", ") + ">" : name;
     }
 
     /// Emit overloads for the createElement method
@@ -986,12 +986,6 @@ namespace Emit {
 
 
     function emitProperty(flavor: Flavor, prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property, conflictedMembers: Set<string>) {
-        function emitCommentForProperty(printLine: (c: string) => void, pName: string) {
-            // match CommentJson.GetCommentForProperty i.Name pName with
-            // | Some comment -> printLine "${}" comment
-            //     | _ -> ()
-        }
-
         function printLine(content: string) {
             if (conflictedMembers.has(p.name))
                 Pt.PrintlToStack(content);
@@ -999,7 +993,9 @@ namespace Emit {
                 Pt.Printl(content);
         }
 
-        emitCommentForProperty(printLine, p.name);
+        if (p.comment) {
+            printLine(p.comment);
+        }
 
         // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
         if (p.name === "name" && i.name === "Window" && emitScope === EmitScope.All) {
@@ -1039,13 +1035,6 @@ namespace Emit {
 
 
     function emitMethod(flavor: Flavor, prefix: string, i: Browser.Interface, m: Browser.Method, conflictedMembers: Set<string>) {
-        function emitCommentForMethod(printLine: (c: string) => void, mName: string) {
-            // if mName.IsSome then
-            //     match CommentJson.GetCommentForMethod i.Name mName.Value with
-            //     | Some comment -> printLine "${}" comment
-            //     | _ -> ()
-        }
-
         function printLine(content: string) {
             if (m.name && conflictedMembers.has(m.name))
                 Pt.PrintlToStack(content);
@@ -1054,7 +1043,9 @@ namespace Emit {
         }
 
         // print comment
-        emitCommentForMethod(printLine, m.name);
+        if (m.comment) {
+            printLine(m.comment);
+        }
 
         switch (m.name) {
             case "createElement": return EmitCreateElementOverloads(m);
@@ -1193,16 +1184,16 @@ namespace Emit {
 
     function EmitInterfaceDeclaration(i: Browser.Interface) {
         function processIName(iName: string) {
-            return extendConflictsBaseTypes[iName] ? extendConflictsBaseTypes[iName].baseType + "Base" : iName;
+            return extendConflictsBaseTypes[iName] ? `${iName}Base` : iName;
         }
 
         let processedIName = processIName(i.name);
 
         if (processedIName != i.name) {
-            Pt.PrintlToStack(`interface ${processInterfaceType(i)} extends ${processedIName} {`);
+            Pt.PrintlToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
         }
 
-        Pt.Printl(`interface ${processInterfaceType(i)}`);
+        Pt.Printl(`interface ${processInterfaceType(i, processedIName)}`);
 
         let finalExtends = concat([i.extends], i.implements)
             .filter(i => i !== "Object")
@@ -1387,10 +1378,10 @@ namespace Emit {
 
     function emitDictionary(flavor: Flavor, dict: Browser.Dictionary) {
         if (dict.extends === "Object") {
-            Pt.Printl(`interface ${processInterfaceType(dict)} {`);
+            Pt.Printl(`interface ${processInterfaceType(dict, dict.name)} {`);
         }
         else {
-            Pt.Printl(`interface ${processInterfaceType(dict)} extends ${dict.extends} {`);
+            Pt.Printl(`interface ${processInterfaceType(dict, dict.name)} extends ${dict.extends} {`);
         }
         Pt.IncreaseIndent()
         if (dict.members) {
@@ -1540,7 +1531,38 @@ namespace Emit {
 }
 
 
+function merge(obj1: any, obj2: any) {
+    if (typeof obj1 !== "object" || typeof obj2 !== "object") return obj1;
+    for (var k in obj2) {
+        if (obj1[k]) {
+            if (Array.isArray(obj1[k]) && Array.isArray(obj2[k])) {
+                // merge arrays
+                var map: any = {};
+                for (var e1 of obj1[k])
+                    if (e1.name)
+                        map[e1.name] = e1;
+
+                for (var e2 of obj2[k]) {
+                    if (e2.name && map[e2.name])
+                        merge(map[e2.name], e2);
+                }
+            }
+            else {
+                if (Array.isArray(obj1[k]) !== Array.isArray(obj2[k])) throw new Error("Mismatch on property: " + k);
+                merge(obj1[k], obj2[k]);
+            }
+        }
+        else {
+            obj1[k] = obj2[k];
+        }
+    }
+    return obj1;
+}
+
+browser = merge(browser,comments);
+
 Emit.EmitDomWeb();
 Emit.EmitDomWorker();
+
 
 

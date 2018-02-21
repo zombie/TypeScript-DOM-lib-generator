@@ -167,22 +167,22 @@ export type Dictionary = {
 
 export type WebIdl = {
     "callback-functions"?: {
-        "callback-function": CallbackFunction[];
+        "callback-function": Record<string, CallbackFunction>;
     },
     "callback-interfaces"?: {
-        "interface": Interface[];
+        "interface": Record<string, Interface>;
     };
     "dictionaries"?: {
-        "dictionary": Dictionary[];
+        "dictionary": Record<string, Dictionary>;
     };
     "enums"?: {
-        "enum": Enum[];
+        "enum": Record<string, Enum>;
     };
     "interfaces"?: {
-        "interface": Interface[];
+        "interface": Record<string, Interface>;
     };
     "mixin-interfaces"?: {
-        "interface": Interface[]
+        "interface": Record<string, Interface>
     };
     "typedefs"?: {
         "typedef": TypeDef[];

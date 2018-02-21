@@ -165,22 +165,35 @@ function ShouldKeep(flavor: Flavor, i: { tags?: string }) {
     else return true;
 }
 
-function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
-    a = a || [];
-    return b ? a.concat(b) : a;
+function concat<T>(a: T[] | undefined, b: T[] | undefined, c?: T[] | undefined): T[] {
+    let result = a || [];
+    if (b) result = result.concat(b);
+    if (c) result = result.concat(c);
+    return result;
 }
 
 function distinct<T>(a: T[]): T[] {
     return Array.from(new Set(a).values());
 }
 
-let allWebNonCallbackInterfaces = concat(browser.interfaces && browser.interfaces.interface, browser["mixin-interfaces"] && browser["mixin-interfaces"]!.interface);
+function getElements<K extends string, T>(a: Record<K, Record<string, T>> | undefined, k: K): T[] {
+    return a ? mapToArray(a[k]) : [];
+}
 
-let allWebInterfaces = concat(concat(browser.interfaces && browser.interfaces.interface, browser["callback-interfaces"] && browser["callback-interfaces"]!.interface),
-    browser["mixin-interfaces"] && browser["mixin-interfaces"]!.interface);
+function mapToArray<T>(m: Record<string, T>): T[] {
+    return Object.keys(m).map(k => m[k]);
+}
+
+let allWebNonCallbackInterfaces = concat(getElements(browser.interfaces, "interface"), getElements(browser["mixin-interfaces"], "interface"));
+
+let allWebInterfaces = concat(getElements(browser.interfaces, "interface"),
+    getElements(browser["callback-interfaces"], "interface"),
+    getElements(browser["mixin-interfaces"], "interface"));
 
 
-let allWorkerAdditionalInterfaces = concat(worker.interfaces && worker.interfaces.interface, worker["mixin-interfaces"] && worker["mixin-interfaces"]!.interface);
+let allWorkerAdditionalInterfaces = concat(
+    getElements(worker.interfaces, "interface"),
+    getElements(worker["mixin-interfaces"], "interface"));
 
 let allInterfaces = allWebInterfaces.concat(allWorkerAdditionalInterfaces);
 
@@ -205,11 +218,11 @@ function arrayToMap<T>(array: [string, T][]) {
 
 let allInterfacesMap = toNameMap(allInterfaces);
 
-let allDictionariesMap = toNameMap(concat(browser.dictionaries && browser.dictionaries.dictionary, worker.dictionaries && worker.dictionaries.dictionary));
+let allDictionariesMap: Record<string, Browser.Dictionary> = { ...browser.dictionaries && browser.dictionaries.dictionary, ...worker.dictionaries && worker.dictionaries.dictionary };
 
-let allEnumsMap = toNameMap(concat(browser.enums && browser.enums.enum, worker.enums && worker.enums.enum));
+let allEnumsMap: Record<string, Browser.Enum> = { ...browser.enums && browser.enums.enum, ...worker.enums && worker.enums.enum };
 
-let allCallbackFuncs = toNameMap(concat(browser["callback-functions"] && browser["callback-functions"]!["callback-function"], worker["callback-functions"] && worker["callback-functions"]!["callback-function"]));
+let allCallbackFuncs: Record<string, Browser.CallbackFunction> = { ...browser["callback-functions"] && browser["callback-functions"]!["callback-function"], ...worker["callback-functions"] && worker["callback-functions"]!["callback-function"] };
 
 function GetInterfaceByName(name: string) {
     return allInterfacesMap[name];
@@ -239,24 +252,24 @@ function GetNonCallbackInterfacesByFlavor(flavor: Flavor) {
 function GetPublicInterfacesByFlavor(flavor: Flavor) {
     switch (flavor) {
         case Flavor.Web:
-        case Flavor.All: return browser.interfaces!.interface.filter(i => ShouldKeep(flavor, i));
+        case Flavor.All: return getElements(browser.interfaces, "interface").filter(i => ShouldKeep(flavor, i));
         case Flavor.Worker:
-            let isFromBrowserXml = browser.interfaces!.interface.filter(i => knownWorkerInterfaces.has(i.name));
-            return isFromBrowserXml.concat(worker.interfaces!.interface);
+            let isFromBrowserXml = getElements(browser.interfaces, "interface").filter(i => knownWorkerInterfaces.has(i.name));
+            return isFromBrowserXml.concat(getElements(worker.interfaces, "interface"));
     }
 }
 
 function GetCallbackFuncsByFlavor(flavor: Flavor) {
-    return browser["callback-functions"] ? browser["callback-functions"]!["callback-function"].filter(cb => (flavor != Flavor.Worker || knownWorkerInterfaces.has(cb.name)) && ShouldKeep(flavor, cb)) : [];
+    return browser["callback-functions"] ?getElements(browser["callback-functions"],"callback-function").filter(cb => (flavor != Flavor.Worker || knownWorkerInterfaces.has(cb.name)) && ShouldKeep(flavor, cb)) : [];
 }
 
 function GetEnumsByFlavor(flavor: Flavor) {
     switch (flavor) {
         case Flavor.Web:
-        case Flavor.All: return browser.enums ? browser.enums.enum : [];
+        case Flavor.All: return getElements(browser.enums, "enum");
         case Flavor.Worker:
-            let isFromBrowserXml = browser.enums!.enum.filter(i => knownWorkerEnums.has(i.name));
-            return isFromBrowserXml.concat(worker.enums!.enum);
+            let isFromBrowserXml = getElements(browser.enums, "enum").filter(i => knownWorkerEnums.has(i.name));
+            return isFromBrowserXml.concat(getElements(worker.enums, "enum"));
     }
 }
 
@@ -394,8 +407,7 @@ let iNameToIDependList = (function() {
 
     let nativeINameToIDependList: Record<string, string[]> = {};
 
-    for (const i of concat(
-        concat(allWebNonCallbackInterfaces, worker.interfaces && worker.interfaces.interface), worker["mixin-interfaces"] && worker["mixin-interfaces"]!.interface)) {
+    for (const i of concat(allWebNonCallbackInterfaces, getElements(worker.interfaces, "interface"), getElements(worker["mixin-interfaces"], "interface"))) {
         nativeINameToIDependList[i.name] = concat(getExtendList(i.name), getImplementList(i.name));
     }
     return nativeINameToIDependList;
@@ -497,8 +509,8 @@ let iNameToEhParents = (function() {
 function GetGlobalPollutor(flavor: Flavor) {
     switch (flavor) {
         case Flavor.Web:
-        case Flavor.All: return browser.interfaces && browser.interfaces.interface.find(i => !!i["primary-global"]);
-        case Flavor.Worker: return worker.interfaces && worker.interfaces.interface.find(i => !!i.global);
+        case Flavor.All: return browser.interfaces && getElements(browser.interfaces, "interface").find(i => !!i["primary-global"]);
+        case Flavor.Worker: return worker.interfaces && getElements(worker.interfaces, "interface").find(i => !!i.global);
     }
 }
 
@@ -1176,9 +1188,7 @@ namespace Emit {
     }
     /// Emit all the named constructors at root level
     function EmitNamedConstructors() {
-        if (browser.interfaces) {
-            browser.interfaces.interface.forEach(EmitNamedConstructor);
-        }
+        getElements(browser.interfaces, "interface").forEach(EmitNamedConstructor);
     }
 
     function EmitInterfaceDeclaration(i: Browser.Interface) {
@@ -1398,13 +1408,13 @@ namespace Emit {
     }
 
     function EmitDictionaries(flavor: Flavor) {
-        if (browser.dictionaries) {
-            browser.dictionaries.dictionary
-                .filter(d => flavor !== Flavor.Worker || knownWorkerInterfaces.has(d.name))
-                .forEach(d => emitDictionary(flavor, d));
-        }
+        getElements(browser.dictionaries, "dictionary")
+            .filter(d => flavor !== Flavor.Worker || knownWorkerInterfaces.has(d.name))
+            .forEach(d => emitDictionary(flavor, d));
+
         if (flavor === Flavor.Worker && worker.dictionaries) {
-            worker.dictionaries.dictionary.forEach(d => emitDictionary(flavor, d));
+            getElements(worker.dictionaries, "dictionary")
+                .forEach(d => emitDictionary(flavor, d));
         }
     }
 
@@ -1414,15 +1424,15 @@ namespace Emit {
 
     function EmitTypeDefs(flavor: Flavor) {
         if (flavor === Flavor.Worker) {
-            if (browser.typedefs) {
+            if (browser.typedefs)
                 browser.typedefs.typedef
                     .filter(t => knownWorkerInterfaces.has(t["new-type"]))
                     .forEach(emitTypeDef);
-            }
-            if (worker.typedefs) {
+
+            if (worker.typedefs)
                 worker.typedefs.typedef
                     .forEach(emitTypeDef);
-            }
+
         }
         else if (browser.typedefs) {
             browser.typedefs.typedef
@@ -1443,9 +1453,8 @@ namespace Emit {
         Pt.Printl("");
 
         EmitDictionaries(flavor);
-        if (browser["callback-interfaces"]) {
-            browser["callback-interfaces"]!.interface.forEach(i => EmitCallBackInterface(flavor, i));
-        }
+        getElements(browser["callback-interfaces"], "interface")
+            .forEach(i => EmitCallBackInterface(flavor, i));
         EmitNonCallbackInterfaces(flavor);
 
         // // Add missed interface definition from the spec
@@ -1514,7 +1523,7 @@ namespace Emit {
         Pt.Printl("/////////////////////////////");
         Pt.Printl("");
 
-        browser.interfaces && browser.interfaces.interface.forEach(EmitIterator);
+        getElements(browser.interfaces,"interface").forEach(EmitIterator);
 
         fs.writeFileSync(target, Pt.GetResult());
     }

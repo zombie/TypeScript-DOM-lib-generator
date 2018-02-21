@@ -1531,32 +1531,34 @@ namespace Emit {
 }
 
 
-function merge(obj1: any, obj2: any) {
-    if (typeof obj1 !== "object" || typeof obj2 !== "object") return obj1;
-    for (var k in obj2) {
-        if (obj1[k]) {
-            if (Array.isArray(obj1[k]) && Array.isArray(obj2[k])) {
+function merge<T>(src: T, target: T):T {
+    if (typeof src !== "object" || typeof target !== "object") return src;
+    for (const k in target) {
+        if (src[k]) {
+            const srcProp = src[k];
+            const targetProp = target[k];
+            if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
                 // merge arrays
-                var map: any = {};
-                for (var e1 of obj1[k])
+                const map: any = {};
+                for (const e1 of srcProp)
                     if (e1.name)
                         map[e1.name] = e1;
 
-                for (var e2 of obj2[k]) {
+                for (const e2 of targetProp) {
                     if (e2.name && map[e2.name])
                         merge(map[e2.name], e2);
                 }
             }
             else {
-                if (Array.isArray(obj1[k]) !== Array.isArray(obj2[k])) throw new Error("Mismatch on property: " + k);
-                merge(obj1[k], obj2[k]);
+                if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k);
+                merge(src[k], target[k]);
             }
         }
         else {
-            obj1[k] = obj2[k];
+            src[k] = target[k];
         }
     }
-    return obj1;
+    return src;
 }
 
 browser = merge(browser,comments);

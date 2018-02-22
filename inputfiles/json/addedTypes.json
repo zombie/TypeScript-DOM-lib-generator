@@ -1,4 +1,28 @@
 {
+    "mixin-interfaces": {
+        "interface": {
+            "Body": {
+                "name": "Body",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "formData",
+                            "flavor": "Web",
+                            "override-signatures": [
+                                "formData(): Promise<FormData>"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "callback-interfaces": {
+        "interface": {}
+    },
+    "enums": {
+        "enum": {}
+    },
     "interfaces": {
         "interface": {
             "BroadcastChannel": {
@@ -7,8 +31,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "name",
+                            "read-only": "1",
                             "override-type": "string"
                         },
                         {
@@ -68,34 +92,8 @@
                             "override-type": "MessageEvent"
                         }
                     ]
-                }
-            },
-            "ErrorEventInit": {
-                "name": "ErrorEventInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "message?",
-                            "override-type": "string"
-                        },
-                        {
-                            "name": "filename?",
-                            "override-type": "string"
-                        },
-                        {
-                            "name": "lineno?",
-                            "override-type": "number"
-                        },
-                        {
-                            "name": "conlno?",
-                            "override-type": "number"
-                        },
-                        {
-                            "name": "error?",
-                            "override-type": "any"
-                        }
-                    ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "CSSStyleDeclaration": {
                 "name": "CSSStyleDeclaration",
@@ -119,27 +117,32 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "key?",
-                            "override-type": "string"
+                            "name": "key",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "oldValue?",
-                            "override-type": "string"
+                            "name": "oldValue",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "newValue?",
-                            "override-type": "string"
+                            "name": "newValue",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
                             "name": "url",
                             "override-type": "string"
                         },
                         {
-                            "name": "storageArea?",
-                            "override-type": "Storage"
+                            "name": "storageArea",
+                            "override-type": "Storage",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Canvas2DContextAttributes": {
                 "name": "Canvas2DContextAttributes",
@@ -147,23 +150,27 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "alpha?",
-                            "override-type": "boolean"
+                            "name": "alpha",
+                            "override-type": "boolean",
+                            "required": "false"
                         },
                         {
-                            "name": "willReadFrequently?",
-                            "override-type": "boolean"
+                            "name": "willReadFrequently",
+                            "override-type": "boolean",
+                            "required": "false"
                         },
                         {
-                            "name": "storage?",
-                            "override-type": "boolean"
+                            "name": "storage",
+                            "override-type": "boolean",
+                            "required": "false"
                         },
                         {
                             "name": "[attribute: string]",
                             "override-type": "boolean | string | undefined"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ImageBitmapOptions": {
                 "flavor": "All",
@@ -171,31 +178,38 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "imageOrientation?",
-                            "override-type": "\"none\" | \"flipY\""
+                            "name": "imageOrientation",
+                            "override-type": "\"none\" | \"flipY\"",
+                            "required": "false"
                         },
                         {
-                            "name": "premultiplyAlpha?",
-                            "override-type": "\"none\" | \"premultiply\" | \"default\""
+                            "name": "premultiplyAlpha",
+                            "override-type": "\"none\" | \"premultiply\" | \"default\"",
+                            "required": "false"
                         },
                         {
-                            "name": "colorSpaceConversion?",
-                            "override-type": "\"none\" | \"default\""
+                            "name": "colorSpaceConversion",
+                            "override-type": "\"none\" | \"default\"",
+                            "required": "false"
                         },
                         {
-                            "name": "resizeWidth?",
-                            "override-type": "number"
+                            "name": "resizeWidth",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "resizeHeight?",
-                            "override-type": "number"
+                            "name": "resizeHeight",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "resizeQuality?",
-                            "override-type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
+                            "name": "resizeQuality",
+                            "override-type": "\"pixelated\" | \"low\" | \"medium\" | \"high\"",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ImageBitmap": {
                 "name": "ImageBitmap",
@@ -204,12 +218,12 @@
                     "property": [
                         {
                             "name": "width",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "height",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -223,7 +237,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Window": {
                 "name": "Window",
@@ -294,28 +309,6 @@
                     ]
                 }
             },
-            "IDBObjectStoreParameters": {
-                "name": "IDBObjectStoreParameters",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "autoIncrement?",
-                            "override-type": "boolean"
-                        }
-                    ]
-                }
-            },
-            "IDBIndexParameters": {
-                "name": "IDBIndexParameters",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "multiEntry?",
-                            "override-type": "boolean"
-                        }
-                    ]
-                }
-            },
             "IDBIndex": {
                 "name": "IDBIndex",
                 "properties": {
@@ -379,7 +372,7 @@
                     "property": [
                         {
                             "name": "searchParams",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "URLSearchParams"
                         }
                     ]
@@ -407,12 +400,9 @@
                         }
                     ]
                 },
-                "indexer": [
-                    {
-                        "signatures": [
-                            "[index: number]: TNode"
-                        ]
-                    }
+                "no-interface-object": "1",
+                "overide-index-signatures": [
+                    "[index: number]: TNode"
                 ]
             },
             "HTMLCollectionOf<T extends Element>": {
@@ -435,12 +425,9 @@
                         }
                     ]
                 },
-                "indexer": [
-                    {
-                        "signatures": [
-                            "[index: number]: T"
-                        ]
-                    }
+                "no-interface-object": "1",
+                "overide-index-signatures": [
+                    "[index: number]: T"
                 ]
             },
             "BlobPropertyBag": {
@@ -448,15 +435,18 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "type?",
-                            "override-type": "string"
+                            "name": "type",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "endings?",
-                            "override-type": "string"
+                            "name": "endings",
+                            "override-type": "string",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "FilePropertyBag": {
                 "name": "FilePropertyBag",
@@ -464,11 +454,13 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "lastModified?",
-                            "override-type": "number"
+                            "name": "lastModified",
+                            "override-type": "number",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EventListenerObject": {
                 "name": "EventListenerObject",
@@ -481,42 +473,8 @@
                             ]
                         }
                     ]
-                }
-            },
-            "MessageEventInit": {
-                "name": "MessageEventInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "lastEventId?",
-                            "override-type": "string"
-                        },
-                        {
-                            "name": "channel?",
-                            "override-type": "string"
-                        }
-                    ]
-                }
-            },
-            "ProgressEventInit": {
-                "name": "ProgressEventInit",
-                "extends": "EventInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "lengthComputable?",
-                            "override-type": "boolean"
-                        },
-                        {
-                            "name": "loaded?",
-                            "override-type": "number"
-                        },
-                        {
-                            "name": "total?",
-                            "override-type": "number"
-                        }
-                    ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Element": {
                 "name": "Element",
@@ -592,7 +550,6 @@
                                 "insertAdjacentText(where: InsertPosition, text: string): void"
                             ]
                         },
-                        {},
                         {
                             "name": "attachShadow",
                             "override-signatures": [
@@ -606,7 +563,7 @@
                     "property": [
                         {
                             "name": "assignedSlot",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "HTMLSlotElement | null"
                         },
                         {
@@ -615,7 +572,7 @@
                         },
                         {
                             "name": "shadowRoot",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "ShadowRoot | null"
                         }
                     ]
@@ -627,11 +584,13 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "behavior?",
-                            "override-type": "ScrollBehavior"
+                            "name": "behavior",
+                            "override-type": "ScrollBehavior",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ScrollToOptions": {
                 "flavor": "Web",
@@ -640,15 +599,18 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "left?",
-                            "override-type": "number"
+                            "name": "left",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "top?",
-                            "override-type": "number"
+                            "name": "top",
+                            "override-type": "number",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ScrollIntoViewOptions": {
                 "flavor": "Web",
@@ -657,15 +619,18 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "block?",
-                            "override-type": "ScrollLogicalPosition"
+                            "name": "block",
+                            "override-type": "ScrollLogicalPosition",
+                            "required": "false"
                         },
                         {
-                            "name": "inline?",
-                            "override-type": "ScrollLogicalPosition"
+                            "name": "inline",
+                            "override-type": "ScrollLogicalPosition",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Document": {
                 "methods": {
@@ -737,8 +702,7 @@
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"view\"): SVGViewElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement"
                             ]
-                        },
-                        {}
+                        }
                     ]
                 },
                 "extends": "ParentNode",
@@ -766,18 +730,18 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "doNotTrack",
+                            "read-only": "1",
                             "override-type": "string | null"
                         },
                         {
                             "name": "hardwareConcurrency",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "languages",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "string[]"
                         }
                     ]
@@ -789,7 +753,7 @@
                     "property": [
                         {
                             "name": "hardwareConcurrency",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -800,8 +764,9 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "import?",
-                            "override-type": "Document"
+                            "name": "import",
+                            "override-type": "Document",
+                            "required": "false"
                         },
                         {
                             "name": "integrity",
@@ -828,20 +793,24 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "key?",
-                            "override-type": "string"
+                            "name": "key",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "oldValue?",
-                            "override-type": "string"
+                            "name": "oldValue",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "newValue?",
-                            "override-type": "string"
+                            "name": "newValue",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "storageArea?",
-                            "override-type": "Storage"
+                            "name": "storageArea",
+                            "override-type": "Storage",
+                            "required": "false"
                         }
                     ]
                 }
@@ -864,19 +833,23 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "data?",
-                            "override-type": "string"
+                            "name": "data",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "dataType?",
-                            "override-type": "string"
+                            "name": "dataType",
+                            "override-type": "string",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "IDBArrayKey": {
                 "name": "IDBArrayKey",
-                "extends": "Array<IDBValidKey>"
+                "extends": "Array<IDBValidKey>",
+                "no-interface-object": "1"
             },
             "HTMLInputElement": {
                 "name": "HTMLInputElement",
@@ -957,17 +930,6 @@
                     ]
                 }
             },
-            "WebGLContextAttributes": {
-                "name": "WebGLContextAttributes",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "failIfMajorPerformanceCaveat?",
-                            "override-type": "boolean"
-                        }
-                    ]
-                }
-            },
             "RsaKeyGenParams": {
                 "name": "RsaKeyGenParams",
                 "extends": "Algorithm",
@@ -982,7 +944,8 @@
                             "override-type": "Uint8Array"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaHashedKeyGenParams": {
                 "name": "RsaHashedKeyGenParams",
@@ -994,7 +957,8 @@
                             "override-type": "AlgorithmIdentifier"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaKeyAlgorithm": {
                 "name": "RsaKeyAlgorithm",
@@ -1010,7 +974,8 @@
                             "override-type": "Uint8Array"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaHashedKeyAlgorithm": {
                 "name": "RsaHashedKeyAlgorithm",
@@ -1022,7 +987,8 @@
                             "override-type": "AlgorithmIdentifier"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaHashedImportParams": {
                 "name": "RsaHashedImportParams",
@@ -1033,7 +999,8 @@
                             "override-type": "AlgorithmIdentifier"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaPssParams": {
                 "name": "RsaPssParams",
@@ -1044,7 +1011,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaOaepParams": {
                 "name": "RsaOaepParams",
@@ -1052,11 +1020,13 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "label?",
-                            "override-type": "BufferSource"
+                            "name": "label",
+                            "override-type": "BufferSource",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EcdsaParams": {
                 "name": "EcdsaParams",
@@ -1068,7 +1038,8 @@
                             "override-type": "AlgorithmIdentifier"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EcKeyGenParams": {
                 "name": "EcKeyGenParams",
@@ -1080,7 +1051,8 @@
                             "override-type": "string"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EcKeyAlgorithm": {
                 "name": "EcKeyAlgorithm",
@@ -1092,7 +1064,8 @@
                             "override-type": "string"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EcKeyImportParams": {
                 "name": "EcKeyImportParams",
@@ -1104,7 +1077,8 @@
                             "override-type": "string"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EcdhKeyDeriveParams": {
                 "name": "EcdhKeyDeriveParams",
@@ -1116,7 +1090,8 @@
                             "override-type": "CryptoKey"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesCtrParams": {
                 "name": "AesCtrParams",
@@ -1132,7 +1107,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesKeyAlgorithm": {
                 "name": "AesKeyAlgorithm",
@@ -1144,7 +1120,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesKeyGenParams": {
                 "name": "AesKeyGenParams",
@@ -1156,7 +1133,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesDerivedKeyParams": {
                 "name": "AesDerivedKeyParams",
@@ -1168,7 +1146,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesCbcParams": {
                 "name": "AesCbcParams",
@@ -1180,7 +1159,8 @@
                             "override-type": "BufferSource"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesCmacParams": {
                 "name": "AesCmacParams",
@@ -1192,7 +1172,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesGcmParams": {
                 "name": "AesGcmParams",
@@ -1204,15 +1185,18 @@
                             "override-type": "BufferSource"
                         },
                         {
-                            "name": "additionalData?",
-                            "override-type": "BufferSource"
+                            "name": "additionalData",
+                            "override-type": "BufferSource",
+                            "required": "false"
                         },
                         {
-                            "name": "tagLength?",
-                            "override-type": "number"
+                            "name": "tagLength",
+                            "override-type": "number",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AesCfbParams": {
                 "name": "AesCfbParams",
@@ -1224,7 +1208,8 @@
                             "override-type": "BufferSource"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "HmacImportParams": {
                 "name": "HmacImportParams",
@@ -1232,15 +1217,18 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "hash?",
-                            "override-type": "AlgorithmIdentifier"
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier",
+                            "required": "false"
                         },
                         {
-                            "name": "length?",
-                            "override-type": "number"
+                            "name": "length",
+                            "override-type": "number",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "HmacKeyAlgorithm": {
                 "name": "HmacKeyAlgorithm",
@@ -1256,7 +1244,8 @@
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "HmacKeyGenParams": {
                 "name": "HmacKeyGenParams",
@@ -1268,11 +1257,13 @@
                             "override-type": "AlgorithmIdentifier"
                         },
                         {
-                            "name": "length?",
-                            "override-type": "number"
+                            "name": "length",
+                            "override-type": "number",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "DhKeyGenParams": {
                 "name": "DhKeyGenParams",
@@ -1288,7 +1279,8 @@
                             "override-type": "Uint8Array"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "DhKeyAlgorithm": {
                 "name": "DhKeyAlgorithm",
@@ -1304,7 +1296,8 @@
                             "override-type": "Uint8Array"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "DhKeyDeriveParams": {
                 "name": "DhKeyDeriveParams",
@@ -1316,7 +1309,8 @@
                             "override-type": "CryptoKey"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "DhImportKeyParams": {
                 "name": "DhImportKeyParams",
@@ -1332,7 +1326,8 @@
                             "override-type": "Uint8Array"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ConcatParams": {
                 "name": "ConcatParams",
@@ -1340,8 +1335,9 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "hash?",
-                            "override-type": "AlgorithmIdentifier"
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier",
+                            "required": "false"
                         },
                         {
                             "name": "algorithmId",
@@ -1356,15 +1352,18 @@
                             "override-type": "Uint8Array"
                         },
                         {
-                            "name": "publicInfo?",
-                            "override-type": "Uint8Array"
+                            "name": "publicInfo",
+                            "override-type": "Uint8Array",
+                            "required": "false"
                         },
                         {
-                            "name": "privateInfo?",
-                            "override-type": "Uint8Array"
+                            "name": "privateInfo",
+                            "override-type": "Uint8Array",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "HkdfCtrParams": {
                 "name": "HkdfCtrParams",
@@ -1384,7 +1383,8 @@
                             "override-type": "BufferSource"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Pbkdf2Params": {
                 "name": "Pbkdf2Params",
@@ -1404,7 +1404,8 @@
                             "override-type": "AlgorithmIdentifier"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "RsaOtherPrimesInfo": {
                 "name": "RsaOtherPrimesInfo",
@@ -1423,7 +1424,8 @@
                             "override-type": "string"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "JsonWebKey": {
                 "name": "JsonWebKey",
@@ -1434,99 +1436,122 @@
                             "override-type": "string"
                         },
                         {
-                            "name": "use?",
-                            "override-type": "string"
+                            "name": "use",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "key_ops?",
-                            "override-type": "string[]"
+                            "name": "key_ops",
+                            "override-type": "string[]",
+                            "required": "false"
                         },
                         {
-                            "name": "alg?",
-                            "override-type": "string"
+                            "name": "alg",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "kid?",
-                            "override-type": "string"
+                            "name": "kid",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "x5u?",
-                            "override-type": "string"
+                            "name": "x5u",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "x5c?",
-                            "override-type": "string"
+                            "name": "x5c",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "x5t?",
-                            "override-type": "string"
+                            "name": "x5t",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "ext?",
-                            "override-type": "boolean"
+                            "name": "ext",
+                            "override-type": "boolean",
+                            "required": "false"
                         },
                         {
-                            "name": "crv?",
-                            "override-type": "string"
+                            "name": "crv",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "x?",
-                            "override-type": "string"
+                            "name": "x",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "y?",
-                            "override-type": "string"
+                            "name": "y",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "d?",
-                            "override-type": "string"
+                            "name": "d",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "n?",
-                            "override-type": "string"
+                            "name": "n",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "e?",
-                            "override-type": "string"
+                            "name": "e",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "p?",
-                            "override-type": "string"
+                            "name": "p",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "q?",
-                            "override-type": "string"
+                            "name": "q",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "dp?",
-                            "override-type": "string"
+                            "name": "dp",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "dq?",
-                            "override-type": "string"
+                            "name": "dq",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "qi?",
-                            "override-type": "string"
+                            "name": "qi",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "oth?",
-                            "override-type": "RsaOtherPrimesInfo[]"
+                            "name": "oth",
+                            "override-type": "RsaOtherPrimesInfo[]",
+                            "required": "false"
                         },
                         {
-                            "name": "k?",
-                            "override-type": "string"
+                            "name": "k",
+                            "override-type": "string",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "XMLHttpRequest": {
                 "name": "XMLHttpRequest",
                 "properties": {
                     "property": [
                         {
-                            "name": "msCaching?",
-                            "override-type": "string"
+                            "name": "msCaching",
+                            "override-type": "string",
+                            "required": "false"
                         }
                     ]
                 }
@@ -1550,7 +1575,7 @@
                     "property": [
                         {
                             "name": "secureConnectionStart",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -1572,19 +1597,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "code",
-                            "override-type": "string"
-                        }
-                    ]
-                }
-            },
-            "KeyboardEventInit": {
-                "name": "KeyboardEventInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "code?",
+                            "read-only": "1",
                             "override-type": "string"
                         }
                     ]
@@ -1597,35 +1611,36 @@
                     "property": [
                         {
                             "name": "children",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "HTMLCollection"
                         },
                         {
                             "name": "firstElementChild",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "Element | null"
                         },
                         {
                             "name": "lastElementChild",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "Element | null"
                         },
                         {
                             "name": "childElementCount",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "DocumentFragment": {
                 "name": "DocumentFragment",
                 "extends": "ParentNode",
                 "methods": {
                     "method": [
-                        {},
                         {
                             "name": "getElementById",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
                             ]
@@ -1686,16 +1701,17 @@
                     "property": [
                         {
                             "name": "activeElement",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "Element | null"
                         },
                         {
                             "name": "styleSheets",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "StyleSheetList"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ShadowRoot": {
                 "name": "ShadowRoot",
@@ -1705,7 +1721,7 @@
                     "property": [
                         {
                             "name": "host",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "Element"
                         },
                         {
@@ -1713,7 +1729,8 @@
                             "override-type": "string"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ShadowRootInit": {
                 "name": "ShadowRootInit",
@@ -1725,11 +1742,13 @@
                             "override-type": "\"open\" | \"closed\""
                         },
                         {
-                            "name": "delegatesFocus?",
-                            "override-type": "boolean"
+                            "name": "delegatesFocus",
+                            "override-type": "boolean",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Text": {
                 "name": "Text",
@@ -1737,7 +1756,7 @@
                     "property": [
                         {
                             "name": "assignedSlot",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "HTMLSlotElement | null"
                         }
                     ]
@@ -1747,9 +1766,6 @@
                 "name": "HTMLSlotElement",
                 "extends": "HTMLElement",
                 "flavor": "Web",
-                "tagNames": [
-                    "slot"
-                ],
                 "properties": {
                     "property": [
                         {
@@ -1767,7 +1783,13 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1",
+                "element": [
+                    {
+                        "name": "slot"
+                    }
+                ]
             },
             "AssignedNodesOptions": {
                 "name": "AssignedNodesOptions",
@@ -1775,22 +1797,13 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "flatten?",
-                            "override-type": "boolean"
+                            "name": "flatten",
+                            "override-type": "boolean",
+                            "required": "false"
                         }
                     ]
-                }
-            },
-            "EventInit": {
-                "name": "EventInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "scoped?",
-                            "override-type": "boolean"
-                        }
-                    ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Event": {
                 "name": "Event",
@@ -1798,7 +1811,7 @@
                     "property": [
                         {
                             "name": "scoped",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "boolean"
                         }
                     ]
@@ -1824,7 +1837,8 @@
                             "override-type": "string"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ElementCreationOptions": {
                 "name": "ElementCreationOptions",
@@ -1832,11 +1846,13 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "is?",
-                            "override-type": "string"
+                            "name": "is",
+                            "override-type": "string",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "CustomElementRegistry": {
                 "name": "CustomElementRegistry",
@@ -1862,7 +1878,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "PromiseRejectionEvent": {
                 "name": "PromiseRejectionEvent",
@@ -1872,16 +1889,17 @@
                     "property": [
                         {
                             "name": "promise",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "PromiseLike<any>"
                         },
                         {
                             "name": "reason",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "any"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "PromiseRejectionEventInit": {
                 "name": "PromiseRejectionEventInit",
@@ -1894,24 +1912,13 @@
                             "override-type": "PromiseLike<any>"
                         },
                         {
-                            "name": "reason?",
-                            "override-type": "any"
+                            "name": "reason",
+                            "override-type": "any",
+                            "required": "false"
                         }
                     ]
-                }
-            },
-            "Body": {
-                "name": "Body",
-                "methods": {
-                    "method": [
-                        {
-                            "name": "formData",
-                            "override-signatures": [
-                                "formData(): Promise<FormData>"
-                            ]
-                        }
-                    ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "FormData": {
                 "name": "FormData",
@@ -1919,30 +1926,35 @@
                     "method": [
                         {
                             "name": "delete",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "delete(name: string): void"
                             ]
                         },
                         {
                             "name": "get",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "get(name: string): FormDataEntryValue | null"
                             ]
                         },
                         {
                             "name": "getAll",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "getAll(name: string): FormDataEntryValue[]"
                             ]
                         },
                         {
                             "name": "has",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "has(name: string): boolean"
                             ]
                         },
                         {
                             "name": "set",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "set(name: string, value: string | Blob, fileName?: string): void"
                             ]
@@ -1955,11 +1967,13 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "capture?",
-                            "override-type": "boolean"
+                            "name": "capture",
+                            "override-type": "boolean",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AddEventListenerOptions": {
                 "name": "AddEventListenerOptions",
@@ -1967,15 +1981,18 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "passive?",
-                            "override-type": "boolean"
+                            "name": "passive",
+                            "override-type": "boolean",
+                            "required": "false"
                         },
                         {
-                            "name": "once?",
-                            "override-type": "boolean"
+                            "name": "once",
+                            "override-type": "boolean",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "TouchEventInit": {
                 "name": "TouchEventInit",
@@ -1984,30 +2001,23 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "touches?",
-                            "override-type": "Touch[]"
+                            "name": "touches",
+                            "override-type": "Touch[]",
+                            "required": "false"
                         },
                         {
-                            "name": "targetTouches?",
-                            "override-type": "Touch[]"
+                            "name": "targetTouches",
+                            "override-type": "Touch[]",
+                            "required": "false"
                         },
                         {
-                            "name": "changedTouches?",
-                            "override-type": "Touch[]"
+                            "name": "changedTouches",
+                            "override-type": "Touch[]",
+                            "required": "false"
                         }
                     ]
-                }
-            },
-            "IntersectionObserverEntryInit": {
-                "name": "IntersectionObserverEntryInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "isIntersecting",
-                            "override-type": "boolean"
-                        }
-                    ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "IntersectionObserverEntry": {
                 "name": "IntersectionObserverEntry",
@@ -2015,7 +2025,7 @@
                     "property": [
                         {
                             "name": "isIntersecting",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "boolean"
                         }
                     ]
@@ -2028,7 +2038,7 @@
                         {
                             "name": "tooShort",
                             "flavor": "Web",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "boolean"
                         }
                     ]
@@ -2082,7 +2092,7 @@
                     "property": [
                         {
                             "name": "redirected",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "boolean"
                         }
                     ]
@@ -2127,42 +2137,42 @@
                     "property": [
                         {
                             "name": "bottom",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "height",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "left",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "right",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "top",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "width",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "x",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
                             "name": "y",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -2178,31 +2188,34 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "MIN_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "MAX_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "EXT_frag_depth": {
                 "name": "EXT_frag_depth",
                 "flavor": "Web",
                 "properties": {
                     "property": []
-                }
+                },
+                "no-interface-object": "1"
             },
             "EXT_shader_texture_lod": {
                 "name": "EXT_shader_texture_lod",
                 "flavor": "Web",
                 "properties": {
                     "property": []
-                }
+                },
+                "no-interface-object": "1"
             },
             "EXT_sRGB": {
                 "name": "EXT_sRGB",
@@ -2210,27 +2223,28 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "SRGB_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "SRGB_ALPHA_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "SRGB8_ALPHA8_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "DOMRect": {
                 "name": "DOMRect",
@@ -2268,18 +2282,11 @@
                     "property": [
                         {
                             "name": "length",
-                            "readonly": true,
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
                 },
-                "indexer": [
-                    {
-                        "signatures": [
-                            "[index: number]: DOMRect"
-                        ]
-                    }
-                ],
                 "methods": {
                     "method": [
                         {
@@ -2289,7 +2296,11 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1",
+                "overide-index-signatures": [
+                    "[index: number]: DOMRect"
+                ]
             },
             "HTMLFormElement": {
                 "name": "HTMLFormElement",
@@ -2297,12 +2308,14 @@
                     "method": [
                         {
                             "name": "reportValidity",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "reportValidity(): boolean"
                             ]
                         },
                         {
                             "name": "reportValidity",
+                            "flavor": "Web",
                             "override-signatures": [
                                 "reportValidity(): boolean"
                             ]
@@ -2316,8 +2329,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "VERTEX_ARRAY_BINDING_OES",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -2349,14 +2362,16 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "WebGLVertexArrayObjectOES": {
                 "name": "WebGLVertexArrayObjectOES",
                 "flavor": "Web",
                 "properties": {
                     "property": []
-                }
+                },
+                "no-interface-object": "1"
             },
             "WEBGL_color_buffer_float": {
                 "name": "WEBGL_color_buffer_float",
@@ -2364,27 +2379,28 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "RGBA32F_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "RGB32F_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "UNSIGNED_NORMALIZED_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "WEBGL_compressed_texture_astc": {
                 "name": "WEBGL_compressed_texture_astc",
@@ -2392,143 +2408,143 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_4x4_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_5x4_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_5x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_6x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_6x6_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_8x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_8x6_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_8x8_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_10x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_10x6_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_10x8_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_10x10_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_12x10_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_RGBA_ASTC_12x12_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -2542,7 +2558,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "WEBGL_compressed_texture_s3tc_srgb": {
                 "name": "WEBGL_compressed_texture_s3tc_srgb",
@@ -2550,27 +2567,28 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB_S3TC_DXT1_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "WEBGL_debug_shaders": {
                 "name": "WEBGL_debug_shaders",
@@ -2584,7 +2602,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "WEBGL_draw_buffers": {
                 "name": "WEBGL_draw_buffers",
@@ -2592,173 +2611,173 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT0_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT1_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT2_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT3_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT4_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT5_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT6_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT7_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT8_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT9_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT10_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT11_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT12_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT13_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT14_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "COLOR_ATTACHMENT15_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER0_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER1_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER2_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER3_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER4_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER5_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER6_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER7_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER8_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER9_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER10_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER11_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER12_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER13_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER14_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "DRAW_BUFFER15_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "MAX_COLOR_ATTACHMENTS_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "MAX_DRAW_BUFFERS_WEBGL",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -2772,7 +2791,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "WEBGL_lose_context": {
                 "name": "WEBGL_lose_context",
@@ -2792,15 +2812,16 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "HTMLLabelElement": {
                 "name": "HTMLLabelElement",
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "control",
+                            "read-only": "1",
                             "override-type": "HTMLInputElement | null"
                         }
                     ]
@@ -2822,8 +2843,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "lastModified",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -2834,8 +2855,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "signal",
+                            "read-only": "1",
                             "override-type": "AbortSignal"
                         }
                     ]
@@ -2860,8 +2881,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "aborted",
+                            "read-only": "1",
                             "override-type": "boolean"
                         },
                         {
@@ -2869,26 +2890,16 @@
                             "override-type": "(ev: Event) => any"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "Request": {
                 "name": "Request",
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "signal",
-                            "override-type": "AbortSignal"
-                        }
-                    ]
-                }
-            },
-            "RequestInit": {
-                "name": "RequestInit",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "signal?",
+                            "read-only": "1",
                             "override-type": "AbortSignal"
                         }
                     ]
@@ -2900,33 +2911,33 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "url",
+                            "read-only": "1",
                             "override-type": "string"
                         },
                         {
-                            "readonly": true,
                             "name": "withCredentials",
+                            "read-only": "1",
                             "override-type": "boolean"
                         },
                         {
-                            "readonly": true,
                             "name": "CONNECTING",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "OPEN",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "CLOSED",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "readyState",
+                            "read-only": "1",
                             "override-type": "number"
                         },
                         {
@@ -2962,12 +2973,13 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "withCredentials",
+                            "read-only": "1",
                             "override-type": "boolean"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AnimationKeyFrame": {
                 "flavor": "Web",
@@ -2975,21 +2987,20 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "offset?",
-                            "override-type": "number | null | (number | null)[]"
+                            "name": "offset",
+                            "override-type": "number | null | (number | null)[]",
+                            "required": "false"
                         },
                         {
-                            "name": "easing?",
-                            "override-type": "string | string[]"
+                            "name": "easing",
+                            "override-type": "string | string[]",
+                            "required": "false"
                         }
                     ]
                 },
-                "indexer": [
-                    {
-                        "signatures": [
-                            "[index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined"
-                        ]
-                    }
+                "no-interface-object": "1",
+                "overide-index-signatures": [
+                    "[index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined"
                 ]
             },
             "AnimationOptions": {
@@ -2998,43 +3009,53 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "id?",
-                            "override-type": "string"
+                            "name": "id",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "delay?",
-                            "override-type": "number"
+                            "name": "delay",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "direction?",
-                            "override-type": "\"normal\" | \"reverse\" | \"alternate\" | \"alternate-reverse\""
+                            "name": "direction",
+                            "override-type": "\"normal\" | \"reverse\" | \"alternate\" | \"alternate-reverse\"",
+                            "required": "false"
                         },
                         {
-                            "name": "duration?",
-                            "override-type": "number"
+                            "name": "duration",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "easing?",
-                            "override-type": "string"
+                            "name": "easing",
+                            "override-type": "string",
+                            "required": "false"
                         },
                         {
-                            "name": "endDelay?",
-                            "override-type": "number"
+                            "name": "endDelay",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "fill?",
-                            "override-type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\""
+                            "name": "fill",
+                            "override-type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\"",
+                            "required": "false"
                         },
                         {
-                            "name": "iterationStart?",
-                            "override-type": "number"
+                            "name": "iterationStart",
+                            "override-type": "number",
+                            "required": "false"
                         },
                         {
-                            "name": "iterations?",
-                            "override-type": "number"
+                            "name": "iterations",
+                            "override-type": "number",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AnimationTimeline": {
                 "flavor": "Web",
@@ -3042,12 +3063,13 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "currentTime",
+                            "read-only": "1",
                             "override-type": "number | null"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "ComputedTimingProperties": {
                 "flavor": "Web",
@@ -3075,7 +3097,8 @@
                             "override-type": "number | null"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AnimationEffectReadOnly": {
                 "flavor": "Web",
@@ -3083,8 +3106,8 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "timing",
+                            "read-only": "1",
                             "override-type": "number"
                         }
                     ]
@@ -3098,7 +3121,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AnimationPlaybackEventInit": {
                 "flavor": "Web",
@@ -3107,15 +3131,18 @@
                 "properties": {
                     "property": [
                         {
-                            "name": "currentTime?",
-                            "override-type": "number | null"
+                            "name": "currentTime",
+                            "override-type": "number | null",
+                            "required": "false"
                         },
                         {
-                            "name": "timelineTime?",
-                            "override-type": "number | null"
+                            "name": "timelineTime",
+                            "override-type": "number | null",
+                            "required": "false"
                         }
                     ]
-                }
+                },
+                "no-interface-object": "1"
             },
             "AnimationPlaybackEvent": {
                 "flavor": "Web",
@@ -3124,13 +3151,13 @@
                 "properties": {
                     "property": [
                         {
-                            "readonly": true,
                             "name": "currentTime",
+                            "read-only": "1",
                             "override-type": "number | null"
                         },
                         {
-                            "readonly": true,
                             "name": "timelineTime",
+                            "read-only": "1",
                             "override-type": "number | null"
                         }
                     ]
@@ -3153,8 +3180,8 @@
                             "override-type": "AnimationEffectReadOnly"
                         },
                         {
-                            "readonly": true,
                             "name": "finished",
+                            "read-only": "1",
                             "override-type": "Promise<Animation>"
                         },
                         {
@@ -3162,13 +3189,13 @@
                             "override-type": "string"
                         },
                         {
-                            "readonly": true,
                             "name": "pending",
+                            "read-only": "1",
                             "override-type": "boolean"
                         },
                         {
-                            "readonly": true,
                             "name": "playState",
+                            "read-only": "1",
                             "override-type": "\"idle\" | \"running\" | \"paused\" | \"finished\""
                         },
                         {
@@ -3176,8 +3203,8 @@
                             "override-type": "number"
                         },
                         {
-                            "readonly": true,
                             "name": "ready",
+                            "read-only": "1",
                             "override-type": "Promise<Animation>"
                         },
                         {
@@ -3274,47 +3301,208 @@
             }
         }
     },
+    "dictionaries": {
+        "dictionary": {
+            "ErrorEventInit": {
+                "name": "ErrorEventInit",
+                "no-interface-object": "1",
+                "members": {
+                    "member": [
+                        {
+                            "name": "message",
+                            "override-type": "string",
+                            "required": "false"
+                        },
+                        {
+                            "name": "filename",
+                            "override-type": "string",
+                            "required": "false"
+                        },
+                        {
+                            "name": "lineno",
+                            "override-type": "number",
+                            "required": "false"
+                        },
+                        {
+                            "name": "conlno",
+                            "override-type": "number",
+                            "required": "false"
+                        },
+                        {
+                            "name": "error",
+                            "override-type": "any",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "IDBObjectStoreParameters": {
+                "name": "IDBObjectStoreParameters",
+                "members": {
+                    "member": [
+                        {
+                            "name": "autoIncrement",
+                            "override-type": "boolean",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "IDBIndexParameters": {
+                "name": "IDBIndexParameters",
+                "members": {
+                    "member": [
+                        {
+                            "name": "multiEntry",
+                            "override-type": "boolean",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "MessageEventInit": {
+                "name": "MessageEventInit",
+                "members": {
+                    "member": [
+                        {
+                            "name": "lastEventId",
+                            "override-type": "string",
+                            "required": "false"
+                        },
+                        {
+                            "name": "channel",
+                            "override-type": "string",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "ProgressEventInit": {
+                "name": "ProgressEventInit",
+                "extends": "EventInit",
+                "no-interface-object": "1",
+                "members": {
+                    "member": [
+                        {
+                            "name": "lengthComputable",
+                            "override-type": "boolean",
+                            "required": "false"
+                        },
+                        {
+                            "name": "loaded",
+                            "override-type": "number",
+                            "required": "false"
+                        },
+                        {
+                            "name": "total",
+                            "override-type": "number",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "WebGLContextAttributes": {
+                "name": "WebGLContextAttributes",
+                "members": {
+                    "member": [
+                        {
+                            "name": "failIfMajorPerformanceCaveat",
+                            "override-type": "boolean",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "KeyboardEventInit": {
+                "name": "KeyboardEventInit",
+                "members": {
+                    "member": [
+                        {
+                            "name": "code",
+                            "override-type": "string",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "EventInit": {
+                "name": "EventInit",
+                "members": {
+                    "member": [
+                        {
+                            "name": "scoped",
+                            "override-type": "boolean",
+                            "required": "false"
+                        }
+                    ]
+                }
+            },
+            "IntersectionObserverEntryInit": {
+                "name": "IntersectionObserverEntryInit",
+                "members": {
+                    "member": [
+                        {
+                            "name": "isIntersecting",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "RequestInit": {
+                "name": "RequestInit",
+                "members": {
+                    "member": [
+                        {
+                            "name": "signal",
+                            "override-type": "AbortSignal",
+                            "required": "false"
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "typedefs": {
         "typedef": [
             {
-                "new-type": "\"auto\" | \"instant\" | \"smooth\"",
-                "type": "ScrollBehavior"
+                "override-type": "\"auto\" | \"instant\" | \"smooth\"",
+                "new-type": "ScrollBehavior"
             },
             {
-                "new-type": "\"start\" | \"center\" | \"end\" | \"nearest\"",
-                "type": "ScrollLogicalPosition"
+                "override-type": "\"start\" | \"center\" | \"end\" | \"nearest\"",
+                "new-type": "ScrollLogicalPosition"
             },
             {
-                "new-type": "number | string | Date | IDBArrayKey",
-                "type": "IDBValidKey"
+                "override-type": "number | string | Date | IDBArrayKey",
+                "new-type": "IDBValidKey"
             },
             {
-                "new-type": "ArrayBuffer | ArrayBufferView",
-                "type": "BufferSource"
+                "override-type": "ArrayBuffer | ArrayBufferView",
+                "new-type": "BufferSource"
             },
             {
-                "new-type": "WheelEvent",
-                "type": "MouseWheelEvent"
+                "override-type": "WheelEvent",
+                "new-type": "MouseWheelEvent"
             },
             {
-                "new-type": "\"auto\" | \"manual\"",
-                "type": "ScrollRestoration"
+                "override-type": "\"auto\" | \"manual\"",
+                "new-type": "ScrollRestoration"
             },
             {
-                "new-type": "string | File",
-                "type": "FormDataEntryValue"
+                "override-type": "string | File",
+                "new-type": "FormDataEntryValue"
             },
             {
-                "new-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
-                "type": "InsertPosition"
+                "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
+                "new-type": "InsertPosition"
             },
             {
-                "new-type": "Headers | string[][] | { [key: string]: string }",
-                "type": "HeadersInit"
+                "override-type": "Headers | string[][] | { [key: string]: string }",
+                "new-type": "HeadersInit"
             },
             {
-                "new-type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\"",
-                "type": "OrientationLockType"
+                "override-type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\"",
+                "new-type": "OrientationLockType"
             }
         ]
     }

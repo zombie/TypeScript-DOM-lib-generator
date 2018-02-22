@@ -1,6 +1,7 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
+import { debug } from "util";
 
 const __SOURCE_DIRECTORY__ = __dirname;
 let inputFolder = path.join(__SOURCE_DIRECTORY__, "inputfiles", "json");
@@ -188,23 +189,32 @@ function mapToArray<T>(m: Record<string, T>): T[] {
     return Object.keys(m).map(k => m[k]);
 }
 
-function merge<T>(src: T, target: T, mode: "add" | "update"):T {
+function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[], mode: "add" | "update") {
+    const map: any = {};
+    for (const e1 of srcProp) {
+        if (e1.name) {
+            map[e1.name] = e1;
+        }
+    }
+
+    for (const e2 of targetProp) {
+        if (e2.name && map[e2.name]) {
+            merge(map[e2.name], e2, mode);
+        }
+        else if (mode === "add") {
+            srcProp.push(e2);
+        }
+    }
+}
+
+function merge<T>(src: T, target: T, mode: "add" | "update"): T {
     if (typeof src !== "object" || typeof target !== "object") return src;
     for (const k in target) {
-        if (src[k]) {
+        if (src[k] && target[k]) {
             const srcProp = src[k];
             const targetProp = target[k];
             if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
-                // merge arrays
-                const map: any = {};
-                for (const e1 of srcProp)
-                    if (e1.name)
-                        map[e1.name] = e1;
-
-                for (const e2 of targetProp) {
-                    if (e2.name && map[e2.name])
-                        merge(map[e2.name], e2, mode);
-                }
+                mergeNamedArrays(srcProp, targetProp, mode);
             }
             else {
                 if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k);
@@ -705,13 +715,11 @@ namespace Emit {
         }
 
         function write(s: string) {
-            if (s && s.length) {
-                if (lineStart) {
-                    output += getIndentString(indent);
-                    lineStart = false;
-                }
-                output += s;
+            if (lineStart) {
+                output += getIndentString(indent);
+                lineStart = false;
             }
+            output += s;
         }
 
         function reset(): void {
@@ -1055,9 +1063,10 @@ namespace Emit {
                     pType = DomTypeToTsType(p.type);
                 }
             }
+            let requiredModifier = !p.required || p.required === "1"  ? "" : "?";
             pType = p.nullable ? makeNullable(pType) : pType;
             let readOnlyModifier = p["read-only"] && prefix === "" ? "readonly " : "";
-            printLine(`${prefix}${readOnlyModifier}${p.name}: ${pType};`);
+            printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
         }
     }
 
@@ -1089,7 +1098,7 @@ namespace Emit {
         }
 
         if (m["override-signatures"]) {
-            m["override-signatures"]!.forEach(s => printLine(`${s};`));
+            m["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
         }
         else {
             switch (m.name) {
@@ -1100,7 +1109,7 @@ namespace Emit {
                 case "querySelectorAll": return EmitQuerySelectorAllOverloads(m);
             }
             if (m["additional-signatures"]) {
-                m["additional-signatures"]!.forEach(s => printLine(`${s};`));
+                m["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
             }
             let overloads = GetOverloads(m, false);
             for (const { paramCombinations, returnTypes, nullable } of overloads) {
@@ -1194,8 +1203,14 @@ namespace Emit {
     }
 
     function EmitConstructorSignature(flavor: Flavor, i: Browser.Interface) {
+        if (i.constructor && i.constructor.comment) {
+            Pt.Printl(i.constructor.comment);
+        }
         // Emit constructor signature
-        if (i.constructor) {
+        if (i["override-constructor-signatures"]) {
+            i["override-constructor-signatures"]!.forEach(s => Pt.Printl(`${s};`));
+        }
+        else if (i.constructor) {
             for (const { paramCombinations } of GetOverloads(i.constructor, false)) {
                 let paramsString = ParamsToString(paramCombinations);
                 Pt.Printl(`new(${paramsString}): ${i.name};`);
@@ -1244,7 +1259,7 @@ namespace Emit {
 
         Pt.Printl(`interface ${processInterfaceType(i, processedIName)}`);
 
-        let finalExtends = concat([i.extends], i.implements)
+        let finalExtends = concat([i.extends || "Object"], i.implements)
             .filter(i => i !== "Object")
             .map(processIName)
 
@@ -1279,16 +1294,19 @@ namespace Emit {
         return false;
     }
 
-
-
     function EmitIndexers(emitScope: EmitScope, i: Browser.Interface) {
-        // The indices could be within either Methods or Anonymous Methods
-        concat(i.methods && i.methods.method, i["anonymous-methods"] && i["anonymous-methods"]!.method)
-            .filter(m => ShouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
-            .forEach(m => {
-                let indexer = m.param![0]
-                Pt.Printl(`[${indexer.name}: ${DomTypeToTsType(indexer.type)}]: ${DomTypeToTsType(m.type)};`);
-            });
+        if (i["overide-index-signatures"]) {
+            i["overide-index-signatures"]!.forEach(s => Pt.Printl(`${s};`));
+        }
+        else {
+            // The indices could be within either Methods or Anonymous Methods
+            concat(i.methods && i.methods.method, i["anonymous-methods"] && i["anonymous-methods"]!.method)
+                .filter(m => ShouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
+                .forEach(m => {
+                    let indexer = m.param![0]
+                    Pt.Printl(`[${indexer.name}: ${DomTypeToTsType(indexer.type)}]: ${DomTypeToTsType(m.type)};`);
+                });
+        }
     }
 
     function EmitInterfaceEventMap(i: Browser.Interface) {
@@ -1426,7 +1444,7 @@ namespace Emit {
     }
 
     function emitDictionary(flavor: Flavor, dict: Browser.Dictionary) {
-        if (dict.extends === "Object") {
+        if (!dict.extends || dict.extends === "Object") {
             Pt.Printl(`interface ${processInterfaceType(dict, dict.name)} {`);
         }
         else {
@@ -1436,10 +1454,16 @@ namespace Emit {
         if (dict.members) {
             dict.members.member
                 .forEach(m => {
-                    let tsType = DomTypeToTsType(m.type);
-                    let tsTypeAndNull = m.nullable ? makeNullable(tsType) : tsType;
-                    let requiredModifier = m.required ? "" : "?";
-                    Pt.Printl(`${m.name}${requiredModifier}: ${tsTypeAndNull};`);
+                    let tsType;
+                    if (m["override-type"]) {
+                        tsType = m["override-type"];
+                    }
+                    else {
+                        tsType = DomTypeToTsType(m.type);
+                        tsType = m.nullable ? makeNullable(tsType) : tsType;
+                    }
+                    let requiredModifier = m.required === "1" ? "" : "?";
+                    Pt.Printl(`${m.name}${requiredModifier}: ${tsType};`);
                 });
         }
         Pt.DecreaseIndent();
@@ -1459,7 +1483,7 @@ namespace Emit {
     }
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
-        Pt.Printl(`type ${typeDef["new-type"]} = ${DomTypeToTsType(typeDef.type)};`);
+        Pt.Printl(`type ${typeDef["new-type"]} = ${typeDef["override-type"] || DomTypeToTsType(typeDef.type)};`);
     }
 
     function EmitTypeDefs(flavor: Flavor) {

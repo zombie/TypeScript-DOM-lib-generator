@@ -12,6 +12,7 @@ export type Member = {
     "nullable"?: string;
     "type-original"?: string;
     "required"?: string;
+    "override-type"?: string;
 };
 
 export type Property = {
@@ -46,6 +47,7 @@ export type Property = {
     "static"?: string;
     "comment"?: string;
     "override-type"?: string;
+    "required"?: string;
 };
 
 export type Event = {
@@ -87,6 +89,7 @@ export type CallbackFunction = {
 
 export type Constructor = {
     "param"?: Param[];
+    "comment"?: string;
 };
 
 export type NamedConstructor = {
@@ -149,6 +152,8 @@ export type Interface = {
     "no-interface-object"?: string;
     "global"?: string;
     "type-parameters"?: string[];
+    "override-constructor-signatures"?: string[];
+    "overide-index-signatures"?: string[];
 };
 
 export type Enum = {
@@ -159,6 +164,7 @@ export type Enum = {
 export type TypeDef = {
     "new-type": string;
     "type": string;
+    "override-type"?: string;
 };
 
 export type Dictionary = {

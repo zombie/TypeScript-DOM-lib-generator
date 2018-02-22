@@ -45,6 +45,7 @@ export type Property = {
     "event-handler-map-to-window"?: string;
     "static"?: string;
     "comment"?: string;
+    "override-type"?: string;
 };
 
 export type Event = {
@@ -72,6 +73,8 @@ export type Method = {
     "serializer-info"?: string;
     "param"?: Param[];
     "comment"?: string;
+    "override-signatures"?: string[];
+    "additional-signatures"?: string[];
 };
 
 export type CallbackFunction = {

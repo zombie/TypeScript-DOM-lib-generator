@@ -3,8 +3,8 @@ import * as fs from "fs";
 import * as path from "path";
 
 const __SOURCE_DIRECTORY__ = __dirname;
-let inputFolder = path.join(__SOURCE_DIRECTORY__, "inputfiles")
-let outputFolder = path.join(__SOURCE_DIRECTORY__, "generated", "new")
+let inputFolder = path.join(__SOURCE_DIRECTORY__, "inputfiles", "json");
+let outputFolder = path.join(__SOURCE_DIRECTORY__, "generated", "new");
 
 // Create output folder
 if (!fs.existsSync(outputFolder)) {
@@ -47,7 +47,7 @@ type ExtendConflict = { BaseType: string; ExtendType: string[]; MemberNames: str
 
 // let overriddenItems = JSON.parse(fs.readFileSync(inputFolder + "/overridingTypes.json").toString());
 // let removedItems = JSON.parse(fs.readFileSync(inputFolder + "/removedTypes.json").toString());
-// let addedItems = JSON.parse(fs.readFileSync(inputFolder + "/addedTypes.json").toString());
+let addedItems = require(inputFolder + "/addedTypes.json");
 let comments = require(inputFolder + "/comments.json");
 
 /// Parse the xml input file
@@ -59,7 +59,11 @@ let knownWorkerInterfaces = new Set<string>(JSON.parse(fs.readFileSync(inputFold
 
 let knownWorkerEnums = new Set<string>(JSON.parse(fs.readFileSync(inputFolder + "/knownWorkerEnums.json").toString()));
 
-type InterfaceCommentItem = { Property: Record<string, string>; Method: Record<string, string>; Constructor: string | undefined }
+type InterfaceCommentItem = { Property: Record<string, string>; Method: Record<string, string>; Constructor: string | undefined };
+
+
+browser = merge(browser, addedItems, "add");
+browser = merge(browser, comments, "update");
 
 
 /**
@@ -182,6 +186,38 @@ function getElements<K extends string, T>(a: Record<K, Record<string, T>> | unde
 
 function mapToArray<T>(m: Record<string, T>): T[] {
     return Object.keys(m).map(k => m[k]);
+}
+
+function merge<T>(src: T, target: T, mode: "add" | "update"):T {
+    if (typeof src !== "object" || typeof target !== "object") return src;
+    for (const k in target) {
+        if (src[k]) {
+            const srcProp = src[k];
+            const targetProp = target[k];
+            if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
+                // merge arrays
+                const map: any = {};
+                for (const e1 of srcProp)
+                    if (e1.name)
+                        map[e1.name] = e1;
+
+                for (const e2 of targetProp) {
+                    if (e2.name && map[e2.name])
+                        merge(map[e2.name], e2, mode);
+                }
+            }
+            else {
+                if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k);
+                merge(src[k], target[k], mode);
+            }
+        }
+        else {
+            if (typeof target[k] !== "object" || mode === "add") {
+                src[k] = target[k];
+            }
+        }
+    }
+    return src;
 }
 
 let allWebNonCallbackInterfaces = concat(getElements(browser.interfaces, "interface"), getElements(browser["mixin-interfaces"], "interface"));
@@ -1004,19 +1040,24 @@ namespace Emit {
         else {
 
             let pType: string;
-            if (p.type === "EventHandler") {
-                // Sometimes event handlers with the same name may actually handle different
-                // events in different interfaces. For example, "onerror" handles "ErrorEvent"
-                // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
-                let eType = p["event-handler"] ? getEventTypeInInterface(p["event-handler"]!, i) : "Event";
-                pType = `(${EmitEventHandlerThis(flavor, prefix, i)}ev: ${eType}) => any`;
+            if (p["override-type"]) {
+                pType = p["override-type"]!;
             }
             else {
-                pType = DomTypeToTsType(p.type);
+                if (p.type === "EventHandler") {
+                    // Sometimes event handlers with the same name may actually handle different
+                    // events in different interfaces. For example, "onerror" handles "ErrorEvent"
+                    // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
+                    let eType = p["event-handler"] ? getEventTypeInInterface(p["event-handler"]!, i) : "Event";
+                    pType = `(${EmitEventHandlerThis(flavor, prefix, i)}ev: ${eType}) => any`;
+                }
+                else {
+                    pType = DomTypeToTsType(p.type);
+                }
             }
-            let pTypeAndNull = p.nullable ? makeNullable(pType) : pType;
+            pType = p.nullable ? makeNullable(pType) : pType;
             let readOnlyModifier = p["read-only"] && prefix === "" ? "readonly " : "";
-            printLine(`${prefix}${readOnlyModifier}${p.name}: ${pTypeAndNull};`);
+            printLine(`${prefix}${readOnlyModifier}${p.name}: ${pType};`);
         }
     }
 
@@ -1047,19 +1088,27 @@ namespace Emit {
             printLine(m.comment);
         }
 
-        switch (m.name) {
-            case "createElement": return EmitCreateElementOverloads(m);
-            case "createEvent": return EmitCreateEventOverloads(m);
-            case "getElementsByTagName": return EmitGetElementsByTagNameOverloads(m);
-            case "querySelector": return EmitQuerySelectorOverloads(m);
-            case "querySelectorAll": return EmitQuerySelectorAllOverloads(m);
+        if (m["override-signatures"]) {
+            m["override-signatures"]!.forEach(s => printLine(`${s};`));
         }
-        let overloads = GetOverloads(m, false);
-        for (const { paramCombinations, returnTypes, nullable } of overloads) {
-            let paramsString = ParamsToString(paramCombinations);
-            let returnType = returnTypes.map(DomTypeToTsType).join(" | ");
-            let returnString = nullable ? makeNullable(returnType) : returnType;
-            printLine(`${prefix}${m.name || ""}(${paramsString}): ${returnString};`);
+        else {
+            switch (m.name) {
+                case "createElement": return EmitCreateElementOverloads(m);
+                case "createEvent": return EmitCreateEventOverloads(m);
+                case "getElementsByTagName": return EmitGetElementsByTagNameOverloads(m);
+                case "querySelector": return EmitQuerySelectorOverloads(m);
+                case "querySelectorAll": return EmitQuerySelectorAllOverloads(m);
+            }
+            if (m["additional-signatures"]) {
+                m["additional-signatures"]!.forEach(s => printLine(`${s};`));
+            }
+            let overloads = GetOverloads(m, false);
+            for (const { paramCombinations, returnTypes, nullable } of overloads) {
+                let paramsString = ParamsToString(paramCombinations);
+                let returnType = returnTypes.map(DomTypeToTsType).join(" | ");
+                let returnString = nullable ? makeNullable(returnType) : returnType;
+                printLine(`${prefix}${m.name || ""}(${paramsString}): ${returnString};`);
+            }
         }
     }
 
@@ -1145,7 +1194,7 @@ namespace Emit {
     }
 
     function EmitConstructorSignature(flavor: Flavor, i: Browser.Interface) {
-        //Emit constructor signature
+        // Emit constructor signature
         if (i.constructor) {
             for (const { paramCombinations } of GetOverloads(i.constructor, false)) {
                 let paramsString = ParamsToString(paramCombinations);
@@ -1529,39 +1578,6 @@ namespace Emit {
         EmitTheWholeThing(Flavor.Worker, tsWorkerOutput);
     }
 }
-
-
-function merge<T>(src: T, target: T):T {
-    if (typeof src !== "object" || typeof target !== "object") return src;
-    for (const k in target) {
-        if (src[k]) {
-            const srcProp = src[k];
-            const targetProp = target[k];
-            if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
-                // merge arrays
-                const map: any = {};
-                for (const e1 of srcProp)
-                    if (e1.name)
-                        map[e1.name] = e1;
-
-                for (const e2 of targetProp) {
-                    if (e2.name && map[e2.name])
-                        merge(map[e2.name], e2);
-                }
-            }
-            else {
-                if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k);
-                merge(src[k], target[k]);
-            }
-        }
-        else {
-            src[k] = target[k];
-        }
-    }
-    return src;
-}
-
-browser = merge(browser,comments);
 
 Emit.EmitDomWeb();
 Emit.EmitDomWorker();

@@ -1,0 +1,3321 @@
+{
+    "interfaces": {
+        "interface": {
+            "BroadcastChannel": {
+                "name": "BroadcastChannel",
+                "extends": "EventTarget",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "name",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "onmessage",
+                            "override-type": "(ev: MessageEvent) => any"
+                        },
+                        {
+                            "name": "onmessageerror",
+                            "override-type": "(ev: MessageEvent) => any"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "close",
+                            "override-signatures": [
+                                "close(): void"
+                            ]
+                        },
+                        {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any): void"
+                            ]
+                        },
+                        {
+                            "name": "addEventListener",
+                            "override-signatures": [
+                                "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void",
+                                "addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void"
+                            ]
+                        },
+                        {
+                            "name": "removeEventListener",
+                            "override-signatures": [
+                                "removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void",
+                                "removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void"
+                            ]
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(name: string): BroadcastChannel"
+                ]
+            },
+            "BroadcastChannelEventMap": {
+                "name": "BroadcastChannelEventMap",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "message",
+                            "override-type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "override-type": "MessageEvent"
+                        }
+                    ]
+                }
+            },
+            "ErrorEventInit": {
+                "name": "ErrorEventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "message?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "filename?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "lineno?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "conlno?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "error?",
+                            "override-type": "any"
+                        }
+                    ]
+                }
+            },
+            "CSSStyleDeclaration": {
+                "name": "CSSStyleDeclaration",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "resize",
+                            "override-type": "string | null"
+                        },
+                        {
+                            "name": "userSelect",
+                            "override-type": "string | null"
+                        }
+                    ]
+                }
+            },
+            "StorageEventInit": {
+                "name": "StorageEventInit",
+                "flavor": "Web",
+                "extends": "EventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "key?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "oldValue?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "newValue?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "url",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "storageArea?",
+                            "override-type": "Storage"
+                        }
+                    ]
+                }
+            },
+            "Canvas2DContextAttributes": {
+                "name": "Canvas2DContextAttributes",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "alpha?",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "willReadFrequently?",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "storage?",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "[attribute: string]",
+                            "override-type": "boolean | string | undefined"
+                        }
+                    ]
+                }
+            },
+            "ImageBitmapOptions": {
+                "flavor": "All",
+                "name": "ImageBitmapOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "imageOrientation?",
+                            "override-type": "\"none\" | \"flipY\""
+                        },
+                        {
+                            "name": "premultiplyAlpha?",
+                            "override-type": "\"none\" | \"premultiply\" | \"default\""
+                        },
+                        {
+                            "name": "colorSpaceConversion?",
+                            "override-type": "\"none\" | \"default\""
+                        },
+                        {
+                            "name": "resizeWidth?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "resizeHeight?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "resizeQuality?",
+                            "override-type": "\"pixelated\" | \"low\" | \"medium\" | \"high\""
+                        }
+                    ]
+                }
+            },
+            "ImageBitmap": {
+                "name": "ImageBitmap",
+                "flavor": "All",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "width",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "height",
+                            "readonly": true,
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "close",
+                            "override-signatures": [
+                                "close(): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Window": {
+                "name": "Window",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "createImageBitmap",
+                            "override-signatures": [
+                                "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+                                "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+                            ]
+                        },
+                        {
+                            "name": "scroll",
+                            "override-signatures": [
+                                "scroll(options?: ScrollToOptions): void"
+                            ]
+                        },
+                        {
+                            "name": "scrollTo",
+                            "override-signatures": [
+                                "scrollTo(options?: ScrollToOptions): void"
+                            ]
+                        },
+                        {
+                            "name": "scrollBy",
+                            "override-signatures": [
+                                "scrollBy(options?: ScrollToOptions): void"
+                            ]
+                        }
+                    ]
+                },
+                "properties": {
+                    "property": [
+                        {
+                            "exposeGlobally": false,
+                            "name": "URL",
+                            "override-type": "typeof URL"
+                        },
+                        {
+                            "exposeGlobally": false,
+                            "name": "URLSearchParams",
+                            "override-type": "typeof URLSearchParams"
+                        },
+                        {
+                            "exposeGlobally": false,
+                            "name": "Blob",
+                            "override-type": "typeof Blob"
+                        },
+                        {
+                            "name": "customElements",
+                            "override-type": "CustomElementRegistry"
+                        }
+                    ]
+                }
+            },
+            "WorkerGlobalScope": {
+                "name": "WorkerGlobalScope",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "createImageBitmap",
+                            "override-signatures": [
+                                "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
+                                "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "IDBObjectStoreParameters": {
+                "name": "IDBObjectStoreParameters",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "autoIncrement?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "IDBIndexParameters": {
+                "name": "IDBIndexParameters",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "multiEntry?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "IDBIndex": {
+                "name": "IDBIndex",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "multiEntry",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "URLSearchParams": {
+                "name": "URLSearchParams",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "append",
+                            "override-signatures": [
+                                "append(name: string, value: string): void"
+                            ]
+                        },
+                        {
+                            "name": "delete",
+                            "override-signatures": [
+                                "delete(name: string): void"
+                            ]
+                        },
+                        {
+                            "name": "get",
+                            "override-signatures": [
+                                "get(name: string): string | null"
+                            ]
+                        },
+                        {
+                            "name": "getAll",
+                            "override-signatures": [
+                                "getAll(name: string): string[]"
+                            ]
+                        },
+                        {
+                            "name": "has",
+                            "override-signatures": [
+                                "has(name: string): boolean"
+                            ]
+                        },
+                        {
+                            "name": "set",
+                            "override-signatures": [
+                                "set(name: string, value: string): void"
+                            ]
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new (init?: string | URLSearchParams): URLSearchParams"
+                ]
+            },
+            "URL": {
+                "name": "URL",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "searchParams",
+                            "readonly": true,
+                            "override-type": "URLSearchParams"
+                        }
+                    ]
+                }
+            },
+            "NodeListOf<TNode extends Node>": {
+                "name": "NodeListOf<TNode extends Node>",
+                "flavor": "Web",
+                "extends": "NodeList",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "item",
+                            "override-signatures": [
+                                "item(index: number): TNode"
+                            ]
+                        }
+                    ]
+                },
+                "indexer": [
+                    {
+                        "signatures": [
+                            "[index: number]: TNode"
+                        ]
+                    }
+                ]
+            },
+            "HTMLCollectionOf<T extends Element>": {
+                "name": "HTMLCollectionOf<T extends Element>",
+                "flavor": "Web",
+                "extends": "HTMLCollection",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "item",
+                            "override-signatures": [
+                                "item(index: number): T"
+                            ]
+                        },
+                        {
+                            "name": "namedItem",
+                            "override-signatures": [
+                                "namedItem(name: string): T"
+                            ]
+                        }
+                    ]
+                },
+                "indexer": [
+                    {
+                        "signatures": [
+                            "[index: number]: T"
+                        ]
+                    }
+                ]
+            },
+            "BlobPropertyBag": {
+                "name": "BlobPropertyBag",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "type?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "endings?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "FilePropertyBag": {
+                "name": "FilePropertyBag",
+                "extends": "BlobPropertyBag",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "lastModified?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "EventListenerObject": {
+                "name": "EventListenerObject",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "handleEvent",
+                            "override-signatures": [
+                                "handleEvent(evt: Event): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "MessageEventInit": {
+                "name": "MessageEventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "lastEventId?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "channel?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "ProgressEventInit": {
+                "name": "ProgressEventInit",
+                "extends": "EventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "lengthComputable?",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "loaded?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "total?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "Element": {
+                "name": "Element",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "getElementsByClassName",
+                            "override-signatures": [
+                                "getElementsByClassName(classNames: string): NodeListOf<Element>"
+                            ]
+                        },
+                        {
+                            "name": "matches",
+                            "override-signatures": [
+                                "matches(selector: string): boolean"
+                            ]
+                        },
+                        {
+                            "name": "closest",
+                            "override-signatures": [
+                                "closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null",
+                                "closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null"
+                            ]
+                        },
+                        {
+                            "name": "closest",
+                            "override-signatures": [
+                                "closest(selector: string): Element | null"
+                            ]
+                        },
+                        {
+                            "name": "scrollIntoView",
+                            "override-signatures": [
+                                "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void"
+                            ]
+                        },
+                        {
+                            "name": "scroll",
+                            "override-signatures": [
+                                "scroll(options?: ScrollToOptions): void",
+                                "scroll(x: number, y: number): void"
+                            ]
+                        },
+                        {
+                            "name": "scrollTo",
+                            "override-signatures": [
+                                "scrollTo(options?: ScrollToOptions): void",
+                                "scrollTo(x: number, y: number): void"
+                            ]
+                        },
+                        {
+                            "name": "scrollBy",
+                            "override-signatures": [
+                                "scrollBy(options?: ScrollToOptions): void",
+                                "scrollBy(x: number, y: number): void"
+                            ]
+                        },
+                        {
+                            "name": "insertAdjacentElement",
+                            "override-signatures": [
+                                "insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"
+                            ]
+                        },
+                        {
+                            "name": "insertAdjacentHTML",
+                            "override-signatures": [
+                                "insertAdjacentHTML(where: InsertPosition, html: string): void"
+                            ]
+                        },
+                        {
+                            "name": "insertAdjacentText",
+                            "override-signatures": [
+                                "insertAdjacentText(where: InsertPosition, text: string): void"
+                            ]
+                        },
+                        {},
+                        {
+                            "name": "attachShadow",
+                            "override-signatures": [
+                                "attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"
+                            ]
+                        }
+                    ]
+                },
+                "extends": "ParentNode",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "assignedSlot",
+                            "readonly": true,
+                            "override-type": "HTMLSlotElement | null"
+                        },
+                        {
+                            "name": "slot",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "shadowRoot",
+                            "readonly": true,
+                            "override-type": "ShadowRoot | null"
+                        }
+                    ]
+                }
+            },
+            "ScrollOptions": {
+                "flavor": "Web",
+                "name": "ScrollOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "behavior?",
+                            "override-type": "ScrollBehavior"
+                        }
+                    ]
+                }
+            },
+            "ScrollToOptions": {
+                "flavor": "Web",
+                "name": "ScrollToOptions",
+                "extends": "ScrollOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "left?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "top?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "ScrollIntoViewOptions": {
+                "flavor": "Web",
+                "name": "ScrollIntoViewOptions",
+                "extends": "ScrollOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "block?",
+                            "override-type": "ScrollLogicalPosition"
+                        },
+                        {
+                            "name": "inline?",
+                            "override-type": "ScrollLogicalPosition"
+                        }
+                    ]
+                }
+            },
+            "Document": {
+                "methods": {
+                    "method": [
+                        {
+                            "name": "createElementNS",
+                            "additional-signatures": [
+                                "createElementNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", qualifiedName: string): HTMLElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"a\"): SVGAElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"circle\"): SVGCircleElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"clipPath\"): SVGClipPathElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"componentTransferFunction\"): SVGComponentTransferFunctionElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"defs\"): SVGDefsElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"desc\"): SVGDescElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"ellipse\"): SVGEllipseElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feBlend\"): SVGFEBlendElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feColorMatrix\"): SVGFEColorMatrixElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feComponentTransfer\"): SVGFEComponentTransferElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feComposite\"): SVGFECompositeElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feConvolveMatrix\"): SVGFEConvolveMatrixElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feDiffuseLighting\"): SVGFEDiffuseLightingElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feDisplacementMap\"): SVGFEDisplacementMapElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feDistantLight\"): SVGFEDistantLightElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feFlood\"): SVGFEFloodElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feFuncA\"): SVGFEFuncAElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feFuncB\"): SVGFEFuncBElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feFuncG\"): SVGFEFuncGElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feFuncR\"): SVGFEFuncRElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feGaussianBlur\"): SVGFEGaussianBlurElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feImage\"): SVGFEImageElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feMerge\"): SVGFEMergeElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feMergeNode\"): SVGFEMergeNodeElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feMorphology\"): SVGFEMorphologyElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feOffset\"): SVGFEOffsetElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"fePointLight\"): SVGFEPointLightElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feSpecularLighting\"): SVGFESpecularLightingElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feSpotLight\"): SVGFESpotLightElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feTile\"): SVGFETileElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"feTurbulence\"): SVGFETurbulenceElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"filter\"): SVGFilterElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"foreignObject\"): SVGForeignObjectElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"g\"): SVGGElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"image\"): SVGImageElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"gradient\"): SVGGradientElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"line\"): SVGLineElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"linearGradient\"): SVGLinearGradientElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"marker\"): SVGMarkerElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"mask\"): SVGMaskElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"path\"): SVGPathElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"metadata\"): SVGMetadataElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"pattern\"): SVGPatternElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"polygon\"): SVGPolygonElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"polyline\"): SVGPolylineElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"radialGradient\"): SVGRadialGradientElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"rect\"): SVGRectElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"svg\"): SVGSVGElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"script\"): SVGScriptElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"stop\"): SVGStopElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"style\"): SVGStyleElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"switch\"): SVGSwitchElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"symbol\"): SVGSymbolElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"tspan\"): SVGTSpanElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"textContent\"): SVGTextContentElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"text\"): SVGTextElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"textPath\"): SVGTextPathElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"textPositioning\"): SVGTextPositioningElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"title\"): SVGTitleElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"use\"): SVGUseElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"view\"): SVGViewElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement"
+                            ]
+                        },
+                        {}
+                    ]
+                },
+                "extends": "ParentNode",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "onvisibilitychange",
+                            "override-type": "(this: Document, ev: Event) => any"
+                        }
+                    ]
+                }
+            },
+            "Navigator": {
+                "name": "Navigator",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "vibrate",
+                            "override-signatures": [
+                                "vibrate(pattern: number | number[]): boolean"
+                            ]
+                        }
+                    ]
+                },
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "doNotTrack",
+                            "override-type": "string | null"
+                        },
+                        {
+                            "name": "hardwareConcurrency",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "languages",
+                            "readonly": true,
+                            "override-type": "string[]"
+                        }
+                    ]
+                }
+            },
+            "WorkerNavigator": {
+                "name": "WorkerNavigator",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hardwareConcurrency",
+                            "readonly": true,
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "HTMLLinkElement": {
+                "name": "HTMLLinkElement",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "import?",
+                            "override-type": "Document"
+                        },
+                        {
+                            "name": "integrity",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "HTMLCanvasElement": {
+                "name": "HTMLCanvasElement",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "toBlob",
+                            "override-signatures": [
+                                "toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "StorageEvent": {
+                "name": "StorageEvent",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "key?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "oldValue?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "newValue?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "storageArea?",
+                            "override-type": "Storage"
+                        }
+                    ]
+                }
+            },
+            "IDBObjectStore": {
+                "name": "IDBObjectStore",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "autoIncrement",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "ClipboardEventInit": {
+                "flavor": "Web",
+                "name": "ClipboardEventInit",
+                "extends": "EventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "data?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "dataType?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "IDBArrayKey": {
+                "name": "IDBArrayKey",
+                "extends": "Array<IDBValidKey>"
+            },
+            "HTMLInputElement": {
+                "name": "HTMLInputElement",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "minLength",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "HTMLIFrameElement": {
+                "name": "HTMLIFrameElement",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "srcdoc",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "HTMLTextAreaElement": {
+                "name": "HTMLTextAreaElement",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "minLength",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "IDBDatabase": {
+                "name": "IDBDatabase",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "onversionchange",
+                            "override-type": "(ev: IDBVersionChangeEvent) => any"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "addEventListener",
+                            "override-signatures": [
+                                "addEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | AddEventListenerOptions): void"
+                            ]
+                        },
+                        {
+                            "name": "removeEventListener",
+                            "override-signatures": [
+                                "removeEventListener(type: \"versionchange\", listener: (this: IDBDatabase, ev: IDBVersionChangeEvent) => any, options?: boolean | EventListenerOptions): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "CanvasRenderingContext2D": {
+                "name": "CanvasRenderingContext2D",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "mozImageSmoothingEnabled",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "webkitImageSmoothingEnabled",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "oImageSmoothingEnabled",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "WebGLContextAttributes": {
+                "name": "WebGLContextAttributes",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "failIfMajorPerformanceCaveat?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "RsaKeyGenParams": {
+                "name": "RsaKeyGenParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "modulusLength",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "publicExponent",
+                            "override-type": "Uint8Array"
+                        }
+                    ]
+                }
+            },
+            "RsaHashedKeyGenParams": {
+                "name": "RsaHashedKeyGenParams",
+                "extends": "RsaKeyGenParams",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        }
+                    ]
+                }
+            },
+            "RsaKeyAlgorithm": {
+                "name": "RsaKeyAlgorithm",
+                "extends": "KeyAlgorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "modulusLength",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "publicExponent",
+                            "override-type": "Uint8Array"
+                        }
+                    ]
+                }
+            },
+            "RsaHashedKeyAlgorithm": {
+                "name": "RsaHashedKeyAlgorithm",
+                "extends": "RsaKeyAlgorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        }
+                    ]
+                }
+            },
+            "RsaHashedImportParams": {
+                "name": "RsaHashedImportParams",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        }
+                    ]
+                }
+            },
+            "RsaPssParams": {
+                "name": "RsaPssParams",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "saltLength",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "RsaOaepParams": {
+                "name": "RsaOaepParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "label?",
+                            "override-type": "BufferSource"
+                        }
+                    ]
+                }
+            },
+            "EcdsaParams": {
+                "name": "EcdsaParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        }
+                    ]
+                }
+            },
+            "EcKeyGenParams": {
+                "name": "EcKeyGenParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "namedCurve",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "EcKeyAlgorithm": {
+                "name": "EcKeyAlgorithm",
+                "extends": "KeyAlgorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "typedCurve",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "EcKeyImportParams": {
+                "name": "EcKeyImportParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "namedCurve",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "EcdhKeyDeriveParams": {
+                "name": "EcdhKeyDeriveParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "public",
+                            "override-type": "CryptoKey"
+                        }
+                    ]
+                }
+            },
+            "AesCtrParams": {
+                "name": "AesCtrParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "counter",
+                            "override-type": "BufferSource"
+                        },
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AesKeyAlgorithm": {
+                "name": "AesKeyAlgorithm",
+                "extends": "KeyAlgorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AesKeyGenParams": {
+                "name": "AesKeyGenParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AesDerivedKeyParams": {
+                "name": "AesDerivedKeyParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AesCbcParams": {
+                "name": "AesCbcParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "iv",
+                            "override-type": "BufferSource"
+                        }
+                    ]
+                }
+            },
+            "AesCmacParams": {
+                "name": "AesCmacParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AesGcmParams": {
+                "name": "AesGcmParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "iv",
+                            "override-type": "BufferSource"
+                        },
+                        {
+                            "name": "additionalData?",
+                            "override-type": "BufferSource"
+                        },
+                        {
+                            "name": "tagLength?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AesCfbParams": {
+                "name": "AesCfbParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "iv",
+                            "override-type": "BufferSource"
+                        }
+                    ]
+                }
+            },
+            "HmacImportParams": {
+                "name": "HmacImportParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash?",
+                            "override-type": "AlgorithmIdentifier"
+                        },
+                        {
+                            "name": "length?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "HmacKeyAlgorithm": {
+                "name": "HmacKeyAlgorithm",
+                "extends": "KeyAlgorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        },
+                        {
+                            "name": "length",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "HmacKeyGenParams": {
+                "name": "HmacKeyGenParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        },
+                        {
+                            "name": "length?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "DhKeyGenParams": {
+                "name": "DhKeyGenParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "prime",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "generator",
+                            "override-type": "Uint8Array"
+                        }
+                    ]
+                }
+            },
+            "DhKeyAlgorithm": {
+                "name": "DhKeyAlgorithm",
+                "extends": "KeyAlgorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "prime",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "generator",
+                            "override-type": "Uint8Array"
+                        }
+                    ]
+                }
+            },
+            "DhKeyDeriveParams": {
+                "name": "DhKeyDeriveParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "public",
+                            "override-type": "CryptoKey"
+                        }
+                    ]
+                }
+            },
+            "DhImportKeyParams": {
+                "name": "DhImportKeyParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "prime",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "generator",
+                            "override-type": "Uint8Array"
+                        }
+                    ]
+                }
+            },
+            "ConcatParams": {
+                "name": "ConcatParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash?",
+                            "override-type": "AlgorithmIdentifier"
+                        },
+                        {
+                            "name": "algorithmId",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "partyUInfo",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "partyVInfo",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "publicInfo?",
+                            "override-type": "Uint8Array"
+                        },
+                        {
+                            "name": "privateInfo?",
+                            "override-type": "Uint8Array"
+                        }
+                    ]
+                }
+            },
+            "HkdfCtrParams": {
+                "name": "HkdfCtrParams",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        },
+                        {
+                            "name": "label",
+                            "override-type": "BufferSource"
+                        },
+                        {
+                            "name": "context",
+                            "override-type": "BufferSource"
+                        }
+                    ]
+                }
+            },
+            "Pbkdf2Params": {
+                "name": "Pbkdf2Params",
+                "extends": "Algorithm",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "salt",
+                            "override-type": "BufferSource"
+                        },
+                        {
+                            "name": "iterations",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "hash",
+                            "override-type": "AlgorithmIdentifier"
+                        }
+                    ]
+                }
+            },
+            "RsaOtherPrimesInfo": {
+                "name": "RsaOtherPrimesInfo",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "r",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "d",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "t",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "JsonWebKey": {
+                "name": "JsonWebKey",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "kty",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "use?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "key_ops?",
+                            "override-type": "string[]"
+                        },
+                        {
+                            "name": "alg?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "kid?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "x5u?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "x5c?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "x5t?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "ext?",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "crv?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "x?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "y?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "d?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "n?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "e?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "p?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "q?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "dp?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "dq?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "qi?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "oth?",
+                            "override-type": "RsaOtherPrimesInfo[]"
+                        },
+                        {
+                            "name": "k?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "XMLHttpRequest": {
+                "name": "XMLHttpRequest",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "msCaching?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "DataTransfer": {
+                "name": "DataTransfer",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "setDragImage",
+                            "override-signatures": [
+                                "setDragImage(image: Element, x: number, y: number): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "PerformanceTiming": {
+                "name": "PerformanceTiming",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "secureConnectionStart",
+                            "readonly": true,
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "HTMLScriptElement": {
+                "name": "HTMLScriptElement",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "integrity",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "KeyboardEvent": {
+                "name": "KeyboardEvent",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "code",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "KeyboardEventInit": {
+                "name": "KeyboardEventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "code?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "ParentNode": {
+                "name": "ParentNode",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "children",
+                            "readonly": true,
+                            "override-type": "HTMLCollection"
+                        },
+                        {
+                            "name": "firstElementChild",
+                            "readonly": true,
+                            "override-type": "Element | null"
+                        },
+                        {
+                            "name": "lastElementChild",
+                            "readonly": true,
+                            "override-type": "Element | null"
+                        },
+                        {
+                            "name": "childElementCount",
+                            "readonly": true,
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "DocumentFragment": {
+                "name": "DocumentFragment",
+                "extends": "ParentNode",
+                "methods": {
+                    "method": [
+                        {},
+                        {
+                            "name": "getElementById",
+                            "override-signatures": [
+                                "getElementById(elementId: string): HTMLElement | null"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "History": {
+                "name": "History",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "scrollRestoration",
+                            "override-type": "ScrollRestoration"
+                        }
+                    ]
+                }
+            },
+            "CanvasPattern": {
+                "name": "CanvasPattern",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "setTransform",
+                            "override-signatures": [
+                                "setTransform(matrix: SVGMatrix): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "DocumentOrShadowRoot": {
+                "name": "DocumentOrShadowRoot",
+                "flavor": "Web",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "getSelection",
+                            "override-signatures": [
+                                "getSelection(): Selection | null"
+                            ]
+                        },
+                        {
+                            "name": "elementFromPoint",
+                            "override-signatures": [
+                                "elementFromPoint(x: number, y: number): Element | null"
+                            ]
+                        },
+                        {
+                            "name": "elementsFromPoint",
+                            "override-signatures": [
+                                "elementsFromPoint(x: number, y: number): Element[]"
+                            ]
+                        }
+                    ]
+                },
+                "properties": {
+                    "property": [
+                        {
+                            "name": "activeElement",
+                            "readonly": true,
+                            "override-type": "Element | null"
+                        },
+                        {
+                            "name": "styleSheets",
+                            "readonly": true,
+                            "override-type": "StyleSheetList"
+                        }
+                    ]
+                }
+            },
+            "ShadowRoot": {
+                "name": "ShadowRoot",
+                "extends": "DocumentOrShadowRoot, DocumentFragment",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "host",
+                            "readonly": true,
+                            "override-type": "Element"
+                        },
+                        {
+                            "name": "innerHTML",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "ShadowRootInit": {
+                "name": "ShadowRootInit",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "mode",
+                            "override-type": "\"open\" | \"closed\""
+                        },
+                        {
+                            "name": "delegatesFocus?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "Text": {
+                "name": "Text",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "assignedSlot",
+                            "readonly": true,
+                            "override-type": "HTMLSlotElement | null"
+                        }
+                    ]
+                }
+            },
+            "HTMLSlotElement": {
+                "name": "HTMLSlotElement",
+                "extends": "HTMLElement",
+                "flavor": "Web",
+                "tagNames": [
+                    "slot"
+                ],
+                "properties": {
+                    "property": [
+                        {
+                            "name": "name",
+                            "override-type": "string"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "assignedNodes",
+                            "override-signatures": [
+                                "assignedNodes(options?: AssignedNodesOptions): Node[]"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "AssignedNodesOptions": {
+                "name": "AssignedNodesOptions",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "flatten?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "EventInit": {
+                "name": "EventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "scoped?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "Event": {
+                "name": "Event",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "scoped",
+                            "readonly": true,
+                            "override-type": "boolean"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "deepPath",
+                            "override-signatures": [
+                                "deepPath(): EventTarget[]"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "ElementDefinitionOptions": {
+                "name": "ElementDefinitionOptions",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "extends",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "ElementCreationOptions": {
+                "name": "ElementCreationOptions",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "is?",
+                            "override-type": "string"
+                        }
+                    ]
+                }
+            },
+            "CustomElementRegistry": {
+                "name": "CustomElementRegistry",
+                "flavor": "Web",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "define",
+                            "override-signatures": [
+                                "define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"
+                            ]
+                        },
+                        {
+                            "name": "get",
+                            "override-signatures": [
+                                "get(name: string): any"
+                            ]
+                        },
+                        {
+                            "name": "whenDefined",
+                            "override-signatures": [
+                                "whenDefined(name: string): PromiseLike<void>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "PromiseRejectionEvent": {
+                "name": "PromiseRejectionEvent",
+                "extends": "Event",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "promise",
+                            "readonly": true,
+                            "override-type": "PromiseLike<any>"
+                        },
+                        {
+                            "name": "reason",
+                            "readonly": true,
+                            "override-type": "any"
+                        }
+                    ]
+                }
+            },
+            "PromiseRejectionEventInit": {
+                "name": "PromiseRejectionEventInit",
+                "extends": "EventInit",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "promise",
+                            "override-type": "PromiseLike<any>"
+                        },
+                        {
+                            "name": "reason?",
+                            "override-type": "any"
+                        }
+                    ]
+                }
+            },
+            "Body": {
+                "name": "Body",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "formData",
+                            "override-signatures": [
+                                "formData(): Promise<FormData>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "FormData": {
+                "name": "FormData",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "delete",
+                            "override-signatures": [
+                                "delete(name: string): void"
+                            ]
+                        },
+                        {
+                            "name": "get",
+                            "override-signatures": [
+                                "get(name: string): FormDataEntryValue | null"
+                            ]
+                        },
+                        {
+                            "name": "getAll",
+                            "override-signatures": [
+                                "getAll(name: string): FormDataEntryValue[]"
+                            ]
+                        },
+                        {
+                            "name": "has",
+                            "override-signatures": [
+                                "has(name: string): boolean"
+                            ]
+                        },
+                        {
+                            "name": "set",
+                            "override-signatures": [
+                                "set(name: string, value: string | Blob, fileName?: string): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "EventListenerOptions": {
+                "name": "EventListenerOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "capture?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "AddEventListenerOptions": {
+                "name": "AddEventListenerOptions",
+                "extends": "EventListenerOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "passive?",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "once?",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "TouchEventInit": {
+                "name": "TouchEventInit",
+                "flavor": "Web",
+                "extends": "EventModifierInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "touches?",
+                            "override-type": "Touch[]"
+                        },
+                        {
+                            "name": "targetTouches?",
+                            "override-type": "Touch[]"
+                        },
+                        {
+                            "name": "changedTouches?",
+                            "override-type": "Touch[]"
+                        }
+                    ]
+                }
+            },
+            "IntersectionObserverEntryInit": {
+                "name": "IntersectionObserverEntryInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "isIntersecting",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "IntersectionObserverEntry": {
+                "name": "IntersectionObserverEntry",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "isIntersecting",
+                            "readonly": true,
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "ValidityState": {
+                "name": "ValidityState",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "tooShort",
+                            "flavor": "Web",
+                            "readonly": true,
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "HTMLDialogElement": {
+                "name": "HTMLDialogElement",
+                "extends": "HTMLElement",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "open",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "returnValue",
+                            "override-type": "string"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "close",
+                            "override-signatures": [
+                                "close(returnValue?: string): void"
+                            ]
+                        },
+                        {
+                            "name": "show",
+                            "override-signatures": [
+                                "show(): void"
+                            ]
+                        },
+                        {
+                            "name": "showModal",
+                            "override-signatures": [
+                                "showModal(): void"
+                            ]
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(): HTMLDialogElement"
+                ]
+            },
+            "Response": {
+                "name": "Response",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "redirected",
+                            "readonly": true,
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "HTMLMainElement": {
+                "name": "HTMLMainElement",
+                "extends": "HTMLElement",
+                "flavor": "Web",
+                "override-constructor-signatures": [
+                    "new(): HTMLMainElement"
+                ]
+            },
+            "HTMLDetailsElement": {
+                "name": "HTMLDetailsElement",
+                "extends": "HTMLElement",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "open",
+                            "override-type": "boolean"
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(): HTMLDetailsElement"
+                ]
+            },
+            "HTMLSummaryElement": {
+                "name": "HTMLSummaryElement",
+                "extends": "HTMLElement",
+                "flavor": "Web",
+                "override-constructor-signatures": [
+                    "new(): HTMLSummaryElement"
+                ]
+            },
+            "DOMRectReadOnly": {
+                "name": "DOMRectReadOnly",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "bottom",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "height",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "left",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "right",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "top",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "width",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "x",
+                            "readonly": true,
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "y",
+                            "readonly": true,
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly",
+                    "fromRect(rectangle?: DOMRectInit): DOMRectReadOnly"
+                ]
+            },
+            "EXT_blend_minmax": {
+                "name": "EXT_blend_minmax",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "MIN_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "MAX_EXT",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "EXT_frag_depth": {
+                "name": "EXT_frag_depth",
+                "flavor": "Web",
+                "properties": {
+                    "property": []
+                }
+            },
+            "EXT_shader_texture_lod": {
+                "name": "EXT_shader_texture_lod",
+                "flavor": "Web",
+                "properties": {
+                    "property": []
+                }
+            },
+            "EXT_sRGB": {
+                "name": "EXT_sRGB",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "SRGB_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "SRGB_ALPHA_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "SRGB8_ALPHA8_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "DOMRect": {
+                "name": "DOMRect",
+                "extends": "DOMRectReadOnly",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "height",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "width",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "x",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "y",
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new (x?: number, y?: number, width?: number, height?: number): DOMRect",
+                    "fromRect(rectangle?: DOMRectInit): DOMRect"
+                ]
+            },
+            "DOMRectList": {
+                "name": "DOMRectList",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "length",
+                            "readonly": true,
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "indexer": [
+                    {
+                        "signatures": [
+                            "[index: number]: DOMRect"
+                        ]
+                    }
+                ],
+                "methods": {
+                    "method": [
+                        {
+                            "name": "item",
+                            "override-signatures": [
+                                "item(index: number): DOMRect | null"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "HTMLFormElement": {
+                "name": "HTMLFormElement",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "reportValidity",
+                            "override-signatures": [
+                                "reportValidity(): boolean"
+                            ]
+                        },
+                        {
+                            "name": "reportValidity",
+                            "override-signatures": [
+                                "reportValidity(): boolean"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "OES_vertex_array_object": {
+                "name": "OES_vertex_array_object",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "VERTEX_ARRAY_BINDING_OES",
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "createVertexArrayOES",
+                            "override-signatures": [
+                                "createVertexArrayOES(): WebGLVertexArrayObjectOES"
+                            ]
+                        },
+                        {
+                            "name": "deleteVertexArrayOES",
+                            "override-signatures": [
+                                "deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void"
+                            ]
+                        },
+                        {
+                            "name": "isVertexArrayOES",
+                            "override-signatures": [
+                                "isVertexArrayOES(value: any): value is WebGLVertexArrayObjectOES"
+                            ]
+                        },
+                        {
+                            "name": "bindVertexArrayOES",
+                            "override-signatures": [
+                                "bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "WebGLVertexArrayObjectOES": {
+                "name": "WebGLVertexArrayObjectOES",
+                "flavor": "Web",
+                "properties": {
+                    "property": []
+                }
+            },
+            "WEBGL_color_buffer_float": {
+                "name": "WEBGL_color_buffer_float",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "RGBA32F_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "RGB32F_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "UNSIGNED_NORMALIZED_EXT",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "WEBGL_compressed_texture_astc": {
+                "name": "WEBGL_compressed_texture_astc",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_4x4_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_5x4_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_5x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_6x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_6x6_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_8x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_8x6_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_8x8_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_10x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_10x6_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_10x8_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_10x10_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_12x10_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_RGBA_ASTC_12x12_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR",
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "getSupportedProfiles",
+                            "override-signatures": [
+                                "getSupportedProfiles(): string[]"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "WEBGL_compressed_texture_s3tc_srgb": {
+                "name": "WEBGL_compressed_texture_s3tc_srgb",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB_S3TC_DXT1_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "WEBGL_debug_shaders": {
+                "name": "WEBGL_debug_shaders",
+                "flavor": "Web",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "getTranslatedShaderSource",
+                            "override-signatures": [
+                                "getTranslatedShaderSource(shader: WebGLShader): string"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "WEBGL_draw_buffers": {
+                "name": "WEBGL_draw_buffers",
+                "flavor": "Web",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT0_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT1_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT2_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT3_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT4_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT5_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT6_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT7_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT8_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT9_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT10_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT11_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT12_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT13_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT14_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "COLOR_ATTACHMENT15_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER0_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER1_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER2_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER3_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER4_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER5_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER6_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER7_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER8_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER9_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER10_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER11_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER12_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER13_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER14_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "DRAW_BUFFER15_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "MAX_COLOR_ATTACHMENTS_WEBGL",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "MAX_DRAW_BUFFERS_WEBGL",
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "drawBuffersWEBGL",
+                            "override-signatures": [
+                                "drawBuffersWEBGL(buffers: number[]): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "WEBGL_lose_context": {
+                "name": "WEBGL_lose_context",
+                "flavor": "Web",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "loseContext",
+                            "override-signatures": [
+                                "loseContext(): void"
+                            ]
+                        },
+                        {
+                            "name": "restoreContext",
+                            "override-signatures": [
+                                "restoreContext(): void"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "HTMLLabelElement": {
+                "name": "HTMLLabelElement",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "control",
+                            "override-type": "HTMLInputElement | null"
+                        }
+                    ]
+                }
+            },
+            "HTMLObjectElement": {
+                "name": "HTMLObjectElement",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "typemustmatch",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "File": {
+                "name": "File",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "lastModified",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AbortController": {
+                "name": "AbortController",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "signal",
+                            "override-type": "AbortSignal"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "abort",
+                            "override-signatures": [
+                                "abort(): void"
+                            ]
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(): AbortController"
+                ]
+            },
+            "AbortSignal": {
+                "name": "AbortSignal",
+                "extends": "EventTarget",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "aborted",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "name": "onabort",
+                            "override-type": "(ev: Event) => any"
+                        }
+                    ]
+                }
+            },
+            "Request": {
+                "name": "Request",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "signal",
+                            "override-type": "AbortSignal"
+                        }
+                    ]
+                }
+            },
+            "RequestInit": {
+                "name": "RequestInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "signal?",
+                            "override-type": "AbortSignal"
+                        }
+                    ]
+                }
+            },
+            "EventSource": {
+                "name": "EventSource",
+                "extends": "EventTarget",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "url",
+                            "override-type": "string"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "withCredentials",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "CONNECTING",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "OPEN",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "CLOSED",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "readyState",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "onopen",
+                            "override-type": "(evt: MessageEvent) => any"
+                        },
+                        {
+                            "name": "onmessage",
+                            "override-type": "(evt: MessageEvent) => any"
+                        },
+                        {
+                            "name": "onerror",
+                            "override-type": "(evt: MessageEvent) => any"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "close",
+                            "override-signatures": [
+                                "close(): void"
+                            ]
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(url: string, eventSourceInitDict?: EventSourceInit): EventSource"
+                ]
+            },
+            "EventSourceInit": {
+                "name": "EventSourceInit",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "withCredentials",
+                            "override-type": "boolean"
+                        }
+                    ]
+                }
+            },
+            "AnimationKeyFrame": {
+                "flavor": "Web",
+                "name": "AnimationKeyFrame",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "offset?",
+                            "override-type": "number | null | (number | null)[]"
+                        },
+                        {
+                            "name": "easing?",
+                            "override-type": "string | string[]"
+                        }
+                    ]
+                },
+                "indexer": [
+                    {
+                        "signatures": [
+                            "[index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined"
+                        ]
+                    }
+                ]
+            },
+            "AnimationOptions": {
+                "flavor": "Web",
+                "name": "AnimationOptions",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "id?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "delay?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "direction?",
+                            "override-type": "\"normal\" | \"reverse\" | \"alternate\" | \"alternate-reverse\""
+                        },
+                        {
+                            "name": "duration?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "easing?",
+                            "override-type": "string"
+                        },
+                        {
+                            "name": "endDelay?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "fill?",
+                            "override-type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\""
+                        },
+                        {
+                            "name": "iterationStart?",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "iterations?",
+                            "override-type": "number"
+                        }
+                    ]
+                }
+            },
+            "AnimationTimeline": {
+                "flavor": "Web",
+                "name": "AnimationTimeline",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "currentTime",
+                            "override-type": "number | null"
+                        }
+                    ]
+                }
+            },
+            "ComputedTimingProperties": {
+                "flavor": "Web",
+                "name": "ComputedTimingProperties",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "endTime",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "activeDuration",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "localTime",
+                            "override-type": "number | null"
+                        },
+                        {
+                            "name": "progress",
+                            "override-type": "number | null"
+                        },
+                        {
+                            "name": "currentIteration",
+                            "override-type": "number | null"
+                        }
+                    ]
+                }
+            },
+            "AnimationEffectReadOnly": {
+                "flavor": "Web",
+                "name": "AnimationEffectReadOnly",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "timing",
+                            "override-type": "number"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "getComputedTiming",
+                            "override-signatures": [
+                                "getComputedTiming(): ComputedTimingProperties"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "AnimationPlaybackEventInit": {
+                "flavor": "Web",
+                "name": "AnimationPlaybackEventInit",
+                "extends": "EventInit",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "currentTime?",
+                            "override-type": "number | null"
+                        },
+                        {
+                            "name": "timelineTime?",
+                            "override-type": "number | null"
+                        }
+                    ]
+                }
+            },
+            "AnimationPlaybackEvent": {
+                "flavor": "Web",
+                "name": "AnimationPlaybackEvent",
+                "extends": "Event",
+                "properties": {
+                    "property": [
+                        {
+                            "readonly": true,
+                            "name": "currentTime",
+                            "override-type": "number | null"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "timelineTime",
+                            "override-type": "number | null"
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
+                ]
+            },
+            "Animation": {
+                "flavor": "Web",
+                "name": "Animation",
+                "properties": {
+                    "property": [
+                        {
+                            "name": "currentTime",
+                            "override-type": "number | null"
+                        },
+                        {
+                            "name": "effect",
+                            "override-type": "AnimationEffectReadOnly"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "finished",
+                            "override-type": "Promise<Animation>"
+                        },
+                        {
+                            "name": "id",
+                            "override-type": "string"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "pending",
+                            "override-type": "boolean"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "playState",
+                            "override-type": "\"idle\" | \"running\" | \"paused\" | \"finished\""
+                        },
+                        {
+                            "name": "playbackRate",
+                            "override-type": "number"
+                        },
+                        {
+                            "readonly": true,
+                            "name": "ready",
+                            "override-type": "Promise<Animation>"
+                        },
+                        {
+                            "name": "startTime",
+                            "override-type": "number"
+                        },
+                        {
+                            "name": "timeline",
+                            "override-type": "AnimationTimeline"
+                        }
+                    ]
+                },
+                "methods": {
+                    "method": [
+                        {
+                            "name": "oncancel",
+                            "override-signatures": [
+                                "oncancel: (this: Animation, ev: AnimationPlaybackEvent) => any"
+                            ]
+                        },
+                        {
+                            "name": "onfinish",
+                            "override-signatures": [
+                                "onfinish: (this: Animation, ev: AnimationPlaybackEvent) => any"
+                            ]
+                        },
+                        {
+                            "name": "cancel",
+                            "override-signatures": [
+                                "cancel(): void"
+                            ]
+                        },
+                        {
+                            "name": "finish",
+                            "override-signatures": [
+                                "finish(): void"
+                            ]
+                        },
+                        {
+                            "name": "pause",
+                            "override-signatures": [
+                                "pause(): void"
+                            ]
+                        },
+                        {
+                            "name": "play",
+                            "override-signatures": [
+                                "play(): void"
+                            ]
+                        },
+                        {
+                            "name": "reverse",
+                            "override-signatures": [
+                                "reverse(): void"
+                            ]
+                        }
+                    ]
+                },
+                "override-constructor-signatures": [
+                    "new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation"
+                ]
+            },
+            "HTMLElement": {
+                "name": "HTMLElement",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "animate",
+                            "override-signatures": [
+                                "animate(keyframes: AnimationKeyFrame | AnimationKeyFrame[], options: number | AnimationOptions): Animation"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Screen": {
+                "name": "Screen",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "lockOrientation",
+                            "override-signatures": [
+                                "lockOrientation(orientations: OrientationLockType | OrientationLockType[]): boolean"
+                            ]
+                        },
+                        {
+                            "name": "unlockOrientation",
+                            "override-signatures": [
+                                "unlockOrientation(): void"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "typedefs": {
+        "typedef": [
+            {
+                "new-type": "\"auto\" | \"instant\" | \"smooth\"",
+                "type": "ScrollBehavior"
+            },
+            {
+                "new-type": "\"start\" | \"center\" | \"end\" | \"nearest\"",
+                "type": "ScrollLogicalPosition"
+            },
+            {
+                "new-type": "number | string | Date | IDBArrayKey",
+                "type": "IDBValidKey"
+            },
+            {
+                "new-type": "ArrayBuffer | ArrayBufferView",
+                "type": "BufferSource"
+            },
+            {
+                "new-type": "WheelEvent",
+                "type": "MouseWheelEvent"
+            },
+            {
+                "new-type": "\"auto\" | \"manual\"",
+                "type": "ScrollRestoration"
+            },
+            {
+                "new-type": "string | File",
+                "type": "FormDataEntryValue"
+            },
+            {
+                "new-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
+                "type": "InsertPosition"
+            },
+            {
+                "new-type": "Headers | string[][] | { [key: string]: string }",
+                "type": "HeadersInit"
+            },
+            {
+                "new-type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\"",
+                "type": "OrientationLockType"
+            }
+        ]
+    }
+}

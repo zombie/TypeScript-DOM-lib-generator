@@ -47,9 +47,10 @@ type ExtendConflict = { BaseType: string; ExtendType: string[]; MemberNames: str
 
 
 // let overriddenItems = JSON.parse(fs.readFileSync(inputFolder + "/overridingTypes.json").toString());
-// let removedItems = JSON.parse(fs.readFileSync(inputFolder + "/removedTypes.json").toString());
+
 let addedItems = require(inputFolder + "/addedTypes.json");
 let comments = require(inputFolder + "/comments.json");
+let removedItems = require(inputFolder + "/removedTypes.json");
 
 /// Parse the xml input file
 let browser: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/browser.webidl.xml.json").toString());
@@ -65,6 +66,7 @@ type InterfaceCommentItem = { Property: Record<string, string>; Method: Record<s
 
 browser = merge(browser, addedItems, "add");
 browser = merge(browser, comments, "update");
+browser = prune(browser, removedItems);
 
 
 /**
@@ -228,6 +230,50 @@ function merge<T>(src: T, target: T, mode: "add" | "update"): T {
         }
     }
     return src;
+}
+
+function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
+    if (template.interfaces && obj.interfaces) {
+        pruneInterfaces(obj.interfaces.interface, template.interfaces.interface);
+    }
+    if (template["callback-interfaces"] && obj["callback-interfaces"]) {
+        pruneInterfaces(obj["callback-interfaces"]!.interface, template["callback-interfaces"]!.interface);
+    }
+    if (template.typedefs && obj.typedefs) {
+        obj.typedefs.typedef = pruneKeyedArray(obj.typedefs.typedef, template.typedefs.typedef, "new-type");
+    }
+
+    return obj;
+
+    function pruneInterfaces(obj: Record<string, Browser.Interface>, template: Record<string, Browser.Interface>) {
+        for (const i in template) {
+            if (obj[i]) {
+                if (!template[i].properties && !template[i].methods) {
+                    delete obj[i];
+                }
+                if (template[i].properties && obj[i].properties) {
+                    obj[i].properties!.property = pruneKeyedArray(obj[i].properties!.property, template[i].properties!.property, "name");
+                    if (obj[i].properties!.property.length === 0) {
+                        delete obj[i].properties;
+                    }
+                }
+                if (template[i].methods && obj[i].methods) {
+                    obj[i].methods!.method = pruneKeyedArray(obj[i].methods!.method, template[i].methods!.method, "name");
+                    if (obj[i].methods!.method.length === 0) {
+                        delete obj[i].methods;
+                    }
+                }
+            }
+        }
+    }
+
+    function pruneKeyedArray<T, K extends keyof T>(obj: T[], template: T[], k: K) {
+        const map: any = {};
+        for (const e of template) {
+            map[e[k]] = true;
+        }
+        return obj.filter(e => !map[e[k]]);
+    }
 }
 
 let allWebNonCallbackInterfaces = concat(getElements(browser.interfaces, "interface"), getElements(browser["mixin-interfaces"], "interface"));

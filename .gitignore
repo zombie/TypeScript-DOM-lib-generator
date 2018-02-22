@@ -290,3 +290,6 @@ __pycache__/
 .paket/
 .fake/
 generated/
+
+*.js
+*.js.map

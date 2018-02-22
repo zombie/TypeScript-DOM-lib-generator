@@ -46,8 +46,7 @@ enum Flavor {
 type ExtendConflict = { BaseType: string; ExtendType: string[]; MemberNames: string[] };
 
 
-// let overriddenItems = JSON.parse(fs.readFileSync(inputFolder + "/overridingTypes.json").toString());
-
+let overriddenItems = require(inputFolder + "/overridingTypes.json");
 let addedItems = require(inputFolder + "/addedTypes.json");
 let comments = require(inputFolder + "/comments.json");
 let removedItems = require(inputFolder + "/removedTypes.json");
@@ -65,6 +64,7 @@ type InterfaceCommentItem = { Property: Record<string, string>; Method: Record<s
 
 
 browser = merge(browser, addedItems, "add");
+browser = merge(browser, overriddenItems, "update");
 browser = merge(browser, comments, "update");
 browser = prune(browser, removedItems);
 
@@ -224,7 +224,7 @@ function merge<T>(src: T, target: T, mode: "add" | "update"): T {
             }
         }
         else {
-            if (typeof target[k] !== "object" || mode === "add") {
+            if (typeof target[k] !== "object" || Array.isArray(target[k]) || mode === "add") {
                 src[k] = target[k];
             }
         }
@@ -352,7 +352,7 @@ function GetPublicInterfacesByFlavor(flavor: Flavor) {
 }
 
 function GetCallbackFuncsByFlavor(flavor: Flavor) {
-    return browser["callback-functions"] ?getElements(browser["callback-functions"],"callback-function").filter(cb => (flavor != Flavor.Worker || knownWorkerInterfaces.has(cb.name)) && ShouldKeep(flavor, cb)) : [];
+    return browser["callback-functions"] ? getElements(browser["callback-functions"], "callback-function").filter(cb => (flavor != Flavor.Worker || knownWorkerInterfaces.has(cb.name)) && ShouldKeep(flavor, cb)) : [];
 }
 
 function GetEnumsByFlavor(flavor: Flavor) {
@@ -775,7 +775,7 @@ namespace Emit {
             stack = [];
         }
 
-       function writeLine() {
+        function writeLine() {
             if (!lineStart) {
                 output += newLine;
                 lineStart = true;
@@ -1109,7 +1109,7 @@ namespace Emit {
                     pType = DomTypeToTsType(p.type);
                 }
             }
-            let requiredModifier = !p.required || p.required === "1"  ? "" : "?";
+            let requiredModifier = !p.required || p.required === "1" ? "" : "?";
             pType = p.nullable ? makeNullable(pType) : pType;
             let readOnlyModifier = p["read-only"] && prefix === "" ? "readonly " : "";
             printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
@@ -1633,7 +1633,7 @@ namespace Emit {
         Pt.Printl("/////////////////////////////");
         Pt.Printl("");
 
-        getElements(browser.interfaces,"interface").forEach(EmitIterator);
+        getElements(browser.interfaces, "interface").forEach(EmitIterator);
 
         fs.writeFileSync(target, Pt.GetResult());
     }

@@ -79,87 +79,16 @@
                         }
                     ]
                 }
-            }
-        }
-    },
-    "callback-functions": {
-        "callback-function": {}
-    },
-    "callback-interfaces": {
-        "interface": {}
-    },
-    "enums": {
-        "enum": {}
-    },
-    "interfaces": {
-        "interface": {
-            "undefined": {
-                "interface": "CustomEventInit",
-                "no-interface-object": "1",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "documentElement",
-                            "override-type": "HTMLElement"
-                        },
-                        {
-                            "name": "ontouchcancel",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        {
-                            "name": "ontouchend",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        {
-                            "name": "ontouchmove",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        {
-                            "name": "ontouchstart",
-                            "override-type": "(ev: TouchEvent) => any"
-                        }
-                    ]
-                },
+            },
+            "WindowTimers": {
+                "name": "WindowTimers",
                 "methods": {
                     "method": [
-                        {
-                            "name": "alert",
-                            "override-signatures": [
-                                "alert(message?: any): void"
-                            ]
-                        },
-                        {
-                            "name": "getElementsByTagNameNS",
-                            "override-signatures": [
-                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
-                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
-                                "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
-                            ]
-                        },
-                        {
-                            "name": "getElementsByClassName",
-                            "override-signatures": [
-                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
-                            ]
-                        },
-                        {
-                            "name": "getElementsByName",
-                            "override-signatures": [
-                                "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
-                            ]
-                        },
                         {
                             "name": "setTimeout",
                             "override-signatures": [
                                 "setTimeout(handler: (...args: any[]) => void, timeout: number): number",
                                 "setTimeout(handler: any, timeout?: any, ...args: any[]): number"
-                            ]
-                        },
-                        {
-                            "name": "setImmediate",
-                            "override-signatures": [
-                                "setImmediate(handler: (...args: any[]) => void): number",
-                                "setImmediate(handler: any, ...args: any[]): number"
                             ]
                         },
                         {
@@ -170,11 +99,54 @@
                             ]
                         }
                     ]
-                },
-                "type-parameters": [
-                    "T = any"
+                }
+            },
+            "WindowTimersExtension": {
+                "name": "WindowTimersExtension",
+                "methods": {
+                    "method": [
+                        {
+                            "name": "setImmediate",
+                            "override-signatures": [
+                                "setImmediate(handler: (...args: any[]) => void): number",
+                                "setImmediate(handler: any, ...args: any[]): number"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "callback-functions": {
+        "callback-function": {
+            "ErrorEventHandler": {
+                "name": "ErrorEventHandler",
+                "override-signatures": [
+                    "(message: string, filename?: string, lineno?: number, colno?: number, error?: Error): void"
                 ]
             },
+            "DecodeErrorCallback": {
+                "name": "DecodeErrorCallback",
+                "override-signatures": [
+                    "(error: DOMException): void"
+                ]
+            },
+            "ForEachCallback": {
+                "name": "ForEachCallback",
+                "override-signatures": [
+                    "(keyId: any, status: MediaKeyStatus): void"
+                ]
+            }
+        }
+    },
+    "callback-interfaces": {
+        "interface": {}
+    },
+    "enums": {
+        "enum": {}
+    },
+    "interfaces": {
+        "interface": {
             "CustomEvent": {
                 "name": "CustomEvent",
                 "properties": {
@@ -198,6 +170,9 @@
                 },
                 "type-parameters": [
                     "T = any"
+                ],
+                "override-constructor-signatures": [
+                    "new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>"
                 ]
             },
             "Response": {
@@ -229,6 +204,22 @@
                         {
                             "name": "opener",
                             "override-type": "any"
+                        },
+                        {
+                            "name": "ontouchcancel",
+                            "override-type": "(ev: TouchEvent) => any"
+                        },
+                        {
+                            "name": "ontouchend",
+                            "override-type": "(ev: TouchEvent) => any"
+                        },
+                        {
+                            "name": "ontouchmove",
+                            "override-type": "(ev: TouchEvent) => any"
+                        },
+                        {
+                            "name": "ontouchstart",
+                            "override-type": "(ev: TouchEvent) => any"
                         }
                     ]
                 },
@@ -238,6 +229,12 @@
                             "name": "open",
                             "override-signatures": [
                                 "open(url?: string, target?: string, features?: string, replace?: boolean): Window | null"
+                            ]
+                        },
+                        {
+                            "name": "alert",
+                            "override-signatures": [
+                                "alert(message?: any): void"
                             ]
                         }
                     ]
@@ -288,11 +285,35 @@
                             "override-signatures": [
                                 "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"
                             ]
+                        },
+                        {
+                            "name": "getElementsByTagNameNS",
+                            "override-signatures": [
+                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
+                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
+                                "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
+                            ]
+                        },
+                        {
+                            "name": "getElementsByClassName",
+                            "override-signatures": [
+                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
+                            ]
+                        },
+                        {
+                            "name": "getElementsByName",
+                            "override-signatures": [
+                                "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
+                            ]
                         }
                     ]
                 },
                 "properties": {
                     "property": [
+                        {
+                            "name": "documentElement",
+                            "override-type": "HTMLElement"
+                        },
                         {
                             "name": "currentScript",
                             "read-only": "1",
@@ -741,10 +762,8 @@
                     "method": [
                         {
                             "name": "send",
-                            "webOnlySignatures": [
-                                "send(data?: Document): void"
-                            ],
                             "override-signatures": [
+                                "send(data?: Document): void",
                                 "send(data?: string): void",
                                 "send(data?: any): void"
                             ]
@@ -1130,6 +1149,14 @@
                             "override-signatures": [
                                 "getAttributeNode(name: string): Attr | null"
                             ]
+                        },
+                        {
+                            "name": "getElementsByTagNameNS",
+                            "override-signatures": [
+                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
+                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
+                                "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
+                            ]
                         }
                     ]
                 }
@@ -1166,7 +1193,10 @@
                             ]
                         }
                     ]
-                }
+                },
+                "overide-index-signatures": [
+                    "[name: number]: DataTransferItem"
+                ]
             },
             "StorageEvent": {
                 "name": "StorageEvent",
@@ -1210,6 +1240,7 @@
                         },
                         {
                             "name": "source",
+                            "nullable": false,
                             "override-type": "IDBObjectStore | IDBIndex | IDBCursor"
                         }
                     ]

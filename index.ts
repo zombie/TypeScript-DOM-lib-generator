@@ -62,11 +62,11 @@ let knownWorkerEnums = new Set<string>(JSON.parse(fs.readFileSync(inputFolder + 
 
 type InterfaceCommentItem = { Property: Record<string, string>; Method: Record<string, string>; Constructor: string | undefined };
 
-
+browser = prune(browser, removedItems);
 browser = merge(browser, addedItems, "add");
 browser = merge(browser, overriddenItems, "update");
 browser = merge(browser, comments, "update");
-browser = prune(browser, removedItems);
+
 
 
 /**
@@ -1033,10 +1033,15 @@ namespace Emit {
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
         Pt.Printl(`interface ${cb.name} {`);
-        let overloads = GetOverloads(cb, false);
-        for (const { paramCombinations: pCombList } of overloads) {
-            let paramsString = ParamsToString(pCombList);
-            Pt.PrintWithAddedIndent(`(${paramsString}): ${DomTypeToTsType(cb.type)};`);
+        if (cb["override-signatures"]) {
+            cb["override-signatures"]!.forEach(s => Pt.PrintWithAddedIndent(`${s};`));
+        }
+        else {
+            let overloads = GetOverloads(cb, false);
+            for (const { paramCombinations: pCombList } of overloads) {
+                let paramsString = ParamsToString(pCombList);
+                Pt.PrintWithAddedIndent(`(${paramsString}): ${DomTypeToTsType(cb.type)};`);
+            }
         }
         Pt.Printl("}");
     }

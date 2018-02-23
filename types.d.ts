@@ -85,6 +85,7 @@ export type CallbackFunction = {
     "type": string;
     "param"?: Param[];
     "tags"?: string;
+    "override-signatures"?: string[];
 };
 
 export type Constructor = {

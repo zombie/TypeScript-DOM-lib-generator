@@ -1,7 +1,6 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { debug } from "util";
 
 const __SOURCE_DIRECTORY__ = __dirname;
 let inputFolder = path.join(__SOURCE_DIRECTORY__, "inputfiles", "json");
@@ -16,9 +15,6 @@ let tsWebOutput = path.join(outputFolder, "dom.generated.d.ts");
 let tsWebES6Output = path.join(outputFolder, "dom.es6.generated.d.ts");
 let tsWorkerOutput = path.join(outputFolder, "webworker.generated.d.ts");
 const defaultEventType = "Event";
-
-/// Function overload
-type Overload = { ParamCombinations: Browser.Param[]; ReturnTypes: string[]; Nullable: boolean };
 
 type Function =
     | Browser.Method
@@ -43,9 +39,6 @@ enum Flavor {
     All
 };
 
-type ExtendConflict = { BaseType: string; ExtendType: string[]; MemberNames: string[] };
-
-
 let overriddenItems = require(inputFolder + "/overridingTypes.json");
 let addedItems = require(inputFolder + "/addedTypes.json");
 let comments = require(inputFolder + "/comments.json");
@@ -59,8 +52,6 @@ let worker: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/webworke
 let knownWorkerInterfaces = new Set<string>(JSON.parse(fs.readFileSync(inputFolder + "/knownWorkerInterfaces.json").toString()));
 
 let knownWorkerEnums = new Set<string>(JSON.parse(fs.readFileSync(inputFolder + "/knownWorkerEnums.json").toString()));
-
-type InterfaceCommentItem = { Property: Record<string, string>; Method: Record<string, string>; Constructor: string | undefined };
 
 browser = prune(browser, removedItems);
 browser = merge(browser, addedItems, "add");
@@ -144,10 +135,6 @@ function matchScope(scope: EmitScope, x: Browser.Method) {
         return true;
     else if (x.static) return scope === EmitScope.StaticOnly;
     else return scope === EmitScope.InstanceOnly;
-}
-
-function matchInterface(iName: string, x: Browser.Interface) {
-    return x && x.name === iName;
 }
 
 /// Parameter cannot be named "default" in JavaScript/Typescript so we need to rename it.
@@ -320,17 +307,6 @@ function GetInterfaceByName(name: string) {
     return allInterfacesMap[name];
 }
 
-
-function GetAllInterfacesByFlavor(flavor: Flavor) {
-    switch (flavor) {
-        case Flavor.Web: return allWebInterfaces.filter(i => ShouldKeep(Flavor.Web, i));
-        case Flavor.All: allWebInterfaces.filter(i => ShouldKeep(Flavor.All, i));
-        case Flavor.Worker:
-            let isFromBrowserXml = allWebInterfaces.filter(i => knownWorkerInterfaces.has(i.name));
-            return isFromBrowserXml.concat(allWorkerAdditionalInterfaces);
-    }
-}
-
 function GetNonCallbackInterfacesByFlavor(flavor: Flavor) {
     switch (flavor) {
         case Flavor.Web: return allWebNonCallbackInterfaces.filter(i => ShouldKeep(Flavor.Web, i));
@@ -338,16 +314,6 @@ function GetNonCallbackInterfacesByFlavor(flavor: Flavor) {
         case Flavor.Worker:
             let isFromBrowserXml = allWebNonCallbackInterfaces.filter(i => knownWorkerInterfaces.has(i.name));
             return isFromBrowserXml.concat(allWorkerAdditionalInterfaces);
-    }
-}
-
-function GetPublicInterfacesByFlavor(flavor: Flavor) {
-    switch (flavor) {
-        case Flavor.Web:
-        case Flavor.All: return getElements(browser.interfaces, "interface").filter(i => ShouldKeep(flavor, i));
-        case Flavor.Worker:
-            let isFromBrowserXml = getElements(browser.interfaces, "interface").filter(i => knownWorkerInterfaces.has(i.name));
-            return isFromBrowserXml.concat(getElements(worker.interfaces, "interface"));
     }
 }
 
@@ -606,17 +572,6 @@ function GetGlobalPollutor(flavor: Flavor) {
     }
 }
 
-function GetGlobalPollutorName(flavor: Flavor) {
-    const polluter = GetGlobalPollutor(flavor);
-    return polluter ? polluter.name : "Window";
-}
-
-enum FunctionKind {
-    Method,
-    Constructor,
-    CallbackFunction
-}
-
 // Some params have the type of "(DOMString or DOMString [] or Number)"
 // we need to transform it into [“DOMString", "DOMString []", "Number"]
 function decomposeTypes(t: string) {
@@ -640,13 +595,6 @@ function GetOverloads(f: Function, decomposeMultipleTypes: boolean) {
 
     let pCombList = (function() {
         let pCombs: Browser.Param[][] = [];
-        if (f.param) {
-            for (const p of f.param) {
-                if (p.type.indexOf("or") > -1) {
-                    let pOptions = decomposeParam(p);
-                }
-            }
-        }
 
         function enumParams(acc: Browser.Param[], rest: Browser.Param[]) {
             if (!rest.length) {
@@ -754,10 +702,6 @@ namespace Emit {
                 indentStrings[level] = getIndentString(level - 1) + indentStrings[1];
             }
             return indentStrings[level];
-        }
-
-        function getIndentSize() {
-            return indentStrings[1].length;
         }
 
         function write(s: string) {
@@ -1135,7 +1079,7 @@ namespace Emit {
     }
 
 
-    function emitMethod(flavor: Flavor, prefix: string, i: Browser.Interface, m: Browser.Method, conflictedMembers: Set<string>) {
+    function emitMethod(_flavor: Flavor, prefix: string, _i: Browser.Interface, m: Browser.Method, conflictedMembers: Set<string>) {
         function printLine(content: string) {
             if (m.name && conflictedMembers.has(m.name))
                 Pt.PrintlToStack(content);
@@ -1253,7 +1197,7 @@ namespace Emit {
         emitEventHandler("remove");
     }
 
-    function EmitConstructorSignature(flavor: Flavor, i: Browser.Interface) {
+    function EmitConstructorSignature(_flavor: Flavor, i: Browser.Interface) {
         if (i.constructor && i.constructor.comment) {
             Pt.Printl(i.constructor.comment);
         }
@@ -1365,7 +1309,6 @@ namespace Emit {
             Pt.Printl(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
         }
 
-        let ownEventHandles = iNameToEhList[i.name] || []
         if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
             Pt.Printl(`interface ${i.name}EventMap`);
             if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
@@ -1494,7 +1437,7 @@ namespace Emit {
         }
     }
 
-    function emitDictionary(flavor: Flavor, dict: Browser.Dictionary) {
+    function emitDictionary(_flavor: Flavor, dict: Browser.Dictionary) {
         if (!dict.extends || dict.extends === "Object") {
             Pt.Printl(`interface ${processInterfaceType(dict, dict.name)} {`);
         }

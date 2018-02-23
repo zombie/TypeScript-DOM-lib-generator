@@ -59,75 +59,6 @@ browser = merge(browser, overriddenItems, "update");
 browser = merge(browser, comments, "update");
 
 
-
-/**
-    // This is the kind of items in the external json files that are used as a
-    // correction for the spec.
-    type ItemKind =
-        | Property
-        | Method
-        | Constant
-        | Constructor
-        | Interface
-        | Callback
-        | Indexer
-        | SignatureOverload
-        | TypeDef
-        | Extends
-        override x.ToString() =
-            match x with
-            | Property _ -> "property"
-            | Method _ -> "method"
-            | Constant _ -> "constant"
-            | Constructor _ -> "constructor"
-            | Interface _ -> "interface"
-            | Callback _ -> "callback"
-            | Indexer _ -> "indexer"
-            | SignatureOverload _ -> "signatureoverload"
-            | TypeDef _ -> "typedef"
-            | Extends _ -> "extends"
-
-    let getItemByName (allItems: InputJsonType.Root []) (itemName: string) (kind: ItemKind) otherFilter =
-        let filter (item: InputJsonType.Root) =
-            (OptionCheckValue itemName item.Name || OptionCheckValue (sprintf "${}?" itemName) item.Name) &&
-            item.Kind.ToLower() = kind.ToString() &&
-            otherFilter item
-        allItems |> Array.tryFind filter
-
-    let matchInterface iName (item: InputJsonType.Root) =
-        item.Interface.IsNone || item.Interface.Value = iName
-
-    let getOverriddenItemByName itemName (kind: ItemKind) iName =
-        getItemByName overriddenItems itemName kind (matchInterface iName)
-
-    let getRemovedItemByName itemName (kind: ItemKind) iName =
-        getItemByName removedItems itemName kind (matchInterface iName)
-
-    let getAddedItemByName itemName (kind: ItemKind) iName =
-        getItemByName addedItems itemName kind (matchInterface iName)
-
-    let getItems (allItems: InputJsonType.Root []) (kind: ItemKind) (flavor: Flavor) =
-        allItems
-        |> Array.filter (fun t ->
-            t.Kind.ToLower() = kind.ToString() &&
-            (t.Flavor.IsNone || t.Flavor.Value = flavor.ToString() || t.Flavor.Value = Flavor.All.ToString() || flavor = Flavor.All))
-
-    let getOverriddenItems = getItems overriddenItems
-
-    let getAddedItems = getItems addedItems
-
-    let getRemovedItems = getItems removedItems
-
-    let getAddedItemsByInterfaceName kind flavor iName =
-        getAddedItems kind flavor |> Array.filter (matchInterface iName)
-
-    let getOverriddenItemsByInterfaceName kind flavor iName =
-        getOverriddenItems kind flavor |> Array.filter (matchInterface iName)
-
-    let getRemovedItemsByInterfaceName kind flavor iName =
-        getRemovedItems kind flavor |> Array.filter (matchInterface iName)
-*/
-
 // Used to decide if a member should be emitted given its static property and
 // the intended scope level.
 function matchScope(scope: EmitScope, x: Browser.Method) {
@@ -410,25 +341,6 @@ let tagNameToEleName = (function() {
         return result;
     })();
 
-    // let addedTagNamesToInterface =
-    // (function() {
-    //     const result: Record<string, string[]> = {};
-    //     for (const i of getAddedItems(InputJson.ItemKind.Interface, Flavor.All))
-    //     |> Array.filter (fun i -> Seq.length i.TagNames > 0) do
-    //         yield! [ for e in i.TagNames do
-    //                     match i.Name with
-    //                     | Some name -> yield (e, name)
-    //                     | _ -> () ] ]
-
-    // nativeTagNamesToInterface @ addedTagNamesToInterface
-    // |> Seq.groupBy fst
-    // |> Seq.map ((fun (key, group) -> (key, Seq.map snd group)) >> fun (key, group) ->
-    //     key,
-    //     match Seq.length group with
-    //     | 1 -> Seq.head group
-    //     | _ -> resolveElementConflict key group)
-    // |> Map.ofSeq
-
     return nativeTagNamesToInterface;
 })();
 
@@ -441,27 +353,11 @@ let iNameToIDependList = (function() {
         if (!i || !i.extends || i.extends === "Object") return [];
         else return getExtendList(i.extends).concat(i.extends);
     }
-    // else {
-    //     match InputJson.getAddedItemByName iName InputJson.ItemKind.Interface iName with
-    //     | Some i ->
-    //         match i.Extends with
-    //         | Some extends ->
-    //             match extends with
-    //             | "Object" -> []
-    //             | super -> super :: (getExtendList super)
-    //         | _ -> []
-    //     | _ -> []
 
     function getImplementList(iName: string) {
         var i = GetInterfaceByName(iName);
         return i && i.implements || [];
     }
-
-    // let addedINameToIDependList =
-    //     InputJson.getAddedItems InputJson.ItemKind.Interface Flavor.All
-    //     |> Array.ofSeq
-    //     |> Array.filter (fun i -> i.Name.IsSome)
-    //     |> Array.map (fun i -> (Option.get i.Name, List.concat [ (getExtendList (Option.get i.Name)); (getImplementList (Option.get i.Name)) ]))
 
     let nativeINameToIDependList: Record<string, string[]> = {};
 
@@ -651,46 +547,7 @@ const extendConflictsBaseTypes =
     arrayToMap(extendConflicts.map(ec => [ec.baseType, ec] as [string, typeof extendConflicts[0]]));
 
 namespace Emit {
-    // function StringPrinter() {
-    //     let indent = 0;
-    //     let content = "";
-    //     let stack: string[] = [];
-    //     let lineStart: boolean = false;
-
-    //     const indentStrings: string[] = ["", "    "];
-    //     function getIndentString(level: number) {
-    //         if (indentStrings[level] === undefined) {
-    //             indentStrings[level] = getIndentString(level - 1) + indentStrings[1];
-    //         }
-    //         return indentStrings[level];
-    //     }
-
-    //     function getIndentSize() {
-    //         return indentStrings[1].length;
-    //     }
-
-    //     return {
-    //         Reset() { content = ""; indent = 0; lineStart = false; },
-
-    //         ResetIndent() { indent = 0; },
-    //         IncreaseIndent() { indent++; },
-    //         DecreaseIndent() { indent--; },
-
-    //         Print(c: string) { content += c; },
-    //         Printl(c: string) { content += getIndentString(indent) + c + "\n"; },
-
-    //         PrintWithAddedIndent(c: string) { return this.Printl(c); },
-
-    //         ClearStack() { stack = []; },
-    //         StackIsEmpty() { return stack.length === 0; },
-    //         PrintlToStack(c: string) { stack.push(c); },
-    //         PrintStackContent() { stack.forEach(e => this.Printl(e)) },
-
-    //         GetResult() { return content; }
-    //     };
-    // }
-
-    export function createTextWriter(newLine: string) {
+   export function createTextWriter(newLine: string) {
         let output: string;
         let indent: number;
         let lineStart: boolean;
@@ -1359,14 +1216,6 @@ namespace Emit {
         let hasProperty = i.properties && i.properties.property.find(p => !p.static);
         let hasNonStaticMember = hasNonStaticMethod || hasProperty
 
-        function emitAddedConstructor() {
-            // match InputJson.getAddedItemsByInterfaceName ItemKind.Constructor flavor i.Name with
-            // | [||] -> ()
-            // | ctors ->
-            // Pt.Printl("prototype: ${};" i.Name
-            //     ctors |> Array.iter(fun ctor -> ctor.Signatures |> Array.iter(Pt.Printl("${};"))
-        }
-
         // For static types with non-static members, we put the non-static members into an
         // interface, and put the static members into the object literal type of 'declare var'
         // For static types with only static members, we put everything in the interface.
@@ -1389,7 +1238,6 @@ namespace Emit {
             Pt.IncreaseIndent();
             EmitConstants(i);
             EmitMembers(flavor, prefix, EmitScope.StaticOnly, i);
-            emitAddedConstructor();
             Pt.DecreaseIndent();
             Pt.Printl("};");
             Pt.Printl("");
@@ -1405,7 +1253,6 @@ namespace Emit {
             EmitConstants(i);
             EmitEventHandlers(prefix, i);
             EmitIndexers(EmitScope.StaticOnly, i);
-            emitAddedConstructor();
             Pt.DecreaseIndent();
             Pt.Printl("}");
             Pt.Printl(`declare var ${i.name}: ${i.name};`);

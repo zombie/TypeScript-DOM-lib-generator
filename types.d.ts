@@ -1,27 +1,37 @@
+export type Typed = {
+    "type": string | Typed[];
+    "subtype"?: Typed;
+    "nullable"?: 1;
+    "type-original"?: string;
+};
+
 export type Param = {
     "name": string;
-    "type": string;
+    "type": string | Typed[];
+    "subtype"?: Typed;
+    "nullable"?: 1;
     "type-original": string;
     "optional"?: 1;
     "variadic"?: string;
-    "nullable"?: 1;
     "treat-null-as"?: string;
 };
 
 export type Signature = {
-    "type": string,
-    "param"?: Param[];
-    "type-original": "any";
-    "param-min-required"?: number,
+    "type": string | Typed[];
+    "subtype"?: Typed;
     "nullable"?: 1;
+    "type-original": string;
+    "param"?: Param[];
+    "param-min-required"?: number,
 };
 
 export type Member = {
     "name": string;
-    "type": string;
+    "type": string | Typed[];
+    "subtype"?: Typed;
+    "nullable"?: 1;
     "type-original": string;
     "default"?: string;
-    "nullable"?: 1;
     "required"?: 1;
     "override-type"?: string;
     "specs"?: string;
@@ -30,14 +40,15 @@ export type Member = {
 export type Property = {
     "name": string;
     "event-handler"?: string;
-    "type": string;
-    "read-only"?: 1;
+    "type": string | Typed[];
+    "subtype"?: Typed;
     "nullable"?: 1;
+    "type-original": string;
+    "read-only"?: 1;
     "replaceable"?: string;
     "put-forwards"?: string;
     "stringifier"?: string;
     "tags"?: string;
-    "type-original"?: string;
     "property-descriptor-not-enumerable"?: string;
     "content-attribute"?: string;
     "content-attribute-reflects"?: string;
@@ -69,9 +80,9 @@ export type Property = {
 
 export type Event = {
     "name": string;
+    "type": string;
     "dispatch"?: string;
     "skips-window"?: string;
-    "type": string;
     "bubbles"?: 1;
     "cancelable"?: 1;
     "follows"?: string;
@@ -84,10 +95,9 @@ export type Event = {
 export type Method = {
     "name": string;
     "tags"?: string;
-    "getter"?: string;
     "static"?: string;
+    "getter"?: 1;
     "stringifier"?: string;
-    "nullable"?: 1;
     "serializer"?: string;
     "serializer-info"?: string;
     "comment"?: string;
@@ -102,8 +112,6 @@ export type Method = {
 export type CallbackFunction = {
     "name": string;
     "callback": 1;
-    "type": string;
-    "type-original"?: string;
     "signature": Signature[];
     "tags"?: string;
     "override-signatures"?: string[];
@@ -124,8 +132,10 @@ export type NamedConstructor = {
 
 export type Constant = {
     "name": string;
-    "type": string;
-    "type-original"?: string;
+    "type": string | Typed[];
+    "subtype"?: Typed;
+    "nullable"?: 1;
+    "type-original": string;
     "value": string;
     "tags"?: string
     "exposed"?: string;
@@ -183,6 +193,7 @@ export type Interface = {
     "override-constructor-signatures"?: string[];
     "overide-index-signatures"?: string[];
     "specs"?: string;
+    "iterable"?: "value" | "pair" | "pair-iterator";
 };
 
 export type Enum = {

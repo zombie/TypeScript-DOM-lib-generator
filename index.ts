@@ -39,25 +39,77 @@ enum Flavor {
     All
 };
 
-let overriddenItems = require(inputFolder + "/overridingTypes.json");
-let addedItems = require(inputFolder + "/addedTypes.json");
-let comments = require(inputFolder + "/comments.json");
-let removedItems = require(inputFolder + "/removedTypes.json");
+// let overriddenItems = require(inputFolder + "/overridingTypes.json");
+// let addedItems = require(inputFolder + "/addedTypes.json");
+// let comments = require(inputFolder + "/comments.json");
+// let removedItems = require(inputFolder + "/removedTypes.json");
 
 /// Parse the xml input file
-let browser: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/browser.webidl.xml.json").toString());
+let browser: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/browser.webidl.json").toString());
 
-let worker: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/webworkers.specidl.xml.json").toString());
+let worker: Browser.WebIdl = {};
+
+//let worker: Browser.WebIdl = JSON.parse(fs.readFileSync(inputFolder + "/webworkers.specidl.xml.json").toString());
 
 let knownWorkerInterfaces = new Set<string>(JSON.parse(fs.readFileSync(inputFolder + "/knownWorkerInterfaces.json").toString()));
 
 let knownWorkerEnums = new Set<string>(JSON.parse(fs.readFileSync(inputFolder + "/knownWorkerEnums.json").toString()));
 
-browser = prune(browser, removedItems);
-browser = merge(browser, addedItems, "add");
-browser = merge(browser, overriddenItems, "update");
-browser = merge(browser, comments, "update");
 
+let knownWorkerTypes = new Set(require(inputFolder + "/knownWorkerTypes.json"));
+// browser = prune(browser, removedItems);
+// browser = merge(browser, addedItems, "add");
+// browser = merge(browser, overriddenItems, "update");
+// browser = merge(browser, comments, "update");
+
+browser = filter(browser, o => {
+    if (o) {
+        // if (typeof o.tags === "string") {
+        //     if (o.tags.indexOf("MSAppOnly") > -1) return false;
+        //     if (o.tags.indexOf("MSAppScheduler") > -1) return false;
+        //     if (o.tags.indexOf("Diagnostics") > -1) return false;
+        //     if (o.tags.indexOf("Printing") > -1) return false;
+        // }
+        // if (typeof o.exposed === "string") {
+        //     if (o.exposed.indexOf("Diagnostics") > -1) return false;
+        //     if (o.exposed.indexOf("WorkerDiagnostics") > -1) return false;
+        //     if (o.exposed.indexOf("Isolated") > -1) return false;
+        //     //if (o.exposed.indexOf("Worker") > -1 && o.exposed.indexOf("Window") <= -1)  return false;
+        //     //if (o.exposed.indexOf("Worker") <= -1)  return false;
+        // }
+      //  if (typeof o.name === "string" && !knownWorkerEnums.has(o.name)) return false;
+    }
+    return true;
+});
+
+
+function filter(obj: any, fn: (o: any) => boolean) {
+    var result = obj;
+    if (typeof obj === "object") {
+        if (Array.isArray(obj)) {
+            result = obj.filter(fn);
+        }
+        else {
+            result = {};
+            for (const e in obj) {
+                if (fn(obj[e])) {
+                    result[e] = filter(obj[e], fn);
+                }
+            }
+        }
+    }
+    return result;
+}
+
+function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolean): Record<string, T> {
+    const result: Record<string, T> = {};
+    for (const e in obj) {
+        if (fn(obj[e])) {
+            result[e] = obj[e];
+        }
+    }
+    return result;
+}
 
 // Used to decide if a member should be emitted given its static property and
 // the intended scope level.
@@ -109,6 +161,14 @@ function mapToArray<T>(m: Record<string, T>): T[] {
     return Object.keys(m).map(k => m[k]);
 }
 
+function map<T, U>(obj: Record<string, T> | undefined, fn: (o: T) => U): U[] {
+    return Object.keys(obj || {}).map(k => fn(obj![k]));
+}
+
+function forEach<T>(obj: Record<string, T>| undefined, fn: (o: T) => void): void {
+    Object.keys(obj || {}).forEach(k => fn(obj![k]));
+}
+
 function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[], mode: "add" | "update") {
     const map: any = {};
     for (const e1 of srcProp) {
@@ -150,60 +210,61 @@ function merge<T>(src: T, target: T, mode: "add" | "update"): T {
     return src;
 }
 
-function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
-    if (template.interfaces && obj.interfaces) {
-        pruneInterfaces(obj.interfaces.interface, template.interfaces.interface);
-    }
-    if (template["callback-interfaces"] && obj["callback-interfaces"]) {
-        pruneInterfaces(obj["callback-interfaces"]!.interface, template["callback-interfaces"]!.interface);
-    }
-    if (template.typedefs && obj.typedefs) {
-        obj.typedefs.typedef = pruneKeyedArray(obj.typedefs.typedef, template.typedefs.typedef, "new-type");
-    }
+// function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
+//     if (template.interfaces && obj.interfaces) {
+//         pruneInterfaces(obj.interfaces.interface, template.interfaces.interface);
+//     }
+//     if (template["callback-interfaces"] && obj["callback-interfaces"]) {
+//         pruneInterfaces(obj["callback-interfaces"]!.interface, template["callback-interfaces"]!.interface);
+//     }
+//     if (template.typedefs && obj.typedefs) {
+//         obj.typedefs.typedef = pruneKeyedArray(obj.typedefs.typedef, template.typedefs.typedef, "new-type");
+//     }
 
-    return obj;
+//     return obj;
 
-    function pruneInterfaces(obj: Record<string, Browser.Interface>, template: Record<string, Browser.Interface>) {
-        for (const i in template) {
-            if (obj[i]) {
-                if (!template[i].properties && !template[i].methods) {
-                    delete obj[i];
-                }
-                if (template[i].properties && obj[i].properties) {
-                    obj[i].properties!.property = pruneKeyedArray(obj[i].properties!.property, template[i].properties!.property, "name");
-                    if (obj[i].properties!.property.length === 0) {
-                        delete obj[i].properties;
-                    }
-                }
-                if (template[i].methods && obj[i].methods) {
-                    obj[i].methods!.method = pruneKeyedArray(obj[i].methods!.method, template[i].methods!.method, "name");
-                    if (obj[i].methods!.method.length === 0) {
-                        delete obj[i].methods;
-                    }
-                }
-            }
-        }
-    }
+//     function pruneInterfaces(obj: Record<string, Browser.Interface>, template: Record<string, Browser.Interface>) {
+//         for (const i in template) {
+//             if (obj[i]) {
+//                 if (!template[i].properties && !template[i].methods) {
+//                     delete obj[i];
+//                 }
+//                 if (template[i].properties && obj[i].properties) {
+//                     obj[i].properties!.property = pruneKeyedArray(obj[i].properties!.property, template[i].properties!.property, "name");
+//                     if (obj[i].properties!.property.length === 0) {
+//                         delete obj[i].properties;
+//                     }
+//                 }
+//                 if (template[i].methods && obj[i].methods) {
+//                     obj[i].methods!.method = pruneKeyedArray(obj[i].methods!.method, template[i].methods!.method, "name");
+//                     if (obj[i].methods!.method.length === 0) {
+//                         delete obj[i].methods;
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
-    function pruneKeyedArray<T, K extends keyof T>(obj: T[], template: T[], k: K) {
-        const map: any = {};
-        for (const e of template) {
-            map[e[k]] = true;
-        }
-        return obj.filter(e => !map[e[k]]);
-    }
-}
+//     function pruneKeyedArray<T, K extends keyof T>(obj: T[], template: T[], k: K) {
+//         const map: any = {};
+//         for (const e of template) {
+//             map[e[k]] = true;
+//         }
+//         return obj.filter(e => !map[e[k]]);
+//     }
+// }
 
-let allWebNonCallbackInterfaces = concat(getElements(browser.interfaces, "interface"), getElements(browser["mixin-interfaces"], "interface"));
+
+let allWebNonCallbackInterfaces = concat(getElements(browser.interfaces, "interface"), getElements(browser["mixins"], "mixin"));
 
 let allWebInterfaces = concat(getElements(browser.interfaces, "interface"),
     getElements(browser["callback-interfaces"], "interface"),
-    getElements(browser["mixin-interfaces"], "interface"));
+    getElements(browser["mixins"], "mixin"));
 
 
 let allWorkerAdditionalInterfaces = concat(
     getElements(worker.interfaces, "interface"),
-    getElements(worker["mixin-interfaces"], "interface"));
+    getElements(worker["mixins"], "mixin"));
 
 let allInterfaces = allWebInterfaces.concat(allWorkerAdditionalInterfaces);
 
@@ -361,7 +422,7 @@ let iNameToIDependList = (function() {
 
     let nativeINameToIDependList: Record<string, string[]> = {};
 
-    for (const i of concat(allWebNonCallbackInterfaces, getElements(worker.interfaces, "interface"), getElements(worker["mixin-interfaces"], "interface"))) {
+    for (const i of concat(allWebNonCallbackInterfaces, getElements(worker.interfaces, "interface"), getElements(worker["mixins"], "mixin"))) {
         nativeINameToIDependList[i.name] = concat(getExtendList(i.name), getImplementList(i.name));
     }
     return nativeINameToIDependList;
@@ -419,7 +480,7 @@ let iNameToEhList = (function() {
     function getEventHandler(i: Browser.Interface) {
         let ownEventHandler =
             i.properties
-                ? i.properties.property.filter(p => p["event-handler"]).map(p => ({
+                ? mapToArray(i.properties.property).filter(p => p["event-handler"]).map(p => ({
                     name: p.name,
                     eventName: p["event-handler"]!,
                     eventType: getEventTypeFromHandler(p)
@@ -474,65 +535,65 @@ function decomposeTypes(t: string) {
     return t.replace(/[\(\)]/g, "").split(" or ");
 }
 
-/// Return a sequence of returntype * HashSet<paramCombination> tuple
-function GetOverloads(f: Function, decomposeMultipleTypes: boolean) {
+// /// Return a sequence of returntype * HashSet<paramCombination> tuple
+// function GetOverloads(f: Function, decomposeMultipleTypes: boolean) {
 
-    function getReturnType(f: Function) {
-        return "type" in f ? f.type : "";
-    }
+//     function getReturnType(f: Function) {
+//         return "type" in f ? f.type : "";
+//     }
 
-    function isNullable(f: Function) {
-        return "nullable" in f;
-    }
+//     function isNullable(f: Function) {
+//         return "nullable" in f;
+//     }
 
-    function decomposeParam(p: Browser.Param) {
-        return decomposeTypes(p.type).map(type => ({ ...p, type }));
-    }
+//     function decomposeParam(p: Browser.Param) {
+//         return decomposeTypes(p.type).map(type => ({ ...p, type }));
+//     }
 
-    let pCombList = (function() {
-        let pCombs: Browser.Param[][] = [];
+//     let pCombList = (function() {
+//         let pCombs: Browser.Param[][] = [];
 
-        function enumParams(acc: Browser.Param[], rest: Browser.Param[]) {
-            if (!rest.length) {
-                pCombs.push(acc);
-            }
-            else {
-                const p = rest[0];
-                rest = rest.slice(1);
-                if (p.type.indexOf("or") > -1) {
-                    let pOptions = decomposeParam(p);
-                    for (const option of pOptions) {
-                        acc.push(option);
-                        enumParams(acc, rest);
-                        acc.pop();
-                    }
-                }
-            }
-        }
-        if (f.param) {
-            enumParams([], f.param);
-        }
-        return pCombs;
-    })();
+//         function enumParams(acc: Browser.Param[], rest: Browser.Param[]) {
+//             if (!rest.length) {
+//                 pCombs.push(acc);
+//             }
+//             else {
+//                 const p = rest[0];
+//                 rest = rest.slice(1);
+//                 if (p.type.indexOf("or") > -1) {
+//                     let pOptions = decomposeParam(p);
+//                     for (const option of pOptions) {
+//                         acc.push(option);
+//                         enumParams(acc, rest);
+//                         acc.pop();
+//                     }
+//                 }
+//             }
+//         }
+//         if (f.param) {
+//             enumParams([], f.param);
+//         }
+//         return pCombs;
+//     })();
 
-    let rTypes = decomposeTypes(getReturnType(f));
+//     let rTypes = decomposeTypes(getReturnType(f));
 
 
-    if (decomposeMultipleTypes) {
-        return pCombList.map(pComb => ({
-            paramCombinations: pComb,
-            returnTypes: rTypes,
-            nullable: isNullable(f)
-        }));
-    }
-    else {
-        return [{
-            paramCombinations: f.param || [],
-            returnTypes: rTypes,
-            nullable: isNullable(f)
-        }];
-    }
-}
+//     if (decomposeMultipleTypes) {
+//         return pCombList.map(pComb => ({
+//             paramCombinations: pComb,
+//             returnTypes: rTypes,
+//             nullable: isNullable(f)
+//         }));
+//     }
+//     else {
+//         return [{
+//             paramCombinations: f.param || [],
+//             returnTypes: rTypes,
+//             nullable: isNullable(f)
+//         }];
+//     }
+// }
 
 const typeDefSet = new Set(
     browser.typedefs && browser.typedefs.typedef.map(td => td["new-type"])
@@ -545,6 +606,10 @@ const extendConflicts = [
 
 const extendConflictsBaseTypes =
     arrayToMap(extendConflicts.map(ec => [ec.baseType, ec] as [string, typeof extendConflicts[0]]));
+
+function getFirstParameter(m: Browser.Method): Browser.Param | undefined{
+    return (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
+}
 
 namespace Emit {
    export function createTextWriter(newLine: string) {
@@ -614,13 +679,48 @@ namespace Emit {
     let ignoreDOMTypes = false;
 
     // Extended types used but not defined in the spec
-    let extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
+    let extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
 
     let integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
 
+    type Typed = { "type": string | Typed[]; "subtype"?: Typed; "nullable"?: 1 };
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
-    function DomTypeToTsType(objDomType: string): string {
+    function DomTypeToTsType(obj: Typed): string {
+        if (!obj || !obj.type) throw new Error("Missing type " + JSON.stringify(obj));
+        const type = DomTypeToTsTypeWorker(obj)
+        return type.nullable ? makeNullable(type.name) : type.name;
+    }
+
+    function DomTypeToTsTypeWorker(obj: Typed): { name: string; nullable: boolean } {
+        let type;
+        if (typeof obj.type === "string") {
+            type = { name: DomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
+        }
+        else {
+            const types = obj.type.map(DomTypeToTsTypeWorker);
+            const name = types.map(t => t.name).join(" | ");
+            const nullable = !!types.find(t => t.nullable);
+            type = { name, nullable };
+        }
+
+        const subtype = obj.subtype ? DomTypeToTsTypeWorker(obj.subtype) : undefined;
+        const subtypeString = subtype ? subtype.nullable ? makeNullable(subtype.name) : subtype.name : undefined;
+
+        return {
+            name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
+            nullable: type.nullable
+        };
+    }
+
+    function makeArrayType(elementType: string): string {
+        return elementType.indexOf("|") > -1 ? `Array<${elementType}>` : `${elementType}[]`;
+    }
+
+    function DomTypeToTsTypeSimple(objDomType: string): string {
+        if (typeof objDomType !== "string") {
+            throw new Error("Invalid type " + JSON.stringify(objDomType));
+        }
         switch (objDomType) {
             case "AbortMode": return "String";
             case "bool":
@@ -636,7 +736,10 @@ namespace Emit {
             case "float": return "number";
             case "object": return "any";
             case "ReadyState": return "string";
+            case "ByteString": return "string";
+            case "USVString": return "string";
             case "sequence": return "Array";
+            case "FrozenArray": return "ReadonlyArray";
             case "UnrestrictedDouble":
             case "unrestricted double": return "number";
             case "any":
@@ -659,7 +762,7 @@ namespace Emit {
                 if (typeDefSet.has(objDomType)) return objDomType;
                 // Union types
                 if (objDomType.indexOf(" or ") > -1) {
-                    let allTypes: string[] = decomposeTypes(objDomType).map(t => DomTypeToTsType(t.replace("?", "")));
+                    let allTypes: string[] = decomposeTypes(objDomType).map(t => DomTypeToTsTypeSimple(t.replace("?", "")));
                     return allTypes.indexOf("any") > -1 ? "any" : allTypes.join(" | ");
                 }
                 else {
@@ -668,16 +771,19 @@ namespace Emit {
                     let genericMatch = /^(\w+)<([\w, <>]+)>$/;
                     let match = genericMatch.exec(unescaped);
                     if (match) {
-                        let tName: string = DomTypeToTsType(match[1]);
-                        let paramName: string = DomTypeToTsType(match[2]);
+                        let tName: string = DomTypeToTsTypeSimple(match[1]);
+                        let paramName: string = DomTypeToTsTypeSimple(match[2]);
                         return tName === "Array" ? paramName + "[]" : tName + "<" + paramName + ">";
                     }
                     if (objDomType.endsWith("[]")) {
-                        return DomTypeToTsType(objDomType.replace("[]", "").trim()) + "[]";
+                        return DomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
                     }
                 }
         }
-        return "any";
+
+        // throw new Error("Unkown DOM type: " + objDomType);
+        console.log("Unkown DOM type: " + objDomType);
+        return `any /* used to be ${objDomType}*/`;
     }
 
     function makeNullable(originalType: string) {
@@ -691,25 +797,28 @@ namespace Emit {
         }
     }
 
-    function DomTypeToNullableTsType(objDomType: string, nullable: boolean) {
-        let resolvedType = DomTypeToTsType(objDomType);
-        return nullable ? makeNullable(resolvedType) : resolvedType;
+    function DomTypeToNullableTsType(obj: Typed) {
+        let resolvedType = DomTypeToTsType(obj);
+        return obj.nullable ? makeNullable(resolvedType) : resolvedType;
     }
 
     function emitConstant(c: Browser.Constant) {
-        Pt.Printl(`readonly ${c.name}: ${DomTypeToTsType(c.type)};`);
+        Pt.Printl(`readonly ${c.name}: ${DomTypeToTsType(c)};`);
     }
 
     function EmitConstants(i: Browser.Interface) {
         if (i.constants)
-            i.constants.constant.forEach(emitConstant);
+            mapToArray(i.constants.constant)
+                .sort(compareName)
+                .forEach(emitConstant);
     }
 
     function matchSingleParamMethodSignature(m: Browser.Method, expectedMName: string, expectedMType: string, expectedParamType: string) {
         return expectedMName === m.name &&
-            DomTypeToNullableTsType(m.type, !!m.nullable) === expectedMType &&
-            m.param && m.param.length === 1 &&
-            DomTypeToTsType(m.param[0].type) === expectedParamType;
+            m.signature && m.signature.length === 1 &&
+            DomTypeToNullableTsType(m.signature[0]) === expectedMType &&
+            m.signature[0]. param && m.signature[0].param!.length === 1 &&
+            DomTypeToTsType(m.signature[0].param![0]) === expectedParamType;
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
@@ -727,9 +836,9 @@ namespace Emit {
     /// Emit overloads for the getElementsByTagName method
     function EmitGetElementsByTagNameOverloads(m: Browser.Method) {
         if (matchSingleParamMethodSignature(m, "getElementsByTagName", "NodeList", "string")) {
-            Pt.Printl(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.param![0].name}: K): NodeListOf<HTMLElementTagNameMap[K]>;`);
-            Pt.Printl(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.param![0].name}: K): NodeListOf<SVGElementTagNameMap[K]>;`);
-            Pt.Printl(`getElementsByTagName(${m.param![0].name}: string): NodeListOf<Element>;`);
+            Pt.Printl(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<HTMLElementTagNameMap[K]>;`);
+            Pt.Printl(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<SVGElementTagNameMap[K]>;`);
+            Pt.Printl(`getElementsByTagName(${m.signature[0].param![0].name}: string): NodeListOf<Element>;`);
         }
     }
 
@@ -804,7 +913,7 @@ namespace Emit {
     function ParamsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
             let isOptional = !p.variadic && p.optional;
-            let pType = isOptional ? DomTypeToTsType(p.type) : DomTypeToNullableTsType(p.type, !!p.nullable);
+            let pType = isOptional ? DomTypeToTsType(p) : DomTypeToNullableTsType(p);
             return (p.variadic ? "..." : "") +
                 AdjustParamName(p.name) +
                 (isOptional ? "?: " : ": ") +
@@ -822,10 +931,11 @@ namespace Emit {
                 Pt.Printl("}");
             }
             else {
-                let m = i.methods.method[0];
-                let overload = GetOverloads(m, false)[0];
-                let paramsString = ParamsToString(overload.paramCombinations);
-                let returnType = DomTypeToTsType(m.type);
+                let methods = mapToArray(i.methods.method);
+                let m = methods[0];
+                let overload = m.signature[0];
+                let paramsString = overload.param ? ParamsToString(overload.param) : "";
+                let returnType = overload.type ? DomTypeToTsType(overload) : "void";
                 Pt.Printl(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
             }
             Pt.Printl("");
@@ -834,21 +944,22 @@ namespace Emit {
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
         Pt.Printl(`interface ${cb.name} {`);
+        Pt.IncreaseIndent();
         if (cb["override-signatures"]) {
-            cb["override-signatures"]!.forEach(s => Pt.PrintWithAddedIndent(`${s};`));
+            cb["override-signatures"]!.forEach(s => Pt.Printl(`${s};`));
         }
         else {
-            let overloads = GetOverloads(cb, false);
-            for (const { paramCombinations: pCombList } of overloads) {
-                let paramsString = ParamsToString(pCombList);
-                Pt.PrintWithAddedIndent(`(${paramsString}): ${DomTypeToTsType(cb.type)};`);
-            }
+            emitSignatures(cb.signature, "", "");
         }
+        Pt.DecreaseIndent();
         Pt.Printl("}");
+        Pt.Printl("");
     }
 
     function EmitCallBackFunctions(flavor: Flavor) {
-        GetCallbackFuncsByFlavor(flavor).forEach(emitCallBackFunction);
+        GetCallbackFuncsByFlavor(flavor)
+            .sort(compareName)
+            .forEach(emitCallBackFunction);
     }
 
     function emitEnum(e: Browser.Enum) {
@@ -856,7 +967,7 @@ namespace Emit {
     }
 
     function EmitEnums(flavor: Flavor) {
-        GetEnumsByFlavor(flavor).forEach(emitEnum);
+        GetEnumsByFlavor(flavor).sort(compareName).forEach(emitEnum);
     }
 
     function EmitEventHandlerThis(flavor: Flavor, prefix: string, i: Browser.Interface) {
@@ -873,13 +984,16 @@ namespace Emit {
     // These patterns are unsafe, and flagged as error under --strictFunctionTypes.
     // Here we know the property is already defined on the interface, we elide its declaration if the parent has the same handler defined
     function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
-        return p.type === "EventHandler" &&
+        return isEventHandler(p) &&
             iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
             !!iNameToEhParents[i.name].find(
                 i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
                     !!iNameToEhList[i.name].find(e => e.name === p.name));
     }
 
+    function isEventHandler(p: Browser.Property) {
+        return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
+    }
 
     function emitProperty(flavor: Flavor, prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property, conflictedMembers: Set<string>) {
         function printLine(content: string) {
@@ -904,7 +1018,7 @@ namespace Emit {
                 pType = p["override-type"]!;
             }
             else {
-                if (p.type === "EventHandler") {
+                if (isEventHandler(p)) {
                     // Sometimes event handlers with the same name may actually handle different
                     // events in different interfaces. For example, "onerror" handles "ErrorEvent"
                     // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
@@ -912,11 +1026,11 @@ namespace Emit {
                     pType = `(${EmitEventHandlerThis(flavor, prefix, i)}ev: ${eType}) => any`;
                 }
                 else {
-                    pType = DomTypeToTsType(p.type);
+                    pType = DomTypeToTsType(p);
                 }
             }
             let requiredModifier = !p.required || p.required === "1" ? "" : "?";
-            pType = p.nullable ? makeNullable(pType) : pType;
+            //pType = p.nullable ? makeNullable(pType) : pType;
             let readOnlyModifier = p["read-only"] && prefix === "" ? "readonly " : "";
             printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
         }
@@ -927,9 +1041,10 @@ namespace Emit {
         // therefore all properties are emited for the instance type.
         if (emitScope !== EmitScope.StaticOnly) {
             if (i.properties) {
-                i.properties.property
+                mapToArray(i.properties.property)
                     .filter(p => ShouldKeep(flavor, p))
                     .filter(p => !isCovariantEventHandler(i, p))
+                    .sort(compareName)
                     .forEach(p => emitProperty(flavor, prefix, i, emitScope, p, conflictedMembers));
             }
         }
@@ -963,13 +1078,21 @@ namespace Emit {
             if (m["additional-signatures"]) {
                 m["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
             }
-            let overloads = GetOverloads(m, false);
-            for (const { paramCombinations, returnTypes, nullable } of overloads) {
-                let paramsString = ParamsToString(paramCombinations);
-                let returnType = returnTypes.map(DomTypeToTsType).join(" | ");
-                let returnString = nullable ? makeNullable(returnType) : returnType;
-                printLine(`${prefix}${m.name || ""}(${paramsString}): ${returnString};`);
-            }
+
+            emitSignatures(m.signature, prefix, m.name);
+        }
+    }
+
+    function emitSignature(s: Browser.Signature, prefix: string | undefined, name:string | undefined) {
+        let paramsString = s.param ? ParamsToString(s.param) : "";
+        let returnType = DomTypeToTsType(s);
+        returnType = s.nullable ?  makeNullable(returnType) : returnType;
+        Pt.Printl(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
+    }
+
+    function emitSignatures(sigs: Browser.Signature[] | undefined, prefix: string, name: string) {
+        if (sigs) {
+            sigs.forEach(sig => emitSignature(sig, prefix, name));
         }
     }
 
@@ -982,7 +1105,10 @@ namespace Emit {
         }
 
         if (i.methods) {
-            i.methods.method.filter(mFilter).forEach(m => emitMethod(flavor, prefix, i, m, conflictedMembers));
+            mapToArray(i.methods.method)
+                .filter(mFilter)
+                .sort(compareName)
+                .forEach(m => emitMethod(flavor, prefix, i, m, conflictedMembers));
         }
 
         // The window interface inherited some methods from "Object",
@@ -1036,7 +1162,7 @@ namespace Emit {
             }
             if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
                 iNameToEhParents[i.name]
-                    .sort((i1, i2) => i1.name > i2.name ? -1 : 1)
+                    .sort(compareName)
                     .forEach(i => emitTypedEventHandler(fPrefix, addOrRemove, i));
                 return true;
             }
@@ -1055,16 +1181,17 @@ namespace Emit {
     }
 
     function EmitConstructorSignature(_flavor: Flavor, i: Browser.Interface) {
-        if (i.constructor && i.constructor.comment) {
-            Pt.Printl(i.constructor.comment);
+        const constructor = typeof i.constructor === "object" ? i.constructor : undefined;
+        if (constructor && constructor.comment) {
+            Pt.Printl(constructor.comment);
         }
         // Emit constructor signature
         if (i["override-constructor-signatures"]) {
             i["override-constructor-signatures"]!.forEach(s => Pt.Printl(`${s};`));
         }
-        else if (i.constructor) {
-            for (const { paramCombinations } of GetOverloads(i.constructor, false)) {
-                let paramsString = ParamsToString(paramCombinations);
+        else if (constructor) {
+            for (const s of constructor.signature) {
+                let paramsString = s.param ? ParamsToString(s.param) : "";
                 Pt.Printl(`new(${paramsString}): ${i.name};`);
             }
         }
@@ -1090,12 +1217,16 @@ namespace Emit {
     function EmitNamedConstructor(i: Browser.Interface) {
         const nc = i["named-constructor"];
         if (nc) {
-            Pt.Printl(`declare var ${nc.name}: { new(${ParamsToString(nc.param)}): ${i.name}; };`);
+            Pt.Printl(`declare var ${nc.name}: {`);
+            nc.signature.forEach(s => Pt.PrintWithAddedIndent(`new(${s.param ? ParamsToString(s.param) : ""}): ${i.name};`));
+            Pt.Printl(`};`);
         }
     }
     /// Emit all the named constructors at root level
     function EmitNamedConstructors() {
-        getElements(browser.interfaces, "interface").forEach(EmitNamedConstructor);
+        getElements(browser.interfaces, "interface")
+            .sort(compareName)
+            .forEach(EmitNamedConstructor);
     }
 
     function EmitInterfaceDeclaration(i: Browser.Interface) {
@@ -1123,24 +1254,25 @@ namespace Emit {
 
     /// To decide if a given method is an indexer and should be emited
     function ShouldEmitIndexerSignature(i: Browser.Interface, m: Browser.Method) {
-        if (m.getter && m.param && m.param.length === 1) {
+        if (m.getter && m.signature && m.signature[0].param && m.signature[0].param!.length === 1) {
             // TypeScript array indexer can only be number or string
             // for string, it must return a more generic type then all
             // the other properties, following the Dictionary pattern
-            switch (DomTypeToTsType(m.param[0].type)) {
+            switch (DomTypeToTsType(m.signature[0].param![0])) {
                 case "number": return true;
                 case "string":
-                    if (DomTypeToTsType(m.type) === "any") {
+                    if (DomTypeToTsType(m.signature[0]) === "any") {
                         return true;
                     }
-                    let mTypes = distinct(i.methods && i.methods.method.map(m => m.type).filter(t => t !== "void") || []);
-                    let amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
-                    let pTypes = distinct(i.properties && i.properties.property.map(m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
+                    let sig = m.signature[0];
+                    let mTypes = distinct(i.methods && map(i.methods.method, m => m.signature[0].type).filter(t => t !== "void") || []);
+                    let amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.signature[0].type).filter(t => t !== "void") || []); // |>  Array.distinct
+                    let pTypes = distinct(i.properties && map(i.properties.property, m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
 
-                    if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 0) return amTypes[0] === m.type;
-                    if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 0) return mTypes[0] === amTypes[0] && amTypes[0] === m.type;
-                    if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 1) return amTypes[0] === pTypes[0] && amTypes[0] === m.type;
-                    if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 1) return mTypes[0] === amTypes[0] && amTypes[0] === pTypes[0] && amTypes[0] === m.type;
+                    if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 0) return amTypes[0] === sig.type;
+                    if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 0) return mTypes[0] === amTypes[0] && amTypes[0] === sig.type;
+                    if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 1) return amTypes[0] === pTypes[0] && amTypes[0] === sig.type;
+                    if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 1) return mTypes[0] === amTypes[0] && amTypes[0] === pTypes[0] && amTypes[0] === sig.type;
             }
         }
         return false;
@@ -1152,11 +1284,11 @@ namespace Emit {
         }
         else {
             // The indices could be within either Methods or Anonymous Methods
-            concat(i.methods && i.methods.method, i["anonymous-methods"] && i["anonymous-methods"]!.method)
+            concat(mapToArray(i.methods && i.methods.method), i["anonymous-methods"] && i["anonymous-methods"]!.method)
                 .filter(m => ShouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
                 .forEach(m => {
-                    let indexer = m.param![0]
-                    Pt.Printl(`[${indexer.name}: ${DomTypeToTsType(indexer.type)}]: ${DomTypeToTsType(m.type)};`);
+                    let indexer = getFirstParameter(m)!;
+                    Pt.Printl(`[${indexer.name}: ${DomTypeToTsType(indexer)}]: ${DomTypeToTsType(m.signature[0])};`);
                 });
         }
     }
@@ -1174,7 +1306,9 @@ namespace Emit {
             }
             Pt.Print(" {");
             Pt.IncreaseIndent();
-            iNameToEhList[i.name].forEach(emitInterfaceEventMapEntry);
+            iNameToEhList[i.name]
+                .sort(compareName)
+                .forEach(emitInterfaceEventMapEntry);
             Pt.DecreaseIndent();
             Pt.Printl("}");
             Pt.Printl("");
@@ -1212,8 +1346,8 @@ namespace Emit {
         // Some types are static types with non-static members. For example,
         // NodeFilter is a static method itself, however it has an "acceptNode" method
         // that expects the user to implement.
-        let hasNonStaticMethod = i.methods && !!i.methods.method.find(m => !m.static);
-        let hasProperty = i.properties && i.properties.property.find(p => !p.static);
+        let hasNonStaticMethod = i.methods && !!mapToArray(i.methods.method).find(m => !m.static);
+        let hasProperty = i.properties && mapToArray(i.properties.property).find(p => !p.static);
         let hasNonStaticMember = hasNonStaticMethod || hasProperty
 
         // For static types with non-static members, we put the non-static members into an
@@ -1269,7 +1403,7 @@ namespace Emit {
 
 
     function EmitNonCallbackInterfaces(flavor: Flavor) {
-        for (const i of GetNonCallbackInterfacesByFlavor(flavor)) {
+        for (const i of GetNonCallbackInterfacesByFlavor(flavor).sort(compareName)) {
             // If the static attribute has a value, it means the type doesn't have a constructor
             if (i.static) {
                 EmitStaticInterface(flavor, i);
@@ -1293,17 +1427,18 @@ namespace Emit {
         }
         Pt.IncreaseIndent()
         if (dict.members) {
-            dict.members.member
+            mapToArray(dict.members.member)
+                .sort(compareName)
                 .forEach(m => {
                     let tsType;
                     if (m["override-type"]) {
                         tsType = m["override-type"];
                     }
                     else {
-                        tsType = DomTypeToTsType(m.type);
+                        tsType = DomTypeToTsType(m);
                         tsType = m.nullable ? makeNullable(tsType) : tsType;
                     }
-                    let requiredModifier = m.required === "1" ? "" : "?";
+                    let requiredModifier = m.required === 1 ? "" : "?";
                     Pt.Printl(`${m.name}${requiredModifier}: ${tsType};`);
                 });
         }
@@ -1315,16 +1450,18 @@ namespace Emit {
     function EmitDictionaries(flavor: Flavor) {
         getElements(browser.dictionaries, "dictionary")
             .filter(d => flavor !== Flavor.Worker || knownWorkerInterfaces.has(d.name))
+            .sort(compareName)
             .forEach(d => emitDictionary(flavor, d));
 
         if (flavor === Flavor.Worker && worker.dictionaries) {
             getElements(worker.dictionaries, "dictionary")
+                .sort(compareName)
                 .forEach(d => emitDictionary(flavor, d));
         }
     }
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
-        Pt.Printl(`type ${typeDef["new-type"]} = ${typeDef["override-type"] || DomTypeToTsType(typeDef.type)};`);
+        Pt.Printl(`type ${typeDef["new-type"]} = ${typeDef["override-type"] || DomTypeToTsType(typeDef)};`);
     }
 
     function EmitTypeDefs(flavor: Flavor) {
@@ -1345,7 +1482,11 @@ namespace Emit {
         }
     }
 
-    function EmitTheWholeThing(flavor: Flavor, target: string) {
+    function compareName(c1: { name: string }, c2: { name: string }) {
+        return c1.name < c2.name ? -1 : c1.name > c2.name ? 1 : 0;
+    }
+
+    export function EmitTheWholeThing(flavor: Flavor, target: string) {
         Pt.Reset()
         Pt.Printl("/////////////////////////////");
         if (flavor === Flavor.Worker) {
@@ -1359,6 +1500,7 @@ namespace Emit {
 
         EmitDictionaries(flavor);
         getElements(browser["callback-interfaces"], "interface")
+            .sort(compareName)
             .forEach(i => EmitCallBackInterface(flavor, i));
         EmitNonCallbackInterfaces(flavor);
 
@@ -1394,13 +1536,13 @@ namespace Emit {
 
         // check anonymous unsigned long getter and length property
         let isIterableGetter = (m: Browser.Method) =>
-            m.getter === "1" && !!m.param && Array.isArray(m.param) && m.param.length === 1 && integerTypes.has(m.param[0].type);
+            m.getter === "1" && !!m.signature.length && !!m.signature[0].param && m.signature[0].param!.length === 1 && integerTypes.has(m.signature[0].param![0].type);
 
         function findIterableGetter() {
             let anonymousGetter = i["anonymous-methods"] && i["anonymous-methods"]!.method.find(isIterableGetter);
 
             if (anonymousGetter) return anonymousGetter;
-            else if (i.methods) return i.methods.method.find(isIterableGetter);
+            else if (i.methods) return mapToArray(i.methods.method).find(isIterableGetter);
             else return undefined;
         }
 
@@ -1410,11 +1552,11 @@ namespace Emit {
 
         if (i.name !== "Window" && i.properties) {
             let iterableGetter = findIterableGetter()
-            let lengthProperty = i.properties.property.find(findLengthProperty);
+            let lengthProperty = mapToArray(i.properties.property).find(findLengthProperty);
             if (iterableGetter && lengthProperty) {
                 Pt.Printl(`interface ${i.name} {`);
                 Pt.IncreaseIndent();
-                Pt.Printl(`[Symbol.iterator](): IterableIterator<${DomTypeToTsType(iterableGetter.type)}>`);
+                Pt.Printl(`[Symbol.iterator](): IterableIterator<${DomTypeToTsType(iterableGetter.signature[0])}>`);
                 Pt.DecreaseIndent()
                 Pt.Printl("}");
                 Pt.Printl("");
@@ -1438,14 +1580,35 @@ namespace Emit {
         EmitES6Thing(tsWebES6Output);
     }
 
-    export function EmitDomWorker() {
-        ignoreDOMTypes = true;
-        EmitTheWholeThing(Flavor.Worker, tsWorkerOutput);
-    }
+    // export function EmitDomWorker() {
+    //     ignoreDOMTypes = true;
+    //     EmitTheWholeThing(Flavor.Worker, tsWorkerOutput);
+    // }
 }
 
 Emit.EmitDomWeb();
-Emit.EmitDomWorker();
+// Emit.EmitDomWorker();
 
+
+
+function EmitDomWorker() {
+    browser =  JSON.parse(fs.readFileSync(inputFolder + "/browser.webidl.json").toString());
+
+    const isKnownWorkerName = (o: { name: string }) => knownWorkerTypes.has(o.name);
+
+    if (browser.interfaces) browser.interfaces.interface = filterProperties(browser.interfaces.interface, isKnownWorkerName);
+    if (browser.dictionaries) browser.dictionaries.dictionary = filterProperties(browser.dictionaries.dictionary, isKnownWorkerName);
+    if (browser.enums) browser.enums.enum = filterProperties(browser.enums.enum, isKnownWorkerName);
+    if (browser.mixins) browser.mixins.mixin = filterProperties(browser.mixins.mixin, isKnownWorkerName);
+    if (browser["callback-interfaces"]) browser["callback-interfaces"]!.interface = filterProperties(browser["callback-interfaces"]!.interface, isKnownWorkerName);
+    if (browser["callback-functions"]) browser["callback-functions"]!["callback-function"] = filterProperties(browser["callback-functions"]!["callback-function"], isKnownWorkerName);
+    if (browser.dictionaries) browser.dictionaries.dictionary = filterProperties(browser.dictionaries.dictionary, isKnownWorkerName);
+
+    //ignoreDOMTypes = true;
+
+    Emit.EmitTheWholeThing(Flavor.Worker, tsWorkerOutput);
+}
+
+EmitDomWorker();
 
 

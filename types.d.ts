@@ -1,26 +1,38 @@
 export type Param = {
     "name": string;
     "type": string;
-    "optional"?: string;
+    "type-original": string;
+    "optional"?: 1;
     "variadic"?: string;
-    "nullable"?: string;
+    "nullable"?: 1;
+    "treat-null-as"?: string;
 };
+
+export type Signature = {
+    "type": string,
+    "param"?: Param[];
+    "type-original": "any";
+    "param-min-required"?: number,
+    "nullable"?: 1;
+};
+
 export type Member = {
     "name": string;
     "type": string;
+    "type-original": string;
     "default"?: string;
-    "nullable"?: string;
-    "type-original"?: string;
-    "required"?: string;
+    "nullable"?: 1;
+    "required"?: 1;
     "override-type"?: string;
+    "specs"?: string;
 };
 
 export type Property = {
     "name": string;
     "event-handler"?: string;
     "type": string;
-    "read-only"?: string;
-    "nullable"?: string;
+    "read-only"?: 1;
+    "nullable"?: 1;
     "replaceable"?: string;
     "put-forwards"?: string;
     "stringifier"?: string;
@@ -48,6 +60,11 @@ export type Property = {
     "comment"?: string;
     "override-type"?: string;
     "required"?: string;
+    "specs"?: string;
+    "deprecated"?: 1;
+    "interop"?: 1;
+    "exposed"?: string;
+    "constant"?: 1;
 };
 
 export type Event = {
@@ -55,47 +72,54 @@ export type Event = {
     "dispatch"?: string;
     "skips-window"?: string;
     "type": string;
-    "bubbles"?: string;
-    "cancelable"?: string;
+    "bubbles"?: 1;
+    "cancelable"?: 1;
     "follows"?: string;
     "precedes"?: string;
     "tags"?: string;
     "aliases"?: string;
+    "specs"?: string;
 };
 
 export type Method = {
     "name": string;
-    "type": string;
     "tags"?: string;
     "getter"?: string;
     "static"?: string;
     "stringifier"?: string;
-    "nullable"?: string;
+    "nullable"?: 1;
     "serializer"?: string;
     "serializer-info"?: string;
-    "param"?: Param[];
     "comment"?: string;
     "override-signatures"?: string[];
     "additional-signatures"?: string[];
+    "specs"?: string;
+    "exposed"?: string;
+    "deprecated"?: 1;
+    "signature": Signature[];
 };
 
 export type CallbackFunction = {
     "name": string;
-    "callback": string;
+    "callback": 1;
     "type": string;
-    "param"?: Param[];
+    "type-original"?: string;
+    "signature": Signature[];
     "tags"?: string;
     "override-signatures"?: string[];
+    "specs"?: string;
 };
 
 export type Constructor = {
-    "param"?: Param[];
+    "signature": Signature[];
     "comment"?: string;
+    "specs"?: string;
 };
 
 export type NamedConstructor = {
     "name": string;
-    "param": Param[];
+    "signature": Signature[];
+    "specs"?: string;
 };
 
 export type Constant = {
@@ -104,6 +128,8 @@ export type Constant = {
     "type-original"?: string;
     "value": string;
     "tags"?: string
+    "exposed"?: string;
+    "specs"?: string;
 };
 
 export type ParsedAttribute ={
@@ -116,22 +142,23 @@ export type Element = {
     "name": string;
     "namespace"?: string;
     "html-self-closing"?: string;
-}
+    "specs"?: string;
+};
 
 export type Interface = {
     "name": string;
     "extends": string;
     "constants"?: {
-        "constant": Constant[];
+        "constant": Record<string, Constant>;
     };
     "methods": {
-        "method": Method[];
+        "method": Record<string, Method>;
     };
     "events"?: {
         "event": Event[];
     };
     "properties"?: {
-        "property": Property[]
+        "property": Record<string, Property>;
     };
     "constructor"?: Constructor;
     "secure-context"?: string;
@@ -141,7 +168,7 @@ export type Interface = {
         "method": Method[];
     };
     "anonymous-content-attributes"?: {
-        "parsedattribute": ParsedAttribute[]
+        "parsedattribute": ParsedAttribute[];
     };
     "element"?: Element[];
     "named-constructor"?: NamedConstructor;
@@ -155,11 +182,13 @@ export type Interface = {
     "type-parameters"?: string[];
     "override-constructor-signatures"?: string[];
     "overide-index-signatures"?: string[];
+    "specs"?: string;
 };
 
 export type Enum = {
     "name": string;
     "value": string[];
+    "specs"?: string;
 };
 
 export type TypeDef = {
@@ -172,8 +201,9 @@ export type Dictionary = {
     "name": string;
     "extends": string;
     "members": {
-        "member": Member[];
+        "member": Record<string, Member>;
     };
+    "specs"?: string;
     "type-parameters"?: string[];
 };
 
@@ -193,8 +223,8 @@ export type WebIdl = {
     "interfaces"?: {
         "interface": Record<string, Interface>;
     };
-    "mixin-interfaces"?: {
-        "interface": Record<string, Interface>
+    "mixins"?: {
+        "mixin": Record<string, Interface>;
     };
     "typedefs"?: {
         "typedef": TypeDef[];

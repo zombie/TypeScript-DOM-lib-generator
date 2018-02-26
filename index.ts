@@ -299,10 +299,6 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return t.replace(/[\(\)]/g, "").split(" or ");
     }
 
-    function getFirstParameter(m: Browser.Method): Browser.Param | undefined {
-        return (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
-    }
-
     function createTextWriter(newLine: string) {
         let output: string;
         let indent: number;
@@ -986,8 +982,10 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 .concat(i["anonymous-methods"] && i["anonymous-methods"]!.method || [])
                 .filter(m => ShouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
                 .forEach(m => {
-                    let indexer = getFirstParameter(m)!;
-                    Pt.Printl(`[${indexer.name}: ${DomTypeToTsType(indexer)}]: ${DomTypeToTsType(m.signature[0])};`);
+                    let indexer = (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
+                    if (indexer) {
+                        Pt.Printl(`[${indexer.name}: ${DomTypeToTsType(indexer)}]: ${DomTypeToTsType(m.signature[0])};`);
+                    }
                 });
         }
     }

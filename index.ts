@@ -255,10 +255,6 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return Object.keys(obj || {}).map(k => fn(obj![k]));
     }
 
-    function forEach<T>(obj: Record<string, T> | undefined, fn: (o: T) => void): void {
-        Object.keys(obj || {}).forEach(k => fn(obj![k]));
-    }
-
     function tryGetMatchingEventType(eName: string, i: Browser.Interface) {
         if (i.events) {
             const event = i.events.event.find(e => e.name === eName);

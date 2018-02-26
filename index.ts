@@ -696,9 +696,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 Pt.Printl(content);
         }
 
-        if (p.comment) {
-            printLine(p.comment);
-        }
+        emitComments(p, printLine);
 
         // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
         if (p.name === "name" && i.name === "Window" && emitScope === EmitScope.All) {
@@ -729,6 +727,17 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
+    function emitComments(entity: { comment?: string; deprecated?: 1 } | undefined, print: (s: string) => void) {
+        if (entity) {
+            if (entity.comment) {
+                print(entity.comment);
+            }
+            if (entity.deprecated) {
+                print(`/** @deprecated */`);
+            }
+        }
+    }
+
     function EmitProperties(prefix: string, emitScope: EmitScope, i: Browser.Interface, conflictedMembers: Set<string>) {
         // Note: the schema file shows the property doesn't have "static" attribute,
         // therefore all properties are emited for the instance type.
@@ -750,10 +759,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 Pt.Printl(content);
         }
 
-        // print comment
-        if (m.comment) {
-            printLine(m.comment);
-        }
+        emitComments(m, printLine);
 
         if (m["override-signatures"]) {
             m["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
@@ -873,9 +879,9 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function EmitConstructorSignature(i: Browser.Interface) {
         const constructor = typeof i.constructor === "object" ? i.constructor : undefined;
-        if (constructor && constructor.comment) {
-            Pt.Printl(constructor.comment);
-        }
+
+        emitComments(constructor, s => Pt.Print(s));
+
         // Emit constructor signature
         if (i["override-constructor-signatures"]) {
             i["override-constructor-signatures"]!.forEach(s => Pt.Printl(`${s};`));

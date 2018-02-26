@@ -29,9 +29,6 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     // Global print target
     const Pt = createTextWriter("\n");
 
-    // When emit webworker types the dom types are ignored
-    const ignoreDOMTypes = flavor === Flavor.Worker;
-
     // Extended types used but not defined in the spec
     const extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
     const integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
@@ -387,9 +384,19 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
         else {
             const types = obj.type.map(DomTypeToTsTypeWorker);
-            const name = types.map(t => t.name).join(" | ");
-            const nullable = !!types.find(t => t.nullable);
-            type = { name, nullable };
+            const isAny = types.find(t => t.name === "any");
+            if (isAny) {
+                type = {
+                    name: "any",
+                    nullable: false
+                }
+            }
+            else {
+                type = {
+                    name: types.map(t => t.name).join(" | "),
+                    nullable: !!types.find(t => t.nullable)
+                };
+            }
         }
 
         const subtype = obj.subtype ? DomTypeToTsTypeWorker(obj.subtype) : undefined;
@@ -439,7 +446,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             default:
                 if (integerTypes.has(objDomType)) return "number";
                 if (extendedTypes.has(objDomType)) return objDomType;
-                if (ignoreDOMTypes && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document")) return "any";
+                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "any";
+                if (flavor === Flavor.Web && objDomType === "Client") return "any";
                 // Name of an interface / enum / dict. Just return itself
                 if (allInterfacesMap[objDomType] ||
                     allCallbackFunctionsMap[objDomType] ||
@@ -469,9 +477,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 }
         }
 
-        // throw new Error("Unkown DOM type: " + objDomType);
-        console.log(`(${Flavor[flavor]}) Unkown DOM type: ${objDomType}`);
-        return `any /* used to be ${objDomType}*/`;
+        throw new Error("Unkown DOM type: " + objDomType);
     }
 
     function makeNullable(originalType: string) {
@@ -1367,7 +1373,7 @@ function EmitDom() {
 
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems, "add");
-    webidl = merge(webidl, overriddenItems, "update");
+    webidl = merge(webidl, overriddenItems, "add");
     webidl = merge(webidl, comments, "update");
 
     EmitDomWeb(webidl, tsWebOutput);

@@ -732,21 +732,6 @@
                     }
                 }
             },
-            "XMLHttpRequest": {
-                "name": "XMLHttpRequest",
-                "methods": {
-                    "method": {
-                        "send": {
-                            "name": "send",
-                            "override-signatures": [
-                                "send(data?: Document): void",
-                                "send(data?: string): void",
-                                "send(data?: any): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "HTMLCanvasElement": {
                 "name": "HTMLCanvasElement",
                 "methods": {
@@ -900,9 +885,23 @@
             },
             "FormData": {
                 "name": "FormData",
-                "override-constructor-signatures": [
-                    "new (form?: HTMLFormElement): FormData"
-                ],
+                "constructor": {
+                    "signature": [
+                        {
+                            "param-min-required": 0,
+                            "type": "FormData",
+                            "param": [
+                                {
+                                    "name": "form",
+                                    "type": "HTMLFormElement",
+                                    "type-original": "HTMLFormElement"
+                                }
+                            ],
+                            "type-original": "FormData"
+                        }
+                    ],
+                    "name": ""
+                },
                 "methods": {
                     "method": {
                         "append": {

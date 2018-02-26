@@ -43,7 +43,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     const allInterfacesMap = toNameMap(allInterfaces);
     const allDictionariesMap: Record<string, Browser.Dictionary> = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
-    const allEnumsMap: Record<string, Browser.Enum> = webidl.enums ? webidl.enums.enum: {};
+    const allEnumsMap: Record<string, Browser.Enum> = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap: Record<string, Browser.CallbackFunction> = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
@@ -248,7 +248,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function mapToArray<T>(m: Record<string, T>): T[] {
-        return Object.keys(m).map(k => m[k]);
+        return Object.keys(m || {}).map(k => m[k]);
     }
 
     function map<T, U>(obj: Record<string, T> | undefined, fn: (o: T) => U): U[] {
@@ -772,14 +772,14 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s:string)=>void) {
+    function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
         let paramsString = s.param ? ParamsToString(s.param) : "";
         let returnType = DomTypeToTsType(s);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
     }
 
-    function emitSignatures(sigs: Browser.Signature[] | undefined, prefix: string, name: string, printLine: (s:string)=>void) {
+    function emitSignatures(sigs: Browser.Signature[] | undefined, prefix: string, name: string, printLine: (s: string) => void) {
         if (sigs) {
             sigs.forEach(sig => emitSignature(sig, prefix, name, printLine));
         }
@@ -955,7 +955,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                         return true;
                     }
                     let sig = m.signature[0];
-                    let mTypes = distinct(i.methods && map(i.methods.method, m => m.signature[0].type).filter(t => t !== "void") || []);
+                    let mTypes = distinct(i.methods && map(i.methods.method, m => m.signature && m.signature.length && m.signature[0].type || "void").filter(t => t !== "void") || []);
                     let amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.signature[0].type).filter(t => t !== "void") || []); // |>  Array.distinct
                     let pTypes = distinct(i.properties && map(i.properties.property, m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
 
@@ -1359,19 +1359,19 @@ function EmitDom() {
     const tsWorkerOutput = path.join(outputFolder, "webworker.generated.d.ts");
 
 
-    // const overriddenItems = require( path.join(inputFolder , "overridingTypes.json"));
-    // const addedItems = require( path.join(inputFolder , "addedTypes.json"));
+    const overriddenItems = require(path.join(inputFolder, "overridingTypes.json"));
+    const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
-    // const removedItems = require( path.join(inputFolder , "removedTypes.json"));
+    const removedItems = require(path.join(inputFolder, "removedTypes.json"));
 
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.json"));
 
     const knownWorkerTypes = new Set<string>(require(inputFolder + "/knownWorkerTypes.json"));
 
-    // browser = prune(browser, removedItems);
-    // browser = merge(browser, addedItems, "add");
-    // browser = merge(browser, overriddenItems, "update");
+    webidl = prune(webidl, removedItems);
+    webidl = merge(webidl, addedItems, "add");
+    webidl = merge(webidl, overriddenItems, "update");
     webidl = merge(webidl, comments, "update");
 
     EmitDomWeb(webidl, tsWebOutput);

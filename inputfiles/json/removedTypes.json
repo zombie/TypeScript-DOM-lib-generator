@@ -3,12 +3,7 @@
         "interface": {}
     },
     "callback-interfaces": {
-        "interface": {
-            "WebKitEntriesCallback": {
-                "name": "WebKitEntriesCallback",
-                "flavor": "Worker"
-            }
-        }
+        "interface": {}
     },
     "enums": {
         "enum": {}
@@ -16,58 +11,20 @@
     "interfaces": {
         "interface": {
             "HTMLElement": {
-                "name": "HTMLElement",
                 "methods": {
-                    "method": [
-                        {
-                            "name": "getElementsByClassName"
-                        },
-                        {
-                            "name": "contains"
-                        },
-                        {
-                            "name": "scrollIntoView"
-                        },
-                        {
-                            "name": "insertAdjacentElement"
-                        },
-                        {
-                            "name": "insertAdjacentHTML"
-                        },
-                        {
-                            "name": "insertAdjacentText"
-                        }
-                    ]
-                },
-                "properties": {
-                    "property": [
-                        {
-                            "name": "id"
-                        },
-                        {
-                            "name": "className"
-                        }
-                    ]
+                    "method": {
+                        "scrollIntoView": {},
+                        "insertAdjacentElement": {},
+                        "insertAdjacentHTML": {},
+                        "insertAdjacentText": {}
+                    }
                 }
             },
             "StorageEvent": {
-                "name": "StorageEvent",
                 "methods": {
-                    "method": [
-                        {
-                            "name": "initStorageEvent"
-                        }
-                    ]
-                }
-            },
-            "HTMLObjectElement": {
-                "name": "HTMLObjectElement",
-                "properties": {
-                    "property": [
-                        {
-                            "name": "alt"
-                        }
-                    ]
+                    "method": {
+                        "initStorageEvent": {}
+                    }
                 }
             }
         }
@@ -76,13 +33,6 @@
         "dictionary": {}
     },
     "typedefs": {
-        "typedef": [
-            {
-                "new-type": "JSON"
-            },
-            {
-                "new-type": "HeadersInit"
-            }
-        ]
+        "typedef": []
     }
 }

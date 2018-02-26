@@ -1,4 +1,9 @@
 {
+    "callback-functions": {
+        "callback-function": {
+            "Function": {}
+        }
+    },
     "mixin-interfaces": {
         "interface": {}
     },

@@ -1352,8 +1352,8 @@ function EmitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
 
 function EmitDom() {
     const __SOURCE_DIRECTORY__ = __dirname;
-    const inputFolder = path.join(__SOURCE_DIRECTORY__, "inputfiles", "json");
-    const outputFolder = path.join(__SOURCE_DIRECTORY__, "generated", "new");
+    const inputFolder = path.join(__SOURCE_DIRECTORY__, "../", "inputfiles");
+    const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
 
     // Create output folder
     if (!fs.existsSync(outputFolder)) {

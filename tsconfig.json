@@ -3,14 +3,14 @@
         "target": "es6",
         "module": "commonjs",
         "lib": ["es2016"],
+        "outDir": "./lib",
         "strict": true,
         "esModuleInterop": true,
         "sourceMap": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true
     },
-    "files": [
-        "index.ts",
-        "types.d.ts"
+    "include": [
+        "./src"
     ]
 }

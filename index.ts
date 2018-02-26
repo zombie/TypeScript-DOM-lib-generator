@@ -723,7 +723,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 }
             }
             let requiredModifier = !p.required || p.required === "1" ? "" : "?";
-            //pType = p.nullable ? makeNullable(pType) : pType;
+            pType = p.nullable ? makeNullable(pType) : pType;
             let readOnlyModifier = p["read-only"] && prefix === "" ? "readonly " : "";
             printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
         }

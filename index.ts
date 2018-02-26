@@ -1369,18 +1369,18 @@ function EmitDom() {
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.json"));
 
-    const knownWorkerTypes = new Set<string>(require(inputFolder + "/knownWorkerTypes.json"));
+    const knownWorkerTypes = new Set<string>(require(path.join(inputFolder,"knownWorkerTypes.json")));
 
     webidl = prune(webidl, removedItems);
-    webidl = merge(webidl, addedItems, "add");
-    webidl = merge(webidl, overriddenItems, "add");
-    webidl = merge(webidl, comments, "update");
+    webidl = merge(webidl, addedItems);
+    webidl = merge(webidl, overriddenItems);
+    webidl = merge(webidl, comments);
 
     EmitDomWeb(webidl, tsWebOutput);
     EmitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
     EmitES6DomIterators(webidl, tsWebES6Output);
 
-    function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[], mode: "add" | "update") {
+    function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[]) {
         const map: any = {};
         for (const e1 of srcProp) {
             if (e1.name) {
@@ -1390,32 +1390,30 @@ function EmitDom() {
 
         for (const e2 of targetProp) {
             if (e2.name && map[e2.name]) {
-                merge(map[e2.name], e2, mode);
+                merge(map[e2.name], e2);
             }
-            else if (mode === "add") {
+            else {
                 srcProp.push(e2);
             }
         }
     }
 
-    function merge<T>(src: T, target: T, mode: "add" | "update"): T {
+    function merge<T>(src: T, target: T): T {
         if (typeof src !== "object" || typeof target !== "object") return src;
         for (const k in target) {
             if (src[k] && target[k]) {
                 const srcProp = src[k];
                 const targetProp = target[k];
                 if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
-                    mergeNamedArrays(srcProp, targetProp, mode);
+                    mergeNamedArrays(srcProp, targetProp);
                 }
                 else {
                     if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
-                    merge(src[k], target[k], mode);
+                    merge(src[k], target[k]);
                 }
             }
             else {
-                if (typeof target[k] !== "object" || Array.isArray(target[k]) || mode === "add") {
-                    src[k] = target[k];
-                }
+                src[k] = target[k];
             }
         }
         return src;

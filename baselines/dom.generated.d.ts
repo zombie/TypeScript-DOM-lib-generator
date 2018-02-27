@@ -8997,7 +8997,7 @@ declare var MediaKeys: {
 
 interface MediaList {
     readonly length: number;
-    mediaText: number;
+    mediaText: string;
     appendMedium(medium: string): void;
     deleteMedium(medium: string): void;
     item(index: number): string | null;

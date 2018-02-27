@@ -1713,6 +1713,17 @@
                         }
                     }
                 }
+            },
+            "MediaList": {
+                "name": "MediaList",
+                "properties": {
+                    "property": {
+                        "mediaText": {
+                            "name": "mediaText",
+                            "override-type": "string"
+                        }
+                    }
+                }
             }
         }
     },

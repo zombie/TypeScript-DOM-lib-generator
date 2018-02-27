@@ -2809,6 +2809,10 @@
             {
                 "override-type": "number | string | Date | IDBArrayKey",
                 "new-type": "IDBValidKey"
+            },
+            {
+                "override-type": "string | Algorithm",
+                "new-type": "AlgorithmIdentifier"
             }
         ]
     }

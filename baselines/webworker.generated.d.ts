@@ -1720,6 +1720,7 @@ declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeE
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 type FormDataEntryValue = string | File;
 type HeadersInit = Headers | string[][] | { [key: string]: string };
+type AlgorithmIdentifier = string | Algorithm;
 type BinaryType = "blob" | "arraybuffer";
 type ClientType = "window" | "worker" | "sharedworker" | "all";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";

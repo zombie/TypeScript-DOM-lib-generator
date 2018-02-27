@@ -15993,6 +15993,7 @@ type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type HeadersInit = Headers | string[][] | { [key: string]: string };
 type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
 type IDBValidKey = number | string | Date | IDBArrayKey;
+type AlgorithmIdentifier = string | Algorithm;
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";

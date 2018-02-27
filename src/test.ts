@@ -1,4 +1,3 @@
-
 import * as fs from "fs";
 import * as path from "path";
 import child_process from "child_process";
@@ -6,6 +5,7 @@ import child_process from "child_process";
 const __SOURCE_DIRECTORY__ = __dirname;
 const baselineFolder = path.join(__SOURCE_DIRECTORY__, "../", "baselines");
 const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
+const tscPath = path.join(__SOURCE_DIRECTORY__, "../", "node_modules", "typescript", "lib", "tsc.js");
 
 function compareToBaselines() {
     let success = true;
@@ -24,7 +24,7 @@ function compareToBaselines() {
 function compileGeneratedFile(file: string) {
     let success = true;
     try {
-        child_process.execSync(`tsc --strict --lib es5 --noEmit ${path.join(outputFolder, file)}`);
+        child_process.execSync(`node ${tscPath} --strict --lib es5 --noEmit ${path.join(outputFolder, file)}`);
     } catch (e) {
         console.error(`Test failed: could not compile '${file}':`);
         console.error(e.stdout.toString());
@@ -35,12 +35,11 @@ function compileGeneratedFile(file: string) {
 }
 
 function test() {
-    if (compareToBaselines()) {
-        if (compileGeneratedFile("dom.generated.d.ts") &&
-            compileGeneratedFile("webworker.generated.d.ts")) {
-            console.log("All tests passed.");
-            process.exit(0);
-        }
+    if (compareToBaselines() &&
+        compileGeneratedFile("dom.generated.d.ts") &&
+        compileGeneratedFile("webworker.generated.d.ts")) {
+        console.log("All tests passed.");
+        process.exit(0);
     }
     process.exit(1);
 }

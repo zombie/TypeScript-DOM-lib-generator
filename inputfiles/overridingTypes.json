@@ -1685,6 +1685,19 @@
                         }
                     }
                 }
+            },
+            "XMLHttpRequest": {
+                "name": "XMLHttpRequest",
+                "methods": {
+                    "method": {
+                        "send": {
+                            "name": "send",
+                            "override-signatures": [
+                                "send(data?: any): void"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },

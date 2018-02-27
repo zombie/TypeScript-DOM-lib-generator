@@ -15295,7 +15295,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     msCachingEnabled(): boolean;
     open(method: string, url: string, async?: boolean, user?: string | null, password?: string | null): void;
     overrideMimeType(mime: string): void;
-    send(data?: Document | string): void;
+    send(data?: any): void;
     setRequestHeader(header: string, value: string): void;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;

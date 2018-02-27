@@ -7598,6 +7598,18 @@ declare var HTMLTableColElement: {
     new(): HTMLTableColElement;
 };
 
+interface HTMLTableDataCellElement extends HTMLTableCellElement {
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableDataCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableDataCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var HTMLTableDataCellElement: {
+    prototype: HTMLTableDataCellElement;
+    new(): HTMLTableDataCellElement;
+};
+
 interface HTMLTableElement extends HTMLElement {
     /**
      * Sets or retrieves a value that indicates the table alignment.
@@ -7710,6 +7722,19 @@ declare var HTMLTableElement: {
     new(): HTMLTableElement;
 };
 
+interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
+    scope: string;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableHeaderCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableHeaderCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var HTMLTableHeaderCellElement: {
+    prototype: HTMLTableHeaderCellElement;
+    new(): HTMLTableHeaderCellElement;
+};
+
 interface HTMLTableRowElement extends HTMLElement {
     /**
      * Sets or retrieves how the object is aligned with adjacent text.
@@ -7721,7 +7746,7 @@ interface HTMLTableRowElement extends HTMLElement {
     /**
      * Retrieves a collection of all cells in the table row.
      */
-    readonly cells: HTMLCollection;
+    readonly cells: HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>;
     /** @deprecated */
     ch: string;
     /** @deprecated */
@@ -7745,7 +7770,7 @@ interface HTMLTableRowElement extends HTMLElement {
      * Creates a new cell in the table row, and adds the cell to the cells collection.
      * @param index Number that specifies where to insert the cell in the tr. The default value is -1, which appends the new cell to the end of the cells collection.
      */
-    insertCell(index?: number): HTMLTableCellElement;
+    insertCell(index?: number): HTMLTableDataCellElement;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableRowElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableRowElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -9692,16 +9717,16 @@ declare var PannerNode: {
 };
 
 interface ParentNode {
-    readonly childElementCount: number;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
-}
-
-interface ParentNode {
     readonly children: HTMLCollection;
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
+}
+
+interface ParentNode {
+    readonly childElementCount: number;
+    readonly firstElementChild: Element | null;
+    readonly lastElementChild: Element | null;
 }
 
 interface Path2D extends CanvasPathMethods {
@@ -15637,11 +15662,11 @@ interface HTMLElementTagNameMap {
     "sup": HTMLElement;
     "table": HTMLTableElement;
     "tbody": HTMLTableSectionElement;
-    "td": HTMLTableCellElement;
+    "td": HTMLTableDataCellElement;
     "template": HTMLTemplateElement;
     "textarea": HTMLTextAreaElement;
     "tfoot": HTMLTableSectionElement;
-    "th": HTMLTableCellElement;
+    "th": HTMLTableHeaderCellElement;
     "thead": HTMLTableSectionElement;
     "time": HTMLTimeElement;
     "title": HTMLTitleElement;

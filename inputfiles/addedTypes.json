@@ -2611,6 +2611,34 @@
                         }
                     }
                 }
+            },
+            "HTMLTableDataCellElement": {
+                "name": "HTMLTableDataCellElement",
+                "extends": "HTMLTableCellElement",
+                "element": [
+                    {
+                        "specs": "HTML5",
+                        "namespace": "HTML",
+                        "name": "td"
+                    }
+                ]
+            },
+            "HTMLTableHeaderCellElement": {
+                "name": "HTMLTableHeaderCellElement",
+                "extends": "HTMLTableCellElement",
+                "properties": {
+                    "property": {
+                        "scope": {
+                            "name": "scope",
+                            "override-type": "string"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "th"
+                    }
+                ]
             }
         }
     },

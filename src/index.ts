@@ -85,6 +85,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 case "a": return "HTMLAnchorElement";
                 case "title": return "HTMLTitleElement";
                 case "style": return "HTMLStyleElement";
+                case "td": return "HTMLTableDataCellElement";
+                case "th": return "HTMLTableHeaderCellElement";
                 default: return "";
             }
         }

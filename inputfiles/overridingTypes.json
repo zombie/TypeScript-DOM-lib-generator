@@ -215,8 +215,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": [
-                ]
+                "overide-index-signatures": []
             },
             "Document": {
                 "name": "Document",
@@ -1661,6 +1660,27 @@
                             "name": "getSubscription",
                             "override-signatures": [
                                 "getSubscription(): Promise<PushSubscription | null>"
+                            ]
+                        }
+                    }
+                }
+            },
+            "HTMLTableRowElement": {
+                "name": "HTMLTableRowElement",
+                "properties": {
+                    "property": {
+                        "cells": {
+                            "name": "cells",
+                            "override-type": "HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "insertCell": {
+                            "name": "insertCell",
+                            "override-signatures": [
+                                "insertCell(index?: number): HTMLTableDataCellElement"
                             ]
                         }
                     }

@@ -2688,6 +2688,20 @@
                         }
                     }
                 }
+            },
+            "CSS": {
+                "name": "CSS",
+                "methods": {
+                    "method": {
+                        "escape": {
+                            "name": "escape",
+                            "override-signatures": [
+                                "escape(value: string): string"
+                            ],
+                            "static": 1
+                        }
+                    }
+                }
             }
         }
     },

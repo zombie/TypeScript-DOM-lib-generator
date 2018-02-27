@@ -9338,6 +9338,7 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
     readonly msMaxTouchPoints: number;
     readonly msPointerEnabled: boolean;
     readonly plugins: PluginArray;
+    readonly pointerEnabled: boolean;
     readonly serviceWorker: ServiceWorkerContainer;
     readonly webdriver: boolean;
     getGamepads(): Array<Gamepad | null>;

@@ -2644,6 +2644,50 @@
                         "name": "th"
                     }
                 ]
+            },
+            "NodeSelector": {
+                "name": "NodeSelector",
+                "extends": "Object",
+                "no-interface-object": "1",
+                "methods": {
+                    "method": {
+                        "querySelectorAll": {
+                            "signature": [
+                                {
+                                    "param-min-required": 1,
+                                    "type": "NodeList",
+                                    "param": [
+                                        {
+                                            "name": "selectors",
+                                            "type": "DOMString",
+                                            "type-original": "DOMString"
+                                        }
+                                    ],
+                                    "type-original": "NodeList"
+                                }
+                            ],
+                            "name": "querySelectorAll"
+                        },
+                        "querySelector": {
+                            "signature": [
+                                {
+                                    "nullable": 1,
+                                    "param-min-required": 1,
+                                    "type": "Element",
+                                    "param": [
+                                        {
+                                            "name": "selectors",
+                                            "type": "DOMString",
+                                            "type-original": "DOMString"
+                                        }
+                                    ],
+                                    "type-original": "Element?"
+                                }
+                            ],
+                            "name": "querySelector"
+                        }
+                    }
+                }
             }
         }
     },

@@ -636,12 +636,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
         Pt.Printl(`interface ${cb.name} {`);
         Pt.IncreaseIndent();
-        if (cb["override-signatures"]) {
-            cb["override-signatures"]!.forEach(s => Pt.Printl(`${s};`));
-        }
-        else {
-            emitSignatures(cb.signature, "", "", s => Pt.Printl(s));
-        }
+        emitSignatures(cb, "", "", s => Pt.Printl(s));
         Pt.DecreaseIndent();
         Pt.Printl("}");
         Pt.Printl("");
@@ -761,23 +756,14 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         emitComments(m, printLine);
 
-        if (m["override-signatures"]) {
-            m["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
+        switch (m.name) {
+            case "createElement": return emitCreateElementOverloads(m);
+            case "createEvent": return emitCreateEventOverloads(m);
+            case "getElementsByTagName": return emitGetElementsByTagNameOverloads(m);
+            case "querySelector": return emitQuerySelectorOverloads(m);
+            case "querySelectorAll": return emitQuerySelectorAllOverloads(m);
         }
-        else {
-            switch (m.name) {
-                case "createElement": return emitCreateElementOverloads(m);
-                case "createEvent": return emitCreateEventOverloads(m);
-                case "getElementsByTagName": return emitGetElementsByTagNameOverloads(m);
-                case "querySelector": return emitQuerySelectorOverloads(m);
-                case "querySelectorAll": return emitQuerySelectorAllOverloads(m);
-            }
-            if (m["additional-signatures"]) {
-                m["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
-            }
-
-            emitSignatures(m.signature, prefix, m.name, printLine);
-        }
+        emitSignatures(m, prefix, m.name, printLine);
     }
 
     function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
@@ -787,9 +773,15 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
     }
 
-    function emitSignatures(sigs: Browser.Signature[] | undefined, prefix: string, name: string, printLine: (s: string) => void) {
-        if (sigs) {
-            sigs.forEach(sig => emitSignature(sig, prefix, name, printLine));
+    function emitSignatures(method: { signature?: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void) {
+        if (method["override-signatures"]) {
+            method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
+        }
+        else if (method.signature) {
+            if (method["additional-signatures"]) {
+                method["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
+            }
+            method.signature.forEach(sig => emitSignature(sig, prefix, name, printLine));
         }
     }
 

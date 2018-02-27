@@ -9301,7 +9301,7 @@ interface MutationRecord {
     readonly previousSibling: Node | null;
     readonly removedNodes: NodeList;
     readonly target: Node;
-    readonly type: string;
+    readonly type: MutationRecordType;
 }
 
 declare var MutationRecord: {
@@ -15995,6 +15995,7 @@ type HeadersInit = Headers | string[][] | { [key: string]: string };
 type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
 type IDBValidKey = number | string | Date | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
+type MutationRecordType = "attributes" | "characterData" | "childList";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";

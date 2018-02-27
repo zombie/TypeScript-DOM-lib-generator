@@ -2827,6 +2827,10 @@
             {
                 "override-type": "string | Algorithm",
                 "new-type": "AlgorithmIdentifier"
+            },
+            {
+                "new-type": "MutationRecordType",
+                "override-type": "\"attributes\" | \"characterData\" | \"childList\""
             }
         ]
     }

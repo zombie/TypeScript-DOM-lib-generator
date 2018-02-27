@@ -595,7 +595,7 @@ interface FileReader extends EventTarget {
     onloadstart: ((this: FileReader , ev: ProgressEvent) => any) | null;
     onprogress: ((this: FileReader , ev: ProgressEvent) => any) | null;
     readonly readyState: number;
-    readonly result: string | ArrayBuffer | null;
+    readonly result: any;
     abort(): void;
     readAsArrayBuffer(blob: Blob): void;
     readAsBinaryString(blob: Blob): void;

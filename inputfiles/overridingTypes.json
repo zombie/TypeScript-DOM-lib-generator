@@ -1698,6 +1698,17 @@
                         }
                     }
                 }
+            },
+            "FileReader": {
+                "name": "FileReader",
+                "properties": {
+                    "property": {
+                        "result": {
+                            "name": "result",
+                            "override-type": "any"
+                        }
+                    }
+                }
             }
         }
     },

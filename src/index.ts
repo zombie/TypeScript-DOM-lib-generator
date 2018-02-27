@@ -536,7 +536,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the querySelector method
     function emitQuerySelectorOverloads(m: Browser.Method) {
-        if (matchSingleParamMethodSignature(m, "querySelector", "Element", "string")) {
+        if (matchSingleParamMethodSignature(m, "querySelector", "Element | null", "string")) {
             Pt.Printl("querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;");
             Pt.Printl("querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;");
             Pt.Printl("querySelector<E extends Element = Element>(selectors: string): E | null;");

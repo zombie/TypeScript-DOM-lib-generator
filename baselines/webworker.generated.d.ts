@@ -424,7 +424,7 @@ interface DOMStringList {
     readonly length: number;
     contains(str: string): boolean;
     item(index: number): string | null;
-    [index: number]: string | null;
+    [index: number]: string;
 }
 
 declare var DOMStringList: {
@@ -565,7 +565,7 @@ declare var File: {
 interface FileList {
     readonly length: number;
     item(index: number): File | null;
-    [index: number]: File | null;
+    [index: number]: File;
 }
 
 declare var FileList: {

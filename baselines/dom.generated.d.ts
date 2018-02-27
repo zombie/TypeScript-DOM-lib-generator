@@ -2270,7 +2270,7 @@ declare var CSSRule: {
 interface CSSRuleList {
     readonly length: number;
     item(index: number): CSSRule | null;
-    [index: number]: CSSRule | null;
+    [index: number]: CSSRule;
 }
 
 declare var CSSRuleList: {
@@ -3259,7 +3259,7 @@ interface DOMStringList {
     readonly length: number;
     contains(str: string): boolean;
     item(index: number): string | null;
-    [index: number]: string | null;
+    [index: number]: string;
 }
 
 declare var DOMStringList: {
@@ -3284,7 +3284,7 @@ interface DOMTokenList {
     remove(...tokens: string[]): void;
     toString(): string;
     toggle(token: string, force?: boolean): boolean;
-    [index: number]: string | null;
+    [index: number]: string;
 }
 
 declare var DOMTokenList: {
@@ -4698,7 +4698,7 @@ declare var File: {
 interface FileList {
     readonly length: number;
     item(index: number): File | null;
-    [index: number]: File | null;
+    [index: number]: File;
 }
 
 declare var FileList: {
@@ -4915,7 +4915,7 @@ interface HTMLAllCollection {
     readonly length: number;
     item(nameOrIndex?: string): HTMLCollection | Element | null;
     namedItem(name: string): HTMLCollection | Element | null;
-    [index: number]: Element | null;
+    [index: number]: Element;
 }
 
 declare var HTMLAllCollection: {
@@ -5307,7 +5307,7 @@ interface HTMLCollectionBase {
      * Retrieves an object from various collections.
      */
     item(index: number): Element;
-    [index: number]: Element | null;
+    [index: number]: Element;
 }
 
 interface HTMLCollection extends HTMLCollectionBase {
@@ -9002,7 +9002,7 @@ interface MediaList {
     deleteMedium(medium: string): void;
     item(index: number): string | null;
     toString(): number;
-    [index: number]: string | null;
+    [index: number]: string;
 }
 
 declare var MediaList: {
@@ -9317,7 +9317,7 @@ interface NamedNodeMap {
     removeNamedItemNS(namespace: string | null, localName: string): Attr;
     setNamedItem(attr: Attr): Attr | null;
     setNamedItemNS(attr: Attr): Attr | null;
-    [index: number]: Attr | null;
+    [index: number]: Attr;
 }
 
 declare var NamedNodeMap: {
@@ -13081,7 +13081,7 @@ declare var StyleSheet: {
 interface StyleSheetList {
     readonly length: number;
     item(index: number): StyleSheet | null;
-    [index: number]: StyleSheet | null;
+    [index: number]: StyleSheet;
 }
 
 declare var StyleSheetList: {
@@ -13366,7 +13366,7 @@ interface TouchEventInit extends EventModifierInit {
 interface TouchList {
     readonly length: number;
     item(index: number): Touch | null;
-    [index: number]: Touch | null;
+    [index: number]: Touch;
 }
 
 declare var TouchList: {

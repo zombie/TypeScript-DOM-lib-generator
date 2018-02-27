@@ -987,7 +987,11 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 .forEach(m => {
                     let indexer = (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
                     if (indexer) {
-                        Pt.Printl(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType(m.signature[0])};`);
+                        Pt.Printl(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType({
+                            type: m.signature[0].type,
+                            subtype: m.signature[0].subtype,
+                            nullable: undefined
+                        })};`);
                     }
                 });
         }

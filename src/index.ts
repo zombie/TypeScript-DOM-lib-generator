@@ -370,7 +370,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
     function convertDomTypeToTsType(obj: Browser.Typed): string {
-        if (!obj || !obj.type) throw new Error("Missing type " + JSON.stringify(obj));
+        if (obj["override-type"]) return obj["override-type"]!;
+        if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
         const type = convertDomTypeToTsTypeWorker(obj)
         return type.nullable ? makeNullable(type.name) : type.name;
     }
@@ -1130,18 +1131,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (dict.members) {
             mapToArray(dict.members.member)
                 .sort(compareName)
-                .forEach(m => {
-                    let tsType;
-                    if (m["override-type"]) {
-                        tsType = m["override-type"];
-                    }
-                    else {
-                        tsType = convertDomTypeToTsType(m);
-                        tsType = m.nullable ? makeNullable(tsType) : tsType;
-                    }
-                    let requiredModifier = m.required === 1 ? "" : "?";
-                    Pt.Printl(`${m.name}${requiredModifier}: ${tsType};`);
-                });
+                .forEach(m => Pt.Printl(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`));
         }
         Pt.DecreaseIndent();
         Pt.Printl("}");
@@ -1155,7 +1145,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
-        Pt.Printl(`type ${typeDef["new-type"]} = ${typeDef["override-type"] || convertDomTypeToTsType(typeDef)};`);
+        Pt.Printl(`type ${typeDef["new-type"]} = ${convertDomTypeToTsType(typeDef)};`);
     }
 
     function emitTypeDefs() {

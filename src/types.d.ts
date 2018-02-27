@@ -3,6 +3,7 @@ export type Typed = {
     "subtype"?: Typed;
     "nullable"?: 1;
     "type-original"?: string;
+    "override-type"?: string;
 };
 
 export type Param = {

@@ -1,4 +1,3 @@
-
 /////////////////////////////
 /// DOM ES6 APIs
 /////////////////////////////
@@ -7,56 +6,56 @@ interface AudioTrackList {
     [Symbol.iterator](): IterableIterator<AudioTrack>
 }
 
-interface ClientRectList {
-    [Symbol.iterator](): IterableIterator<ClientRect>
-}
-
 interface CSSRuleList {
-    [Symbol.iterator](): IterableIterator<CSSRule>
+    [Symbol.iterator](): IterableIterator<CSSRule | null>
 }
 
 interface CSSStyleDeclaration {
     [Symbol.iterator](): IterableIterator<string>
 }
 
+interface ClientRectList {
+    [Symbol.iterator](): IterableIterator<ClientRect>
+}
+
+interface DOMStringList {
+    [Symbol.iterator](): IterableIterator<string | null>
+}
+
+interface DOMTokenList {
+    [Symbol.iterator](): IterableIterator<string | null>
+}
+
 interface DataTransferItemList {
     [Symbol.iterator](): IterableIterator<File>
 }
 
-interface DOMStringList {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
-interface DOMTokenList {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
 interface FileList {
-    [Symbol.iterator](): IterableIterator<File>
+    [Symbol.iterator](): IterableIterator<File | null>
 }
 
 interface HTMLAllCollection {
-    [Symbol.iterator](): IterableIterator<Element>
+    [Symbol.iterator](): IterableIterator<Element | null>
 }
 
 interface HTMLCollection {
-    [Symbol.iterator](): IterableIterator<Element>
-}
-
-interface MediaList {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
-interface MimeTypeArray {
-    [Symbol.iterator](): IterableIterator<Plugin>
+    [Symbol.iterator](): IterableIterator<Element | null>
 }
 
 interface MSRangeCollection {
     [Symbol.iterator](): IterableIterator<Range>
 }
 
+interface MediaList {
+    [Symbol.iterator](): IterableIterator<string | null>
+}
+
+interface MimeTypeArray {
+    [Symbol.iterator](): IterableIterator<Plugin>
+}
+
 interface NamedNodeMap {
-    [Symbol.iterator](): IterableIterator<Attr>
+    [Symbol.iterator](): IterableIterator<Attr | null>
 }
 
 interface NodeList {
@@ -75,12 +74,8 @@ interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>
 }
 
-interface Storage {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
 interface StyleSheetList {
-    [Symbol.iterator](): IterableIterator<StyleSheet>
+    [Symbol.iterator](): IterableIterator<StyleSheet | null>
 }
 
 interface StyleSheetPageList {
@@ -96,7 +91,7 @@ interface TextTrackList {
 }
 
 interface TouchList {
-    [Symbol.iterator](): IterableIterator<Touch>
+    [Symbol.iterator](): IterableIterator<Touch | null>
 }
 
 interface VideoTrackList {

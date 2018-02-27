@@ -252,19 +252,19 @@
                         },
                         "scroll": {
                             "name": "scroll",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "scroll(options?: ScrollToOptions): void"
                             ]
                         },
                         "scrollTo": {
                             "name": "scrollTo",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "scrollTo(options?: ScrollToOptions): void"
                             ]
                         },
                         "scrollBy": {
                             "name": "scrollBy",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "scrollBy(options?: ScrollToOptions): void"
                             ]
                         }

@@ -3058,5 +3058,11 @@
         "interface": "HTMLElementEventMap",
         "name": "\"focusout\"",
         "type": "FocusEvent"
+    },
+    {
+        "kind": "typedef",
+        "flavor": "Web",
+        "name": "MutationRecordType",
+        "type": "\"attributes\" | \"characterData\" | \"childList\""
     }
 ]

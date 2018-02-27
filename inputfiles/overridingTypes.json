@@ -1847,5 +1847,12 @@
         "signatures": [
             "getSubscription(): Promise<PushSubscription | null>"
         ]
+    },
+    {
+        "kind": "property",
+        "interface": "MutationRecord",
+        "name": "type",
+        "readonly": true,
+        "type": "MutationRecordType"
     }
 ]

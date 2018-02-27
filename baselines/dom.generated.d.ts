@@ -15760,7 +15760,6 @@ declare var Blob: typeof Blob;
 declare var URL: typeof URL;
 declare var URLSearchParams: typeof URLSearchParams;
 declare var applicationCache: ApplicationCache;
-declare var browser: BhxBrowser;
 declare var caches: CacheStorage;
 declare var clientInformation: Navigator;
 declare var closed: boolean;

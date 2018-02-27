@@ -2761,6 +2761,10 @@
             {
                 "override-type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\"",
                 "new-type": "OrientationLockType"
+            },
+            {
+                "override-type": "number | string | Date | IDBArrayKey",
+                "new-type": "IDBValidKey"
             }
         ]
     }

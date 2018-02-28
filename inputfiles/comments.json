@@ -768,9 +768,6 @@
                         "write": {
                             "comment": "/**\r\n     * Writes one or more HTML expressions to a document in the specified window.\r\n     * @param content Specifies the text and HTML tags to write.\r\n     */"
                         },
-                        "updateSettings": {
-                            "comment": "/**\r\n     * Allows updating the print settings for the page.\r\n     */"
-                        },
                         "createElement": {
                             "comment": "/**\r\n     * Creates an instance of the element for the specified tag.\r\n     * @param tagName The name of an element.\r\n     */"
                         },

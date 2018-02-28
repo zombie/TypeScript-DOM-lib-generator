@@ -2693,7 +2693,7 @@ interface CSSStyleSheet extends StyleSheet {
     /** @deprecated */
     readonly owningElement: Element;
     /** @deprecated */
-    readonly pages: StyleSheetPageList;
+    readonly pages: any;
     /** @deprecated */
     readonly readOnly: boolean;
     readonly rules: CSSRuleList;
@@ -3451,9 +3451,9 @@ interface DhKeyGenParams extends Algorithm {
 
 interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "abort": UIEvent;
-    "activate": UIEvent;
-    "beforeactivate": UIEvent;
-    "beforedeactivate": UIEvent;
+    "activate": Event;
+    "beforeactivate": Event;
+    "beforedeactivate": Event;
     "blur": FocusEvent;
     "canplay": Event;
     "canplaythrough": Event;
@@ -3461,7 +3461,7 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "click": MouseEvent;
     "contextmenu": PointerEvent;
     "dblclick": MouseEvent;
-    "deactivate": UIEvent;
+    "deactivate": Event;
     "drag": DragEvent;
     "dragend": DragEvent;
     "dragenter": DragEvent;
@@ -3491,25 +3491,25 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
     "mousewheel": WheelEvent;
-    "MSContentZoom": UIEvent;
-    "MSGestureChange": MSGestureEvent;
-    "MSGestureDoubleTap": MSGestureEvent;
-    "MSGestureEnd": MSGestureEvent;
-    "MSGestureHold": MSGestureEvent;
-    "MSGestureStart": MSGestureEvent;
-    "MSGestureTap": MSGestureEvent;
-    "MSInertiaStart": MSGestureEvent;
-    "MSManipulationStateChanged": MSManipulationEvent;
-    "MSPointerCancel": MSPointerEvent;
-    "MSPointerDown": MSPointerEvent;
-    "MSPointerEnter": MSPointerEvent;
-    "MSPointerLeave": MSPointerEvent;
-    "MSPointerMove": MSPointerEvent;
-    "MSPointerOut": MSPointerEvent;
-    "MSPointerOver": MSPointerEvent;
-    "MSPointerUp": MSPointerEvent;
-    "mssitemodejumplistitemremoved": MSSiteModeEvent;
-    "msthumbnailclick": MSSiteModeEvent;
+    "MSContentZoom": Event;
+    "MSGestureChange": Event;
+    "MSGestureDoubleTap": Event;
+    "MSGestureEnd": Event;
+    "MSGestureHold": Event;
+    "MSGestureStart": Event;
+    "MSGestureTap": Event;
+    "MSInertiaStart": Event;
+    "MSManipulationStateChanged": Event;
+    "MSPointerCancel": Event;
+    "MSPointerDown": Event;
+    "MSPointerEnter": Event;
+    "MSPointerLeave": Event;
+    "MSPointerMove": Event;
+    "MSPointerOut": Event;
+    "MSPointerOver": Event;
+    "MSPointerUp": Event;
+    "mssitemodejumplistitemremoved": Event;
+    "msthumbnailclick": Event;
     "pause": Event;
     "play": Event;
     "playing": Event;
@@ -3530,10 +3530,10 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
+    "touchcancel": Event;
+    "touchend": Event;
+    "touchmove": Event;
+    "touchstart": Event;
     "volumechange": Event;
     "waiting": Event;
     "webkitfullscreenchange": Event;
@@ -3664,17 +3664,17 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * Fires when the object is set as the active element.
      * @param ev The event.
      */
-    onactivate: ((this: Document , ev: UIEvent) => any) | null;
+    onactivate: ((this: Document , ev: Event) => any) | null;
     /**
      * Fires immediately before the object is set as the active element.
      * @param ev The event.
      */
-    onbeforeactivate: ((this: Document , ev: UIEvent) => any) | null;
+    onbeforeactivate: ((this: Document , ev: Event) => any) | null;
     /**
      * Fires immediately before the activeElement is changed from the current object to another object in the parent document.
      * @param ev The event.
      */
-    onbeforedeactivate: ((this: Document , ev: UIEvent) => any) | null;
+    onbeforedeactivate: ((this: Document , ev: Event) => any) | null;
     /**
      * Fires when the object loses the input focus.
      * @param ev The focus event.
@@ -3710,7 +3710,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * Fires when the activeElement is changed from the current object to another object in the parent document.
      * @param ev The UI Event
      */
-    ondeactivate: ((this: Document , ev: UIEvent) => any) | null;
+    ondeactivate: ((this: Document , ev: Event) => any) | null;
     /**
      * Fires on the source object continuously during a drag operation.
      * @param ev The event.
@@ -3836,33 +3836,33 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param ev The mouse event
      */
     onmousewheel: ((this: Document , ev: WheelEvent) => any) | null;
-    onmscontentzoom: ((this: Document , ev: UIEvent) => any) | null;
-    onmsgesturechange: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsgesturedoubletap: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsgestureend: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsgesturehold: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsgesturestart: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsgesturetap: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsinertiastart: ((this: Document , ev: MSGestureEvent) => any) | null;
-    onmsmanipulationstatechanged: ((this: Document , ev: MSManipulationEvent) => any) | null;
-    onmspointercancel: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointerdown: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointerenter: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointerleave: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointermove: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointerout: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointerover: ((this: Document , ev: MSPointerEvent) => any) | null;
-    onmspointerup: ((this: Document , ev: MSPointerEvent) => any) | null;
+    onmscontentzoom: ((this: Document , ev: Event) => any) | null;
+    onmsgesturechange: ((this: Document , ev: Event) => any) | null;
+    onmsgesturedoubletap: ((this: Document , ev: Event) => any) | null;
+    onmsgestureend: ((this: Document , ev: Event) => any) | null;
+    onmsgesturehold: ((this: Document , ev: Event) => any) | null;
+    onmsgesturestart: ((this: Document , ev: Event) => any) | null;
+    onmsgesturetap: ((this: Document , ev: Event) => any) | null;
+    onmsinertiastart: ((this: Document , ev: Event) => any) | null;
+    onmsmanipulationstatechanged: ((this: Document , ev: Event) => any) | null;
+    onmspointercancel: ((this: Document , ev: Event) => any) | null;
+    onmspointerdown: ((this: Document , ev: Event) => any) | null;
+    onmspointerenter: ((this: Document , ev: Event) => any) | null;
+    onmspointerleave: ((this: Document , ev: Event) => any) | null;
+    onmspointermove: ((this: Document , ev: Event) => any) | null;
+    onmspointerout: ((this: Document , ev: Event) => any) | null;
+    onmspointerover: ((this: Document , ev: Event) => any) | null;
+    onmspointerup: ((this: Document , ev: Event) => any) | null;
     /**
      * Occurs when an item is removed from a Jump List of a webpage running in Site Mode.
      * @param ev The event.
      */
-    onmssitemodejumplistitemremoved: ((this: Document , ev: MSSiteModeEvent) => any) | null;
+    onmssitemodejumplistitemremoved: ((this: Document , ev: Event) => any) | null;
     /**
      * Occurs when a user clicks a button in a Thumbnail Toolbar of a webpage running in Site Mode.
      * @param ev The event.
      */
-    onmsthumbnailclick: ((this: Document , ev: MSSiteModeEvent) => any) | null;
+    onmsthumbnailclick: ((this: Document , ev: Event) => any) | null;
     /**
      * Occurs when playback is paused.
      * @param ev The event.
@@ -3947,10 +3947,10 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param ev The event.
      */
     ontimeupdate: ((this: Document , ev: Event) => any) | null;
-    ontouchcancel: ((this: Document , ev: TouchEvent) => any) | null;
-    ontouchend: ((this: Document , ev: TouchEvent) => any) | null;
-    ontouchmove: ((this: Document , ev: TouchEvent) => any) | null;
-    ontouchstart: ((this: Document , ev: TouchEvent) => any) | null;
+    ontouchcancel: ((this: Document , ev: Event) => any) | null;
+    ontouchend: ((this: Document , ev: Event) => any) | null;
+    ontouchmove: ((this: Document , ev: Event) => any) | null;
+    ontouchstart: ((this: Document , ev: Event) => any) | null;
     onvisibilitychange: (this: Document, ev: Event) => any;
     /**
      * Occurs when the volume is changed, or playback is muted or unmuted.
@@ -4275,12 +4275,8 @@ interface DocumentEvent {
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
     createEvent(eventInterface: "MSDCCEvent"): MSDCCEvent;
     createEvent(eventInterface: "MSDSHEvent"): MSDSHEvent;
-    createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
-    createEvent(eventInterface: "MSManipulationEvent"): MSManipulationEvent;
     createEvent(eventInterface: "MSMediaKeyMessageEvent"): MSMediaKeyMessageEvent;
     createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
-    createEvent(eventInterface: "MSPointerEvent"): MSPointerEvent;
-    createEvent(eventInterface: "MSSiteModeEvent"): MSSiteModeEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaStreamErrorEvent"): MediaStreamErrorEvent;
@@ -4314,7 +4310,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
     createEvent(eventInterface: "TextEvent"): TextEvent;
-    createEvent(eventInterface: "TouchEvent"): TouchEvent;
     createEvent(eventInterface: "TrackEvent"): TrackEvent;
     createEvent(eventInterface: "TransitionEvent"): TransitionEvent;
     createEvent(eventInterface: "UIEvent"): UIEvent;
@@ -4417,27 +4412,27 @@ interface ElementEventMap extends GlobalEventHandlersEventMap {
     "command": Event;
     "gotpointercapture": PointerEvent;
     "lostpointercapture": PointerEvent;
-    "MSGestureChange": MSGestureEvent;
-    "MSGestureDoubleTap": MSGestureEvent;
-    "MSGestureEnd": MSGestureEvent;
-    "MSGestureHold": MSGestureEvent;
-    "MSGestureStart": MSGestureEvent;
-    "MSGestureTap": MSGestureEvent;
-    "MSGotPointerCapture": MSPointerEvent;
-    "MSInertiaStart": MSGestureEvent;
-    "MSLostPointerCapture": MSPointerEvent;
-    "MSPointerCancel": MSPointerEvent;
-    "MSPointerDown": MSPointerEvent;
-    "MSPointerEnter": MSPointerEvent;
-    "MSPointerLeave": MSPointerEvent;
-    "MSPointerMove": MSPointerEvent;
-    "MSPointerOut": MSPointerEvent;
-    "MSPointerOver": MSPointerEvent;
-    "MSPointerUp": MSPointerEvent;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
+    "MSGestureChange": Event;
+    "MSGestureDoubleTap": Event;
+    "MSGestureEnd": Event;
+    "MSGestureHold": Event;
+    "MSGestureStart": Event;
+    "MSGestureTap": Event;
+    "MSGotPointerCapture": Event;
+    "MSInertiaStart": Event;
+    "MSLostPointerCapture": Event;
+    "MSPointerCancel": Event;
+    "MSPointerDown": Event;
+    "MSPointerEnter": Event;
+    "MSPointerLeave": Event;
+    "MSPointerMove": Event;
+    "MSPointerOut": Event;
+    "MSPointerOver": Event;
+    "MSPointerUp": Event;
+    "touchcancel": Event;
+    "touchend": Event;
+    "touchmove": Event;
+    "touchstart": Event;
     "webkitfullscreenchange": Event;
     "webkitfullscreenerror": Event;
 }
@@ -4459,27 +4454,27 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     oncommand: ((this: Element , ev: Event) => any) | null;
     ongotpointercapture: ((this: Element , ev: PointerEvent) => any) | null;
     onlostpointercapture: ((this: Element , ev: PointerEvent) => any) | null;
-    onmsgesturechange: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmsgesturedoubletap: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmsgestureend: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmsgesturehold: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmsgesturestart: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmsgesturetap: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmsgotpointercapture: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmsinertiastart: ((this: Element , ev: MSGestureEvent) => any) | null;
-    onmslostpointercapture: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointercancel: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointerdown: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointerenter: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointerleave: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointermove: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointerout: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointerover: ((this: Element , ev: MSPointerEvent) => any) | null;
-    onmspointerup: ((this: Element , ev: MSPointerEvent) => any) | null;
-    ontouchcancel: ((this: Element , ev: TouchEvent) => any) | null;
-    ontouchend: ((this: Element , ev: TouchEvent) => any) | null;
-    ontouchmove: ((this: Element , ev: TouchEvent) => any) | null;
-    ontouchstart: ((this: Element , ev: TouchEvent) => any) | null;
+    onmsgesturechange: ((this: Element , ev: Event) => any) | null;
+    onmsgesturedoubletap: ((this: Element , ev: Event) => any) | null;
+    onmsgestureend: ((this: Element , ev: Event) => any) | null;
+    onmsgesturehold: ((this: Element , ev: Event) => any) | null;
+    onmsgesturestart: ((this: Element , ev: Event) => any) | null;
+    onmsgesturetap: ((this: Element , ev: Event) => any) | null;
+    onmsgotpointercapture: ((this: Element , ev: Event) => any) | null;
+    onmsinertiastart: ((this: Element , ev: Event) => any) | null;
+    onmslostpointercapture: ((this: Element , ev: Event) => any) | null;
+    onmspointercancel: ((this: Element , ev: Event) => any) | null;
+    onmspointerdown: ((this: Element , ev: Event) => any) | null;
+    onmspointerenter: ((this: Element , ev: Event) => any) | null;
+    onmspointerleave: ((this: Element , ev: Event) => any) | null;
+    onmspointermove: ((this: Element , ev: Event) => any) | null;
+    onmspointerout: ((this: Element , ev: Event) => any) | null;
+    onmspointerover: ((this: Element , ev: Event) => any) | null;
+    onmspointerup: ((this: Element , ev: Event) => any) | null;
+    ontouchcancel: ((this: Element , ev: Event) => any) | null;
+    ontouchend: ((this: Element , ev: Event) => any) | null;
+    ontouchmove: ((this: Element , ev: Event) => any) | null;
+    ontouchstart: ((this: Element , ev: Event) => any) | null;
     onwebkitfullscreenchange: ((this: Element , ev: Event) => any) | null;
     onwebkitfullscreenerror: ((this: Element , ev: Event) => any) | null;
     outerHTML: string;
@@ -4515,7 +4510,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     insertAdjacentHTML(where: InsertPosition, html: string): void;
     insertAdjacentText(where: InsertPosition, text: string): void;
     matches(selectors: string): boolean;
-    msGetRegionContent(): MSRangeCollection;
+    msGetRegionContent(): any;
     msGetUntransformedBounds(): ClientRect;
     msMatchesSelector(selectors: string): boolean;
     msReleasePointerCapture(pointerId: number): void;
@@ -5447,12 +5442,12 @@ declare var HTMLDocument: {
 
 interface HTMLElementEventMap extends ElementEventMap {
     "abort": UIEvent;
-    "activate": UIEvent;
-    "beforeactivate": UIEvent;
-    "beforecopy": ClipboardEvent;
-    "beforecut": ClipboardEvent;
-    "beforedeactivate": UIEvent;
-    "beforepaste": ClipboardEvent;
+    "activate": Event;
+    "beforeactivate": Event;
+    "beforecopy": Event;
+    "beforecut": Event;
+    "beforedeactivate": Event;
+    "beforepaste": Event;
     "blur": FocusEvent;
     "canplay": Event;
     "canplaythrough": Event;
@@ -5463,7 +5458,7 @@ interface HTMLElementEventMap extends ElementEventMap {
     "cuechange": Event;
     "cut": ClipboardEvent;
     "dblclick": MouseEvent;
-    "deactivate": UIEvent;
+    "deactivate": Event;
     "drag": DragEvent;
     "dragend": DragEvent;
     "dragenter": DragEvent;
@@ -5493,8 +5488,8 @@ interface HTMLElementEventMap extends ElementEventMap {
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
     "mousewheel": WheelEvent;
-    "MSContentZoom": UIEvent;
-    "MSManipulationStateChanged": MSManipulationEvent;
+    "MSContentZoom": Event;
+    "MSManipulationStateChanged": Event;
     "paste": ClipboardEvent;
     "pause": Event;
     "play": Event;
@@ -5532,12 +5527,12 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     readonly offsetTop: number;
     readonly offsetWidth: number;
     onabort: ((this: HTMLElement , ev: UIEvent) => any) | null;
-    onactivate: ((this: HTMLElement , ev: UIEvent) => any) | null;
-    onbeforeactivate: ((this: HTMLElement , ev: UIEvent) => any) | null;
-    onbeforecopy: ((this: HTMLElement , ev: ClipboardEvent) => any) | null;
-    onbeforecut: ((this: HTMLElement , ev: ClipboardEvent) => any) | null;
-    onbeforedeactivate: ((this: HTMLElement , ev: UIEvent) => any) | null;
-    onbeforepaste: ((this: HTMLElement , ev: ClipboardEvent) => any) | null;
+    onactivate: ((this: HTMLElement , ev: Event) => any) | null;
+    onbeforeactivate: ((this: HTMLElement , ev: Event) => any) | null;
+    onbeforecopy: ((this: HTMLElement , ev: Event) => any) | null;
+    onbeforecut: ((this: HTMLElement , ev: Event) => any) | null;
+    onbeforedeactivate: ((this: HTMLElement , ev: Event) => any) | null;
+    onbeforepaste: ((this: HTMLElement , ev: Event) => any) | null;
     onblur: ((this: HTMLElement , ev: FocusEvent) => any) | null;
     oncanplay: ((this: HTMLElement , ev: Event) => any) | null;
     oncanplaythrough: ((this: HTMLElement , ev: Event) => any) | null;
@@ -5548,7 +5543,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     oncuechange: ((this: HTMLElement , ev: Event) => any) | null;
     oncut: ((this: HTMLElement , ev: ClipboardEvent) => any) | null;
     ondblclick: ((this: HTMLElement , ev: MouseEvent) => any) | null;
-    ondeactivate: ((this: HTMLElement , ev: UIEvent) => any) | null;
+    ondeactivate: ((this: HTMLElement , ev: Event) => any) | null;
     ondrag: ((this: HTMLElement , ev: DragEvent) => any) | null;
     ondragend: ((this: HTMLElement , ev: DragEvent) => any) | null;
     ondragenter: ((this: HTMLElement , ev: DragEvent) => any) | null;
@@ -5578,8 +5573,8 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     onmouseover: ((this: HTMLElement , ev: MouseEvent) => any) | null;
     onmouseup: ((this: HTMLElement , ev: MouseEvent) => any) | null;
     onmousewheel: ((this: HTMLElement , ev: WheelEvent) => any) | null;
-    onmscontentzoom: ((this: HTMLElement , ev: UIEvent) => any) | null;
-    onmsmanipulationstatechanged: ((this: HTMLElement , ev: MSManipulationEvent) => any) | null;
+    onmscontentzoom: ((this: HTMLElement , ev: Event) => any) | null;
+    onmsmanipulationstatechanged: ((this: HTMLElement , ev: Event) => any) | null;
     onpaste: ((this: HTMLElement , ev: ClipboardEvent) => any) | null;
     onpause: ((this: HTMLElement , ev: Event) => any) | null;
     onplay: ((this: HTMLElement , ev: Event) => any) | null;
@@ -6607,7 +6602,7 @@ declare var HTMLMarqueeElement: {
 
 interface HTMLMediaElementEventMap extends HTMLElementEventMap {
     "encrypted": MediaEncryptedEvent;
-    "msneedkey": MSMediaKeyNeededEvent;
+    "msneedkey": Event;
 }
 
 interface HTMLMediaElement extends HTMLElement {
@@ -6702,7 +6697,7 @@ interface HTMLMediaElement extends HTMLElement {
     readonly networkState: number;
     onencrypted: ((this: HTMLMediaElement , ev: MediaEncryptedEvent) => any) | null;
     /** @deprecated */
-    onmsneedkey: ((this: HTMLMediaElement , ev: MSMediaKeyNeededEvent) => any) | null;
+    onmsneedkey: ((this: HTMLMediaElement , ev: Event) => any) | null;
     /**
      * Gets a flag that specifies whether playback is paused.
      */
@@ -8665,35 +8660,6 @@ declare var MSInputMethodContext: {
     new(): MSInputMethodContext;
 };
 
-interface MSManipulationEvent extends UIEvent {
-    readonly currentState: number;
-    readonly inertiaDestinationX: number;
-    readonly inertiaDestinationY: number;
-    readonly lastState: number;
-    initMSManipulationEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, lastState: number, currentState: number): void;
-    readonly MS_MANIPULATION_STATE_ACTIVE: number;
-    readonly MS_MANIPULATION_STATE_CANCELLED: number;
-    readonly MS_MANIPULATION_STATE_COMMITTED: number;
-    readonly MS_MANIPULATION_STATE_DRAGGING: number;
-    readonly MS_MANIPULATION_STATE_INERTIA: number;
-    readonly MS_MANIPULATION_STATE_PRESELECT: number;
-    readonly MS_MANIPULATION_STATE_SELECTING: number;
-    readonly MS_MANIPULATION_STATE_STOPPED: number;
-}
-
-declare var MSManipulationEvent: {
-    prototype: MSManipulationEvent;
-    new(): MSManipulationEvent;
-    readonly MS_MANIPULATION_STATE_ACTIVE: number;
-    readonly MS_MANIPULATION_STATE_CANCELLED: number;
-    readonly MS_MANIPULATION_STATE_COMMITTED: number;
-    readonly MS_MANIPULATION_STATE_DRAGGING: number;
-    readonly MS_MANIPULATION_STATE_INERTIA: number;
-    readonly MS_MANIPULATION_STATE_PRESELECT: number;
-    readonly MS_MANIPULATION_STATE_SELECTING: number;
-    readonly MS_MANIPULATION_STATE_STOPPED: number;
-};
-
 interface MSMediaKeyError {
     readonly code: number;
     readonly systemCode: number;
@@ -8792,27 +8758,6 @@ declare var MSPointerEvent: {
     new(typeArg: string, eventInitDict?: PointerEventInit): MSPointerEvent;
 };
 
-interface MSRangeCollection {
-    readonly length: number;
-    item(index: number): Range;
-    [index: number]: Range;
-}
-
-declare var MSRangeCollection: {
-    prototype: MSRangeCollection;
-    new(): MSRangeCollection;
-};
-
-interface MSSiteModeEvent extends Event {
-    readonly actionURL: string;
-    readonly buttonID: number;
-}
-
-declare var MSSiteModeEvent: {
-    prototype: MSSiteModeEvent;
-    new(): MSSiteModeEvent;
-};
-
 interface MSStream {
     readonly type: string;
     msClose(): void;
@@ -8825,21 +8770,21 @@ declare var MSStream: {
 };
 
 interface MSStreamReaderEventMap {
-    "abort": ProgressEvent;
-    "error": ProgressEvent;
-    "load": ProgressEvent;
+    "abort": UIEvent;
+    "error": ErrorEvent;
+    "load": Event;
     "loadend": ProgressEvent;
-    "loadstart": ProgressEvent;
+    "loadstart": Event;
     "progress": ProgressEvent;
 }
 
 interface MSStreamReader extends EventTarget {
     readonly error: DOMError;
-    onabort: ((this: MSStreamReader , ev: ProgressEvent) => any) | null;
-    onerror: ((this: MSStreamReader , ev: ProgressEvent) => any) | null;
-    onload: ((this: MSStreamReader , ev: ProgressEvent) => any) | null;
+    onabort: ((this: MSStreamReader , ev: UIEvent) => any) | null;
+    onerror: ((this: MSStreamReader , ev: ErrorEvent) => any) | null;
+    onload: ((this: MSStreamReader , ev: Event) => any) | null;
     onloadend: ((this: MSStreamReader , ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: MSStreamReader , ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: MSStreamReader , ev: Event) => any) | null;
     onprogress: ((this: MSStreamReader , ev: ProgressEvent) => any) | null;
     readonly readyState: number;
     readonly result: any;
@@ -9728,12 +9673,6 @@ declare var PannerNode: {
 };
 
 interface ParentNode {
-    readonly childElementCount: number;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
-}
-
-interface ParentNode {
     readonly children: HTMLCollection;
     querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
@@ -9741,6 +9680,12 @@ interface ParentNode {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
+}
+
+interface ParentNode {
+    readonly childElementCount: number;
+    readonly firstElementChild: Element | null;
+    readonly lastElementChild: Element | null;
 }
 
 interface Path2D extends CanvasPathMethods {
@@ -13090,17 +13035,6 @@ declare var StyleSheetList: {
     new(): StyleSheetList;
 };
 
-interface StyleSheetPageList {
-    readonly length: number;
-    item(index: number): CSSPageRule;
-    [index: number]: CSSPageRule;
-}
-
-declare var StyleSheetPageList: {
-    prototype: StyleSheetPageList;
-    new(): StyleSheetPageList;
-};
-
 interface SubtleCrypto {
     decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): PromiseLike<ArrayBuffer>;
     deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): PromiseLike<ArrayBuffer>;
@@ -14891,21 +14825,21 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
     "mousewheel": WheelEvent;
-    "MSGestureChange": MSGestureEvent;
-    "MSGestureDoubleTap": MSGestureEvent;
-    "MSGestureEnd": MSGestureEvent;
-    "MSGestureHold": MSGestureEvent;
-    "MSGestureStart": MSGestureEvent;
-    "MSGestureTap": MSGestureEvent;
-    "MSInertiaStart": MSGestureEvent;
-    "MSPointerCancel": MSPointerEvent;
-    "MSPointerDown": MSPointerEvent;
-    "MSPointerEnter": MSPointerEvent;
-    "MSPointerLeave": MSPointerEvent;
-    "MSPointerMove": MSPointerEvent;
-    "MSPointerOut": MSPointerEvent;
-    "MSPointerOver": MSPointerEvent;
-    "MSPointerUp": MSPointerEvent;
+    "MSGestureChange": Event;
+    "MSGestureDoubleTap": Event;
+    "MSGestureEnd": Event;
+    "MSGestureHold": Event;
+    "MSGestureStart": Event;
+    "MSGestureTap": Event;
+    "MSInertiaStart": Event;
+    "MSPointerCancel": Event;
+    "MSPointerDown": Event;
+    "MSPointerEnter": Event;
+    "MSPointerLeave": Event;
+    "MSPointerMove": Event;
+    "MSPointerOut": Event;
+    "MSPointerOver": Event;
+    "MSPointerUp": Event;
     "offline": Event;
     "online": Event;
     "orientationchange": Event;
@@ -14929,10 +14863,10 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
+    "touchcancel": Event;
+    "touchend": Event;
+    "touchmove": Event;
+    "touchstart": Event;
     "unload": Event;
     "volumechange": Event;
     "vrdisplayactivate": Event;
@@ -15023,21 +14957,21 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onmouseover: ((this: Window , ev: MouseEvent) => any) | null;
     onmouseup: ((this: Window , ev: MouseEvent) => any) | null;
     onmousewheel: ((this: Window , ev: WheelEvent) => any) | null;
-    onmsgesturechange: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmsgesturedoubletap: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmsgestureend: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmsgesturehold: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmsgesturestart: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmsgesturetap: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmsinertiastart: ((this: Window , ev: MSGestureEvent) => any) | null;
-    onmspointercancel: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointerdown: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointerenter: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointerleave: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointermove: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointerout: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointerover: ((this: Window , ev: MSPointerEvent) => any) | null;
-    onmspointerup: ((this: Window , ev: MSPointerEvent) => any) | null;
+    onmsgesturechange: ((this: Window , ev: Event) => any) | null;
+    onmsgesturedoubletap: ((this: Window , ev: Event) => any) | null;
+    onmsgestureend: ((this: Window , ev: Event) => any) | null;
+    onmsgesturehold: ((this: Window , ev: Event) => any) | null;
+    onmsgesturestart: ((this: Window , ev: Event) => any) | null;
+    onmsgesturetap: ((this: Window , ev: Event) => any) | null;
+    onmsinertiastart: ((this: Window , ev: Event) => any) | null;
+    onmspointercancel: ((this: Window , ev: Event) => any) | null;
+    onmspointerdown: ((this: Window , ev: Event) => any) | null;
+    onmspointerenter: ((this: Window , ev: Event) => any) | null;
+    onmspointerleave: ((this: Window , ev: Event) => any) | null;
+    onmspointermove: ((this: Window , ev: Event) => any) | null;
+    onmspointerout: ((this: Window , ev: Event) => any) | null;
+    onmspointerover: ((this: Window , ev: Event) => any) | null;
+    onmspointerup: ((this: Window , ev: Event) => any) | null;
     onoffline: ((this: Window , ev: Event) => any) | null;
     ononline: ((this: Window , ev: Event) => any) | null;
     onorientationchange: ((this: Window , ev: Event) => any) | null;
@@ -15840,21 +15774,21 @@ declare var onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmousewheel: ((this: Window, ev: WheelEvent) => any) | null;
-declare var onmsgesturechange: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmsgesturedoubletap: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmsgestureend: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmsgesturehold: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmsgesturestart: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmsgesturetap: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmsinertiastart: ((this: Window, ev: MSGestureEvent) => any) | null;
-declare var onmspointercancel: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointerdown: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointerenter: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointerleave: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointermove: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointerout: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointerover: ((this: Window, ev: MSPointerEvent) => any) | null;
-declare var onmspointerup: ((this: Window, ev: MSPointerEvent) => any) | null;
+declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
+declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
+declare var onmsgestureend: ((this: Window, ev: Event) => any) | null;
+declare var onmsgesturehold: ((this: Window, ev: Event) => any) | null;
+declare var onmsgesturestart: ((this: Window, ev: Event) => any) | null;
+declare var onmsgesturetap: ((this: Window, ev: Event) => any) | null;
+declare var onmsinertiastart: ((this: Window, ev: Event) => any) | null;
+declare var onmspointercancel: ((this: Window, ev: Event) => any) | null;
+declare var onmspointerdown: ((this: Window, ev: Event) => any) | null;
+declare var onmspointerenter: ((this: Window, ev: Event) => any) | null;
+declare var onmspointerleave: ((this: Window, ev: Event) => any) | null;
+declare var onmspointermove: ((this: Window, ev: Event) => any) | null;
+declare var onmspointerout: ((this: Window, ev: Event) => any) | null;
+declare var onmspointerover: ((this: Window, ev: Event) => any) | null;
+declare var onmspointerup: ((this: Window, ev: Event) => any) | null;
 declare var onoffline: ((this: Window, ev: Event) => any) | null;
 declare var ononline: ((this: Window, ev: Event) => any) | null;
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;

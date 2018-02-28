@@ -3064,5 +3064,12 @@
         "flavor": "Web",
         "name": "MutationRecordType",
         "type": "\"attributes\" | \"characterData\" | \"childList\""
+    },
+    {
+        "kind": "property",
+        "interface": "HTMLAnchorElement",
+        "name": "origin",
+        "readonly": true,
+        "type": "string"
     }
 ]

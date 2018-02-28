@@ -2044,6 +2044,10 @@
           {
             "name": "text",
             "comment": "/**\r\n     * Retrieves or sets the text of the object as a string.\r\n     */"
+          },
+          {
+            "name": "origin",
+            "comment": "/**\r\n     * Contains the Unicode serialization of the origin of the represented URL.\r\n     */"
           }
         ],
         "method": [

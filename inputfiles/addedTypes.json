@@ -14,6 +14,17 @@
                         }
                     }
                 }
+            },
+            "HTMLHyperlinkElementUtils": {
+                "name": "HTMLHyperlinkElementUtils",
+                "properties": {
+                    "property": {
+                        "origin": {
+                            "name": "origin",
+                            "override-type": "string"
+                        }
+                    }
+                }
             }
         }
     },

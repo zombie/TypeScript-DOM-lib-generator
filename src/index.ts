@@ -1206,8 +1206,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             if (iterableGetter && lengthProperty) {
                 Pt.Printl(`interface ${i.name} {`);
                 Pt.IncreaseIndent();
-                Pt.Printl(`[Symbol.iterator](): IterableIterator<${convertDomTypeToTsType(iterableGetter.signature[0])}>`);
-                Pt.DecreaseIndent()
+                Pt.Printl(`[Symbol.iterator](): IterableIterator<${convertDomTypeToTsType({ type: iterableGetter.signature[0].type, nullable: undefined })}>`);
+                Pt.DecreaseIndent();
                 Pt.Printl("}");
                 Pt.Printl("");
             }

@@ -7,7 +7,7 @@ interface AudioTrackList {
 }
 
 interface CSSRuleList {
-    [Symbol.iterator](): IterableIterator<CSSRule | null>
+    [Symbol.iterator](): IterableIterator<CSSRule>
 }
 
 interface CSSStyleDeclaration {
@@ -19,11 +19,11 @@ interface ClientRectList {
 }
 
 interface DOMStringList {
-    [Symbol.iterator](): IterableIterator<string | null>
+    [Symbol.iterator](): IterableIterator<string>
 }
 
 interface DOMTokenList {
-    [Symbol.iterator](): IterableIterator<string | null>
+    [Symbol.iterator](): IterableIterator<string>
 }
 
 interface DataTransferItemList {
@@ -31,15 +31,15 @@ interface DataTransferItemList {
 }
 
 interface FileList {
-    [Symbol.iterator](): IterableIterator<File | null>
+    [Symbol.iterator](): IterableIterator<File>
 }
 
 interface HTMLAllCollection {
-    [Symbol.iterator](): IterableIterator<Element | null>
+    [Symbol.iterator](): IterableIterator<Element>
 }
 
 interface HTMLCollection {
-    [Symbol.iterator](): IterableIterator<Element | null>
+    [Symbol.iterator](): IterableIterator<Element>
 }
 
 interface MSRangeCollection {
@@ -47,7 +47,7 @@ interface MSRangeCollection {
 }
 
 interface MediaList {
-    [Symbol.iterator](): IterableIterator<string | null>
+    [Symbol.iterator](): IterableIterator<string>
 }
 
 interface MimeTypeArray {
@@ -55,7 +55,7 @@ interface MimeTypeArray {
 }
 
 interface NamedNodeMap {
-    [Symbol.iterator](): IterableIterator<Attr | null>
+    [Symbol.iterator](): IterableIterator<Attr>
 }
 
 interface NodeList {
@@ -75,7 +75,7 @@ interface SourceBufferList {
 }
 
 interface StyleSheetList {
-    [Symbol.iterator](): IterableIterator<StyleSheet | null>
+    [Symbol.iterator](): IterableIterator<StyleSheet>
 }
 
 interface StyleSheetPageList {
@@ -91,7 +91,7 @@ interface TextTrackList {
 }
 
 interface TouchList {
-    [Symbol.iterator](): IterableIterator<Touch | null>
+    [Symbol.iterator](): IterableIterator<Touch>
 }
 
 interface VideoTrackList {

@@ -47,6 +47,9 @@ function preprocess() {
                 if (o.exposed.indexOf("Isolated") > -1) return false;
             }
             if (o.iterable === "pair-iterator") return false;
+            if (o.name === "Function") return false;
+            if (o.name === "MSExecAtPriorityFunctionCallback") return false;
+            if (o.name === "MSUnsafeFunctionCallback") return false;
         }
         if (typeof n === "string") {
             if (n.indexOf("-") === 0) return false;

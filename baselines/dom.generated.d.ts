@@ -15436,16 +15436,8 @@ interface IntersectionObserverCallback {
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
 }
 
-interface MSExecAtPriorityFunctionCallback {
-    (...args: any[]): any;
-}
-
 interface MSLaunchUriCallback {
     (): void;
-}
-
-interface MSUnsafeFunctionCallback {
-    (): any;
 }
 
 interface MediaQueryListListener {

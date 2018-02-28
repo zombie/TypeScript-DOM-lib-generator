@@ -75,9 +75,11 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new(name: string): BroadcastChannel"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(name: string): BroadcastChannel"
+                    ]
+                }
             },
             "BroadcastChannelEventMap": {
                 "name": "BroadcastChannelEventMap",
@@ -361,9 +363,11 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new (init?: string | URLSearchParams): URLSearchParams"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new (init?: string | URLSearchParams): URLSearchParams"
+                    ]
+                }
             },
             "URL": {
                 "name": "URL",
@@ -1474,17 +1478,21 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new(): HTMLDialogElement"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(): HTMLDialogElement"
+                    ]
+                }
             },
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
                 "extends": "HTMLElement",
                 "flavor": "Web",
-                "override-constructor-signatures": [
-                    "new(): HTMLMainElement"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(): HTMLMainElement"
+                    ]
+                }
             },
             "HTMLDetailsElement": {
                 "name": "HTMLDetailsElement",
@@ -1498,17 +1506,21 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new(): HTMLDetailsElement"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(): HTMLDetailsElement"
+                    ]
+                }
             },
             "HTMLSummaryElement": {
                 "name": "HTMLSummaryElement",
                 "extends": "HTMLElement",
                 "flavor": "Web",
-                "override-constructor-signatures": [
-                    "new(): HTMLSummaryElement"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(): HTMLSummaryElement"
+                    ]
+                }
             },
             "DOMRectReadOnly": {
                 "name": "DOMRectReadOnly",
@@ -1557,10 +1569,12 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly",
-                    "fromRect(rectangle?: DOMRectInit): DOMRectReadOnly"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly",
+                        "fromRect(rectangle?: DOMRectInit): DOMRectReadOnly"
+                    ]
+                }
             },
             "EXT_blend_minmax": {
                 "name": "EXT_blend_minmax",
@@ -1650,10 +1664,12 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new (x?: number, y?: number, width?: number, height?: number): DOMRect",
-                    "fromRect(rectangle?: DOMRectInit): DOMRect"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new (x?: number, y?: number, width?: number, height?: number): DOMRect",
+                        "fromRect(rectangle?: DOMRectInit): DOMRect"
+                    ]
+                }
             },
             "DOMRectList": {
                 "name": "DOMRectList",
@@ -2282,9 +2298,11 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new(url: string, eventSourceInitDict?: EventSourceInit): EventSource"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(url: string, eventSourceInitDict?: EventSourceInit): EventSource"
+                    ]
+                }
             },
             "EventSourceInit": {
                 "name": "EventSourceInit",
@@ -2480,9 +2498,11 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent"
+                    ]
+                }
             },
             "Animation": {
                 "flavor": "Web",
@@ -2581,9 +2601,11 @@
                         }
                     }
                 },
-                "override-constructor-signatures": [
-                    "new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation"
+                    ]
+                }
             },
             "HTMLElement": {
                 "name": "HTMLElement",

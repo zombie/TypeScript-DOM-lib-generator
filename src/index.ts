@@ -875,14 +875,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         emitComments(constructor, s => Pt.Print(s));
 
         // Emit constructor signature
-        if (i["override-constructor-signatures"]) {
-            i["override-constructor-signatures"]!.forEach(s => Pt.Printl(`${s};`));
-        }
-        else if (constructor) {
-            for (const s of constructor.signature) {
-                let paramsString = s.param ? paramsToString(s.param) : "";
-                Pt.Printl(`new(${paramsString}): ${i.name};`);
-            }
+        if (constructor) {
+            emitSignatures(constructor, "", "new", s => Pt.Printl(s));
         }
         else {
             Pt.Printl(`new(): ${i.name};`);
@@ -1394,19 +1388,21 @@ function emitDom() {
     function merge<T>(src: T, target: T): T {
         if (typeof src !== "object" || typeof target !== "object") return src;
         for (const k in target) {
-            if (src[k] && target[k]) {
-                const srcProp = src[k];
-                const targetProp = target[k];
-                if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
-                    mergeNamedArrays(srcProp, targetProp);
+            if (Object.getOwnPropertyDescriptor(target, k)) {
+                if (Object.getOwnPropertyDescriptor(src, k)) {
+                    const srcProp = src[k];
+                    const targetProp = target[k];
+                    if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
+                        mergeNamedArrays(srcProp, targetProp);
+                    }
+                    else {
+                        if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
+                        merge(src[k], target[k]);
+                    }
                 }
                 else {
-                    if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
-                    merge(src[k], target[k]);
+                    src[k] = target[k];
                 }
-            }
-            else {
-                src[k] = target[k];
             }
         }
         return src;

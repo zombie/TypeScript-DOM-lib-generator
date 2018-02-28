@@ -161,9 +161,11 @@
                 "type-parameters": [
                     "T = any"
                 ],
-                "override-constructor-signatures": [
-                    "new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>"
+                    ]
+                }
             },
             "Window": {
                 "name": "Window",
@@ -884,9 +886,11 @@
             },
             "Blob": {
                 "name": "Blob",
-                "override-constructor-signatures": [
-                    "new (blobParts?: any[], options?: BlobPropertyBag): Blob"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new (blobParts?: any[], options?: BlobPropertyBag): Blob"
+                    ]
+                }
             },
             "FormData": {
                 "name": "FormData",
@@ -921,15 +925,19 @@
             },
             "MessageEvent": {
                 "name": "MessageEvent",
-                "override-constructor-signatures": [
-                    "new(type: string, eventInitDict?: MessageEventInit): MessageEvent"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: string, eventInitDict?: MessageEventInit): MessageEvent"
+                    ]
+                }
             },
             "File": {
                 "name": "File",
-                "override-constructor-signatures": [
-                    "new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"
-                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"
+                    ]
+                },
                 "properties": {
                     "property": {
                         "lastModifiedDate": {
@@ -942,10 +950,12 @@
             },
             "ImageData": {
                 "name": "ImageData",
-                "override-constructor-signatures": [
-                    "new(width: number, height: number): ImageData",
-                    "new(array: Uint8ClampedArray, width: number, height: number): ImageData"
-                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new(width: number, height: number): ImageData",
+                        "new(array: Uint8ClampedArray, width: number, height: number): ImageData"
+                    ]
+                },
                 "properties": {
                     "property": {
                         "data": {
@@ -957,9 +967,11 @@
             },
             "DOMException": {
                 "name": "DOMException",
-                "override-constructor-signatures": [
-                    "new(message?: string, name?: string): DOMException"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(message?: string, name?: string): DOMException"
+                    ]
+                }
             },
             "HTMLSelectElement": {
                 "name": "HTMLSelectElement",
@@ -1136,9 +1148,11 @@
             },
             "StorageEvent": {
                 "name": "StorageEvent",
-                "override-constructor-signatures": [
-                    "new (type: string, eventInitDict?: StorageEventInit): StorageEvent"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new (type: string, eventInitDict?: StorageEventInit): StorageEvent"
+                    ]
+                }
             },
             "IDBCursor": {
                 "name": "IDBCursor",
@@ -1196,9 +1210,11 @@
             },
             "ClipboardEvent": {
                 "name": "ClipboardEvent",
-                "override-constructor-signatures": [
-                    "new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent"
+                    ]
+                }
             },
             "Storage": {
                 "name": "Storage",
@@ -1413,21 +1429,27 @@
             },
             "TouchEvent": {
                 "name": "TouchEvent",
-                "override-constructor-signatures": [
-                    "new(type: string, touchEventInit?: TouchEventInit): TouchEvent"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: string, touchEventInit?: TouchEventInit): TouchEvent"
+                    ]
+                }
             },
             "Text": {
                 "name": "Text",
-                "override-constructor-signatures": [
-                    "new(data?: string): Text"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(data?: string): Text"
+                    ]
+                }
             },
             "DragEvent": {
                 "name": "DragEvent",
-                "override-constructor-signatures": [
-                    "new(type: \"drag\" | \"dragend\" | \"dragenter\" | \"dragexit\" | \"dragleave\" | \"dragover\" | \"dragstart\" | \"drop\", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: \"drag\" | \"dragend\" | \"dragenter\" | \"dragexit\" | \"dragleave\" | \"dragover\" | \"dragstart\" | \"drop\", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent"
+                    ]
+                }
             },
             "HTMLAppletElement": {
                 "name": "HTMLAppletElement",
@@ -1585,9 +1607,11 @@
             },
             "Headers": {
                 "name": "Headers",
-                "override-constructor-signatures": [
-                    "new(init?: HeadersInit): Headers"
-                ]
+                "constructor": {
+                    "override-signatures": [
+                        "new(init?: HeadersInit): Headers"
+                    ]
+                }
             },
             "ServiceWorkerContainer": {
                 "name": "ServiceWorkerContainer",

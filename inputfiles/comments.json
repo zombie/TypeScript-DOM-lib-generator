@@ -404,13 +404,6 @@
                             "comment": "/**\r\n     * Sets or retrieves the shape of the object.\r\n     */"
                         }
                     }
-                },
-                "methods": {
-                    "method": {
-                        "toString": {
-                            "comment": "/**\r\n     * Returns a string representation of an object.\r\n     */"
-                        }
-                    }
                 }
             },
             "HTMLButtonElement": {
@@ -1260,13 +1253,6 @@
                         },
                         "text": {
                             "comment": "/**\r\n     * Retrieves or sets the text of the object as a string.\r\n     */"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "toString": {
-                            "comment": "/**\r\n     * Returns a string representation of an object.\r\n     */"
                         }
                     }
                 }

@@ -192,7 +192,6 @@ export type Interface = {
     "no-interface-object"?: string;
     "global"?: string;
     "type-parameters"?: string[];
-    "override-constructor-signatures"?: string[];
     "overide-index-signatures"?: string[];
     "specs"?: string;
     "iterable"?: "value" | "pair" | "pair-iterator";

@@ -39,9 +39,9 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         getElements(webidl["mixins"], "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
-    const allDictionariesMap: Record<string, Browser.Dictionary> = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
-    const allEnumsMap: Record<string, Browser.Enum> = webidl.enums ? webidl.enums.enum : {};
-    const allCallbackFunctionsMap: Record<string, Browser.CallbackFunction> = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
+    const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
+    const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
+    const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
     const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
@@ -50,7 +50,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     };
 
     /// Event name to event type map
-    let eNameToEType = (function() {
+    const eNameToEType = (function() {
         function eventType(e: Browser.Event) {
             switch (e.name) {
                 case "abort": return "UIEvent";
@@ -78,43 +78,36 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     })();
 
     /// Tag name to element name map
-    let tagNameToEleName = (function() {
-        function preferedElementMap(name: string) {
-            switch (name) {
-                case "script": return "HTMLScriptElement";
-                case "a": return "HTMLAnchorElement";
-                case "title": return "HTMLTitleElement";
-                case "style": return "HTMLStyleElement";
-                case "td": return "HTMLTableDataCellElement";
-                case "th": return "HTMLTableHeaderCellElement";
-                default: return "";
-            }
-        }
+    const tagNameToEleName = (function() {
+        const preferedElementMap: Record<string, string> = {
+            "script": "HTMLScriptElement",
+            "a": "HTMLAnchorElement",
+            "title": "HTMLTitleElement",
+            "style": "HTMLStyleElement",
+            "td": "HTMLTableDataCellElement",
+            "th": "HTMLTableHeaderCellElement"
+        };
 
         function resolveElementConflict(tagName: string, iNames: string[]) {
-            const name = preferedElementMap(tagName);
+            const name = preferedElementMap[tagName] || "";
             if (iNames.indexOf(name) != -1) return name;
             throw new Error("Element conflict occured! Typename: " + tagName);
         }
 
-        let nativeTagNamesToInterface = (function() {
-            const result: Record<string, string> = {};
-            for (const i of allNonCallbackInterfaces) {
-                if (i.element) {
-                    for (const e of i.element) {
-                        result[e.name] = result[e.name] ? resolveElementConflict(e.name, [result[e.name], i.name]) : i.name;
-                    }
+        const result: Record<string, string> = {};
+        for (const i of allNonCallbackInterfaces) {
+            if (i.element) {
+                for (const e of i.element) {
+                    result[e.name] = result[e.name] ? resolveElementConflict(e.name, [result[e.name], i.name]) : i.name;
                 }
             }
-            return result;
-        })();
-
-        return nativeTagNamesToInterface;
+        }
+        return result;
     })();
 
     /// Interface name to all its implemented / inherited interfaces name list map
     /// e.g. If i1 depends on i2, i2 should be in dependencyMap.[i1.Name]
-    let iNameToIDependList = (function() {
+    const iNameToIDependList = (function() {
         function getExtendList(iName: string): string[] {
             var i = allInterfacesMap[iName];
             if (!i || !i.extends || i.extends === "Object") return [];
@@ -135,7 +128,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     })();
 
     /// Distinct event type list, used in the "createEvent" function
-    let distinctETypeList = (function() {
+    const distinctETypeList = (function() {
         let eventsMap: Record<string, true> = {};
 
         for (const i of allNonCallbackInterfaces) {
@@ -159,7 +152,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// 1. eventhanlder name: "onready", "onabort" etc.
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
     /// And they don't NOT just differ by an "on" prefix!
-    let iNameToEhList = (function() {
+    const iNameToEhList = (function() {
         function getEventTypeFromHandler(p: Browser.Property) {
             let eType =
                 // Check the "event-handler" attribute of the event handler property,
@@ -187,11 +180,15 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return ownEventHandler;
         }
 
-        return arrayToMap(allInterfaces.map(i => [i.name, getEventHandler(i)] as [string, EventHandler[]]));
+        const result: Record<string, EventHandler[]> = {};
+        for (const i of allInterfaces) {
+            result[i.name] = getEventHandler(i);
+        }
+        return result;
     })();
 
     // Map of interface.Name -> List of base interfaces with event handlers
-    let iNameToEhParents = (function() {
+    const iNameToEhParents = (function() {
         function hasHandler(i: Browser.Interface) {
             return iNameToEhList[i.name] && iNameToEhList[i.name].length;
         }
@@ -214,7 +211,11 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
         }
 
-        return arrayToMap(allInterfaces.map(i => [i.name, getParentsWithEventHandler(i)] as [string, Browser.Interface[]]));
+        const result: Record<string, Browser.Interface[]> = {};
+        for (const i of allInterfaces) {
+            result[i.name] = getParentsWithEventHandler(i);
+        }
+        return result;
     })();
 
     return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emitTheWholeThing();
@@ -276,14 +277,6 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const result: Record<string, T> = {};
         for (const value of array) {
             result[value.name] = value;
-        }
-        return result;
-    }
-
-    function arrayToMap<T>(array: [string, T][]) {
-        const result: Record<string, T> = {};
-        for (const value of array) {
-            result[value[0]] = value[1];
         }
         return result;
     }

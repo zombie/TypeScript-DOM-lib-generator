@@ -1,6 +1,7 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
+import { filter, merge, filterProperties, mapToArray, distinct, map, toNameMap } from "./helpers";
 
 enum Flavor {
     Web,
@@ -239,20 +240,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function distinct<T>(a: T[]): T[] {
-        return Array.from(new Set(a).values());
-    }
-
     function getElements<K extends string, T>(a: Record<K, Record<string, T>> | undefined, k: K): T[] {
         return a ? mapToArray(a[k]) : [];
-    }
-
-    function mapToArray<T>(m: Record<string, T>): T[] {
-        return Object.keys(m || {}).map(k => m[k]);
-    }
-
-    function map<T, U>(obj: Record<string, T> | undefined, fn: (o: T) => U): U[] {
-        return Object.keys(obj || {}).map(k => fn(obj![k]));
     }
 
     function tryGetMatchingEventType(eName: string, i: Browser.Interface) {
@@ -271,14 +260,6 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             let ownEventType = tryGetMatchingEventType(eName, i);
             return ownEventType || eNameToEType[eName] || "Event";
         }
-    }
-
-    function toNameMap<T extends { name: string }>(array: T[]) {
-        const result: Record<string, T> = {};
-        for (const value of array) {
-            result[value.name] = value;
-        }
-        return result;
     }
 
     /// Determine if interface1 depends on interface2
@@ -1269,57 +1250,15 @@ function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, ts
     return;
 }
 
-function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolean): Record<string, T> {
-    const result: Record<string, T> = {};
-    for (const e in obj) {
-        if (fn(obj[e])) {
-            result[e] = obj[e];
-        }
-    }
-    return result;
-}
-
 function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
     const browser = filter(webidl, o => {
-        if (o) {
-            if (typeof o.tags === "string") {
-                if (o.tags.indexOf("MSAppOnly") > -1) return false;
-                if (o.tags.indexOf("MSAppScheduler") > -1) return false;
-                if (o.tags.indexOf("Diagnostics") > -1) return false;
-                if (o.tags.indexOf("Printing") > -1) return false;
-            }
-            if (typeof o.exposed === "string") {
-                if (o.exposed.indexOf("Diagnostics") > -1) return false;
-                if (o.exposed.indexOf("WorkerDiagnostics") > -1) return false;
-                if (o.exposed.indexOf("Isolated") > -1) return false;
-                if (o.exposed.indexOf("Worker") > -1 && o.exposed.indexOf("Window") <= -1) return false;
-            }
-            if (o.iterable === "pair-iterator") return false;
-        }
-        return true;
+        return !(o && typeof o.exposed === "string"
+            && o.exposed.indexOf("Worker") > -1 && o.exposed.indexOf("Window") <= -1);
     });
 
     const result = EmitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
     return;
-
-    function filter(obj: any, fn: (o: any) => boolean) {
-        var result = obj;
-        if (typeof obj === "object") {
-            if (Array.isArray(obj)) {
-                result = obj.filter(fn);
-            }
-            else {
-                result = {};
-                for (const e in obj) {
-                    if (fn(obj[e])) {
-                        result[e] = filter(obj[e], fn);
-                    }
-                }
-            }
-        }
-        return result;
-    }
 }
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
@@ -1347,7 +1286,7 @@ function emitDom() {
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
 
     /// Load the input file
-    let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.json"));
+    let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));
 
     const knownWorkerTypes = new Set<string>(require(path.join(inputFolder, "knownWorkerTypes.json")));
 
@@ -1359,47 +1298,6 @@ function emitDom() {
     emitDomWeb(webidl, tsWebOutput);
     emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
     emitES6DomIterators(webidl, tsWebES6Output);
-
-    function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[]) {
-        const map: any = {};
-        for (const e1 of srcProp) {
-            if (e1.name) {
-                map[e1.name] = e1;
-            }
-        }
-
-        for (const e2 of targetProp) {
-            if (e2.name && map[e2.name]) {
-                merge(map[e2.name], e2);
-            }
-            else {
-                srcProp.push(e2);
-            }
-        }
-    }
-
-    function merge<T>(src: T, target: T): T {
-        if (typeof src !== "object" || typeof target !== "object") return src;
-        for (const k in target) {
-            if (Object.getOwnPropertyDescriptor(target, k)) {
-                if (Object.getOwnPropertyDescriptor(src, k)) {
-                    const srcProp = src[k];
-                    const targetProp = target[k];
-                    if (Array.isArray(srcProp) && Array.isArray(targetProp)) {
-                        mergeNamedArrays(srcProp, targetProp);
-                    }
-                    else {
-                        if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
-                        merge(src[k], target[k]);
-                    }
-                }
-                else {
-                    src[k] = target[k];
-                }
-            }
-        }
-        return src;
-    }
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
         const result: Browser.WebIdl = {

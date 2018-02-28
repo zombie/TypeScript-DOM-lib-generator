@@ -4015,6 +4015,10 @@ interface HTMLAnchorElement extends HTMLElement {
     type: string;
     urn: string;
     /**
+     * Contains the Unicode serialization of the origin of the represented URL.
+     */
+    readonly origin: string;
+    /**
      * Returns a string representation of an object.
      */
     toString(): string;

@@ -2,4 +2,4 @@
 
 set -eu
 
-npm run build  & npm run runTests
+npm run build  & npm run test

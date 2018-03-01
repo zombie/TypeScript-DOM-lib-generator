@@ -3328,7 +3328,7 @@ interface DataTransferItem {
     readonly type: string;
     getAsFile(): File | null;
     getAsString(_callback: FunctionStringCallback | null): void;
-    webkitGetAsEntry(): WebKitEntry | null;
+    webkitGetAsEntry(): any;
 }
 
 declare var DataTransferItem: {

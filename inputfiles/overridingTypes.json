@@ -1152,6 +1152,19 @@
                     "[name: number]: DataTransferItem"
                 ]
             },
+            "DataTransferItem":{
+                "name": "DataTransferItem",
+                "methods": {
+                    "method": {
+                        "webkitGetAsEntry": {
+                            "name": "webkitGetAsEntry",
+                            "override-signatures": [
+                                "webkitGetAsEntry(): any"
+                            ]
+                        }
+                    }
+                }
+            },
             "StorageEvent": {
                 "name": "StorageEvent",
                 "constructor": {

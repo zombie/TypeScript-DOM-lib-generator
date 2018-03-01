@@ -9,7 +9,7 @@ enum Flavor {
     ES6Iterators
 }
 
-function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
+function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     // Note:
     // Eventhandler's name and the eventName are not just off by "on".
@@ -219,7 +219,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return result;
     })();
 
-    return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emitTheWholeThing();
+    return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
 
     // Used to decide if a member should be emitted given its static property and
     // the intended scope level.
@@ -230,7 +230,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     /// Parameter cannot be named "default" in JavaScript/Typescript so we need to rename it.
-    function AdjustParamName(name: string) {
+    function adjustParamName(name: string) {
         switch (name) {
             case "default": return "_default";
             case "delete": return "_delete";
@@ -314,30 +314,30 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         return {
 
-            Reset: reset,
+            reset: reset,
 
-            ResetIndent() { indent = 0; },
-            IncreaseIndent() { indent++; },
-            DecreaseIndent() { indent--; },
+            resetIndent() { indent = 0; },
+            increaseIndent() { indent++; },
+            decreaseIndent() { indent--; },
 
-            Print: write,
-            Printl(c: string) { writeLine(); write(c); },
+            print: write,
+            printLine(c: string) { writeLine(); write(c); },
 
-            PrintWithAddedIndent(c: string) { this.IncreaseIndent(); this.Printl(c); this.DecreaseIndent(); },
+            printWithAddedIndent(c: string) { this.increaseIndent(); this.printLine(c); this.decreaseIndent(); },
 
-            ClearStack() { stack = []; },
-            StackIsEmpty() { return stack.length === 0; },
-            PrintlToStack(content: string) { stack.push({ content, indent }); },
-            PrintStackContent() {
+            clearStack() { stack = []; },
+            stackIsEmpty() { return stack.length === 0; },
+            printLineToStack(content: string) { stack.push({ content, indent }); },
+            printStackContent() {
                 stack.forEach(e => {
                     const oldIndent = indent;
                     indent = e.indent;
-                    this.Printl(e.content);
+                    this.printLine(e.content);
                     indent = oldIndent;
                 });
             },
 
-            GetResult() { return output; }
+            getResult() { return output; }
         };
     }
 
@@ -468,7 +468,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitConstant(c: Browser.Constant) {
-        printer.Printl(`readonly ${c.name}: ${convertDomTypeToTsType(c)};`);
+        printer.printLine(`readonly ${c.name}: ${convertDomTypeToTsType(c)};`);
     }
 
     function emitConstants(i: Browser.Interface) {
@@ -494,70 +494,70 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Emit overloads for the createElement method
     function emitCreateElementOverloads(m: Browser.Method) {
         if (matchSingleParamMethodSignature(m, "createElement", "Element", "string")) {
-            printer.Printl("createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];");
-            printer.Printl("createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;");
+            printer.printLine("createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];");
+            printer.printLine("createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;");
         }
     }
 
     /// Emit overloads for the getElementsByTagName method
     function emitGetElementsByTagNameOverloads(m: Browser.Method) {
         if (matchSingleParamMethodSignature(m, "getElementsByTagName", "NodeList", "string")) {
-            printer.Printl(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<HTMLElementTagNameMap[K]>;`);
-            printer.Printl(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<SVGElementTagNameMap[K]>;`);
-            printer.Printl(`getElementsByTagName(${m.signature[0].param![0].name}: string): NodeListOf<Element>;`);
+            printer.printLine(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<HTMLElementTagNameMap[K]>;`);
+            printer.printLine(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<SVGElementTagNameMap[K]>;`);
+            printer.printLine(`getElementsByTagName(${m.signature[0].param![0].name}: string): NodeListOf<Element>;`);
         }
     }
 
     /// Emit overloads for the querySelector method
     function emitQuerySelectorOverloads(m: Browser.Method) {
         if (matchSingleParamMethodSignature(m, "querySelector", "Element | null", "string")) {
-            printer.Printl("querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;");
-            printer.Printl("querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;");
-            printer.Printl("querySelector<E extends Element = Element>(selectors: string): E | null;");
+            printer.printLine("querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;");
+            printer.printLine("querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;");
+            printer.printLine("querySelector<E extends Element = Element>(selectors: string): E | null;");
         }
     }
 
     /// Emit overloads for the querySelectorAll method
     function emitQuerySelectorAllOverloads(m: Browser.Method) {
         if (matchSingleParamMethodSignature(m, "querySelectorAll", "NodeList", "string")) {
-            printer.Printl("querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;");
-            printer.Printl("querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;");
-            printer.Printl("querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;");
+            printer.printLine("querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;");
+            printer.printLine("querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;");
+            printer.printLine("querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;");
         }
     }
 
     function emitHTMLElementTagNameMap() {
-        printer.Printl("interface HTMLElementTagNameMap {");
-        printer.IncreaseIndent();
+        printer.printLine("interface HTMLElementTagNameMap {");
+        printer.increaseIndent();
         for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
             if (iNameToIDependList[value] && iNameToIDependList[value].indexOf("SVGElement") === -1) {
-                printer.Printl(`"${e.toLowerCase()}": ${value};`);
+                printer.printLine(`"${e.toLowerCase()}": ${value};`);
             }
         }
-        printer.DecreaseIndent();
-        printer.Printl("}");
-        printer.Printl("");
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
     }
 
     function emitSVGElementTagNameMap() {
-        printer.Printl("interface SVGElementTagNameMap {");
-        printer.IncreaseIndent();
+        printer.printLine("interface SVGElementTagNameMap {");
+        printer.increaseIndent();
         for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
             if (iNameToIDependList[value] && iNameToIDependList[value].indexOf("SVGElement") > -1) {
-                printer.Printl(`"${e.toLowerCase()}": ${value};`);
+                printer.printLine(`"${e.toLowerCase()}": ${value};`);
             }
         }
-        printer.DecreaseIndent();
-        printer.Printl("}");
-        printer.Printl("");
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
     }
 
     function emitElementTagNameMap() {
-        printer.Printl("/** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */");
-        printer.Printl("interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }");
-        printer.Printl("");
+        printer.printLine("/** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */");
+        printer.printLine("interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }");
+        printer.printLine("");
     }
 
     /// Emit overloads for the createEvent method
@@ -566,12 +566,12 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             // Emit plurals. For example, "Events", "MutationEvents"
             const hasPlurals = ["Event", "MutationEvent", "MouseEvent", "SVGZoomEvent", "UIEvent"];
             for (const x of distinctETypeList) {
-                printer.Printl(`createEvent(eventInterface: "${x}"): ${x};`);
+                printer.printLine(`createEvent(eventInterface: "${x}"): ${x};`);
                 if (hasPlurals.indexOf(x) > -1) {
-                    printer.Printl(`createEvent(eventInterface: "${x}s"): ${x};`);
+                    printer.printLine(`createEvent(eventInterface: "${x}s"): ${x};`);
                 }
             }
-            printer.Printl("createEvent(eventInterface: string): Event;");
+            printer.printLine("createEvent(eventInterface: string): Event;");
         }
     }
 
@@ -581,7 +581,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const isOptional = !p.variadic && p.optional;
             const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
             return (p.variadic ? "..." : "") +
-                AdjustParamName(p.name) +
+                adjustParamName(p.name) +
                 (isOptional ? "?: " : ": ") +
                 pType +
                 (p.variadic ? "[]" : "");
@@ -591,9 +591,9 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitCallBackInterface(i: Browser.Interface) {
         if (i.name === "EventListener") {
-            printer.Printl(`interface ${i.name} {`);
-            printer.PrintWithAddedIndent("(evt: Event): void;");
-            printer.Printl("}");
+            printer.printLine(`interface ${i.name} {`);
+            printer.printWithAddedIndent("(evt: Event): void;");
+            printer.printLine("}");
         }
         else {
             const methods = mapToArray(i.methods.method);
@@ -601,18 +601,18 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const overload = m.signature[0];
             const paramsString = overload.param ? paramsToString(overload.param) : "";
             const returnType = overload.type ? convertDomTypeToTsType(overload) : "void";
-            printer.Printl(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
+            printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
         }
-        printer.Printl("");
+        printer.printLine("");
     }
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
-        printer.Printl(`interface ${cb.name} {`);
-        printer.IncreaseIndent();
-        emitSignatures(cb, "", "", s => printer.Printl(s));
-        printer.DecreaseIndent();
-        printer.Printl("}");
-        printer.Printl("");
+        printer.printLine(`interface ${cb.name} {`);
+        printer.increaseIndent();
+        emitSignatures(cb, "", "", s => printer.printLine(s));
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
     }
 
     function emitCallBackFunctions() {
@@ -622,7 +622,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitEnum(e: Browser.Enum) {
-        printer.Printl(`type ${e.name} = ${e.value.map(v => `"${v}"`).join(" | ")};`);
+        printer.printLine(`type ${e.name} = ${e.value.map(v => `"${v}"`).join(" | ")};`);
     }
 
     function emitEnums() {
@@ -658,10 +658,10 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property, conflictedMembers: Set<string>) {
         function printLine(content: string) {
             if (conflictedMembers.has(p.name)) {
-                printer.PrintlToStack(content);
+                printer.printLineToStack(content);
             }
             else {
-                printer.Printl(content);
+                printer.printLine(content);
             }
         }
 
@@ -724,10 +724,10 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitMethod(prefix: string, _i: Browser.Interface, m: Browser.Method, conflictedMembers: Set<string>) {
         function printLine(content: string) {
             if (m.name && conflictedMembers.has(m.name)) {
-                printer.PrintlToStack(content);
+                printer.printLineToStack(content);
             }
             else {
-                printer.Printl(content);
+                printer.printLine(content);
             }
         }
 
@@ -780,7 +780,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         // The window interface inherited some methods from "Object",
         // which need to explicitly exposed
         if (i.name === "Window" && prefix === "declare function ") {
-            printer.Printl("declare function toString(): string;");
+            printer.printLine("declare function toString(): string;");
         }
     }
 
@@ -814,11 +814,11 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const fPrefix = prefix.startsWith("declare var") ? "declare function " : "";
 
         function emitTypedEventHandler(prefix: string, addOrRemove: string, iParent: Browser.Interface) {
-            printer.Printl(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${i.name}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${getOptionsType(addOrRemove)}): void;`);
+            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${i.name}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${getOptionsType(addOrRemove)}): void;`);
         }
 
         function emitStringEventHandler(addOrRemove: string) {
-            printer.Printl(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${getOptionsType(addOrRemove)}): void;`);
+            printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${getOptionsType(addOrRemove)}): void;`);
         }
 
         function tryEmitTypedEventHandlerForInterface(addOrRemove: string) {
@@ -846,51 +846,51 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         emitEventHandler("remove");
     }
 
-    function EmitConstructorSignature(i: Browser.Interface) {
+    function emitConstructorSignature(i: Browser.Interface) {
         const constructor = typeof i.constructor === "object" ? i.constructor : undefined;
 
-        emitComments(constructor, s => printer.Print(s));
+        emitComments(constructor, s => printer.print(s));
 
         // Emit constructor signature
         if (constructor) {
-            emitSignatures(constructor, "", "new", s => printer.Printl(s));
+            emitSignatures(constructor, "", "new", s => printer.printLine(s));
         }
         else {
-            printer.Printl(`new(): ${i.name};`);
+            printer.printLine(`new(): ${i.name};`);
         }
     }
 
-    function EmitConstructor(i: Browser.Interface) {
-        printer.Printl(`declare var ${i.name}: {`);
-        printer.IncreaseIndent();
+    function emitConstructor(i: Browser.Interface) {
+        printer.printLine(`declare var ${i.name}: {`);
+        printer.increaseIndent();
 
-        printer.Printl(`prototype: ${i.name};`);
-        EmitConstructorSignature(i);
+        printer.printLine(`prototype: ${i.name};`);
+        emitConstructorSignature(i);
         emitConstants(i);
         emitMembers("", EmitScope.StaticOnly, i);
 
-        printer.DecreaseIndent();
-        printer.Printl("};");
-        printer.Printl("");
+        printer.decreaseIndent();
+        printer.printLine("};");
+        printer.printLine("");
     }
 
-    function EmitNamedConstructor(i: Browser.Interface) {
+    function emitNamedConstructor(i: Browser.Interface) {
         const nc = i["named-constructor"];
         if (nc) {
-            printer.Printl(`declare var ${nc.name}: {`);
-            nc.signature.forEach(s => printer.PrintWithAddedIndent(`new(${s.param ? paramsToString(s.param) : ""}): ${i.name};`));
-            printer.Printl(`};`);
+            printer.printLine(`declare var ${nc.name}: {`);
+            nc.signature.forEach(s => printer.printWithAddedIndent(`new(${s.param ? paramsToString(s.param) : ""}): ${i.name};`));
+            printer.printLine(`};`);
         }
     }
 
     /// Emit all the named constructors at root level
-    function EmitNamedConstructors() {
+    function emitNamedConstructors() {
         getElements(webidl.interfaces, "interface")
             .sort(compareName)
-            .forEach(EmitNamedConstructor);
+            .forEach(emitNamedConstructor);
     }
 
-    function EmitInterfaceDeclaration(i: Browser.Interface) {
+    function emitInterfaceDeclaration(i: Browser.Interface) {
         function processIName(iName: string) {
             return extendConflictsBaseTypes[iName] ? `${iName}Base` : iName;
         }
@@ -898,23 +898,23 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const processedIName = processIName(i.name);
 
         if (processedIName !== i.name) {
-            printer.PrintlToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
+            printer.printLineToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
         }
 
-        printer.Printl(`interface ${processInterfaceType(i, processedIName)}`);
+        printer.printLine(`interface ${processInterfaceType(i, processedIName)}`);
 
         const finalExtends = [i.extends || "Object"].concat(i.implements || [])
             .filter(i => i !== "Object")
             .map(processIName);
 
         if (finalExtends && finalExtends.length) {
-            printer.Print(` extends ${finalExtends.join(", ")}`);
+            printer.print(` extends ${finalExtends.join(", ")}`);
         }
-        printer.Print(" {");
+        printer.print(" {");
     }
 
     /// To decide if a given method is an indexer and should be emited
-    function ShouldEmitIndexerSignature(i: Browser.Interface, m: Browser.Method) {
+    function shouldEmitIndexerSignature(i: Browser.Interface, m: Browser.Method) {
         if (m.getter && m.signature && m.signature[0].param && m.signature[0].param!.length === 1) {
             // TypeScript array indexer can only be number or string
             // for string, it must return a more generic type then all
@@ -939,19 +939,19 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return false;
     }
 
-    function EmitIndexers(emitScope: EmitScope, i: Browser.Interface) {
+    function emitIndexers(emitScope: EmitScope, i: Browser.Interface) {
         if (i["overide-index-signatures"]) {
-            i["overide-index-signatures"]!.forEach(s => printer.Printl(`${s};`));
+            i["overide-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
         }
         else {
             // The indices could be within either Methods or Anonymous Methods
             mapToArray(i.methods && i.methods.method)
                 .concat(i["anonymous-methods"] && i["anonymous-methods"]!.method || [])
-                .filter(m => ShouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
+                .filter(m => shouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
                 .forEach(m => {
                     const indexer = (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
                     if (indexer) {
-                        printer.Printl(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType({
+                        printer.printLine(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType({
                             type: m.signature[0].type,
                             subtype: m.signature[0].subtype,
                             nullable: undefined
@@ -961,53 +961,53 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function EmitInterfaceEventMap(i: Browser.Interface) {
+    function emitInterfaceEventMap(i: Browser.Interface) {
         function emitInterfaceEventMapEntry(eHandler: EventHandler) {
-            printer.Printl(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
+            printer.printLine(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
         }
 
         if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
-            printer.Printl(`interface ${i.name}EventMap`);
+            printer.printLine(`interface ${i.name}EventMap`);
             if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
-                printer.Print(` extends ${extend.join(", ")}`);
+                printer.print(` extends ${extend.join(", ")}`);
             }
-            printer.Print(" {");
-            printer.IncreaseIndent();
+            printer.print(" {");
+            printer.increaseIndent();
             iNameToEhList[i.name]
                 .sort(compareName)
                 .forEach(emitInterfaceEventMapEntry);
-            printer.DecreaseIndent();
-            printer.Printl("}");
-            printer.Printl("");
+            printer.decreaseIndent();
+            printer.printLine("}");
+            printer.printLine("");
         }
     }
 
-    function EmitInterface(i: Browser.Interface) {
-        printer.ClearStack();
-        EmitInterfaceEventMap(i);
+    function emitInterface(i: Browser.Interface) {
+        printer.clearStack();
+        emitInterfaceEventMap(i);
 
-        printer.ResetIndent();
-        EmitInterfaceDeclaration(i);
-        printer.IncreaseIndent();
+        printer.resetIndent();
+        emitInterfaceDeclaration(i);
+        printer.increaseIndent();
 
         emitMembers(/*prefix*/ "", EmitScope.InstanceOnly, i);
         emitConstants(i);
         emitEventHandlers(/*prefix*/ "", i);
-        EmitIndexers(EmitScope.InstanceOnly, i);
+        emitIndexers(EmitScope.InstanceOnly, i);
 
-        printer.DecreaseIndent();
-        printer.Printl("}");
-        printer.Printl("");
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
 
-        if (!printer.StackIsEmpty()) {
-            printer.PrintStackContent();
-            printer.Printl("}");
-            printer.Printl("");
+        if (!printer.stackIsEmpty()) {
+            printer.printStackContent();
+            printer.printLine("}");
+            printer.printLine("");
         }
     }
 
-    function EmitStaticInterface(i: Browser.Interface) {
+    function emitStaticInterface(i: Browser.Interface) {
         // Some types are static types with non-static members. For example,
         // NodeFilter is a static method itself, however it has an "acceptNode" method
         // that expects the user to implement.
@@ -1021,39 +1021,39 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         // Because in the two cases the interface contains different things, it might be easier to
         // read to separate them into two functions.
         function emitStaticInterfaceWithNonStaticMembers() {
-            printer.ResetIndent();
-            EmitInterfaceDeclaration(i);
-            printer.IncreaseIndent();
+            printer.resetIndent();
+            emitInterfaceDeclaration(i);
+            printer.increaseIndent();
 
             emitMembers(/*prefix*/ "", EmitScope.InstanceOnly, i);
             emitEventHandlers(/*prefix*/ "", i);
-            EmitIndexers(EmitScope.InstanceOnly, i);
+            emitIndexers(EmitScope.InstanceOnly, i);
 
-            printer.DecreaseIndent();
-            printer.Printl("}");
-            printer.Printl("");
-            printer.Printl(`declare var ${i.name}: {`);
-            printer.IncreaseIndent();
+            printer.decreaseIndent();
+            printer.printLine("}");
+            printer.printLine("");
+            printer.printLine(`declare var ${i.name}: {`);
+            printer.increaseIndent();
             emitConstants(i);
             emitMembers(/*prefix*/ "", EmitScope.StaticOnly, i);
-            printer.DecreaseIndent();
-            printer.Printl("};");
-            printer.Printl("");
+            printer.decreaseIndent();
+            printer.printLine("};");
+            printer.printLine("");
         }
 
         function emitPureStaticInterface() {
-            printer.ResetIndent();
-            EmitInterfaceDeclaration(i);
-            printer.IncreaseIndent();
+            printer.resetIndent();
+            emitInterfaceDeclaration(i);
+            printer.increaseIndent();
 
             emitMembers(/*prefix*/ "", EmitScope.StaticOnly, i);
             emitConstants(i);
             emitEventHandlers(/*prefix*/ "", i);
-            EmitIndexers(EmitScope.StaticOnly, i);
-            printer.DecreaseIndent();
-            printer.Printl("}");
-            printer.Printl(`declare var ${i.name}: ${i.name};`);
-            printer.Printl("");
+            emitIndexers(EmitScope.StaticOnly, i);
+            printer.decreaseIndent();
+            printer.printLine("}");
+            printer.printLine(`declare var ${i.name}: ${i.name};`);
+            printer.printLine("");
         }
 
         if (hasNonStaticMember) {
@@ -1068,34 +1068,34 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         for (const i of allNonCallbackInterfaces.sort(compareName)) {
             // If the static attribute has a value, it means the type doesn't have a constructor
             if (i.static) {
-                EmitStaticInterface(i);
+                emitStaticInterface(i);
             }
             else if (i["no-interface-object"]) {
-                EmitInterface(i);
+                emitInterface(i);
             }
             else {
-                EmitInterface(i);
-                EmitConstructor(i);
+                emitInterface(i);
+                emitConstructor(i);
             }
         }
     }
 
     function emitDictionary(dict: Browser.Dictionary) {
         if (!dict.extends || dict.extends === "Object") {
-            printer.Printl(`interface ${processInterfaceType(dict, dict.name)} {`);
+            printer.printLine(`interface ${processInterfaceType(dict, dict.name)} {`);
         }
         else {
-            printer.Printl(`interface ${processInterfaceType(dict, dict.name)} extends ${dict.extends} {`);
+            printer.printLine(`interface ${processInterfaceType(dict, dict.name)} extends ${dict.extends} {`);
         }
-        printer.IncreaseIndent();
+        printer.increaseIndent();
         if (dict.members) {
             mapToArray(dict.members.member)
                 .sort(compareName)
-                .forEach(m => printer.Printl(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`));
+                .forEach(m => printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`));
         }
-        printer.DecreaseIndent();
-        printer.Printl("}");
-        printer.Printl("");
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
     }
 
     function emitDictionaries() {
@@ -1105,7 +1105,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
-        printer.Printl(`type ${typeDef["new-type"]} = ${convertDomTypeToTsType(typeDef)};`);
+        printer.printLine(`type ${typeDef["new-type"]} = ${convertDomTypeToTsType(typeDef)};`);
     }
 
     function emitTypeDefs() {
@@ -1119,17 +1119,17 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return c1.name < c2.name ? -1 : c1.name > c2.name ? 1 : 0;
     }
 
-    function emitTheWholeThing() {
-        printer.Reset();
-        printer.Printl("/////////////////////////////");
+    function emit() {
+        printer.reset();
+        printer.printLine("/////////////////////////////");
         if (flavor === Flavor.Worker) {
-            printer.Printl("/// Worker APIs");
+            printer.printLine("/// Worker APIs");
         }
         else {
-            printer.Printl("/// DOM APIs");
+            printer.printLine("/// DOM APIs");
         }
-        printer.Printl("/////////////////////////////");
-        printer.Printl("");
+        printer.printLine("/////////////////////////////");
+        printer.printLine("");
 
         emitDictionaries();
         getElements(webidl["callback-interfaces"], "interface")
@@ -1140,8 +1140,8 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         // // Add missed interface definition from the spec
         // InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
 
-        printer.Printl("declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;");
-        printer.Printl("");
+        printer.printLine("declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;");
+        printer.printLine("");
 
         emitCallBackFunctions();
 
@@ -1149,7 +1149,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             emitHTMLElementTagNameMap();
             emitSVGElementTagNameMap();
             emitElementTagNameMap();
-            EmitNamedConstructors();
+            emitNamedConstructors();
         }
 
         if (pollutor) {
@@ -1160,7 +1160,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         emitTypeDefs();
         emitEnums();
 
-        return printer.GetResult();
+        return printer.getResult();
     }
 
     function emitIterator(i: Browser.Interface) {
@@ -1185,28 +1185,28 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const iterableGetter = findIterableGetter();
             const lengthProperty = mapToArray(i.properties.property).find(findLengthProperty);
             if (iterableGetter && lengthProperty) {
-                printer.Printl(`interface ${i.name} {`);
-                printer.IncreaseIndent();
-                printer.Printl(`[Symbol.iterator](): IterableIterator<${convertDomTypeToTsType({ type: iterableGetter.signature[0].type, nullable: undefined })}>`);
-                printer.DecreaseIndent();
-                printer.Printl("}");
-                printer.Printl("");
+                printer.printLine(`interface ${i.name} {`);
+                printer.increaseIndent();
+                printer.printLine(`[Symbol.iterator](): IterableIterator<${convertDomTypeToTsType({ type: iterableGetter.signature[0].type, nullable: undefined })}>`);
+                printer.decreaseIndent();
+                printer.printLine("}");
+                printer.printLine("");
             }
         }
     }
 
     function emitES6DomIterators() {
-        printer.Reset();
-        printer.Printl("/////////////////////////////");
-        printer.Printl("/// DOM ES6 APIs");
-        printer.Printl("/////////////////////////////");
-        printer.Printl("");
+        printer.reset();
+        printer.printLine("/////////////////////////////");
+        printer.printLine("/// DOM ES6 APIs");
+        printer.printLine("/////////////////////////////");
+        printer.printLine("");
 
         allInterfaces
             .sort(compareName)
             .forEach(emitIterator);
 
-        return printer.GetResult();
+        return printer.getResult();
     }
 }
 
@@ -1245,7 +1245,7 @@ function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, ts
     if (webidl.interfaces) worker.interfaces!.interface = filterProperties(webidl.interfaces.interface, isKnownWorkerName);
     if (webidl.typedefs) worker.typedefs!.typedef = webidl.typedefs.typedef.filter(t => knownWorkerTypes.has(t["new-type"]));
 
-    const result = EmitWebIDl(worker, Flavor.Worker);
+    const result = emitWebIDl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
 }
@@ -1256,13 +1256,13 @@ function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
             && o.exposed.indexOf("Worker") > -1 && o.exposed.indexOf("Window") <= -1);
     });
 
-    const result = EmitWebIDl(browser, Flavor.Web);
+    const result = emitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
     return;
 }
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
-    fs.writeFileSync(tsWebES6Output, EmitWebIDl(webidl, Flavor.ES6Iterators));
+    fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
 }
 
 function emitDom() {

@@ -287,9 +287,9 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-.paket/
-.fake/
 generated/
 
 *.js
 *.js.map
+lib/
+inputfiles/browser.webidl.json

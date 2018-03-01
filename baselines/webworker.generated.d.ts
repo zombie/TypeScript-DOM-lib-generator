@@ -45,8 +45,8 @@ interface KeyAlgorithm {
 }
 
 interface MessageEventInit extends EventInit {
-    lastEventId?: string;
     channel?: string;
+    lastEventId?: string;
     data?: any;
     origin?: string;
     ports?: MessagePort[];
@@ -102,21 +102,21 @@ interface ExtendableEventInit extends EventInit {
 
 interface ExtendableMessageEventInit extends ExtendableEventInit {
     data?: any;
-    origin?: string;
     lastEventId?: string;
-    source?: Client | ServiceWorker | MessagePort | null;
+    origin?: string;
     ports?: MessagePort[] | null;
+    source?: Client | ServiceWorker | MessagePort | null;
 }
 
 interface FetchEventInit extends ExtendableEventInit {
-    request: Request;
     clientId?: string | null;
     isReload?: boolean;
+    request: Request;
 }
 
 interface NotificationEventInit extends ExtendableEventInit {
-    notification: Notification;
     action?: string;
+    notification: Notification;
 }
 
 interface PushEventInit extends ExtendableEventInit {
@@ -124,12 +124,24 @@ interface PushEventInit extends ExtendableEventInit {
 }
 
 interface SyncEventInit extends ExtendableEventInit {
-    tag: string;
     lastChance?: boolean;
+    tag: string;
 }
 
 interface EventListener {
     (evt: Event): void;
+}
+
+interface AbstractWorkerEventMap {
+    "error": ErrorEvent;
+}
+
+interface AbstractWorker {
+    onerror: (this: AbstractWorker, ev: ErrorEvent) => any;
+    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 interface AudioBuffer {
@@ -160,6 +172,14 @@ declare var Blob: {
     new (blobParts?: any[], options?: BlobPropertyBag): Blob;
 };
 
+interface Body {
+    readonly bodyUsed: boolean;
+    arrayBuffer(): Promise<ArrayBuffer>;
+    blob(): Promise<Blob>;
+    json(): Promise<any>;
+    text(): Promise<string>;
+}
+
 interface Cache {
     add(request: RequestInfo): Promise<void>;
     addAll(requests: RequestInfo[]): Promise<void>;
@@ -186,6 +206,30 @@ interface CacheStorage {
 declare var CacheStorage: {
     prototype: CacheStorage;
     new(): CacheStorage;
+};
+
+interface Client {
+    readonly frameType: FrameType;
+    readonly id: string;
+    readonly url: USVString;
+    postMessage(message: any, transfer?: any[]): void;
+}
+
+declare var Client: {
+    prototype: Client;
+    new(): Client;
+};
+
+interface Clients {
+    claim(): Promise<void>;
+    get(id: string): Promise<any>;
+    matchAll(options?: ClientQueryOptions): Promise<Client[]>;
+    openWindow(url: USVString): Promise<WindowClient>;
+}
+
+declare var Clients: {
+    prototype: Clients;
+    new(): Clients;
 };
 
 interface CloseEvent extends Event {
@@ -285,10 +329,10 @@ interface DOMException {
     readonly INVALID_STATE_ERR: number;
     readonly NAMESPACE_ERR: number;
     readonly NETWORK_ERR: number;
-    readonly NO_DATA_ALLOWED_ERR: number;
-    readonly NO_MODIFICATION_ALLOWED_ERR: number;
     readonly NOT_FOUND_ERR: number;
     readonly NOT_SUPPORTED_ERR: number;
+    readonly NO_DATA_ALLOWED_ERR: number;
+    readonly NO_MODIFICATION_ALLOWED_ERR: number;
     readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
@@ -317,10 +361,10 @@ declare var DOMException: {
     readonly INVALID_STATE_ERR: number;
     readonly NAMESPACE_ERR: number;
     readonly NETWORK_ERR: number;
-    readonly NO_DATA_ALLOWED_ERR: number;
-    readonly NO_MODIFICATION_ALLOWED_ERR: number;
     readonly NOT_FOUND_ERR: number;
     readonly NOT_SUPPORTED_ERR: number;
+    readonly NO_DATA_ALLOWED_ERR: number;
+    readonly NO_MODIFICATION_ALLOWED_ERR: number;
     readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
@@ -345,6 +389,25 @@ declare var DOMStringList: {
     new(): DOMStringList;
 };
 
+interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
+    "message": MessageEvent;
+}
+
+interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
+    onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
+    close(): void;
+    postMessage(message: any, transfer?: any[]): void;
+    addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var DedicatedWorkerGlobalScope: {
+    prototype: DedicatedWorkerGlobalScope;
+    new(): DedicatedWorkerGlobalScope;
+};
+
 interface ErrorEvent extends Event {
     readonly colno: number;
     readonly error: any;
@@ -361,8 +424,8 @@ declare var ErrorEvent: {
 
 interface Event {
     readonly bubbles: boolean;
-    readonly cancelable: boolean;
     cancelBubble: boolean;
+    readonly cancelable: boolean;
     readonly currentTarget: EventTarget;
     readonly defaultPrevented: boolean;
     readonly eventPhase: number;
@@ -400,6 +463,40 @@ interface EventTarget {
 declare var EventTarget: {
     prototype: EventTarget;
     new(): EventTarget;
+};
+
+interface ExtendableEvent extends Event {
+    waitUntil(f: Promise<any>): void;
+}
+
+declare var ExtendableEvent: {
+    prototype: ExtendableEvent;
+    new(type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
+};
+
+interface ExtendableMessageEvent extends ExtendableEvent {
+    readonly data: any;
+    readonly lastEventId: string;
+    readonly origin: string;
+    readonly ports: MessagePort[] | null;
+    readonly source: Client | ServiceWorker | MessagePort | null;
+}
+
+declare var ExtendableMessageEvent: {
+    prototype: ExtendableMessageEvent;
+    new(type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
+};
+
+interface FetchEvent extends ExtendableEvent {
+    readonly clientId: string | null;
+    readonly isReload: boolean;
+    readonly request: Request;
+    respondWith(r: Promise<Response>): void;
+}
+
+declare var FetchEvent: {
+    prototype: FetchEvent;
+    new(type: string, eventInitDict: FetchEventInit): FetchEvent;
 };
 
 interface File extends Blob {
@@ -442,6 +539,18 @@ declare var FileReader: {
     new(): FileReader;
 };
 
+interface FileReaderSync {
+    readAsArrayBuffer(blob: Blob): any;
+    readAsBinaryString(blob: Blob): void;
+    readAsDataURL(blob: Blob): string;
+    readAsText(blob: Blob, encoding?: string): string;
+}
+
+declare var FileReaderSync: {
+    prototype: FileReaderSync;
+    new(): FileReaderSync;
+};
+
 interface FormData {
     append(name: string, value: string | Blob, fileName?: string): void;
 }
@@ -450,6 +559,10 @@ declare var FormData: {
     prototype: FormData;
     new(): FormData;
 };
+
+interface GlobalFetch {
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+}
 
 interface Headers {
     append(name: string, value: string): void;
@@ -692,6 +805,34 @@ declare var ImageData: {
     new(array: Uint8ClampedArray, width: number, height: number): ImageData;
 };
 
+interface MSBaseReaderEventMap {
+    "abort": Event;
+    "error": ErrorEvent;
+    "load": Event;
+    "loadend": ProgressEvent;
+    "loadstart": Event;
+    "progress": ProgressEvent;
+}
+
+interface MSBaseReader {
+    onabort: (this: MSBaseReader, ev: Event) => any;
+    onerror: (this: MSBaseReader, ev: ErrorEvent) => any;
+    onload: (this: MSBaseReader, ev: Event) => any;
+    onloadend: (this: MSBaseReader, ev: ProgressEvent) => any;
+    onloadstart: (this: MSBaseReader, ev: Event) => any;
+    onprogress: (this: MSBaseReader, ev: ProgressEvent) => any;
+    readonly readyState: number;
+    readonly result: any;
+    abort(): void;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+    addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
 interface MessageChannel {
     readonly port1: MessagePort;
     readonly port2: MessagePort;
@@ -735,6 +876,30 @@ declare var MessagePort: {
     new(): MessagePort;
 };
 
+interface NavigatorBeacon {
+    sendBeacon(url: USVString, data?: BodyInit): boolean;
+}
+
+interface NavigatorConcurrentHardware {
+    readonly hardwareConcurrency: number;
+}
+
+interface NavigatorID {
+    readonly appCodeName: string;
+    readonly appName: string;
+    readonly appVersion: string;
+    readonly platform: string;
+    readonly product: string;
+    readonly productSub: string;
+    readonly userAgent: string;
+    readonly vendor: string;
+    readonly vendorSub: string;
+}
+
+interface NavigatorOnLine {
+    readonly onLine: boolean;
+}
+
 interface NotificationEventMap {
     "click": Event;
     "close": Event;
@@ -765,6 +930,16 @@ declare var Notification: {
     prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
     requestPermission(callback?: NotificationPermissionCallback): Promise<NotificationPermission>;
+};
+
+interface NotificationEvent extends ExtendableEvent {
+    readonly action: string;
+    readonly notification: Notification;
+}
+
+declare var NotificationEvent: {
+    prototype: NotificationEvent;
+    new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
 };
 
 interface Performance {
@@ -812,13 +987,13 @@ declare var PerformanceNavigation: {
 interface PerformanceTiming {
     readonly connectEnd: number;
     readonly connectStart: number;
-    readonly domainLookupEnd: number;
-    readonly domainLookupStart: number;
     readonly domComplete: number;
     readonly domContentLoadedEventEnd: number;
     readonly domContentLoadedEventStart: number;
     readonly domInteractive: number;
     readonly domLoading: number;
+    readonly domainLookupEnd: number;
+    readonly domainLookupStart: number;
     readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
@@ -879,6 +1054,15 @@ declare var ProgressEvent: {
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
 };
 
+interface PushEvent extends ExtendableEvent {
+    readonly data: PushMessageData | null;
+}
+
+declare var PushEvent: {
+    prototype: PushEvent;
+    new(type: string, eventInitDict?: PushEventInit): PushEvent;
+};
+
 interface PushManager {
     getSubscription(): Promise<PushSubscription | null>;
     permissionState(options?: PushSubscriptionOptionsInit): Promise<PushPermissionState>;
@@ -888,6 +1072,18 @@ interface PushManager {
 declare var PushManager: {
     prototype: PushManager;
     new(): PushManager;
+};
+
+interface PushMessageData {
+    arrayBuffer(): ArrayBuffer;
+    blob(): Blob;
+    json(): JSON;
+    text(): USVString;
+}
+
+declare var PushMessageData: {
+    prototype: PushMessageData;
+    new(): PushMessageData;
 };
 
 interface PushSubscription {
@@ -997,6 +1193,42 @@ declare var ServiceWorker: {
     new(): ServiceWorker;
 };
 
+interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
+    "activate": ExtendableEvent;
+    "fetch": FetchEvent;
+    "install": ExtendableEvent;
+    "message": ExtendableMessageEvent;
+    "notificationclick": NotificationEvent;
+    "notificationclose": NotificationEvent;
+    "push": PushEvent;
+    "pushsubscriptionchange": ExtendableEvent;
+    "sync": SyncEvent;
+}
+
+interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
+    readonly clients: Clients;
+    onactivate: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
+    onfetch: (this: ServiceWorkerGlobalScope, ev: FetchEvent) => any;
+    oninstall: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
+    onmessage: (this: ServiceWorkerGlobalScope, ev: ExtendableMessageEvent) => any;
+    onnotificationclick: (this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any;
+    onnotificationclose: (this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any;
+    onpush: (this: ServiceWorkerGlobalScope, ev: PushEvent) => any;
+    onpushsubscriptionchange: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
+    onsync: (this: ServiceWorkerGlobalScope, ev: SyncEvent) => any;
+    readonly registration: ServiceWorkerRegistration;
+    skipWaiting(): Promise<void>;
+    addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var ServiceWorkerGlobalScope: {
+    prototype: ServiceWorkerGlobalScope;
+    new(): ServiceWorkerGlobalScope;
+};
+
 interface ServiceWorkerRegistrationEventMap {
     "updatefound": Event;
 }
@@ -1022,6 +1254,16 @@ interface ServiceWorkerRegistration extends EventTarget {
 declare var ServiceWorkerRegistration: {
     prototype: ServiceWorkerRegistration;
     new(): ServiceWorkerRegistration;
+};
+
+interface SyncEvent extends ExtendableEvent {
+    readonly lastChance: boolean;
+    readonly tag: string;
+}
+
+declare var SyncEvent: {
+    prototype: SyncEvent;
+    new(type: string, init: SyncEventInit): SyncEvent;
 };
 
 interface SyncManager {
@@ -1096,6 +1338,27 @@ declare var WebSocket: {
     readonly OPEN: number;
 };
 
+interface WindowBase64 {
+    atob(encodedString: string): string;
+    btoa(rawString: string): string;
+}
+
+interface WindowClient extends Client {
+    readonly focused: boolean;
+    readonly visibilityState: VisibilityState;
+    focus(): Promise<WindowClient>;
+    navigate(url: USVString): Promise<WindowClient>;
+}
+
+declare var WindowClient: {
+    prototype: WindowClient;
+    new(): WindowClient;
+};
+
+interface WindowConsole {
+    readonly console: Console;
+}
+
 interface WorkerEventMap extends AbstractWorkerEventMap {
     "message": MessageEvent;
 }
@@ -1113,353 +1376,6 @@ interface Worker extends EventTarget, AbstractWorker {
 declare var Worker: {
     prototype: Worker;
     new(stringUrl: string): Worker;
-};
-
-interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
-    "readystatechange": Event;
-}
-
-interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
-    onreadystatechange: (this: XMLHttpRequest, ev: Event) => any;
-    readonly readyState: number;
-    readonly response: any;
-    readonly responseText: string;
-    responseType: XMLHttpRequestResponseType;
-    readonly responseURL: string;
-    readonly responseXML: any;
-    readonly status: number;
-    readonly statusText: string;
-    timeout: number;
-    readonly upload: XMLHttpRequestUpload;
-    withCredentials: boolean;
-    msCaching?: string;
-    abort(): void;
-    getAllResponseHeaders(): string;
-    getResponseHeader(header: string): string | null;
-    msCachingEnabled(): boolean;
-    open(method: string, url: string, async?: boolean, user?: string, password?: string): void;
-    overrideMimeType(mime: string): void;
-    send(data?: string): void;
-    send(data?: any): void;
-    setRequestHeader(header: string, value: string): void;
-    readonly DONE: number;
-    readonly HEADERS_RECEIVED: number;
-    readonly LOADING: number;
-    readonly OPENED: number;
-    readonly UNSENT: number;
-    addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var XMLHttpRequest: {
-    prototype: XMLHttpRequest;
-    new(): XMLHttpRequest;
-    readonly DONE: number;
-    readonly HEADERS_RECEIVED: number;
-    readonly LOADING: number;
-    readonly OPENED: number;
-    readonly UNSENT: number;
-};
-
-interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var XMLHttpRequestUpload: {
-    prototype: XMLHttpRequestUpload;
-    new(): XMLHttpRequestUpload;
-};
-
-interface AbstractWorkerEventMap {
-    "error": ErrorEvent;
-}
-
-interface AbstractWorker {
-    onerror: (this: AbstractWorker, ev: ErrorEvent) => any;
-    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-interface Body {
-    readonly bodyUsed: boolean;
-    arrayBuffer(): Promise<ArrayBuffer>;
-    blob(): Promise<Blob>;
-    json(): Promise<any>;
-    text(): Promise<string>;
-}
-
-interface GlobalFetch {
-    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
-}
-
-interface MSBaseReaderEventMap {
-    "abort": Event;
-    "error": ErrorEvent;
-    "load": Event;
-    "loadend": ProgressEvent;
-    "loadstart": Event;
-    "progress": ProgressEvent;
-}
-
-interface MSBaseReader {
-    onabort: (this: MSBaseReader, ev: Event) => any;
-    onerror: (this: MSBaseReader, ev: ErrorEvent) => any;
-    onload: (this: MSBaseReader, ev: Event) => any;
-    onloadend: (this: MSBaseReader, ev: ProgressEvent) => any;
-    onloadstart: (this: MSBaseReader, ev: Event) => any;
-    onprogress: (this: MSBaseReader, ev: ProgressEvent) => any;
-    readonly readyState: number;
-    readonly result: any;
-    abort(): void;
-    readonly DONE: number;
-    readonly EMPTY: number;
-    readonly LOADING: number;
-    addEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MSBaseReaderEventMap>(type: K, listener: (this: MSBaseReader, ev: MSBaseReaderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-interface NavigatorBeacon {
-    sendBeacon(url: USVString, data?: BodyInit): boolean;
-}
-
-interface NavigatorConcurrentHardware {
-    readonly hardwareConcurrency: number;
-}
-
-interface NavigatorID {
-    readonly appCodeName: string;
-    readonly appName: string;
-    readonly appVersion: string;
-    readonly platform: string;
-    readonly product: string;
-    readonly productSub: string;
-    readonly userAgent: string;
-    readonly vendor: string;
-    readonly vendorSub: string;
-}
-
-interface NavigatorOnLine {
-    readonly onLine: boolean;
-}
-
-interface WindowBase64 {
-    atob(encodedString: string): string;
-    btoa(rawString: string): string;
-}
-
-interface WindowConsole {
-    readonly console: Console;
-}
-
-interface XMLHttpRequestEventTargetEventMap {
-    "abort": Event;
-    "error": ErrorEvent;
-    "load": Event;
-    "loadend": ProgressEvent;
-    "loadstart": Event;
-    "progress": ProgressEvent;
-    "timeout": ProgressEvent;
-}
-
-interface XMLHttpRequestEventTarget {
-    onabort: (this: XMLHttpRequest, ev: Event) => any;
-    onerror: (this: XMLHttpRequest, ev: ErrorEvent) => any;
-    onload: (this: XMLHttpRequest, ev: Event) => any;
-    onloadend: (this: XMLHttpRequest, ev: ProgressEvent) => any;
-    onloadstart: (this: XMLHttpRequest, ev: Event) => any;
-    onprogress: (this: XMLHttpRequest, ev: ProgressEvent) => any;
-    ontimeout: (this: XMLHttpRequest, ev: ProgressEvent) => any;
-    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-interface Client {
-    readonly frameType: FrameType;
-    readonly id: string;
-    readonly url: USVString;
-    postMessage(message: any, transfer?: any[]): void;
-}
-
-declare var Client: {
-    prototype: Client;
-    new(): Client;
-};
-
-interface Clients {
-    claim(): Promise<void>;
-    get(id: string): Promise<any>;
-    matchAll(options?: ClientQueryOptions): Promise<Client[]>;
-    openWindow(url: USVString): Promise<WindowClient>;
-}
-
-declare var Clients: {
-    prototype: Clients;
-    new(): Clients;
-};
-
-interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "message": MessageEvent;
-}
-
-interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
-    onmessage: (this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any;
-    close(): void;
-    postMessage(message: any, transfer?: any[]): void;
-    addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var DedicatedWorkerGlobalScope: {
-    prototype: DedicatedWorkerGlobalScope;
-    new(): DedicatedWorkerGlobalScope;
-};
-
-interface ExtendableEvent extends Event {
-    waitUntil(f: Promise<any>): void;
-}
-
-declare var ExtendableEvent: {
-    prototype: ExtendableEvent;
-    new(type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
-};
-
-interface ExtendableMessageEvent extends ExtendableEvent {
-    readonly data: any;
-    readonly lastEventId: string;
-    readonly origin: string;
-    readonly ports: MessagePort[] | null;
-    readonly source: Client | ServiceWorker | MessagePort | null;
-}
-
-declare var ExtendableMessageEvent: {
-    prototype: ExtendableMessageEvent;
-    new(type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
-};
-
-interface FetchEvent extends ExtendableEvent {
-    readonly clientId: string | null;
-    readonly isReload: boolean;
-    readonly request: Request;
-    respondWith(r: Promise<Response>): void;
-}
-
-declare var FetchEvent: {
-    prototype: FetchEvent;
-    new(type: string, eventInitDict: FetchEventInit): FetchEvent;
-};
-
-interface FileReaderSync {
-    readAsArrayBuffer(blob: Blob): any;
-    readAsBinaryString(blob: Blob): void;
-    readAsDataURL(blob: Blob): string;
-    readAsText(blob: Blob, encoding?: string): string;
-}
-
-declare var FileReaderSync: {
-    prototype: FileReaderSync;
-    new(): FileReaderSync;
-};
-
-interface NotificationEvent extends ExtendableEvent {
-    readonly action: string;
-    readonly notification: Notification;
-}
-
-declare var NotificationEvent: {
-    prototype: NotificationEvent;
-    new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
-};
-
-interface PushEvent extends ExtendableEvent {
-    readonly data: PushMessageData | null;
-}
-
-declare var PushEvent: {
-    prototype: PushEvent;
-    new(type: string, eventInitDict?: PushEventInit): PushEvent;
-};
-
-interface PushMessageData {
-    arrayBuffer(): ArrayBuffer;
-    blob(): Blob;
-    json(): JSON;
-    text(): USVString;
-}
-
-declare var PushMessageData: {
-    prototype: PushMessageData;
-    new(): PushMessageData;
-};
-
-interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "activate": ExtendableEvent;
-    "fetch": FetchEvent;
-    "install": ExtendableEvent;
-    "message": ExtendableMessageEvent;
-    "notificationclick": NotificationEvent;
-    "notificationclose": NotificationEvent;
-    "push": PushEvent;
-    "pushsubscriptionchange": ExtendableEvent;
-    "sync": SyncEvent;
-}
-
-interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
-    readonly clients: Clients;
-    onactivate: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
-    onfetch: (this: ServiceWorkerGlobalScope, ev: FetchEvent) => any;
-    oninstall: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
-    onmessage: (this: ServiceWorkerGlobalScope, ev: ExtendableMessageEvent) => any;
-    onnotificationclick: (this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any;
-    onnotificationclose: (this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any;
-    onpush: (this: ServiceWorkerGlobalScope, ev: PushEvent) => any;
-    onpushsubscriptionchange: (this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any;
-    onsync: (this: ServiceWorkerGlobalScope, ev: SyncEvent) => any;
-    readonly registration: ServiceWorkerRegistration;
-    skipWaiting(): Promise<void>;
-    addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var ServiceWorkerGlobalScope: {
-    prototype: ServiceWorkerGlobalScope;
-    new(): ServiceWorkerGlobalScope;
-};
-
-interface SyncEvent extends ExtendableEvent {
-    readonly lastChance: boolean;
-    readonly tag: string;
-}
-
-declare var SyncEvent: {
-    prototype: SyncEvent;
-    new(type: string, init: SyncEventInit): SyncEvent;
-};
-
-interface WindowClient extends Client {
-    readonly focused: boolean;
-    readonly visibilityState: VisibilityState;
-    focus(): Promise<WindowClient>;
-    navigate(url: USVString): Promise<WindowClient>;
-}
-
-declare var WindowClient: {
-    prototype: WindowClient;
-    new(): WindowClient;
 };
 
 interface WorkerGlobalScopeEventMap {
@@ -1530,14 +1446,98 @@ interface WorkerUtils extends Object, WindowBase64 {
     setTimeout(handler: any, timeout?: any, ...args: any[]): number;
 }
 
+interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
+    "readystatechange": Event;
+}
+
+interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
+    onreadystatechange: (this: XMLHttpRequest, ev: Event) => any;
+    readonly readyState: number;
+    readonly response: any;
+    readonly responseText: string;
+    responseType: XMLHttpRequestResponseType;
+    readonly responseURL: string;
+    readonly responseXML: any;
+    readonly status: number;
+    readonly statusText: string;
+    timeout: number;
+    readonly upload: XMLHttpRequestUpload;
+    withCredentials: boolean;
+    msCaching?: string;
+    abort(): void;
+    getAllResponseHeaders(): string;
+    getResponseHeader(header: string): string | null;
+    msCachingEnabled(): boolean;
+    open(method: string, url: string, async?: boolean, user?: string, password?: string): void;
+    overrideMimeType(mime: string): void;
+    send(data?: string): void;
+    send(data?: any): void;
+    setRequestHeader(header: string, value: string): void;
+    readonly DONE: number;
+    readonly HEADERS_RECEIVED: number;
+    readonly LOADING: number;
+    readonly OPENED: number;
+    readonly UNSENT: number;
+    addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var XMLHttpRequest: {
+    prototype: XMLHttpRequest;
+    new(): XMLHttpRequest;
+    readonly DONE: number;
+    readonly HEADERS_RECEIVED: number;
+    readonly LOADING: number;
+    readonly OPENED: number;
+    readonly UNSENT: number;
+};
+
+interface XMLHttpRequestEventTargetEventMap {
+    "abort": Event;
+    "error": ErrorEvent;
+    "load": Event;
+    "loadend": ProgressEvent;
+    "loadstart": Event;
+    "progress": ProgressEvent;
+    "timeout": ProgressEvent;
+}
+
+interface XMLHttpRequestEventTarget {
+    onabort: (this: XMLHttpRequest, ev: Event) => any;
+    onerror: (this: XMLHttpRequest, ev: ErrorEvent) => any;
+    onload: (this: XMLHttpRequest, ev: Event) => any;
+    onloadend: (this: XMLHttpRequest, ev: ProgressEvent) => any;
+    onloadstart: (this: XMLHttpRequest, ev: Event) => any;
+    onprogress: (this: XMLHttpRequest, ev: ProgressEvent) => any;
+    ontimeout: (this: XMLHttpRequest, ev: ProgressEvent) => any;
+    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
+    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var XMLHttpRequestUpload: {
+    prototype: XMLHttpRequestUpload;
+    new(): XMLHttpRequestUpload;
+};
+
 interface BroadcastChannel extends EventTarget {
     readonly name: string;
     onmessage: (ev: MessageEvent) => any;
     onmessageerror: (ev: MessageEvent) => any;
-    close(): void;
-    postMessage(message: any): void;
     addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    close(): void;
+    postMessage(message: any): void;
     removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
@@ -1553,25 +1553,25 @@ interface BroadcastChannelEventMap {
 }
 
 interface ErrorEventInit {
-    message?: string;
-    filename?: string;
-    lineno?: number;
     conlno?: number;
     error?: any;
+    filename?: string;
+    lineno?: number;
+    message?: string;
 }
 
 interface ImageBitmapOptions {
+    colorSpaceConversion?: "none" | "default";
     imageOrientation?: "none" | "flipY";
     premultiplyAlpha?: "none" | "premultiply" | "default";
-    colorSpaceConversion?: "none" | "default";
-    resizeWidth?: number;
     resizeHeight?: number;
     resizeQuality?: "pixelated" | "low" | "medium" | "high";
+    resizeWidth?: number;
 }
 
 interface ImageBitmap {
-    readonly width: number;
     readonly height: number;
+    readonly width: number;
     close(): void;
 }
 
@@ -1611,8 +1611,8 @@ declare var URLSearchParams: {
 };
 
 interface BlobPropertyBag {
-    type?: string;
     endings?: string;
+    type?: string;
 }
 
 interface FilePropertyBag extends BlobPropertyBag {
@@ -1708,8 +1708,8 @@ interface AesCmacParams extends Algorithm {
 }
 
 interface AesGcmParams extends Algorithm {
-    iv: BufferSource;
     additionalData?: BufferSource;
+    iv: BufferSource;
     tagLength?: number;
 }
 
@@ -1733,13 +1733,13 @@ interface HmacKeyGenParams extends Algorithm {
 }
 
 interface DhKeyGenParams extends Algorithm {
-    prime: Uint8Array;
     generator: Uint8Array;
+    prime: Uint8Array;
 }
 
 interface DhKeyAlgorithm extends KeyAlgorithm {
-    prime: Uint8Array;
     generator: Uint8Array;
+    prime: Uint8Array;
 }
 
 interface DhKeyDeriveParams extends Algorithm {
@@ -1747,60 +1747,60 @@ interface DhKeyDeriveParams extends Algorithm {
 }
 
 interface DhImportKeyParams extends Algorithm {
-    prime: Uint8Array;
     generator: Uint8Array;
+    prime: Uint8Array;
 }
 
 interface ConcatParams extends Algorithm {
-    hash?: AlgorithmIdentifier;
     algorithmId: Uint8Array;
+    hash?: AlgorithmIdentifier;
     partyUInfo: Uint8Array;
     partyVInfo: Uint8Array;
-    publicInfo?: Uint8Array;
     privateInfo?: Uint8Array;
+    publicInfo?: Uint8Array;
 }
 
 interface HkdfCtrParams extends Algorithm {
+    context: BufferSource;
     hash: AlgorithmIdentifier;
     label: BufferSource;
-    context: BufferSource;
 }
 
 interface Pbkdf2Params extends Algorithm {
-    salt: BufferSource;
-    iterations: number;
     hash: AlgorithmIdentifier;
+    iterations: number;
+    salt: BufferSource;
 }
 
 interface RsaOtherPrimesInfo {
-    r: string;
     d: string;
+    r: string;
     t: string;
 }
 
 interface JsonWebKey {
-    kty: string;
-    use?: string;
-    key_ops?: string[];
     alg?: string;
-    kid?: string;
-    x5u?: string;
-    x5c?: string;
-    x5t?: string;
-    ext?: boolean;
     crv?: string;
-    x?: string;
-    y?: string;
     d?: string;
-    n?: string;
-    e?: string;
-    p?: string;
-    q?: string;
     dp?: string;
     dq?: string;
-    qi?: string;
-    oth?: RsaOtherPrimesInfo[];
+    e?: string;
+    ext?: boolean;
     k?: string;
+    key_ops?: string[];
+    kid?: string;
+    kty: string;
+    n?: string;
+    oth?: RsaOtherPrimesInfo[];
+    p?: string;
+    q?: string;
+    qi?: string;
+    use?: string;
+    x5c?: string;
+    x5t?: string;
+    x5u?: string;
+    x?: string;
+    y?: string;
 }
 
 interface EventListenerOptions {
@@ -1808,8 +1808,8 @@ interface EventListenerOptions {
 }
 
 interface AddEventListenerOptions extends EventListenerOptions {
-    passive?: boolean;
     once?: boolean;
+    passive?: boolean;
 }
 
 interface AbortController {
@@ -1828,15 +1828,15 @@ interface AbortSignal extends EventTarget {
 }
 
 interface EventSource extends EventTarget {
-    readonly url: string;
-    readonly withCredentials: boolean;
+    readonly CLOSED: number;
     readonly CONNECTING: number;
     readonly OPEN: number;
-    readonly CLOSED: number;
-    readonly readyState: number;
-    onopen: (evt: MessageEvent) => any;
-    onmessage: (evt: MessageEvent) => any;
     onerror: (evt: MessageEvent) => any;
+    onmessage: (evt: MessageEvent) => any;
+    onopen: (evt: MessageEvent) => any;
+    readonly readyState: number;
+    readonly url: string;
+    readonly withCredentials: boolean;
     close(): void;
 }
 
@@ -1915,10 +1915,12 @@ type BodyInit = Blob | BufferSource | FormData | string;
 type IDBKeyPath = string;
 type RequestInfo = Request | string;
 type USVString = string;
-type IDBValidKey = number | string | Date | IDBArrayKey;
 type BufferSource = ArrayBuffer | ArrayBufferView;
 type FormDataEntryValue = string | File;
 type HeadersInit = Headers | string[][] | { [key: string]: string };
+type IDBValidKey = number | string | Date | IDBArrayKey;
+type ClientType = "window" | "worker" | "sharedworker" | "all";
+type FrameType = "auxiliary" | "top-level" | "nested" | "none";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
@@ -1938,5 +1940,3 @@ type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaquer
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
-type ClientType = "window" | "worker" | "sharedworker" | "all";
-type FrameType = "auxiliary" | "top-level" | "nested" | "none";

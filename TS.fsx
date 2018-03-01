@@ -777,11 +777,13 @@ module Emit =
                 | Some c' -> emitConstantFromJson c'
                 | None -> Pt.Printl "readonly %s: %s;" c.Name (DomTypeToTsType c.Type)
 
-        let addedConstants = getAddedItems ItemKind.Constant Flavor.All
+        let addedConstants = getAddedItems ItemKind.Constant Flavor.All |> Array.sortBy (fun t-> t.Name)
         Array.iter emitConstantFromJson addedConstants
 
         if i.Constants.IsSome then
-            Array.iter emitConstant i.Constants.Value.Constants
+            i.Constants.Value.Constants
+            |> Array.sortBy (fun c -> c.Name)
+            |> Array.iter emitConstant
 
     let matchSingleParamMethodSignature (m: Browser.Method) expectedMName expectedMType expectedParamType =
         OptionCheckValue expectedMName m.Name &&
@@ -875,7 +877,7 @@ module Emit =
                     Pt.Printl "interface %s {" i.Name
                     Pt.PrintWithAddedIndent "(evt: Event): void;"
                     Pt.Printl "}"
-                else 
+                else
                     let m = i.Methods.Value.Methods.[0]
                     let overload = (GetOverloads (Function.Method m) false).[0]
                     let paramsString = ParamsToString overload.ParamCombinations
@@ -902,14 +904,19 @@ module Emit =
                     Pt.Printl "}"
 
         getAddedItems ItemKind.Callback flavor
+        |> Array.sortBy (fun cb -> cb.Name)
         |> Array.iter emitCallbackFunctionsFromJson
 
-        GetCallbackFuncsByFlavor flavor |> Array.iter emitCallBackFunction
+        GetCallbackFuncsByFlavor flavor
+        |> Array.sortBy (fun cb -> cb.Name)
+        |> Array.iter emitCallBackFunction
 
     let EmitEnums flavor =
         let emitEnum (e: Browser.Enum) =
             Pt.Printl "type %s = %s;" e.Name (String.Join(" | ", e.Values |> Array.map (fun value -> "\"" + value + "\"")))
-        GetEnumsByFlavor flavor |> Array.iter emitEnum
+        GetEnumsByFlavor flavor
+        |> Array.sortBy (fun e -> e.Name)
+        |> Array.iter emitEnum
 
     let EmitEventHandlerThis flavor (prefix: string) (i: Browser.Interface) =
         if prefix = "" then "this: " + i.Name + ", "
@@ -977,6 +984,7 @@ module Emit =
                 ps.Properties
                 |> Array.filter (ShouldKeep flavor)
                 |> Array.filter (isCovariantEventHandler >> not)
+                |> Array.sortBy (fun ps -> ps.Name)
                 |> Array.iter emitProperty
             | None -> ()
 
@@ -1055,6 +1063,7 @@ module Emit =
         if i.Methods.IsSome then
             i.Methods.Value.Methods
             |> Array.filter mFilter
+            |> Array.sortBy (fun m -> m.Name)
             |> Array.iter (emitMethod flavor prefix i)
 
         for addedItem in getAddedItems ItemKind.Method flavor do
@@ -1168,6 +1177,7 @@ module Emit =
     let EmitNamedConstructors () =
         browser.Interfaces
         |> Array.filter (fun i -> i.NamedConstructor.IsSome)
+        |> Array.sortBy (fun i -> i.Name)
         |> Array.iter
             (fun i ->
                 let nc = i.NamedConstructor.Value
@@ -1299,11 +1309,14 @@ module Emit =
                 Pt.Print " extends %s" (String.Join(", ", extends))
             Pt.Print " {"
             Pt.IncreaseIndent()
-            ownEventHandles |> List.iter emitInterfaceEventMapEntry
+            ownEventHandles
+            |> List.sortBy (fun e -> e.Name)
+            |> List.iter emitInterfaceEventMapEntry
 
             let addedProps =
                 getAddedItems ItemKind.Property Flavor.Web
                 |> Array.filter (fun m -> m.Interface.IsNone || m.Interface.Value = i.Name + "EventMap")
+                |> Array.sortBy (fun m -> m.Name)
 
             Array.iter emitJsonProperty addedProps
 
@@ -1414,7 +1427,7 @@ module Emit =
         if hasNonStaticMember then emitStaticInterfaceWithNonStaticMembers() else emitPureStaticInterface()
 
     let EmitNonCallbackInterfaces flavor =
-        for i in GetNonCallbackInterfacesByFlavor flavor do
+        for i in GetNonCallbackInterfacesByFlavor flavor |> Array.sortBy (fun i -> i.Name) do
             // If the static attribute has a value, it means the type doesn't have a constructor
             if i.Static.IsSome then
                 EmitStaticInterface flavor i
@@ -1445,12 +1458,14 @@ module Emit =
             let addedProps =
                 getAddedItems ItemKind.Property flavor
                 |> Array.filter (matchInterface dict.Name)
+                |> Array.sortBy (fun d -> d.Name)
 
             Pt.IncreaseIndent()
             Array.iter emitJsonProperty addedProps
             if dict.Members.IsSome then
                 dict.Members.Value.Members
                 |> Array.filter (fun m -> not (Set.contains m.Name removedPropNames))
+                |> Array.sortBy (fun m -> m.Name)
                 |> Array.iter (fun m ->
                     match (getOverriddenItemByName m.Name ItemKind.Property dict.Name) with
                     | Some om -> emitJsonProperty om
@@ -1465,10 +1480,13 @@ module Emit =
 
         browser.Dictionaries
         |> Array.filter (fun dict -> flavor <> Worker || knownWorkerInterfaces.Contains dict.Name)
+        |> Array.sortBy (fun d -> d.Name)
         |> Array.iter emitDictionary
 
         if flavor = Worker then
-            worker.Dictionaries |> Array.iter emitDictionary
+            worker.Dictionaries
+            |> Array.sortBy (fun d -> d.Name)
+            |> Array.iter emitDictionary
 
     let EmitAddedInterface (ai: InputJsonType.Root) =
         match ai.Extends with
@@ -1492,8 +1510,12 @@ module Emit =
             m.Signatures |> Array.iter (Pt.PrintWithAddedIndent "%s;")
 
 
-        ai.Properties |> Array.iter emitProperty
-        ai.Methods |> Array.iter emitMethod
+        ai.Properties
+        |> Array.sortBy (fun p -> p.Name)
+        |> Array.iter emitProperty
+        ai.Methods
+        |> Array.sortBy (fun m -> m.Name)
+        |> Array.iter emitMethod
         ai.Indexer |> Array.collect (fun i -> i.Signatures) |> Array.iter (Pt.PrintWithAddedIndent "%s;")
         Pt.Printl "}"
         Pt.Printl ""
@@ -1518,13 +1540,16 @@ module Emit =
         | Flavor.Worker ->
             browser.Typedefs
             |> Array.filter (fun typedef -> knownWorkerInterfaces.Contains typedef.NewType)
+            |> Array.sortBy (fun i -> i.NewType)
             |> Array.iter emitTypeDef
         | _ ->
             browser.Typedefs
             |> Array.filter (fun typedef -> getRemovedItemByName typedef.NewType ItemKind.TypeDef "" |> Option.isNone)
+            |> Array.sortBy (fun i -> i.NewType)
             |> Array.iter emitTypeDef
 
         InputJson.getAddedItems ItemKind.TypeDef flavor
+        |> Array.sortBy (fun t -> t.Name)
         |> Array.iter emitTypeDefFromJson
 
     let EmitTheWholeThing flavor (target:TextWriter) =
@@ -1537,11 +1562,14 @@ module Emit =
         Pt.Printl ""
 
         EmitDictionaries flavor
-        browser.CallbackInterfaces.Interfaces |> Array.iter (EmitCallBackInterface flavor)
+        browser.CallbackInterfaces.Interfaces
+        |> Array.sortBy (fun cb -> cb.Name)
+        |> Array.iter (EmitCallBackInterface flavor)
         EmitNonCallbackInterfaces flavor
 
         // Add missed interface definition from the spec
-        InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
+        InputJson.getAddedItems InputJson.Interface flavor
+        |> Array.iter EmitAddedInterface
 
         Pt.Printl "declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;"
         Pt.Printl ""
@@ -1605,7 +1633,9 @@ module Emit =
         Pt.Printl "/////////////////////////////"
         Pt.Printl ""
 
-        browser.Interfaces |> Array.iter EmitIterator
+        browser.Interfaces
+        |> Array.sortBy (fun i -> i.Name)
+        |> Array.iter EmitIterator
 
         fprintf target "%s" (Pt.GetResult())
         target.Flush()

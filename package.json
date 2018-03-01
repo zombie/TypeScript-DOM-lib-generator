@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --p ./tsconfig.json & node ./lib/index.js",
     "baseline-accept": "copy /Y generated\\* baselines\\",
-    "test": "tsc --p ./tsconfig.json & node ./lib/test.js"
+    "test": "tsc --p ./tsconfig.json &  node ./lib/index.js & node ./lib/test.js"
   },
   "repository": {
     "type": "git",

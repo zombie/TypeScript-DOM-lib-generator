@@ -90,7 +90,7 @@ interface MessageEventInit extends EventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: any;
+    source?: object | null;
 }
 
 interface NotificationEventInit extends ExtendableEventInit {
@@ -143,7 +143,7 @@ interface RequestInit {
     redirect?: RequestRedirect;
     referrer?: string;
     referrerPolicy?: ReferrerPolicy;
-    signal?: any;
+    signal?: object;
     window?: any;
 }
 
@@ -298,10 +298,10 @@ interface Console {
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
-    msIsIndependentlyComposed(element: any): boolean;
+    msIsIndependentlyComposed(element: object): boolean;
     profile(reportName?: string): void;
     profileEnd(): void;
-    select(element: any): void;
+    select(element: object): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;
@@ -475,7 +475,7 @@ interface Event {
     readonly isTrusted: boolean;
     returnValue: boolean;
     readonly scoped: boolean;
-    readonly srcElement: any;
+    readonly srcElement: object | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;
@@ -642,7 +642,7 @@ interface FormData {
 declare var FormData: {
     prototype: FormData;
     new(): FormData;
-    new(form: any): FormData;
+    new(form: object): FormData;
 };
 
 interface GlobalFetch {
@@ -920,8 +920,8 @@ interface MessageEvent extends Event {
     readonly data: any;
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: any;
-    initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: any): void;
+    readonly source: object | null;
+    initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: object): void;
 }
 
 declare var MessageEvent: {
@@ -1234,7 +1234,7 @@ interface Request extends Body {
     readonly redirect: RequestRedirect;
     readonly referrer: string;
     readonly referrerPolicy: ReferrerPolicy;
-    readonly signal: any;
+    readonly signal: object | null;
     readonly type: RequestType;
     readonly url: string;
     clone(): Request;
@@ -1581,7 +1581,7 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly responseText: string;
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
-    readonly responseXML: any;
+    readonly responseXML: object | null;
     readonly status: number;
     readonly statusText: string;
     timeout: number;

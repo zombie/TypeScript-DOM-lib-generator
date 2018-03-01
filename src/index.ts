@@ -418,8 +418,8 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             default:
                 if (integerTypes.has(objDomType)) return "number";
                 if (extendedTypes.has(objDomType)) return objDomType;
-                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "any";
-                if (flavor === Flavor.Web && objDomType === "Client") return "any";
+                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
+                if (flavor === Flavor.Web && objDomType === "Client") return "object";
                 // Name of an interface / enum / dict. Just return itself
                 if (allInterfacesMap[objDomType] ||
                     allCallbackFunctionsMap[objDomType] ||

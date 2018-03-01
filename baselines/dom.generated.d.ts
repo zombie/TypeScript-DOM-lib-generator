@@ -331,7 +331,7 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[] | null;
-    source?: any;
+    source?: object | ServiceWorker | MessagePort | null;
 }
 
 interface FetchEventInit extends ExtendableEventInit {

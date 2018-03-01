@@ -1809,6 +1809,19 @@
                         "new(url: string, base?: string | URL): URL"
                     ]
                 }
+            },
+            "EventTarget": {
+                "name": "EventTarget",
+                "methods": {
+                    "method": {
+                        "addEventListener": {
+                            "name": "addEventListener",
+                            "override-signatures": [
+                                "addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },

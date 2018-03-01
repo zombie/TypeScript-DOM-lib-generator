@@ -504,7 +504,7 @@ interface EventListenerObject {
 }
 
 interface EventTarget {
-    addEventListener(type: string, listener?: EventListenerOrEventListenerObject | null, options?: AddEventListenerOptions | boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
     dispatchEvent(evt: Event): boolean;
     removeEventListener(type: string, listener?: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
 }

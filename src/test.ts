@@ -7,10 +7,14 @@ const baselineFolder = path.join(__SOURCE_DIRECTORY__, "../", "baselines");
 const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
 const tscPath = path.join(__SOURCE_DIRECTORY__, "../", "node_modules", "typescript", "lib", "tsc.js");
 
+function normalizeLineEndings(text: string): string {
+    return text.replace(/\r\n?/g, "\n");
+}
+
 function compareToBaselines() {
     for (const file of fs.readdirSync(baselineFolder)) {
-        const baseline = fs.readFileSync(path.join(baselineFolder, file)).toString().replace(/\r\n/, "\n");
-        const generated = fs.readFileSync(path.join(outputFolder, file)).toString().replace(/\r\n/, "\n");
+        const baseline = normalizeLineEndings(fs.readFileSync(path.join(baselineFolder, file)).toString());
+        const generated = normalizeLineEndings(fs.readFileSync(path.join(outputFolder, file)).toString());
         if (baseline !== generated) {
             console.error(`Test failed: '${file}' is different from baseline file.`);
             return false;

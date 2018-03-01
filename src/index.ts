@@ -633,7 +633,7 @@ function EmitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitEventHandlerThis(prefix: string, i: Browser.Interface) {
         if (prefix === "") {
-            return `this: ${i.name} , `;
+            return `this: ${i.name}, `;
         }
         else {
             return pollutor ? `this: ${pollutor.name}, ` : "";

@@ -167,7 +167,7 @@ interface AbstractWorkerEventMap {
 }
 
 interface AbstractWorker {
-    onerror: ((this: AbstractWorker , ev: ErrorEvent) => any) | null;
+    onerror: ((this: AbstractWorker, ev: ErrorEvent) => any) | null;
     addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -437,7 +437,7 @@ interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
 }
 
 interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
-    onmessage: ((this: DedicatedWorkerGlobalScope , ev: MessageEvent) => any) | null;
+    onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
     close(): void;
     postMessage(message: any, transfer?: any[]): void;
     addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -588,12 +588,12 @@ interface FileReaderEventMap {
 
 interface FileReader extends EventTarget {
     readonly error: DOMException | null;
-    onabort: ((this: FileReader , ev: ProgressEvent) => any) | null;
-    onerror: ((this: FileReader , ev: ProgressEvent) => any) | null;
-    onload: ((this: FileReader , ev: ProgressEvent) => any) | null;
-    onloadend: ((this: FileReader , ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: FileReader , ev: ProgressEvent) => any) | null;
-    onprogress: ((this: FileReader , ev: ProgressEvent) => any) | null;
+    onabort: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent) => any) | null;
     readonly readyState: number;
     readonly result: any;
     abort(): void;
@@ -707,9 +707,9 @@ interface IDBDatabaseEventMap {
 interface IDBDatabase extends EventTarget {
     readonly name: string;
     readonly objectStoreNames: DOMStringList;
-    onabort: ((this: IDBDatabase , ev: Event) => any) | null;
-    onerror: ((this: IDBDatabase , ev: Event) => any) | null;
-    onversionchange: ((this: IDBDatabase , ev: Event) => any) | null;
+    onabort: ((this: IDBDatabase, ev: Event) => any) | null;
+    onerror: ((this: IDBDatabase, ev: Event) => any) | null;
+    onversionchange: ((this: IDBDatabase, ev: Event) => any) | null;
     readonly version: number;
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
@@ -800,8 +800,8 @@ interface IDBOpenDBRequestEventMap extends IDBRequestEventMap {
 }
 
 interface IDBOpenDBRequest extends IDBRequest {
-    onblocked: ((this: IDBOpenDBRequest , ev: Event) => any) | null;
-    onupgradeneeded: ((this: IDBOpenDBRequest , ev: IDBVersionChangeEvent) => any) | null;
+    onblocked: ((this: IDBOpenDBRequest, ev: Event) => any) | null;
+    onupgradeneeded: ((this: IDBOpenDBRequest, ev: IDBVersionChangeEvent) => any) | null;
     addEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof IDBOpenDBRequestEventMap>(type: K, listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -820,8 +820,8 @@ interface IDBRequestEventMap {
 
 interface IDBRequest extends EventTarget {
     readonly error: DOMException;
-    onerror: ((this: IDBRequest , ev: Event) => any) | null;
-    onsuccess: ((this: IDBRequest , ev: Event) => any) | null;
+    onerror: ((this: IDBRequest, ev: Event) => any) | null;
+    onsuccess: ((this: IDBRequest, ev: Event) => any) | null;
     readonly readyState: IDBRequestReadyState;
     readonly result: any;
     readonly source: IDBObjectStore | IDBIndex | IDBCursor;
@@ -847,9 +847,9 @@ interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
     readonly error: DOMException;
     readonly mode: IDBTransactionMode;
-    onabort: ((this: IDBTransaction , ev: Event) => any) | null;
-    oncomplete: ((this: IDBTransaction , ev: Event) => any) | null;
-    onerror: ((this: IDBTransaction , ev: Event) => any) | null;
+    onabort: ((this: IDBTransaction, ev: Event) => any) | null;
+    oncomplete: ((this: IDBTransaction, ev: Event) => any) | null;
+    onerror: ((this: IDBTransaction, ev: Event) => any) | null;
     abort(): void;
     objectStore(name: string): IDBObjectStore;
     readonly READ_ONLY: string;
@@ -934,7 +934,7 @@ interface MessagePortEventMap {
 }
 
 interface MessagePort extends EventTarget {
-    onmessage: ((this: MessagePort , ev: MessageEvent) => any) | null;
+    onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
     close(): void;
     postMessage(message?: any, transfer?: any[]): void;
     start(): void;
@@ -986,10 +986,10 @@ interface Notification extends EventTarget {
     readonly dir: NotificationDirection;
     readonly icon: string | null;
     readonly lang: string | null;
-    onclick: ((this: Notification , ev: Event) => any) | null;
-    onclose: ((this: Notification , ev: Event) => any) | null;
-    onerror: ((this: Notification , ev: Event) => any) | null;
-    onshow: ((this: Notification , ev: Event) => any) | null;
+    onclick: ((this: Notification, ev: Event) => any) | null;
+    onclose: ((this: Notification, ev: Event) => any) | null;
+    onerror: ((this: Notification, ev: Event) => any) | null;
+    onshow: ((this: Notification, ev: Event) => any) | null;
     readonly permission: NotificationPermission;
     readonly tag: string | null;
     readonly title: string;
@@ -1269,7 +1269,7 @@ interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
 }
 
 interface ServiceWorker extends EventTarget, AbstractWorker {
-    onstatechange: ((this: ServiceWorker , ev: Event) => any) | null;
+    onstatechange: ((this: ServiceWorker, ev: Event) => any) | null;
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
     postMessage(message: any, transfer?: any[]): void;
@@ -1299,16 +1299,16 @@ interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
 
 interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
     readonly clients: Clients;
-    onactivate: ((this: ServiceWorkerGlobalScope , ev: ExtendableEvent) => any) | null;
-    onfetch: ((this: ServiceWorkerGlobalScope , ev: FetchEvent) => any) | null;
-    oninstall: ((this: ServiceWorkerGlobalScope , ev: ExtendableEvent) => any) | null;
-    onmessage: ((this: ServiceWorkerGlobalScope , ev: ExtendableMessageEvent) => any) | null;
-    onmessageerror: ((this: ServiceWorkerGlobalScope , ev: MessageEvent) => any) | null;
-    onnotificationclick: ((this: ServiceWorkerGlobalScope , ev: NotificationEvent) => any) | null;
-    onnotificationclose: ((this: ServiceWorkerGlobalScope , ev: NotificationEvent) => any) | null;
-    onpush: ((this: ServiceWorkerGlobalScope , ev: PushEvent) => any) | null;
-    onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope , ev: PushSubscriptionChangeEvent) => any) | null;
-    onsync: ((this: ServiceWorkerGlobalScope , ev: SyncEvent) => any) | null;
+    onactivate: ((this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any) | null;
+    onfetch: ((this: ServiceWorkerGlobalScope, ev: FetchEvent) => any) | null;
+    oninstall: ((this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any) | null;
+    onmessage: ((this: ServiceWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
+    onmessageerror: ((this: ServiceWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    onnotificationclick: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
+    onnotificationclose: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
+    onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
+    onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: PushSubscriptionChangeEvent) => any) | null;
+    onsync: ((this: ServiceWorkerGlobalScope, ev: SyncEvent) => any) | null;
     readonly registration: ServiceWorkerRegistration;
     skipWaiting(): Promise<void>;
     addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1329,7 +1329,7 @@ interface ServiceWorkerRegistrationEventMap {
 interface ServiceWorkerRegistration extends EventTarget {
     readonly active: ServiceWorker | null;
     readonly installing: ServiceWorker | null;
-    onupdatefound: ((this: ServiceWorkerRegistration , ev: Event) => any) | null;
+    onupdatefound: ((this: ServiceWorkerRegistration, ev: Event) => any) | null;
     readonly pushManager: PushManager;
     readonly scope: string;
     readonly sync: SyncManager;
@@ -1435,10 +1435,10 @@ interface WebSocket extends EventTarget {
     binaryType: BinaryType;
     readonly bufferedAmount: number;
     readonly extensions: string;
-    onclose: ((this: WebSocket , ev: CloseEvent) => any) | null;
-    onerror: ((this: WebSocket , ev: Event) => any) | null;
-    onmessage: ((this: WebSocket , ev: MessageEvent) => any) | null;
-    onopen: ((this: WebSocket , ev: Event) => any) | null;
+    onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
+    onerror: ((this: WebSocket, ev: Event) => any) | null;
+    onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null;
+    onopen: ((this: WebSocket, ev: Event) => any) | null;
     readonly protocol: string;
     readonly readyState: number;
     readonly url: string;
@@ -1490,7 +1490,7 @@ interface WorkerEventMap extends AbstractWorkerEventMap {
 }
 
 interface Worker extends EventTarget, AbstractWorker {
-    onmessage: ((this: Worker , ev: MessageEvent) => any) | null;
+    onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
     /** @deprecated */
     postMessage(message: any, transfer?: any[]): void;
     terminate(): void;
@@ -1513,7 +1513,7 @@ interface WorkerGlobalScope extends EventTarget, WorkerUtils, WindowConsole, Glo
     readonly caches: CacheStorage;
     readonly isSecureContext: boolean;
     readonly location: WorkerLocation;
-    onerror: ((this: WorkerGlobalScope , ev: ErrorEvent) => any) | null;
+    onerror: ((this: WorkerGlobalScope, ev: ErrorEvent) => any) | null;
     readonly performance: Performance;
     readonly self: WorkerGlobalScope;
     createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
@@ -1575,7 +1575,7 @@ interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
 
 interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     msCaching: string;
-    onreadystatechange: ((this: XMLHttpRequest , ev: Event) => any) | null;
+    onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
     readonly readyState: number;
     readonly response: any;
     readonly responseText: string;

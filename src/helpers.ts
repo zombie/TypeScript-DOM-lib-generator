@@ -1,8 +1,7 @@
 export function filter(obj: any, fn: (o: any, n: string | undefined) => boolean) {
-    var result = obj;
     if (typeof obj === "object") {
         if (Array.isArray(obj)) {
-            var newArray: any[] = [];
+            const newArray: any[] = [];
             for (const e of obj) {
                 if (fn(e, undefined)) {
                     newArray.push(filter(e, fn));
@@ -11,15 +10,16 @@ export function filter(obj: any, fn: (o: any, n: string | undefined) => boolean)
             return newArray;
         }
         else {
-            result = {};
+            const result: any = {};
             for (const e in obj) {
                 if (fn(obj[e], e)) {
                     result[e] = filter(obj[e], fn);
                 }
             }
+            return result;
         }
     }
-    return result;
+    return obj;
 }
 
 export function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolean): Record<string, T> {
@@ -33,7 +33,9 @@ export function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolea
 }
 
 export function merge<T>(src: T, target: T): T {
-    if (typeof src !== "object" || typeof target !== "object") return src;
+    if (typeof src !== "object" || typeof target !== "object") {
+        return src;
+    }
     for (const k in target) {
         if (Object.getOwnPropertyDescriptor(target, k)) {
             if (Object.getOwnPropertyDescriptor(src, k)) {
@@ -43,7 +45,9 @@ export function merge<T>(src: T, target: T): T {
                     mergeNamedArrays(srcProp, targetProp);
                 }
                 else {
-                    if (Array.isArray(srcProp) !== Array.isArray(targetProp)) throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
+                    if (Array.isArray(srcProp) !== Array.isArray(targetProp)) {
+                        throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
+                    }
                     merge(src[k], target[k]);
                 }
             }

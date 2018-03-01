@@ -8,30 +8,28 @@ const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
 const tscPath = path.join(__SOURCE_DIRECTORY__, "../", "node_modules", "typescript", "lib", "tsc.js");
 
 function compareToBaselines() {
-    let success = true;
     for (const file of fs.readdirSync(baselineFolder)) {
-        let baseline = fs.readFileSync(path.join(baselineFolder, file)).toString().replace(/\r\n/, "\n");
-        let generated = fs.readFileSync(path.join(outputFolder, file)).toString().replace(/\r\n/, "\n");
+        const baseline = fs.readFileSync(path.join(baselineFolder, file)).toString().replace(/\r\n/, "\n");
+        const generated = fs.readFileSync(path.join(outputFolder, file)).toString().replace(/\r\n/, "\n");
         if (baseline !== generated) {
             console.error(`Test failed: '${file}' is different from baseline file.`);
-            success = false;
+            return false;
         }
     }
-    return success;
+    return true;
 
 }
 
 function compileGeneratedFile(file: string) {
-    let success = true;
     try {
         child_process.execSync(`node ${tscPath} --strict --lib es5 --noEmit ${path.join(outputFolder, file)}`);
     } catch (e) {
         console.error(`Test failed: could not compile '${file}':`);
         console.error(e.stdout.toString());
         console.error();
-        success = false;
+        return false;
     }
-    return success;
+    return true;
 }
 
 function test() {

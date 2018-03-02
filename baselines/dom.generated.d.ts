@@ -2724,7 +2724,7 @@ declare var CSSSupportsRule: {
 
 interface Cache {
     add(request: Request | string): Promise<void>;
-    addAll(requests: Array<Request | string>): Promise<void>;
+    addAll(requests: (Request | string)[]): Promise<void>;
     delete(request: Request | string, options?: CacheQueryOptions): Promise<boolean>;
     keys(request?: Request | string, options?: CacheQueryOptions): Promise<Request[]>;
     match(request: Request | string, options?: CacheQueryOptions): Promise<Response>;
@@ -9290,7 +9290,7 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
     readonly pointerEnabled: boolean;
     readonly serviceWorker: ServiceWorkerContainer;
     readonly webdriver: boolean;
-    getGamepads(): Array<Gamepad | null>;
+    getGamepads(): (Gamepad | null)[];
     getVRDisplays(): Promise<VRDisplay[]>;
     javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;

@@ -381,7 +381,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function makeArrayType(elementType: string): string {
-        return elementType.indexOf("|") > -1 ? `Array<${elementType}>` : `${elementType}[]`;
+        return elementType.indexOf("|") > -1 ? `(${elementType})[]` : `${elementType}[]`;
     }
 
     function covertDomTypeToTsTypeSimple(objDomType: string): string {

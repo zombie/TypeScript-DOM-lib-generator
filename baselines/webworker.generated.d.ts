@@ -218,7 +218,7 @@ interface Body {
 
 interface Cache {
     add(request: Request | string): Promise<void>;
-    addAll(requests: Array<Request | string>): Promise<void>;
+    addAll(requests: (Request | string)[]): Promise<void>;
     delete(request: Request | string, options?: CacheQueryOptions): Promise<boolean>;
     keys(request?: Request | string, options?: CacheQueryOptions): Promise<Request[]>;
     match(request: Request | string, options?: CacheQueryOptions): Promise<Response>;

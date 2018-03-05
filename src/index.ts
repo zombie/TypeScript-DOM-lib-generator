@@ -1,9 +1,9 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, filterProperties, mapToArray, distinct, map, toNameMap } from "./helpers";
+import { filter, merge, filterProperties, mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap } from "./helpers";
 
-enum Flavor {
+const enum Flavor {
     Web,
     Worker,
     ES6Iterators
@@ -50,36 +50,56 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
     };
 
+    const evetTypeMap: Record<string, string> = {
+        "abort": "UIEvent",
+        "complete": "Event",
+        "click": "MouseEvent",
+        "error": "ErrorEvent",
+        "load": "Event",
+        "loadstart": "Event",
+        "progress": "ProgressEvent",
+        "readystatechange": "ProgressEvent",
+        "resize": "UIEvent",
+        "timeout": "ProgressEvent"
+    };
+
     /// Event name to event type map
-    const eNameToEType = (() => {
-        function eventType(e: Browser.Event) {
-            switch (e.name) {
-                case "abort": return "UIEvent";
-                case "complete": return "Event";
-                case "click": return "MouseEvent";
-                case "error": return "ErrorEvent";
-                case "load": return "Event";
-                case "loadstart": return "Event";
-                case "progress": return "ProgressEvent";
-                case "readystatechange": return "ProgressEvent";
-                case "resize": return "UIEvent";
-                case "timeout": return "ProgressEvent";
-                default: return e.type;
-            }
-        }
-        const result: Record<string, string> = {};
-        for (const i of allNonCallbackInterfaces) {
-            if (i.events) {
-                for (const e of i.events.event) {
-                    result[e.name] = eventType(e);
-                }
-            }
-        }
-        return result;
-    })();
+    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => evetTypeMap[e.name] || e.type);
 
     /// Tag name to element name map
-    const tagNameToEleName = (() => {
+    const tagNameToEleName = getTagNameToElementNameMap();
+
+    /// Interface name to all its implemented / inherited interfaces name list map
+    /// e.g. If i1 depends on i2, i2 should be in dependencyMap.[i1.Name]
+    const iNameToIDependList = arrayToMap(allNonCallbackInterfaces, i=>i.name, i => getExtendList(i.name).concat(getImplementList(i.name)));
+
+    /// Distinct event type list, used in the "createEvent" function
+    const distinctETypeList = distinct(
+        flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event.map(e => e.type) : [])
+            .concat(allNonCallbackInterfaces.filter(i => i.extends === "Event" && i.name.endsWith("Event")).map(i => i.name))
+    ).sort();
+
+    /// Interface name to its related eventhandler name list map
+    /// Note:
+    /// In the xml file, each event handler has
+    /// 1. eventhanlder name: "onready", "onabort" etc.
+    /// 2. the event name that it handles: "ready", "SVGAbort" etc.
+    /// And they don't NOT just differ by an "on" prefix!
+    const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
+        !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
+            const eventName = p["event-handler"]!;
+            if (eventName === undefined) return undefined;
+            const eType = eNameToEType[eventName] || defaultEventType;
+            const eventType = eType === "Event" || dependsOn(eType, "Event") ? eType : defaultEventType;
+            return { name: p.name, eventName, eventType };
+        }));
+
+    // Map of interface.Name -> List of base interfaces with event handlers
+    const iNameToEhParents = arrayToMap(allInterfaces, i => i.name, getParentsWithEventHandler);
+
+    return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
+
+    function getTagNameToElementNameMap() {
         const preferedElementMap: Record<string, string> = {
             "script": "HTMLScriptElement",
             "a": "HTMLAnchorElement",
@@ -104,122 +124,36 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
         }
         return result;
-    })();
+    }
 
-    /// Interface name to all its implemented / inherited interfaces name list map
-    /// e.g. If i1 depends on i2, i2 should be in dependencyMap.[i1.Name]
-    const iNameToIDependList = (() => {
-        function getExtendList(iName: string): string[] {
-            const i = allInterfacesMap[iName];
-            if (!i || !i.extends || i.extends === "Object") return [];
-            else return getExtendList(i.extends).concat(i.extends);
+    function getExtendList(iName: string): string[] {
+        const i = allInterfacesMap[iName];
+        if (!i || !i.extends || i.extends === "Object") return [];
+        else return getExtendList(i.extends).concat(i.extends);
+    }
+
+    function getImplementList(iName: string) {
+        const i = allInterfacesMap[iName];
+        return i && i.implements || [];
+    }
+
+    function getParentsWithEventHandler(i: Browser.Interface) {
+        function getParentEventHandler(i: Browser.Interface): Browser.Interface[] {
+            return iNameToEhList[i.name] && iNameToEhList[i.name].length ? [i] : getParentsWithEventHandler(i);
         }
 
-        function getImplementList(iName: string) {
-            const i = allInterfacesMap[iName];
-            return i && i.implements || [];
-        }
+        const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
 
-        const nativeINameToIDependList: Record<string, string[]> = {};
+        const implementedParentsWithEventHandler =
+            i.implements
+                ? i.implements.reduce<Browser.Interface[]>((acc, i) => {
+                    acc.push(...getParentEventHandler(allInterfacesMap[i]));
+                    return acc;
+                }, [])
+                : [];
 
-        for (const i of allNonCallbackInterfaces) {
-            nativeINameToIDependList[i.name] = getExtendList(i.name).concat(getImplementList(i.name));
-        }
-        return nativeINameToIDependList;
-    })();
-
-    /// Distinct event type list, used in the "createEvent" function
-    const distinctETypeList = (() => {
-        const eventsMap: Record<string, true> = {};
-
-        for (const i of allNonCallbackInterfaces) {
-            if (i.events) {
-                for (const e of i.events.event) {
-                    eventsMap[e.type] = true;
-                }
-            }
-
-            if (i.extends === "Event" && i.name.endsWith("Event")) {
-                eventsMap[i.name] = true;
-            }
-        }
-
-        return Object.keys(eventsMap).sort();
-    })();
-
-    /// Interface name to its related eventhandler name list map
-    /// Note:
-    /// In the xml file, each event handler has
-    /// 1. eventhanlder name: "onready", "onabort" etc.
-    /// 2. the event name that it handles: "ready", "SVGAbort" etc.
-    /// And they don't NOT just differ by an "on" prefix!
-    const iNameToEhList = (() => {
-        function getEventTypeFromHandler(p: Browser.Property) {
-            const eType =
-                // Check the "event-handler" attribute of the event handler property,
-                // which is the corresponding event name
-                p["event-handler"] &&
-                // The list is partly obtained from the table at
-                // http://www.w3.org/TR/DOM-Level-3-Events/#dom-events-conformance   #4.1
-                eNameToEType[p["event-handler"]!] || defaultEventType;
-
-            return eType === "Event" || dependsOn(eType, "Event")
-                ? eType
-                : defaultEventType;
-        }
-
-        // Get all the event handlers from an interface and also from its inherited / implemented interfaces
-        function getEventHandler(i: Browser.Interface) {
-            const ownEventHandler =
-                i.properties
-                    ? mapToArray(i.properties.property).filter(p => p["event-handler"]).map(p => ({
-                        name: p.name,
-                        eventName: p["event-handler"]!,
-                        eventType: getEventTypeFromHandler(p)
-                    }))
-                    : [];
-            return ownEventHandler;
-        }
-
-        const result: Record<string, EventHandler[]> = {};
-        for (const i of allInterfaces) {
-            result[i.name] = getEventHandler(i);
-        }
-        return result;
-    })();
-
-    // Map of interface.Name -> List of base interfaces with event handlers
-    const iNameToEhParents = (() => {
-        function hasHandler(i: Browser.Interface) {
-            return iNameToEhList[i.name] && iNameToEhList[i.name].length;
-        }
-        // Get all the event handlers from an interface and also from its inherited / implemented interfaces
-        function getParentsWithEventHandler(i: Browser.Interface) {
-            function getParentEventHandler(i: Browser.Interface): Browser.Interface[] {
-                return hasHandler(i) ? [i] : getParentsWithEventHandler(i);
-            }
-
-            const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
-
-            const implementedParentsWithEventHandler =
-                i.implements
-                    ? i.implements.reduce<Browser.Interface[]>((acc, i) => {
-                        acc.push(...getParentEventHandler(allInterfacesMap[i]));
-                        return acc;
-                    }, [])
-                    : [];
-
-            return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
-        }
-
-        const result: Record<string, Browser.Interface[]> = {};
-        for (const i of allInterfaces) {
-            result[i.name] = getParentsWithEventHandler(i);
-        }
-        return result;
-    })();
-
-    return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
+        return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
+    }
 
     // Used to decide if a member should be emitted given its static property and
     // the intended scope level.

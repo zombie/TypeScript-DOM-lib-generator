@@ -1,13 +1,7 @@
-export function filter(obj: any, fn: (o: any, n: string | undefined) => boolean) {
+export function filter(obj: any, fn: (o: any, n: string | undefined) => boolean): any {
     if (typeof obj === "object") {
         if (Array.isArray(obj)) {
-            const newArray: any[] = [];
-            for (const e of obj) {
-                if (fn(e, undefined)) {
-                    newArray.push(filter(e, fn));
-                }
-            }
-            return newArray;
+            return mapDefined(obj, e => fn(e, undefined) ? filter(e, fn) : undefined);
         }
         else {
             const result: any = {};
@@ -85,8 +79,29 @@ export function mapToArray<T>(m: Record<string, T>): T[] {
     return Object.keys(m || {}).map(k => m[k]);
 }
 
+export function arrayToMap<T, U>(array: ReadonlyArray<T>, makeKey: (value: T) => string, makeValue: (value: T) => U): Record<string, U> {
+    const result: Record<string, U> = {};
+    for (const value of array) {
+        result[makeKey(value)] = makeValue(value);
+    }
+    return result;
+}
+
 export function map<T, U>(obj: Record<string, T> | undefined, fn: (o: T) => U): U[] {
     return Object.keys(obj || {}).map(k => fn(obj![k]));
+}
+
+export function mapDefined<T, U>(array: ReadonlyArray<T> | undefined, mapFn: (x: T, i: number) => U | undefined): U[] {
+    const result: U[] = [];
+    if (array) {
+        for (let i = 0; i < array.length; i++) {
+            const mapped = mapFn(array[i], i);
+            if (mapped !== undefined) {
+                result.push(mapped);
+            }
+        }
+    }
+    return result;
 }
 
 export function toNameMap<T extends { name: string }>(array: T[]) {
@@ -95,4 +110,31 @@ export function toNameMap<T extends { name: string }>(array: T[]) {
         result[value.name] = value;
     }
     return result;
+}
+
+export function isArray(value: any): value is ReadonlyArray<{}> {
+    return Array.isArray ? Array.isArray(value) : value instanceof Array;
+}
+
+export function flatMap<T, U>(array: ReadonlyArray<T> | undefined, mapfn: (x: T, i: number) => U | ReadonlyArray<U> | undefined): U[]  {
+    let result: U[] | undefined;
+    if (array) {
+        result = [];
+        for (let i = 0; i < array.length; i++) {
+            const v = mapfn(array[i], i);
+            if (v) {
+                if (isArray(v)) {
+                    result.push(...v);
+                }
+                else {
+                    result.push(v);
+                }
+            }
+        }
+    }
+    return result || [];
+}
+
+export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
+    return !a ? b || [] : a.concat(b || []);
 }

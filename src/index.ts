@@ -34,6 +34,8 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     const extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
     const integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
 
+    const tsKeywords = new Set(["default", "delete", "continue"]);
+
     const allNonCallbackInterfaces = getElements(webidl.interfaces, "interface").concat(getElements(webidl.mixins, "mixin"));
     const allInterfaces = getElements(webidl.interfaces, "interface").concat(
         getElements(webidl["callback-interfaces"], "interface"),
@@ -71,7 +73,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Interface name to all its implemented / inherited interfaces name list map
     /// e.g. If i1 depends on i2, i2 should be in dependencyMap.[i1.Name]
-    const iNameToIDependList = arrayToMap(allNonCallbackInterfaces, i=>i.name, i => getExtendList(i.name).concat(getImplementList(i.name)));
+    const iNameToIDependList = arrayToMap(allNonCallbackInterfaces, i => i.name, i => getExtendList(i.name).concat(getImplementList(i.name)));
 
     /// Distinct event type list, used in the "createEvent" function
     const distinctETypeList = distinct(
@@ -84,7 +86,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// In the xml file, each event handler has
     /// 1. eventhanlder name: "onready", "onabort" etc.
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
-    /// And they don't NOT just differ by an "on" prefix!
+    /// And they don't just differ by an "on" prefix!
     const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
         !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
             const eventName = p["event-handler"]!;
@@ -111,7 +113,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         function resolveElementConflict(tagName: string, iNames: string[]) {
             const name = preferedElementMap[tagName] || "";
-            if (iNames.indexOf(name) !== -1) return name;
+            if (iNames.includes(name)) return name;
             throw new Error("Element conflict occured! Typename: " + tagName);
         }
 
@@ -143,34 +145,19 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
-
-        const implementedParentsWithEventHandler =
-            i.implements
-                ? i.implements.reduce<Browser.Interface[]>((acc, i) => {
-                    acc.push(...getParentEventHandler(allInterfacesMap[i]));
-                    return acc;
-                }, [])
-                : [];
-
+        const implementedParentsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
         return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
     }
 
     // Used to decide if a member should be emitted given its static property and
     // the intended scope level.
     function matchScope(scope: EmitScope, x: Browser.Method) {
-        if (scope === EmitScope.All) return true;
-        else if (x.static) return scope === EmitScope.StaticOnly;
-        else return scope === EmitScope.InstanceOnly;
+        return scope === EmitScope.All || (scope === EmitScope.StaticOnly) === !!x.static;
     }
 
     /// Parameter cannot be named "default" in JavaScript/Typescript so we need to rename it.
     function adjustParamName(name: string) {
-        switch (name) {
-            case "default": return "_default";
-            case "delete": return "_delete";
-            case "continue": return "_continue";
-            default: return name;
-        }
+        return tsKeywords.has(name) ? `_${name}` : name;
     }
 
     function getElements<K extends string, T>(a: Record<K, Record<string, T>> | undefined, k: K): T[] {
@@ -186,19 +173,27 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
-        if (eName === "abort" && (i.name === "IDBDatabase" || i.name === "IDBTransaction" || i.name === "MSBaseReader" || i.name === "XMLHttpRequestEventTarget")) return "Event";
-        else if (eName === "readystatechange" && i.name === "XMLHttpRequest") return "Event";
-        else if (i.name === "XMLHttpRequest") return "ProgressEvent";
-        else {
-            const ownEventType = tryGetMatchingEventType(eName, i);
-            return ownEventType || eNameToEType[eName] || "Event";
+        switch (i.name) {
+            case "XMLHttpRequest":
+                if (eName === "readystatechange") return "Event";
+                else return "ProgressEvent";
+
+            case "IDBDatabase":
+            case "IDBTransaction":
+            case "MSBaseReader":
+            case "XMLHttpRequestEventTarget":
+                if (eName === "abort") return "Event";
+
+            default:
+                const ownEventType = tryGetMatchingEventType(eName, i);
+                return ownEventType || eNameToEType[eName] || "Event";
         }
     }
 
     /// Determine if interface1 depends on interface2
     function dependsOn(i1Name: string, i2Name: string) {
-        return iNameToIDependList[i2Name] && iNameToIDependList[i1Name]
-            ? iNameToIDependList[i1Name].indexOf(i2Name) > -1
+        return iNameToIDependList[i1Name]
+            ? iNameToIDependList[i1Name].includes(i2Name)
             : i2Name === "Object";
     }
 
@@ -315,13 +310,10 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function makeArrayType(elementType: string): string {
-        return elementType.indexOf("|") > -1 ? `(${elementType})[]` : `${elementType}[]`;
+        return elementType.includes("|") ? `(${elementType})[]` : `${elementType}[]`;
     }
 
     function covertDomTypeToTsTypeSimple(objDomType: string): string {
-        if (typeof objDomType !== "string") {
-            throw new Error("Invalid type " + JSON.stringify(objDomType));
-        }
         switch (objDomType) {
             case "AbortMode": return "String";
             case "bool":
@@ -362,9 +354,9 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 // Name of a type alias. Just return itself
                 if (allTypeDefsMap.has(objDomType)) return objDomType;
                 // Union types
-                if (objDomType.indexOf(" or ") > -1) {
+                if (objDomType.includes(" or ")) {
                     const allTypes: string[] = decomposeTypes(objDomType).map(t => covertDomTypeToTsTypeSimple(t.replace("?", "")));
-                    return allTypes.indexOf("any") > -1 ? "any" : allTypes.join(" | ");
+                    return allTypes.includes("any") ? "any" : allTypes.join(" | ");
                 }
                 else {
                     // Check if is array type, which looks like "sequence<DOMString>"
@@ -390,8 +382,8 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "any": return "any";
             case "void": return "void";
             default:
-                if (originalType.indexOf("| null") > -1) return originalType;
-                else if (originalType.indexOf("=>") > -1) return "(" + originalType + ") | null";
+                if (originalType.includes("| null")) return originalType;
+                else if (originalType.includes("=>")) return "(" + originalType + ") | null";
                 else return originalType + " | null";
         }
     }
@@ -465,7 +457,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.increaseIndent();
         for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && iNameToIDependList[value].indexOf("SVGElement") === -1) {
+            if (iNameToIDependList[value] && !iNameToIDependList[value].includes("SVGElement")) {
                 printer.printLine(`"${e.toLowerCase()}": ${value};`);
             }
         }
@@ -479,7 +471,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.increaseIndent();
         for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && iNameToIDependList[value].indexOf("SVGElement") > -1) {
+            if (iNameToIDependList[value] && iNameToIDependList[value].includes("SVGElement")) {
                 printer.printLine(`"${e.toLowerCase()}": ${value};`);
             }
         }
@@ -501,7 +493,7 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const hasPlurals = ["Event", "MutationEvent", "MouseEvent", "SVGZoomEvent", "UIEvent"];
             for (const x of distinctETypeList) {
                 printer.printLine(`createEvent(eventInterface: "${x}"): ${x};`);
-                if (hasPlurals.indexOf(x) > -1) {
+                if (hasPlurals.includes(x)) {
                     printer.printLine(`createEvent(eventInterface: "${x}s"): ${x};`);
                 }
             }
@@ -1186,7 +1178,7 @@ function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, ts
 function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
     const browser = filter(webidl, o => {
         return !(o && typeof o.exposed === "string"
-            && o.exposed.indexOf("Worker") > -1 && o.exposed.indexOf("Window") <= -1);
+            && o.exposed.includes("Worker") && !o.exposed.includes("Window"));
     });
 
     const result = emitWebIDl(browser, Flavor.Web);

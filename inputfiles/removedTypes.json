@@ -31,6 +31,13 @@
                         "initStorageEvent": {}
                     }
                 }
+            },
+            "Window": {
+                "properties": {
+                    "property": {
+                        "browser": {}
+                    }
+                }
             }
         }
     },

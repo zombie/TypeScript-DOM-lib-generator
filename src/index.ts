@@ -714,7 +714,6 @@ function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             if (i.properties) {
                 mapToArray(i.properties.property)
                     .filter(p => !isCovariantEventHandler(i, p))
-                    .filter(p => !(prefix.startsWith("declare var") && p["do-no-expose-on-polluter"]))
                     .sort(compareName)
                     .forEach(p => emitProperty(prefix, i, emitScope, p, conflictedMembers));
             }

@@ -77,7 +77,6 @@ export type Property = {
     "interop"?: 1;
     "exposed"?: string;
     "constant"?: 1;
-    "do-no-expose-on-polluter"?: 1
 };
 
 export type Event = {

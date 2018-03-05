@@ -198,10 +198,6 @@
                         "ontouchstart": {
                             "name": "ontouchstart",
                             "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "browser": {
-                            "name": "browser",
-                            "do-no-expose-on-polluter": 1
                         }
                     }
                 },

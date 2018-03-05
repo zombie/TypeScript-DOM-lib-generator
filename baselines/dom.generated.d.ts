@@ -14889,7 +14889,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     URL: typeof URL;
     URLSearchParams: typeof URLSearchParams;
     readonly applicationCache: ApplicationCache;
-    readonly browser: BhxBrowser;
     readonly caches: CacheStorage;
     readonly clientInformation: Navigator;
     readonly closed: boolean;

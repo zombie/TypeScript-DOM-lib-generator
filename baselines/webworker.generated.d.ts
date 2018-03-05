@@ -21,7 +21,7 @@ interface CacheQueryOptions {
 interface ClientQueryOptions {
     includeReserved?: boolean;
     includeUncontrolled?: boolean;
-    type?: ClientType;
+    type?: ClientTypes;
 }
 
 interface CloseEventInit extends EventInit {
@@ -247,7 +247,7 @@ declare var CacheStorage: {
 interface Client {
     readonly id: string;
     readonly reserved: boolean;
-    readonly type: ClientType;
+    readonly type: ClientTypes;
     readonly url: string;
     postMessage(message: any, transfer?: any[]): void;
 }
@@ -1743,8 +1743,8 @@ type IDBKeyPath = string;
 type RequestInfo = Request | string;
 type USVString = string;
 type payloadtype = number;
+type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type BinaryType = "blob" | "arraybuffer";
-type ClientType = "window" | "worker" | "sharedworker" | "all";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";

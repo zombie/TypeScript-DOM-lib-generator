@@ -161,7 +161,7 @@
     "ServiceWorkerState",
     "VisibilityState",
     "XMLHttpRequestResponseType",
-    "ClientType",
+    "ClientTypes",
     "FrameType",
     "BinaryType",
     "ProgressEventInit",
@@ -178,5 +178,4 @@
     "BlobPropertyBag",
     "FilePropertyBag",
     "IDBArrayKey"
-
 ]

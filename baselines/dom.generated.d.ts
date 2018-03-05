@@ -153,7 +153,7 @@ interface ClientData {
 interface ClientQueryOptions {
     includeReserved?: boolean;
     includeUncontrolled?: boolean;
-    type?: ClientType;
+    type?: ClientTypes;
 }
 
 interface CloseEventInit extends EventInit {
@@ -15956,6 +15956,7 @@ type RequestInfo = Request | string;
 type USVString = string;
 type payloadtype = number;
 type BufferSource = ArrayBuffer | ArrayBufferView;
+type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
@@ -15965,7 +15966,6 @@ type CanPlayTypeResult = "" | "maybe" | "probably";
 type CanvasFillRule = "nonzero" | "evenodd";
 type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
-type ClientType = "window" | "worker" | "sharedworker" | "all";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type EndOfStreamError = "network" | "decode";

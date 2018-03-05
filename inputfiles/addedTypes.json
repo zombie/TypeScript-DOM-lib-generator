@@ -2992,6 +2992,10 @@
             {
                 "new-type": "BufferSource",
                 "override-type": "ArrayBuffer | ArrayBufferView"
+            },
+            {
+                "new-type": "ClientTypes",
+                "override-type": "\"window\" | \"worker\" | \"sharedworker\" | \"all\""
             }
         ]
     }

@@ -1,24 +1,11 @@
 {
   "name": "TSJS-lib-generator",
-  "author": "Microsoft Corp.",
-  "version": "1.0.0",
-  "description": "AppVeyor Status: [![Build status](https://ci.appveyor.com/api/projects/status/8oj3j7u6nvag1xvu/branch/master?svg=true)](https://ci.appveyor.com/project/zhengbli/tsjs-lib-generator/branch/master)\r Travis CI Status: [![Build Status](https://travis-ci.org/Microsoft/TSJS-lib-generator.svg?branch=master)](https://travis-ci.org/Microsoft/TSJS-lib-generator)",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "tsc --p ./tsconfig.json && node ./lib/index.js",
     "baseline-accept": "cpx generated\\* baselines\\",
     "test": "tsc --p ./tsconfig.json && node ./lib/index.js && node ./lib/test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Microsoft/TSJS-lib-generator.git"
-  },
-  "keywords": [],
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/Microsoft/TSJS-lib-generator/issues"
-  },
-  "homepage": "https://github.com/Microsoft/TSJS-lib-generator#readme",
   "dependencies": {
     "@types/node": "^9.4.6",
     "cpx": "^1.5.0",

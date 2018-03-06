@@ -7,32 +7,131 @@ export const enum Flavor {
     ES6Iterators
 }
 
-export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
+// Note:
+// Eventhandler's name and the eventName are not just off by "on".
+// For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
+type EventHandler = { name: string; eventName: string; eventType: string };
 
-    // Note:
-    // Eventhandler's name and the eventName are not just off by "on".
-    // For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
-    type EventHandler = { name: string; eventName: string; eventType: string };
+/// Decide which members of a function to emit
+enum EmitScope {
+    StaticOnly,
+    InstanceOnly,
+    All
+}
 
-    /// Decide which members of a function to emit
-    enum EmitScope {
-        StaticOnly,
-        InstanceOnly,
-        All
+const defaultEventType = "Event";
+// Extended types used but not defined in the spec
+const extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
+const integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
+const tsKeywords = new Set(["default", "delete", "continue"]);
+const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
+    "AudioContext": { extendType: ["OfflineContext"], memberNames: new Set(["suspend"]) },
+    "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
+};
+const evetTypeMap: Record<string, string> = {
+    "abort": "UIEvent",
+    "complete": "Event",
+    "click": "MouseEvent",
+    "error": "ErrorEvent",
+    "load": "Event",
+    "loadstart": "Event",
+    "progress": "ProgressEvent",
+    "readystatechange": "ProgressEvent",
+    "resize": "UIEvent",
+    "timeout": "ProgressEvent"
+};
+
+// Used to decide if a member should be emitted given its static property and
+// the intended scope level.
+function matchScope(scope: EmitScope, x: Browser.Method) {
+    return scope === EmitScope.All || (scope === EmitScope.StaticOnly) === !!x.static;
+}
+
+/// Parameter cannot be named "default" in JavaScript/Typescript so we need to rename it.
+function adjustParamName(name: string) {
+    return tsKeywords.has(name) ? `_${name}` : name;
+}
+
+function getElements<K extends string, T>(a: Record<K, Record<string, T>> | undefined, k: K): T[] {
+    return a ? mapToArray(a[k]) : [];
+}
+
+function createTextWriter(newLine: string) {
+    let output: string;
+    let indent: number;
+    let lineStart: boolean;
+    let stack: { content: string, indent: number }[] = [];
+
+    const indentStrings: string[] = ["", "    "];
+    function getIndentString(level: number) {
+        if (indentStrings[level] === undefined) {
+            indentStrings[level] = getIndentString(level - 1) + indentStrings[1];
+        }
+        return indentStrings[level];
     }
 
-    const pollutor = getElements(webidl.interfaces, "interface").find(i => flavor === Flavor.Web ? !!i["primary-global"] : !!i.global);
+    function write(s: string) {
+        if (lineStart) {
+            output += getIndentString(indent);
+            lineStart = false;
+        }
+        output += s;
+    }
 
-    const defaultEventType = "Event";
+    function reset(): void {
+        output = "";
+        indent = 0;
+        lineStart = true;
+        stack = [];
+    }
 
+    function writeLine() {
+        if (!lineStart) {
+            output += newLine;
+            lineStart = true;
+        }
+    }
+
+    reset();
+
+    return {
+
+        reset: reset,
+
+        resetIndent() { indent = 0; },
+        increaseIndent() { indent++; },
+        decreaseIndent() { indent--; },
+
+        print: write,
+        printLine(c: string) { writeLine(); write(c); },
+
+        printWithAddedIndent(c: string) { this.increaseIndent(); this.printLine(c); this.decreaseIndent(); },
+
+        clearStack() { stack = []; },
+        stackIsEmpty() { return stack.length === 0; },
+        printLineToStack(content: string) { stack.push({ content, indent }); },
+        printStackContent() {
+            stack.forEach(e => {
+                const oldIndent = indent;
+                indent = e.indent;
+                this.printLine(e.content);
+                indent = oldIndent;
+            });
+        },
+
+        getResult() { return output; }
+    };
+}
+
+function isEventHandler(p: Browser.Property) {
+    return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
+}
+
+export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     // Global print target
     const printer = createTextWriter("\n");
 
-    // Extended types used but not defined in the spec
-    const extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
-    const integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
-
-    const tsKeywords = new Set(["default", "delete", "continue"]);
+    const pollutor = getElements(webidl.interfaces, "interface").find(i => flavor === Flavor.Web ? !!i["primary-global"] : !!i.global);
 
     const allNonCallbackInterfaces = getElements(webidl.interfaces, "interface").concat(getElements(webidl.mixins, "mixin"));
     const allInterfaces = getElements(webidl.interfaces, "interface").concat(
@@ -44,24 +143,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
-
-    const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
-        "AudioContext": { extendType: ["OfflineContext"], memberNames: new Set(["suspend"]) },
-        "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
-    };
-
-    const evetTypeMap: Record<string, string> = {
-        "abort": "UIEvent",
-        "complete": "Event",
-        "click": "MouseEvent",
-        "error": "ErrorEvent",
-        "load": "Event",
-        "loadstart": "Event",
-        "progress": "ProgressEvent",
-        "readystatechange": "ProgressEvent",
-        "resize": "UIEvent",
-        "timeout": "ProgressEvent"
-    };
 
     /// Event name to event type map
     const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => evetTypeMap[e.name] || e.type);
@@ -147,29 +228,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
     }
 
-    // Used to decide if a member should be emitted given its static property and
-    // the intended scope level.
-    function matchScope(scope: EmitScope, x: Browser.Method) {
-        return scope === EmitScope.All || (scope === EmitScope.StaticOnly) === !!x.static;
-    }
-
-    /// Parameter cannot be named "default" in JavaScript/Typescript so we need to rename it.
-    function adjustParamName(name: string) {
-        return tsKeywords.has(name) ? `_${name}` : name;
-    }
-
-    function getElements<K extends string, T>(a: Record<K, Record<string, T>> | undefined, k: K): T[] {
-        return a ? mapToArray(a[k]) : [];
-    }
-
-    function tryGetMatchingEventType(eName: string, i: Browser.Interface) {
-        if (i.events) {
-            const event = i.events.event.find(e => e.name === eName);
-            return event && event.type;
-        }
-        return undefined;
-    }
-
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
         switch (i.name) {
             case "XMLHttpRequest":
@@ -183,8 +241,13 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 if (eName === "abort") return "Event";
 
             default:
-                const ownEventType = tryGetMatchingEventType(eName, i);
-                return ownEventType || eNameToEType[eName] || "Event";
+                if (i.events) {
+                    const event = i.events.event.find(e => e.name === eName);
+                    if (event && event.type) {
+                        return event.type;
+                    }
+                }
+                return eNameToEType[eName] || "Event";
         }
     }
 
@@ -199,73 +262,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     // we need to transform it into [“DOMString", "DOMString []", "Number"]
     function decomposeTypes(t: string) {
         return t.replace(/[\(\)]/g, "").split(" or ");
-    }
-
-    function createTextWriter(newLine: string) {
-        let output: string;
-        let indent: number;
-        let lineStart: boolean;
-        let stack: { content: string, indent: number }[] = [];
-
-        const indentStrings: string[] = ["", "    "];
-        function getIndentString(level: number) {
-            if (indentStrings[level] === undefined) {
-                indentStrings[level] = getIndentString(level - 1) + indentStrings[1];
-            }
-            return indentStrings[level];
-        }
-
-        function write(s: string) {
-            if (lineStart) {
-                output += getIndentString(indent);
-                lineStart = false;
-            }
-            output += s;
-        }
-
-        function reset(): void {
-            output = "";
-            indent = 0;
-            lineStart = true;
-            stack = [];
-        }
-
-        function writeLine() {
-            if (!lineStart) {
-                output += newLine;
-                lineStart = true;
-            }
-        }
-
-        reset();
-
-        return {
-
-            reset: reset,
-
-            resetIndent() { indent = 0; },
-            increaseIndent() { indent++; },
-            decreaseIndent() { indent--; },
-
-            print: write,
-            printLine(c: string) { writeLine(); write(c); },
-
-            printWithAddedIndent(c: string) { this.increaseIndent(); this.printLine(c); this.decreaseIndent(); },
-
-            clearStack() { stack = []; },
-            stackIsEmpty() { return stack.length === 0; },
-            printLineToStack(content: string) { stack.push({ content, indent }); },
-            printStackContent() {
-                stack.forEach(e => {
-                    const oldIndent = indent;
-                    indent = e.indent;
-                    this.printLine(e.content);
-                    indent = oldIndent;
-                });
-            },
-
-            getResult() { return output; }
-        };
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
@@ -573,10 +569,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             !!iNameToEhParents[i.name].find(
                 i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
                     !!iNameToEhList[i.name].find(e => e.name === p.name));
-    }
-
-    function isEventHandler(p: Browser.Property) {
-        return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
     }
 
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property, conflictedMembers: Set<string>) {

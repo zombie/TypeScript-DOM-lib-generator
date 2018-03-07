@@ -1829,6 +1829,43 @@
                         }
                     }
                 }
+            },
+            "RTCPeerConnection": {
+                "name": "RTCPeerConnection",
+                "methods": {
+                    "method": {
+                        "createAnswer": {
+                            "name": "createAnswer",
+                            "override-signatures": [
+                                "createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>"
+                            ]
+                        },
+                        "createOffer": {
+                            "name": "createOffer",
+                            "override-signatures": [
+                                "createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>"
+                            ]
+                        },
+                        "setLocalDescription": {
+                            "name": "setLocalDescription",
+                            "override-signatures": [
+                                "setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>"
+                            ]
+                        },
+                        "setRemoteDescription": {
+                            "name": "setRemoteDescription",
+                            "override-signatures": [
+                                "setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>"
+                            ]
+                        },
+                        "addIceCandidate": {
+                            "name": "addIceCandidate",
+                            "override-signatures": [
+                                "addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate): Promise<void>"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },

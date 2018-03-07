@@ -5,30 +5,7 @@ import { filter, merge, filterProperties } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 
 function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, tsWorkerOutput: string) {
-    const worker: Browser.WebIdl = {
-        "callback-functions": {
-            "callback-function": {}
-        },
-        "callback-interfaces": {
-            "interface": {}
-        },
-        "dictionaries": {
-            "dictionary": {}
-        },
-        "enums": {
-            "enum": {}
-        },
-        "interfaces": {
-            "interface": {}
-        },
-        "mixins": {
-            "mixin": {}
-        },
-        "typedefs": {
-            "typedef": []
-        }
-    };
-
+    const worker = getEmptyWebIDL();
     const isKnownWorkerName = (o: { name: string }) => knownWorkerTypes.has(o.name);
 
     if (webidl["callback-functions"]) worker["callback-functions"]!["callback-function"] = filterProperties(webidl["callback-functions"]!["callback-function"], isKnownWorkerName);
@@ -57,6 +34,32 @@ function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
     fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
+}
+
+function getEmptyWebIDL(): Browser.WebIdl {
+    return {
+        "callback-functions": {
+            "callback-function": {}
+        },
+        "callback-interfaces": {
+            "interface": {}
+        },
+        "dictionaries": {
+            "dictionary": {}
+        },
+        "enums": {
+            "enum": {}
+        },
+        "interfaces": {
+            "interface": {}
+        },
+        "mixins": {
+            "mixin": {}
+        },
+        "typedefs": {
+            "typedef": []
+        }
+    }
 }
 
 function emitDom() {
@@ -94,33 +97,11 @@ function emitDom() {
     emitES6DomIterators(webidl, tsWebES6Output);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
-        const result: Browser.WebIdl = {
-            "callback-functions": {
-                "callback-function": {}
-            },
-            "callback-interfaces": {
-                "interface": {}
-            },
-            "dictionaries": {
-                "dictionary": {}
-            },
-            "enums": {
-                "enum": {}
-            },
-            "interfaces": {
-                "interface": {}
-            },
-            "mixins": {
-                "mixin": {}
-            },
-            "typedefs": {
-                "typedef": []
-            }
-        };
+        const result = getEmptyWebIDL();
 
         if (obj["callback-functions"]) result["callback-functions"]!["callback-function"] = filterProperties(obj["callback-functions"]!["callback-function"], (cb) => !(template["callback-functions"] && template["callback-functions"]!["callback-function"][cb.name]));
         if (obj["callback-interfaces"]) result["callback-interfaces"]!.interface = filterInterface(obj["callback-interfaces"]!.interface, template["callback-interfaces"] && template["callback-interfaces"]!.interface);
-        if (obj.dictionaries) result.dictionaries!.dictionary = filterDictinary(obj.dictionaries.dictionary, template.dictionaries && template.dictionaries.dictionary);
+        if (obj.dictionaries) result.dictionaries!.dictionary = filterDictionary(obj.dictionaries.dictionary, template.dictionaries && template.dictionaries.dictionary);
         if (obj.enums) result.enums!.enum = filterEnum(obj.enums.enum, template.enums && template.enums.enum);
         if (obj.mixins) result.mixins!.mixin = filterInterface(obj.mixins.mixin, template.mixins && template.mixins.mixin);
         if (obj.interfaces) result.interfaces!.interface = filterInterface(obj.interfaces.interface, template.interfaces && template.interfaces.interface);
@@ -142,7 +123,7 @@ function emitDom() {
             return result;
         }
 
-        function filterDictinary(dictinaries: Record<string, Browser.Dictionary>, template: Record<string, Browser.Dictionary> | undefined) {
+        function filterDictionary(dictinaries: Record<string, Browser.Dictionary>, template: Record<string, Browser.Dictionary> | undefined) {
             if (!template) return dictinaries;
             const result = filterProperties(dictinaries, i => !template[i.name]);
             for (const k in result) {

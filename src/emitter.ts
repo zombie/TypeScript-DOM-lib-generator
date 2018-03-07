@@ -28,7 +28,7 @@ const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNam
     "AudioContext": { extendType: ["OfflineContext"], memberNames: new Set(["suspend"]) },
     "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
 };
-const evetTypeMap: Record<string, string> = {
+const eventTypeMap: Record<string, string> = {
     "abort": "UIEvent",
     "complete": "Event",
     "click": "MouseEvent",
@@ -60,6 +60,7 @@ function createTextWriter(newLine: string) {
     let output: string;
     let indent: number;
     let lineStart: boolean;
+    /** print declarations conflicting with base interface to a side list to write them under a diffrent name later */
     let stack: { content: string, indent: number }[] = [];
 
     const indentStrings: string[] = ["", "    "];
@@ -95,7 +96,6 @@ function createTextWriter(newLine: string) {
     reset();
 
     return {
-
         reset: reset,
 
         resetIndent() { indent = 0; },
@@ -104,8 +104,6 @@ function createTextWriter(newLine: string) {
 
         print: write,
         printLine(c: string) { writeLine(); write(c); },
-
-        printWithAddedIndent(c: string) { this.increaseIndent(); this.printLine(c); this.decreaseIndent(); },
 
         clearStack() { stack = []; },
         stackIsEmpty() { return stack.length === 0; },
@@ -145,7 +143,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
     /// Event name to event type map
-    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => evetTypeMap[e.name] || e.type);
+    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => eventTypeMap[e.name] || e.type);
 
     /// Tag name to element name map
     const tagNameToEleName = getTagNameToElementNameMap();
@@ -512,7 +510,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitCallBackInterface(i: Browser.Interface) {
         if (i.name === "EventListener") {
             printer.printLine(`interface ${i.name} {`);
-            printer.printWithAddedIndent("(evt: Event): void;");
+            printer.increaseIndent();
+            printer.printLine("(evt: Event): void;");
+            printer.decreaseIndent();
             printer.printLine("}");
         }
         else {
@@ -612,27 +612,23 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function emitComments(entity: { comment?: string; deprecated?: 1 } | undefined, print: (s: string) => void) {
-        if (entity) {
-            if (entity.comment) {
-                print(entity.comment);
-            }
-            if (entity.deprecated) {
-                print(`/** @deprecated */`);
-            }
+    function emitComments(entity: { comment?: string; deprecated?: 1 }, print: (s: string) => void) {
+        if (entity.comment) {
+            print(entity.comment);
+        }
+        if (entity.deprecated) {
+            print(`/** @deprecated */`);
         }
     }
 
     function emitProperties(prefix: string, emitScope: EmitScope, i: Browser.Interface, conflictedMembers: Set<string>) {
         // Note: the schema file shows the property doesn't have "static" attribute,
         // therefore all properties are emited for the instance type.
-        if (emitScope !== EmitScope.StaticOnly) {
-            if (i.properties) {
-                mapToArray(i.properties.property)
-                    .filter(p => !isCovariantEventHandler(i, p))
-                    .sort(compareName)
-                    .forEach(p => emitProperty(prefix, i, emitScope, p, conflictedMembers));
-            }
+        if (emitScope !== EmitScope.StaticOnly && i.properties) {
+            mapToArray(i.properties.property)
+                .filter(p => !isCovariantEventHandler(i, p))
+                .sort(compareName)
+                .forEach(p => emitProperty(prefix, i, emitScope, p, conflictedMembers));
         }
     }
 
@@ -680,14 +676,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitMethods(prefix: string, emitScope: EmitScope, i: Browser.Interface, conflictedMembers: Set<string>) {
         // If prefix is not empty, then this is the global declare function addEventListener, we want to override this
         // Otherwise, this is EventTarget.addEventListener, we want to keep that.
-        function mFilter(m: Browser.Method) {
-            return matchScope(emitScope, m) &&
-                !(prefix !== "" && (m.name === "addEventListener" || m.name === "removeEventListener"));
-        }
-
         if (i.methods) {
             mapToArray(i.methods.method)
-                .filter(mFilter)
+                .filter(m => matchScope(emitScope, m) && !(prefix !== "" && (m.name === "addEventListener" || m.name === "removeEventListener")))
                 .sort(compareName)
                 .forEach(m => emitMethod(prefix, i, m, conflictedMembers));
         }
@@ -710,8 +701,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Emit all members of every interfaces at the root level.
     /// Called only once on the global polluter object
     function emitAllMembers(i: Browser.Interface) {
-        const prefix = "declare var ";
-        emitMembers(prefix, EmitScope.All, i);
+        emitMembers(/*prefix*/ "declare var ", EmitScope.All, i);
 
         for (const relatedIName of iNameToIDependList[i.name]) {
             const i = allInterfacesMap[relatedIName];
@@ -722,52 +712,43 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitEventHandlers(prefix: string, i: Browser.Interface) {
-        function getOptionsType(addOrRemove: string) {
-            return addOrRemove === "add" ? "AddEventListenerOptions" : "EventListenerOptions";
-        }
-
         const fPrefix = prefix.startsWith("declare var") ? "declare function " : "";
 
-        function emitTypedEventHandler(prefix: string, addOrRemove: string, iParent: Browser.Interface) {
-            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${i.name}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${getOptionsType(addOrRemove)}): void;`);
+        for (const addOrRemove of ["add", "remove"]) {
+            const optionsType = addOrRemove === "add" ? "AddEventListenerOptions" : "EventListenerOptions";
+            if (tryEmitTypedEventHandlerForInterface(addOrRemove, optionsType)) {
+                // only emit the string event handler if we just emited a typed handler
+                printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${optionsType}): void;`);
+            }
         }
 
-        function emitStringEventHandler(addOrRemove: string) {
-            printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${getOptionsType(addOrRemove)}): void;`);
+        return;
+
+        function emitTypedEventHandler(prefix: string, addOrRemove: string, iParent: Browser.Interface, optionsType: string) {
+            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${i.name}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${optionsType}): void;`);
         }
 
-        function tryEmitTypedEventHandlerForInterface(addOrRemove: string) {
+        function tryEmitTypedEventHandlerForInterface(addOrRemove: string, optionsType: string) {
             if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
-                emitTypedEventHandler(fPrefix, addOrRemove, i);
+                emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType);
                 return true;
             }
             if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
                 iNameToEhParents[i.name]
                     .sort(compareName)
-                    .forEach(i => emitTypedEventHandler(fPrefix, addOrRemove, i));
+                    .forEach(i => emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType));
                 return true;
             }
             return false;
         }
-
-        function emitEventHandler(addOrRemove: string) {
-            if (tryEmitTypedEventHandlerForInterface(addOrRemove)) {
-                // only emit the string event handler if we just emited a typed handler
-                emitStringEventHandler(addOrRemove);
-            }
-        }
-
-        emitEventHandler("add");
-        emitEventHandler("remove");
     }
 
     function emitConstructorSignature(i: Browser.Interface) {
         const constructor = typeof i.constructor === "object" ? i.constructor : undefined;
 
-        emitComments(constructor, s => printer.print(s));
-
         // Emit constructor signature
         if (constructor) {
+            emitComments(constructor, s => printer.print(s));
             emitSignatures(constructor, "", "new", s => printer.printLine(s));
         }
         else {
@@ -782,7 +763,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine(`prototype: ${i.name};`);
         emitConstructorSignature(i);
         emitConstants(i);
-        emitMembers("", EmitScope.StaticOnly, i);
+        emitMembers(/*prefix*/ "", EmitScope.StaticOnly, i);
 
         printer.decreaseIndent();
         printer.printLine("};");
@@ -793,7 +774,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const nc = i["named-constructor"];
         if (nc) {
             printer.printLine(`declare var ${nc.name}: {`);
-            nc.signature.forEach(s => printer.printWithAddedIndent(`new(${s.param ? paramsToString(s.param) : ""}): ${i.name};`));
+            printer.increaseIndent();
+            nc.signature.forEach(s => printer.printLine(`new(${s.param ? paramsToString(s.param) : ""}): ${i.name};`));
+            printer.decreaseIndent();
             printer.printLine(`};`);
         }
     }

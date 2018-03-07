@@ -395,6 +395,9 @@
                             "name": "parentElement",
                             "read-only": "1",
                             "override-type": "HTMLElement | null"
+                        },
+                        "childNodes": {
+                            "override-type": "NodeListOf<Node & ChildNode>"
                         }
                     }
                 }
@@ -1875,7 +1878,6 @@
                     ]
                 }
             }
-
         }
     },
     "dictionaries": {

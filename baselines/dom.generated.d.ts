@@ -9348,7 +9348,7 @@ interface NavigatorUserMedia {
 
 interface Node extends EventTarget {
     readonly baseURI: string | null;
-    readonly childNodes: NodeList;
+    readonly childNodes: NodeListOf<Node & ChildNode>;
     readonly firstChild: Node | null;
     readonly lastChild: Node | null;
     readonly localName: string | null;

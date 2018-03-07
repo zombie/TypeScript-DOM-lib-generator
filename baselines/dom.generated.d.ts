@@ -9696,7 +9696,7 @@ interface Path2D extends CanvasPathMethods {
 
 declare var Path2D: {
     prototype: Path2D;
-    new(path?: Path2D): Path2D;
+    new(d?: Path2D | string): Path2D;;
 };
 
 interface PaymentAddress {

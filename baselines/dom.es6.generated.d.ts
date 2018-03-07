@@ -1,4 +1,3 @@
-
 /////////////////////////////
 /// DOM ES6 APIs
 /////////////////////////////
@@ -43,10 +42,6 @@ interface HTMLCollection {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
-interface MSRangeCollection {
-    [Symbol.iterator](): IterableIterator<Range>
-}
-
 interface MediaList {
     [Symbol.iterator](): IterableIterator<string>
 }
@@ -75,16 +70,8 @@ interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>
 }
 
-interface Storage {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
 interface StyleSheetList {
     [Symbol.iterator](): IterableIterator<StyleSheet>
-}
-
-interface StyleSheetPageList {
-    [Symbol.iterator](): IterableIterator<CSSPageRule>
 }
 
 interface TextTrackCueList {

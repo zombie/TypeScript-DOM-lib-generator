@@ -44,7 +44,15 @@
         }
     },
     "dictionaries": {
-        "dictionary": {}
+        "dictionary": {
+            "MediaTrackConstraintSet": {
+                "members": {
+                    "member": {
+                        "echoCancelation": {}
+                    }
+                }
+            }
+        }
     },
     "typedefs": {
         "typedef": []

@@ -827,13 +827,15 @@ interface MediaTrackCapabilities {
 
 interface MediaTrackConstraintSet {
     aspectRatio?: number | ConstrainDoubleRange;
+    channelCount?: number | ConstrainLongRange;
     deviceId?: string | string[] | ConstrainDOMStringParameters;
     displaySurface?: string | string[] | ConstrainDOMStringParameters;
-    echoCancelation?: boolean | ConstrainBooleanParameters;
+    echoCancellation?: boolean | ConstrainBooleanParameters;
     facingMode?: string | string[] | ConstrainDOMStringParameters;
     frameRate?: number | ConstrainDoubleRange;
     groupId?: string | string[] | ConstrainDOMStringParameters;
     height?: number | ConstrainLongRange;
+    latency?: number | ConstrainDoubleRange;
     logicalSurface?: boolean | ConstrainBooleanParameters;
     sampleRate?: number | ConstrainLongRange;
     sampleSize?: number | ConstrainLongRange;
@@ -9696,7 +9698,7 @@ interface Path2D extends CanvasPathMethods {
 
 declare var Path2D: {
     prototype: Path2D;
-    new(d?: Path2D | string): Path2D;;
+    new(d?: Path2D | string): Path2D;
 };
 
 interface PaymentAddress {
@@ -10340,7 +10342,7 @@ interface RTCPeerConnection extends EventTarget {
     addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate): Promise<void>;
     addStream(stream: MediaStream): void;
     close(): void;
-    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
+    createAnswer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
     createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
     getConfiguration(): RTCConfiguration;
     getLocalStreams(): MediaStream[];

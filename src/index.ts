@@ -125,7 +125,7 @@ function emitDom() {
 
         function filterDictionary(dictinaries: Record<string, Browser.Dictionary>, template: Record<string, Browser.Dictionary> | undefined) {
             if (!template) return dictinaries;
-            const result = filterProperties(dictinaries, i => !template[i.name]);
+            const result = dictinaries;
             for (const k in result) {
                 if (result[k].members) {
                     result[k].members!.member = filterProperties(dictinaries[k].members!.member, m => !(template[k] && template[k].members && template[k].members!.member[m.name]));

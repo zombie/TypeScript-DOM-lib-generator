@@ -132,17 +132,17 @@
                         "key": {
                             "name": "key",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "oldValue": {
                             "name": "oldValue",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "newValue": {
                             "name": "newValue",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "url": {
                             "name": "url",
@@ -151,7 +151,7 @@
                         "storageArea": {
                             "name": "storageArea",
                             "override-type": "Storage",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -165,17 +165,17 @@
                         "alpha": {
                             "name": "alpha",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         },
                         "willReadFrequently": {
                             "name": "willReadFrequently",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         },
                         "storage": {
                             "name": "storage",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -192,32 +192,32 @@
                         "imageOrientation": {
                             "name": "imageOrientation",
                             "override-type": "\"none\" | \"flipY\"",
-                            "required": "false"
+                            "required": 0
                         },
                         "premultiplyAlpha": {
                             "name": "premultiplyAlpha",
                             "override-type": "\"none\" | \"premultiply\" | \"default\"",
-                            "required": "false"
+                            "required": 0
                         },
                         "colorSpaceConversion": {
                             "name": "colorSpaceConversion",
                             "override-type": "\"none\" | \"default\"",
-                            "required": "false"
+                            "required": 0
                         },
                         "resizeWidth": {
                             "name": "resizeWidth",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "resizeHeight": {
                             "name": "resizeHeight",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "resizeQuality": {
                             "name": "resizeQuality",
                             "override-type": "\"pixelated\" | \"low\" | \"medium\" | \"high\"",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -451,12 +451,12 @@
                         "type": {
                             "name": "type",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "endings": {
                             "name": "endings",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -470,7 +470,7 @@
                         "lastModified": {
                             "name": "lastModified",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -588,7 +588,7 @@
                         "behavior": {
                             "name": "behavior",
                             "override-type": "ScrollBehavior",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -603,12 +603,12 @@
                         "left": {
                             "name": "left",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "top": {
                             "name": "top",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -623,12 +623,12 @@
                         "block": {
                             "name": "block",
                             "override-type": "ScrollLogicalPosition",
-                            "required": "false"
+                            "required": 0
                         },
                         "inline": {
                             "name": "inline",
                             "override-type": "ScrollLogicalPosition",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -750,7 +750,7 @@
                         "import": {
                             "name": "import",
                             "override-type": "Document",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }
@@ -788,12 +788,12 @@
                         "data": {
                             "name": "data",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "dataType": {
                             "name": "dataType",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -974,7 +974,7 @@
                         "hash": {
                             "name": "hash",
                             "override-type": "string | Algorithm",
-                            "required": "false"
+                            "required": 0
                         },
                         "algorithmId": {
                             "name": "algorithmId",
@@ -991,12 +991,12 @@
                         "publicInfo": {
                             "name": "publicInfo",
                             "override-type": "Uint8Array",
-                            "required": "false"
+                            "required": 0
                         },
                         "privateInfo": {
                             "name": "privateInfo",
                             "override-type": "Uint8Array",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -1194,7 +1194,7 @@
                         "delegatesFocus": {
                             "name": "delegatesFocus",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -1249,7 +1249,7 @@
                         "flatten": {
                             "name": "flatten",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -1298,7 +1298,7 @@
                         "is": {
                             "name": "is",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -1364,7 +1364,7 @@
                         "reason": {
                             "name": "reason",
                             "override-type": "any",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -1421,17 +1421,17 @@
                         "touches": {
                             "name": "touches",
                             "override-type": "Touch[]",
-                            "required": "false"
+                            "required": 0
                         },
                         "targetTouches": {
                             "name": "targetTouches",
                             "override-type": "Touch[]",
-                            "required": "false"
+                            "required": 0
                         },
                         "changedTouches": {
                             "name": "changedTouches",
                             "override-type": "Touch[]",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -2335,12 +2335,12 @@
                         "offset": {
                             "name": "offset",
                             "override-type": "number | null | (number | null)[]",
-                            "required": "false"
+                            "required": 0
                         },
                         "easing": {
                             "name": "easing",
                             "override-type": "string | string[]",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -2357,47 +2357,47 @@
                         "id": {
                             "name": "id",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "delay": {
                             "name": "delay",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "direction": {
                             "name": "direction",
                             "override-type": "\"normal\" | \"reverse\" | \"alternate\" | \"alternate-reverse\"",
-                            "required": "false"
+                            "required": 0
                         },
                         "duration": {
                             "name": "duration",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "easing": {
                             "name": "easing",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "endDelay": {
                             "name": "endDelay",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "fill": {
                             "name": "fill",
                             "override-type": "\"none\" | \"forwards\" | \"backwards\" | \"both\"| \"auto\"",
-                            "required": "false"
+                            "required": 0
                         },
                         "iterationStart": {
                             "name": "iterationStart",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         },
                         "iterations": {
                             "name": "iterations",
                             "override-type": "number",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -2479,12 +2479,12 @@
                         "currentTime": {
                             "name": "currentTime",
                             "override-type": "number | null",
-                            "required": "false"
+                            "required": 0
                         },
                         "timelineTime": {
                             "name": "timelineTime",
                             "override-type": "number | null",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 },
@@ -2746,7 +2746,7 @@
                         "autoIncrement": {
                             "name": "autoIncrement",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }
@@ -2758,7 +2758,7 @@
                         "multiEntry": {
                             "name": "multiEntry",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }
@@ -2770,12 +2770,12 @@
                         "lastEventId": {
                             "name": "lastEventId",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         },
                         "channel": {
                             "name": "channel",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }
@@ -2787,7 +2787,7 @@
                         "failIfMajorPerformanceCaveat": {
                             "name": "failIfMajorPerformanceCaveat",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }
@@ -2799,7 +2799,7 @@
                         "code": {
                             "name": "code",
                             "override-type": "string",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }
@@ -2811,7 +2811,7 @@
                         "scoped": {
                             "name": "scoped",
                             "override-type": "boolean",
-                            "required": "false"
+                            "required": 0
                         }
                     }
                 }

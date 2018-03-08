@@ -3654,7 +3654,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Contains information about the current URL.
      */
-    readonly location: Location;
+    location: Location | string;
     msCSSOMElementFloatMetrics: boolean;
     msCapsLockWarningOff: boolean;
     /**
@@ -7094,7 +7094,7 @@ declare var HTMLOptionElement: {
     new(): HTMLOptionElement;
 };
 
-interface HTMLOptionsCollection extends HTMLCollectionBase {
+interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
     length: number;
     selectedIndex: number;
     add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number | null): void;
@@ -14909,7 +14909,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly innerWidth: number;
     readonly isSecureContext: boolean;
     readonly length: number;
-    readonly location: Location;
+    location: Location | string;
     readonly locationbar: BarProp;
     readonly menubar: BarProp;
     readonly msContentScript: ExtensionScriptApis;
@@ -15718,7 +15718,7 @@ declare var innerHeight: number;
 declare var innerWidth: number;
 declare var isSecureContext: boolean;
 declare var length: number;
-declare var location: Location;
+declare var location: Location | string;
 declare var locationbar: BarProp;
 declare var menubar: BarProp;
 declare var msContentScript: ExtensionScriptApis;

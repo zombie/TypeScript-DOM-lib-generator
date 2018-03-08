@@ -43,7 +43,7 @@
                     "property": {
                         "name": {
                             "name": "name",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "string"
                         },
                         "onmessage": {
@@ -230,12 +230,12 @@
                     "property": {
                         "width": {
                             "name": "width",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "height": {
                             "name": "height",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -386,7 +386,7 @@
                     "property": {
                         "searchParams": {
                             "name": "searchParams",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "URLSearchParams"
                         }
                     }
@@ -561,12 +561,11 @@
                         }
                     }
                 },
-                "extends": "ParentNode",
                 "properties": {
                     "property": {
                         "assignedSlot": {
                             "name": "assignedSlot",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "HTMLSlotElement | null"
                         },
                         "slot": {
@@ -575,7 +574,7 @@
                         },
                         "shadowRoot": {
                             "name": "shadowRoot",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "ShadowRoot | null"
                         }
                     }
@@ -738,7 +737,7 @@
                         },
                         "doNotTrack": {
                             "name": "doNotTrack",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "string | null"
                         }
                     }
@@ -1043,7 +1042,7 @@
                     "property": {
                         "secureConnectionStart": {
                             "name": "secureConnectionStart",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1055,7 +1054,7 @@
                     "property": {
                         "code": {
                             "name": "code",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "string"
                         }
                     }
@@ -1068,17 +1067,17 @@
                     "property": {
                         "firstElementChild": {
                             "name": "firstElementChild",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "Element | null"
                         },
                         "lastElementChild": {
                             "name": "lastElementChild",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "Element | null"
                         },
                         "childElementCount": {
                             "name": "childElementCount",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1152,12 +1151,12 @@
                     "property": {
                         "activeElement": {
                             "name": "activeElement",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "Element | null"
                         },
                         "styleSheets": {
                             "name": "styleSheets",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "StyleSheetList"
                         }
                     }
@@ -1172,7 +1171,7 @@
                     "property": {
                         "host": {
                             "name": "host",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "Element"
                         },
                         "innerHTML": {
@@ -1207,7 +1206,7 @@
                     "property": {
                         "assignedSlot": {
                             "name": "assignedSlot",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "HTMLSlotElement | null"
                         }
                     }
@@ -1262,7 +1261,7 @@
                     "property": {
                         "scoped": {
                             "name": "scoped",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "boolean"
                         }
                     }
@@ -1340,12 +1339,12 @@
                     "property": {
                         "promise": {
                             "name": "promise",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "PromiseLike<any>"
                         },
                         "reason": {
                             "name": "reason",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "any"
                         }
                     }
@@ -1445,7 +1444,7 @@
                         "tooShort": {
                             "name": "tooShort",
                             "flavor": "Web",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "boolean"
                         }
                     }
@@ -1540,42 +1539,42 @@
                     "property": {
                         "bottom": {
                             "name": "bottom",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "height": {
                             "name": "height",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "left": {
                             "name": "left",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "right": {
                             "name": "right",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "top": {
                             "name": "top",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "width": {
                             "name": "width",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "x": {
                             "name": "x",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "y": {
                             "name": "y",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1594,12 +1593,12 @@
                     "property": {
                         "MIN_EXT": {
                             "name": "MIN_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "MAX_EXT": {
                             "name": "MAX_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1629,22 +1628,22 @@
                     "property": {
                         "SRGB_EXT": {
                             "name": "SRGB_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "SRGB_ALPHA_EXT": {
                             "name": "SRGB_ALPHA_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "SRGB8_ALPHA8_EXT": {
                             "name": "SRGB8_ALPHA8_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT": {
                             "name": "FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1689,7 +1688,7 @@
                     "property": {
                         "length": {
                             "name": "length",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1730,7 +1729,7 @@
                     "property": {
                         "VERTEX_ARRAY_BINDING_OES": {
                             "name": "VERTEX_ARRAY_BINDING_OES",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1780,22 +1779,22 @@
                     "property": {
                         "RGBA32F_EXT": {
                             "name": "RGBA32F_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "RGB32F_EXT": {
                             "name": "RGB32F_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT": {
                             "name": "FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "UNSIGNED_NORMALIZED_EXT": {
                             "name": "UNSIGNED_NORMALIZED_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1809,142 +1808,142 @@
                     "property": {
                         "COMPRESSED_RGBA_ASTC_4x4_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_4x4_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_5x4_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_5x4_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_5x5_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_5x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_6x5_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_6x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_6x6_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_6x6_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_8x5_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_8x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_8x6_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_8x6_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_8x8_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_8x8_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_10x5_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_10x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_10x6_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_10x6_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_10x8_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_10x8_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_10x10_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_10x10_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_12x10_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_12x10_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_RGBA_ASTC_12x12_KHR": {
                             "name": "COMPRESSED_RGBA_ASTC_12x12_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR": {
                             "name": "COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -1968,22 +1967,22 @@
                     "property": {
                         "COMPRESSED_SRGB_S3TC_DXT1_EXT": {
                             "name": "COMPRESSED_SRGB_S3TC_DXT1_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT": {
                             "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT": {
                             "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT": {
                             "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -2012,172 +2011,172 @@
                     "property": {
                         "COLOR_ATTACHMENT0_WEBGL": {
                             "name": "COLOR_ATTACHMENT0_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT1_WEBGL": {
                             "name": "COLOR_ATTACHMENT1_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT2_WEBGL": {
                             "name": "COLOR_ATTACHMENT2_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT3_WEBGL": {
                             "name": "COLOR_ATTACHMENT3_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT4_WEBGL": {
                             "name": "COLOR_ATTACHMENT4_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT5_WEBGL": {
                             "name": "COLOR_ATTACHMENT5_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT6_WEBGL": {
                             "name": "COLOR_ATTACHMENT6_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT7_WEBGL": {
                             "name": "COLOR_ATTACHMENT7_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT8_WEBGL": {
                             "name": "COLOR_ATTACHMENT8_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT9_WEBGL": {
                             "name": "COLOR_ATTACHMENT9_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT10_WEBGL": {
                             "name": "COLOR_ATTACHMENT10_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT11_WEBGL": {
                             "name": "COLOR_ATTACHMENT11_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT12_WEBGL": {
                             "name": "COLOR_ATTACHMENT12_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT13_WEBGL": {
                             "name": "COLOR_ATTACHMENT13_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT14_WEBGL": {
                             "name": "COLOR_ATTACHMENT14_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "COLOR_ATTACHMENT15_WEBGL": {
                             "name": "COLOR_ATTACHMENT15_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER0_WEBGL": {
                             "name": "DRAW_BUFFER0_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER1_WEBGL": {
                             "name": "DRAW_BUFFER1_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER2_WEBGL": {
                             "name": "DRAW_BUFFER2_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER3_WEBGL": {
                             "name": "DRAW_BUFFER3_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER4_WEBGL": {
                             "name": "DRAW_BUFFER4_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER5_WEBGL": {
                             "name": "DRAW_BUFFER5_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER6_WEBGL": {
                             "name": "DRAW_BUFFER6_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER7_WEBGL": {
                             "name": "DRAW_BUFFER7_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER8_WEBGL": {
                             "name": "DRAW_BUFFER8_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER9_WEBGL": {
                             "name": "DRAW_BUFFER9_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER10_WEBGL": {
                             "name": "DRAW_BUFFER10_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER11_WEBGL": {
                             "name": "DRAW_BUFFER11_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER12_WEBGL": {
                             "name": "DRAW_BUFFER12_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER13_WEBGL": {
                             "name": "DRAW_BUFFER13_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER14_WEBGL": {
                             "name": "DRAW_BUFFER14_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "DRAW_BUFFER15_WEBGL": {
                             "name": "DRAW_BUFFER15_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "MAX_COLOR_ATTACHMENTS_WEBGL": {
                             "name": "MAX_COLOR_ATTACHMENTS_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "MAX_DRAW_BUFFERS_WEBGL": {
                             "name": "MAX_DRAW_BUFFERS_WEBGL",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -2221,7 +2220,7 @@
                     "property": {
                         "control": {
                             "name": "control",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "HTMLInputElement | null"
                         }
                     }
@@ -2244,7 +2243,7 @@
                     "property": {
                         "lastModified": {
                             "name": "lastModified",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -2257,32 +2256,32 @@
                     "property": {
                         "url": {
                             "name": "url",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "string"
                         },
                         "withCredentials": {
                             "name": "withCredentials",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "boolean"
                         },
                         "CONNECTING": {
                             "name": "CONNECTING",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "OPEN": {
                             "name": "OPEN",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "CLOSED": {
                             "name": "CLOSED",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "readyState": {
                             "name": "readyState",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         },
                         "onopen": {
@@ -2321,7 +2320,7 @@
                     "property": {
                         "withCredentials": {
                             "name": "withCredentials",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "boolean"
                         }
                     }
@@ -2411,7 +2410,7 @@
                     "property": {
                         "currentTime": {
                             "name": "currentTime",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number | null"
                         }
                     }
@@ -2454,7 +2453,7 @@
                     "property": {
                         "timing": {
                             "name": "timing",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number"
                         }
                     }
@@ -2499,12 +2498,12 @@
                     "property": {
                         "currentTime": {
                             "name": "currentTime",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number | null"
                         },
                         "timelineTime": {
                             "name": "timelineTime",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "number | null"
                         }
                     }
@@ -2530,7 +2529,7 @@
                         },
                         "finished": {
                             "name": "finished",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "Promise<Animation>"
                         },
                         "id": {
@@ -2539,12 +2538,12 @@
                         },
                         "pending": {
                             "name": "pending",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "boolean"
                         },
                         "playState": {
                             "name": "playState",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "\"idle\" | \"running\" | \"paused\" | \"finished\""
                         },
                         "playbackRate": {
@@ -2553,7 +2552,7 @@
                         },
                         "ready": {
                             "name": "ready",
-                            "read-only": "1",
+                            "read-only": 1,
                             "override-type": "Promise<Animation>"
                         },
                         "startTime": {

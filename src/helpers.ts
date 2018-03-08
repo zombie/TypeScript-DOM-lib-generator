@@ -28,7 +28,7 @@ export function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolea
 
 export function merge<T>(src: T, target: T): T {
     if (typeof src !== "object" || typeof target !== "object") {
-        return src;
+        return target;
     }
     for (const k in target) {
         if (Object.getOwnPropertyDescriptor(target, k)) {
@@ -42,7 +42,7 @@ export function merge<T>(src: T, target: T): T {
                     if (Array.isArray(srcProp) !== Array.isArray(targetProp)) {
                         throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
                     }
-                    merge(src[k], target[k]);
+                    src[k] = merge(src[k], target[k]);
                 }
             }
             else {

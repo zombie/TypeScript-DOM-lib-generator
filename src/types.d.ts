@@ -71,7 +71,7 @@ export type Property = {
     "static"?: string;
     "comment"?: string;
     "override-type"?: string;
-    "required"?: string;
+    "required"?: 1;
     "specs"?: string;
     "deprecated"?: 1;
     "interop"?: 1;

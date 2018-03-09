@@ -200,9 +200,7 @@
                             "override-type": "(ev: TouchEvent) => any"
                         },
                         "location": {
-                            "name": "location",
-                            "read-only": null,
-                            "override-type": "Location | string"
+                            "read-only": 0
                         }
                     }
                 },
@@ -336,9 +334,7 @@
                             "override-type": "HTMLCollectionOf<HTMLScriptElement>"
                         },
                         "location": {
-                            "name": "location",
-                            "read-only": 0,
-                            "override-type": "Location | string"
+                            "read-only": 0
                         }
                     }
                 }

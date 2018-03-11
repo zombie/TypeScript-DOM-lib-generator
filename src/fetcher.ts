@@ -14,7 +14,7 @@ async function fetchIDLs() {
     const idlSources = JSON.parse(file) as IDLSource[];
     for (const source of idlSources) {
         const idl = await fetchIDL(source);
-        fs.writeFileSync(`${__dirname}/../inputfiles/idl/${source.title}.widl`, idl);
+        fs.writeFileSync(`${__dirname}/../inputfiles/idl/${source.title}.widl`, idl + '\n');
     }
 }
 

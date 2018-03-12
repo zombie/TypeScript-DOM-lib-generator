@@ -6,45 +6,29 @@ export interface Typed {
     "override-type"?: string;
 }
 
-export interface Param {
+export interface Param extends Typed {
     name: string;
-    type: string | Typed[];
-    subtype?: Typed;
-    nullable?: 1;
-    "type-original": string;
     optional?: 1;
     variadic?: 1;
     "treat-null-as"?: string;
 }
 
-export interface Signature {
-    type: string | Typed[];
-    subtype?: Typed;
-    nullable?: 1;
-    "type-original": string;
+export interface Signature extends Typed {
     param?: Param[];
     "param-min-required"?: number,
 }
 
-export interface Member {
+export interface Member extends Typed {
     name: string;
-    type: string | Typed[];
-    subtype?: Typed;
-    nullable?: 1;
-    "type-original": string;
     default?: string;
     required?: 1;
     "override-type"?: string;
     specs?: string;
 }
 
-export interface Property {
+export interface Property extends Typed {
     name: string;
     "event-handler"?: string;
-    type: string | Typed[];
-    subtype?: Typed;
-    nullable?: 1;
-    "type-original": string;
     "read-only"?: 1;
     replaceable?: string;
     "put-forwards"?: string;
@@ -131,12 +115,8 @@ export interface NamedConstructor {
     specs?: string;
 }
 
-export interface Constant {
+export interface Constant extends Typed {
     name: string;
-    type: string | Typed[];
-    subtype?: Typed;
-    nullable?: 1;
-    "type-original": string;
     value: string;
     tags?: string
     exposed?: string;

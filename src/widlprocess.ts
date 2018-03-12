@@ -26,7 +26,7 @@ export function convert(text: string) {
                 = convertCallbackFunctions(rootType);
         }
         else if (rootType.type === "typedef") {
-            browser.typedefs!.typedef.push() 
+            browser.typedefs!.typedef.push(convertTypedef(rootType));
         }
     }
     return { browser, partialInterfaces };
@@ -98,7 +98,7 @@ function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunc
         name: c.name,
         callback: 1,
         signature: [{
-            type: convertIdlType(c.idlType),
+            ...convertIdlType(c.idlType),
             param: c.arguments.map(convertArgument)
         }]
     }
@@ -107,7 +107,7 @@ function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunc
 function convertArgument(arg: webidl2.Argument): Browser.Param {
     return {
         name: arg.name,
-        type: convertIdlType(arg.idlType),
+        ...convertIdlType(arg.idlType),
         nullable: arg.idlType.nullable ? 1 : undefined,
         optional: arg.optional ? 1 : undefined,
         variadic: arg.variadic ? 1 : undefined,
@@ -117,7 +117,7 @@ function convertArgument(arg: webidl2.Argument): Browser.Param {
 function convertAttribute(attribute: webidl2.AttributeMemberType): Browser.Property {
     return {
         name: attribute.name,
-        type: convertIdlType(attribute.idlType),
+        ...convertIdlType(attribute.idlType),
         "read-only": attribute.readonly ? 1 : undefined
     }
 }
@@ -145,18 +145,34 @@ function convertConstantMember(constant: webidl2.ConstantMemberType): Browser.Co
     }
 }
 
-// function convertTypedef(typedef: webidl2.TypedefType): Browser.TypeDef {
-//     return {
-//         "new-type": typedef.name,
-//         type: 
-//     }
-// }
-
-function convertIdlType(i: webidl2.IDLTypeDescription): string | Browser.Typed[] {
-    if (typeof i.idlType === "string") {
-        return i.idlType;
+function convertTypedef(typedef: webidl2.TypedefType): Browser.TypeDef {
+    return {
+        "new-type": typedef.name,
+        ...convertIdlType(typedef.idlType)
     }
-    throw new Error("Not implemented");
+}
+
+function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
+    if (typeof i.idlType === "string") {
+        return {
+            type: i.idlType,
+            nullable: i.nullable ? 1 : undefined
+        };
+    }
+    if (i.generic) {
+        return {
+            type: i.generic,
+            subtype: convertIdlType(i.idlType as webidl2.IDLTypeDescription),
+            nullable: i.nullable ? 1 : undefined
+        };
+    }
+    if (i.union) {
+        return {
+            type: (i.idlType as webidl2.IDLTypeDescription[]).map(convertIdlType),
+            nullable: i.nullable ? 1 : undefined
+        };
+    }
+    throw new Error("Unsupported IDL type structure");
 }
 
 function createEmptyBrowserWebidl(): Browser.WebIdl {

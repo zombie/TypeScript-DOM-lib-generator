@@ -22,7 +22,6 @@ export interface Member extends Typed {
     name: string;
     default?: string;
     required?: 1;
-    "override-type"?: string;
     specs?: string;
 }
 
@@ -54,7 +53,6 @@ export interface Property extends Typed {
     "event-handler-map-to-window"?: string;
     static?: 1;
     comment?: string;
-    "override-type"?: string;
     required?: 1;
     specs?: string;
     deprecated?: 1;

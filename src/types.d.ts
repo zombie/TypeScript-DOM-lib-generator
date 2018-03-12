@@ -1,55 +1,55 @@
 export interface Typed {
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original"?: string;
     "override-type"?: string;
 }
 
 export interface Param {
-    "name": string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+    name: string;
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original": string;
-    "optional"?: 1;
-    "variadic"?: 1;
+    optional?: 1;
+    variadic?: 1;
     "treat-null-as"?: string;
 }
 
 export interface Signature {
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original": string;
-    "param"?: Param[];
+    param?: Param[];
     "param-min-required"?: number,
 }
 
 export interface Member {
-    "name": string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+    name: string;
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original": string;
-    "default"?: string;
-    "required"?: 1;
+    default?: string;
+    required?: 1;
     "override-type"?: string;
-    "specs"?: string;
+    specs?: string;
 }
 
 export interface Property {
-    "name": string;
+    name: string;
     "event-handler"?: string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original": string;
     "read-only"?: 1;
-    "replaceable"?: string;
+    replaceable?: string;
     "put-forwards"?: string;
-    "stringifier"?: 1;
-    "tags"?: string;
+    stringifier?: 1;
+    tags?: string;
     "property-descriptor-not-enumerable"?: string;
     "content-attribute"?: string;
     "content-attribute-reflects"?: string;
@@ -68,153 +68,153 @@ export interface Property {
     "lenient-this"?: string;
     "treat-null-as"?: string;
     "event-handler-map-to-window"?: string;
-    "static"?: 1;
-    "comment"?: string;
+    static?: 1;
+    comment?: string;
     "override-type"?: string;
-    "required"?: 1;
-    "specs"?: string;
-    "deprecated"?: 1;
-    "interop"?: 1;
-    "exposed"?: string;
-    "constant"?: 1;
+    required?: 1;
+    specs?: string;
+    deprecated?: 1;
+    interop?: 1;
+    exposed?: string;
+    constant?: 1;
 }
 
 export interface Event {
-    "name": string;
-    "type": string;
-    "dispatch"?: string;
+    name: string;
+    type: string;
+    dispatch?: string;
     "skips-window"?: string;
-    "bubbles"?: 1;
-    "cancelable"?: 1;
-    "follows"?: string;
-    "precedes"?: string;
-    "tags"?: string;
-    "aliases"?: string;
-    "specs"?: string;
+    bubbles?: 1;
+    cancelable?: 1;
+    follows?: string;
+    precedes?: string;
+    tags?: string;
+    aliases?: string;
+    specs?: string;
 }
 
 export interface Method {
-    "name": string;
-    "tags"?: string;
-    "static"?: 1;
-    "getter"?: 1;
-    "stringifier"?: 1;
-    "serializer"?: 1;
+    name: string;
+    tags?: string;
+    static?: 1;
+    getter?: 1;
+    stringifier?: 1;
+    serializer?: 1;
     "serializer-info"?: string;
-    "comment"?: string;
+    comment?: string;
     "override-signatures"?: string[];
     "additional-signatures"?: string[];
-    "specs"?: string;
-    "exposed"?: string;
-    "deprecated"?: 1;
-    "signature": Signature[];
+    specs?: string;
+    exposed?: string;
+    deprecated?: 1;
+    signature: Signature[];
 }
 
 export interface CallbackFunction {
-    "name": string;
-    "callback": 1;
-    "signature": Signature[];
-    "tags"?: string;
+    name: string;
+    callback: 1;
+    signature: Signature[];
+    tags?: string;
     "override-signatures"?: string[];
-    "specs"?: string;
+    specs?: string;
 }
 
 export interface Constructor {
-    "signature": Signature[];
-    "comment"?: string;
-    "specs"?: string;
+    signature: Signature[];
+    comment?: string;
+    specs?: string;
 }
 
 export interface NamedConstructor {
-    "name": string;
-    "signature": Signature[];
-    "specs"?: string;
+    name: string;
+    signature: Signature[];
+    specs?: string;
 }
 
 export interface Constant {
-    "name": string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+    name: string;
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original": string;
-    "value": string;
-    "tags"?: string
-    "exposed"?: string;
-    "specs"?: string;
+    value: string;
+    tags?: string
+    exposed?: string;
+    specs?: string;
 }
 
 export interface ParsedAttribute{
     "enum-values"?: string;
-    "name": string;
+    name: string;
     "value-syntax"?: string;
 }
 
 export interface Element {
-    "name": string;
-    "namespace"?: string;
+    name: string;
+    namespace?: string;
     "html-self-closing"?: string;
-    "specs"?: string;
+    specs?: string;
 }
 
 export interface Interface {
-    "name": string;
-    "extends": string;
-    "constants"?: {
-        "constant": Record<string, Constant>;
+    name: string;
+    extends: string;
+    constants?: {
+        constant: Record<string, Constant>;
     }
-    "methods": {
-        "method": Record<string, Method>;
+    methods: {
+        method: Record<string, Method>;
     }
-    "events"?: {
-        "event": Event[];
+    events?: {
+        event: Event[];
     }
-    "properties"?: {
-        "property": Record<string, Property>;
+    properties?: {
+        property: Record<string, Property>;
     }
-    "constructor"?: Constructor;
+    constructor?: Constructor;
     "secure-context"?: string;
-    "implements"?: string[];
-    "static"?: 1;
+    implements?: string[];
+    static?: 1;
     "anonymous-methods"?: {
-        "method": Method[];
+        method: Method[];
     }
     "anonymous-content-attributes"?: {
-        "parsedattribute": ParsedAttribute[];
+        parsedattribute: ParsedAttribute[];
     }
-    "element"?: Element[];
+    element?: Element[];
     "named-constructor"?: NamedConstructor;
     "override-builtins"?: string;
-    "exposed"?: string;
-    "tags"?: string;
+    exposed?: string;
+    tags?: string;
     "implicit-this"?: string;
     "primary-global"?: string;
     "no-interface-object"?: string;
-    "global"?: string;
+    global?: string;
     "type-parameters"?: string[];
     "overide-index-signatures"?: string[];
-    "specs"?: string;
-    "iterable"?: "value" | "pair" | "pair-iterator";
+    specs?: string;
+    iterable?: "value" | "pair" | "pair-iterator";
 }
 
 export interface Enum {
-    "name": string;
-    "value": string[];
-    "specs"?: string;
+    name: string;
+    value: string[];
+    specs?: string;
 }
 
 export interface TypeDef {
     "new-type": string;
-    "type": string;
+    type: string;
     "override-type"?: string;
 }
 
 export interface Dictionary {
-    "name": string;
-    "extends": string;
-    "members": {
-        "member": Record<string, Member>;
+    name: string;
+    extends: string;
+    members: {
+        member: Record<string, Member>;
     }
-    "specs"?: string;
+    specs?: string;
     "type-parameters"?: string[];
 }
 
@@ -223,21 +223,21 @@ export interface WebIdl {
         "callback-function": Record<string, CallbackFunction>;
     },
     "callback-interfaces"?: {
-        "interface": Record<string, Interface>;
+        interface: Record<string, Interface>;
     }
-    "dictionaries"?: {
-        "dictionary": Record<string, Dictionary>;
+    dictionaries?: {
+        dictionary: Record<string, Dictionary>;
     }
-    "enums"?: {
-        "enum": Record<string, Enum>;
+    enums?: {
+        enum: Record<string, Enum>;
     }
-    "interfaces"?: {
-        "interface": Record<string, Interface>;
+    interfaces?: {
+        interface: Record<string, Interface>;
     }
-    "mixins"?: {
-        "mixin": Record<string, Interface>;
+    mixins?: {
+        mixin: Record<string, Interface>;
     }
-    "typedefs"?: {
-        "typedef": TypeDef[];
+    typedefs?: {
+        typedef: TypeDef[];
     }
 }

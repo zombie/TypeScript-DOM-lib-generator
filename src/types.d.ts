@@ -13,7 +13,7 @@ export type Param = {
     "nullable"?: 1;
     "type-original": string;
     "optional"?: 1;
-    "variadic"?: string;
+    "variadic"?: 1;
     "treat-null-as"?: string;
 };
 
@@ -48,7 +48,7 @@ export type Property = {
     "read-only"?: 1;
     "replaceable"?: string;
     "put-forwards"?: string;
-    "stringifier"?: string;
+    "stringifier"?: 1;
     "tags"?: string;
     "property-descriptor-not-enumerable"?: string;
     "content-attribute"?: string;
@@ -68,7 +68,7 @@ export type Property = {
     "lenient-this"?: string;
     "treat-null-as"?: string;
     "event-handler-map-to-window"?: string;
-    "static"?: string;
+    "static"?: 1;
     "comment"?: string;
     "override-type"?: string;
     "required"?: 1;
@@ -96,10 +96,10 @@ export type Event = {
 export type Method = {
     "name": string;
     "tags"?: string;
-    "static"?: string;
+    "static"?: 1;
     "getter"?: 1;
-    "stringifier"?: string;
-    "serializer"?: string;
+    "stringifier"?: 1;
+    "serializer"?: 1;
     "serializer-info"?: string;
     "comment"?: string;
     "override-signatures"?: string[];
@@ -174,7 +174,7 @@ export type Interface = {
     "constructor"?: Constructor;
     "secure-context"?: string;
     "implements"?: string[];
-    "static"?: undefined;
+    "static"?: 1;
     "anonymous-methods"?: {
         "method": Method[];
     };

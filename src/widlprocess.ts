@@ -15,6 +15,19 @@ export function convert(text: string) {
                 browser.interfaces!.interface[rootType.name] = converted;
             }
         }
+        else if (rootType.type === "interface mixin") {
+            browser["mixins"]!.mixin[rootType.name] = convertInterfaceMixin(rootType);
+        }
+        else if (rootType.type === "callback interface") {
+            browser["callback-interfaces"]!.interface[rootType.name] = convertInterface(rootType);
+        }
+        else if (rootType.type === "callback") {
+            browser["callback-functions"]!["callback-function"][rootType.name]
+                = convertCallbackFunctions(rootType);
+        }
+        else if (rootType.type === "typedef") {
+            browser.typedefs!.typedef.push() 
+        }
     }
     return { browser, partialInterfaces };
 }
@@ -32,9 +45,23 @@ function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {
 }
 
 function convertInterface(i: webidl2.InterfaceType) {
+    const result = convertInterfaceCommon(i);
+    if (i.inheritance) {
+        result.extends = i.inheritance;
+    }
+    return result;
+}
+
+function convertInterfaceMixin(i: webidl2.InterfaceMixinType) {
+    const result = convertInterfaceCommon(i);
+    result['no-interface-object'] = 1;
+    return result;
+}
+
+function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixinType) {
     const result: Browser.Interface = {
         name: i.name,
-        extends: i.inheritance || "Object",
+        extends: "Object",
         constants: { constant: {} },
         methods: { method: {} },
         properties: { property: {} },
@@ -63,6 +90,17 @@ function getConstructor(extAttrs: webidl2.ExtendedAttributes[]): Browser.Constru
                 }]
             }
         }
+    }
+}
+
+function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunction {
+    return {
+        name: c.name,
+        callback: 1,
+        signature: [{
+            type: convertIdlType(c.idlType),
+            param: c.arguments.map(convertArgument)
+        }]
     }
 }
 
@@ -106,6 +144,13 @@ function convertConstantMember(constant: webidl2.ConstantMemberType): Browser.Co
         }
     }
 }
+
+// function convertTypedef(typedef: webidl2.TypedefType): Browser.TypeDef {
+//     return {
+//         "new-type": typedef.name,
+//         type: 
+//     }
+// }
 
 function convertIdlType(i: webidl2.IDLTypeDescription): string | Browser.Typed[] {
     if (typeof i.idlType === "string") {

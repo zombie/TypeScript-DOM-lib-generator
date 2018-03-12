@@ -112,7 +112,7 @@ function emitDom() {
         if (obj.enums) result.enums!.enum = filterEnum(obj.enums.enum, template.enums && template.enums.enum);
         if (obj.mixins) result.mixins!.mixin = filterInterface(obj.mixins.mixin, template.mixins && template.mixins.mixin);
         if (obj.interfaces) result.interfaces!.interface = filterInterface(obj.interfaces.interface, template.interfaces && template.interfaces.interface);
-        if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"]));
+        if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => !(template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"])));
 
         return result;
 

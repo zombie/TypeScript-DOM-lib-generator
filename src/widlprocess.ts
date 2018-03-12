@@ -78,6 +78,16 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         else if (member.type === "attribute") {
             result.properties!.property[member.name] = convertAttribute(member);
         }
+        else if (member.type === "operation" && member.name) {
+            const operation = convertOperation(member);
+            const { method } = result.methods;
+            if (method[member.name]) {
+                method[member.name].signature.push(...operation.signature);
+            }
+            else {
+                method[member.name] = operation;
+            }
+        }
     }
 
     return result;
@@ -100,18 +110,17 @@ function getConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string) 
     }
 }
 
-function convertOperation(operation: webidl2.OperationMemberType) {
-    const result: Browser.Method = {
+function convertOperation(operation: webidl2.OperationMemberType): Browser.Method {
+    return {
         name: operation.name!,
-        signature: [],
+        signature: [{
+            ...convertIdlType(operation.idlType!),
+            param: operation.arguments.map(convertArgument)
+        }],
         getter: operation.getter ? 1 : undefined,
         static: operation.static ? 1 : undefined,
         stringifier: operation.stringifier ? 1 : undefined,
-    }
-
-    operation.arguments
-
-    return result;
+    };
 }
 
 function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunction {

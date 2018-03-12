@@ -182,10 +182,8 @@ export interface Enum {
     specs?: string;
 }
 
-export interface TypeDef {
+export interface TypeDef extends Typed {
     "new-type": string;
-    type: string;
-    "override-type"?: string;
 }
 
 export interface Dictionary {

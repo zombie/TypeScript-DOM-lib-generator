@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { filter, merge, filterProperties } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
+import { convert } from "./widlprocess";
 
 function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, tsWorkerOutput: string) {
     const worker = getEmptyWebIDL();
@@ -81,12 +82,18 @@ function emitDom() {
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
+    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).map(
+        filename => fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" })
+    ).map(convert);
 
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));
 
     const knownWorkerTypes = new Set<string>(require(path.join(inputFolder, "knownWorkerTypes.json")));
 
+    for (const w of widlStandardTypes) {
+        webidl = merge(webidl, w.browser);
+    }
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);

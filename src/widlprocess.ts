@@ -25,6 +25,9 @@ export function convert(text: string) {
             browser["callback-functions"]!["callback-function"][rootType.name]
                 = convertCallbackFunctions(rootType);
         }
+        else if (rootType.type === "dictionary") {
+            browser.dictionaries!.dictionary[rootType.name] = convertDictionary(rootType);
+        }
         else if (rootType.type === "typedef") {
             browser.typedefs!.typedef.push(convertTypedef(rootType));
         }
@@ -65,7 +68,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         constants: { constant: {} },
         methods: { method: {} },
         properties: { property: {} },
-        constructor: getConstructor(i.extAttrs), // TODO: implement this
+        constructor: getConstructor(i.extAttrs, i.name), // TODO: implement this
         exposed: getExposure(i.extAttrs)
     };
     for (const member of i.members) {
@@ -80,17 +83,35 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
     return result;
 }
 
-function getConstructor(extAttrs: webidl2.ExtendedAttributes[]): Browser.Constructor | undefined {
+function getConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string) {
+    const constructor: Browser.Constructor = {
+        signature: []
+    };
     for (const extAttr of extAttrs) {
         if (extAttr.name === "Constructor") {
-            return {
-                signature: [{
-                    type: "", // emitter never uses this
-                    param: extAttr.arguments.map(convertArgument)
-                }]
-            }
+            constructor.signature.push({
+                type: parent,
+                param: extAttr.arguments ? extAttr.arguments.map(convertArgument) : []
+            });
         }
     }
+    if (constructor.signature.length) {
+        return constructor;
+    }
+}
+
+function convertOperation(operation: webidl2.OperationMemberType) {
+    const result: Browser.Method = {
+        name: operation.name!,
+        signature: [],
+        getter: operation.getter ? 1 : undefined,
+        static: operation.static ? 1 : undefined,
+        stringifier: operation.stringifier ? 1 : undefined,
+    }
+
+    operation.arguments
+
+    return result;
 }
 
 function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunction {
@@ -128,20 +149,43 @@ function convertConstantMember(constant: webidl2.ConstantMemberType): Browser.Co
         type: constant.idlType.idlType as string,
         value: convertConstantValue(constant.value)
     };
+}
 
-    function convertConstantValue(value: webidl2.ValueDescription): string {
-        switch (value.type) {
-            case "boolean":
-            case "number":
-                return `${value.value}`;
-            case "null":
-            case "NaN":
-                return value.type;
-            case "Infinity":
-                return (value.negative ? '-' : '') + value.type;
-            default:
-                throw new Error("Not implemented");
-        }
+function convertConstantValue(value: webidl2.ValueDescription): string {
+    switch (value.type) {
+        case "string":
+            return `"${value.value}"`;
+        case "boolean":
+        case "number":
+        case "sequence":
+            return `${value.value}`;
+        case "null":
+        case "NaN":
+            return value.type;
+        case "Infinity":
+            return (value.negative ? '-' : '') + value.type;
+        default:
+            throw new Error("Not implemented");
+    }
+}
+
+function convertDictionary(dictionary: webidl2.DictionaryType) {
+    const result: Browser.Dictionary = {
+        name: dictionary.name,
+        extends: dictionary.inheritance || "Object",
+        members: { member: {} }
+    }
+    for (const member of dictionary.members) {
+        result.members.member[member.name] = convertDictionaryMember(member);
+    }
+    return result;
+}
+
+function convertDictionaryMember(member: webidl2.DictionaryMemberType): Browser.Member {
+    return {
+        name: member.name,
+        default: member.default ? convertConstantValue(member.default) : undefined,
+        ...convertIdlType(member.idlType)
     }
 }
 

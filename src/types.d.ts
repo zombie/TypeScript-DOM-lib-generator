@@ -152,7 +152,7 @@ export interface Interface {
         property: Record<string, Property>;
     }
     constructor?: Constructor;
-    "secure-context"?: string;
+    "secure-context"?: 1;
     implements?: string[];
     static?: 1;
     "anonymous-methods"?: {
@@ -163,12 +163,12 @@ export interface Interface {
     }
     element?: Element[];
     "named-constructor"?: NamedConstructor;
-    "override-builtins"?: string;
+    "override-builtins"?: 1;
     exposed?: string;
     tags?: string;
-    "implicit-this"?: string;
+    "implicit-this"?: 1;
     "primary-global"?: string;
-    "no-interface-object"?: string;
+    "no-interface-object"?: 1;
     global?: string;
     "type-parameters"?: string[];
     "overide-index-signatures"?: string[];

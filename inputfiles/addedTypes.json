@@ -1708,6 +1708,20 @@
                     "[index: number]: DOMRect"
                 ]
             },
+            "DOMTokenList": {
+                "name": "DOMTokenList",
+                "flavor": "Web",
+                "methods": {
+                    "method": {
+                        "replace": {
+                            "name": "replace",
+                            "override-signatures": [
+                                "replace(oldToken: string, newToken: string): void"
+                            ]
+                        }
+                    }
+                }
+            },
             "HTMLFormElement": {
                 "name": "HTMLFormElement",
                 "methods": {

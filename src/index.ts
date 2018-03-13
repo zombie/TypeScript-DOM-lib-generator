@@ -92,7 +92,7 @@ function emitDom() {
     const knownWorkerTypes = new Set<string>(require(path.join(inputFolder, "knownWorkerTypes.json")));
 
     for (const w of widlStandardTypes) {
-        webidl = merge(webidl, w.browser);
+        webidl = merge(webidl, w.browser, true);
     }
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);

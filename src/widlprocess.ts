@@ -138,7 +138,6 @@ function convertArgument(arg: webidl2.Argument): Browser.Param {
     return {
         name: arg.name,
         ...convertIdlType(arg.idlType),
-        nullable: arg.idlType.nullable ? 1 : undefined,
         optional: arg.optional ? 1 : undefined,
         variadic: arg.variadic ? 1 : undefined,
     }

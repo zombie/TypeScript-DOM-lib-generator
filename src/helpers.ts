@@ -26,7 +26,7 @@ export function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolea
     return result;
 }
 
-export function merge<T>(src: T, target: T): T {
+export function merge<T>(src: T, target: T, shallow?: boolean): T {
     if (typeof src !== "object" || typeof target !== "object") {
         return target;
     }
@@ -42,7 +42,12 @@ export function merge<T>(src: T, target: T): T {
                     if (Array.isArray(srcProp) !== Array.isArray(targetProp)) {
                         throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
                     }
-                    src[k] = merge(src[k], target[k]);
+                    if (shallow && "name" in src[k] && "name" in target[k]) {
+                        src[k] = target[k];
+                    }
+                    else {
+                        src[k] = merge(src[k], target[k], shallow);
+                    }
                 }
             }
             else {
@@ -53,17 +58,19 @@ export function merge<T>(src: T, target: T): T {
     return src;
 }
 
-function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[]) {
+function mergeNamedArrays<T extends { name: string; "new-type": string; }>(srcProp: T[], targetProp: T[]) {
     const map: any = {};
     for (const e1 of srcProp) {
-        if (e1.name) {
-            map[e1.name] = e1;
+        const name = e1.name || e1["new-type"];
+        if (name) {
+            map[name] = e1;
         }
     }
 
     for (const e2 of targetProp) {
-        if (e2.name && map[e2.name]) {
-            merge(map[e2.name], e2);
+        const name = e2.name || e2["new-type"];
+        if (name && map[name]) {
+            merge(map[name], e2);
         }
         else {
             srcProp.push(e2);
@@ -116,7 +123,7 @@ export function isArray(value: any): value is ReadonlyArray<{}> {
     return Array.isArray ? Array.isArray(value) : value instanceof Array;
 }
 
-export function flatMap<T, U>(array: ReadonlyArray<T> | undefined, mapfn: (x: T, i: number) => U | ReadonlyArray<U> | undefined): U[]  {
+export function flatMap<T, U>(array: ReadonlyArray<T> | undefined, mapfn: (x: T, i: number) => U | ReadonlyArray<U> | undefined): U[] {
     let result: U[] | undefined;
     if (array) {
         result = [];

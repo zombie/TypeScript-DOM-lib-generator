@@ -358,7 +358,6 @@ interface DOMException {
     readonly code: number;
     readonly message: string;
     readonly name: string;
-    toString(): string;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
     readonly DOMSTRING_SIZE_ERR: number;
@@ -376,10 +375,8 @@ interface DOMException {
     readonly NOT_SUPPORTED_ERR: number;
     readonly NO_DATA_ALLOWED_ERR: number;
     readonly NO_MODIFICATION_ALLOWED_ERR: number;
-    readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
-    readonly SERIALIZE_ERR: number;
     readonly SYNTAX_ERR: number;
     readonly TIMEOUT_ERR: number;
     readonly TYPE_MISMATCH_ERR: number;
@@ -408,10 +405,8 @@ declare var DOMException: {
     readonly NOT_SUPPORTED_ERR: number;
     readonly NO_DATA_ALLOWED_ERR: number;
     readonly NO_MODIFICATION_ALLOWED_ERR: number;
-    readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
-    readonly SERIALIZE_ERR: number;
     readonly SYNTAX_ERR: number;
     readonly TIMEOUT_ERR: number;
     readonly TYPE_MISMATCH_ERR: number;

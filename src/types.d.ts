@@ -1,55 +1,38 @@
-export type Typed = {
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
+export interface Typed {
+    type: string | Typed[];
+    subtype?: Typed;
+    nullable?: 1;
     "type-original"?: string;
     "override-type"?: string;
-};
+}
 
-export type Param = {
-    "name": string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
-    "type-original": string;
-    "optional"?: 1;
-    "variadic"?: string;
+export interface Param extends Typed {
+    name: string;
+    optional?: 1;
+    variadic?: 1;
     "treat-null-as"?: string;
-};
+}
 
-export type Signature = {
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
-    "type-original": string;
-    "param"?: Param[];
+export interface Signature extends Typed {
+    param?: Param[];
     "param-min-required"?: number,
-};
+}
 
-export type Member = {
-    "name": string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
-    "type-original": string;
-    "default"?: string;
-    "required"?: 1;
-    "override-type"?: string;
-    "specs"?: string;
-};
+export interface Member extends Typed {
+    name: string;
+    default?: string;
+    required?: 1;
+    specs?: string;
+}
 
-export type Property = {
-    "name": string;
+export interface Property extends Typed {
+    name: string;
     "event-handler"?: string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
-    "type-original": string;
     "read-only"?: 1;
-    "replaceable"?: string;
+    replaceable?: string;
     "put-forwards"?: string;
-    "stringifier"?: string;
-    "tags"?: string;
+    stringifier?: 1;
+    tags?: string;
     "property-descriptor-not-enumerable"?: string;
     "content-attribute"?: string;
     "content-attribute-reflects"?: string;
@@ -68,176 +51,169 @@ export type Property = {
     "lenient-this"?: string;
     "treat-null-as"?: string;
     "event-handler-map-to-window"?: string;
-    "static"?: string;
-    "comment"?: string;
-    "override-type"?: string;
-    "required"?: 1;
-    "specs"?: string;
-    "deprecated"?: 1;
-    "interop"?: 1;
-    "exposed"?: string;
-    "constant"?: 1;
-};
+    static?: 1;
+    comment?: string;
+    required?: 1;
+    specs?: string;
+    deprecated?: 1;
+    interop?: 1;
+    exposed?: string;
+    constant?: 1;
+}
 
-export type Event = {
-    "name": string;
-    "type": string;
-    "dispatch"?: string;
+export interface Event {
+    name: string;
+    type: string;
+    dispatch?: string;
     "skips-window"?: string;
-    "bubbles"?: 1;
-    "cancelable"?: 1;
-    "follows"?: string;
-    "precedes"?: string;
-    "tags"?: string;
-    "aliases"?: string;
-    "specs"?: string;
-};
+    bubbles?: 1;
+    cancelable?: 1;
+    follows?: string;
+    precedes?: string;
+    tags?: string;
+    aliases?: string;
+    specs?: string;
+}
 
-export type Method = {
-    "name": string;
-    "tags"?: string;
-    "static"?: string;
-    "getter"?: 1;
-    "stringifier"?: string;
-    "serializer"?: string;
+export interface Method {
+    name: string;
+    tags?: string;
+    static?: 1;
+    getter?: 1;
+    stringifier?: 1;
+    serializer?: 1;
     "serializer-info"?: string;
-    "comment"?: string;
+    comment?: string;
     "override-signatures"?: string[];
     "additional-signatures"?: string[];
-    "specs"?: string;
-    "exposed"?: string;
-    "deprecated"?: 1;
-    "signature": Signature[];
-};
+    specs?: string;
+    exposed?: string;
+    deprecated?: 1;
+    signature: Signature[];
+}
 
-export type CallbackFunction = {
-    "name": string;
-    "callback": 1;
-    "signature": Signature[];
-    "tags"?: string;
+export interface CallbackFunction {
+    name: string;
+    callback: 1;
+    signature: Signature[];
+    tags?: string;
     "override-signatures"?: string[];
-    "specs"?: string;
-};
+    specs?: string;
+}
 
-export type Constructor = {
-    "signature": Signature[];
-    "comment"?: string;
-    "specs"?: string;
-};
+export interface Constructor {
+    signature: Signature[];
+    comment?: string;
+    specs?: string;
+}
 
-export type NamedConstructor = {
-    "name": string;
-    "signature": Signature[];
-    "specs"?: string;
-};
+export interface NamedConstructor {
+    name: string;
+    signature: Signature[];
+    specs?: string;
+}
 
-export type Constant = {
-    "name": string;
-    "type": string | Typed[];
-    "subtype"?: Typed;
-    "nullable"?: 1;
-    "type-original": string;
-    "value": string;
-    "tags"?: string
-    "exposed"?: string;
-    "specs"?: string;
-};
+export interface Constant extends Typed {
+    name: string;
+    value: string;
+    tags?: string
+    exposed?: string;
+    specs?: string;
+}
 
-export type ParsedAttribute ={
+export interface ParsedAttribute{
     "enum-values"?: string;
-    "name": string;
+    name: string;
     "value-syntax"?: string;
-};
+}
 
-export type Element = {
-    "name": string;
-    "namespace"?: string;
+export interface Element {
+    name: string;
+    namespace?: string;
     "html-self-closing"?: string;
-    "specs"?: string;
-};
+    specs?: string;
+}
 
-export type Interface = {
-    "name": string;
-    "extends": string;
-    "constants"?: {
-        "constant": Record<string, Constant>;
-    };
-    "methods": {
-        "method": Record<string, Method>;
-    };
-    "events"?: {
-        "event": Event[];
-    };
-    "properties"?: {
-        "property": Record<string, Property>;
-    };
-    "constructor"?: Constructor;
-    "secure-context"?: string;
-    "implements"?: string[];
-    "static"?: undefined;
+export interface Interface {
+    name: string;
+    extends: string;
+    constants?: {
+        constant: Record<string, Constant>;
+    }
+    methods: {
+        method: Record<string, Method>;
+    }
+    events?: {
+        event: Event[];
+    }
+    properties?: {
+        property: Record<string, Property>;
+    }
+    constructor?: Constructor;
+    "secure-context"?: 1;
+    implements?: string[];
+    static?: 1;
     "anonymous-methods"?: {
-        "method": Method[];
-    };
+        method: Method[];
+    }
     "anonymous-content-attributes"?: {
-        "parsedattribute": ParsedAttribute[];
-    };
-    "element"?: Element[];
+        parsedattribute: ParsedAttribute[];
+    }
+    element?: Element[];
     "named-constructor"?: NamedConstructor;
-    "override-builtins"?: string;
-    "exposed"?: string;
-    "tags"?: string;
-    "implicit-this"?: string;
+    "override-builtins"?: 1;
+    exposed?: string;
+    tags?: string;
+    "implicit-this"?: 1;
     "primary-global"?: string;
-    "no-interface-object"?: string;
-    "global"?: string;
+    "no-interface-object"?: 1;
+    global?: string;
     "type-parameters"?: string[];
     "overide-index-signatures"?: string[];
-    "specs"?: string;
-    "iterable"?: "value" | "pair" | "pair-iterator";
-};
+    specs?: string;
+    iterable?: "value" | "pair" | "pair-iterator";
+}
 
-export type Enum = {
-    "name": string;
-    "value": string[];
-    "specs"?: string;
-};
+export interface Enum {
+    name: string;
+    value: string[];
+    specs?: string;
+}
 
-export type TypeDef = {
+export interface TypeDef extends Typed {
     "new-type": string;
-    "type": string;
-    "override-type"?: string;
-};
+}
 
-export type Dictionary = {
-    "name": string;
-    "extends": string;
-    "members": {
-        "member": Record<string, Member>;
-    };
-    "specs"?: string;
+export interface Dictionary {
+    name: string;
+    extends: string;
+    members: {
+        member: Record<string, Member>;
+    }
+    specs?: string;
     "type-parameters"?: string[];
-};
+}
 
-export type WebIdl = {
+export interface WebIdl {
     "callback-functions"?: {
         "callback-function": Record<string, CallbackFunction>;
     },
     "callback-interfaces"?: {
-        "interface": Record<string, Interface>;
-    };
-    "dictionaries"?: {
-        "dictionary": Record<string, Dictionary>;
-    };
-    "enums"?: {
-        "enum": Record<string, Enum>;
-    };
-    "interfaces"?: {
-        "interface": Record<string, Interface>;
-    };
-    "mixins"?: {
-        "mixin": Record<string, Interface>;
-    };
-    "typedefs"?: {
-        "typedef": TypeDef[];
-    };
-};
+        interface: Record<string, Interface>;
+    }
+    dictionaries?: {
+        dictionary: Record<string, Dictionary>;
+    }
+    enums?: {
+        enum: Record<string, Enum>;
+    }
+    interfaces?: {
+        interface: Record<string, Interface>;
+    }
+    mixins?: {
+        mixin: Record<string, Interface>;
+    }
+    typedefs?: {
+        typedef: TypeDef[];
+    }
+}

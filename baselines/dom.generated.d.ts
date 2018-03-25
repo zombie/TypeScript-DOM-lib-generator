@@ -6132,6 +6132,7 @@ interface HTMLImageElement extends HTMLElement {
     readonly complete: boolean;
     crossOrigin: string | null;
     readonly currentSrc: string;
+    decoding: "async" | "sync" | "auto";
     /**
      * Sets or retrieves the height of the object.
      */

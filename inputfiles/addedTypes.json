@@ -36,6 +36,17 @@
     },
     "interfaces": {
         "interface": {
+            "HTMLImageElement": {
+                "name": "HTMLImageElement",
+                "properties": {
+                    "property": {
+                        "decoding": {
+                            "name": "decoding",
+                            "override-type": "\"async\" | \"sync\" | \"auto\""
+                        }
+                    }
+                }
+            },
             "BroadcastChannel": {
                 "name": "BroadcastChannel",
                 "extends": "EventTarget",

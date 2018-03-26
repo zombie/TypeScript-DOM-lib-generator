@@ -502,6 +502,42 @@
                 "no-interface-object": "1"
             },
             "Element": {
+                "events": {
+                    "event": [
+                        {
+                            "dispatch": "sync",
+                            "specs": "dom4",
+                            "name": "touchstart",
+                            "type": "TouchEvent",
+                            "cancelable": 1,
+                            "bubbles": 1
+                        },
+                        {
+                            "dispatch": "sync",
+                            "specs": "dom4",
+                            "name": "touchmove",
+                            "type": "TouchEvent",
+                            "cancelable": 1,
+                            "bubbles": 1
+                        },
+                        {
+                            "dispatch": "sync",
+                            "specs": "dom4",
+                            "name": "touchcancel",
+                            "type": "TouchEvent",
+                            "cancelable": 1,
+                            "bubbles": 1
+                        },
+                        {
+                            "dispatch": "sync",
+                            "specs": "dom4",
+                            "name": "touchend",
+                            "type": "TouchEvent",
+                            "cancelable": 1,
+                            "bubbles": 1
+                        }
+                    ]
+                },
                 "name": "Element",
                 "methods": {
                     "method": {

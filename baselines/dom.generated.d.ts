@@ -3533,10 +3533,10 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
-    "touchcancel": Event;
-    "touchend": Event;
-    "touchmove": Event;
-    "touchstart": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
     "volumechange": Event;
     "waiting": Event;
     "webkitfullscreenchange": Event;
@@ -3950,10 +3950,10 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param ev The event.
      */
     ontimeupdate: ((this: Document, ev: Event) => any) | null;
-    ontouchcancel: ((this: Document, ev: Event) => any) | null;
-    ontouchend: ((this: Document, ev: Event) => any) | null;
-    ontouchmove: ((this: Document, ev: Event) => any) | null;
-    ontouchstart: ((this: Document, ev: Event) => any) | null;
+    ontouchcancel: ((this: Document, ev: TouchEvent) => any) | null;
+    ontouchend: ((this: Document, ev: TouchEvent) => any) | null;
+    ontouchmove: ((this: Document, ev: TouchEvent) => any) | null;
+    ontouchstart: ((this: Document, ev: TouchEvent) => any) | null;
     onvisibilitychange: (this: Document, ev: Event) => any;
     /**
      * Occurs when the volume is changed, or playback is muted or unmuted.
@@ -4313,6 +4313,7 @@ interface DocumentEvent {
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
     createEvent(eventInterface: "TextEvent"): TextEvent;
+    createEvent(eventInterface: "TouchEvent"): TouchEvent;
     createEvent(eventInterface: "TrackEvent"): TrackEvent;
     createEvent(eventInterface: "TransitionEvent"): TransitionEvent;
     createEvent(eventInterface: "UIEvent"): UIEvent;
@@ -4432,10 +4433,10 @@ interface ElementEventMap extends GlobalEventHandlersEventMap {
     "MSPointerOut": Event;
     "MSPointerOver": Event;
     "MSPointerUp": Event;
-    "touchcancel": Event;
-    "touchend": Event;
-    "touchmove": Event;
-    "touchstart": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
     "webkitfullscreenchange": Event;
     "webkitfullscreenerror": Event;
 }
@@ -4474,10 +4475,10 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     onmspointerout: ((this: Element, ev: Event) => any) | null;
     onmspointerover: ((this: Element, ev: Event) => any) | null;
     onmspointerup: ((this: Element, ev: Event) => any) | null;
-    ontouchcancel: ((this: Element, ev: Event) => any) | null;
-    ontouchend: ((this: Element, ev: Event) => any) | null;
-    ontouchmove: ((this: Element, ev: Event) => any) | null;
-    ontouchstart: ((this: Element, ev: Event) => any) | null;
+    ontouchcancel: ((this: Element, ev: TouchEvent) => any) | null;
+    ontouchend: ((this: Element, ev: TouchEvent) => any) | null;
+    ontouchmove: ((this: Element, ev: TouchEvent) => any) | null;
+    ontouchstart: ((this: Element, ev: TouchEvent) => any) | null;
     onwebkitfullscreenchange: ((this: Element, ev: Event) => any) | null;
     onwebkitfullscreenerror: ((this: Element, ev: Event) => any) | null;
     outerHTML: string;
@@ -14870,10 +14871,10 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
-    "touchcancel": Event;
-    "touchend": Event;
-    "touchmove": Event;
-    "touchstart": Event;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
     "unload": Event;
     "volumechange": Event;
     "vrdisplayactivate": Event;

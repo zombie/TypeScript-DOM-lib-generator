@@ -1703,7 +1703,7 @@
                         "send": {
                             "name": "send",
                             "override-signatures": [
-                                "send(data: string | ArrayBuffer | Blob | ArrayBufferView): void"
+                                "send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void"
                             ]
                         }
                     }

@@ -4139,6 +4139,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param y The y-offset
      */
     elementFromPoint(x: number, y: number): Element;
+    elementsFromPoint(x: number, y: number): Element[];
     evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
     /**
      * Executes a command on the current document, current selection, or the given range.
@@ -14745,7 +14746,7 @@ interface WebSocket extends EventTarget {
     readonly readyState: number;
     readonly url: string;
     close(code?: number, reason?: string): void;
-    send(data: string | ArrayBuffer | Blob | ArrayBufferView): void;
+    send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void;
     readonly CLOSED: number;
     readonly CLOSING: number;
     readonly CONNECTING: number;
@@ -15062,6 +15063,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     msWriteProfilerMark(profilerMarkName: string): void;
     open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
     postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
+    print(): void;
     prompt(message?: string, _default?: string): string | null;
     releaseEvents(): void;
     requestAnimationFrame(callback: FrameRequestCallback): number;
@@ -15871,6 +15873,7 @@ declare function moveTo(x?: number, y?: number): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
 declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
+declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 declare function releaseEvents(): void;
 declare function requestAnimationFrame(callback: FrameRequestCallback): number;

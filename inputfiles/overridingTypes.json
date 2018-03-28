@@ -262,6 +262,12 @@
                                 "msElementsFromPoint(x: number, y: number): NodeListOf<Element>"
                             ]
                         },
+                        "elementsFromPoint": {
+                            "name": "elementsFromPoint",
+                            "override-signatures": [
+                                "elementsFromPoint(x: number, y: number): Element[]"
+                            ]
+                        },
                         "evaluate": {
                             "name": "evaluate",
                             "override-signatures": [
@@ -1697,7 +1703,7 @@
                         "send": {
                             "name": "send",
                             "override-signatures": [
-                                "send(data: string | ArrayBuffer | Blob | ArrayBufferView): void"
+                                "send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void"
                             ]
                         }
                     }

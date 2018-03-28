@@ -15019,7 +15019,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
     onwaiting: ((this: Window, ev: Event) => any) | null;
-    readonly opener: any;
+    opener: any;
     readonly orientation: string | number;
     readonly outerHeight: number;
     readonly outerWidth: number;

@@ -181,7 +181,8 @@
                         },
                         "opener": {
                             "name": "opener",
-                            "override-type": "any"
+                            "override-type": "any",
+                            "read-only": 0
                         },
                         "ontouchcancel": {
                             "name": "ontouchcancel",

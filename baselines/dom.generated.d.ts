@@ -4139,6 +4139,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param y The y-offset
      */
     elementFromPoint(x: number, y: number): Element;
+    elementsFromPoint(x: number, y: number): Element[];
     evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
     /**
      * Executes a command on the current document, current selection, or the given range.

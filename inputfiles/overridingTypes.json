@@ -1761,6 +1761,30 @@
                 "name": "FileReader",
                 "properties": {
                     "property": {
+                        "onloadstart": {
+                            "name": "onloadstart",
+                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                        },
+                        "onprogress": {
+                            "name": "onprogress",
+                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                        },
+                        "onload": {
+                            "name": "onload",
+                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                        },
+                        "onabort": {
+                            "name": "onabort",
+                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                        },
+                        "onerror": {
+                            "name": "onerror",
+                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                        },
+                        "onloadend": {
+                            "name": "onloadend",
+                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                        },
                         "result": {
                             "name": "result",
                             "override-type": "any"

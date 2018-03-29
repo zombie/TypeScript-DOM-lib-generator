@@ -588,12 +588,12 @@ interface FileReaderEventMap {
 
 interface FileReader extends EventTarget {
     readonly error: DOMException | null;
-    onabort: ((this: FileReader, ev: ProgressEvent) => any) | null;
-    onerror: ((this: FileReader, ev: ProgressEvent) => any) | null;
-    onload: ((this: FileReader, ev: ProgressEvent) => any) | null;
-    onloadend: ((this: FileReader, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: FileReader, ev: ProgressEvent) => any) | null;
-    onprogress: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onabort: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
     readonly readyState: number;
     readonly result: any;
     abort(): void;

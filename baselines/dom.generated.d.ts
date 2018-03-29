@@ -4722,12 +4722,12 @@ interface FileReaderEventMap {
 
 interface FileReader extends EventTarget {
     readonly error: DOMException | null;
-    onabort: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
-    onerror: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
-    onload: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
-    onloadend: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
-    onloadstart: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
-    onprogress: ((this: FileReader, ev: ProgressEvent & {target: FileReader}) => any) | null;
+    onabort: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onerror: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onload: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onloadend: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onloadstart: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onprogress: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
     readonly readyState: number;
     readonly result: any;
     abort(): void;
@@ -4750,6 +4750,15 @@ declare var FileReader: {
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
+};
+
+interface FileReaderProgressEvent extends ProgressEvent {
+    readonly target: FileReader | null;
+}
+
+declare var FileReaderProgressEvent: {
+    prototype: FileReaderProgressEvent;
+    new(): FileReaderProgressEvent;
 };
 
 interface FocusEvent extends UIEvent {
@@ -9682,6 +9691,12 @@ declare var PannerNode: {
 };
 
 interface ParentNode {
+    readonly childElementCount: number;
+    readonly firstElementChild: Element | null;
+    readonly lastElementChild: Element | null;
+}
+
+interface ParentNode {
     readonly children: HTMLCollection;
     querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
@@ -9689,12 +9704,6 @@ interface ParentNode {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
-}
-
-interface ParentNode {
-    readonly childElementCount: number;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
 }
 
 interface Path2D extends CanvasPathMethods {

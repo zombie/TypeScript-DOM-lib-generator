@@ -1763,27 +1763,27 @@
                     "property": {
                         "onloadstart": {
                             "name": "onloadstart",
-                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
                         },
                         "onprogress": {
                             "name": "onprogress",
-                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
                         },
                         "onload": {
                             "name": "onload",
-                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
                         },
                         "onabort": {
                             "name": "onabort",
-                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
                         },
                         "onerror": {
                             "name": "onerror",
-                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
                         },
                         "onloadend": {
                             "name": "onloadend",
-                            "override-type": "(this: FileReader, ev: ProgressEvent & {target: FileReader}) => any"
+                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
                         },
                         "result": {
                             "name": "result",

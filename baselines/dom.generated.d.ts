@@ -4756,11 +4756,6 @@ interface FileReaderProgressEvent extends ProgressEvent {
     readonly target: FileReader | null;
 }
 
-declare var FileReaderProgressEvent: {
-    prototype: FileReaderProgressEvent;
-    new(): FileReaderProgressEvent;
-};
-
 interface FocusEvent extends UIEvent {
     readonly relatedTarget: EventTarget;
     initFocusEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, relatedTargetArg: EventTarget): void;

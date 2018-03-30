@@ -58,7 +58,8 @@
                             "override-type": "FileReader | null"
                         }
                     }
-                }
+                },
+                "no-interface-object": "1"
             },
             "BroadcastChannel": {
                 "name": "BroadcastChannel",

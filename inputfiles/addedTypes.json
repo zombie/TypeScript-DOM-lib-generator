@@ -47,6 +47,20 @@
                     }
                 }
             },
+            "FileReaderProgressEvent": {
+                "name": "FileReaderProgressEvent",
+                "extends": "ProgressEvent",
+                "properties": {
+                    "property": {
+                        "name": {
+                            "name": "target",
+                            "read-only": 1,
+                            "override-type": "FileReader | null"
+                        }
+                    }
+                },
+                "no-interface-object": "1"
+            },
             "BroadcastChannel": {
                 "name": "BroadcastChannel",
                 "extends": "EventTarget",

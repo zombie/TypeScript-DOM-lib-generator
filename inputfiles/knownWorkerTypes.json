@@ -37,6 +37,7 @@
     "File",
     "FileList",
     "FileReader",
+    "FileReaderProgressEvent",
     "FormData",
     "Headers",
     "IDBCursor",

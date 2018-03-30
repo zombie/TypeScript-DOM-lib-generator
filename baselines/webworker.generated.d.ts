@@ -618,6 +618,10 @@ declare var FileReader: {
     readonly LOADING: number;
 };
 
+interface FileReaderProgressEvent extends ProgressEvent {
+    readonly target: FileReader | null;
+}
+
 interface FileReaderSync {
     readAsArrayBuffer(blob: Blob): any;
     readAsBinaryString(blob: Blob): void;

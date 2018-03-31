@@ -632,67 +632,67 @@
                         "uniform1fv": {
                             "name": "uniform1fv",
                             "override-signatures": [
-                                "uniform1fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
+                                "uniform1fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform2fv": {
                             "name": "uniform2fv",
                             "override-signatures": [
-                                "uniform2fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
+                                "uniform2fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform3fv": {
                             "name": "uniform3fv",
                             "override-signatures": [
-                                "uniform3fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
+                                "uniform3fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform4fv": {
                             "name": "uniform4fv",
                             "override-signatures": [
-                                "uniform4fv(location: WebGLUniformLocation, v: Float32Array | ArrayLike<number>): void"
+                                "uniform4fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform1iv": {
                             "name": "uniform1iv",
                             "override-signatures": [
-                                "uniform1iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
+                                "uniform1iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform2iv": {
                             "name": "uniform2iv",
                             "override-signatures": [
-                                "uniform2iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
+                                "uniform2iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform3iv": {
                             "name": "uniform3iv",
                             "override-signatures": [
-                                "uniform3iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
+                                "uniform3iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniform4iv": {
                             "name": "uniform4iv",
                             "override-signatures": [
-                                "uniform4iv(location: WebGLUniformLocation, v: Int32Array | ArrayLike<number>): void"
+                                "uniform4iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniformMatrix2fv": {
                             "name": "uniformMatrix2fv",
                             "override-signatures": [
-                                "uniformMatrix2fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
+                                "uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniformMatrix3fv": {
                             "name": "uniformMatrix3fv",
                             "override-signatures": [
-                                "uniformMatrix3fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
+                                "uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "uniformMatrix4fv": {
                             "name": "uniformMatrix4fv",
                             "override-signatures": [
-                                "uniformMatrix4fv(location: WebGLUniformLocation, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
+                                "uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
                             ]
                         },
                         "vertexAttrib1fv": {

@@ -9358,6 +9358,7 @@ interface Node extends EventTarget {
     readonly baseURI: string | null;
     readonly childNodes: NodeListOf<Node & ChildNode>;
     readonly firstChild: Node | null;
+    readonly isConnected: boolean;
     readonly lastChild: Node | null;
     readonly localName: string | null;
     readonly namespaceURI: string | null;

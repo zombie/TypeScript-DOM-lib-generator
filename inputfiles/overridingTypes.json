@@ -137,6 +137,22 @@
     },
     "interfaces": {
         "interface": {
+            "SourceBuffer": {
+                "specs": "media-source",
+                "name": "SourceBuffer",
+                "properties": {
+                    "property": {
+                        "textTracks": {
+                            "specs": "media-source",
+                            "exposed": "Window",
+                            "name": "textTracks",
+                            "type": "TextTrackList",
+                            "type-original": "TextTrackList",
+                            "read-only": 1
+                        }
+                    }
+                }
+            },
             "CustomEvent": {
                 "name": "CustomEvent",
                 "properties": {

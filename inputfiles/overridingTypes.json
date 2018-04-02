@@ -378,6 +378,13 @@
                 },
                 "properties": {
                     "property": {
+                        "isConnected": {
+                            "name": "isConnected",
+                            "default": "false",
+                            "read-only": 1,
+                            "type-original": "boolean",
+                            "type": "boolean"
+                        },
                         "firstChild": {
                             "name": "firstChild",
                             "read-only": 1,

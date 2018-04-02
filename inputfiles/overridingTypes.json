@@ -485,6 +485,23 @@
                     }
                 }
             },
+            "MediaError": {
+                "name": "MediaError",
+                "properties": {
+                    "property": {
+                        "message": {
+                            "specs": "html5",
+                            "name": "message",
+                            "tags": "Media",
+                            "type": "DOMString",
+                            "type-original": "DOMString",
+                            "read-only": 1,
+                            "exposed": "Window",
+                            "default": "\"\""
+                        }
+                    }
+                }
+            },
             "IDBIndex": {
                 "name": "IDBIndex",
                 "properties": {

@@ -8876,6 +8876,7 @@ declare var MediaEncryptedEvent: {
 
 interface MediaError {
     readonly code: number;
+    readonly message: string;
     readonly msExtendedCode: number;
     readonly MEDIA_ERR_ABORTED: number;
     readonly MEDIA_ERR_DECODE: number;

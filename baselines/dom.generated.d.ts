@@ -12857,6 +12857,7 @@ interface SourceBuffer extends EventTarget {
     readonly audioTracks: AudioTrackList;
     readonly buffered: TimeRanges;
     mode: AppendMode;
+    readonly textTracks: TextTrackList;
     timestampOffset: number;
     readonly updating: boolean;
     readonly videoTracks: VideoTrackList;

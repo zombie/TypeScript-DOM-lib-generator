@@ -1400,7 +1400,7 @@
                     "property": {
                         "files": {
                             "name": "files",
-                            "read-only": 1,
+                            "read-only": 0,
                             "override-type": "FileList | null"
                         },
                         "form": {

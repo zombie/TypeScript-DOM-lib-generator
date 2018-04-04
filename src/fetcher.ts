@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from "path";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 
@@ -10,11 +11,10 @@ interface IDLSource {
 }
 
 async function fetchIDLs() {
-    const file = fs.readFileSync(`${__dirname}/../inputfiles/idlSources.json`, { encoding: "utf-8" });
-    const idlSources = JSON.parse(file) as IDLSource[];
+    const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
     for (const source of idlSources) {
         const idl = await fetchIDL(source);
-        fs.writeFileSync(`${__dirname}/../inputfiles/idl/${source.title}.widl`, idl + '\n');
+        fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');
     }
 }
 

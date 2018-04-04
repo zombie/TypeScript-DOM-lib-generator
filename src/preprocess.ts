@@ -14,7 +14,7 @@ function preprocess() {
                 if (o.tags.indexOf("MSAppOnly") > -1) return false;
                 if (o.tags.indexOf("MSAppScheduler") > -1) return false;
                 if (o.tags.indexOf("Diagnostics") > -1) return false;
-                if (o.tags.indexOf("Printing") > -1) return false;
+                if (o.tags.indexOf("Printing") > -1 && typeof o.name === "string" && o.name.toLowerCase().startsWith("ms")) return false;
                 if (o.tags.indexOf("WinPhoneOnly") > -1) return false;
                 if (o.tags.indexOf("IEOnly") > -1) return false;
             }

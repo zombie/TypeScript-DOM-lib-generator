@@ -133,7 +133,17 @@
         "interface": {}
     },
     "enums": {
-        "enum": {}
+        "enum": {
+            "DocumentReadyState": {
+                "specs": "dom4",
+                "value": [
+                    "loading",
+                    "interactive",
+                    "complete"
+                ],
+                "name": "DocumentReadyState"
+            }
+        }
     },
     "interfaces": {
         "interface": {
@@ -315,6 +325,10 @@
                 },
                 "properties": {
                     "property": {
+                        "readyState": {
+                            "name": "readyState",
+                            "override-type": "DocumentReadyState"
+                        },
                         "documentElement": {
                             "name": "documentElement",
                             "override-type": "HTMLElement"

@@ -1,3 +1,5 @@
+import * as Browser from "./types";
+
 export function filter(obj: any, fn: (o: any, n: string | undefined) => boolean): any {
     if (typeof obj === "object") {
         if (Array.isArray(obj)) {
@@ -144,4 +146,30 @@ export function flatMap<T, U>(array: ReadonlyArray<T> | undefined, mapfn: (x: T,
 
 export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
     return !a ? b || [] : a.concat(b || []);
+}
+
+export function getEmptyWebIDL(): Browser.WebIdl {
+    return {
+        "callback-functions": {
+            "callback-function": {}
+        },
+        "callback-interfaces": {
+            "interface": {}
+        },
+        "dictionaries": {
+            "dictionary": {}
+        },
+        "enums": {
+            "enum": {}
+        },
+        "interfaces": {
+            "interface": {}
+        },
+        "mixins": {
+            "mixin": {}
+        },
+        "typedefs": {
+            "typedef": []
+        }
+    }
 }

@@ -1,7 +1,7 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, filterProperties } from "./helpers";
+import { filter, merge, filterProperties, getEmptyWebIDL } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 
@@ -35,32 +35,6 @@ function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
 
 function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
     fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
-}
-
-function getEmptyWebIDL(): Browser.WebIdl {
-    return {
-        "callback-functions": {
-            "callback-function": {}
-        },
-        "callback-interfaces": {
-            "interface": {}
-        },
-        "dictionaries": {
-            "dictionary": {}
-        },
-        "enums": {
-            "enum": {}
-        },
-        "interfaces": {
-            "interface": {}
-        },
-        "mixins": {
-            "mixin": {}
-        },
-        "typedefs": {
-            "typedef": []
-        }
-    }
 }
 
 function emitDom() {

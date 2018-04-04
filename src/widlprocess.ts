@@ -1,10 +1,11 @@
 import * as webidl2 from "webidl2";
 import * as Browser from "./types";
+import { getEmptyWebIDL } from "./helpers";
 
 export function convert(text: string) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];
-    const browser = createEmptyBrowserWebidl();
+    const browser = getEmptyWebIDL();
     for (const rootType of rootTypes) {
         if (rootType.type === "interface") {
             const converted = convertInterface(rootType);
@@ -225,16 +226,4 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
         };
     }
     throw new Error("Unsupported IDL type structure");
-}
-
-function createEmptyBrowserWebidl(): Browser.WebIdl {
-    return {
-        "callback-functions": { "callback-function": {} },
-        "callback-interfaces": { interface: {} },
-        dictionaries: { dictionary: {} },
-        enums: { enum: {} },
-        interfaces: { interface: {} },
-        mixins: { mixin: {} },
-        typedefs: { typedef: [] }
-    }
 }

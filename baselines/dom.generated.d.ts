@@ -4231,6 +4231,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      */
     queryCommandValue(commandId: string): string;
     releaseEvents(): void;
+    updateSettings(): void;
     webkitCancelFullScreen(): void;
     webkitExitFullscreen(): void;
     /**
@@ -14798,6 +14799,8 @@ declare var WheelEvent: {
 
 interface WindowEventMap extends GlobalEventHandlersEventMap {
     "abort": UIEvent;
+    "afterprint": Event;
+    "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
     "blur": FocusEvent;
     "canplay": Event;
@@ -14929,6 +14932,8 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly navigator: Navigator;
     offscreenBuffering: string | boolean;
     onabort: ((this: Window, ev: UIEvent) => any) | null;
+    onafterprint: ((this: Window, ev: Event) => any) | null;
+    onbeforeprint: ((this: Window, ev: Event) => any) | null;
     onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
     onblur: ((this: Window, ev: FocusEvent) => any) | null;
     oncanplay: ((this: Window, ev: Event) => any) | null;
@@ -15739,6 +15744,8 @@ declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
 declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
+declare var onafterprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
 declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
 declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
 declare var oncanplay: ((this: Window, ev: Event) => any) | null;

@@ -305,12 +305,6 @@
                             "additional-signatures": [
                                 "scrollBy(options?: ScrollToOptions): void"
                             ]
-                        },
-                        "print": {
-                            "name": "print",
-                            "override-signatures": [
-                                "print(): void"
-                            ]
                         }
                     }
                 },

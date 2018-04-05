@@ -296,12 +296,16 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const subtypeString = subtype ? subtype.nullable ? makeNullable(subtype.name) : subtype.name : undefined;
 
         return {
-            name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
+            name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString, obj) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
             nullable: type.nullable
         };
     }
 
-    function makeArrayType(elementType: string): string {
+    function makeArrayType (elementType: string, obj: Browser.Typed): string {
+        if (obj.subtype && obj.subtype.type === "float") {
+            return "Float32Array";
+        }
+
         return elementType.includes("|") ? `(${elementType})[]` : `${elementType}[]`;
     }
 

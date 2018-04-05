@@ -468,7 +468,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         for (const e of Object.keys(tagNameToEleName).sort()) {
             const value = tagNameToEleName[e];
             if (iNameToIDependList[value] && iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e.toLowerCase()}": ${value};`);
+                printer.printLine(`"${e}": ${value};`);
             }
         }
         printer.decreaseIndent();

@@ -112,10 +112,13 @@ function getConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string) 
 }
 
 function convertOperation(operation: webidl2.OperationMemberType): Browser.Method {
+    if (!operation.name || !operation.idlType) {
+        throw new Error("Unexpected anonymous operation");
+    }
     return {
-        name: operation.name!,
+        name: operation.name,
         signature: [{
-            ...convertIdlType(operation.idlType!),
+            ...convertIdlType(operation.idlType),
             param: operation.arguments.map(convertArgument)
         }],
         getter: operation.getter ? 1 : undefined,

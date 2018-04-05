@@ -55,6 +55,8 @@
         }
     },
     "typedefs": {
-        "typedef": []
+        "typedef": [{
+            "new-type": "ArrayBufferView"
+        }]
     }
 }

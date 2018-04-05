@@ -1,8 +1,9 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, filterProperties } from "./helpers";
+import { filter, merge, filterProperties, getEmptyWebIDL } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
+import { convert } from "./widlprocess";
 
 function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, tsWorkerOutput: string) {
     const worker = getEmptyWebIDL();
@@ -36,32 +37,6 @@ function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
     fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
 }
 
-function getEmptyWebIDL(): Browser.WebIdl {
-    return {
-        "callback-functions": {
-            "callback-function": {}
-        },
-        "callback-interfaces": {
-            "interface": {}
-        },
-        "dictionaries": {
-            "dictionary": {}
-        },
-        "enums": {
-            "enum": {}
-        },
-        "interfaces": {
-            "interface": {}
-        },
-        "mixins": {
-            "mixin": {}
-        },
-        "typedefs": {
-            "typedef": []
-        }
-    }
-}
-
 function emitDom() {
     const __SOURCE_DIRECTORY__ = __dirname;
     const inputFolder = path.join(__SOURCE_DIRECTORY__, "../", "inputfiles");
@@ -81,12 +56,18 @@ function emitDom() {
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
+    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).map(
+        filename => fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" })
+    ).map(convert);
 
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));
 
     const knownWorkerTypes = new Set<string>(require(path.join(inputFolder, "knownWorkerTypes.json")));
 
+    for (const w of widlStandardTypes) {
+        webidl = merge(webidl, w.browser, true);
+    }
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);
@@ -105,7 +86,7 @@ function emitDom() {
         if (obj.enums) result.enums!.enum = filterEnum(obj.enums.enum, template.enums && template.enums.enum);
         if (obj.mixins) result.mixins!.mixin = filterInterface(obj.mixins.mixin, template.mixins && template.mixins.mixin);
         if (obj.interfaces) result.interfaces!.interface = filterInterface(obj.interfaces.interface, template.interfaces && template.interfaces.interface);
-        if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"]));
+        if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => !(template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"])));
 
         return result;
 

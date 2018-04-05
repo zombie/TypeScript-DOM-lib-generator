@@ -26,7 +26,7 @@ function compareToBaselines() {
 
 function compileGeneratedFile(file: string) {
     try {
-        child_process.execSync(`node ${tscPath} --strict --lib es5 --noEmit ${path.join(outputFolder, file)}`);
+        child_process.execSync(`node ${tscPath} --strict --lib es5 --types --noEmit ${path.join(outputFolder, file)}`);
     } catch (e) {
         console.error(`Test failed: could not compile '${file}':`);
         console.error(e.stdout.toString());

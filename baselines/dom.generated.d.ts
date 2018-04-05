@@ -3122,7 +3122,6 @@ interface DOMException {
     readonly code: number;
     readonly message: string;
     readonly name: string;
-    toString(): string;
     readonly ABORT_ERR: number;
     readonly DATA_CLONE_ERR: number;
     readonly DOMSTRING_SIZE_ERR: number;
@@ -3140,10 +3139,8 @@ interface DOMException {
     readonly NOT_SUPPORTED_ERR: number;
     readonly NO_DATA_ALLOWED_ERR: number;
     readonly NO_MODIFICATION_ALLOWED_ERR: number;
-    readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
-    readonly SERIALIZE_ERR: number;
     readonly SYNTAX_ERR: number;
     readonly TIMEOUT_ERR: number;
     readonly TYPE_MISMATCH_ERR: number;
@@ -3172,10 +3169,8 @@ declare var DOMException: {
     readonly NOT_SUPPORTED_ERR: number;
     readonly NO_DATA_ALLOWED_ERR: number;
     readonly NO_MODIFICATION_ALLOWED_ERR: number;
-    readonly PARSE_ERR: number;
     readonly QUOTA_EXCEEDED_ERR: number;
     readonly SECURITY_ERR: number;
-    readonly SERIALIZE_ERR: number;
     readonly SYNTAX_ERR: number;
     readonly TIMEOUT_ERR: number;
     readonly TYPE_MISMATCH_ERR: number;
@@ -13103,7 +13098,7 @@ interface TextDecoder {
     readonly encoding: string;
     readonly fatal: boolean;
     readonly ignoreBOM: boolean;
-    decode(input?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, options?: TextDecodeOptions): string;
+    decode(input?: BufferSource, options?: TextDecodeOptions): string;
 }
 
 declare var TextDecoder: {
@@ -15935,6 +15930,8 @@ declare function addEventListener<K extends keyof WindowEventMap>(type: K, liste
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type BufferSource = ArrayBufferView | ArrayBuffer;
+type DOMTimeStamp = number;
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type MouseWheelEvent = WheelEvent;
@@ -15977,7 +15974,6 @@ type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type RequestInfo = Request | string;
 type USVString = string;
 type payloadtype = number;
-type BufferSource = ArrayBuffer | ArrayBufferView;
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";

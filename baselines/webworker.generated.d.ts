@@ -464,12 +464,12 @@ interface Event {
     readonly bubbles: boolean;
     cancelBubble: boolean;
     readonly cancelable: boolean;
+    readonly composed: boolean;
     readonly currentTarget: EventTarget | null;
     readonly defaultPrevented: boolean;
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly composed: boolean;
     readonly srcElement: object | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;

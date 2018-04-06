@@ -48,6 +48,12 @@ async function fetchIDL(source: IDLSource) {
  */
 function trimCommonIndentation(text: string) {
     const lines = text.split("\n");
+    if (!lines[0].trim()) {
+        lines.shift();
+    }
+    if (!lines[lines.length - 1].trim()) {
+        lines.pop();
+    }
     const commonIndentation = Math.min(...lines.map(getIndentation));
     return lines.map(line => line.slice(commonIndentation)).join("\n");
 }

@@ -1511,14 +1511,6 @@
                     }
                 }
             },
-            "TouchEvent": {
-                "name": "TouchEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, touchEventInit?: TouchEventInit): TouchEvent"
-                    ]
-                }
-            },
             "Text": {
                 "name": "Text",
                 "constructor": {

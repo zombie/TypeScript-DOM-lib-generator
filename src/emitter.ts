@@ -273,7 +273,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
         let type;
         if (typeof obj.type === "string") {
-            type = { name: covertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
+            type = { name: convertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
         }
         else {
             const types = obj.type.map(convertDomTypeToTsTypeWorker);
@@ -309,7 +309,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return elementType.includes("|") ? `(${elementType})[]` : `${elementType}[]`;
     }
 
-    function covertDomTypeToTsTypeSimple(objDomType: string): string {
+    function convertDomTypeToTsTypeSimple(objDomType: string): string {
         switch (objDomType) {
             case "AbortMode": return "String";
             case "bool":
@@ -351,7 +351,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 if (allTypeDefsMap.has(objDomType)) return objDomType;
                 // Union types
                 if (objDomType.includes(" or ")) {
-                    const allTypes: string[] = decomposeTypes(objDomType).map(t => covertDomTypeToTsTypeSimple(t.replace("?", "")));
+                    const allTypes: string[] = decomposeTypes(objDomType).map(t => convertDomTypeToTsTypeSimple(t.replace("?", "")));
                     return allTypes.includes("any") ? "any" : allTypes.join(" | ");
                 }
                 else {
@@ -360,12 +360,12 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                     const genericMatch = /^(\w+)<([\w, <>]+)>$/;
                     const match = genericMatch.exec(unescaped);
                     if (match) {
-                        const tName: string = covertDomTypeToTsTypeSimple(match[1]);
-                        const paramName: string = covertDomTypeToTsTypeSimple(match[2]);
+                        const tName: string = convertDomTypeToTsTypeSimple(match[1]);
+                        const paramName: string = convertDomTypeToTsTypeSimple(match[2]);
                         return tName === "Array" ? paramName + "[]" : tName + "<" + paramName + ">";
                     }
                     if (objDomType.endsWith("[]")) {
-                        return covertDomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
+                        return convertDomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
                     }
                 }
         }

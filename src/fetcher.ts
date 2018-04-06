@@ -26,10 +26,40 @@ async function fetchIDL(source: IDLSource) {
         throw new Error("Found no IDL code");
     }
     const last = elements[elements.length - 1];
-    if (last.previousElementSibling!.textContent!.includes("IDL Index")) {
+    if (last.previousElementSibling &&
+        last.previousElementSibling.textContent!.includes("IDL Index")
+    ) {
         // IDL Index includes all IDL codes
         return last.textContent!.trim();
     }
     
-    return elements.map(element => element.textContent!.trim()).join('\n\n');
+    return elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
+}
+
+/**
+ * Remove common indentation:
+ *     <pre>
+ *       typedef Type = "type";
+ *       dictionary Dictionary {
+ *         "member"
+ *       };
+ *     </pre>
+ * Here the textContent has 6 common preceding whitespaces that can be unindented.
+ */
+function trimCommonIndentation(text: string) {
+    const lines = text.split("\n");
+    const commonIndentation = Math.min(...lines.map(getIndentation));
+    return lines.map(line => line.slice(commonIndentation)).join("\n");
+}
+
+/** Count preceding whitespaces */
+function getIndentation(line: string) {
+    let count = 0;
+    for (const ch of line) {
+        if (ch !== " ") {
+            break;
+        }
+        count++;
+    }
+    return count;
 }

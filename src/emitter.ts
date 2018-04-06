@@ -370,7 +370,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 }
         }
 
-        throw new Error("Unkown DOM type: " + objDomType);
+        throw new Error("Unknown DOM type: " + objDomType);
     }
 
     function makeNullable(originalType: string) {

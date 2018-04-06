@@ -68,6 +68,12 @@ function emitDom() {
     for (const w of widlStandardTypes) {
         webidl = merge(webidl, w.browser, true);
     }
+    for (const w of widlStandardTypes) {
+        for (const partial of w.partialInterfaces) {
+            const base = webidl.interfaces!.interface[partial.name];
+            merge(base, partial);
+        }
+    }
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);

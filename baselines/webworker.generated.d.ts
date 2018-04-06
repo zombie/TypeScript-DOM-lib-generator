@@ -116,6 +116,11 @@ interface ObjectURLOptions {
     oneTimeOnly?: boolean;
 }
 
+interface PerformanceObserverInit {
+    buffered?: boolean;
+    entryTypes?: string[];
+}
+
 interface ProgressEventInit extends EventInit {
     lengthComputable?: boolean;
     loaded?: number;
@@ -1021,21 +1026,18 @@ declare var NotificationEvent: {
 interface Performance {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
+    onresourcetimingbufferfull: (this: Performance, ev: Event) => any;
     readonly timeOrigin: number;
     /** @deprecated */
     readonly timing: PerformanceTiming;
     clearMarks(markName?: string): void;
     clearMeasures(measureName?: string): void;
     clearResourceTimings(): void;
-    getEntries(): any;
-    getEntriesByName(name: string, type?: string): any;
-    getEntriesByType(type: string): any;
-    /** @deprecated */
-    getMarks(markName?: string): any;
-    /** @deprecated */
-    getMeasures(measureName?: string): any;
+    getEntries(): PerformanceEntryList;
+    getEntriesByName(name: string, type?: string): PerformanceEntryList;
+    getEntriesByType(type: string): PerformanceEntryList;
     mark(markName: string): void;
-    measure(measureName: string, startMarkName?: string, endMarkName?: string): void;
+    measure(measureName: string, startMark?: string, endMark?: string): void;
     now(): number;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
@@ -1044,6 +1046,19 @@ interface Performance {
 declare var Performance: {
     prototype: Performance;
     new(): Performance;
+};
+
+interface PerformanceEntry {
+    readonly duration: number;
+    readonly entryType: string;
+    readonly name: string;
+    readonly startTime: number;
+    toJSON(): any;
+}
+
+declare var PerformanceEntry: {
+    prototype: PerformanceEntry;
+    new(): PerformanceEntry;
 };
 
 interface PerformanceNavigation {
@@ -1065,6 +1080,28 @@ declare var PerformanceNavigation: {
     readonly TYPE_RESERVED: number;
 };
 
+interface PerformanceObserver {
+    disconnect(): void;
+    observe(options: PerformanceObserverInit): void;
+    takeRecords(): PerformanceEntryList;
+}
+
+declare var PerformanceObserver: {
+    prototype: PerformanceObserver;
+    new(callback: PerformanceObserverCallback): PerformanceObserver;
+};
+
+interface PerformanceObserverEntryList {
+    getEntries(): PerformanceEntryList;
+    getEntriesByName(name: string, type?: string): PerformanceEntryList;
+    getEntriesByType(type: string): PerformanceEntryList;
+}
+
+declare var PerformanceObserverEntryList: {
+    prototype: PerformanceObserverEntryList;
+    new(): PerformanceObserverEntryList;
+};
+
 interface PerformanceTiming {
     readonly connectEnd: number;
     readonly connectStart: number;
@@ -1078,7 +1115,6 @@ interface PerformanceTiming {
     readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
-    readonly msFirstPaint: number;
     readonly navigationStart: number;
     readonly redirectEnd: number;
     readonly redirectStart: number;
@@ -1680,6 +1716,10 @@ interface NotificationPermissionCallback {
     (permission: NotificationPermission): void;
 }
 
+interface PerformanceObserverCallback {
+    (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
+}
+
 interface PositionCallback {
     (position: Position): void;
 }
@@ -1720,6 +1760,7 @@ declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEven
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type PerformanceEntryList = PerformanceEntry[];
 type FormDataEntryValue = string | File;
 type HeadersInit = Headers | string[][] | { [key: string]: string };
 type AlgorithmIdentifier = string | Algorithm;

@@ -13331,12 +13331,6 @@ declare var TouchEvent: {
     new(type: string, eventInitDict?: TouchEventInit): TouchEvent;
 };
 
-interface TouchEventInit extends EventModifierInit {
-    changedTouches?: Touch[];
-    targetTouches?: Touch[];
-    touches?: Touch[];
-}
-
 interface TouchList {
     readonly length: number;
     item(index: number): Touch | null;

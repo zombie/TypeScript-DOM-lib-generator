@@ -1,81 +1,62 @@
-[
-    {
-        "kind": "method",
-        "interface": "HTMLElement",
-        "name": "getElementsByClassName"
+{
+    "callback-functions": {
+        "callback-function": {
+            "Function": {}
+        }
     },
-    {
-        "kind": "property",
-        "interface": "HTMLElement",
-        "name": "id"
+    "mixin-interfaces": {
+        "interface": {}
     },
-    {
-        "kind": "property",
-        "interface": "HTMLElement",
-        "name": "className"
+    "callback-interfaces": {
+        "interface": {}
     },
-    {
-        "kind": "method",
-        "interface": "HTMLElement",
-        "name": "contains"
+    "enums": {
+        "enum": {
+            "ClientType": {}
+        }
     },
-    {
-        "kind": "method",
-        "interface": "HTMLElement",
-        "name": "scrollIntoView"
+    "interfaces": {
+        "interface": {
+            "HTMLElement": {
+                "methods": {
+                    "method": {
+                        "scrollIntoView": {},
+                        "insertAdjacentElement": {},
+                        "insertAdjacentHTML": {},
+                        "insertAdjacentText": {}
+                    }
+                }
+            },
+            "StorageEvent": {
+                "methods": {
+                    "method": {
+                        "initStorageEvent": {}
+                    }
+                }
+            },
+            "Window": {
+                "properties": {
+                    "property": {
+                        "browser": {}
+                    }
+                }
+            }
+        }
     },
-    {
-        "kind": "method",
-        "interface": "StorageEvent",
-        "name": "initStorageEvent"
+    "dictionaries": {
+        "dictionary": {
+            "MediaTrackConstraintSet": {
+                "members": {
+                    "member": {
+                        "echoCancelation": {}
+                    }
+                }
+            }
+        }
     },
-    {
-        "kind": "property",
-        "interface": "StorageEvent",
-        "name": "key"
-    },
-    {
-        "kind": "property",
-        "interface": "StorageEvent",
-        "name": "oldValue"
-    },
-    {
-        "kind": "property",
-        "interface": "StorageEvent",
-        "name": "newValue"
-    },
-    {
-        "kind": "property",
-        "interface": "StorageEvent",
-        "name": "storageArea"
-    },
-    {
-        "kind": "property",
-        "interface": "XMLHttpRequest",
-        "name": "msCaching"
-    },
-    {
-        "kind": "method",
-        "interface": "HTMLElement",
-        "name": "insertAdjacentElement"
-    },
-    {
-        "kind": "method",
-        "interface": "HTMLElement",
-        "name": "insertAdjacentHTML"
-    },
-    {
-        "kind": "method",
-        "interface": "HTMLElement",
-        "name": "insertAdjacentText"
-    },
-    {
-        "kind": "indexer",
-        "interface": "Window",
-        "signatures": [ "[index: number]: Window" ]
-    },
-    {
-        "kind": "typedef",
-        "name": "JSON"
+    "typedefs": {
+        "typedef": [{
+            "new-type": "ArrayBufferView"
+        }]
     }
-]
+}

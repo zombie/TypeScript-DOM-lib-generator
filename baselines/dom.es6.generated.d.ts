@@ -1,14 +1,9 @@
-
 /////////////////////////////
 /// DOM ES6 APIs
 /////////////////////////////
 
 interface AudioTrackList {
     [Symbol.iterator](): IterableIterator<AudioTrack>
-}
-
-interface ClientRectList {
-    [Symbol.iterator](): IterableIterator<ClientRect>
 }
 
 interface CSSRuleList {
@@ -19,8 +14,8 @@ interface CSSStyleDeclaration {
     [Symbol.iterator](): IterableIterator<string>
 }
 
-interface DataTransferItemList {
-    [Symbol.iterator](): IterableIterator<File>
+interface ClientRectList {
+    [Symbol.iterator](): IterableIterator<ClientRect>
 }
 
 interface DOMStringList {
@@ -29,6 +24,10 @@ interface DOMStringList {
 
 interface DOMTokenList {
     [Symbol.iterator](): IterableIterator<string>
+}
+
+interface DataTransferItemList {
+    [Symbol.iterator](): IterableIterator<File>
 }
 
 interface FileList {
@@ -51,10 +50,6 @@ interface MimeTypeArray {
     [Symbol.iterator](): IterableIterator<Plugin>
 }
 
-interface MSRangeCollection {
-    [Symbol.iterator](): IterableIterator<Range>
-}
-
 interface NamedNodeMap {
     [Symbol.iterator](): IterableIterator<Attr>
 }
@@ -75,16 +70,8 @@ interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>
 }
 
-interface Storage {
-    [Symbol.iterator](): IterableIterator<string>
-}
-
 interface StyleSheetList {
     [Symbol.iterator](): IterableIterator<StyleSheet>
-}
-
-interface StyleSheetPageList {
-    [Symbol.iterator](): IterableIterator<CSSPageRule>
 }
 
 interface TextTrackCueList {

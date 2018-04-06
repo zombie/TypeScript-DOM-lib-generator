@@ -41,7 +41,7 @@ interface ErrorEventInit extends EventInit {
 interface EventInit {
     bubbles?: boolean;
     cancelable?: boolean;
-    scoped?: boolean;
+    composed?: boolean;
 }
 
 interface EventListenerOptions {
@@ -469,7 +469,7 @@ interface Event {
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly scoped: boolean;
+    readonly composed: boolean;
     readonly srcElement: object | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;

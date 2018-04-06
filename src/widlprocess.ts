@@ -29,6 +29,9 @@ export function convert(text: string) {
         else if (rootType.type === "dictionary") {
             browser.dictionaries!.dictionary[rootType.name] = convertDictionary(rootType);
         }
+        else if (rootType.type === "enum") {
+            browser.enums!.enum[rootType.name] = convertEnum(rootType);
+        }
         else if (rootType.type === "typedef") {
             browser.typedefs!.typedef.push(convertTypedef(rootType));
         }
@@ -198,6 +201,13 @@ function convertDictionaryMember(member: webidl2.DictionaryMemberType): Browser.
         name: member.name,
         default: member.default ? convertConstantValue(member.default) : undefined,
         ...convertIdlType(member.idlType)
+    }
+}
+
+function convertEnum(en: webidl2.EnumType): Browser.Enum {
+    return {
+        name: en.name,
+        value: en.values.map(value => value.value)
     }
 }
 

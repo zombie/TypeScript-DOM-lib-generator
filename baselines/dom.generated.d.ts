@@ -1513,6 +1513,30 @@ interface TextDecoderOptions {
     ignoreBOM?: boolean;
 }
 
+interface TouchEventInit extends EventModifierInit {
+    changedTouches?: Touch[];
+    targetTouches?: Touch[];
+    touches?: Touch[];
+}
+
+interface TouchInit {
+    altitudeAngle?: number;
+    azimuthAngle?: number;
+    clientX?: number;
+    clientY?: number;
+    force?: number;
+    identifier?: number;
+    pageX?: number;
+    pageY?: number;
+    radiusX?: number;
+    radiusY?: number;
+    rotationAngle?: number;
+    screenX?: number;
+    screenY?: number;
+    target?: EventTarget;
+    touchType?: TouchType;
+}
+
 interface TrackEventInit extends EventInit {
     track?: VideoTrack | AudioTrack | TextTrack | null;
 }
@@ -13270,45 +13294,42 @@ declare var TimeRanges: {
 };
 
 interface Touch {
+    readonly altitudeAngle: number;
+    readonly azimuthAngle: number;
     readonly clientX: number;
     readonly clientY: number;
+    readonly force: number;
     readonly identifier: number;
     readonly pageX: number;
     readonly pageY: number;
+    readonly radiusX: number;
+    readonly radiusY: number;
+    readonly rotationAngle: number;
     readonly screenX: number;
     readonly screenY: number;
     readonly target: EventTarget;
+    readonly touchType: TouchType;
 }
 
 declare var Touch: {
     prototype: Touch;
-    new(): Touch;
+    new(touchInitDict: TouchInit): Touch;
 };
 
 interface TouchEvent extends UIEvent {
     readonly altKey: boolean;
     readonly changedTouches: TouchList;
-    readonly charCode: number;
     readonly ctrlKey: boolean;
-    readonly keyCode: number;
     readonly metaKey: boolean;
     readonly shiftKey: boolean;
     readonly targetTouches: TouchList;
     readonly touches: TouchList;
-    /** @deprecated */
-    readonly which: number;
 }
 
 declare var TouchEvent: {
     prototype: TouchEvent;
-    new(type: string, touchEventInit?: TouchEventInit): TouchEvent;
+    new(type: string, eventInitDict?: TouchEventInit): TouchEvent;
 };
-
-interface TouchEventInit extends EventModifierInit {
-    changedTouches?: Touch[];
-    targetTouches?: Touch[];
-    touches?: Touch[];
-}
 
 interface TouchList {
     readonly length: number;
@@ -16057,6 +16078,7 @@ type ScopedCredentialType = "ScopedCred";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";
 type TextTrackMode = "disabled" | "hidden" | "showing";
+type TouchType = "direct" | "stylus";
 type Transport = "usb" | "nfc" | "ble";
 type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted";
 type VREye = "left" | "right";

@@ -1473,31 +1473,6 @@
                     }
                 }
             },
-            "TouchEventInit": {
-                "name": "TouchEventInit",
-                "flavor": "Web",
-                "extends": "EventModifierInit",
-                "properties": {
-                    "property": {
-                        "touches": {
-                            "name": "touches",
-                            "override-type": "Touch[]",
-                            "required": 0
-                        },
-                        "targetTouches": {
-                            "name": "targetTouches",
-                            "override-type": "Touch[]",
-                            "required": 0
-                        },
-                        "changedTouches": {
-                            "name": "changedTouches",
-                            "override-type": "Touch[]",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ValidityState": {
                 "name": "ValidityState",
                 "properties": {

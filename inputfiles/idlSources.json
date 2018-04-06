@@ -4,6 +4,10 @@
         "title": "Encoding"
     },
     {
+        "url": "https://w3c.github.io/touch-events/",
+        "title": "Touch Events"
+    },
+    {
         "url": "https://heycam.github.io/webidl/",
         "title": "Web IDL"
     }

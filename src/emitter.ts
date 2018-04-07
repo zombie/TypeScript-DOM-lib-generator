@@ -331,6 +331,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "FrozenArray": return "ReadonlyArray";
             case "UnrestrictedDouble":
             case "unrestricted double": return "number";
+            case "WindowProxy": return "Window";
             case "any":
             case "BufferSource":
             case "Date":

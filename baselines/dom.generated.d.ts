@@ -9841,7 +9841,7 @@ declare var PerfWidgetExternal: {
     new(): PerfWidgetExternal;
 };
 
-interface Performance {
+interface Performance extends EventTarget {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
     onresourcetimingbufferfull: (this: Performance, ev: Event) => any;

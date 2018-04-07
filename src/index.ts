@@ -71,7 +71,11 @@ function emitDom() {
     for (const w of widlStandardTypes) {
         for (const partial of w.partialInterfaces) {
             const base = webidl.interfaces!.interface[partial.name];
-            merge(base, partial);
+            if (base) {
+                merge(base.constants, partial.constants, true);
+                merge(base.methods, partial.methods, true);
+                merge(base.properties, partial.properties, true);
+            }
         }
     }
     webidl = prune(webidl, removedItems);

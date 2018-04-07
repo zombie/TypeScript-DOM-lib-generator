@@ -1530,7 +1530,7 @@ interface TouchInit {
     clientX?: number;
     clientY?: number;
     force?: number;
-    identifier?: number;
+    identifier: number;
     pageX?: number;
     pageY?: number;
     radiusX?: number;
@@ -1538,7 +1538,7 @@ interface TouchInit {
     rotationAngle?: number;
     screenX?: number;
     screenY?: number;
-    target?: EventTarget;
+    target: EventTarget;
     touchType?: TouchType;
 }
 

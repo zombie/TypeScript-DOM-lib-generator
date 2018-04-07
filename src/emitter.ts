@@ -311,27 +311,21 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function convertDomTypeToTsTypeSimple(objDomType: string): string {
         switch (objDomType) {
-            case "AbortMode": return "String";
-            case "bool":
-            case "boolean":
-            case "Boolean": return "boolean";
-            case "CanvasPixelArray": return "number[]";
             case "DOMHighResTimeStamp": return "number";
-            case "DOMString": return "string";
             case "DOMTimeStamp": return "number";
-            case "EndOfStreamError": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
             case "double":
+            case "unrestricted double": return "number";
             case "float": return "number";
             case "object": return "any";
             case "ReadyState": return "string";
             case "ByteString": return "string";
+            case "DOMString": return "string";
             case "USVString": return "string";
             case "sequence": return "Array";
             case "FrozenArray": return "ReadonlyArray";
-            case "UnrestrictedDouble":
-            case "unrestricted double": return "number";
             case "any":
+            case "boolean":
             case "BufferSource":
             case "Date":
             case "Function":

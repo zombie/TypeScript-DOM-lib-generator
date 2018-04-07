@@ -9011,7 +9011,7 @@ interface MediaSource extends EventTarget {
     readonly readyState: string;
     readonly sourceBuffers: SourceBufferList;
     addSourceBuffer(type: string): SourceBuffer;
-    endOfStream(error?: number): void;
+    endOfStream(error?: EndOfStreamError): void;
     removeSourceBuffer(sourceBuffer: SourceBuffer): void;
 }
 

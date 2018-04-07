@@ -1030,7 +1030,7 @@ interface Pbkdf2Params extends Algorithm {
 
 interface PerformanceObserverInit {
     buffered?: boolean;
-    entryTypes?: string[];
+    entryTypes: string[];
 }
 
 interface PeriodicWaveConstraints {
@@ -9844,7 +9844,7 @@ declare var PerfWidgetExternal: {
 interface Performance extends EventTarget {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
-    onresourcetimingbufferfull: (this: Performance, ev: Event) => any;
+    onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
     readonly timeOrigin: number;
     /** @deprecated */
     readonly timing: PerformanceTiming;

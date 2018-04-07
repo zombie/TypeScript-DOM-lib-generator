@@ -118,7 +118,7 @@ interface ObjectURLOptions {
 
 interface PerformanceObserverInit {
     buffered?: boolean;
-    entryTypes?: string[];
+    entryTypes: string[];
 }
 
 interface ProgressEventInit extends EventInit {
@@ -1026,7 +1026,7 @@ declare var NotificationEvent: {
 interface Performance extends EventTarget {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
-    onresourcetimingbufferfull: (this: Performance, ev: Event) => any;
+    onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
     readonly timeOrigin: number;
     /** @deprecated */
     readonly timing: PerformanceTiming;

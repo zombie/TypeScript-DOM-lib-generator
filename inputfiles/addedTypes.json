@@ -902,18 +902,130 @@
                 "name": "IDBDatabase",
                 "properties": {
                     "property": {
+                        "onabort": {
+                            "name": "onabort",
+                            "event-handler": "abort"
+                        },
+                        "onclose": {
+                            "name": "onclose",
+                            "event-handler": "close"
+                        },
+                        "onerror": {
+                            "name": "onerror",
+                            "event-handler": "error"
+                        },
                         "onversionchange": {
                             "name": "onversionchange",
-                            "type": "EventHandlerNonNull",
-                            "nullable": 1
+                            "event-handler": "versionchange"
                         }
                     }
                 },
                 "events": {
                     "event": [
                         {
+                            "name": "abort",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "close",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "Event"
+                        },
+                        {
                             "name": "versionchange",
                             "type": "IDBVersionChangeEvent"
+                        }
+                    ]
+                }
+            },
+            "IDBOpenDBRequest": {
+                "name": "IDBOpenDBRequest",
+                "properties": {
+                    "property": {
+                        "onblocked": {
+                            "name": "onblocked",
+                            "event-handler": "blocked"
+                        },
+                        "onupgradeneeded": {
+                            "name": "onupgradeneeded",
+                            "event-handler": "upgradeneeded"
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "block",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "upgradeneeded",
+                            "type": "IDBVersionChangeEvent"
+                        }
+                    ]
+                }
+            },
+            "IDBRequest": {
+                "name": "IDBRequest",
+                "properties": {
+                    "property": {
+                        "onerror": {
+                            "name": "onerror",
+                            "event-handler": "error"
+                        },
+                        "onsuccess": {
+                            "name": "onsuccess",
+                            "event-handler": "success"
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "error",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "success",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "IDBTransaction": {
+                "name": "IDBRequest",
+                "properties": {
+                    "property": {
+                        "onabort": {
+                            "name": "onabort",
+                            "event-handler": "abort"
+                        },
+                        "oncomplete": {
+                            "name": "oncomplete",
+                            "event-handler": "complete"
+                        },
+                        "onerror": {
+                            "name": "onerror",
+                            "event-handler": "error"
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "abort",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "complete",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "Event"
                         }
                     ]
                 }
@@ -2789,30 +2901,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "IDBObjectStoreParameters": {
-                "name": "IDBObjectStoreParameters",
-                "members": {
-                    "member": {
-                        "autoIncrement": {
-                            "name": "autoIncrement",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "IDBIndexParameters": {
-                "name": "IDBIndexParameters",
-                "members": {
-                    "member": {
-                        "multiEntry": {
-                            "name": "multiEntry",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                }
-            },
             "MessageEventInit": {
                 "name": "MessageEventInit",
                 "members": {

@@ -408,6 +408,11 @@ interface IDBObjectStoreParameters {
     keyPath?: string | string[];
 }
 
+interface IDBVersionChangeEventInit extends EventInit {
+    newVersion?: number | null;
+    oldVersion?: number;
+}
+
 interface IIRFilterOptions extends AudioNodeOptions {
     feedback: number[];
     feedforward: number[];
@@ -8171,21 +8176,14 @@ interface IDBCursor {
     readonly source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
     continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void;
+    continuePrimaryKey(key: any, primaryKey: any): void;
     delete(): IDBRequest;
     update(value: any): IDBRequest;
-    readonly NEXT: string;
-    readonly NEXT_NO_DUPLICATE: string;
-    readonly PREV: string;
-    readonly PREV_NO_DUPLICATE: string;
 }
 
 declare var IDBCursor: {
     prototype: IDBCursor;
     new(): IDBCursor;
-    readonly NEXT: string;
-    readonly NEXT_NO_DUPLICATE: string;
-    readonly PREV: string;
-    readonly PREV_NO_DUPLICATE: string;
 };
 
 interface IDBCursorWithValue extends IDBCursor {
@@ -8199,15 +8197,18 @@ declare var IDBCursorWithValue: {
 
 interface IDBDatabaseEventMap {
     "abort": Event;
+    "close": Event;
     "error": Event;
+    "versionchange": IDBVersionChangeEvent;
 }
 
 interface IDBDatabase extends EventTarget {
     readonly name: string;
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBDatabase, ev: Event) => any) | null;
+    onclose: ((this: IDBDatabase, ev: Event) => any) | null;
     onerror: ((this: IDBDatabase, ev: Event) => any) | null;
-    onversionchange: ((this: IDBDatabase, ev: Event) => any) | null;
+    onversionchange: ((this: IDBDatabase, ev: IDBVersionChangeEvent) => any) | null;
     readonly version: number;
     close(): void;
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
@@ -8241,12 +8242,14 @@ declare var IDBFactory: {
 
 interface IDBIndex {
     readonly keyPath: string | string[];
-    multiEntry: boolean;
-    readonly name: string;
+    readonly multiEntry: boolean;
+    name: string;
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
     count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
     get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
     getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
     openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
     openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
@@ -8262,6 +8265,7 @@ interface IDBKeyRange {
     readonly lowerOpen: boolean;
     readonly upper: any;
     readonly upperOpen: boolean;
+    includes(key: any): boolean;
 }
 
 declare var IDBKeyRange: {
@@ -8274,20 +8278,24 @@ declare var IDBKeyRange: {
 };
 
 interface IDBObjectStore {
-    autoIncrement: boolean;
+    readonly autoIncrement: boolean;
     readonly indexNames: DOMStringList;
-    readonly keyPath: string | string[] | null;
-    readonly name: string;
+    readonly keyPath: string | string[];
+    name: string;
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
     clear(): IDBRequest;
     count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
     createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
     delete(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    deleteIndex(indexName: string): void;
-    get(key: any): IDBRequest;
+    deleteIndex(name: string): void;
+    get(query: any): IDBRequest;
+    getAll(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: any, count?: number): IDBRequest;
+    getKey(query: any): IDBRequest;
     index(name: string): IDBIndex;
     openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
 }
 
@@ -8321,13 +8329,13 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
-    readonly error: DOMException;
+    readonly error: DOMException | null;
     onerror: ((this: IDBRequest, ev: Event) => any) | null;
     onsuccess: ((this: IDBRequest, ev: Event) => any) | null;
     readonly readyState: IDBRequestReadyState;
     readonly result: any;
     readonly source: IDBObjectStore | IDBIndex | IDBCursor;
-    readonly transaction: IDBTransaction;
+    readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -8349,14 +8357,12 @@ interface IDBTransaction extends EventTarget {
     readonly db: IDBDatabase;
     readonly error: DOMException;
     readonly mode: IDBTransactionMode;
+    readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBTransaction, ev: Event) => any) | null;
     oncomplete: ((this: IDBTransaction, ev: Event) => any) | null;
     onerror: ((this: IDBTransaction, ev: Event) => any) | null;
     abort(): void;
     objectStore(name: string): IDBObjectStore;
-    readonly READ_ONLY: string;
-    readonly READ_WRITE: string;
-    readonly VERSION_CHANGE: string;
     addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -8366,9 +8372,6 @@ interface IDBTransaction extends EventTarget {
 declare var IDBTransaction: {
     prototype: IDBTransaction;
     new(): IDBTransaction;
-    readonly READ_ONLY: string;
-    readonly READ_WRITE: string;
-    readonly VERSION_CHANGE: string;
 };
 
 interface IDBVersionChangeEvent extends Event {
@@ -8378,7 +8381,7 @@ interface IDBVersionChangeEvent extends Event {
 
 declare var IDBVersionChangeEvent: {
     prototype: IDBVersionChangeEvent;
-    new(): IDBVersionChangeEvent;
+    new(type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
 };
 
 interface IIRFilterNode extends AudioNode {

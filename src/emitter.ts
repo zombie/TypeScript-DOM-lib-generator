@@ -592,22 +592,22 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printLine("declare const name: never;");
         }
         else {
-
             let pType: string;
             if (p["override-type"]) {
                 pType = p["override-type"]!;
             }
+            else if (isEventHandler(p)) {
+                // Sometimes event handlers with the same name may actually handle different
+                // events in different interfaces. For example, "onerror" handles "ErrorEvent"
+                // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
+                const eType = p["event-handler"] ? getEventTypeInInterface(p["event-handler"]!, i) : "Event";
+                pType = `(${emitEventHandlerThis(prefix, i)}ev: ${eType}) => any`;
+                if (p.type === "EventHandler") {
+                    pType = `(${pType}) | null`;
+                }
+            }
             else {
-                if (isEventHandler(p)) {
-                    // Sometimes event handlers with the same name may actually handle different
-                    // events in different interfaces. For example, "onerror" handles "ErrorEvent"
-                    // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
-                    const eType = p["event-handler"] ? getEventTypeInInterface(p["event-handler"]!, i) : "Event";
-                    pType = `(${emitEventHandlerThis(prefix, i)}ev: ${eType}) => any`;
-                }
-                else {
-                    pType = convertDomTypeToTsType(p);
-                }
+                pType = convertDomTypeToTsType(p);
             }
             const requiredModifier = p.required === undefined || p.required === 1 ? "" : "?";
             pType = p.nullable ? makeNullable(pType) : pType;

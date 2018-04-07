@@ -178,5 +178,6 @@
     "URLSearchParams",
     "BlobPropertyBag",
     "FilePropertyBag",
-    "IDBArrayKey"
+    "IDBArrayKey",
+    "IDBVersionChangeEventInit"
 ]

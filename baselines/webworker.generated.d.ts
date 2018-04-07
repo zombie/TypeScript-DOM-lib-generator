@@ -1023,6 +1023,10 @@ declare var NotificationEvent: {
     new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
 };
 
+interface PerformanceEventMap {
+    "resourcetimingbufferfull": Event;
+}
+
 interface Performance extends EventTarget {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
@@ -1041,6 +1045,10 @@ interface Performance extends EventTarget {
     now(): number;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
+    addEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Performance: {

@@ -4,12 +4,32 @@
         "title": "Encoding"
     },
     {
+        "url": "https://www.w3.org/TR/hr-time-2/",
+        "title": "High Resolution Time"
+    },
+    {
         "url": "https://www.w3.org/TR/IndexedDB-2/",
         "title": "Indexed Database"
     },
     {
+        "url": "https://w3c.github.io/navigation-timing/",
+        "title": "Navigation Timing"
+    },
+    {
+        "url": "https://w3c.github.io/performance-timeline/",
+        "title": "Performance Timeline"
+    },
+    {
+        "url": "https://w3c.github.io/resource-timing/",
+        "title": "Resource Timing"
+    },
+    {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
+    },
+    {
+        "url": "https://www.w3.org/TR/user-timing-2/",
+        "title": "User Timing"
     },
     {
         "url": "https://heycam.github.io/webidl/",

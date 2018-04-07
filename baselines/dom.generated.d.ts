@@ -1028,6 +1028,11 @@ interface Pbkdf2Params extends Algorithm {
     salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
+interface PerformanceObserverInit {
+    buffered?: boolean;
+    entryTypes: string[];
+}
+
 interface PeriodicWaveConstraints {
     disableNormalization?: boolean;
 }
@@ -9711,12 +9716,6 @@ declare var PannerNode: {
 };
 
 interface ParentNode {
-    readonly childElementCount: number;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
-}
-
-interface ParentNode {
     readonly children: HTMLCollection;
     querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
@@ -9724,6 +9723,12 @@ interface ParentNode {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
+}
+
+interface ParentNode {
+    readonly childElementCount: number;
+    readonly firstElementChild: Element | null;
+    readonly lastElementChild: Element | null;
 }
 
 interface Path2D extends CanvasPathMethods {
@@ -9836,27 +9841,32 @@ declare var PerfWidgetExternal: {
     new(): PerfWidgetExternal;
 };
 
-interface Performance {
+interface PerformanceEventMap {
+    "resourcetimingbufferfull": Event;
+}
+
+interface Performance extends EventTarget {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
+    onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
     readonly timeOrigin: number;
     /** @deprecated */
     readonly timing: PerformanceTiming;
     clearMarks(markName?: string): void;
     clearMeasures(measureName?: string): void;
     clearResourceTimings(): void;
-    getEntries(): any;
-    getEntriesByName(name: string, type?: string): any;
-    getEntriesByType(type: string): any;
-    /** @deprecated */
-    getMarks(markName?: string): any;
-    /** @deprecated */
-    getMeasures(measureName?: string): any;
+    getEntries(): PerformanceEntryList;
+    getEntriesByName(name: string, type?: string): PerformanceEntryList;
+    getEntriesByType(type: string): PerformanceEntryList;
     mark(markName: string): void;
-    measure(measureName: string, startMarkName?: string, endMarkName?: string): void;
+    measure(measureName: string, startMark?: string, endMark?: string): void;
     now(): number;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
+    addEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Performance: {
@@ -9912,42 +9922,18 @@ declare var PerformanceNavigation: {
     readonly TYPE_RESERVED: number;
 };
 
-interface PerformanceNavigationTiming extends PerformanceEntry {
-    /** @deprecated */
-    readonly connectEnd: number;
-    /** @deprecated */
-    readonly connectStart: number;
+interface PerformanceNavigationTiming extends PerformanceResourceTiming {
     readonly domComplete: number;
     readonly domContentLoadedEventEnd: number;
     readonly domContentLoadedEventStart: number;
     readonly domInteractive: number;
-    /** @deprecated */
-    readonly domLoading: number;
-    /** @deprecated */
-    readonly domainLookupEnd: number;
-    /** @deprecated */
-    readonly domainLookupStart: number;
-    /** @deprecated */
-    readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
-    /** @deprecated */
-    readonly navigationStart: number;
     readonly redirectCount: number;
-    /** @deprecated */
-    readonly redirectEnd: number;
-    /** @deprecated */
-    readonly redirectStart: number;
-    /** @deprecated */
-    readonly requestStart: number;
-    /** @deprecated */
-    readonly responseEnd: number;
-    /** @deprecated */
-    readonly responseStart: number;
     readonly type: NavigationType;
     readonly unloadEventEnd: number;
     readonly unloadEventStart: number;
-    readonly workerStart: number;
+    toJSON(): any;
 }
 
 declare var PerformanceNavigationTiming: {
@@ -9955,19 +9941,47 @@ declare var PerformanceNavigationTiming: {
     new(): PerformanceNavigationTiming;
 };
 
+interface PerformanceObserver {
+    disconnect(): void;
+    observe(options: PerformanceObserverInit): void;
+    takeRecords(): PerformanceEntryList;
+}
+
+declare var PerformanceObserver: {
+    prototype: PerformanceObserver;
+    new(callback: PerformanceObserverCallback): PerformanceObserver;
+};
+
+interface PerformanceObserverEntryList {
+    getEntries(): PerformanceEntryList;
+    getEntriesByName(name: string, type?: string): PerformanceEntryList;
+    getEntriesByType(type: string): PerformanceEntryList;
+}
+
+declare var PerformanceObserverEntryList: {
+    prototype: PerformanceObserverEntryList;
+    new(): PerformanceObserverEntryList;
+};
+
 interface PerformanceResourceTiming extends PerformanceEntry {
     readonly connectEnd: number;
     readonly connectStart: number;
+    readonly decodedBodySize: number;
     readonly domainLookupEnd: number;
     readonly domainLookupStart: number;
+    readonly encodedBodySize: number;
     readonly fetchStart: number;
     readonly initiatorType: string;
+    readonly nextHopProtocol: string;
     readonly redirectEnd: number;
     readonly redirectStart: number;
     readonly requestStart: number;
     readonly responseEnd: number;
     readonly responseStart: number;
+    readonly secureConnectionStart: number;
+    readonly transferSize: number;
     readonly workerStart: number;
+    toJSON(): any;
 }
 
 declare var PerformanceResourceTiming: {
@@ -9988,7 +10002,6 @@ interface PerformanceTiming {
     readonly fetchStart: number;
     readonly loadEventEnd: number;
     readonly loadEventStart: number;
-    readonly msFirstPaint: number;
     readonly navigationStart: number;
     readonly redirectEnd: number;
     readonly redirectStart: number;
@@ -15499,6 +15512,10 @@ interface NotificationPermissionCallback {
     (permission: NotificationPermission): void;
 }
 
+interface PerformanceObserverCallback {
+    (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
+}
+
 interface PositionCallback {
     (position: Position): void;
 }
@@ -15954,6 +15971,8 @@ declare function addEventListener<K extends keyof WindowEventMap>(type: K, liste
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type DOMHighResTimeStamp = number;
+type PerformanceEntryList = PerformanceEntry[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type ScrollBehavior = "auto" | "instant" | "smooth";

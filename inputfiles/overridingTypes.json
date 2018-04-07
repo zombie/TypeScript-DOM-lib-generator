@@ -1959,6 +1959,19 @@
                         "new(d?: Path2D | string): Path2D"
                     ]
                 }
+            },
+            "Performance": {
+                "name": "Performance",
+                "properties": {
+                    "property": {
+                        "navigation": {
+                            "deprecated": 1
+                        },
+                        "timing": {
+                            "deprecated": 1
+                        }
+                    }
+                }
             }
         }
     },

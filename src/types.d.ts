@@ -1,6 +1,6 @@
 export interface Typed {
     type: string | Typed[];
-    subtype?: Typed;
+    subtype?: Typed | Typed[];
     nullable?: 1;
     "type-original"?: string;
     "override-type"?: string;

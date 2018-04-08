@@ -229,7 +229,7 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
     if (i.generic) {
         return {
             type: i.generic,
-            subtype: convertIdlType(i.idlType as webidl2.IDLTypeDescription),
+            subtype: Array.isArray(i.idlType) ? i.idlType.map(convertIdlType) : convertIdlType(i.idlType),
             nullable: i.nullable ? 1 : undefined
         };
     }

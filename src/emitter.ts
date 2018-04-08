@@ -292,21 +292,42 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
         }
 
-        const subtype = obj.subtype ? convertDomTypeToTsTypeWorker(obj.subtype) : undefined;
-        const subtypeString = subtype ? subtype.nullable ? makeNullable(subtype.name) : subtype.name : undefined;
+        const subtypes = arrayify(obj.subtype).map(convertDomTypeToTsTypeWorker);
+        const subtypeString = subtypes.map(subtype => subtype.nullable ? makeNullable(subtype.name) : subtype.name);
+
+        let name: string;
+        if (type.name === "Array" && subtypeString.length) {
+            name = makeArrayType(subtypeString[0], obj);
+        }
+        else if (type.name === "record" && Array.isArray(subtypeString)) {
+            name = `{ [key: ${subtypeString[0]}]: ${subtypeString[1]} }`
+        }
+        else {
+            name = `${type.name}${subtypeString.length ? `<${subtypeString.join(", ")}>` : ""}`;
+        }
 
         return {
-            name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString, obj) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
+            name,
             nullable: type.nullable
         };
     }
 
-    function makeArrayType (elementType: string, obj: Browser.Typed): string {
-        if (obj.subtype && obj.subtype.type === "float") {
+    function makeArrayType(elementType: string, obj: Browser.Typed): string {
+        if (obj.subtype && !Array.isArray(obj.subtype) && obj.subtype.type === "float") {
             return "Float32Array";
         }
 
         return elementType.includes("|") ? `(${elementType})[]` : `${elementType}[]`;
+    }
+
+    function arrayify(obj: undefined | Browser.Typed | Browser.Typed[]) {
+        if (!obj) {
+            return [];
+        }
+        if (!Array.isArray(obj)) {
+            return [obj];
+        }
+        return obj;
     }
 
     function convertDomTypeToTsTypeSimple(objDomType: string): string {
@@ -326,6 +347,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "WindowProxy": return "Window";
             case "any":
             case "boolean":
+            case "record":
             case "BufferSource":
             case "Date":
             case "Function":

@@ -1,20 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "Body": {
-                "name": "Body",
-                "methods": {
-                    "method": {
-                        "formData": {
-                            "name": "formData",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "formData(): Promise<FormData>"
-                            ]
-                        }
-                    }
-                }
-            },
             "HTMLHyperlinkElementUtils": {
                 "name": "HTMLHyperlinkElementUtils",
                 "properties": {
@@ -2900,10 +2886,6 @@
             {
                 "new-type": "AAGUID",
                 "override-type": "string"
-            },
-            {
-                "new-type": "BodyInit",
-                "override-type": "any"
             },
             {
                 "new-type": "ByteString",

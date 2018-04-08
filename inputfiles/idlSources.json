@@ -4,6 +4,10 @@
         "title": "Encoding"
     },
     {
+        "url": "https://fetch.spec.whatwg.org/",
+        "title": "Fetch"
+    },
+    {
         "url": "https://drafts.fxtf.org/geometry/",
         "title": "Geometry Interfaces"
     },

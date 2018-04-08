@@ -185,5 +185,6 @@
     "BlobPropertyBag",
     "FilePropertyBag",
     "IDBArrayKey",
-    "IDBVersionChangeEventInit"
+    "IDBVersionChangeEventInit",
+    "BufferSource"
 ]

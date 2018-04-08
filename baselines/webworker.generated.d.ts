@@ -1772,6 +1772,7 @@ type HeadersInit = Headers | string[][] | { [key: string]: string };
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type PerformanceEntryList = PerformanceEntry[];
+type BufferSource = ArrayBufferView | ArrayBuffer;
 type FormDataEntryValue = string | File;
 type AlgorithmIdentifier = string | Algorithm;
 type AAGUID = string;

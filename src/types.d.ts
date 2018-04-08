@@ -172,6 +172,13 @@ export interface Interface {
     "overide-index-signatures"?: string[];
     specs?: string;
     iterable?: "value" | "pair" | "pair-iterator";
+    iterator?: Iterator;
+}
+
+export interface Iterator {
+    type: "iterable" | "setlike" | "maplike";
+    readonly: boolean;
+    subtype: Typed[];
 }
 
 export interface Enum {

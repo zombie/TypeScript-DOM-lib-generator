@@ -92,6 +92,13 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
                 method[member.name] = operation;
             }
         }
+        else if (member.type === "iterable") {
+            result.iterator = {
+                type: member.type,
+                readonly: member.readonly,
+                subtype: member.idlType.map(convertIdlType)
+            };
+        }
     }
 
     return result;

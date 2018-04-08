@@ -710,12 +710,31 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
+    // Emit forEach for iterators
+    function emitIteratorForEach(i: Browser.Interface) {
+        if (!i.iterator) {
+            return;
+        }
+        if (i.iterator.type === "iterable") {
+            const subtype = i.iterator.subtype.map(convertDomTypeToTsType);
+            const key = subtype.length > 1 ? subtype[0] : "number";
+            const value = subtype[subtype.length - 1];
+            printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${i.name}) => void, thisArg?: any): void;`);
+        }
+        else {
+            throw new Error(`Unsupported type ${i.iterator.type}`);
+        }
+    }
+
     /// Emit the properties and methods of a given interface
     function emitMembers(prefix: string, emitScope: EmitScope, i: Browser.Interface) {
         const conflictedMembers = extendConflictsBaseTypes[i.name] ? extendConflictsBaseTypes[i.name].memberNames : new Set();
         emitProperties(prefix, emitScope, i, conflictedMembers);
         const methodPrefix = prefix.startsWith("declare var") ? "declare function " : "";
         emitMethods(methodPrefix, emitScope, i, conflictedMembers);
+        if (emitScope === EmitScope.InstanceOnly) {
+            emitIteratorForEach(i);
+        }
     }
 
     /// Emit all members of every interfaces at the root level.

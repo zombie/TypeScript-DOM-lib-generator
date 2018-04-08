@@ -1687,60 +1687,6 @@
                     ]
                 }
             },
-            "DOMRectReadOnly": {
-                "name": "DOMRectReadOnly",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "bottom": {
-                            "name": "bottom",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "height": {
-                            "name": "height",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "left": {
-                            "name": "left",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "right": {
-                            "name": "right",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "top": {
-                            "name": "top",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "width": {
-                            "name": "width",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "x": {
-                            "name": "x",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "y": {
-                            "name": "y",
-                            "read-only": 1,
-                            "override-type": "number"
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly",
-                        "fromRect(rectangle?: DOMRectInit): DOMRectReadOnly"
-                    ]
-                }
-            },
             "EXT_blend_minmax": {
                 "name": "EXT_blend_minmax",
                 "flavor": "Web",
@@ -1804,64 +1750,6 @@
                     }
                 },
                 "no-interface-object": "1"
-            },
-            "DOMRect": {
-                "name": "DOMRect",
-                "extends": "DOMRectReadOnly",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "height": {
-                            "name": "height",
-                            "override-type": "number"
-                        },
-                        "width": {
-                            "name": "width",
-                            "override-type": "number"
-                        },
-                        "x": {
-                            "name": "x",
-                            "override-type": "number"
-                        },
-                        "y": {
-                            "name": "y",
-                            "override-type": "number"
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new (x?: number, y?: number, width?: number, height?: number): DOMRect",
-                        "fromRect(rectangle?: DOMRectInit): DOMRect"
-                    ]
-                }
-            },
-            "DOMRectList": {
-                "name": "DOMRectList",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "length": {
-                            "name": "length",
-                            "read-only": 1,
-                            "override-type": "number"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "item": {
-                            "name": "item",
-                            "override-signatures": [
-                                "item(index: number): DOMRect | null"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1",
-                "overide-index-signatures": [
-                    "[index: number]: DOMRect"
-                ]
             },
             "DOMTokenList": {
                 "name": "DOMTokenList",

@@ -14,11 +14,11 @@ interface PerformanceNavigationTiming : PerformanceResourceTiming {
 };
 
 enum NavigationType {
-      "navigate",
-      "reload",
-      "back_forward",
-      "prerender"
-  };
+    "navigate",
+    "reload",
+    "back_forward",
+    "prerender"
+};
 
 [Exposed=Window]
 interface PerformanceTiming {

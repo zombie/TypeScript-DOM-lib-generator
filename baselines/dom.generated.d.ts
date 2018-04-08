@@ -208,6 +208,49 @@ interface CustomEventInit<T = any> extends EventInit {
     detail?: T;
 }
 
+interface DOMMatrix2DInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+}
+
+interface DOMMatrixInit extends DOMMatrix2DInit {
+    is2D?: boolean;
+    m13?: number;
+    m14?: number;
+    m23?: number;
+    m24?: number;
+    m31?: number;
+    m32?: number;
+    m33?: number;
+    m34?: number;
+    m43?: number;
+    m44?: number;
+}
+
+interface DOMPointInit {
+    w?: number;
+    x?: number;
+    y?: number;
+    z?: number;
+}
+
+interface DOMQuadInit {
+    p1?: DOMPointInit;
+    p2?: DOMPointInit;
+    p3?: DOMPointInit;
+    p4?: DOMPointInit;
+}
+
 interface DOMRectInit {
     height?: number;
     width?: number;
@@ -3233,6 +3276,102 @@ interface DOML2DeprecatedSizeProperty {
     size: number;
 }
 
+interface DOMMatrix extends DOMMatrixReadOnly {
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    e: number;
+    f: number;
+    m11: number;
+    m12: number;
+    m13: number;
+    m14: number;
+    m21: number;
+    m22: number;
+    m23: number;
+    m24: number;
+    m31: number;
+    m32: number;
+    m33: number;
+    m34: number;
+    m41: number;
+    m42: number;
+    m43: number;
+    m44: number;
+    invertSelf(): DOMMatrix;
+    multiplySelf(other?: DOMMatrixInit): DOMMatrix;
+    preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
+    rotateAxisAngleSelf(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
+    rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+    scale3dSelf(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scaleSelf(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    setMatrixValue(transformList: string): DOMMatrix;
+    skewXSelf(sx?: number): DOMMatrix;
+    skewYSelf(sy?: number): DOMMatrix;
+    translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare var DOMMatrix: {
+    prototype: DOMMatrix;
+    new(init?: string | number[]): DOMMatrix;
+    fromFloat32Array(array32: Float32Array): DOMMatrix;
+    fromFloat64Array(array64: Float64Array): DOMMatrix;
+    fromMatrix(other?: DOMMatrixInit): DOMMatrix;
+};
+
+interface DOMMatrixReadOnly {
+    readonly a: number;
+    readonly b: number;
+    readonly c: number;
+    readonly d: number;
+    readonly e: number;
+    readonly f: number;
+    readonly is2D: boolean;
+    readonly isIdentity: boolean;
+    readonly m11: number;
+    readonly m12: number;
+    readonly m13: number;
+    readonly m14: number;
+    readonly m21: number;
+    readonly m22: number;
+    readonly m23: number;
+    readonly m24: number;
+    readonly m31: number;
+    readonly m32: number;
+    readonly m33: number;
+    readonly m34: number;
+    readonly m41: number;
+    readonly m42: number;
+    readonly m43: number;
+    readonly m44: number;
+    flipX(): DOMMatrix;
+    flipY(): DOMMatrix;
+    inverse(): DOMMatrix;
+    multiply(other?: DOMMatrixInit): DOMMatrix;
+    rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+    rotateAxisAngle(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateFromVector(x?: number, y?: number): DOMMatrix;
+    scale(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scale3d(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    skewX(sx?: number): DOMMatrix;
+    skewY(sy?: number): DOMMatrix;
+    toFloat32Array(): Float32Array;
+    toFloat64Array(): Float64Array;
+    toJSON(): any;
+    transformPoint(point?: DOMPointInit): DOMPoint;
+    translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare var DOMMatrixReadOnly: {
+    prototype: DOMMatrixReadOnly;
+    new(init?: string | number[]): DOMMatrixReadOnly;
+    fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
+    fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
+    fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
+};
+
 interface DOMParser {
     parseFromString(source: string, mimeType: string): Document;
 }
@@ -3240,6 +3379,50 @@ interface DOMParser {
 declare var DOMParser: {
     prototype: DOMParser;
     new(): DOMParser;
+};
+
+interface DOMPoint extends DOMPointReadOnly {
+    w: number;
+    x: number;
+    y: number;
+    z: number;
+}
+
+declare var DOMPoint: {
+    prototype: DOMPoint;
+    new(x?: number, y?: number, z?: number, w?: number): DOMPoint;
+    fromPoint(other?: DOMPointInit): DOMPoint;
+};
+
+interface DOMPointReadOnly {
+    readonly w: number;
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
+    toJSON(): any;
+}
+
+declare var DOMPointReadOnly: {
+    prototype: DOMPointReadOnly;
+    new(x?: number, y?: number, z?: number, w?: number): DOMPointReadOnly;
+    fromPoint(other?: DOMPointInit): DOMPointReadOnly;
+};
+
+interface DOMQuad {
+    readonly p1: DOMPoint;
+    readonly p2: DOMPoint;
+    readonly p3: DOMPoint;
+    readonly p4: DOMPoint;
+    getBounds(): DOMRect;
+    toJSON(): any;
+}
+
+declare var DOMQuad: {
+    prototype: DOMQuad;
+    new(p1?: DOMPointInit, p2?: DOMPointInit, p3?: DOMPointInit, p4?: DOMPointInit): DOMQuad;
+    fromQuad(other?: DOMQuadInit): DOMQuad;
+    fromRect(other?: DOMRectInit): DOMQuad;
 };
 
 interface DOMRect extends DOMRectReadOnly {
@@ -3251,8 +3434,8 @@ interface DOMRect extends DOMRectReadOnly {
 
 declare var DOMRect: {
     prototype: DOMRect;
-    new (x?: number, y?: number, width?: number, height?: number): DOMRect;
-    fromRect(rectangle?: DOMRectInit): DOMRect;
+    new(x?: number, y?: number, width?: number, height?: number): DOMRect;
+    fromRect(other?: DOMRectInit): DOMRect;
 };
 
 interface DOMRectList {
@@ -3260,6 +3443,11 @@ interface DOMRectList {
     item(index: number): DOMRect | null;
     [index: number]: DOMRect;
 }
+
+declare var DOMRectList: {
+    prototype: DOMRectList;
+    new(): DOMRectList;
+};
 
 interface DOMRectReadOnly {
     readonly bottom: number;
@@ -3270,12 +3458,13 @@ interface DOMRectReadOnly {
     readonly width: number;
     readonly x: number;
     readonly y: number;
+    toJSON(): any;
 }
 
 declare var DOMRectReadOnly: {
     prototype: DOMRectReadOnly;
-    new (x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
-    fromRect(rectangle?: DOMRectInit): DOMRectReadOnly;
+    new(x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
+    fromRect(other?: DOMRectInit): DOMRectReadOnly;
 };
 
 interface DOMSettableTokenList extends DOMTokenList {
@@ -9013,7 +9202,7 @@ declare var MediaQueryList: {
 interface MediaSource extends EventTarget {
     readonly activeSourceBuffers: SourceBufferList;
     duration: number;
-    readonly readyState: string;
+    readonly readyState: ReadyState;
     readonly sourceBuffers: SourceBufferList;
     addSourceBuffer(type: string): SourceBuffer;
     endOfStream(error?: EndOfStreamError): void;
@@ -9716,6 +9905,12 @@ declare var PannerNode: {
 };
 
 interface ParentNode {
+    readonly childElementCount: number;
+    readonly firstElementChild: Element | null;
+    readonly lastElementChild: Element | null;
+}
+
+interface ParentNode {
     readonly children: HTMLCollection;
     querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
@@ -9723,12 +9918,6 @@ interface ParentNode {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
-}
-
-interface ParentNode {
-    readonly childElementCount: number;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
 }
 
 interface Path2D extends CanvasPathMethods {

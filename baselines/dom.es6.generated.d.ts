@@ -18,6 +18,10 @@ interface ClientRectList {
     [Symbol.iterator](): IterableIterator<ClientRect>
 }
 
+interface DOMRectList {
+    [Symbol.iterator](): IterableIterator<DOMRect>
+}
+
 interface DOMStringList {
     [Symbol.iterator](): IterableIterator<string>
 }

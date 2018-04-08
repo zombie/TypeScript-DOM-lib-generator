@@ -324,6 +324,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "USVString": return "string";
             case "sequence": return "Array";
             case "FrozenArray": return "ReadonlyArray";
+            case "WindowProxy": return "Window";
             case "any":
             case "boolean":
             case "BufferSource":
@@ -364,7 +365,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 }
         }
 
-        throw new Error("Unkown DOM type: " + objDomType);
+        throw new Error("Unknown DOM type: " + objDomType);
     }
 
     function makeNullable(originalType: string) {

@@ -1209,15 +1209,22 @@
                     }
                 }
             },
-            "PerformanceTiming": {
-                "name": "PerformanceTiming",
+            "Performance": {
+                "name": "Performance",
                 "properties": {
                     "property": {
-                        "secureConnectionStart": {
-                            "name": "secureConnectionStart",
-                            "read-only": 1,
-                            "override-type": "number"
+                        "onresourcetimingbufferfull": {
+                            "name": "onresourcetimingbufferfull",
+                            "event-handler": "resourcetimingbufferfull"
                         }
+                    },
+                    "events": {
+                        "event": [
+                            {
+                                "name": "resourcetimingbufferfull",
+                                "type": "Event"
+                            }
+                        ]
                     }
                 }
             },

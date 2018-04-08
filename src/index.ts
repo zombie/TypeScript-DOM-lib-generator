@@ -77,6 +77,17 @@ function emitDom() {
                 merge(base.properties, partial.properties, true);
             }
         }
+        for (const include of w.includes) {
+            const target = webidl.interfaces!.interface[include.target];
+            if (target) {
+                if (target.implements) {
+                    target.implements.push(include.includes);
+                }
+                else {
+                    target.implements = [include.includes];
+                }
+            }
+        }
     }
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);

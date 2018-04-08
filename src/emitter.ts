@@ -318,9 +318,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "unrestricted double": return "number";
             case "float": return "number";
             case "object": return "any";
-            case "ReadyState": return "string";
-            case "ByteString": return "string";
-            case "DOMString": return "string";
+            case "ByteString":
+            case "DOMString":
             case "USVString": return "string";
             case "sequence": return "Array";
             case "FrozenArray": return "ReadonlyArray";

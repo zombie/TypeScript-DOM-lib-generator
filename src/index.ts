@@ -56,9 +56,15 @@ function emitDom() {
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
-    const widlStandardTypes = fs.readdirSync(path.join(inputFolder, "idl")).map(
-        filename => fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" })
-    ).map(convert);
+    const idlSources = require(path.join(inputFolder, "idlSources.json"));
+    const widlStandardTypes = idlSources.map(convertWidl);
+
+    function convertWidl({ title }: { title: string }) {
+        const idl: string = fs.readFileSync(path.join(inputFolder, "idl", title + ".widl"), { encoding: "utf-8" });
+        const commentsMapFilePath = path.join(inputFolder, "idl", title + ".commentmap.json");
+        const commentsMap: Record<string, string> = fs.existsSync(commentsMapFilePath) ? require(commentsMapFilePath) : {};
+        return convert(idl, commentsMap);
+    }
 
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));

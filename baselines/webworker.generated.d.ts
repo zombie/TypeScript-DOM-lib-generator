@@ -676,14 +676,50 @@ interface IDBArrayKey extends Array<number | string | Date | IDBArrayKey> {
 }
 
 interface IDBCursor {
+    /**
+     * Returns the direction ("next", "nextunique", "prev" or "prevunique")
+     * of the cursor.
+     */
     readonly direction: IDBCursorDirection;
+    /**
+     * Returns the key of the cursor.
+     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     */
     readonly key: IDBKeyRange | number | string | Date | IDBArrayKey;
+    /**
+     * Returns the effective key of the cursor.
+     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     */
     readonly primaryKey: any;
+    /**
+     * Returns the IDBObjectStore or IDBIndex the cursor was opened from.
+     */
     readonly source: IDBObjectStore | IDBIndex;
+    /**
+     * Advances the cursor through the next count records in
+     * range.
+     */
     advance(count: number): void;
+    /**
+     * Advances the cursor to the next record in range matching or
+     * after key.
+     */
     continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void;
+    /**
+     * Advances the cursor to the next record in range matching
+     * or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
+     */
     continuePrimaryKey(key: any, primaryKey: any): void;
+    /**
+     * Delete the record pointed at by the cursor with a new value.
+     * If successful, request's result will be undefined.
+     */
     delete(): IDBRequest;
+    /**
+     * Updated the record pointed at by the cursor with a new value.
+     * Throws a "DataError" DOMException if the effective object store uses in-line keys and the key would have changed.
+     * If successful, request's result will be the record's key.
+     */
     update(value: any): IDBRequest;
 }
 
@@ -693,6 +729,9 @@ declare var IDBCursor: {
 };
 
 interface IDBCursorWithValue extends IDBCursor {
+    /**
+     * Returns the cursor's current value.
+     */
     readonly value: any;
 }
 
@@ -709,16 +748,40 @@ interface IDBDatabaseEventMap {
 }
 
 interface IDBDatabase extends EventTarget {
+    /**
+     * Returns the name of the database.
+     */
     readonly name: string;
+    /**
+     * Returns a list of the names of object stores in the database.
+     */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBDatabase, ev: Event) => any) | null;
     onclose: ((this: IDBDatabase, ev: Event) => any) | null;
     onerror: ((this: IDBDatabase, ev: Event) => any) | null;
     onversionchange: ((this: IDBDatabase, ev: IDBVersionChangeEvent) => any) | null;
+    /**
+     * Returns the version of the database.
+     */
     readonly version: number;
+    /**
+     * Closes the connection once all running transactions have finished.
+     */
     close(): void;
+    /**
+     * Creates a new object store with the given name and options and returns a new IDBObjectStore.
+     * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
+     */
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
+    /**
+     * Deletes the object store with the given name.
+     * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
+     */
     deleteObjectStore(name: string): void;
+    /**
+     * Returns a new transaction with the given mode ("readonly" or "readwrite")
+     * and scope which can be a single object store name or an array of names.
+     */
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -732,8 +795,26 @@ declare var IDBDatabase: {
 };
 
 interface IDBFactory {
+    /**
+     * Compares two values as keys. Returns -1 if key1 precedes key2, 1 if key2 precedes key1, and 0 if
+     * the keys are equal.
+     * Throws a "DataError" DOMException if either input is not a valid key.
+     */
     cmp(first: any, second: any): number;
+    /**
+     * Attempts to delete the named database. If the
+     * database already exists and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close. If the request
+     * is successful request's result will be null.
+     */
     deleteDatabase(name: string): IDBOpenDBRequest;
+    /**
+     * Attempts to open a connection to the named database with the specified version. If the database already exists
+     * with a lower version and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close, then an upgrade
+     * will occur. If the database already exists with a higher
+     * version the request will fail. If the request is
+     * successful request's result will
+     * be the connection.
+     */
     open(name: string, version?: number): IDBOpenDBRequest;
 }
 
@@ -745,15 +826,55 @@ declare var IDBFactory: {
 interface IDBIndex {
     readonly keyPath: string | string[];
     readonly multiEntry: boolean;
+    /**
+     * Updates the name of the store to newName.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     name: string;
+    /**
+     * Returns the IDBObjectStore the index belongs to.
+     */
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
+    /**
+     * Retrieves the number of records matching the given key or key range in query.
+     * If successful, request's result will be the
+     * count.
+     */
     count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    /**
+     * Retrieves the value of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the value, or undefined if there was no matching record.
+     */
     get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    /**
+     * Retrieves the values of the records matching the given key or key range in query (up to count if given).
+     * If successful, request's result will be an Array of the values.
+     */
     getAll(query?: any, count?: number): IDBRequest;
+    /**
+     * Retrieves the keys of records matching the given key or key range in query (up to count if given).
+     * If successful, request's result will be an Array of the keys.
+     */
     getAllKeys(query?: any, count?: number): IDBRequest;
+    /**
+     * Retrieves the key of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the key, or undefined if there was no matching record.
+     */
     getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    /**
+     * Opens a cursor over the records matching query,
+     * ordered by direction. If query is null, all records in index are matched.
+     * If successful, request's result will be an IDBCursorWithValue, or null if there were no matching records.
+     */
     openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
+     * If successful, request's result will be an IDBCursor, or null if there were no matching records.
+     */
     openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
 }
 
@@ -763,41 +884,142 @@ declare var IDBIndex: {
 };
 
 interface IDBKeyRange {
+    /**
+     * Returns lower bound, or undefined if none.
+     */
     readonly lower: any;
+    /**
+     * Returns true if the lower open flag is set, and false otherwise.
+     */
     readonly lowerOpen: boolean;
+    /**
+     * Returns upper bound, or undefined if none.
+     */
     readonly upper: any;
+    /**
+     * Returns true if the upper open flag is set, and false otherwise.
+     */
     readonly upperOpen: boolean;
+    /**
+     * Returns true if key is included in the range, and false otherwise.
+     */
     includes(key: any): boolean;
 }
 
 declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange spanning from lower to upper.
+     * If lowerOpen is true, lower is not included in the range.
+     * If upperOpen is true, upper is not included in the range.
+     */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange starting at key with no
+     * upper bound. If open is true, key is not included in the
+     * range.
+     */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange spanning only key.
+     */
     only(value: any): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     */
     upperBound(upper: any, open?: boolean): IDBKeyRange;
 };
 
 interface IDBObjectStore {
+    /**
+     * Returns true if the store has a key generator, and false otherwise.
+     */
     readonly autoIncrement: boolean;
+    /**
+     * Returns a list of the names of indexes in the store.
+     */
     readonly indexNames: DOMStringList;
+    /**
+     * Returns the key path of the store, or null if none.
+     */
     readonly keyPath: string | string[];
+    /**
+     * Updates the name of the store to newName.
+     * Throws "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     name: string;
+    /**
+     * Returns the associated transaction.
+     */
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
     clear(): IDBRequest;
+    /**
+     * Retrieves the number of records matching the
+     * given key or key range in query.
+     * If successful, request's result will be the count.
+     */
     count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    /**
+     * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be
+     * satisfied with the data already in store the upgrade
+     * transaction will abort with
+     * a "ConstraintError" DOMException.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
     delete(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    /**
+     * Deletes the index in store with the given name.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     deleteIndex(name: string): void;
+    /**
+     * Retrieves the value of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the value, or undefined if there was no matching record.
+     */
     get(query: any): IDBRequest;
+    /**
+     * Retrieves the values of the records matching the
+     * given key or key range in query (up to count if given).
+     * If successful, request's result will
+     * be an Array of the values.
+     */
     getAll(query?: any, count?: number): IDBRequest;
+    /**
+     * Retrieves the keys of records matching the
+     * given key or key range in query (up to count if given).
+     * If successful, request's result will
+     * be an Array of the keys.
+     */
     getAllKeys(query?: any, count?: number): IDBRequest;
+    /**
+     * Retrieves the key of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the key, or undefined if there was no matching record.
+     */
     getKey(query: any): IDBRequest;
     index(name: string): IDBIndex;
+    /**
+     * Opens a cursor over the records matching query,
+     * ordered by direction. If query is null, all records in store are matched.
+     * If successful, request's result will be an IDBCursorWithValue pointing at the first matching record, or null if there were no matching records.
+     */
     openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
+     * If successful, request's result will be an IDBCursor pointing at the first matching record, or
+     * null if there were no matching records.
+     */
     openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * request = store . delete(query)
+     */
     put(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
 }
 
@@ -831,12 +1053,31 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
+    /**
+     * When a request is completed, returns the error (a DOMException), or null if the request succeeded. Throws
+     * a "InvalidStateError" DOMException if the request is still pending.
+     */
     readonly error: DOMException | null;
     onerror: ((this: IDBRequest, ev: Event) => any) | null;
     onsuccess: ((this: IDBRequest, ev: Event) => any) | null;
+    /**
+     * Returns "pending" until a request is complete,
+     * then returns "done".
+     */
     readonly readyState: IDBRequestReadyState;
+    /**
+     * request = store . clear()
+     */
     readonly result: any;
+    /**
+     * Returns the IDBObjectStore, IDBIndex, or IDBCursor the request was made against, or null if is was an open
+     * request.
+     */
     readonly source: IDBObjectStore | IDBIndex | IDBCursor;
+    /**
+     * Returns the IDBTransaction the request was made within.
+     * If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
+     */
     readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -856,14 +1097,38 @@ interface IDBTransactionEventMap {
 }
 
 interface IDBTransaction extends EventTarget {
+    /**
+     * Returns the transaction's connection.
+     */
     readonly db: IDBDatabase;
+    /**
+     * If the transaction was aborted, returns the
+     * error (a DOMException) providing the reason.
+     */
     readonly error: DOMException;
+    /**
+     * Returns the mode the transaction was created with
+     * ("readonly" or "readwrite"), or "versionchange" for
+     * an upgrade transaction.
+     */
     readonly mode: IDBTransactionMode;
+    /**
+     * Returns a list of the names of object stores in the
+     * transaction's scope. For an upgrade transaction this is all object stores in the database.
+     */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBTransaction, ev: Event) => any) | null;
     oncomplete: ((this: IDBTransaction, ev: Event) => any) | null;
     onerror: ((this: IDBTransaction, ev: Event) => any) | null;
+    /**
+     * Aborts the transaction. All pending requests will fail with
+     * a "AbortError" DOMException and all changes made to the database will be
+     * reverted.
+     */
     abort(): void;
+    /**
+     * Returns an IDBObjectStore in the transaction's scope.
+     */
     objectStore(name: string): IDBObjectStore;
     addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

@@ -12,7 +12,8 @@
     },
     "enums": {
         "enum": {
-            "ClientType": {}
+            "ClientType": {},
+            "RequestType": {}
         }
     },
     "interfaces": {

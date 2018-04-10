@@ -5,6 +5,7 @@ import { getEmptyWebIDL } from "./helpers";
 export function convert(text: string) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];
+    const includes: webidl2.IncludesType[] = [];
     const browser = getEmptyWebIDL();
     for (const rootType of rootTypes) {
         if (rootType.type === "interface") {
@@ -35,8 +36,11 @@ export function convert(text: string) {
         else if (rootType.type === "typedef") {
             browser.typedefs!.typedef.push(convertTypedef(rootType));
         }
+        else if (rootType.type === "includes") {
+            includes.push(rootType);
+        }
     }
-    return { browser, partialInterfaces };
+    return { browser, partialInterfaces, includes };
 }
 
 function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {
@@ -72,7 +76,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         constants: { constant: {} },
         methods: { method: {} },
         properties: { property: {} },
-        constructor: getConstructor(i.extAttrs, i.name), // TODO: implement this
+        constructor: getConstructor(i.extAttrs, i.name),
         exposed: getExposure(i.extAttrs)
     };
     for (const member of i.members) {
@@ -91,6 +95,13 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
             else {
                 method[member.name] = operation;
             }
+        }
+        else if (member.type === "iterable") {
+            result.iterator = {
+                type: member.type,
+                readonly: member.readonly,
+                subtype: member.idlType.map(convertIdlType)
+            };
         }
     }
 
@@ -229,7 +240,7 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
     if (i.generic) {
         return {
             type: i.generic,
-            subtype: convertIdlType(i.idlType as webidl2.IDLTypeDescription),
+            subtype: Array.isArray(i.idlType) ? i.idlType.map(convertIdlType) : convertIdlType(i.idlType),
             nullable: i.nullable ? 1 : undefined
         };
     }

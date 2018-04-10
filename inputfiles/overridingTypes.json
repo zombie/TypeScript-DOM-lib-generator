@@ -152,16 +152,7 @@
                 "properties": {
                     "property": {
                         "relList": {
-                            "content-attribute-value-syntax": "space_separated_enums",
-                            "content-attribute-enum-values": "alternate appendix bookmark chapter contents copyright dns-prefetch entry-content feedurl glossary help index next prefetch preload prev section start subsection",
-                            "content-attribute-reflects": 1,
-                            "content-attribute": "rel",
-                            "type-original": "DOMTokenList",
-                            "put-forwards": "value",
-                            "same-object": 1,
                             "read-only": 1,
-                            "exposed": "Window",
-                            "specs": "html5",
                             "name": "relList",
                             "type": "DOMTokenList"
                         }
@@ -173,16 +164,7 @@
                 "properties": {
                     "property": {
                         "relList": {
-                            "content-attribute-value-syntax": "space_separated_enums",
-                            "content-attribute-enum-values": "alternate appendix bookmark chapter contents copyright dns-prefetch entry-content feedurl glossary help index next prefetch preload prev section start subsection",
-                            "content-attribute-reflects": 1,
-                            "content-attribute": "rel",
-                            "type-original": "DOMTokenList",
-                            "put-forwards": "value",
-                            "same-object": 1,
                             "read-only": 1,
-                            "exposed": "Window",
-                            "specs": "html5",
                             "name": "relList",
                             "type": "DOMTokenList"
                         }
@@ -194,16 +176,7 @@
                 "properties": {
                     "property": {
                         "relList": {
-                            "content-attribute-value-syntax": "space_separated_enums",
-                            "content-attribute-enum-values": "alternate appendix bookmark chapter contents copyright dns-prefetch entry-content feedurl glossary help index next offline prefetch preload prev search section start stylesheet subsection shortcut_icon",
-                            "content-attribute-reflects": 1,
-                            "content-attribute": "rel",
-                            "type-original": "DOMTokenList",
-                            "put-forwards": "value",
-                            "same-object": 1,
                             "read-only": 1,
-                            "exposed": "Window",
-                            "specs": "html5",
                             "name": "relList",
                             "type": "DOMTokenList"
                         }

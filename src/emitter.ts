@@ -293,21 +293,10 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         const subtypes = arrayify(obj.subtype).map(convertDomTypeToTsTypeWorker);
-        const subtypeString = subtypes.map(subtype => subtype.nullable ? makeNullable(subtype.name) : subtype.name);
-
-        let name: string;
-        if (type.name === "Array" && subtypeString.length) {
-            name = makeArrayType(subtypeString[0], obj);
-        }
-        else if (type.name === "record" && Array.isArray(subtypeString)) {
-            name = `{ [key: ${subtypeString[0]}]: ${subtypeString[1]} }`
-        }
-        else {
-            name = `${type.name}${subtypeString.length ? `<${subtypeString.join(", ")}>` : ""}`;
-        }
+        const subtypeString = subtypes.map(subtype => subtype.nullable ? makeNullable(subtype.name) : subtype.name).join(", ");
 
         return {
-            name,
+            name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString, obj) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
             nullable: type.nullable
         };
     }
@@ -343,11 +332,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMString":
             case "USVString": return "string";
             case "sequence": return "Array";
+            case "record": return "Record";
             case "FrozenArray": return "ReadonlyArray";
             case "WindowProxy": return "Window";
             case "any":
             case "boolean":
-            case "record":
             case "BufferSource":
             case "Date":
             case "Function":

@@ -2864,7 +2864,7 @@
                 "new-type": "InsertPosition"
             },
             {
-                "override-type": "Headers | string[][] | { [key: string]: string }",
+                "override-type": "Headers | string[][] | Record<string, string>",
                 "new-type": "HeadersInit"
             },
             {

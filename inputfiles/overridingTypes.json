@@ -147,6 +147,42 @@
     },
     "interfaces": {
         "interface": {
+            "HTMLAnchorElement": {
+                "name": "HTMLAnchorElement",
+                "properties": {
+                    "property": {
+                        "relList": {
+                            "read-only": 1,
+                            "name": "relList",
+                            "type": "DOMTokenList"
+                        }
+                    }
+                }
+            },
+            "HTMLAreaElement": {
+                "name": "HTMLAreaElement",
+                "properties": {
+                    "property": {
+                        "relList": {
+                            "read-only": 1,
+                            "name": "relList",
+                            "type": "DOMTokenList"
+                        }
+                    }
+                }
+            },
+            "HTMLLinkElement": {
+                "name": "HTMLLinkElement",
+                "properties": {
+                    "property": {
+                        "relList": {
+                            "read-only": 1,
+                            "name": "relList",
+                            "type": "DOMTokenList"
+                        }
+                    }
+                }
+            },
             "SourceBuffer": {
                 "specs": "media-source",
                 "name": "SourceBuffer",

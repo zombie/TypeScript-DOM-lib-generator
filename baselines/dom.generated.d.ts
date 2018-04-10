@@ -5177,6 +5177,7 @@ interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
      * Sets or retrieves the relationship between the object and the destination of the link.
      */
     rel: string;
+    readonly relList: DOMTokenList;
     /**
      * Sets or retrieves the relationship between the object and the destination of the link.
      */
@@ -5274,6 +5275,7 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
     /** @deprecated */
     noHref: boolean;
     rel: string;
+    readonly relList: DOMTokenList;
     /**
      * Sets or retrieves the shape of the object.
      */
@@ -6724,6 +6726,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
      * Sets or retrieves the relationship between the object and the destination of the link.
      */
     rel: string;
+    readonly relList: DOMTokenList;
     /**
      * Sets or retrieves the relationship between the object and the destination of the link.
      */

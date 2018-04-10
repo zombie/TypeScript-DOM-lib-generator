@@ -32,7 +32,7 @@ async function fetchIDL(source: IDLSource) {
         // IDL Index includes all IDL codes
         return last.textContent!.trim();
     }
-    
+
     return elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
 }
 

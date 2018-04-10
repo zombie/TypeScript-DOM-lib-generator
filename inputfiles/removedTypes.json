@@ -46,6 +46,13 @@
     },
     "dictionaries": {
         "dictionary": {
+            "RTCRtpContributingSource": {
+                "members": {
+                    "member": {
+                        "csrc": {}
+                    }
+                }
+            },
             "MediaTrackConstraintSet": {
                 "members": {
                     "member": {

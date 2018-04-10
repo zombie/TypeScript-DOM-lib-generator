@@ -42,5 +42,9 @@
     {
         "url": "https://heycam.github.io/webidl/",
         "title": "Web IDL"
+    },
+    {
+        "url": "https://w3c.github.io/webrtc-pc/",
+        "title": "WebRTC"
     }
 ]

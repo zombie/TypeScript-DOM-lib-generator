@@ -147,6 +147,20 @@
     },
     "interfaces": {
         "interface": {
+            "RTCIdentityProviderGlobalScope": {
+                "exposed": "RTCIdentityProviderGlobalScope",
+                "extends": "Object",
+                "name": "RTCIdentityProviderGlobalScope",
+                "properties": {
+                    "property": {
+                        "rtcIdentityProvider": {
+                            "read-only": 1,
+                            "name": "rtcIdentityProvider",
+                            "override-type": "RTCIdentityProviderRegistrar"
+                        }
+                    }
+                }
+            },
             "HTMLAnchorElement": {
                 "name": "HTMLAnchorElement",
                 "properties": {

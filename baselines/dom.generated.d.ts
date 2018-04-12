@@ -8445,17 +8445,17 @@ interface HkdfCtrParams extends Algorithm {
     label: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
-interface IDBArrayKey extends Array<number | string | Date | IDBArrayKey> {
+interface IDBArrayKey extends Array<IDBValidKey> {
 }
 
 interface IDBCursor {
     readonly direction: IDBCursorDirection;
-    readonly key: IDBKeyRange | number | string | Date | IDBArrayKey;
-    readonly primaryKey: any;
+    readonly key: IDBValidKey | IDBKeyRange;
+    readonly primaryKey: IDBValidKey | IDBKeyRange;
     readonly source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
-    continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void;
-    continuePrimaryKey(key: any, primaryKey: any): void;
+    continue(key?: IDBValidKey | IDBKeyRange): void;
+    continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void;
     delete(): IDBRequest;
     update(value: any): IDBRequest;
 }
@@ -8525,13 +8525,13 @@ interface IDBIndex {
     name: string;
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
-    count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    getAll(query?: any, count?: number): IDBRequest;
-    getAllKeys(query?: any, count?: number): IDBRequest;
-    getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
-    openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    get(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getKey(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -8562,20 +8562,20 @@ interface IDBObjectStore {
     readonly keyPath: string | string[];
     name: string;
     readonly transaction: IDBTransaction;
-    add(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
     clear(): IDBRequest;
-    count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
-    delete(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
+    delete(key: IDBValidKey | IDBKeyRange): IDBRequest;
     deleteIndex(name: string): void;
-    get(query: any): IDBRequest;
-    getAll(query?: any, count?: number): IDBRequest;
-    getAllKeys(query?: any, count?: number): IDBRequest;
-    getKey(query: any): IDBRequest;
+    get(query: IDBValidKey | IDBKeyRange): IDBRequest;
+    getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getKey(query: IDBValidKey | IDBKeyRange): IDBRequest;
     index(name: string): IDBIndex;
-    openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
-    openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
-    put(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
 }
 
 declare var IDBObjectStore: {
@@ -16417,7 +16417,7 @@ type ScrollRestoration = "auto" | "manual";
 type FormDataEntryValue = string | File;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
-type IDBValidKey = number | string | Date | IDBArrayKey;
+type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
 type MutationRecordType = "attributes" | "characterData" | "childList";
 type AAGUID = string;

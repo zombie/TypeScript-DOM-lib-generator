@@ -824,6 +824,11 @@
                 },
                 "no-interface-object": "1"
             },
+            "IDBArrayKey": {
+                "name": "IDBArrayKey",
+                "extends": "Array<IDBValidKey>",
+                "no-interface-object": "1"
+            },
             "HTMLInputElement": {
                 "name": "HTMLInputElement",
                 "properties": {
@@ -2847,10 +2852,6 @@
             {
                 "override-type": "number | string | Date | BufferSource | IDBArrayKey",
                 "new-type": "IDBValidKey"
-            },
-            {
-                "override-type": "IDBValidKey[]",
-                "new-type": "IDBArrayKey"
             },
             {
                 "override-type": "string | Algorithm",

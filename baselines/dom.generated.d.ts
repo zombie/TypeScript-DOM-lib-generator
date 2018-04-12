@@ -8364,6 +8364,9 @@ interface HkdfCtrParams extends Algorithm {
     label: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
+interface IDBArrayKey extends Array<IDBValidKey> {
+}
+
 interface IDBCursor {
     readonly direction: IDBCursorDirection;
     readonly key: IDBValidKey | IDBKeyRange;
@@ -16175,7 +16178,6 @@ type FormDataEntryValue = string | File;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type IDBArrayKey = IDBValidKey[];
 type AlgorithmIdentifier = string | Algorithm;
 type MutationRecordType = "attributes" | "characterData" | "childList";
 type AAGUID = string;

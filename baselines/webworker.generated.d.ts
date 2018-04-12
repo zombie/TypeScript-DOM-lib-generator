@@ -673,6 +673,9 @@ declare var Headers: {
     new(init?: HeadersInit): Headers;
 };
 
+interface IDBArrayKey extends Array<IDBValidKey> {
+}
+
 interface IDBCursor {
     readonly direction: IDBCursorDirection;
     readonly key: IDBValidKey | IDBKeyRange;
@@ -1772,7 +1775,6 @@ type PerformanceEntryList = PerformanceEntry[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type FormDataEntryValue = string | File;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type IDBArrayKey = IDBValidKey[];
 type AlgorithmIdentifier = string | Algorithm;
 type AAGUID = string;
 type ByteString = string;

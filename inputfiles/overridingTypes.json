@@ -1314,13 +1314,13 @@
                 "name": "IDBCursor",
                 "properties": {
                     "property": {
-                        "source": {
-                            "name": "source",
-                            "override-type": "IDBObjectStore | IDBIndex"
-                        },
                         "key": {
                             "name": "key",
-                            "override-type": "IDBKeyRange | number | string | Date | IDBArrayKey"
+                            "override-type": "IDBValidKey | IDBKeyRange"
+                        },
+                        "primaryKey": {
+                            "name": "primaryKey",
+                            "override-type": "IDBValidKey | IDBKeyRange"
                         }
                     }
                 },
@@ -1329,7 +1329,13 @@
                         "continue": {
                             "name": "continue",
                             "override-signatures": [
-                                "continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void"
+                                "continue(key?: IDBValidKey | IDBKeyRange): void"
+                            ]
+                        },
+                        "continuePrimaryKey": {
+                            "name": "continuePrimaryKey",
+                            "override-signatures": [
+                                "continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void"
                             ]
                         }
                     }

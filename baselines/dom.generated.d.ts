@@ -8366,12 +8366,12 @@ interface HkdfCtrParams extends Algorithm {
 
 interface IDBCursor {
     readonly direction: IDBCursorDirection;
-    readonly key: IDBKeyRange | number | string | Date | IDBArrayKey;
-    readonly primaryKey: any;
+    readonly key: IDBValidKey | IDBKeyRange;
+    readonly primaryKey: IDBValidKey | IDBKeyRange;
     readonly source: IDBObjectStore | IDBIndex;
     advance(count: number): void;
-    continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void;
-    continuePrimaryKey(key: any, primaryKey: any): void;
+    continue(key?: IDBValidKey | IDBKeyRange): void;
+    continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void;
     delete(): IDBRequest;
     update(value: any): IDBRequest;
 }

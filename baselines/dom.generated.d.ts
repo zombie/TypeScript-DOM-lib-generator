@@ -843,7 +843,9 @@ interface MediaKeySystemMediaCapability {
 }
 
 interface MediaStreamConstraints {
+    audio?: boolean | MediaTrackConstraints;
     peerIdentity?: string;
+    video?: boolean | MediaTrackConstraints;
 }
 
 interface MediaStreamErrorEventInit extends EventInit {
@@ -1310,7 +1312,8 @@ interface RTCOfferAnswerOptions {
     voiceActivityDetection?: boolean;
 }
 
-interface RTCOfferOptions {
+interface RTCOfferOptions extends RTCOfferAnswerOptions {
+    iceRestart?: boolean;
     offerToReceiveAudio?: boolean;
     offerToReceiveVideo?: boolean;
 }

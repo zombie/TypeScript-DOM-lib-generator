@@ -5,6 +5,7 @@ import { getEmptyWebIDL } from "./helpers";
 export function convert(text: string) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];
+    const partialDictionaries: Browser.Dictionary[] = [];
     const includes: webidl2.IncludesType[] = [];
     const browser = getEmptyWebIDL();
     for (const rootType of rootTypes) {
@@ -28,7 +29,13 @@ export function convert(text: string) {
                 = convertCallbackFunctions(rootType);
         }
         else if (rootType.type === "dictionary") {
-            browser.dictionaries!.dictionary[rootType.name] = convertDictionary(rootType);
+            const converted = convertDictionary(rootType);
+            if (rootType.partial) {
+                partialDictionaries.push(converted);
+            }
+            else {
+                browser.dictionaries!.dictionary[rootType.name] = converted;
+            }
         }
         else if (rootType.type === "enum") {
             browser.enums!.enum[rootType.name] = convertEnum(rootType);
@@ -40,7 +47,7 @@ export function convert(text: string) {
             includes.push(rootType);
         }
     }
-    return { browser, partialInterfaces, includes };
+    return { browser, partialInterfaces, partialDictionaries, includes };
 }
 
 function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {

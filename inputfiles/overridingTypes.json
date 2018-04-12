@@ -1841,31 +1841,38 @@
                     "property": {
                         "onloadstart": {
                             "name": "onloadstart",
-                            "event-handler": "loadstart"
+                            "event-handler": "loadstart",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onprogress": {
                             "name": "onprogress",
-                            "event-handler": "progress"
+                            "event-handler": "progress",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onabort": {
                             "name": "onabort",
-                            "event-handler": "abort"
+                            "event-handler": "abort",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onerror": {
                             "name": "onerror",
-                            "event-handler": "error"
+                            "event-handler": "error",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onload": {
                             "name": "onload",
-                            "event-handler": "load"
+                            "event-handler": "load",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "ontimeout": {
                             "name": "ontimeout",
-                            "event-handler": "timeout"
+                            "event-handler": "timeout",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onloadend": {
                             "name": "onloadend",
-                            "event-handler": "loadend"
+                            "event-handler": "loadend",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         }
                     }
                 },

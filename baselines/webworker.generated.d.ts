@@ -1673,13 +1673,13 @@ interface XMLHttpRequestEventTargetEventMap {
 }
 
 interface XMLHttpRequestEventTarget extends EventTarget {
-    onabort: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
-    onerror: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
-    onload: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
-    onloadend: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
-    onprogress: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
-    ontimeout: ((this: XMLHttpRequestEventTarget, ev: ProgressEvent) => any) | null;
+    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

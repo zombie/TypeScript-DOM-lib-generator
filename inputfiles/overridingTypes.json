@@ -1008,6 +1008,27 @@
                     ]
                 }
             },
+            "FormData": {
+                "name": "FormData",
+                "methods": {
+                    "method": {
+                        "append": {
+                            "name": "append",
+                            "flavor": "Web",
+                            "override-signatures": [
+                                "append(name: string, value: string | Blob, fileName?: string): void"
+                            ]
+                        },
+                        "set": {
+                            "name": "set",
+                            "flavor": "Web",
+                            "override-signatures": [
+                                "set(name: string, value: string | Blob, fileName?: string): void"
+                            ]
+                        }
+                    }
+                }
+            },
             "MessageEvent": {
                 "name": "MessageEvent",
                 "constructor": {

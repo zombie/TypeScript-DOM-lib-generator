@@ -844,6 +844,7 @@ interface MediaKeySystemMediaCapability {
 
 interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
+    peerIdentity?: string;
     video?: boolean | MediaTrackConstraints;
 }
 
@@ -1131,15 +1132,39 @@ interface QueuingStrategy {
     size?: WritableStreamChunkCallback;
 }
 
+interface RTCAnswerOptions extends RTCOfferAnswerOptions {
+}
+
+interface RTCCertificateExpiration {
+    expires?: number;
+}
+
 interface RTCConfiguration {
     bundlePolicy?: RTCBundlePolicy;
+    certificates?: RTCCertificate[];
+    iceCandidatePoolSize?: number;
     iceServers?: RTCIceServer[];
     iceTransportPolicy?: RTCIceTransportPolicy;
     peerIdentity?: string;
+    rtcpMuxPolicy?: RTCRtcpMuxPolicy;
 }
 
 interface RTCDTMFToneChangeEventInit extends EventInit {
-    tone?: string;
+    tone: string;
+}
+
+interface RTCDataChannelEventInit extends EventInit {
+    channel: RTCDataChannel;
+}
+
+interface RTCDataChannelInit {
+    id?: number;
+    maxPacketLifeTime?: number;
+    maxRetransmits?: number;
+    negotiated?: boolean;
+    ordered?: boolean;
+    priority?: RTCPriorityType;
+    protocol?: string;
 }
 
 interface RTCDtlsFingerprint {
@@ -1150,6 +1175,10 @@ interface RTCDtlsFingerprint {
 interface RTCDtlsParameters {
     fingerprints?: RTCDtlsFingerprint[];
     role?: RTCDtlsRole;
+}
+
+interface RTCErrorEventInit extends EventInit {
+    error?: RTCError | null;
 }
 
 interface RTCIceCandidateAttributes extends RTCStats {
@@ -1179,13 +1208,14 @@ interface RTCIceCandidateDictionary {
 
 interface RTCIceCandidateInit {
     candidate?: string;
-    sdpMLineIndex?: number;
-    sdpMid?: string;
+    sdpMLineIndex?: number | null;
+    sdpMid?: string | null;
+    usernameFragment?: string;
 }
 
 interface RTCIceCandidatePair {
-    local?: RTCIceCandidateDictionary;
-    remote?: RTCIceCandidateDictionary;
+    local?: RTCIceCandidate;
+    remote?: RTCIceCandidate;
 }
 
 interface RTCIceCandidatePairStats extends RTCStats {
@@ -1211,15 +1241,41 @@ interface RTCIceGatherOptions {
 }
 
 interface RTCIceParameters {
-    iceLite?: boolean | null;
     password?: string;
     usernameFragment?: string;
 }
 
 interface RTCIceServer {
-    credential?: string | null;
-    urls?: any;
-    username?: string | null;
+    credential?: string | RTCOAuthCredential;
+    credentialType?: RTCIceCredentialType;
+    urls: string | string[];
+    username?: string;
+}
+
+interface RTCIdentityAssertionResult {
+    assertion: string;
+    idp: RTCIdentityProviderDetails;
+}
+
+interface RTCIdentityProvider {
+    generateAssertion: GenerateAssertionCallback;
+    validateAssertion: ValidateAssertionCallback;
+}
+
+interface RTCIdentityProviderDetails {
+    domain: string;
+    protocol?: string;
+}
+
+interface RTCIdentityProviderOptions {
+    peerIdentity?: string;
+    protocol?: string;
+    usernameHint?: string;
+}
+
+interface RTCIdentityValidationResult {
+    contents: string;
+    identity: string;
 }
 
 interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
@@ -1247,11 +1303,19 @@ interface RTCMediaStreamTrackStats extends RTCStats {
     trackIdentifier?: string;
 }
 
-interface RTCOfferOptions {
-    iceRestart?: boolean;
-    offerToReceiveAudio?: number;
-    offerToReceiveVideo?: number;
+interface RTCOAuthCredential {
+    accessToken: string;
+    macKey: string;
+}
+
+interface RTCOfferAnswerOptions {
     voiceActivityDetection?: boolean;
+}
+
+interface RTCOfferOptions extends RTCOfferAnswerOptions {
+    iceRestart?: boolean;
+    offerToReceiveAudio?: boolean;
+    offerToReceiveVideo?: boolean;
 }
 
 interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
@@ -1261,8 +1325,16 @@ interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
     targetBitrate?: number;
 }
 
+interface RTCPeerConnectionIceErrorEventInit extends EventInit {
+    errorCode: number;
+    hostCandidate?: string;
+    statusText?: string;
+    url?: string;
+}
+
 interface RTCPeerConnectionIceEventInit extends EventInit {
-    candidate?: RTCIceCandidate;
+    candidate?: RTCIceCandidate | null;
+    url?: string | null;
 }
 
 interface RTCRTPStreamStats extends RTCStats {
@@ -1286,65 +1358,45 @@ interface RTCRtcpFeedback {
 
 interface RTCRtcpParameters {
     cname?: string;
-    mux?: boolean;
     reducedSize?: boolean;
-    ssrc?: number;
 }
 
 interface RTCRtpCapabilities {
     codecs?: RTCRtpCodecCapability[];
-    fecMechanisms?: string[];
-    headerExtensions?: RTCRtpHeaderExtension[];
+    headerExtensions?: RTCRtpHeaderExtensionCapability[];
 }
 
 interface RTCRtpCodecCapability {
+    channels?: number;
     clockRate?: number;
-    kind?: string;
-    maxSpatialLayers?: number;
-    maxTemporalLayers?: number;
-    maxptime?: number;
-    name?: string;
-    numChannels?: number;
-    options?: any;
-    parameters?: any;
-    preferredPayloadType?: number;
-    ptime?: number;
-    rtcpFeedback?: RTCRtcpFeedback[];
-    svcMultiStreamSupport?: boolean;
+    mimeType?: string;
+    sdpFmtpLine?: string;
 }
 
 interface RTCRtpCodecParameters {
+    channels?: number;
     clockRate?: number;
-    maxptime?: number;
-    name?: string;
-    numChannels?: number;
-    parameters?: any;
+    mimeType?: string;
     payloadType?: number;
-    ptime?: number;
-    rtcpFeedback?: RTCRtcpFeedback[];
+    sdpFmtpLine?: string;
 }
 
 interface RTCRtpContributingSource {
     audioLevel?: number;
-    csrc?: number;
-    timestamp?: number;
+    source: number;
+    timestamp: number;
 }
 
 interface RTCRtpEncodingParameters {
     active?: boolean;
     codecPayloadType?: number;
-    dependencyEncodingIds?: string[];
-    encodingId?: string;
-    fec?: RTCRtpFecParameters;
-    framerateScale?: number;
+    dtx?: RTCDtxStatus;
     maxBitrate?: number;
     maxFramerate?: number;
-    minQuality?: number;
-    priority?: number;
-    resolutionScale?: number;
-    rtx?: RTCRtpRtxParameters;
-    ssrc?: number;
-    ssrcRange?: RTCSsrcRange;
+    priority?: RTCPriorityType;
+    ptime?: number;
+    rid?: string;
+    scaleResolutionDownBy?: number;
 }
 
 interface RTCRtpFecParameters {
@@ -1359,10 +1411,14 @@ interface RTCRtpHeaderExtension {
     uri?: string;
 }
 
-interface RTCRtpHeaderExtensionParameters {
-    encrypt?: boolean;
-    id?: number;
+interface RTCRtpHeaderExtensionCapability {
     uri?: string;
+}
+
+interface RTCRtpHeaderExtensionParameters {
+    encrypted?: boolean;
+    id: number;
+    uri: string;
 }
 
 interface RTCRtpParameters {
@@ -1370,12 +1426,22 @@ interface RTCRtpParameters {
     degradationPreference?: RTCDegradationPreference;
     encodings?: RTCRtpEncodingParameters[];
     headerExtensions?: RTCRtpHeaderExtensionParameters[];
-    muxId?: string;
     rtcp?: RTCRtcpParameters;
+    transactionId?: string;
 }
 
 interface RTCRtpRtxParameters {
     ssrc?: number;
+}
+
+interface RTCRtpSynchronizationSource extends RTCRtpContributingSource {
+    voiceActivityFlag?: boolean;
+}
+
+interface RTCRtpTransceiverInit {
+    direction?: RTCRtpTransceiverDirection;
+    sendEncodings?: RTCRtpEncodingParameters[];
+    streams?: MediaStream[];
 }
 
 interface RTCRtpUnhandled {
@@ -1386,7 +1452,7 @@ interface RTCRtpUnhandled {
 
 interface RTCSessionDescriptionInit {
     sdp?: string;
-    type?: RTCSdpType;
+    type: RTCSdpType;
 }
 
 interface RTCSrtpKeyParam {
@@ -1410,13 +1476,23 @@ interface RTCSsrcRange {
 }
 
 interface RTCStats {
-    id?: string;
-    msType?: MSStatsType;
-    timestamp?: number;
-    type?: RTCStatsType;
+    id: string;
+    timestamp: number;
+    type: RTCStatsType;
+}
+
+interface RTCStatsEventInit {
+    report?: RTCStatsReport;
 }
 
 interface RTCStatsReport {
+}
+
+interface RTCTrackEventInit extends EventInit {
+    receiver: RTCRtpReceiver;
+    streams?: MediaStream[];
+    track: MediaStreamTrack;
+    transceiver: RTCRtpTransceiver;
 }
 
 interface RTCTransportStats extends RTCStats {
@@ -4521,12 +4597,17 @@ interface DocumentEvent {
     createEvent(eventInterface: "ProgressEvent"): ProgressEvent;
     createEvent(eventInterface: "PromiseRejectionEvent"): PromiseRejectionEvent;
     createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
+    createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
     createEvent(eventInterface: "RTCDtlsTransportStateChangedEvent"): RTCDtlsTransportStateChangedEvent;
+    createEvent(eventInterface: "RTCErrorEvent"): RTCErrorEvent;
     createEvent(eventInterface: "RTCIceCandidatePairChangedEvent"): RTCIceCandidatePairChangedEvent;
     createEvent(eventInterface: "RTCIceGathererEvent"): RTCIceGathererEvent;
     createEvent(eventInterface: "RTCIceTransportStateChangedEvent"): RTCIceTransportStateChangedEvent;
+    createEvent(eventInterface: "RTCPeerConnectionIceErrorEvent"): RTCPeerConnectionIceErrorEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCSsrcConflictEvent"): RTCSsrcConflictEvent;
+    createEvent(eventInterface: "RTCStatsEvent"): RTCStatsEvent;
+    createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
     createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
     createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
@@ -9301,10 +9382,12 @@ interface MediaStreamTrackEventMap {
 interface MediaStreamTrack extends EventTarget {
     enabled: boolean;
     readonly id: string;
+    readonly isolated: boolean;
     readonly kind: string;
     readonly label: string;
     readonly muted: boolean;
     onended: ((this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any) | null;
+    onisolationchange: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onoverconstrained: ((this: MediaStreamTrack, ev: MediaStreamErrorEvent) => any) | null;
     onunmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
@@ -10394,39 +10477,88 @@ declare var PushSubscriptionOptions: {
     new(): PushSubscriptionOptions;
 };
 
+interface RTCCertificate {
+    readonly expires: number;
+    getFingerprints(): RTCDtlsFingerprint[];
+}
+
+declare var RTCCertificate: {
+    prototype: RTCCertificate;
+    new(): RTCCertificate;
+    getSupportedAlgorithms(): AlgorithmIdentifier[];
+};
+
+interface RTCDTMFSender extends EventTarget {
+    readonly canInsertDTMF: boolean;
+    ontonechange: ((this: RTCDTMFSender, ev: Event) => any) | null;
+    readonly toneBuffer: string;
+    insertDTMF(tones: string, duration?: number, interToneGap?: number): void;
+}
+
+declare var RTCDTMFSender: {
+    prototype: RTCDTMFSender;
+    new(): RTCDTMFSender;
+};
+
 interface RTCDTMFToneChangeEvent extends Event {
     readonly tone: string;
 }
 
 declare var RTCDTMFToneChangeEvent: {
     prototype: RTCDTMFToneChangeEvent;
-    new(typeArg: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
+    new(type: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
 };
 
-interface RTCDtlsTransportEventMap {
-    "dtlsstatechange": RTCDtlsTransportStateChangedEvent;
-    "error": Event;
+interface RTCDataChannel extends EventTarget {
+    binaryType: string;
+    readonly bufferedAmount: number;
+    bufferedAmountLowThreshold: number;
+    readonly id: number | null;
+    readonly label: string;
+    readonly maxPacketLifeTime: number | null;
+    readonly maxRetransmits: number | null;
+    readonly negotiated: boolean;
+    onbufferedamountlow: ((this: RTCDataChannel, ev: Event) => any) | null;
+    onclose: ((this: RTCDataChannel, ev: Event) => any) | null;
+    onerror: ((this: RTCDataChannel, ev: Event) => any) | null;
+    onmessage: ((this: RTCDataChannel, ev: Event) => any) | null;
+    onopen: ((this: RTCDataChannel, ev: Event) => any) | null;
+    readonly ordered: boolean;
+    readonly priority: RTCPriorityType;
+    readonly protocol: string;
+    readonly readyState: RTCDataChannelState;
+    close(): void;
+    send(data: string): void;
+    send(data: Blob): void;
+    send(data: ArrayBuffer): void;
+    send(data: ArrayBufferView): void;
 }
 
-interface RTCDtlsTransport extends RTCStatsProvider {
-    ondtlsstatechange: ((this: RTCDtlsTransport, ev: RTCDtlsTransportStateChangedEvent) => any) | null;
+declare var RTCDataChannel: {
+    prototype: RTCDataChannel;
+    new(): RTCDataChannel;
+};
+
+interface RTCDataChannelEvent extends Event {
+    readonly channel: RTCDataChannel;
+}
+
+declare var RTCDataChannelEvent: {
+    prototype: RTCDataChannelEvent;
+    new(type: string, eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
+};
+
+interface RTCDtlsTransport extends EventTarget {
     onerror: ((this: RTCDtlsTransport, ev: Event) => any) | null;
+    onstatechange: ((this: RTCDtlsTransport, ev: Event) => any) | null;
     readonly state: RTCDtlsTransportState;
     readonly transport: RTCIceTransport;
-    getLocalParameters(): RTCDtlsParameters;
     getRemoteCertificates(): ArrayBuffer[];
-    getRemoteParameters(): RTCDtlsParameters | null;
-    start(remoteParameters: RTCDtlsParameters): void;
-    stop(): void;
-    addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDtlsTransport: {
     prototype: RTCDtlsTransport;
-    new(transport: RTCIceTransport): RTCDtlsTransport;
+    new(): RTCDtlsTransport;
 };
 
 interface RTCDtlsTransportStateChangedEvent extends Event {
@@ -10461,11 +10593,47 @@ declare var RTCDtmfSender: {
     new(sender: RTCRtpSender): RTCDtmfSender;
 };
 
+interface RTCError extends Error {
+    errorDetail: string;
+    httpRequestStatusCode: number;
+    message: string;
+    name: string;
+    receivedAlert: number | null;
+    sctpCauseCode: number;
+    sdpLineNumber: number;
+    sentAlert: number | null;
+}
+
+declare var RTCError: {
+    prototype: RTCError;
+    new(errorDetail?: string, message?: string): RTCError;
+};
+
+interface RTCErrorEvent extends Event {
+    readonly error: RTCError | null;
+}
+
+declare var RTCErrorEvent: {
+    prototype: RTCErrorEvent;
+    new(type: string, eventInitDict: RTCErrorEventInit): RTCErrorEvent;
+};
+
 interface RTCIceCandidate {
-    candidate: string | null;
-    sdpMLineIndex: number | null;
-    sdpMid: string | null;
-    toJSON(): any;
+    readonly candidate: string;
+    readonly component: RTCIceComponent | null;
+    readonly foundation: string | null;
+    readonly ip: string | null;
+    readonly port: number | null;
+    readonly priority: number | null;
+    readonly protocol: RTCIceProtocol | null;
+    readonly relatedAddress: string | null;
+    readonly relatedPort: number | null;
+    readonly sdpMLineIndex: number | null;
+    readonly sdpMid: string | null;
+    readonly tcpType: RTCIceTcpCandidateType | null;
+    readonly type: RTCIceCandidateType | null;
+    readonly usernameFragment: string | null;
+    toJSON(): RTCIceCandidateInit;
 }
 
 declare var RTCIceCandidate: {
@@ -10514,30 +10682,19 @@ declare var RTCIceGathererEvent: {
     new(): RTCIceGathererEvent;
 };
 
-interface RTCIceTransportEventMap {
-    "candidatepairchange": RTCIceCandidatePairChangedEvent;
-    "icestatechange": RTCIceTransportStateChangedEvent;
-}
-
-interface RTCIceTransport extends RTCStatsProvider {
+interface RTCIceTransport extends EventTarget {
     readonly component: RTCIceComponent;
-    readonly iceGatherer: RTCIceGatherer | null;
-    oncandidatepairchange: ((this: RTCIceTransport, ev: RTCIceCandidatePairChangedEvent) => any) | null;
-    onicestatechange: ((this: RTCIceTransport, ev: RTCIceTransportStateChangedEvent) => any) | null;
+    readonly gatheringState: RTCIceGathererState;
+    ongatheringstatechange: ((this: RTCIceTransport, ev: Event) => any) | null;
+    onselectedcandidatepairchange: ((this: RTCIceTransport, ev: Event) => any) | null;
+    onstatechange: ((this: RTCIceTransport, ev: Event) => any) | null;
     readonly role: RTCIceRole;
     readonly state: RTCIceTransportState;
-    addRemoteCandidate(remoteCandidate: RTCIceCandidateDictionary | RTCIceCandidateComplete): void;
-    createAssociatedTransport(): RTCIceTransport;
-    getNominatedCandidatePair(): RTCIceCandidatePair | null;
-    getRemoteCandidates(): RTCIceCandidateDictionary[];
+    getLocalCandidates(): RTCIceCandidate[];
+    getLocalParameters(): RTCIceParameters | null;
+    getRemoteCandidates(): RTCIceCandidate[];
     getRemoteParameters(): RTCIceParameters | null;
-    setRemoteCandidates(remoteCandidates: RTCIceCandidateDictionary[]): void;
-    start(gatherer: RTCIceGatherer, remoteParameters: RTCIceParameters, role?: RTCIceRole): void;
-    stop(): void;
-    addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    getSelectedCandidatePair(): RTCIceCandidatePair | null;
 }
 
 declare var RTCIceTransport: {
@@ -10554,129 +10711,179 @@ declare var RTCIceTransportStateChangedEvent: {
     new(): RTCIceTransportStateChangedEvent;
 };
 
-interface RTCPeerConnectionEventMap {
-    "addstream": MediaStreamEvent;
-    "icecandidate": RTCPeerConnectionIceEvent;
-    "iceconnectionstatechange": Event;
-    "icegatheringstatechange": Event;
-    "negotiationneeded": Event;
-    "removestream": MediaStreamEvent;
-    "signalingstatechange": Event;
+interface RTCIdentityAssertion {
+    idp: string;
+    name: string;
 }
+
+declare var RTCIdentityAssertion: {
+    prototype: RTCIdentityAssertion;
+    new(idp: string, name: string): RTCIdentityAssertion;
+};
+
+interface RTCIdentityProviderGlobalScope {
+    readonly rtcIdentityProvider: RTCIdentityProviderRegistrar;
+}
+
+declare var RTCIdentityProviderGlobalScope: {
+    prototype: RTCIdentityProviderGlobalScope;
+    new(): RTCIdentityProviderGlobalScope;
+};
+
+interface RTCIdentityProviderRegistrar {
+    register(idp: RTCIdentityProvider): void;
+}
+
+declare var RTCIdentityProviderRegistrar: {
+    prototype: RTCIdentityProviderRegistrar;
+    new(): RTCIdentityProviderRegistrar;
+};
 
 interface RTCPeerConnection extends EventTarget {
     readonly canTrickleIceCandidates: boolean | null;
+    readonly connectionState: RTCPeerConnectionState;
+    readonly currentLocalDescription: RTCSessionDescription | null;
+    readonly currentRemoteDescription: RTCSessionDescription | null;
     readonly iceConnectionState: RTCIceConnectionState;
     readonly iceGatheringState: RTCIceGatheringState;
+    readonly idpErrorInfo: string | null;
+    readonly idpLoginUrl: string | null;
     readonly localDescription: RTCSessionDescription | null;
-    onaddstream: ((this: RTCPeerConnection, ev: MediaStreamEvent) => any) | null;
-    onicecandidate: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any) | null;
+    onconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    ondatachannel: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    onicecandidate: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null;
     oniceconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    onremovestream: ((this: RTCPeerConnection, ev: MediaStreamEvent) => any) | null;
     onsignalingstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    onstatsended: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    ontrack: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    readonly peerIdentity: Promise<RTCIdentityAssertion>;
+    readonly pendingLocalDescription: RTCSessionDescription | null;
+    readonly pendingRemoteDescription: RTCSessionDescription | null;
     readonly remoteDescription: RTCSessionDescription | null;
+    readonly sctp: RTCSctpTransport | null;
     readonly signalingState: RTCSignalingState;
     addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate): Promise<void>;
-    addStream(stream: MediaStream): void;
+    addTrack(track: MediaStreamTrack, ...streams: MediaStream[]): RTCRtpSender;
+    addTransceiver(trackOrKind: MediaStreamTrack | string, init?: RTCRtpTransceiverInit): RTCRtpTransceiver;
     close(): void;
     createAnswer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
+    createDataChannel(label: string, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
     createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
     getConfiguration(): RTCConfiguration;
-    getLocalStreams(): MediaStream[];
-    getRemoteStreams(): MediaStream[];
-    getStats(selector: MediaStreamTrack | null, successCallback?: RTCStatsCallback, failureCallback?: RTCPeerConnectionErrorCallback): Promise<RTCStatsReport>;
-    getStreamById(streamId: string): MediaStream | null;
-    removeStream(stream: MediaStream): void;
+    getIdentityAssertion(): Promise<string>;
+    getReceivers(): RTCRtpReceiver[];
+    getSenders(): RTCRtpSender[];
+    getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
+    getTransceivers(): RTCRtpTransceiver[];
+    removeTrack(sender: RTCRtpSender): void;
+    setConfiguration(configuration: RTCConfiguration): void;
+    setIdentityProvider(provider: string, options?: RTCIdentityProviderOptions): void;
     setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>;
     setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
-    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCPeerConnection: {
     prototype: RTCPeerConnection;
-    new(configuration: RTCConfiguration): RTCPeerConnection;
+    new(configuration?: RTCConfiguration): RTCPeerConnection;
+    generateCertificate(keygenAlgorithm: AlgorithmIdentifier): Promise<RTCCertificate>;
+    getDefaultIceServers(): RTCIceServer[];
+};
+
+interface RTCPeerConnectionIceErrorEvent extends Event {
+    readonly errorCode: number;
+    readonly errorText: string;
+    readonly hostCandidate: string;
+    readonly url: string;
+}
+
+declare var RTCPeerConnectionIceErrorEvent: {
+    prototype: RTCPeerConnectionIceErrorEvent;
+    new(type: string, eventInitDict: RTCPeerConnectionIceErrorEventInit): RTCPeerConnectionIceErrorEvent;
 };
 
 interface RTCPeerConnectionIceEvent extends Event {
-    readonly candidate: RTCIceCandidate;
+    readonly candidate: RTCIceCandidate | null;
+    readonly url: string | null;
 }
 
 declare var RTCPeerConnectionIceEvent: {
     prototype: RTCPeerConnectionIceEvent;
-    new(type: string, eventInitDict: RTCPeerConnectionIceEventInit): RTCPeerConnectionIceEvent;
+    new(type: string, eventInitDict?: RTCPeerConnectionIceEventInit): RTCPeerConnectionIceEvent;
 };
 
-interface RTCRtpReceiverEventMap {
-    "error": Event;
-    "msdecodercapacitychange": Event;
-    "msdsh": Event;
-}
-
-interface RTCRtpReceiver extends RTCStatsProvider {
-    onerror: ((this: RTCRtpReceiver, ev: Event) => any) | null;
-    onmsdecodercapacitychange: ((this: RTCRtpReceiver, ev: Event) => any) | null;
-    onmsdsh: ((this: RTCRtpReceiver, ev: Event) => any) | null;
-    readonly rtcpTransport: RTCDtlsTransport;
-    readonly track: MediaStreamTrack | null;
-    readonly transport: RTCDtlsTransport | RTCSrtpSdesTransport;
+interface RTCRtpReceiver {
+    readonly rtcpTransport: RTCDtlsTransport | null;
+    readonly track: MediaStreamTrack;
+    readonly transport: RTCDtlsTransport | null;
     getContributingSources(): RTCRtpContributingSource[];
-    receive(parameters: RTCRtpParameters): void;
-    requestSendCSRC(csrc: number): void;
-    setTransport(transport: RTCDtlsTransport | RTCSrtpSdesTransport, rtcpTransport?: RTCDtlsTransport): void;
-    stop(): void;
-    addEventListener<K extends keyof RTCRtpReceiverEventMap>(type: K, listener: (this: RTCRtpReceiver, ev: RTCRtpReceiverEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCRtpReceiverEventMap>(type: K, listener: (this: RTCRtpReceiver, ev: RTCRtpReceiverEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    getParameters(): RTCRtpParameters;
+    getStats(): Promise<RTCStatsReport>;
+    getSynchronizationSources(): RTCRtpSynchronizationSource[];
 }
 
 declare var RTCRtpReceiver: {
     prototype: RTCRtpReceiver;
-    new(transport: RTCDtlsTransport | RTCSrtpSdesTransport, kind: string, rtcpTransport?: RTCDtlsTransport): RTCRtpReceiver;
-    getCapabilities(kind?: string): RTCRtpCapabilities;
+    new(): RTCRtpReceiver;
+    getCapabilities(kind: string): RTCRtpCapabilities;
 };
 
-interface RTCRtpSenderEventMap {
-    "error": Event;
-    "ssrcconflict": RTCSsrcConflictEvent;
-}
-
-interface RTCRtpSender extends RTCStatsProvider {
-    onerror: ((this: RTCRtpSender, ev: Event) => any) | null;
-    onssrcconflict: ((this: RTCRtpSender, ev: RTCSsrcConflictEvent) => any) | null;
-    readonly rtcpTransport: RTCDtlsTransport;
-    readonly track: MediaStreamTrack;
-    readonly transport: RTCDtlsTransport | RTCSrtpSdesTransport;
-    send(parameters: RTCRtpParameters): void;
-    setTrack(track: MediaStreamTrack): void;
-    setTransport(transport: RTCDtlsTransport | RTCSrtpSdesTransport, rtcpTransport?: RTCDtlsTransport): void;
-    stop(): void;
-    addEventListener<K extends keyof RTCRtpSenderEventMap>(type: K, listener: (this: RTCRtpSender, ev: RTCRtpSenderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCRtpSenderEventMap>(type: K, listener: (this: RTCRtpSender, ev: RTCRtpSenderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+interface RTCRtpSender {
+    readonly dtmf: RTCDTMFSender | null;
+    readonly rtcpTransport: RTCDtlsTransport | null;
+    readonly track: MediaStreamTrack | null;
+    readonly transport: RTCDtlsTransport | null;
+    getParameters(): RTCRtpParameters;
+    getStats(): Promise<RTCStatsReport>;
+    replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
+    setParameters(parameters?: RTCRtpParameters): Promise<void>;
 }
 
 declare var RTCRtpSender: {
     prototype: RTCRtpSender;
-    new(track: MediaStreamTrack, transport: RTCDtlsTransport | RTCSrtpSdesTransport, rtcpTransport?: RTCDtlsTransport): RTCRtpSender;
-    getCapabilities(kind?: string): RTCRtpCapabilities;
+    new(): RTCRtpSender;
+    getCapabilities(kind: string): RTCRtpCapabilities;
+};
+
+interface RTCRtpTransceiver {
+    readonly currentDirection: RTCRtpTransceiverDirection | null;
+    direction: RTCRtpTransceiverDirection;
+    readonly mid: string | null;
+    readonly receiver: RTCRtpReceiver;
+    readonly sender: RTCRtpSender;
+    readonly stopped: boolean;
+    setCodecPreferences(codecs: RTCRtpCodecCapability[]): void;
+    stop(): void;
+}
+
+declare var RTCRtpTransceiver: {
+    prototype: RTCRtpTransceiver;
+    new(): RTCRtpTransceiver;
+};
+
+interface RTCSctpTransport {
+    readonly maxMessageSize: number;
+    onstatechange: ((this: RTCSctpTransport, ev: Event) => any) | null;
+    readonly state: RTCSctpTransportState;
+    readonly transport: RTCDtlsTransport;
+}
+
+declare var RTCSctpTransport: {
+    prototype: RTCSctpTransport;
+    new(): RTCSctpTransport;
 };
 
 interface RTCSessionDescription {
-    sdp: string | null;
-    type: RTCSdpType | null;
+    readonly sdp: string;
+    readonly type: RTCSdpType;
     toJSON(): any;
 }
 
 declare var RTCSessionDescription: {
     prototype: RTCSessionDescription;
-    new(descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
+    new(descriptionInitDict: RTCSessionDescriptionInit): RTCSessionDescription;
 };
 
 interface RTCSrtpSdesTransportEventMap {
@@ -10707,6 +10914,15 @@ declare var RTCSsrcConflictEvent: {
     new(): RTCSsrcConflictEvent;
 };
 
+interface RTCStatsEvent extends Event {
+    readonly report: RTCStatsReport;
+}
+
+declare var RTCStatsEvent: {
+    prototype: RTCStatsEvent;
+    new(type: string, eventInitDict: RTCStatsEventInit): RTCStatsEvent;
+};
+
 interface RTCStatsProvider extends EventTarget {
     getStats(): Promise<RTCStatsReport>;
     msGetStats(): Promise<RTCStatsReport>;
@@ -10715,6 +10931,26 @@ interface RTCStatsProvider extends EventTarget {
 declare var RTCStatsProvider: {
     prototype: RTCStatsProvider;
     new(): RTCStatsProvider;
+};
+
+interface RTCStatsReport {
+}
+
+declare var RTCStatsReport: {
+    prototype: RTCStatsReport;
+    new(): RTCStatsReport;
+};
+
+interface RTCTrackEvent extends Event {
+    readonly receiver: RTCRtpReceiver;
+    readonly streams: ReadonlyArray<MediaStream>;
+    readonly track: MediaStreamTrack;
+    readonly transceiver: RTCRtpTransceiver;
+}
+
+declare var RTCTrackEvent: {
+    prototype: RTCTrackEvent;
+    new(type: string, eventInitDict: RTCTrackEventInit): RTCTrackEvent;
 };
 
 interface RandomSource {
@@ -15635,10 +15871,6 @@ declare var XSLTProcessor: {
 };
 
 interface webkitRTCPeerConnection extends RTCPeerConnection {
-    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: webkitRTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: webkitRTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var webkitRTCPeerConnection: {
@@ -15674,6 +15906,10 @@ interface FrameRequestCallback {
 
 interface FunctionStringCallback {
     (data: string): void;
+}
+
+interface GenerateAssertionCallback {
+    (contents: string, origin: string, options: RTCIdentityProviderOptions): Promise<RTCIdentityAssertionResult>;
 }
 
 interface IntersectionObserverCallback {
@@ -15717,15 +15953,19 @@ interface PositionErrorCallback {
 }
 
 interface RTCPeerConnectionErrorCallback {
-    (error: DOMError): void;
+    (error: DOMException): void;
 }
 
 interface RTCSessionDescriptionCallback {
-    (sdp: RTCSessionDescription): void;
+    (description: RTCSessionDescriptionInit): void;
 }
 
 interface RTCStatsCallback {
     (report: RTCStatsReport): void;
+}
+
+interface ValidateAssertionCallback {
+    (assertion: string, origin: string): Promise<RTCIdentityValidationResult>;
 }
 
 interface VoidFunction {
@@ -16260,21 +16500,30 @@ type PaymentShippingType = "shipping" | "delivery" | "pickup";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "granted" | "denied" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
+type RTCDataChannelState = "connecting" | "open" | "closing" | "closed";
 type RTCDegradationPreference = "maintain-framerate" | "maintain-resolution" | "balanced";
 type RTCDtlsRole = "auto" | "client" | "server";
-type RTCDtlsTransportState = "new" | "connecting" | "connected" | "closed";
+type RTCDtlsTransportState = "new" | "connecting" | "connected" | "closed" | "failed";
+type RTCDtxStatus = "disabled" | "enabled";
+type RTCErrorDetailType = "data-channel-failure" | "dtls-failure" | "fingerprint-failure" | "idp-bad-script-failure" | "idp-execution-failure" | "idp-load-failure" | "idp-need-login" | "idp-timeout" | "idp-tls-failure" | "idp-token-expired" | "idp-token-invalid" | "sctp-failure" | "sdp-syntax-error" | "hardware-encoder-not-available" | "hardware-encoder-error";
 type RTCIceCandidateType = "host" | "srflx" | "prflx" | "relay";
-type RTCIceComponent = "RTP" | "RTCP";
-type RTCIceConnectionState = "new" | "checking" | "connected" | "completed" | "failed" | "disconnected" | "closed";
+type RTCIceComponent = "rtp" | "rtcp";
+type RTCIceConnectionState = "new" | "checking" | "connected" | "completed" | "disconnected" | "failed" | "closed";
+type RTCIceCredentialType = "password" | "oauth";
 type RTCIceGatherPolicy = "all" | "nohost" | "relay";
 type RTCIceGathererState = "new" | "gathering" | "complete";
 type RTCIceGatheringState = "new" | "gathering" | "complete";
 type RTCIceProtocol = "udp" | "tcp";
 type RTCIceRole = "controlling" | "controlled";
 type RTCIceTcpCandidateType = "active" | "passive" | "so";
-type RTCIceTransportPolicy = "none" | "relay" | "all";
-type RTCIceTransportState = "new" | "checking" | "connected" | "completed" | "disconnected" | "closed";
-type RTCSdpType = "offer" | "pranswer" | "answer";
+type RTCIceTransportPolicy = "relay" | "all";
+type RTCIceTransportState = "new" | "checking" | "connected" | "completed" | "disconnected" | "failed" | "closed";
+type RTCPeerConnectionState = "new" | "connecting" | "connected" | "disconnected" | "failed" | "closed";
+type RTCPriorityType = "very-low" | "low" | "medium" | "high";
+type RTCRtcpMuxPolicy = "negotiate" | "require";
+type RTCRtpTransceiverDirection = "sendrecv" | "sendonly" | "recvonly" | "inactive";
+type RTCSctpTransportState = "new" | "connecting" | "connected" | "closed";
+type RTCSdpType = "offer" | "pranswer" | "answer" | "rollback";
 type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "have-local-pranswer" | "have-remote-pranswer" | "closed";
 type RTCStatsIceCandidatePairState = "frozen" | "waiting" | "inprogress" | "failed" | "succeeded" | "cancelled";
 type RTCStatsIceCandidateType = "host" | "serverreflexive" | "peerreflexive" | "relayed";

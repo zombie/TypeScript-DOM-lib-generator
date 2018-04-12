@@ -46,5 +46,9 @@
     {
         "url": "https://w3c.github.io/webrtc-pc/",
         "title": "WebRTC"
+    },
+    {
+        "url": "https://xhr.spec.whatwg.org/",
+        "title": "XMLHttpRequest"
     }
 ]

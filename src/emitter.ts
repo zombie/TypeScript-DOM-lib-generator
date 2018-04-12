@@ -227,26 +227,13 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
-        switch (i.name) {
-            case "XMLHttpRequest":
-                if (eName === "readystatechange") return "Event";
-                else return "ProgressEvent";
-
-            case "IDBDatabase":
-            case "IDBTransaction":
-            case "MSBaseReader":
-            case "XMLHttpRequestEventTarget":
-                if (eName === "abort") return "Event";
-
-            default:
-                if (i.events) {
-                    const event = i.events.event.find(e => e.name === eName);
-                    if (event && event.type) {
-                        return event.type;
-                    }
-                }
-                return eNameToEType[eName] || "Event";
+        if (i.events) {
+            const event = i.events.event.find(e => e.name === eName);
+            if (event && event.type) {
+                return event.type;
+            }
         }
+        return eNameToEType[eName] || "Event";
     }
 
     /// Determine if interface1 depends on interface2

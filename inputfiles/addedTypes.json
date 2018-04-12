@@ -1622,48 +1622,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "FormData": {
-                "name": "FormData",
-                "methods": {
-                    "method": {
-                        "delete": {
-                            "name": "delete",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "delete(name: string): void"
-                            ]
-                        },
-                        "get": {
-                            "name": "get",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "get(name: string): FormDataEntryValue | null"
-                            ]
-                        },
-                        "getAll": {
-                            "name": "getAll",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "getAll(name: string): FormDataEntryValue[]"
-                            ]
-                        },
-                        "has": {
-                            "name": "has",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "has(name: string): boolean"
-                            ]
-                        },
-                        "set": {
-                            "name": "set",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "set(name: string, value: string | Blob, fileName?: string): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "ValidityState": {
                 "name": "ValidityState",
                 "properties": {
@@ -2953,10 +2911,6 @@
             {
                 "override-type": "\"auto\" | \"manual\"",
                 "new-type": "ScrollRestoration"
-            },
-            {
-                "override-type": "string | File",
-                "new-type": "FormDataEntryValue"
             },
             {
                 "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",

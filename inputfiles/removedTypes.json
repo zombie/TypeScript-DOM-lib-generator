@@ -4,8 +4,10 @@
             "Function": {}
         }
     },
-    "mixin-interfaces": {
-        "interface": {}
+    "mixins": {
+        "mixin": {
+            "XMLHttpRequestEventTarget": {}
+        }
     },
     "callback-interfaces": {
         "interface": {}

@@ -8441,13 +8441,13 @@ interface IDBIndex {
     name: string;
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
-    count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    getAll(query?: any, count?: number): IDBRequest;
-    getAllKeys(query?: any, count?: number): IDBRequest;
-    getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
-    openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
-    openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    get(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getKey(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -8484,10 +8484,10 @@ interface IDBObjectStore {
     createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
     delete(key: IDBValidKey | IDBKeyRange): IDBRequest;
     deleteIndex(name: string): void;
-    get(query: any): IDBRequest;
-    getAll(query?: any, count?: number): IDBRequest;
-    getAllKeys(query?: any, count?: number): IDBRequest;
-    getKey(query: any): IDBRequest;
+    get(query: IDBValidKey | IDBKeyRange): IDBRequest;
+    getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    getKey(query: IDBValidKey | IDBKeyRange): IDBRequest;
     index(name: string): IDBIndex;
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
     openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;

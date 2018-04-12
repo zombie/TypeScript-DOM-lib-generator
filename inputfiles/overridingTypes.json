@@ -539,6 +539,30 @@
                             "override-signatures": [
                                 "put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
+                        },
+                        "get": {
+                            "name": "get",
+                            "override-signatures": [
+                                "get(query: IDBValidKey | IDBKeyRange): IDBRequest"
+                            ]
+                        },
+                        "getAll": {
+                            "name": "getAll",
+                            "override-signatures": [
+                                "getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
+                            ]
+                        },
+                        "getAllKeys": {
+                            "name": "getAllKeys",
+                            "override-signatures": [
+                                "getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
+                            ]
+                        },
+                        "getKey": {
+                            "name": "getKey",
+                            "override-signatures": [
+                                "getKey(query: IDBValidKey | IDBKeyRange): IDBRequest"
+                            ]
                         }
                     }
                 },
@@ -583,31 +607,43 @@
                         "openCursor": {
                             "name": "openCursor",
                             "override-signatures": [
-                                "openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest"
+                                "openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest"
                             ]
                         },
                         "openKeyCursor": {
                             "name": "openKeyCursor",
                             "override-signatures": [
-                                "openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest"
+                                "openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest"
                             ]
                         },
                         "count": {
                             "name": "count",
                             "override-signatures": [
-                                "count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "count(key?: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         },
                         "get": {
                             "name": "get",
                             "override-signatures": [
-                                "get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "get(key: IDBValidKey | IDBKeyRange): IDBRequest"
+                            ]
+                        },
+                        "getAll": {
+                            "name": "getAll",
+                            "override-signatures": [
+                                "getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
+                            ]
+                        },
+                        "getAllKeys": {
+                            "name": "getAllKeys",
+                            "override-signatures": [
+                                "getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
                             ]
                         },
                         "getKey": {
                             "name": "getKey",
                             "override-signatures": [
-                                "getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "getKey(key: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         }
                     }

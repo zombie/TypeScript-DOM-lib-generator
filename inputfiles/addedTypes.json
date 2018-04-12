@@ -332,17 +332,6 @@
                     }
                 }
             },
-            "IDBIndex": {
-                "name": "IDBIndex",
-                "properties": {
-                    "property": {
-                        "multiEntry": {
-                            "name": "multiEntry",
-                            "override-type": "boolean"
-                        }
-                    }
-                }
-            },
             "URLSearchParams": {
                 "name": "URLSearchParams",
                 "methods": {
@@ -815,17 +804,6 @@
                     }
                 }
             },
-            "IDBObjectStore": {
-                "name": "IDBObjectStore",
-                "properties": {
-                    "property": {
-                        "autoIncrement": {
-                            "name": "autoIncrement",
-                            "override-type": "boolean"
-                        }
-                    }
-                }
-            },
             "ClipboardEventInit": {
                 "flavor": "Web",
                 "name": "ClipboardEventInit",
@@ -844,11 +822,6 @@
                         }
                     }
                 },
-                "no-interface-object": "1"
-            },
-            "IDBArrayKey": {
-                "name": "IDBArrayKey",
-                "extends": "Array<number | string | Date | IDBArrayKey>",
                 "no-interface-object": "1"
             },
             "HTMLInputElement": {
@@ -2872,8 +2845,12 @@
                 "new-type": "OrientationLockType"
             },
             {
-                "override-type": "number | string | Date | IDBArrayKey",
+                "override-type": "number | string | Date | BufferSource | IDBArrayKey",
                 "new-type": "IDBValidKey"
+            },
+            {
+                "override-type": "IDBValidKey[]",
+                "new-type": "IDBArrayKey"
             },
             {
                 "override-type": "string | Algorithm",

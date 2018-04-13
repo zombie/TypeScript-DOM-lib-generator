@@ -48,13 +48,18 @@ function processComments(dom: JSDOM) {
         while (child) {
             const key = getKey(child.innerHTML);
             child = child.nextElementSibling;
-            if (key && child) {
+            const childKey = child && getKey(child.innerHTML);
+            if (key && child && (child === element.lastElementChild || !isNextKey(key, childKey))) {
                 result[key] = getCommentText(child.textContent!);
                 child = child.nextElementSibling;
             }
         }
     }
     return JSON.stringify(result, undefined, 4);
+}
+
+function isNextKey(k1: string, k2: string | null | undefined) {
+    return k2 && k1.split("-")[0] === k2.split("-")[0];
 }
 
 function getKey(s: string) {

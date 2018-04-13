@@ -956,6 +956,11 @@ interface IDBObjectStore {
      */
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Deletes all records in store.
+     * If successful, request's result will
+     * be undefined.
+     */
     clear(): IDBRequest;
     /**
      * Retrieves the number of records matching the
@@ -972,6 +977,11 @@ interface IDBObjectStore {
      * transaction.
      */
     createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
+    /**
+     * Deletes records in store with the given key or in the given key range in query.
+     * If successful, request's result will
+     * be undefined.
+     */
     delete(key: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Deletes the index in store with the given name.
@@ -1018,9 +1028,6 @@ interface IDBObjectStore {
      * null if there were no matching records.
      */
     openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
-    /**
-     * request = store . delete(query)
-     */
     put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
 }
 
@@ -1067,7 +1074,9 @@ interface IDBRequest extends EventTarget {
      */
     readonly readyState: IDBRequestReadyState;
     /**
-     * request = store . clear()
+     * When a request is completed, returns the result,
+     * or undefined if the request failed. Throws a
+     * "InvalidStateError" DOMException if the request is still pending.
      */
     readonly result: any;
     /**

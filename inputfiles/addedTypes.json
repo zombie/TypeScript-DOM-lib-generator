@@ -996,26 +996,6 @@
             },
             "IDBDatabase": {
                 "name": "IDBDatabase",
-                "properties": {
-                    "property": {
-                        "onabort": {
-                            "name": "onabort",
-                            "event-handler": "abort"
-                        },
-                        "onclose": {
-                            "name": "onclose",
-                            "event-handler": "close"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "event-handler": "error"
-                        },
-                        "onversionchange": {
-                            "name": "onversionchange",
-                            "event-handler": "versionchange"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1039,18 +1019,6 @@
             },
             "IDBOpenDBRequest": {
                 "name": "IDBOpenDBRequest",
-                "properties": {
-                    "property": {
-                        "onblocked": {
-                            "name": "onblocked",
-                            "event-handler": "blocked"
-                        },
-                        "onupgradeneeded": {
-                            "name": "onupgradeneeded",
-                            "event-handler": "upgradeneeded"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1066,18 +1034,6 @@
             },
             "IDBRequest": {
                 "name": "IDBRequest",
-                "properties": {
-                    "property": {
-                        "onerror": {
-                            "name": "onerror",
-                            "event-handler": "error"
-                        },
-                        "onsuccess": {
-                            "name": "onsuccess",
-                            "event-handler": "success"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1093,22 +1049,6 @@
             },
             "IDBTransaction": {
                 "name": "IDBRequest",
-                "properties": {
-                    "property": {
-                        "onabort": {
-                            "name": "onabort",
-                            "event-handler": "abort"
-                        },
-                        "oncomplete": {
-                            "name": "oncomplete",
-                            "event-handler": "complete"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "event-handler": "error"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1308,12 +1248,6 @@
             "Performance": {
                 "name": "Performance",
                 "properties": {
-                    "property": {
-                        "onresourcetimingbufferfull": {
-                            "name": "onresourcetimingbufferfull",
-                            "event-handler": "resourcetimingbufferfull"
-                        }
-                    },
                     "events": {
                         "event": [
                             {

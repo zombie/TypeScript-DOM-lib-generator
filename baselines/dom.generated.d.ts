@@ -9374,6 +9374,7 @@ declare var MediaStreamEvent: {
 
 interface MediaStreamTrackEventMap {
     "ended": MediaStreamErrorEvent;
+    "isolationchange": Event;
     "mute": Event;
     "overconstrained": MediaStreamErrorEvent;
     "unmute": Event;
@@ -10484,11 +10485,19 @@ declare var RTCCertificate: {
     getSupportedAlgorithms(): AlgorithmIdentifier[];
 };
 
+interface RTCDTMFSenderEventMap {
+    "tonechange": RTCDTMFToneChangeEvent;
+}
+
 interface RTCDTMFSender extends EventTarget {
     readonly canInsertDTMF: boolean;
-    ontonechange: ((this: RTCDTMFSender, ev: Event) => any) | null;
+    ontonechange: ((this: RTCDTMFSender, ev: RTCDTMFToneChangeEvent) => any) | null;
     readonly toneBuffer: string;
     insertDTMF(tones: string, duration?: number, interToneGap?: number): void;
+    addEventListener<K extends keyof RTCDTMFSenderEventMap>(type: K, listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCDTMFSenderEventMap>(type: K, listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDTMFSender: {
@@ -10505,6 +10514,14 @@ declare var RTCDTMFToneChangeEvent: {
     new(type: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
 };
 
+interface RTCDataChannelEventMap {
+    "bufferedamountlow": Event;
+    "close": Event;
+    "error": RTCErrorEvent;
+    "message": MessageEvent;
+    "open": Event;
+}
+
 interface RTCDataChannel extends EventTarget {
     binaryType: string;
     readonly bufferedAmount: number;
@@ -10516,8 +10533,8 @@ interface RTCDataChannel extends EventTarget {
     readonly negotiated: boolean;
     onbufferedamountlow: ((this: RTCDataChannel, ev: Event) => any) | null;
     onclose: ((this: RTCDataChannel, ev: Event) => any) | null;
-    onerror: ((this: RTCDataChannel, ev: Event) => any) | null;
-    onmessage: ((this: RTCDataChannel, ev: Event) => any) | null;
+    onerror: ((this: RTCDataChannel, ev: RTCErrorEvent) => any) | null;
+    onmessage: ((this: RTCDataChannel, ev: MessageEvent) => any) | null;
     onopen: ((this: RTCDataChannel, ev: Event) => any) | null;
     readonly ordered: boolean;
     readonly priority: RTCPriorityType;
@@ -10528,6 +10545,10 @@ interface RTCDataChannel extends EventTarget {
     send(data: Blob): void;
     send(data: ArrayBuffer): void;
     send(data: ArrayBufferView): void;
+    addEventListener<K extends keyof RTCDataChannelEventMap>(type: K, listener: (this: RTCDataChannel, ev: RTCDataChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCDataChannelEventMap>(type: K, listener: (this: RTCDataChannel, ev: RTCDataChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDataChannel: {
@@ -10544,12 +10565,21 @@ declare var RTCDataChannelEvent: {
     new(type: string, eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
 };
 
+interface RTCDtlsTransportEventMap {
+    "error": RTCErrorEvent;
+    "statechange": Event;
+}
+
 interface RTCDtlsTransport extends EventTarget {
-    onerror: ((this: RTCDtlsTransport, ev: Event) => any) | null;
+    onerror: ((this: RTCDtlsTransport, ev: RTCErrorEvent) => any) | null;
     onstatechange: ((this: RTCDtlsTransport, ev: Event) => any) | null;
     readonly state: RTCDtlsTransportState;
     readonly transport: RTCIceTransport;
     getRemoteCertificates(): ArrayBuffer[];
+    addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCDtlsTransport: {
@@ -10678,6 +10708,12 @@ declare var RTCIceGathererEvent: {
     new(): RTCIceGathererEvent;
 };
 
+interface RTCIceTransportEventMap {
+    "gatheringstatechange": Event;
+    "selectedcandidatepairchange": Event;
+    "statechange": Event;
+}
+
 interface RTCIceTransport extends EventTarget {
     readonly component: RTCIceComponent;
     readonly gatheringState: RTCIceGathererState;
@@ -10691,6 +10727,10 @@ interface RTCIceTransport extends EventTarget {
     getRemoteCandidates(): RTCIceCandidate[];
     getRemoteParameters(): RTCIceParameters | null;
     getSelectedCandidatePair(): RTCIceCandidatePair | null;
+    addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCIceTransport: {
@@ -10735,6 +10775,19 @@ declare var RTCIdentityProviderRegistrar: {
     new(): RTCIdentityProviderRegistrar;
 };
 
+interface RTCPeerConnectionEventMap {
+    "connectionstatechange": Event;
+    "datachannel": RTCDataChannelEvent;
+    "icecandidate": RTCPeerConnectionIceEvent;
+    "icecandidateerror": RTCPeerConnectionIceErrorEvent;
+    "iceconnectionstatechange": Event;
+    "icegatheringstatechange": Event;
+    "negotiationneeded": Event;
+    "signalingstatechange": Event;
+    "statsended": RTCStatsEvent;
+    "track": RTCTrackEvent;
+}
+
 interface RTCPeerConnection extends EventTarget {
     readonly canTrickleIceCandidates: boolean | null;
     readonly connectionState: RTCPeerConnectionState;
@@ -10746,15 +10799,15 @@ interface RTCPeerConnection extends EventTarget {
     readonly idpLoginUrl: string | null;
     readonly localDescription: RTCSessionDescription | null;
     onconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    ondatachannel: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    onicecandidate: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    ondatachannel: ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any) | null;
+    onicecandidate: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any) | null;
+    onicecandidateerror: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceErrorEvent) => any) | null;
     oniceconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onsignalingstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    onstatsended: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    ontrack: ((this: RTCPeerConnection, ev: Event) => any) | null;
+    onstatsended: ((this: RTCPeerConnection, ev: RTCStatsEvent) => any) | null;
+    ontrack: ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null;
     readonly peerIdentity: Promise<RTCIdentityAssertion>;
     readonly pendingLocalDescription: RTCSessionDescription | null;
     readonly pendingRemoteDescription: RTCSessionDescription | null;
@@ -10779,6 +10832,10 @@ interface RTCPeerConnection extends EventTarget {
     setIdentityProvider(provider: string, options?: RTCIdentityProviderOptions): void;
     setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>;
     setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
+    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCPeerConnection: {
@@ -10859,11 +10916,19 @@ declare var RTCRtpTransceiver: {
     new(): RTCRtpTransceiver;
 };
 
+interface RTCSctpTransportEventMap {
+    "statechange": Event;
+}
+
 interface RTCSctpTransport {
     readonly maxMessageSize: number;
     onstatechange: ((this: RTCSctpTransport, ev: Event) => any) | null;
     readonly state: RTCSctpTransportState;
     readonly transport: RTCDtlsTransport;
+    addEventListener<K extends keyof RTCSctpTransportEventMap>(type: K, listener: (this: RTCSctpTransport, ev: RTCSctpTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCSctpTransportEventMap>(type: K, listener: (this: RTCSctpTransport, ev: RTCSctpTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var RTCSctpTransport: {
@@ -15871,6 +15936,10 @@ declare var XSLTProcessor: {
 };
 
 interface webkitRTCPeerConnection extends RTCPeerConnection {
+    addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: webkitRTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: webkitRTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var webkitRTCPeerConnection: {

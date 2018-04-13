@@ -303,7 +303,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function makeArrayType(elementType: string, obj: Browser.Typed): string {
         if (obj.subtype && !Array.isArray(obj.subtype) && obj.subtype.type === "float") {
-            return "Float32Array";
+            return "number[] | Float32Array";
         }
 
         return elementType.includes("|") ? `(${elementType})[]` : `${elementType}[]`;

@@ -1082,8 +1082,8 @@ interface PeriodicWaveConstraints {
 }
 
 interface PeriodicWaveOptions extends PeriodicWaveConstraints {
-    imag?: Float32Array;
-    real?: Float32Array;
+    imag?: number[] | Float32Array;
+    real?: number[] | Float32Array;
 }
 
 interface PointerEventInit extends MouseEventInit {
@@ -1693,8 +1693,8 @@ interface VRDisplayEventInit extends EventInit {
 }
 
 interface VRLayer {
-    leftBounds?: Float32Array | null;
-    rightBounds?: Float32Array | null;
+    leftBounds?: number[] | Float32Array | null;
+    rightBounds?: number[] | Float32Array | null;
     source?: HTMLCanvasElement | null;
 }
 
@@ -1705,7 +1705,7 @@ interface VRStageParameters {
 }
 
 interface WaveShaperOptions extends AudioNodeOptions {
-    curve?: Float32Array;
+    curve?: number[] | Float32Array;
     oversample?: OverSampleType;
 }
 
@@ -2108,7 +2108,7 @@ interface AudioParam {
     linearRampToValueAtTime(value: number, endTime: number): AudioParam;
     setTargetAtTime(target: number, startTime: number, timeConstant: number): AudioParam;
     setValueAtTime(value: number, startTime: number): AudioParam;
-    setValueCurveAtTime(values: Float32Array, startTime: number, duration: number): AudioParam;
+    setValueCurveAtTime(values: number[] | Float32Array, startTime: number, duration: number): AudioParam;
 }
 
 declare var AudioParam: {

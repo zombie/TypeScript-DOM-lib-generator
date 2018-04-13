@@ -647,12 +647,12 @@ interface FormData {
     getAll(name: string): FormDataEntryValue[];
     has(name: string): boolean;
     set(name: string, value: string | Blob, fileName?: string): void;
+    forEach(callbackfn: (value: FormDataEntryValue, key: string, parent: FormData) => void, thisArg?: any): void;
 }
 
 declare var FormData: {
     prototype: FormData;
-    new(): FormData;
-    new(form: object): FormData;
+    new(form?: object): FormData;
 };
 
 interface GlobalFetch {
@@ -1172,12 +1172,11 @@ interface ProgressEvent extends Event {
     readonly lengthComputable: boolean;
     readonly loaded: number;
     readonly total: number;
-    initProgressEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, lengthComputableArg: boolean, loadedArg: number, totalArg: number): void;
 }
 
 declare var ProgressEvent: {
     prototype: ProgressEvent;
-    new(typeArg: string, eventInitDict?: ProgressEventInit): ProgressEvent;
+    new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
 };
 
 interface PushEvent extends ExtendableEvent {
@@ -1619,8 +1618,7 @@ interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     "readystatechange": Event;
 }
 
-interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
-    msCaching: string;
+interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
     readonly readyState: number;
     readonly response: any;
@@ -1635,12 +1633,12 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     withCredentials: boolean;
     abort(): void;
     getAllResponseHeaders(): string;
-    getResponseHeader(header: string): string | null;
-    msCachingEnabled(): boolean;
-    open(method: string, url: string, async?: boolean, user?: string | null, password?: string | null): void;
+    getResponseHeader(name: string): string | null;
+    open(method: string, url: string): void;
+    open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
     overrideMimeType(mime: string): void;
-    send(data?: any): void;
-    setRequestHeader(header: string, value: string): void;
+    send(body?: object | BodyInit): void;
+    setRequestHeader(name: string, value: string): void;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
     readonly LOADING: number;
@@ -1663,21 +1661,21 @@ declare var XMLHttpRequest: {
 };
 
 interface XMLHttpRequestEventTargetEventMap {
-    "abort": Event;
-    "error": ErrorEvent;
-    "load": Event;
+    "abort": ProgressEvent;
+    "error": ProgressEvent;
+    "load": ProgressEvent;
     "loadend": ProgressEvent;
-    "loadstart": Event;
+    "loadstart": ProgressEvent;
     "progress": ProgressEvent;
     "timeout": ProgressEvent;
 }
 
-interface XMLHttpRequestEventTarget {
-    onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onerror: ((this: XMLHttpRequest, ev: ErrorEvent) => any) | null;
-    onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
+interface XMLHttpRequestEventTarget extends EventTarget {
+    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1686,7 +1684,12 @@ interface XMLHttpRequestEventTarget {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
+declare var XMLHttpRequestEventTarget: {
+    prototype: XMLHttpRequestEventTarget;
+    new(): XMLHttpRequestEventTarget;
+};
+
+interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -1773,7 +1776,7 @@ type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStrea
 type RequestInfo = Request | string;
 type PerformanceEntryList = PerformanceEntry[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
-type FormDataEntryValue = string | File;
+type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
 type AAGUID = string;

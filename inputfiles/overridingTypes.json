@@ -1,41 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "XMLHttpRequestEventTarget": {
-                "name": "XMLHttpRequestEventTarget",
-                "properties": {
-                    "property": {
-                        "onload": {
-                            "name": "onload",
-                            "override-type": "(this: XMLHttpRequest, ev: Event) => any"
-                        },
-                        "onabort": {
-                            "name": "onabort",
-                            "override-type": "(this: XMLHttpRequest, ev: Event) => any"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "override-type": "(this: XMLHttpRequest, ev: ErrorEvent) => any"
-                        },
-                        "onloadend": {
-                            "name": "onloadend",
-                            "override-type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
-                        },
-                        "onloadstart": {
-                            "name": "onloadstart",
-                            "override-type": "(this: XMLHttpRequest, ev: Event) => any"
-                        },
-                        "onprogress": {
-                            "name": "onprogress",
-                            "override-type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
-                        },
-                        "ontimeout": {
-                            "name": "ontimeout",
-                            "override-type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
-                        }
-                    }
-                }
-            },
             "ElementTraversal": {
                 "name": "ElementTraversal",
                 "properties": {
@@ -1045,23 +1010,6 @@
             },
             "FormData": {
                 "name": "FormData",
-                "constructor": {
-                    "signature": [
-                        {
-                            "param-min-required": 0,
-                            "type": "FormData",
-                            "param": [
-                                {
-                                    "name": "form",
-                                    "type": "HTMLFormElement",
-                                    "type-original": "HTMLFormElement"
-                                }
-                            ],
-                            "type-original": "FormData"
-                        }
-                    ],
-                    "name": ""
-                },
                 "methods": {
                     "method": {
                         "append": {
@@ -1069,6 +1017,13 @@
                             "flavor": "Web",
                             "override-signatures": [
                                 "append(name: string, value: string | Blob, fileName?: string): void"
+                            ]
+                        },
+                        "set": {
+                            "name": "set",
+                            "flavor": "Web",
+                            "override-signatures": [
+                                "set(name: string, value: string | Blob, fileName?: string): void"
                             ]
                         }
                     }
@@ -1884,15 +1839,95 @@
             },
             "XMLHttpRequest": {
                 "name": "XMLHttpRequest",
-                "methods": {
-                    "method": {
-                        "send": {
-                            "name": "send",
-                            "override-signatures": [
-                                "send(data?: any): void"
-                            ]
+                "properties": {
+                    "property": {
+                        "onreadystatechange": {
+                            "name": "onreadystatechange",
+                            "event-handler": "readystatechange"
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "readystatechange",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "XMLHttpRequestEventTarget": {
+                "name": "XMLHttpRequestEventTarget",
+                "properties": {
+                    "property": {
+                        "onloadstart": {
+                            "name": "onloadstart",
+                            "event-handler": "loadstart",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onprogress": {
+                            "name": "onprogress",
+                            "event-handler": "progress",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onabort": {
+                            "name": "onabort",
+                            "event-handler": "abort",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onerror": {
+                            "name": "onerror",
+                            "event-handler": "error",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onload": {
+                            "name": "onload",
+                            "event-handler": "load",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "ontimeout": {
+                            "name": "ontimeout",
+                            "event-handler": "timeout",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onloadend": {
+                            "name": "onloadend",
+                            "event-handler": "loadend",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "loadstart",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "progress",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "abort",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "error",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "load",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "timeout",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "loadend",
+                            "type": "ProgressEvent"
+                        }
+                    ]
                 }
             },
             "FileReader": {

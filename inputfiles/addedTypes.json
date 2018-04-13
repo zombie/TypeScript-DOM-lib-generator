@@ -11,6 +11,30 @@
                         }
                     }
                 }
+            },
+            "ParentNode": {
+                "name": "ParentNode",
+                "flavor": "Web",
+                "properties": {
+                    "property": {
+                        "firstElementChild": {
+                            "name": "firstElementChild",
+                            "read-only": 1,
+                            "override-type": "Element | null"
+                        },
+                        "lastElementChild": {
+                            "name": "lastElementChild",
+                            "read-only": 1,
+                            "override-type": "Element | null"
+                        },
+                        "childElementCount": {
+                            "name": "childElementCount",
+                            "read-only": 1,
+                            "override-type": "number"
+                        }
+                    }
+                },
+                "no-interface-object": "1"
             }
         }
     },
@@ -1311,30 +1335,6 @@
                         }
                     }
                 }
-            },
-            "ParentNode": {
-                "name": "ParentNode",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "firstElementChild": {
-                            "name": "firstElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "lastElementChild": {
-                            "name": "lastElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "childElementCount": {
-                            "name": "childElementCount",
-                            "read-only": 1,
-                            "override-type": "number"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
             },
             "DocumentFragment": {
                 "name": "DocumentFragment",

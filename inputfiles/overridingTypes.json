@@ -1839,14 +1839,6 @@
             },
             "XMLHttpRequest": {
                 "name": "XMLHttpRequest",
-                "properties": {
-                    "property": {
-                        "onreadystatechange": {
-                            "name": "onreadystatechange",
-                            "event-handler": "readystatechange"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1862,37 +1854,30 @@
                     "property": {
                         "onloadstart": {
                             "name": "onloadstart",
-                            "event-handler": "loadstart",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onprogress": {
                             "name": "onprogress",
-                            "event-handler": "progress",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onabort": {
                             "name": "onabort",
-                            "event-handler": "abort",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onerror": {
                             "name": "onerror",
-                            "event-handler": "error",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onload": {
                             "name": "onload",
-                            "event-handler": "load",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "ontimeout": {
                             "name": "ontimeout",
-                            "event-handler": "timeout",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onloadend": {
                             "name": "onloadend",
-                            "event-handler": "loadend",
                             "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         }
                     }
@@ -2042,6 +2027,48 @@
                     }
                 }
             },
+            "RTCDataChannel": {
+                "name": "RTCDataChannel",
+                "events": {
+                    "event": [
+                        {
+                            "name": "open",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "bufferedamountlow",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "RTCErrorEvent"
+                        },
+                        {
+                            "name": "close",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "RTCDtlsTransport": {
+                "name": "RTCDtlsTransport",
+                "events": {
+                    "event": [
+                        {
+                            "name": "statechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "RTCErrorEvent"
+                        }
+                    ]
+                }
+            },
             "RTCPeerConnection": {
                 "name": "RTCPeerConnection",
                 "methods": {
@@ -2077,6 +2104,54 @@
                             ]
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "track",
+                            "type": "RTCTrackEvent"
+                        },
+                        {
+                            "name": "negotiationneeded",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "signalingstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "iceconnectionstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "icegatheringstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "icecandidate",
+                            "type": "RTCPeerConnectionIceEvent"
+                        },
+                        {
+                            "name": "connectionstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "icecandidateerror",
+                            "type": "RTCPeerConnectionIceErrorEvent"
+                        },
+                        {
+                            "name": "datachannel",
+                            "type": "RTCDataChannelEvent"
+                        },
+                        {
+                            "name": "isolationchange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "statsended",
+                            "type": "RTCStatsEvent"
+                        }
+                    ]
                 }
             },
             "Path2D": {
@@ -2098,6 +2173,21 @@
                             "deprecated": 1
                         }
                     }
+                }
+            },
+            "ServiceWorkerGlobalScope": {
+                "name": "ServiceWorkerGlobalScope",
+                "events": {
+                    "event": [
+                        {
+                            "name": "push",
+                            "type": "PushEvent"
+                        },
+                        {
+                            "name": "pushsubscriptionevent",
+                            "type": "PushSubscriptionChangeEvent"
+                        }
+                    ]
                 }
             }
         }

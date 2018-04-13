@@ -2189,6 +2189,29 @@
                         }
                     ]
                 }
+            },
+            "Notification": {
+                "name": "Notification",
+                "events": {
+                    "event": [
+                        {
+                            "name": "click",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "close",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "show",
+                            "type": "Event"
+                        }
+                    ]
+                }
             }
         }
     },

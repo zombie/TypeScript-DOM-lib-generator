@@ -227,26 +227,13 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
-        switch (i.name) {
-            case "XMLHttpRequest":
-                if (eName === "readystatechange") return "Event";
-                else return "ProgressEvent";
-
-            case "IDBDatabase":
-            case "IDBTransaction":
-            case "MSBaseReader":
-            case "XMLHttpRequestEventTarget":
-                if (eName === "abort") return "Event";
-
-            default:
-                if (i.events) {
-                    const event = i.events.event.find(e => e.name === eName);
-                    if (event && event.type) {
-                        return event.type;
-                    }
-                }
-                return eNameToEType[eName] || "Event";
+        if (i.events) {
+            const event = i.events.event.find(e => e.name === eName);
+            if (event && event.type) {
+                return event.type;
+            }
         }
+        return eNameToEType[eName] || "Event";
     }
 
     /// Determine if interface1 depends on interface2
@@ -292,8 +279,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
         }
 
-        const subtype = obj.subtype ? convertDomTypeToTsTypeWorker(obj.subtype) : undefined;
-        const subtypeString = subtype ? subtype.nullable ? makeNullable(subtype.name) : subtype.name : undefined;
+        const subtypes = arrayify(obj.subtype).map(convertDomTypeToTsTypeWorker);
+        const subtypeString = subtypes.map(subtype => subtype.nullable ? makeNullable(subtype.name) : subtype.name).join(", ");
 
         return {
             name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString, obj) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
@@ -301,12 +288,22 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         };
     }
 
-    function makeArrayType (elementType: string, obj: Browser.Typed): string {
-        if (obj.subtype && obj.subtype.type === "float") {
-            return "Float32Array";
+    function makeArrayType(elementType: string, obj: Browser.Typed): string {
+        if (obj.subtype && !Array.isArray(obj.subtype) && obj.subtype.type === "float") {
+            return "number[] | Float32Array";
         }
 
         return elementType.includes("|") ? `(${elementType})[]` : `${elementType}[]`;
+    }
+
+    function arrayify(obj: undefined | Browser.Typed | Browser.Typed[]) {
+        if (!obj) {
+            return [];
+        }
+        if (!Array.isArray(obj)) {
+            return [obj];
+        }
+        return obj;
     }
 
     function convertDomTypeToTsTypeSimple(objDomType: string): string {
@@ -322,6 +319,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMString":
             case "USVString": return "string";
             case "sequence": return "Array";
+            case "record": return "Record";
             case "FrozenArray": return "ReadonlyArray";
             case "WindowProxy": return "Window";
             case "any":
@@ -688,12 +686,31 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
+    // Emit forEach for iterators
+    function emitIteratorForEach(i: Browser.Interface) {
+        if (!i.iterator) {
+            return;
+        }
+        if (i.iterator.type === "iterable") {
+            const subtype = i.iterator.subtype.map(convertDomTypeToTsType);
+            const key = subtype.length > 1 ? subtype[0] : "number";
+            const value = subtype[subtype.length - 1];
+            printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${i.name}) => void, thisArg?: any): void;`);
+        }
+        else {
+            throw new Error(`Unsupported type ${i.iterator.type}`);
+        }
+    }
+
     /// Emit the properties and methods of a given interface
     function emitMembers(prefix: string, emitScope: EmitScope, i: Browser.Interface) {
         const conflictedMembers = extendConflictsBaseTypes[i.name] ? extendConflictsBaseTypes[i.name].memberNames : new Set();
         emitProperties(prefix, emitScope, i, conflictedMembers);
         const methodPrefix = prefix.startsWith("declare var") ? "declare function " : "";
         emitMethods(methodPrefix, emitScope, i, conflictedMembers);
+        if (emitScope === EmitScope.InstanceOnly) {
+            emitIteratorForEach(i);
+        }
     }
 
     /// Emit all members of every interfaces at the root level.

@@ -5,6 +5,8 @@ import { getEmptyWebIDL } from "./helpers";
 export function convert(text: string, commentMap: Record<string, string>) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];
+    const partialDictionaries: Browser.Dictionary[] = [];
+    const includes: webidl2.IncludesType[] = [];
     const browser = getEmptyWebIDL();
     for (const rootType of rootTypes) {
         if (rootType.type === "interface") {
@@ -28,7 +30,13 @@ export function convert(text: string, commentMap: Record<string, string>) {
             addComments(browser["callback-functions"]!["callback-function"][rootType.name], commentMap, rootType.name);
         }
         else if (rootType.type === "dictionary") {
-            browser.dictionaries!.dictionary[rootType.name] = convertDictionary(rootType, commentMap);
+            const converted = convertDictionary(rootType, commentMap);
+            if (rootType.partial) {
+                partialDictionaries.push(converted);
+            }
+            else {
+                browser.dictionaries!.dictionary[rootType.name] = converted;
+            }
         }
         else if (rootType.type === "enum") {
             browser.enums!.enum[rootType.name] = convertEnum(rootType);
@@ -36,8 +44,11 @@ export function convert(text: string, commentMap: Record<string, string>) {
         else if (rootType.type === "typedef") {
             browser.typedefs!.typedef.push(convertTypedef(rootType));
         }
+        else if (rootType.type === "includes") {
+            includes.push(rootType);
+        }
     }
-    return { browser, partialInterfaces };
+    return { browser, partialInterfaces, partialDictionaries, includes };
 }
 
 function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {
@@ -83,7 +94,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         constants: { constant: {} },
         methods: { method: {} },
         properties: { property: {} },
-        constructor: getConstructor(i.extAttrs, i.name), // TODO: implement this
+        constructor: getConstructor(i.extAttrs, i.name),
         exposed: getExposure(i.extAttrs)
     };
     for (const member of i.members) {
@@ -105,6 +116,13 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
                 method[member.name] = operation;
             }
             addComments(method[member.name], commentMap, i.name, member.name);
+        }
+        else if (member.type === "iterable") {
+            result.iterator = {
+                type: member.type,
+                readonly: member.readonly,
+                subtype: member.idlType.map(convertIdlType)
+            };
         }
     }
 
@@ -168,7 +186,8 @@ function convertAttribute(attribute: webidl2.AttributeMemberType): Browser.Prope
     return {
         name: attribute.name,
         ...convertIdlType(attribute.idlType),
-        "read-only": attribute.readonly ? 1 : undefined
+        "read-only": attribute.readonly ? 1 : undefined,
+        "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined
     }
 }
 
@@ -245,7 +264,7 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
     if (i.generic) {
         return {
             type: i.generic,
-            subtype: convertIdlType(i.idlType as webidl2.IDLTypeDescription),
+            subtype: Array.isArray(i.idlType) ? i.idlType.map(convertIdlType) : convertIdlType(i.idlType),
             nullable: i.nullable ? 1 : undefined
         };
     }

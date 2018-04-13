@@ -4,6 +4,10 @@
         "title": "Encoding"
     },
     {
+        "url": "https://fetch.spec.whatwg.org/",
+        "title": "Fetch"
+    },
+    {
         "url": "https://drafts.fxtf.org/geometry/",
         "title": "Geometry Interfaces"
     },
@@ -38,5 +42,13 @@
     {
         "url": "https://heycam.github.io/webidl/",
         "title": "Web IDL"
+    },
+    {
+        "url": "https://w3c.github.io/webrtc-pc/",
+        "title": "WebRTC"
+    },
+    {
+        "url": "https://xhr.spec.whatwg.org/",
+        "title": "XMLHttpRequest"
     }
 ]

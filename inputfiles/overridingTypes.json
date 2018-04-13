@@ -1,41 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "XMLHttpRequestEventTarget": {
-                "name": "XMLHttpRequestEventTarget",
-                "properties": {
-                    "property": {
-                        "onload": {
-                            "name": "onload",
-                            "override-type": "(this: XMLHttpRequest, ev: Event) => any"
-                        },
-                        "onabort": {
-                            "name": "onabort",
-                            "override-type": "(this: XMLHttpRequest, ev: Event) => any"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "override-type": "(this: XMLHttpRequest, ev: ErrorEvent) => any"
-                        },
-                        "onloadend": {
-                            "name": "onloadend",
-                            "override-type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
-                        },
-                        "onloadstart": {
-                            "name": "onloadstart",
-                            "override-type": "(this: XMLHttpRequest, ev: Event) => any"
-                        },
-                        "onprogress": {
-                            "name": "onprogress",
-                            "override-type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
-                        },
-                        "ontimeout": {
-                            "name": "ontimeout",
-                            "override-type": "(this: XMLHttpRequest, ev: ProgressEvent) => any"
-                        }
-                    }
-                }
-            },
             "ElementTraversal": {
                 "name": "ElementTraversal",
                 "properties": {
@@ -147,6 +112,56 @@
     },
     "interfaces": {
         "interface": {
+            "RTCIdentityProviderGlobalScope": {
+                "exposed": "RTCIdentityProviderGlobalScope",
+                "extends": "Object",
+                "name": "RTCIdentityProviderGlobalScope",
+                "properties": {
+                    "property": {
+                        "rtcIdentityProvider": {
+                            "read-only": 1,
+                            "name": "rtcIdentityProvider",
+                            "override-type": "RTCIdentityProviderRegistrar"
+                        }
+                    }
+                }
+            },
+            "HTMLAnchorElement": {
+                "name": "HTMLAnchorElement",
+                "properties": {
+                    "property": {
+                        "relList": {
+                            "read-only": 1,
+                            "name": "relList",
+                            "type": "DOMTokenList"
+                        }
+                    }
+                }
+            },
+            "HTMLAreaElement": {
+                "name": "HTMLAreaElement",
+                "properties": {
+                    "property": {
+                        "relList": {
+                            "read-only": 1,
+                            "name": "relList",
+                            "type": "DOMTokenList"
+                        }
+                    }
+                }
+            },
+            "HTMLLinkElement": {
+                "name": "HTMLLinkElement",
+                "properties": {
+                    "property": {
+                        "relList": {
+                            "read-only": 1,
+                            "name": "relList",
+                            "type": "DOMTokenList"
+                        }
+                    }
+                }
+            },
             "SourceBuffer": {
                 "specs": "media-source",
                 "name": "SourceBuffer",
@@ -468,40 +483,64 @@
                 "name": "IDBObjectStore",
                 "methods": {
                     "method": {
-                        "createIndex": {
-                            "name": "createIndex",
-                            "override-signatures": [
-                                "createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex"
-                            ]
-                        },
                         "openCursor": {
                             "name": "openCursor",
                             "override-signatures": [
-                                "openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest"
+                                "openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest"
+                            ]
+                        },
+                        "openKeyCursor": {
+                            "name": "openKeyCursor",
+                            "override-signatures": [
+                                "openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest"
                             ]
                         },
                         "add": {
                             "name": "add",
                             "override-signatures": [
-                                "add(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         },
                         "count": {
                             "name": "count",
                             "override-signatures": [
-                                "count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "count(key?: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         },
                         "delete": {
                             "name": "delete",
                             "override-signatures": [
-                                "delete(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "delete(key: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         },
                         "put": {
                             "name": "put",
                             "override-signatures": [
-                                "put(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest"
+                            ]
+                        },
+                        "get": {
+                            "name": "get",
+                            "override-signatures": [
+                                "get(query: IDBValidKey | IDBKeyRange): IDBRequest"
+                            ]
+                        },
+                        "getAll": {
+                            "name": "getAll",
+                            "override-signatures": [
+                                "getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
+                            ]
+                        },
+                        "getAllKeys": {
+                            "name": "getAllKeys",
+                            "override-signatures": [
+                                "getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
+                            ]
+                        },
+                        "getKey": {
+                            "name": "getKey",
+                            "override-signatures": [
+                                "getKey(query: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         }
                     }
@@ -547,31 +586,43 @@
                         "openCursor": {
                             "name": "openCursor",
                             "override-signatures": [
-                                "openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest"
+                                "openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest"
                             ]
                         },
                         "openKeyCursor": {
                             "name": "openKeyCursor",
                             "override-signatures": [
-                                "openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest"
+                                "openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest"
                             ]
                         },
                         "count": {
                             "name": "count",
                             "override-signatures": [
-                                "count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "count(key?: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         },
                         "get": {
                             "name": "get",
                             "override-signatures": [
-                                "get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "get(key: IDBValidKey | IDBKeyRange): IDBRequest"
+                            ]
+                        },
+                        "getAll": {
+                            "name": "getAll",
+                            "override-signatures": [
+                                "getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
+                            ]
+                        },
+                        "getAllKeys": {
+                            "name": "getAllKeys",
+                            "override-signatures": [
+                                "getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest"
                             ]
                         },
                         "getKey": {
                             "name": "getKey",
                             "override-signatures": [
-                                "getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest"
+                                "getKey(key: IDBValidKey | IDBKeyRange): IDBRequest"
                             ]
                         }
                     }
@@ -959,23 +1010,6 @@
             },
             "FormData": {
                 "name": "FormData",
-                "constructor": {
-                    "signature": [
-                        {
-                            "param-min-required": 0,
-                            "type": "FormData",
-                            "param": [
-                                {
-                                    "name": "form",
-                                    "type": "HTMLFormElement",
-                                    "type-original": "HTMLFormElement"
-                                }
-                            ],
-                            "type-original": "FormData"
-                        }
-                    ],
-                    "name": ""
-                },
                 "methods": {
                     "method": {
                         "append": {
@@ -983,6 +1017,13 @@
                             "flavor": "Web",
                             "override-signatures": [
                                 "append(name: string, value: string | Blob, fileName?: string): void"
+                            ]
+                        },
+                        "set": {
+                            "name": "set",
+                            "flavor": "Web",
+                            "override-signatures": [
+                                "set(name: string, value: string | Blob, fileName?: string): void"
                             ]
                         }
                     }
@@ -1242,13 +1283,13 @@
                 "name": "IDBCursor",
                 "properties": {
                     "property": {
-                        "source": {
-                            "name": "source",
-                            "override-type": "IDBObjectStore | IDBIndex"
-                        },
                         "key": {
                             "name": "key",
-                            "override-type": "IDBKeyRange | number | string | Date | IDBArrayKey"
+                            "override-type": "IDBValidKey | IDBKeyRange"
+                        },
+                        "primaryKey": {
+                            "name": "primaryKey",
+                            "override-type": "IDBValidKey | IDBKeyRange"
                         }
                     }
                 },
@@ -1257,7 +1298,13 @@
                         "continue": {
                             "name": "continue",
                             "override-signatures": [
-                                "continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void"
+                                "continue(key?: IDBValidKey | IDBKeyRange): void"
+                            ]
+                        },
+                        "continuePrimaryKey": {
+                            "name": "continuePrimaryKey",
+                            "override-signatures": [
+                                "continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void"
                             ]
                         }
                     }
@@ -1792,15 +1839,80 @@
             },
             "XMLHttpRequest": {
                 "name": "XMLHttpRequest",
-                "methods": {
-                    "method": {
-                        "send": {
-                            "name": "send",
-                            "override-signatures": [
-                                "send(data?: any): void"
-                            ]
+                "events": {
+                    "event": [
+                        {
+                            "name": "readystatechange",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "XMLHttpRequestEventTarget": {
+                "name": "XMLHttpRequestEventTarget",
+                "properties": {
+                    "property": {
+                        "onloadstart": {
+                            "name": "onloadstart",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onprogress": {
+                            "name": "onprogress",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onabort": {
+                            "name": "onabort",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onerror": {
+                            "name": "onerror",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onload": {
+                            "name": "onload",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "ontimeout": {
+                            "name": "ontimeout",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                        },
+                        "onloadend": {
+                            "name": "onloadend",
+                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "loadstart",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "progress",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "abort",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "error",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "load",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "timeout",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "loadend",
+                            "type": "ProgressEvent"
+                        }
+                    ]
                 }
             },
             "FileReader": {
@@ -1915,6 +2027,48 @@
                     }
                 }
             },
+            "RTCDataChannel": {
+                "name": "RTCDataChannel",
+                "events": {
+                    "event": [
+                        {
+                            "name": "open",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "bufferedamountlow",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "RTCErrorEvent"
+                        },
+                        {
+                            "name": "close",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "RTCDtlsTransport": {
+                "name": "RTCDtlsTransport",
+                "events": {
+                    "event": [
+                        {
+                            "name": "statechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "RTCErrorEvent"
+                        }
+                    ]
+                }
+            },
             "RTCPeerConnection": {
                 "name": "RTCPeerConnection",
                 "methods": {
@@ -1950,6 +2104,54 @@
                             ]
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "track",
+                            "type": "RTCTrackEvent"
+                        },
+                        {
+                            "name": "negotiationneeded",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "signalingstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "iceconnectionstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "icegatheringstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "icecandidate",
+                            "type": "RTCPeerConnectionIceEvent"
+                        },
+                        {
+                            "name": "connectionstatechange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "icecandidateerror",
+                            "type": "RTCPeerConnectionIceErrorEvent"
+                        },
+                        {
+                            "name": "datachannel",
+                            "type": "RTCDataChannelEvent"
+                        },
+                        {
+                            "name": "isolationchange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "statsended",
+                            "type": "RTCStatsEvent"
+                        }
+                    ]
                 }
             },
             "Path2D": {
@@ -1971,6 +2173,21 @@
                             "deprecated": 1
                         }
                     }
+                }
+            },
+            "ServiceWorkerGlobalScope": {
+                "name": "ServiceWorkerGlobalScope",
+                "events": {
+                    "event": [
+                        {
+                            "name": "push",
+                            "type": "PushEvent"
+                        },
+                        {
+                            "name": "pushsubscriptionevent",
+                            "type": "PushSubscriptionChangeEvent"
+                        }
+                    ]
                 }
             }
         }

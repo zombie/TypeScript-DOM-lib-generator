@@ -142,7 +142,7 @@ interface PushSubscriptionOptionsInit {
 }
 
 interface RequestInit {
-    body?: Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | FormData | string | null;
+    body?: BodyInit | null;
     cache?: RequestCache;
     credentials?: RequestCredentials;
     headers?: HeadersInit;
@@ -153,7 +153,7 @@ interface RequestInit {
     redirect?: RequestRedirect;
     referrer?: string;
     referrerPolicy?: ReferrerPolicy;
-    signal?: object;
+    signal?: object | null;
     window?: any;
 }
 
@@ -218,6 +218,7 @@ interface BlobPropertyBag {
 }
 
 interface Body {
+    readonly body: ReadableStream | null;
     readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -646,12 +647,12 @@ interface FormData {
     getAll(name: string): FormDataEntryValue[];
     has(name: string): boolean;
     set(name: string, value: string | Blob, fileName?: string): void;
+    forEach(callbackfn: (value: FormDataEntryValue, key: string, parent: FormData) => void, thisArg?: any): void;
 }
 
 declare var FormData: {
     prototype: FormData;
-    new(): FormData;
-    new(form: object): FormData;
+    new(form?: object): FormData;
 };
 
 interface GlobalFetch {
@@ -661,10 +662,10 @@ interface GlobalFetch {
 interface Headers {
     append(name: string, value: string): void;
     delete(name: string): void;
-    forEach(callback: Function, thisArg?: any): void;
     get(name: string): string | null;
     has(name: string): boolean;
     set(name: string, value: string): void;
+    forEach(callbackfn: (value: string, key: string, parent: Headers) => void, thisArg?: any): void;
 }
 
 declare var Headers: {
@@ -672,7 +673,7 @@ declare var Headers: {
     new(init?: HeadersInit): Headers;
 };
 
-interface IDBArrayKey extends Array<number | string | Date | IDBArrayKey> {
+interface IDBArrayKey extends Array<IDBValidKey> {
 }
 
 interface IDBCursor {
@@ -685,12 +686,12 @@ interface IDBCursor {
      * Returns the key of the cursor.
      * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
-    readonly key: IDBKeyRange | number | string | Date | IDBArrayKey;
+    readonly key: IDBValidKey | IDBKeyRange;
     /**
      * Returns the effective key of the cursor.
      * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
-    readonly primaryKey: any;
+    readonly primaryKey: IDBValidKey | IDBKeyRange;
     /**
      * Returns the IDBObjectStore or IDBIndex the cursor was opened from.
      */
@@ -704,12 +705,12 @@ interface IDBCursor {
      * Advances the cursor to the next record in range matching or
      * after key.
      */
-    continue(key?: IDBKeyRange | number | string | Date | IDBArrayKey): void;
+    continue(key?: IDBValidKey | IDBKeyRange): void;
     /**
      * Advances the cursor to the next record in range matching
      * or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
      */
-    continuePrimaryKey(key: any, primaryKey: any): void;
+    continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void;
     /**
      * Delete the record pointed at by the cursor with a new value.
      * If successful, request's result will be undefined.
@@ -842,40 +843,40 @@ interface IDBIndex {
      * If successful, request's result will be the
      * count.
      */
-    count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Retrieves the value of the first record matching the
      * given key or key range in query.
      * If successful, request's result will be the value, or undefined if there was no matching record.
      */
-    get(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    get(key: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Retrieves the values of the records matching the given key or key range in query (up to count if given).
      * If successful, request's result will be an Array of the values.
      */
-    getAll(query?: any, count?: number): IDBRequest;
+    getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
     /**
      * Retrieves the keys of records matching the given key or key range in query (up to count if given).
      * If successful, request's result will be an Array of the keys.
      */
-    getAllKeys(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
     /**
      * Retrieves the key of the first record matching the
      * given key or key range in query.
      * If successful, request's result will be the key, or undefined if there was no matching record.
      */
-    getKey(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    getKey(key: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Opens a cursor over the records matching query,
      * ordered by direction. If query is null, all records in index are matched.
      * If successful, request's result will be an IDBCursorWithValue, or null if there were no matching records.
      */
-    openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
     /**
      * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
      * If successful, request's result will be an IDBCursor, or null if there were no matching records.
      */
-    openKeyCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
 }
 
 declare var IDBIndex: {
@@ -954,14 +955,14 @@ interface IDBObjectStore {
      * Returns the associated transaction.
      */
     readonly transaction: IDBTransaction;
-    add(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
     clear(): IDBRequest;
     /**
      * Retrieves the number of records matching the
      * given key or key range in query.
      * If successful, request's result will be the count.
      */
-    count(key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be
      * satisfied with the data already in store the upgrade
@@ -970,8 +971,8 @@ interface IDBObjectStore {
      * Throws an "InvalidStateError" DOMException if not called within an upgrade
      * transaction.
      */
-    createIndex(name: string, keyPath: string | string[], optionalParameters?: IDBIndexParameters): IDBIndex;
-    delete(key: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
+    delete(key: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Deletes the index in store with the given name.
      * Throws an "InvalidStateError" DOMException if not called within an upgrade
@@ -983,44 +984,44 @@ interface IDBObjectStore {
      * given key or key range in query.
      * If successful, request's result will be the value, or undefined if there was no matching record.
      */
-    get(query: any): IDBRequest;
+    get(query: IDBValidKey | IDBKeyRange): IDBRequest;
     /**
      * Retrieves the values of the records matching the
      * given key or key range in query (up to count if given).
      * If successful, request's result will
      * be an Array of the values.
      */
-    getAll(query?: any, count?: number): IDBRequest;
+    getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
     /**
      * Retrieves the keys of records matching the
      * given key or key range in query (up to count if given).
      * If successful, request's result will
      * be an Array of the keys.
      */
-    getAllKeys(query?: any, count?: number): IDBRequest;
+    getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
     /**
      * Retrieves the key of the first record matching the
      * given key or key range in query.
      * If successful, request's result will be the key, or undefined if there was no matching record.
      */
-    getKey(query: any): IDBRequest;
+    getKey(query: IDBValidKey | IDBKeyRange): IDBRequest;
     index(name: string): IDBIndex;
     /**
      * Opens a cursor over the records matching query,
      * ordered by direction. If query is null, all records in store are matched.
      * If successful, request's result will be an IDBCursorWithValue pointing at the first matching record, or null if there were no matching records.
      */
-    openCursor(range?: IDBKeyRange | number | string | Date | IDBArrayKey, direction?: IDBCursorDirection): IDBRequest;
+    openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
     /**
      * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
      * If successful, request's result will be an IDBCursor pointing at the first matching record, or
      * null if there were no matching records.
      */
-    openKeyCursor(query?: any, direction?: IDBCursorDirection): IDBRequest;
+    openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
     /**
      * request = store . delete(query)
      */
-    put(value: any, key?: IDBKeyRange | number | string | Date | IDBArrayKey): IDBRequest;
+    put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
 }
 
 declare var IDBObjectStore: {
@@ -1436,12 +1437,11 @@ interface ProgressEvent extends Event {
     readonly lengthComputable: boolean;
     readonly loaded: number;
     readonly total: number;
-    initProgressEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, lengthComputableArg: boolean, loadedArg: number, totalArg: number): void;
 }
 
 declare var ProgressEvent: {
     prototype: ProgressEvent;
-    new(typeArg: string, eventInitDict?: ProgressEventInit): ProgressEvent;
+    new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
 };
 
 interface PushEvent extends ExtendableEvent {
@@ -1534,35 +1534,88 @@ declare var ReadableStreamReader: {
 };
 
 interface Request extends Body {
+    /**
+     * Returns the cache mode associated with request, which is a string indicating
+     * how the the request will interact with the browser's cache when fetching.
+     */
     readonly cache: RequestCache;
+    /**
+     * Returns the credentials mode associated with request, which is a string
+     * indicating whether credentials will be sent with the request always, never, or only when sent to a
+     * same-origin URL.
+     */
     readonly credentials: RequestCredentials;
+    /**
+     * Returns the kind of resource requested by request, e.g., "document" or
+     * "script".
+     */
     readonly destination: RequestDestination;
+    /**
+     * Returns a Headers object consisting of the headers associated with request.
+     * Note that headers added in the network layer by the user agent will not be accounted for in this
+     * object, e.g., the "Host" header.
+     */
     readonly headers: Headers;
+    /**
+     * Returns request's subresource integrity metadata, which is a cryptographic hash of
+     * the resource being fetched. Its value may consist of multiple hashes separated by whitespace. [SRI]
+     */
     readonly integrity: string;
+    /**
+     * Returns a boolean indicating whether or not request can outlive the global in which
+     * it was created.
+     */
     readonly keepalive: boolean;
+    /**
+     * Returns request's HTTP method, which is "GET" by default.
+     */
     readonly method: string;
+    /**
+     * Returns the mode associated with request, which is a string indicating
+     * whether the request will use CORS, or will be restricted to same-origin URLs.
+     */
     readonly mode: RequestMode;
+    /**
+     * Returns the redirect mode associated with request, which is a string
+     * indicating how redirects for the request will be handled during fetching. A request will follow redirects by default.
+     */
     readonly redirect: RequestRedirect;
+    /**
+     * Returns the referrer of request. Its value can be a same-origin URL if
+     * explicitly set in init, the empty string to indicate no referrer, and
+     * "about:client" when defaulting to the global's default. This is used during
+     * fetching to determine the value of the `Referer` header of the request being made.
+     */
     readonly referrer: string;
+    /**
+     * Returns the referrer policy associated with request. This is used during
+     * fetching to compute the value of the request's referrer.
+     */
     readonly referrerPolicy: ReferrerPolicy;
-    readonly signal: object | null;
-    readonly type: RequestType;
+    /**
+     * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort
+     * event handler.
+     */
+    readonly signal: object;
+    /**
+     * Returns the URL of request as a string.
+     */
     readonly url: string;
     clone(): Request;
 }
 
 declare var Request: {
     prototype: Request;
-    new(input: Request | string, init?: RequestInit): Request;
+    new(input: RequestInfo, init?: RequestInit): Request;
 };
 
 interface Response extends Body {
-    readonly body: ReadableStream | null;
     readonly headers: Headers;
     readonly ok: boolean;
     readonly redirected: boolean;
     readonly status: number;
     readonly statusText: string;
+    readonly trailer: Promise<Headers>;
     readonly type: ResponseType;
     readonly url: string;
     clone(): Response;
@@ -1570,7 +1623,7 @@ interface Response extends Body {
 
 declare var Response: {
     prototype: Response;
-    new(body?: Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | FormData | string | null, init?: ResponseInit): Response;
+    new(body?: BodyInit | null, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string, status?: number): Response;
 };
@@ -1884,28 +1937,95 @@ interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     "readystatechange": Event;
 }
 
-interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
-    msCaching: string;
+interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    /**
+     * Returns client's state.
+     */
     readonly readyState: number;
+    /**
+     * Returns the response's body.
+     */
     readonly response: any;
+    /**
+     * Returns the text response.
+     * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
+     */
     readonly responseText: string;
+    /**
+     * Returns the response type.
+     * Can be set to change the response type. Values are:
+     * the empty string (default),
+     * "arraybuffer",
+     * "blob",
+     * "document",
+     * "json", and
+     * "text".
+     * When set: setting to "document" is ignored if current global object is not a Window object.
+     * When set: throws an "InvalidStateError" DOMException if state is loading or done.
+     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
+     */
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
+    /**
+     * Returns the document response.
+     * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "document".
+     */
     readonly responseXML: object | null;
     readonly status: number;
     readonly statusText: string;
+    /**
+     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the
+     * request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a
+     * "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
+     */
     timeout: number;
+    /**
+     * Returns the associated XMLHttpRequestUpload object. It can be used to gather transmission information when data is
+     * transferred to a server.
+     */
     readonly upload: XMLHttpRequestUpload;
+    /**
+     * True when credentials are to be included in a cross-origin request. False when they are
+     * to be excluded in a cross-origin request and when cookies are to be ignored in its response.
+     * Initially false.
+     * When set: throws an "InvalidStateError" DOMException if state is not unsent or opened, or if the send() flag is set.
+     */
     withCredentials: boolean;
+    /**
+     * Cancels any network activity.
+     */
     abort(): void;
     getAllResponseHeaders(): string;
-    getResponseHeader(header: string): string | null;
-    msCachingEnabled(): boolean;
-    open(method: string, url: string, async?: boolean, user?: string | null, password?: string | null): void;
+    getResponseHeader(name: string): string | null;
+    /**
+     * Sets the request method, request URL, and synchronous flag.
+     * Throws a "SyntaxError" DOMException if either method is not a
+     * valid HTTP method or url cannot be parsed.
+     * Throws a "SecurityError" DOMException if method is a
+     * case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
+     * Throws an "InvalidAccessError" DOMException if async is false, current global object is a Window object, and the timeout attribute is not zero or the responseType attribute is not the empty string.
+     */
+    open(method: string, url: string): void;
+    open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
+    /**
+     * Acts as if the `Content-Type` header for response is mime.
+     * Throws an "InvalidStateError" DOMException if state is loading or done.
+     */
     overrideMimeType(mime: string): void;
-    send(data?: any): void;
-    setRequestHeader(header: string, value: string): void;
+    /**
+     * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
+     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
+     */
+    send(body?: object | BodyInit): void;
+    /**
+     * Combines a header in author request headers.
+     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
+     * Throws a "SyntaxError" DOMException if name is not a header name
+     * or if value is not a header value.
+     */
+    setRequestHeader(name: string, value: string): void;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
     readonly LOADING: number;
@@ -1928,21 +2048,21 @@ declare var XMLHttpRequest: {
 };
 
 interface XMLHttpRequestEventTargetEventMap {
-    "abort": Event;
-    "error": ErrorEvent;
-    "load": Event;
+    "abort": ProgressEvent;
+    "error": ProgressEvent;
+    "load": ProgressEvent;
     "loadend": ProgressEvent;
-    "loadstart": Event;
+    "loadstart": ProgressEvent;
     "progress": ProgressEvent;
     "timeout": ProgressEvent;
 }
 
-interface XMLHttpRequestEventTarget {
-    onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onerror: ((this: XMLHttpRequest, ev: ErrorEvent) => any) | null;
-    onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
+interface XMLHttpRequestEventTarget extends EventTarget {
+    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1951,7 +2071,12 @@ interface XMLHttpRequestEventTarget {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
+declare var XMLHttpRequestEventTarget: {
+    prototype: XMLHttpRequestEventTarget;
+    new(): XMLHttpRequestEventTarget;
+};
+
+interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -2033,12 +2158,15 @@ declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEven
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type HeadersInit = Headers | string[][] | Record<string, string>;
+type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
+type RequestInfo = Request | string;
 type PerformanceEntryList = PerformanceEntry[];
-type FormDataEntryValue = string | File;
-type HeadersInit = Headers | string[][] | { [key: string]: string };
+type BufferSource = ArrayBufferView | ArrayBuffer;
+type FormDataEntryValue = File | string;
+type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
 type AAGUID = string;
-type BodyInit = any;
 type ByteString = string;
 type CryptoOperationData = ArrayBufferView;
 type GLbitfield = number;
@@ -2056,7 +2184,6 @@ type GLubyte = number;
 type GLuint = number;
 type GLushort = number;
 type IDBKeyPath = string;
-type RequestInfo = Request | string;
 type USVString = string;
 type payloadtype = number;
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
@@ -2073,12 +2200,11 @@ type NotificationPermission = "default" | "denied" | "granted";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "granted" | "denied" | "prompt";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
-type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestCredentials = "omit" | "same-origin" | "include";
-type RequestDestination = "" | "document" | "sharedworker" | "subresource" | "unknown" | "worker";
+type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
 type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
-type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";

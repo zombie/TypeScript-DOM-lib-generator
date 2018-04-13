@@ -83,6 +83,23 @@ function emitDom() {
                 merge(base.properties, partial.properties, true);
             }
         }
+        for (const partial of w.partialDictionaries) {
+            const base = webidl.dictionaries!.dictionary[partial.name];
+            if (base) {
+                merge(base.members, partial.members, true);
+            }
+        }
+        for (const include of w.includes) {
+            const target = webidl.interfaces!.interface[include.target];
+            if (target) {
+                if (target.implements) {
+                    target.implements.push(include.includes);
+                }
+                else {
+                    target.implements = [include.includes];
+                }
+            }
+        }
     }
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);
@@ -100,7 +117,7 @@ function emitDom() {
         if (obj["callback-interfaces"]) result["callback-interfaces"]!.interface = filterInterface(obj["callback-interfaces"]!.interface, template["callback-interfaces"] && template["callback-interfaces"]!.interface);
         if (obj.dictionaries) result.dictionaries!.dictionary = filterDictionary(obj.dictionaries.dictionary, template.dictionaries && template.dictionaries.dictionary);
         if (obj.enums) result.enums!.enum = filterEnum(obj.enums.enum, template.enums && template.enums.enum);
-        if (obj.mixins) result.mixins!.mixin = filterInterface(obj.mixins.mixin, template.mixins && template.mixins.mixin);
+        if (obj.mixins) result.mixins!.mixin = filterProperties(obj.mixins.mixin, mixin => !(template.mixins && template.mixins!.mixin[mixin.name]));
         if (obj.interfaces) result.interfaces!.interface = filterInterface(obj.interfaces.interface, template.interfaces && template.interfaces.interface);
         if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => !(template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"])));
 

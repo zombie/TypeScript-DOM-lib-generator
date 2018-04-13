@@ -1,20 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "Body": {
-                "name": "Body",
-                "methods": {
-                    "method": {
-                        "formData": {
-                            "name": "formData",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "formData(): Promise<FormData>"
-                            ]
-                        }
-                    }
-                }
-            },
             "HTMLHyperlinkElementUtils": {
                 "name": "HTMLHyperlinkElementUtils",
                 "properties": {
@@ -25,6 +11,30 @@
                         }
                     }
                 }
+            },
+            "ParentNode": {
+                "name": "ParentNode",
+                "flavor": "Web",
+                "properties": {
+                    "property": {
+                        "firstElementChild": {
+                            "name": "firstElementChild",
+                            "read-only": 1,
+                            "override-type": "Element | null"
+                        },
+                        "lastElementChild": {
+                            "name": "lastElementChild",
+                            "read-only": 1,
+                            "override-type": "Element | null"
+                        },
+                        "childElementCount": {
+                            "name": "childElementCount",
+                            "read-only": 1,
+                            "override-type": "number"
+                        }
+                    }
+                },
+                "no-interface-object": "1"
             }
         }
     },
@@ -36,6 +46,114 @@
     },
     "interfaces": {
         "interface": {
+            "RTCError": {
+                "specs": "webrtc",
+                "constructor": {
+                    "specs": "webrtc",
+                    "signature": [
+                        {
+                            "param-min-required": 0,
+                            "type-original": "RTCError",
+                            "type": "RTCError",
+                            "param": [
+                                {
+                                    "type-original": "DOMString",
+                                    "optional": 1,
+                                    "name": "errorDetail",
+                                    "type": "DOMString"
+                                },
+                                {
+                                    "type-original": "DOMString",
+                                    "optional": 1,
+                                    "name": "message",
+                                    "type": "DOMString"
+                                }
+                            ]
+                        }
+                    ],
+                    "name": "RTCError"
+                },
+                "properties": {
+                    "property": {
+                        "errorDetail": {
+                            "type-original": "DOMString",
+                            "nullable": 0,
+                            "default": "\"\"",
+                            "specs": "webrtc",
+                            "name": "errorDetail",
+                            "type": "DOMString"
+                        },
+                        "sdpLineNumber": {
+                            "type-original": "unsigned short",
+                            "nullable": 0,
+                            "default": "0",
+                            "specs": "webrtc",
+                            "name": "sdpLineNumber",
+                            "type": "unsigned short"
+                        },
+                        "httpRequestStatusCode": {
+                            "type-original": "unsigned short",
+                            "nullable": 0,
+                            "default": "0",
+                            "specs": "webrtc",
+                            "name": "httpRequestStatusCode",
+                            "type": "unsigned short"
+                        },
+                        "sctpCauseCode": {
+                            "type-original": "unsigned short",
+                            "nullable": 0,
+                            "default": "0",
+                            "specs": "webrtc",
+                            "name": "sctpCauseCode",
+                            "type": "unsigned short"
+                        },
+                        "receivedAlert": {
+                            "type-original": "unsigned long",
+                            "nullable": 1,
+                            "default": "null",
+                            "specs": "webrtc",
+                            "name": "receivedAlert",
+                            "type": "unsigned long"
+                        },
+                        "sentAlert": {
+                            "type-original": "unsigned long",
+                            "nullable": 1,
+                            "default": "null",
+                            "specs": "webrtc",
+                            "name": "sentAlert",
+                            "type": "unsigned long"
+                        },
+                        "message": {
+                            "type-original": "DOMString",
+                            "nullable": 0,
+                            "default": "\"\"",
+                            "specs": "webrtc",
+                            "name": "message",
+                            "type": "DOMString"
+                        },
+                        "name": {
+                            "type-original": "DOMString",
+                            "nullable": 0,
+                            "default": "RTCError",
+                            "specs": "webrtc",
+                            "name": "name",
+                            "type": "DOMString"
+                        }
+                    }
+                },
+                "anonymous-methods": {
+                    "method": []
+                },
+                "name": "RTCError",
+                "constants": {
+                    "constant": {}
+                },
+                "methods": {
+                    "method": {}
+                },
+                "exposed": "Window",
+                "extends": "Error"
+            },
             "HTMLImageElement": {
                 "name": "HTMLImageElement",
                 "properties": {
@@ -342,17 +460,6 @@
                                 "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
                                 "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
                             ]
-                        }
-                    }
-                }
-            },
-            "IDBIndex": {
-                "name": "IDBIndex",
-                "properties": {
-                    "property": {
-                        "multiEntry": {
-                            "name": "multiEntry",
-                            "override-type": "boolean"
                         }
                     }
                 }
@@ -829,17 +936,6 @@
                     }
                 }
             },
-            "IDBObjectStore": {
-                "name": "IDBObjectStore",
-                "properties": {
-                    "property": {
-                        "autoIncrement": {
-                            "name": "autoIncrement",
-                            "override-type": "boolean"
-                        }
-                    }
-                }
-            },
             "ClipboardEventInit": {
                 "flavor": "Web",
                 "name": "ClipboardEventInit",
@@ -862,7 +958,7 @@
             },
             "IDBArrayKey": {
                 "name": "IDBArrayKey",
-                "extends": "Array<number | string | Date | IDBArrayKey>",
+                "extends": "Array<IDBValidKey>",
                 "no-interface-object": "1"
             },
             "HTMLInputElement": {
@@ -900,26 +996,6 @@
             },
             "IDBDatabase": {
                 "name": "IDBDatabase",
-                "properties": {
-                    "property": {
-                        "onabort": {
-                            "name": "onabort",
-                            "event-handler": "abort"
-                        },
-                        "onclose": {
-                            "name": "onclose",
-                            "event-handler": "close"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "event-handler": "error"
-                        },
-                        "onversionchange": {
-                            "name": "onversionchange",
-                            "event-handler": "versionchange"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -943,18 +1019,6 @@
             },
             "IDBOpenDBRequest": {
                 "name": "IDBOpenDBRequest",
-                "properties": {
-                    "property": {
-                        "onblocked": {
-                            "name": "onblocked",
-                            "event-handler": "blocked"
-                        },
-                        "onupgradeneeded": {
-                            "name": "onupgradeneeded",
-                            "event-handler": "upgradeneeded"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -970,18 +1034,6 @@
             },
             "IDBRequest": {
                 "name": "IDBRequest",
-                "properties": {
-                    "property": {
-                        "onerror": {
-                            "name": "onerror",
-                            "event-handler": "error"
-                        },
-                        "onsuccess": {
-                            "name": "onsuccess",
-                            "event-handler": "success"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -997,22 +1049,6 @@
             },
             "IDBTransaction": {
                 "name": "IDBRequest",
-                "properties": {
-                    "property": {
-                        "onabort": {
-                            "name": "onabort",
-                            "event-handler": "abort"
-                        },
-                        "oncomplete": {
-                            "name": "oncomplete",
-                            "event-handler": "complete"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "event-handler": "error"
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1212,12 +1248,6 @@
             "Performance": {
                 "name": "Performance",
                 "properties": {
-                    "property": {
-                        "onresourcetimingbufferfull": {
-                            "name": "onresourcetimingbufferfull",
-                            "event-handler": "resourcetimingbufferfull"
-                        }
-                    },
                     "events": {
                         "event": [
                             {
@@ -1239,30 +1269,6 @@
                         }
                     }
                 }
-            },
-            "ParentNode": {
-                "name": "ParentNode",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "firstElementChild": {
-                            "name": "firstElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "lastElementChild": {
-                            "name": "lastElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "childElementCount": {
-                            "name": "childElementCount",
-                            "read-only": 1,
-                            "override-type": "number"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
             },
             "DocumentFragment": {
                 "name": "DocumentFragment",
@@ -1549,48 +1555,6 @@
                     }
                 },
                 "no-interface-object": "1"
-            },
-            "FormData": {
-                "name": "FormData",
-                "methods": {
-                    "method": {
-                        "delete": {
-                            "name": "delete",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "delete(name: string): void"
-                            ]
-                        },
-                        "get": {
-                            "name": "get",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "get(name: string): FormDataEntryValue | null"
-                            ]
-                        },
-                        "getAll": {
-                            "name": "getAll",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "getAll(name: string): FormDataEntryValue[]"
-                            ]
-                        },
-                        "has": {
-                            "name": "has",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "has(name: string): boolean"
-                            ]
-                        },
-                        "set": {
-                            "name": "set",
-                            "flavor": "Web",
-                            "override-signatures": [
-                                "set(name: string, value: string | Blob, fileName?: string): void"
-                            ]
-                        }
-                    }
-                }
             },
             "ValidityState": {
                 "name": "ValidityState",
@@ -2796,6 +2760,19 @@
     },
     "dictionaries": {
         "dictionary": {
+            "RTCStatsEventInit": {
+                "specs": "webrtc",
+                "name": "RTCStatsEventInit",
+                "members": {
+                    "member": {
+                        "report": {
+                            "type-original": "RTCStatsReport",
+                            "type": "RTCStatsReport",
+                            "name": "report"
+                        }
+                    }
+                }
+            },
             "MessageEventInit": {
                 "name": "MessageEventInit",
                 "members": {
@@ -2870,15 +2847,11 @@
                 "new-type": "ScrollRestoration"
             },
             {
-                "override-type": "string | File",
-                "new-type": "FormDataEntryValue"
-            },
-            {
                 "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
                 "new-type": "InsertPosition"
             },
             {
-                "override-type": "Headers | string[][] | { [key: string]: string }",
+                "override-type": "Headers | string[][] | Record<string, string>",
                 "new-type": "HeadersInit"
             },
             {
@@ -2886,7 +2859,7 @@
                 "new-type": "OrientationLockType"
             },
             {
-                "override-type": "number | string | Date | IDBArrayKey",
+                "override-type": "number | string | Date | BufferSource | IDBArrayKey",
                 "new-type": "IDBValidKey"
             },
             {
@@ -2900,10 +2873,6 @@
             {
                 "new-type": "AAGUID",
                 "override-type": "string"
-            },
-            {
-                "new-type": "BodyInit",
-                "override-type": "any"
             },
             {
                 "new-type": "ByteString",

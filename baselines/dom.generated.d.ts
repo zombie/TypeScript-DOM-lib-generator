@@ -1422,16 +1422,19 @@ interface RTCRtpHeaderExtensionParameters {
 }
 
 interface RTCRtpParameters {
-    codecs?: RTCRtpCodecParameters[];
-    degradationPreference?: RTCDegradationPreference;
-    encodings?: RTCRtpEncodingParameters[];
-    headerExtensions?: RTCRtpHeaderExtensionParameters[];
-    rtcp?: RTCRtcpParameters;
-    transactionId?: string;
+    codecs: RTCRtpCodecParameters[];
+    encodings: RTCRtpEncodingParameters[];
+    headerExtensions: RTCRtpHeaderExtensionParameters[];
+    rtcp: RTCRtcpParameters;
 }
 
 interface RTCRtpRtxParameters {
     ssrc?: number;
+}
+
+interface RTCRtpSendParameters extends RTCRtpParameters {
+    degradationPreference?: RTCDegradationPreference;
+    transactionId: string;
 }
 
 interface RTCRtpSynchronizationSource extends RTCRtpContributingSource {
@@ -10831,10 +10834,10 @@ interface RTCRtpSender {
     readonly rtcpTransport: RTCDtlsTransport | null;
     readonly track: MediaStreamTrack | null;
     readonly transport: RTCDtlsTransport | null;
-    getParameters(): RTCRtpParameters;
+    getParameters(): RTCRtpSendParameters;
     getStats(): Promise<RTCStatsReport>;
     replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
-    setParameters(parameters?: RTCRtpParameters): Promise<void>;
+    setParameters(parameters: RTCRtpSendParameters): Promise<void>;
 }
 
 declare var RTCRtpSender: {

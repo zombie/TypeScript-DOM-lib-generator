@@ -70,6 +70,7 @@
     "ProgressEvent",
     "PushManager",
     "PushSubscription",
+    "PushSubscriptionJSON",
     "PushSubscriptionOptions",
     "ReadableStream",
     "ReadableStreamReader",

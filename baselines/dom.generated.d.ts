@@ -1114,7 +1114,7 @@ interface ProgressEventInit extends EventInit {
 }
 
 interface PushEventInit extends ExtendableEventInit {
-    data?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | string | null;
+    data?: PushMessageDataInit;
 }
 
 interface PushSubscriptionChangeInit extends ExtendableEventInit {
@@ -1122,8 +1122,14 @@ interface PushSubscriptionChangeInit extends ExtendableEventInit {
     oldSubscription?: PushSubscription;
 }
 
+interface PushSubscriptionJSON {
+    endpoint?: string;
+    expirationTime?: number | null;
+    keys?: Record<string, string>;
+}
+
 interface PushSubscriptionOptionsInit {
-    applicationServerKey?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | string | null;
+    applicationServerKey?: BufferSource | string;
     userVisibleOnly?: boolean;
 }
 
@@ -10458,7 +10464,7 @@ interface PushSubscription {
     readonly expirationTime: number | null;
     readonly options: PushSubscriptionOptions;
     getKey(name: PushEncryptionKeyName): ArrayBuffer | null;
-    toJSON(): any;
+    toJSON(): PushSubscriptionJSON;
     unsubscribe(): Promise<boolean>;
 }
 
@@ -16480,6 +16486,7 @@ type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStrea
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
+type PushMessageDataInit = BufferSource | string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
@@ -16570,7 +16577,7 @@ type PanningModelType = "equalpower" | "HRTF";
 type PaymentComplete = "success" | "fail" | "unknown";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
 type PushEncryptionKeyName = "p256dh" | "auth";
-type PushPermissionState = "granted" | "denied" | "prompt";
+type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
 type RTCDataChannelState = "connecting" | "open" | "closing" | "closed";
 type RTCDegradationPreference = "maintain-framerate" | "maintain-resolution" | "balanced";

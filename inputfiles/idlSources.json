@@ -28,6 +28,10 @@
         "title": "Performance Timeline"
     },
     {
+        "url": "https://www.w3.org/TR/push-api/",
+        "title": "Push"
+    },
+    {
         "url": "https://w3c.github.io/resource-timing/",
         "title": "Resource Timing"
     },
@@ -38,6 +42,10 @@
     {
         "url": "https://www.w3.org/TR/user-timing-2/",
         "title": "User Timing"
+    },
+    {
+        "url": "https://wicg.github.io/BackgroundSync/spec/",
+        "title": "Web Background Synchronization"
     },
     {
         "url": "https://heycam.github.io/webidl/",

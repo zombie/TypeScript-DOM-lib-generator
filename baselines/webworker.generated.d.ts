@@ -128,7 +128,7 @@ interface ProgressEventInit extends EventInit {
 }
 
 interface PushEventInit extends ExtendableEventInit {
-    data?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | string | null;
+    data?: PushMessageDataInit;
 }
 
 interface PushSubscriptionChangeInit extends ExtendableEventInit {
@@ -136,8 +136,14 @@ interface PushSubscriptionChangeInit extends ExtendableEventInit {
     oldSubscription?: PushSubscription;
 }
 
+interface PushSubscriptionJSON {
+    endpoint?: string;
+    expirationTime?: number | null;
+    keys?: Record<string, string>;
+}
+
 interface PushSubscriptionOptionsInit {
-    applicationServerKey?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | string | null;
+    applicationServerKey?: BufferSource | string;
     userVisibleOnly?: boolean;
 }
 
@@ -1217,7 +1223,7 @@ interface PushSubscription {
     readonly expirationTime: number | null;
     readonly options: PushSubscriptionOptions;
     getKey(name: PushEncryptionKeyName): ArrayBuffer | null;
-    toJSON(): any;
+    toJSON(): PushSubscriptionJSON;
     unsubscribe(): Promise<boolean>;
 }
 
@@ -1775,6 +1781,7 @@ type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type PerformanceEntryList = PerformanceEntry[];
+type PushMessageDataInit = BufferSource | string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
@@ -1811,7 +1818,7 @@ type MediaKeyStatus = "usable" | "expired" | "output-downscaled" | "output-not-a
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type PushEncryptionKeyName = "p256dh" | "auth";
-type PushPermissionState = "granted" | "denied" | "prompt";
+type PushPermissionState = "denied" | "granted" | "prompt";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestCredentials = "omit" | "same-origin" | "include";

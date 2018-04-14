@@ -43,7 +43,7 @@ const eventTypeMap: Record<string, string> = {
 
 // Used to decide if a member should be emitted given its static property and
 // the intended scope level.
-function matchScope(scope: EmitScope, x: Browser.Method) {
+function matchScope(scope: EmitScope, x: { static?: 1 | undefined }) {
     return scope === EmitScope.All || (scope === EmitScope.StaticOnly) === !!x.static;
 }
 
@@ -618,10 +618,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitProperties(prefix: string, emitScope: EmitScope, i: Browser.Interface, conflictedMembers: Set<string>) {
-        // Note: the schema file shows the property doesn't have "static" attribute,
-        // therefore all properties are emited for the instance type.
-        if (emitScope !== EmitScope.StaticOnly && i.properties) {
+        if (i.properties) {
             mapToArray(i.properties.property)
+                .filter(m => matchScope(emitScope, m))
                 .filter(p => !isCovariantEventHandler(i, p))
                 .sort(compareName)
                 .forEach(p => emitProperty(prefix, i, emitScope, p, conflictedMembers));

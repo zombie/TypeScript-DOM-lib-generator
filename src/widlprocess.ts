@@ -172,6 +172,7 @@ function convertAttribute(attribute: webidl2.AttributeMemberType): Browser.Prope
     return {
         name: attribute.name,
         ...convertIdlType(attribute.idlType),
+        static: attribute.static ? 1 : undefined,
         "read-only": attribute.readonly ? 1 : undefined,
         "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined
     }

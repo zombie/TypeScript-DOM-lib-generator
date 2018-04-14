@@ -1017,12 +1017,10 @@ interface Notification extends EventTarget {
     readonly icon: string;
     readonly image: string;
     readonly lang: string;
-    readonly maxActions: number;
     onclick: ((this: Notification, ev: Event) => any) | null;
     onclose: ((this: Notification, ev: Event) => any) | null;
     onerror: ((this: Notification, ev: Event) => any) | null;
     onshow: ((this: Notification, ev: Event) => any) | null;
-    readonly permission: NotificationPermission;
     readonly renotify: boolean;
     readonly requireInteraction: boolean;
     readonly silent: boolean;
@@ -1040,6 +1038,8 @@ interface Notification extends EventTarget {
 declare var Notification: {
     prototype: Notification;
     new(title: string, options?: NotificationOptions): Notification;
+    readonly maxActions: number;
+    readonly permission: NotificationPermission;
     requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 };
 
@@ -1218,7 +1218,6 @@ declare var PushEvent: {
 };
 
 interface PushManager {
-    readonly supportedContentEncodings: ReadonlyArray<string>;
     getSubscription(): Promise<PushSubscription | null>;
     permissionState(options?: PushSubscriptionOptionsInit): Promise<PushPermissionState>;
     subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
@@ -1227,6 +1226,7 @@ interface PushManager {
 declare var PushManager: {
     prototype: PushManager;
     new(): PushManager;
+    readonly supportedContentEncodings: ReadonlyArray<string>;
 };
 
 interface PushMessageData {

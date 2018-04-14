@@ -42,7 +42,15 @@
         "interface": {}
     },
     "enums": {
-        "enum": {}
+        "enum": {
+            "WorkerType": {
+                "name": "WorkerType",
+                "value": [
+                    "classic",
+                    "module"
+                ]
+            }
+        }
     },
     "interfaces": {
         "interface": {

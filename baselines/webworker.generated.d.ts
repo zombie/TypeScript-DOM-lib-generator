@@ -1383,14 +1383,14 @@ declare var ServiceWorker: {
 
 interface ServiceWorkerContainerEventMap {
     "controllerchange": Event;
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
 interface ServiceWorkerContainer extends EventTarget {
     readonly controller: ServiceWorker | null;
     oncontrollerchange: ((this: ServiceWorkerContainer, ev: Event) => any) | null;
-    onmessage: ((this: ServiceWorkerContainer, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: ServiceWorkerContainer, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: ServiceWorkerContainer, ev: MessageEvent) => any) | null;
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>;

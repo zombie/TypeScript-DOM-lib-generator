@@ -1756,7 +1756,7 @@
                         },
                         {
                             "name": "message",
-                            "type": "ExtendableMessageEvent"
+                            "type": "MessageEvent"
                         },
                         {
                             "name": "messageerror",

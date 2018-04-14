@@ -4596,7 +4596,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
-    createEvent(eventInterface: "ExtendableMessageEvent"): ExtendableMessageEvent;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
     createEvent(eventInterface: "FocusNavigationEvent"): FocusNavigationEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
@@ -13353,14 +13352,14 @@ declare var ServiceWorker: {
 
 interface ServiceWorkerContainerEventMap {
     "controllerchange": Event;
-    "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
 interface ServiceWorkerContainer extends EventTarget {
     readonly controller: ServiceWorker | null;
     oncontrollerchange: ((this: ServiceWorkerContainer, ev: Event) => any) | null;
-    onmessage: ((this: ServiceWorkerContainer, ev: ExtendableMessageEvent) => any) | null;
+    onmessage: ((this: ServiceWorkerContainer, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: ServiceWorkerContainer, ev: MessageEvent) => any) | null;
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>;

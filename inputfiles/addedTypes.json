@@ -3001,6 +3001,20 @@
             {
                 "new-type": "ClientTypes",
                 "override-type": "\"window\" | \"worker\" | \"sharedworker\" | \"all\""
+            },
+            {
+                "new-type": "MessageEventSource",
+                "type": [
+                    {
+                        "type": "Window"
+                    },
+                    {
+                        "type": "MessagePort"
+                    },
+                    {
+                        "type": "ServiceWorker"
+                    }
+                ]
             }
         ]
     }

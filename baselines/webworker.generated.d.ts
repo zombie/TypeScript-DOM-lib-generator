@@ -959,7 +959,7 @@ interface MessageEvent extends Event {
     readonly data: any;
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: object | null;
+    readonly source: MessageEventSource;
     initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: object): void;
 }
 
@@ -1884,6 +1884,7 @@ type IDBKeyPath = string;
 type USVString = string;
 type payloadtype = number;
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
+type MessageEventSource = object | MessagePort | ServiceWorker;
 type BinaryType = "blob" | "arraybuffer";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";

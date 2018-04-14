@@ -9465,7 +9465,7 @@ interface MessageEvent extends Event {
     readonly data: any;
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: Window | null;
+    readonly source: MessageEventSource;
     initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: Window): void;
 }
 
@@ -16574,6 +16574,7 @@ type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type USVString = string;
 type payloadtype = number;
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
+type MessageEventSource = Window | MessagePort | ServiceWorker;
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";

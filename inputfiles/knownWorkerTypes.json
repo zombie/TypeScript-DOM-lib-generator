@@ -54,6 +54,7 @@
     "ImageData",
     "MessageChannel",
     "MessageEvent",
+    "MessageEventSource",
     "MessagePort",
     "NavigationPreloadManager",
     "NavigationPreloadState",

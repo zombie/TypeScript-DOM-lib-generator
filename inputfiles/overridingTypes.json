@@ -1031,10 +1031,14 @@
             },
             "MessageEvent": {
                 "name": "MessageEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict?: MessageEventInit): MessageEvent"
-                    ]
+                "properties": {
+                    "property": {
+                        "source": {
+                            "name": "source",
+                            "nullable": 0,
+                            "override-type": "MessageEventSource"
+                        }
+                    }
                 }
             },
             "File": {

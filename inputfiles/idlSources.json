@@ -24,6 +24,10 @@
         "title": "Navigation Timing"
     },
     {
+        "url": "https://notifications.spec.whatwg.org/",
+        "title": "Notifications"
+    },
+    {
         "url": "https://w3c.github.io/performance-timeline/",
         "title": "Performance Timeline"
     },
@@ -42,6 +46,10 @@
     {
         "url": "https://www.w3.org/TR/user-timing-2/",
         "title": "User Timing"
+    },
+    {
+        "url": "https://www.w3.org/TR/vibration/",
+        "title": "Vibration"
     },
     {
         "url": "https://wicg.github.io/BackgroundSync/spec/",

@@ -43,6 +43,15 @@
     },
     "enums": {
         "enum": {
+            "ClientTypes": {
+                "name": "ClientTypes",
+                "value": [
+                    "window",
+                    "worker",
+                    "sharedworker",
+                    "all"
+                ]
+            },
             "WorkerType": {
                 "name": "WorkerType",
                 "value": [
@@ -2997,10 +3006,6 @@
             {
                 "new-type": "payloadtype",
                 "override-type": "number"
-            },
-            {
-                "new-type": "ClientTypes",
-                "override-type": "\"window\" | \"worker\" | \"sharedworker\" | \"all\""
             },
             {
                 "new-type": "MessageEventSource",

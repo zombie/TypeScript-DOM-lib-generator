@@ -151,7 +151,6 @@ interface ClientData {
 }
 
 interface ClientQueryOptions {
-    includeReserved?: boolean;
     includeUncontrolled?: boolean;
     type?: ClientTypes;
 }
@@ -373,14 +372,15 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
     data?: any;
     lastEventId?: string;
     origin?: string;
-    ports?: MessagePort[] | null;
-    source?: object | ServiceWorker | MessagePort | null;
+    ports?: MessagePort[];
+    source?: object | ServiceWorker | MessagePort;
 }
 
 interface FetchEventInit extends ExtendableEventInit {
     clientId?: string;
+    preloadResponse: Promise<any>;
     request: Request;
-    reservedClientId?: string;
+    resultingClientId?: string;
     targetClientId?: string;
 }
 
@@ -962,6 +962,11 @@ interface MutationObserverInit {
     subtree?: boolean;
 }
 
+interface NavigationPreloadState {
+    enabled?: boolean;
+    headerValue?: string;
+}
+
 interface NotificationAction {
     action: string;
     icon?: string;
@@ -1530,6 +1535,8 @@ interface RTCTransportStats extends RTCStats {
 
 interface RegistrationOptions {
     scope?: string;
+    type?: WorkerType;
+    updateViaCache?: ServiceWorkerUpdateViaCache;
 }
 
 interface RequestInit {
@@ -2902,13 +2909,13 @@ declare var CSSSupportsRule: {
 };
 
 interface Cache {
-    add(request: Request | string): Promise<void>;
-    addAll(requests: (Request | string)[]): Promise<void>;
-    delete(request: Request | string, options?: CacheQueryOptions): Promise<boolean>;
-    keys(request?: Request | string, options?: CacheQueryOptions): Promise<Request[]>;
-    match(request: Request | string, options?: CacheQueryOptions): Promise<Response>;
-    matchAll(request?: Request | string, options?: CacheQueryOptions): Promise<Response[]>;
-    put(request: Request | string, response: Response): Promise<void>;
+    add(request: RequestInfo): Promise<void>;
+    addAll(requests: RequestInfo[]): Promise<void>;
+    delete(request: RequestInfo, options?: CacheQueryOptions): Promise<boolean>;
+    keys(request?: RequestInfo, options?: CacheQueryOptions): Promise<ReadonlyArray<Request>>;
+    match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>;
+    matchAll(request?: RequestInfo, options?: CacheQueryOptions): Promise<ReadonlyArray<Response>>;
+    put(request: RequestInfo, response: Response): Promise<void>;
 }
 
 declare var Cache: {
@@ -2920,7 +2927,7 @@ interface CacheStorage {
     delete(cacheName: string): Promise<boolean>;
     has(cacheName: string): Promise<boolean>;
     keys(): Promise<string[]>;
-    match(request: Request | string, options?: CacheQueryOptions): Promise<any>;
+    match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>;
     open(cacheName: string): Promise<Cache>;
 }
 
@@ -9458,7 +9465,7 @@ interface MessageEvent extends Event {
     readonly data: any;
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: Window | null;
+    readonly source: MessageEventSource;
     initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: Window): void;
 }
 
@@ -9611,6 +9618,18 @@ interface NamedNodeMap {
 declare var NamedNodeMap: {
     prototype: NamedNodeMap;
     new(): NamedNodeMap;
+};
+
+interface NavigationPreloadManager {
+    disable(): Promise<void>;
+    enable(): Promise<void>;
+    getState(): Promise<NavigationPreloadState>;
+    setHeaderValue(value: string): Promise<void>;
+}
+
+declare var NavigationPreloadManager: {
+    prototype: NavigationPreloadManager;
+    new(): NavigationPreloadManager;
 };
 
 interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage {
@@ -13333,18 +13352,18 @@ declare var ServiceWorker: {
 
 interface ServiceWorkerContainerEventMap {
     "controllerchange": Event;
-    "message": ServiceWorkerMessageEvent;
+    "message": MessageEvent;
     "messageerror": MessageEvent;
 }
 
 interface ServiceWorkerContainer extends EventTarget {
     readonly controller: ServiceWorker | null;
     oncontrollerchange: ((this: ServiceWorkerContainer, ev: Event) => any) | null;
-    onmessage: ((this: ServiceWorkerContainer, ev: ServiceWorkerMessageEvent) => any) | null;
+    onmessage: ((this: ServiceWorkerContainer, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: ServiceWorkerContainer, ev: MessageEvent) => any) | null;
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>;
-    getRegistrations(): Promise<ServiceWorkerRegistration[]>;
+    getRegistrations(): Promise<ReadonlyArray<ServiceWorkerRegistration>>;
     register(scriptURL: string, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
     startMessages(): void;
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -13378,10 +13397,12 @@ interface ServiceWorkerRegistrationEventMap {
 interface ServiceWorkerRegistration extends EventTarget {
     readonly active: ServiceWorker | null;
     readonly installing: ServiceWorker | null;
+    readonly navigationPreload: NavigationPreloadManager;
     onupdatefound: ((this: ServiceWorkerRegistration, ev: Event) => any) | null;
     readonly pushManager: PushManager;
     readonly scope: string;
     readonly sync: SyncManager;
+    readonly updateViaCache: ServiceWorkerUpdateViaCache;
     readonly waiting: ServiceWorker | null;
     getNotifications(filter?: GetNotificationOptions): Promise<Notification[]>;
     showNotification(title: string, options?: NotificationOptions): Promise<void>;
@@ -16552,7 +16573,7 @@ type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type USVString = string;
 type payloadtype = number;
-type ClientTypes = "window" | "worker" | "sharedworker" | "all";
+type MessageEventSource = Window | MessagePort | ServiceWorker;
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
@@ -16562,6 +16583,7 @@ type CanPlayTypeResult = "" | "maybe" | "probably";
 type CanvasFillRule = "nonzero" | "evenodd";
 type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
+type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
@@ -16641,6 +16663,7 @@ type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
+type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
@@ -16649,4 +16672,5 @@ type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted"
 type VREye = "left" | "right";
 type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
 type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
+type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

@@ -42,7 +42,24 @@
         "interface": {}
     },
     "enums": {
-        "enum": {}
+        "enum": {
+            "ClientTypes": {
+                "name": "ClientTypes",
+                "value": [
+                    "window",
+                    "worker",
+                    "sharedworker",
+                    "all"
+                ]
+            },
+            "WorkerType": {
+                "name": "WorkerType",
+                "value": [
+                    "classic",
+                    "module"
+                ]
+            }
+        }
     },
     "interfaces": {
         "interface": {
@@ -2991,8 +3008,18 @@
                 "override-type": "number"
             },
             {
-                "new-type": "ClientTypes",
-                "override-type": "\"window\" | \"worker\" | \"sharedworker\" | \"all\""
+                "new-type": "MessageEventSource",
+                "type": [
+                    {
+                        "type": "Window"
+                    },
+                    {
+                        "type": "MessagePort"
+                    },
+                    {
+                        "type": "ServiceWorker"
+                    }
+                ]
             }
         ]
     }

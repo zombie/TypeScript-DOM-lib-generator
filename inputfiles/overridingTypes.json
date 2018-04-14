@@ -1031,10 +1031,14 @@
             },
             "MessageEvent": {
                 "name": "MessageEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict?: MessageEventInit): MessageEvent"
-                    ]
+                "properties": {
+                    "property": {
+                        "source": {
+                            "name": "source",
+                            "nullable": 0,
+                            "override-type": "MessageEventSource"
+                        }
+                    }
                 }
             },
             "File": {
@@ -1747,6 +1751,22 @@
                             ]
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "controllerchange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        }
+                    ]
                 }
             },
             "IntersectionObserverEntry": {
@@ -2180,12 +2200,44 @@
                 "events": {
                     "event": [
                         {
+                            "name": "install",
+                            "type": "ExtendableEvent"
+                        },
+                        {
+                            "name": "activate",
+                            "type": "ExtendableEvent"
+                        },
+                        {
+                            "name": "fetch",
+                            "type": "FetchEvent"
+                        },
+                        {
+                            "name": "message",
+                            "type": "ExtendableMessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "notificationclick",
+                            "type": "NotificationEvent"
+                        },
+                        {
+                            "name": "notificationclose",
+                            "type": "NotificationEvent"
+                        },
+                        {
                             "name": "push",
                             "type": "PushEvent"
                         },
                         {
-                            "name": "pushsubscriptionevent",
+                            "name": "pushsubscriptionchange",
                             "type": "PushSubscriptionChangeEvent"
+                        },
+                        {
+                            "name": "sync",
+                            "type": "SyncEvent"
                         }
                     ]
                 }
@@ -2211,6 +2263,32 @@
                             "type": "Event"
                         }
                     ]
+                }
+            },
+            "Cache": {
+                "name": "Cache",
+                "methods": {
+                    "method": {
+                        "match": {
+                            "name": "match",
+                            "override-signatures": [
+                                "match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>"
+                            ]
+                        }
+                    }
+                }
+            },
+            "CacheStorage": {
+                "name": "CacheStorage",
+                "methods": {
+                    "method": {
+                        "match": {
+                            "name": "match",
+                            "override-signatures": [
+                                "match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>"
+                            ]
+                        }
+                    }
                 }
             }
         }

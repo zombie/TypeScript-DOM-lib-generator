@@ -40,6 +40,10 @@
         "title": "Resource Timing"
     },
     {
+        "url": "https://w3c.github.io/ServiceWorker/",
+        "title": "Service Workers"
+    },
+    {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
     },

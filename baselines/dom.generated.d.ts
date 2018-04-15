@@ -58,6 +58,11 @@ interface AnimationEventInit extends EventInit {
     elapsedTime?: number;
 }
 
+interface AnimationPlaybackEventInit extends EventInit {
+    currentTime?: number | null;
+    timelineTime?: number | null;
+}
+
 interface AssertionOptions {
     allowList?: ScopedCredentialDescriptor[];
     extensions?: WebAuthnExtensions;
@@ -114,6 +119,25 @@ interface AudioTimestamp {
     performanceTime?: number;
 }
 
+interface BaseComputedKeyframe {
+    composite?: CompositeOperation | null;
+    computedOffset?: number;
+    easing?: string;
+    offset?: number | null;
+}
+
+interface BaseKeyframe {
+    composite?: CompositeOperation | null;
+    easing?: string;
+    offset?: number | null;
+}
+
+interface BasePropertyIndexedKeyframe {
+    composite?: CompositeOperation | (CompositeOperation | null)[];
+    easing?: string | string[];
+    offset?: number | (number | null)[];
+}
+
 interface BiquadFilterOptions extends AudioNodeOptions {
     Q?: number;
     detune?: number;
@@ -163,6 +187,14 @@ interface CloseEventInit extends EventInit {
 
 interface CompositionEventInit extends UIEventInit {
     data?: string;
+}
+
+interface ComputedEffectTiming extends EffectTiming {
+    activeDuration?: number;
+    currentIteration?: number | null;
+    endTime?: number;
+    localTime?: number | null;
+    progress?: number | null;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -292,6 +324,10 @@ interface DeviceRotationRateDict {
     gamma?: number | null;
 }
 
+interface DocumentTimelineOptions {
+    originTime?: number;
+}
+
 interface DoubleRange {
     max?: number;
     min?: number;
@@ -323,6 +359,17 @@ interface EcdhKeyDeriveParams extends Algorithm {
 
 interface EcdsaParams extends Algorithm {
     hash: string | Algorithm;
+}
+
+interface EffectTiming {
+    delay?: number;
+    direction?: PlaybackDirection;
+    duration?: number | string;
+    easing?: string;
+    endDelay?: number;
+    fill?: FillMode;
+    iterationStart?: number;
+    iterations?: number;
 }
 
 interface ErrorEventInit extends EventInit {
@@ -506,6 +553,15 @@ interface KeyboardEventInit extends EventModifierInit {
     key?: string;
     location?: number;
     repeat?: boolean;
+}
+
+interface KeyframeAnimationOptions extends KeyframeEffectOptions {
+    id?: string;
+}
+
+interface KeyframeEffectOptions extends EffectTiming {
+    composite?: CompositeOperation;
+    iterationComposite?: IterationCompositeOperation;
 }
 
 interface LongRange {
@@ -1001,6 +1057,17 @@ interface ObjectURLOptions {
 
 interface OfflineAudioCompletionEventInit extends EventInit {
     renderedBuffer: AudioBuffer;
+}
+
+interface OptionalEffectTiming {
+    delay?: number;
+    direction?: PlaybackDirection;
+    duration?: number | string;
+    easing?: string;
+    endDelay?: number;
+    fill?: FillMode;
+    iterationStart?: number;
+    iterations?: number;
 }
 
 interface OscillatorOptions extends AudioNodeOptions {
@@ -1851,35 +1918,56 @@ declare var AnalyserNode: {
     new(): AnalyserNode;
 };
 
-interface Animation {
+interface Animatable {
+    animate(keyframes: any, options?: number | KeyframeAnimationOptions): Animation;
+    getAnimations(): Animation[];
+}
+
+interface AnimationEventMap {
+    "cancel": AnimationPlaybackEvent;
+    "finish": AnimationPlaybackEvent;
+}
+
+interface Animation extends EventTarget {
     currentTime: number | null;
-    effect: AnimationEffectReadOnly;
+    effect: AnimationEffect | null;
     readonly finished: Promise<Animation>;
     id: string;
+    oncancel: ((this: Animation, ev: AnimationPlaybackEvent) => any) | null;
+    onfinish: ((this: Animation, ev: AnimationPlaybackEvent) => any) | null;
     readonly pending: boolean;
-    readonly playState: "idle" | "running" | "paused" | "finished";
+    readonly playState: AnimationPlayState;
     playbackRate: number;
     readonly ready: Promise<Animation>;
-    startTime: number;
-    timeline: AnimationTimeline;
+    startTime: number | null;
+    timeline: AnimationTimeline | null;
     cancel(): void;
     finish(): void;
-    oncancel: (this: Animation, ev: AnimationPlaybackEvent) => any;
-    onfinish: (this: Animation, ev: AnimationPlaybackEvent) => any;
     pause(): void;
     play(): void;
     reverse(): void;
+    updatePlaybackRate(playbackRate: number): void;
+    addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Animation: {
     prototype: Animation;
-    new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation;
+    new(effect?: AnimationEffect | null, timeline?: AnimationTimeline | null): Animation;
 };
 
-interface AnimationEffectReadOnly {
-    readonly timing: number;
-    getComputedTiming(): ComputedTimingProperties;
+interface AnimationEffect {
+    getComputedTiming(): ComputedEffectTiming;
+    getTiming(): EffectTiming;
+    updateTiming(timing?: OptionalEffectTiming): void;
 }
+
+declare var AnimationEffect: {
+    prototype: AnimationEffect;
+    new(): AnimationEffect;
+};
 
 interface AnimationEvent extends Event {
     readonly animationName: string;
@@ -4315,6 +4403,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
      */
     readonly styleSheets: StyleSheetList;
+    readonly timeline: DocumentTimeline;
     /**
      * Contains the title of the document.
      */
@@ -4485,6 +4574,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      */
     /** @deprecated */
     focus(): void;
+    getAnimations(): Animation[];
     /**
      * Returns a reference to the first object with the specified value of the ID or NAME attribute.
      * @param elementId String that specifies the ID value. Case-insensitive.
@@ -4674,6 +4764,14 @@ interface DocumentOrShadowRoot {
     getSelection(): Selection | null;
 }
 
+interface DocumentTimeline extends AnimationTimeline {
+}
+
+declare var DocumentTimeline: {
+    prototype: DocumentTimeline;
+    new(options?: DocumentTimelineOptions): DocumentTimeline;
+};
+
 interface DocumentType extends Node, ChildNode {
     readonly entities: NamedNodeMap;
     readonly internalSubset: string | null;
@@ -4773,7 +4871,7 @@ interface ElementEventMap extends GlobalEventHandlersEventMap {
     "webkitfullscreenerror": Event;
 }
 
-interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNode, ChildNode {
+interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNode, ChildNode, Animatable {
     readonly assignedSlot: HTMLSlotElement | null;
     readonly attributes: NamedNodeMap;
     readonly classList: DOMTokenList;
@@ -8796,6 +8894,20 @@ declare var KeyboardEvent: {
     readonly DOM_KEY_LOCATION_NUMPAD: number;
     readonly DOM_KEY_LOCATION_RIGHT: number;
     readonly DOM_KEY_LOCATION_STANDARD: number;
+};
+
+interface KeyframeEffect extends AnimationEffect {
+    composite: CompositeOperation;
+    iterationComposite: IterationCompositeOperation;
+    target: Element | null;
+    getKeyframes(): any[];
+    setKeyframes(keyframes: any): void;
+}
+
+declare var KeyframeEffect: {
+    prototype: KeyframeEffect;
+    new(target: Element | null, keyframes: object | null, options?: number | KeyframeEffectOptions): KeyframeEffect;
+    new(source: KeyframeEffect): KeyframeEffect;
 };
 
 interface LinkStyle {
@@ -16574,6 +16686,7 @@ type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type USVString = string;
 type payloadtype = number;
 type MessageEventSource = Window | MessagePort | ServiceWorker;
+type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
@@ -16584,11 +16697,13 @@ type CanvasFillRule = "nonzero" | "evenodd";
 type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
+type CompositeOperation = "replace" | "add" | "accumulate";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
 type ExpandGranularity = "character" | "word" | "sentence" | "textedit";
+type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";
 type GamepadInputEmulationType = "mouse" | "keyboard" | "gamepad";
@@ -16596,6 +16711,7 @@ type GamepadMappingType = "" | "standard";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
+type IterationCompositeOperation = "replace" | "accumulate";
 type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
 type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
@@ -16622,6 +16738,7 @@ type OverSampleType = "none" | "2x" | "4x";
 type PanningModelType = "equalpower" | "HRTF";
 type PaymentComplete = "success" | "fail" | "unknown";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
+type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";

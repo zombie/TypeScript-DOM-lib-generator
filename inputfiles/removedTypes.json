@@ -10,7 +10,11 @@
         }
     },
     "callback-interfaces": {
-        "interface": {}
+        "interface": {
+            "WebKitEntriesCallback": null,
+            "WebKitErrorCallback": null,
+            "WebKitFileCallback": null
+        }
     },
     "enums": {
         "enum": {
@@ -30,6 +34,7 @@
                     }
                 }
             },
+            "MSStreamReader": null,
             "StorageEvent": {
                 "methods": {
                     "method": {
@@ -41,6 +46,11 @@
             "SVGPoint": null,
             "SVGRect": null,
             "WebKitCSSMatrix": null,
+            "WebKitDirectoryEntry": null,
+            "WebKitDirectoryReader": null,
+            "WebKitEntry": null,
+            "WebKitFileEntry": null,
+            "WebKitFileSystem": null,
             "Window": {
                 "properties": {
                     "property": {

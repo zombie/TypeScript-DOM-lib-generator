@@ -1834,12 +1834,6 @@ interface EventListener {
     (evt: Event): void;
 }
 
-type WebKitEntriesCallback = ((entries: WebKitEntry[]) => void) | { handleEvent(entries: WebKitEntry[]): void; };
-
-type WebKitErrorCallback = ((err: DOMError) => void) | { handleEvent(err: DOMError): void; };
-
-type WebKitFileCallback = ((file: File) => void) | { handleEvent(file: File): void; };
-
 interface ANGLE_instanced_arrays {
     drawArraysInstancedANGLE(mode: number, first: number, count: number, primcount: number): void;
     drawElementsInstancedANGLE(mode: number, count: number, type: number, offset: number, primcount: number): void;
@@ -9201,48 +9195,6 @@ declare var MSStream: {
     new(): MSStream;
 };
 
-interface MSStreamReaderEventMap {
-    "abort": UIEvent;
-    "error": ErrorEvent;
-    "load": Event;
-    "loadend": ProgressEvent;
-    "loadstart": Event;
-    "progress": ProgressEvent;
-}
-
-interface MSStreamReader extends EventTarget {
-    readonly error: DOMError;
-    onabort: ((this: MSStreamReader, ev: UIEvent) => any) | null;
-    onerror: ((this: MSStreamReader, ev: ErrorEvent) => any) | null;
-    onload: ((this: MSStreamReader, ev: Event) => any) | null;
-    onloadend: ((this: MSStreamReader, ev: ProgressEvent) => any) | null;
-    onloadstart: ((this: MSStreamReader, ev: Event) => any) | null;
-    onprogress: ((this: MSStreamReader, ev: ProgressEvent) => any) | null;
-    readonly readyState: number;
-    readonly result: any;
-    abort(): void;
-    readAsArrayBuffer(stream: MSStream, size?: number): void;
-    readAsBinaryString(stream: MSStream, size?: number): void;
-    readAsBlob(stream: MSStream, size?: number): void;
-    readAsDataURL(stream: MSStream, size?: number): void;
-    readAsText(stream: MSStream, encoding?: string, size?: number): void;
-    readonly DONE: number;
-    readonly EMPTY: number;
-    readonly LOADING: number;
-    addEventListener<K extends keyof MSStreamReaderEventMap>(type: K, listener: (this: MSStreamReader, ev: MSStreamReaderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MSStreamReaderEventMap>(type: K, listener: (this: MSStreamReader, ev: MSStreamReaderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var MSStreamReader: {
-    prototype: MSStreamReader;
-    new(): MSStreamReader;
-    readonly DONE: number;
-    readonly EMPTY: number;
-    readonly LOADING: number;
-};
-
 interface MediaDeviceInfo {
     readonly deviceId: string;
     readonly groupId: string;
@@ -15233,56 +15185,6 @@ declare var WebGLUniformLocation: {
 
 interface WebGLVertexArrayObjectOES {
 }
-
-interface WebKitDirectoryEntry extends WebKitEntry {
-    createReader(): WebKitDirectoryReader;
-}
-
-declare var WebKitDirectoryEntry: {
-    prototype: WebKitDirectoryEntry;
-    new(): WebKitDirectoryEntry;
-};
-
-interface WebKitDirectoryReader {
-    readEntries(successCallback: WebKitEntriesCallback, errorCallback?: WebKitErrorCallback): void;
-}
-
-declare var WebKitDirectoryReader: {
-    prototype: WebKitDirectoryReader;
-    new(): WebKitDirectoryReader;
-};
-
-interface WebKitEntry {
-    readonly filesystem: WebKitFileSystem;
-    readonly fullPath: string;
-    readonly isDirectory: boolean;
-    readonly isFile: boolean;
-    readonly name: string;
-}
-
-declare var WebKitEntry: {
-    prototype: WebKitEntry;
-    new(): WebKitEntry;
-};
-
-interface WebKitFileEntry extends WebKitEntry {
-    file(successCallback: WebKitFileCallback, errorCallback?: WebKitErrorCallback): void;
-}
-
-declare var WebKitFileEntry: {
-    prototype: WebKitFileEntry;
-    new(): WebKitFileEntry;
-};
-
-interface WebKitFileSystem {
-    readonly name: string;
-    readonly root: WebKitDirectoryEntry;
-}
-
-declare var WebKitFileSystem: {
-    prototype: WebKitFileSystem;
-    new(): WebKitFileSystem;
-};
 
 interface WebKitPoint {
     x: number;

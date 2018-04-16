@@ -358,21 +358,6 @@ declare var Console: {
     new(): Console;
 };
 
-interface Coordinates {
-    readonly accuracy: number;
-    readonly altitude: number | null;
-    readonly altitudeAccuracy: number | null;
-    readonly heading: number | null;
-    readonly latitude: number;
-    readonly longitude: number;
-    readonly speed: number | null;
-}
-
-declare var Coordinates: {
-    prototype: Coordinates;
-    new(): Coordinates;
-};
-
 interface CryptoKey {
     readonly algorithm: KeyAlgorithm;
     readonly extractable: boolean;
@@ -1193,33 +1178,6 @@ declare var PerformanceTiming: {
     new(): PerformanceTiming;
 };
 
-interface Position {
-    readonly coords: Coordinates;
-    readonly timestamp: number;
-}
-
-declare var Position: {
-    prototype: Position;
-    new(): Position;
-};
-
-interface PositionError {
-    readonly code: number;
-    readonly message: string;
-    toString(): string;
-    readonly PERMISSION_DENIED: number;
-    readonly POSITION_UNAVAILABLE: number;
-    readonly TIMEOUT: number;
-}
-
-declare var PositionError: {
-    prototype: PositionError;
-    new(): PositionError;
-    readonly PERMISSION_DENIED: number;
-    readonly POSITION_UNAVAILABLE: number;
-    readonly TIMEOUT: number;
-};
-
 interface ProgressEvent extends Event {
     readonly lengthComputable: boolean;
     readonly loaded: number;
@@ -1811,14 +1769,6 @@ interface NotificationPermissionCallback {
 
 interface PerformanceObserverCallback {
     (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
-}
-
-interface PositionCallback {
-    (position: Position): void;
-}
-
-interface PositionErrorCallback {
-    (error: PositionError): void;
 }
 
 declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;

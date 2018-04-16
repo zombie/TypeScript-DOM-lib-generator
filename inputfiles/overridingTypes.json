@@ -905,17 +905,6 @@
                     }
                 }
             },
-            "SVGStylable": {
-                "name": "SVGStylable",
-                "properties": {
-                    "property": {
-                        "className": {
-                            "name": "className",
-                            "override-type": "any"
-                        }
-                    }
-                }
-            },
             "SVGElement": {
                 "name": "SVGElement",
                 "properties": {

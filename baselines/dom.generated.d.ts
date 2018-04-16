@@ -12876,15 +12876,6 @@ declare var SVGStringList: {
     new(): SVGStringList;
 };
 
-interface SVGStylable {
-    className: any;
-}
-
-declare var SVGStylable: {
-    prototype: SVGStylable;
-    new(): SVGStylable;
-};
-
 interface SVGStyleElement extends SVGElement {
     disabled: boolean;
     media: string;

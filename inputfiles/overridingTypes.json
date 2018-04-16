@@ -2290,6 +2290,57 @@
                         }
                     }
                 }
+            },
+            "Animation": {
+                "name": "Animation",
+                "events": {
+                    "event": [
+                        {
+                            "name": "finish",
+                            "type": "AnimationPlaybackEvent"
+                        },
+                        {
+                            "name": "cancel",
+                            "type": "AnimationPlaybackEvent"
+                        }
+                    ]
+                }
+            },
+            "KeyframeEffect": {
+                "name": "KeyframeEffect",
+                "constructor": {
+                    "override-signatures": [
+                        "new(target: Element | null, keyframes: object | null, options?: number | KeyframeEffectOptions): KeyframeEffect",
+                        "new(source: KeyframeEffect): KeyframeEffect"
+                    ]
+                },
+                "properties": {
+                    "property": {
+                        "target": {
+                            "name": "target",
+                            "override-type": "Element | null"
+                        }
+                    }
+                }
+            },
+            "HTMLMarqueeElement": {
+                "name": "HTMLMarqueeElement",
+                "events": {
+                    "event": [
+                        {
+                            "name": "bounce",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "finish",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "start",
+                            "type": "Event"
+                        }
+                    ]
+                }
             }
         }
     },

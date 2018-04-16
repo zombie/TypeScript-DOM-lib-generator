@@ -60,6 +60,10 @@
         "title": "Vibration"
     },
     {
+        "url": "https://drafts.csswg.org/web-animations/",
+        "title": "Web Animations"
+    },
+    {
         "url": "https://wicg.github.io/BackgroundSync/spec/",
         "title": "Web Background Synchronization"
     },

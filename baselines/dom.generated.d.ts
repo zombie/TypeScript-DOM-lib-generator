@@ -3229,11 +3229,6 @@ interface Coordinates {
     readonly speed: number | null;
 }
 
-declare var Coordinates: {
-    prototype: Coordinates;
-    new(): Coordinates;
-};
-
 interface CountQueuingStrategy {
     highWaterMark: number;
     size(): number;
@@ -5205,11 +5200,6 @@ interface Geolocation {
     getCurrentPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): void;
     watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): number;
 }
-
-declare var Geolocation: {
-    prototype: Geolocation;
-    new(): Geolocation;
-};
 
 interface GetSVGDocument {
     getSVGDocument(): Document;
@@ -10437,27 +10427,13 @@ interface Position {
     readonly timestamp: number;
 }
 
-declare var Position: {
-    prototype: Position;
-    new(): Position;
-};
-
 interface PositionError {
     readonly code: number;
     readonly message: string;
-    toString(): string;
     readonly PERMISSION_DENIED: number;
     readonly POSITION_UNAVAILABLE: number;
     readonly TIMEOUT: number;
 }
-
-declare var PositionError: {
-    prototype: PositionError;
-    new(): PositionError;
-    readonly PERMISSION_DENIED: number;
-    readonly POSITION_UNAVAILABLE: number;
-    readonly TIMEOUT: number;
-};
 
 interface ProcessingInstruction extends CharacterData {
     readonly target: string;
@@ -16071,7 +16047,7 @@ interface PositionCallback {
 }
 
 interface PositionErrorCallback {
-    (error: PositionError): void;
+    (positionError: PositionError): void;
 }
 
 interface RTCPeerConnectionErrorCallback {

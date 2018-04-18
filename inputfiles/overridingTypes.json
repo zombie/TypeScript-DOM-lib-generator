@@ -1,6 +1,19 @@
 {
     "mixins": {
         "mixin": {
+            "Animatable": {
+                "name": "Animatable",
+                "methods": {
+                    "method": {
+                        "animate": {
+                            "name": "animate",
+                            "override-signatures": [
+                                "animate(keyframes: Keyframe[] | PropertyIndexedKeyframes, options?: number | KeyframeAnimationOptions): Animation"
+                            ]
+                        }
+                    }
+                }
+            },
             "ElementTraversal": {
                 "name": "ElementTraversal",
                 "properties": {
@@ -2310,7 +2323,7 @@
                 "name": "KeyframeEffect",
                 "constructor": {
                     "override-signatures": [
-                        "new(target: Element | null, keyframes: object | null, options?: number | KeyframeEffectOptions): KeyframeEffect",
+                        "new(target: Element | null, keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeEffectOptions): KeyframeEffect",
                         "new(source: KeyframeEffect): KeyframeEffect"
                     ]
                 },
@@ -2319,6 +2332,22 @@
                         "target": {
                             "name": "target",
                             "override-type": "Element | null"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "getKeyframes": {
+                            "name": "getKeyframes",
+                            "override-signatures": [
+                                "getKeyframes(): ComputedKeyframe[]"
+                            ]
+                        },
+                        "setKeyframes": {
+                            "name": "setKeyframes",
+                            "override-signatures": [
+                                "setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void"
+                            ]
                         }
                     }
                 }
@@ -2527,6 +2556,18 @@
                         }
                     }
                 }
+            },
+            "BaseKeyframe": {
+                "name": "Keyframe",
+                "extends": "Record<keyof CSSStyleDeclaration, string>"
+            },
+            "BasePropertyIndexedKeyframe": {
+                "name": "PropertyIndexedKeyframes",
+                "extends": "Record<keyof CSSStyleDeclaration, string | string[]>"
+            },
+            "BaseComputedKeyframe": {
+                "name": "ComputedKeyframe",
+                "extends": "Record<keyof CSSStyleDeclaration, string>"
             }
         }
     },

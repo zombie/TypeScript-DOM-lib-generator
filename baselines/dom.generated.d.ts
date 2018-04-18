@@ -119,25 +119,6 @@ interface AudioTimestamp {
     performanceTime?: number;
 }
 
-interface BaseComputedKeyframe {
-    composite?: CompositeOperation | null;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number | null;
-}
-
-interface BaseKeyframe {
-    composite?: CompositeOperation | null;
-    easing?: string;
-    offset?: number | null;
-}
-
-interface BasePropertyIndexedKeyframe {
-    composite?: CompositeOperation | (CompositeOperation | null)[];
-    easing?: string | string[];
-    offset?: number | (number | null)[];
-}
-
 interface BiquadFilterOptions extends AudioNodeOptions {
     Q?: number;
     detune?: number;
@@ -195,6 +176,13 @@ interface ComputedEffectTiming extends EffectTiming {
     endTime?: number;
     localTime?: number | null;
     progress?: number | null;
+}
+
+interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
+    composite?: CompositeOperation | null;
+    computedOffset?: number;
+    easing?: string;
+    offset?: number | null;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -553,6 +541,12 @@ interface KeyboardEventInit extends EventModifierInit {
     key?: string;
     location?: number;
     repeat?: boolean;
+}
+
+interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
+    composite?: CompositeOperation | null;
+    easing?: string;
+    offset?: number | null;
 }
 
 interface KeyframeAnimationOptions extends KeyframeEffectOptions {
@@ -1197,6 +1191,12 @@ interface ProgressEventInit extends EventInit {
     lengthComputable?: boolean;
     loaded?: number;
     total?: number;
+}
+
+interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
+    composite?: CompositeOperation | (CompositeOperation | null)[];
+    easing?: string | string[];
+    offset?: number | (number | null)[];
 }
 
 interface PushEventInit extends ExtendableEventInit {
@@ -1919,7 +1919,7 @@ declare var AnalyserNode: {
 };
 
 interface Animatable {
-    animate(keyframes: any, options?: number | KeyframeAnimationOptions): Animation;
+    animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation;
     getAnimations(): Animation[];
 }
 
@@ -1979,24 +1979,6 @@ declare var AnimationEvent: {
     new(typeArg: string, eventInitDict?: AnimationEventInit): AnimationEvent;
 };
 
-interface AnimationKeyFrame {
-    easing?: string | string[];
-    offset?: number | null | (number | null)[];
-    [index: string]: string | number | number[] | string[] | null | (number | null)[] | undefined;
-}
-
-interface AnimationOptions {
-    delay?: number;
-    direction?: "normal" | "reverse" | "alternate" | "alternate-reverse";
-    duration?: number;
-    easing?: string;
-    endDelay?: number;
-    fill?: "none" | "forwards" | "backwards" | "both"| "auto";
-    id?: string;
-    iterationStart?: number;
-    iterations?: number;
-}
-
 interface AnimationPlaybackEvent extends Event {
     readonly currentTime: number | null;
     readonly timelineTime: number | null;
@@ -2007,14 +1989,14 @@ declare var AnimationPlaybackEvent: {
     new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent;
 };
 
-interface AnimationPlaybackEventInit extends EventInit {
-    currentTime?: number | null;
-    timelineTime?: number | null;
-}
-
 interface AnimationTimeline {
     readonly currentTime: number | null;
 }
+
+declare var AnimationTimeline: {
+    prototype: AnimationTimeline;
+    new(): AnimationTimeline;
+};
 
 interface ApplicationCacheEventMap {
     "cached": Event;
@@ -3234,14 +3216,6 @@ declare var CompositionEvent: {
     prototype: CompositionEvent;
     new(typeArg: string, eventInitDict?: CompositionEventInit): CompositionEvent;
 };
-
-interface ComputedTimingProperties {
-    activeDuration: number;
-    currentIteration: number | null;
-    endTime: number;
-    localTime: number | null;
-    progress: number | null;
-}
 
 interface ConcatParams extends Algorithm {
     algorithmId: Uint8Array;
@@ -6027,7 +6001,6 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     spellcheck: boolean;
     tabIndex: number;
     title: string;
-    animate(keyframes: AnimationKeyFrame | AnimationKeyFrame[], options: number | AnimationOptions): Animation;
     blur(): void;
     click(): void;
     dragDrop(): boolean;
@@ -8890,13 +8863,13 @@ interface KeyframeEffect extends AnimationEffect {
     composite: CompositeOperation;
     iterationComposite: IterationCompositeOperation;
     target: Element | null;
-    getKeyframes(): any[];
-    setKeyframes(keyframes: any): void;
+    getKeyframes(): ComputedKeyframe[];
+    setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void;
 }
 
 declare var KeyframeEffect: {
     prototype: KeyframeEffect;
-    new(target: Element | null, keyframes: object | null, options?: number | KeyframeEffectOptions): KeyframeEffect;
+    new(target: Element | null, keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeEffectOptions): KeyframeEffect;
     new(source: KeyframeEffect): KeyframeEffect;
 };
 

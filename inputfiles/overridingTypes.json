@@ -8,7 +8,7 @@
                         "animate": {
                             "name": "animate",
                             "override-signatures": [
-                                "animate(keyframes: Keyframe[] | PropertyIndexedKeyframes, options?: number | KeyframeAnimationOptions): Animation"
+                                "animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation"
                             ]
                         }
                     }

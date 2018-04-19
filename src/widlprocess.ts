@@ -66,6 +66,14 @@ function hasExtAttr(extAttrs: webidl2.ExtendedAttributes[], name: string) {
     return extAttrs.some(extAttr => extAttr.name === name);
 }
 
+function getExtAttr(extAttrs: webidl2.ExtendedAttributes[], name: string) {
+    const attr = extAttrs.find(extAttr => extAttr.name === name);
+    if (!attr || !attr.rhs) {
+        return;
+    }
+    return attr.rhs.type === "identifier-list" ? attr.rhs.value : [attr.rhs.value];
+}
+
 function convertInterface(i: webidl2.InterfaceType) {
     const result = convertInterfaceCommon(i);
     if (i.inheritance) {
@@ -89,7 +97,8 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         properties: { property: {} },
         constructor: getConstructor(i.extAttrs, i.name),
         exposed: getExposure(i.extAttrs),
-        "no-interface-object": hasExtAttr(i.extAttrs, "NoInterfaceObject") ? 1 : undefined
+        "no-interface-object": hasExtAttr(i.extAttrs, "NoInterfaceObject") ? 1 : undefined,
+        "legacy-window-alias": getExtAttr(i.extAttrs, "LegacyWindowAlias")
     };
     for (const member of i.members) {
         if (member.type === "const") {

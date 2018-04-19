@@ -137,6 +137,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         getElements(webidl.mixins, "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
+    const allLegacyWindowAliases = flatMap(allInterfaces, i => i["legacy-window-alias"]);
     const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
@@ -336,6 +337,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 if (flavor === Flavor.Web && objDomType === "Client") return "object";
                 // Name of an interface / enum / dict. Just return itself
                 if (allInterfacesMap[objDomType] ||
+                    allLegacyWindowAliases.includes(objDomType) || 
                     allCallbackFunctionsMap[objDomType] ||
                     allDictionariesMap[objDomType] ||
                     allEnumsMap[objDomType]) return objDomType;
@@ -782,6 +784,14 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.decreaseIndent();
         printer.printLine("};");
         printer.printLine("");
+
+        if (flavor === Flavor.Web && i["legacy-window-alias"]) {
+            for (const alias of i["legacy-window-alias"]!) {
+                printer.printLine(`type ${alias} = ${i.name};`);
+                printer.printLine(`declare var ${alias}: typeof ${i.name};`);
+                printer.printLine("");
+            }
+        }
     }
 
     function emitNamedConstructor(i: Browser.Interface) {

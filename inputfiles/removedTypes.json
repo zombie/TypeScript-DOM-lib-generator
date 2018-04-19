@@ -37,6 +37,10 @@
                     }
                 }
             },
+            "SVGMatrix": null,
+            "SVGPoint": null,
+            "SVGRect": null,
+            "WebKitCSSMatrix": null,
             "Window": {
                 "properties": {
                     "property": {

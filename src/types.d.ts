@@ -173,6 +173,7 @@ export interface Interface {
     specs?: string;
     iterable?: "value" | "pair" | "pair-iterator";
     iterator?: Iterator;
+    "legacy-window-alias"?: string[];
 }
 
 export interface Iterator {

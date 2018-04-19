@@ -107,43 +107,30 @@ function emitDom() {
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
         const result = getEmptyWebIDL();
 
-        if (obj["callback-functions"]) result["callback-functions"]!["callback-function"] = filterProperties(obj["callback-functions"]!["callback-function"], (cb) => !(template["callback-functions"] && template["callback-functions"]!["callback-function"][cb.name]));
-        if (obj["callback-interfaces"]) result["callback-interfaces"]!.interface = filterInterface(obj["callback-interfaces"]!.interface, template["callback-interfaces"] && template["callback-interfaces"]!.interface);
-        if (obj.dictionaries) result.dictionaries!.dictionary = filterDictionary(obj.dictionaries.dictionary, template.dictionaries && template.dictionaries.dictionary);
-        if (obj.enums) result.enums!.enum = filterEnum(obj.enums.enum, template.enums && template.enums.enum);
-        if (obj.mixins) result.mixins!.mixin = filterProperties(obj.mixins.mixin, mixin => !(template.mixins && template.mixins!.mixin[mixin.name]));
-        if (obj.interfaces) result.interfaces!.interface = filterInterface(obj.interfaces.interface, template.interfaces && template.interfaces.interface);
+        if (obj["callback-functions"]) result["callback-functions"]!["callback-function"] = filterByNull(obj["callback-functions"]!["callback-function"], template["callback-functions"]!["callback-function"]);
+        if (obj["callback-interfaces"]) result["callback-interfaces"]!.interface = filterByNull(obj["callback-interfaces"]!.interface, template["callback-interfaces"]!.interface);
+        if (obj.dictionaries) result.dictionaries!.dictionary = filterByNull(obj.dictionaries.dictionary, template.dictionaries!.dictionary);
+        if (obj.enums) result.enums!.enum = filterByNull(obj.enums.enum, template.enums!.enum);
+        if (obj.mixins) result.mixins!.mixin = filterByNull(obj.mixins.mixin, template.mixins!.mixin);
+        if (obj.interfaces) result.interfaces!.interface = filterByNull(obj.interfaces.interface, template.interfaces!.interface);
         if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => !(template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"])));
 
         return result;
 
-        function filterInterface(interfaces: Record<string, Browser.Interface>, template: Record<string, Browser.Interface> | undefined) {
-            if (!template) return interfaces;
-            const result = interfaces;
-            for (const k in result) {
-                if (result[k].properties) {
-                    result[k].properties!.property = filterProperties(interfaces[k].properties!.property, p => !(template[k] && template[k].properties && template[k].properties!.property[p.name]));
+        function filterByNull(obj: any, template: any) {
+            if (!template) return obj;
+            const filtered: any = {};
+            for (const k in obj) {
+                if (k in template) {
+                    if (template[k] !== null) {
+                        filtered[k] = filterByNull(obj[k], template[k]);
+                    }
                 }
-                if (result[k].methods) {
-                    result[k].methods!.method = filterProperties(interfaces[k].methods!.method, m => !(template[k] && template[k].methods && template[k].methods!.method[m.name]));
-                }
-            }
-            return result;
-        }
-
-        function filterDictionary(dictinaries: Record<string, Browser.Dictionary>, template: Record<string, Browser.Dictionary> | undefined) {
-            if (!template) return dictinaries;
-            const result = dictinaries;
-            for (const k in result) {
-                if (result[k].members) {
-                    result[k].members!.member = filterProperties(dictinaries[k].members!.member, m => !(template[k] && template[k].members && template[k].members!.member[m.name]));
+                else {
+                    filtered[k] = obj[k];
                 }
             }
-            return result;
-        }
-        function filterEnum(enums: Record<string, Browser.Enum>, template: Record<string, Browser.Enum> | undefined) {
-            if (!template) return enums;
-            return filterProperties(enums, i => !template[i.name]);
+            return filtered;
         }
     }
 }

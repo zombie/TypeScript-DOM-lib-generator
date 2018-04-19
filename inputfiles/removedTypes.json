@@ -1,12 +1,12 @@
 {
     "callback-functions": {
         "callback-function": {
-            "Function": {}
+            "Function": null
         }
     },
     "mixins": {
         "mixin": {
-            "XMLHttpRequestEventTarget": {}
+            "XMLHttpRequestEventTarget": null
         }
     },
     "callback-interfaces": {
@@ -14,8 +14,8 @@
     },
     "enums": {
         "enum": {
-            "ClientType": {},
-            "RequestType": {}
+            "ClientType": null,
+            "RequestType": null
         }
     },
     "interfaces": {
@@ -23,24 +23,28 @@
             "HTMLElement": {
                 "methods": {
                     "method": {
-                        "scrollIntoView": {},
-                        "insertAdjacentElement": {},
-                        "insertAdjacentHTML": {},
-                        "insertAdjacentText": {}
+                        "scrollIntoView": null,
+                        "insertAdjacentElement": null,
+                        "insertAdjacentHTML": null,
+                        "insertAdjacentText": null
                     }
                 }
             },
             "StorageEvent": {
                 "methods": {
                     "method": {
-                        "initStorageEvent": {}
+                        "initStorageEvent": null
                     }
                 }
             },
+            "SVGMatrix": null,
+            "SVGPoint": null,
+            "SVGRect": null,
+            "WebKitCSSMatrix": null,
             "Window": {
                 "properties": {
                     "property": {
-                        "browser": {}
+                        "browser": null
                     }
                 }
             }
@@ -51,14 +55,14 @@
             "RTCRtpContributingSource": {
                 "members": {
                     "member": {
-                        "csrc": {}
+                        "csrc": null
                     }
                 }
             },
             "MediaTrackConstraintSet": {
                 "members": {
                     "member": {
-                        "echoCancelation": {}
+                        "echoCancelation": null
                     }
                 }
             }

@@ -3485,6 +3485,12 @@ declare var DOMMatrix: {
     fromMatrix(other?: DOMMatrixInit): DOMMatrix;
 };
 
+type SVGMatrix = DOMMatrix;
+declare var SVGMatrix: typeof DOMMatrix;
+
+type WebKitCSSMatrix = DOMMatrix;
+declare var WebKitCSSMatrix: typeof DOMMatrix;
+
 interface DOMMatrixReadOnly {
     readonly a: number;
     readonly b: number;
@@ -3558,6 +3564,9 @@ declare var DOMPoint: {
     fromPoint(other?: DOMPointInit): DOMPoint;
 };
 
+type SVGPoint = DOMPoint;
+declare var SVGPoint: typeof DOMPoint;
+
 interface DOMPointReadOnly {
     readonly w: number;
     readonly x: number;
@@ -3601,6 +3610,9 @@ declare var DOMRect: {
     new(x?: number, y?: number, width?: number, height?: number): DOMRect;
     fromRect(other?: DOMRectInit): DOMRect;
 };
+
+type SVGRect = DOMRect;
+declare var SVGRect: typeof DOMRect;
 
 interface DOMRectList {
     readonly length: number;
@@ -12291,31 +12303,6 @@ declare var SVGMaskElement: {
     new(): SVGMaskElement;
 };
 
-interface SVGMatrix {
-    a: number;
-    b: number;
-    c: number;
-    d: number;
-    e: number;
-    f: number;
-    flipX(): SVGMatrix;
-    flipY(): SVGMatrix;
-    inverse(): SVGMatrix;
-    multiply(secondMatrix: SVGMatrix): SVGMatrix;
-    rotate(angle: number): SVGMatrix;
-    rotateFromVector(x: number, y: number): SVGMatrix;
-    scale(scaleFactor: number): SVGMatrix;
-    scaleNonUniform(scaleFactorX: number, scaleFactorY: number): SVGMatrix;
-    skewX(angle: number): SVGMatrix;
-    skewY(angle: number): SVGMatrix;
-    translate(x: number, y: number): SVGMatrix;
-}
-
-declare var SVGMatrix: {
-    prototype: SVGMatrix;
-    new(): SVGMatrix;
-};
-
 interface SVGMetadataElement extends SVGElement {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGMetadataElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -12704,17 +12691,6 @@ declare var SVGPatternElement: {
     new(): SVGPatternElement;
 };
 
-interface SVGPoint {
-    x: number;
-    y: number;
-    matrixTransform(matrix: SVGMatrix): SVGPoint;
-}
-
-declare var SVGPoint: {
-    prototype: SVGPoint;
-    new(): SVGPoint;
-};
-
 interface SVGPointList {
     readonly numberOfItems: number;
     appendItem(newItem: SVGPoint): SVGPoint;
@@ -12808,18 +12784,6 @@ interface SVGRadialGradientElement extends SVGGradientElement {
 declare var SVGRadialGradientElement: {
     prototype: SVGRadialGradientElement;
     new(): SVGRadialGradientElement;
-};
-
-interface SVGRect {
-    height: number;
-    width: number;
-    x: number;
-    y: number;
-}
-
-declare var SVGRect: {
-    prototype: SVGRect;
-    new(): SVGRect;
 };
 
 interface SVGRectElement extends SVGGraphicsElement {
@@ -15269,46 +15233,6 @@ declare var WebGLUniformLocation: {
 
 interface WebGLVertexArrayObjectOES {
 }
-
-interface WebKitCSSMatrix {
-    a: number;
-    b: number;
-    c: number;
-    d: number;
-    e: number;
-    f: number;
-    m11: number;
-    m12: number;
-    m13: number;
-    m14: number;
-    m21: number;
-    m22: number;
-    m23: number;
-    m24: number;
-    m31: number;
-    m32: number;
-    m33: number;
-    m34: number;
-    m41: number;
-    m42: number;
-    m43: number;
-    m44: number;
-    inverse(): WebKitCSSMatrix;
-    multiply(secondMatrix: WebKitCSSMatrix): WebKitCSSMatrix;
-    rotate(angleX: number, angleY?: number, angleZ?: number): WebKitCSSMatrix;
-    rotateAxisAngle(x: number, y: number, z: number, angle: number): WebKitCSSMatrix;
-    scale(scaleX: number, scaleY?: number, scaleZ?: number): WebKitCSSMatrix;
-    setMatrixValue(value: string): void;
-    skewX(angle: number): WebKitCSSMatrix;
-    skewY(angle: number): WebKitCSSMatrix;
-    toString(): string;
-    translate(x: number, y: number, z?: number): WebKitCSSMatrix;
-}
-
-declare var WebKitCSSMatrix: {
-    prototype: WebKitCSSMatrix;
-    new(text?: string): WebKitCSSMatrix;
-};
 
 interface WebKitDirectoryEntry extends WebKitEntry {
     createReader(): WebKitDirectoryReader;

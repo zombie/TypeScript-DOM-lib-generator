@@ -14,33 +14,6 @@
                     }
                 }
             },
-            "ElementTraversal": {
-                "name": "ElementTraversal",
-                "properties": {
-                    "property": {
-                        "firstElementChild": {
-                            "name": "firstElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "lastElementChild": {
-                            "name": "lastElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "nextElementSibling": {
-                            "name": "nextElementSibling",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "previousElementSibling": {
-                            "name": "previousElementSibling",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        }
-                    }
-                }
-            },
             "RandomSource": {
                 "name": "RandomSource",
                 "methods": {
@@ -443,26 +416,6 @@
                             "type-original": "boolean",
                             "type": "boolean"
                         },
-                        "firstChild": {
-                            "name": "firstChild",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
-                        "lastChild": {
-                            "name": "lastChild",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
-                        "nextSibling": {
-                            "name": "nextSibling",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
-                        "previousSibling": {
-                            "name": "previousSibling",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
                         "parentNode": {
                             "name": "parentNode",
                             "read-only": 1,
@@ -678,27 +631,6 @@
                                 "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number): void",
                                 "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number, dstW: number, dstH: number): void",
                                 "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void"
-                            ]
-                        },
-                        "clip": {
-                            "name": "clip",
-                            "override-signatures": [
-                                "clip(fillRule?: CanvasFillRule): void",
-                                "clip(path: Path2D, fillRule?: CanvasFillRule): void"
-                            ]
-                        },
-                        "fill": {
-                            "name": "fill",
-                            "override-signatures": [
-                                "fill(fillRule?: CanvasFillRule): void",
-                                "fill(path: Path2D, fillRule?: CanvasFillRule): void"
-                            ]
-                        },
-                        "isPointInPath": {
-                            "name": "isPointInPath",
-                            "override-signatures": [
-                                "isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean",
-                                "isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean"
                             ]
                         },
                         "isPointInStroke": {
@@ -1078,14 +1010,6 @@
                         "new(width: number, height: number): ImageData",
                         "new(array: Uint8ClampedArray, width: number, height: number): ImageData"
                     ]
-                },
-                "properties": {
-                    "property": {
-                        "data": {
-                            "name": "data",
-                            "override-type": "Uint8ClampedArray"
-                        }
-                    }
                 }
             },
             "DOMException": {
@@ -1103,11 +1027,6 @@
                         "selectedOptions": {
                             "name": "selectedOptions",
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
-                        },
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
                         }
                     }
                 }
@@ -1125,40 +1044,6 @@
             },
             "HTMLTableElement": {
                 "name": "HTMLTableElement",
-                "methods": {
-                    "method": {
-                        "insertRow": {
-                            "name": "insertRow",
-                            "override-signatures": [
-                                "insertRow(index?: number): HTMLTableRowElement"
-                            ]
-                        },
-                        "createTHead": {
-                            "name": "createTHead",
-                            "override-signatures": [
-                                "createTHead(): HTMLTableSectionElement"
-                            ]
-                        },
-                        "createTBody": {
-                            "name": "createTBody",
-                            "override-signatures": [
-                                "createTBody(): HTMLTableSectionElement"
-                            ]
-                        },
-                        "createTFoot": {
-                            "name": "createTFoot",
-                            "override-signatures": [
-                                "createTFoot(): HTMLTableSectionElement"
-                            ]
-                        },
-                        "createCaption": {
-                            "name": "createCaption",
-                            "override-signatures": [
-                                "createCaption(): HTMLTableCaptionElement"
-                            ]
-                        }
-                    }
-                },
                 "properties": {
                     "property": {
                         "rows": {
@@ -1575,14 +1460,6 @@
                     }
                 }
             },
-            "Text": {
-                "name": "Text",
-                "constructor": {
-                    "override-signatures": [
-                        "new(data?: string): Text"
-                    ]
-                }
-            },
             "DragEvent": {
                 "name": "DragEvent",
                 "constructor": {
@@ -1593,30 +1470,6 @@
             },
             "HTMLAppletElement": {
                 "name": "HTMLAppletElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
-            "HTMLButtonElement": {
-                "name": "HTMLButtonElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
-            "HTMLFieldSetElement": {
-                "name": "HTMLFieldSetElement",
                 "properties": {
                     "property": {
                         "form": {
@@ -1639,30 +1492,6 @@
                     }
                 }
             },
-            "HTMLLegendElement": {
-                "name": "HTMLLegendElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
-            "HTMLObjectElement": {
-                "name": "HTMLObjectElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
             "HTMLOptGroupElement": {
                 "name": "HTMLOptGroupElement",
                 "properties": {
@@ -1675,53 +1504,8 @@
                     }
                 }
             },
-            "HTMLOptionElement": {
-                "name": "HTMLOptionElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
-            "HTMLOutputElement": {
-                "name": "HTMLOutputElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
-            "HTMLProgressElement": {
-                "name": "HTMLProgressElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
             "HTMLTextAreaElement": {
                 "name": "HTMLTextAreaElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                },
                 "methods": {
                     "method": {
                         "setSelectionRange": {
@@ -1819,19 +1603,6 @@
                             "name": "send",
                             "override-signatures": [
                                 "send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void"
-                            ]
-                        }
-                    }
-                }
-            },
-            "PushManager": {
-                "name": "PushManager",
-                "methods": {
-                    "method": {
-                        "getSubscription": {
-                            "name": "getSubscription",
-                            "override-signatures": [
-                                "getSubscription(): Promise<PushSubscription | null>"
                             ]
                         }
                     }
@@ -2377,29 +2148,6 @@
                 "type-parameters": [
                     "T = any"
                 ]
-            },
-            "IDBObjectStoreParameters": {
-                "name": "IDBObjectStoreParameters",
-                "members": {
-                    "member": {
-                        "keyPath": {
-                            "name": "keyPath",
-                            "override-type": "string | string[]",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "Algorithm": {
-                "name": "Algorithm",
-                "members": {
-                    "member": {
-                        "name": {
-                            "name": "name",
-                            "override-type": "string"
-                        }
-                    }
-                }
             },
             "AesGcmParams": {
                 "members": {

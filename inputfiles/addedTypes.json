@@ -2687,10 +2687,6 @@
                 "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
             },
             {
-                "new-type": "RequestInfo",
-                "override-type": "Request | string"
-            },
-            {
                 "new-type": "USVString",
                 "override-type": "string"
             },

@@ -765,60 +765,6 @@
                     }
                 }
             },
-            "ScrollOptions": {
-                "flavor": "Web",
-                "name": "ScrollOptions",
-                "properties": {
-                    "property": {
-                        "behavior": {
-                            "name": "behavior",
-                            "override-type": "ScrollBehavior",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "ScrollToOptions": {
-                "flavor": "Web",
-                "name": "ScrollToOptions",
-                "extends": "ScrollOptions",
-                "properties": {
-                    "property": {
-                        "left": {
-                            "name": "left",
-                            "override-type": "number",
-                            "required": 0
-                        },
-                        "top": {
-                            "name": "top",
-                            "override-type": "number",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "ScrollIntoViewOptions": {
-                "flavor": "Web",
-                "name": "ScrollIntoViewOptions",
-                "extends": "ScrollOptions",
-                "properties": {
-                    "property": {
-                        "block": {
-                            "name": "block",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        },
-                        "inline": {
-                            "name": "inline",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Document": {
                 "methods": {
                     "method": {
@@ -1551,27 +1497,7 @@
                             "override-type": "any"
                         }
                     }
-                },
-                "no-interface-object": "1"
-            },
-            "PromiseRejectionEventInit": {
-                "name": "PromiseRejectionEventInit",
-                "extends": "EventInit",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "promise": {
-                            "name": "promise",
-                            "override-type": "PromiseLike<any>"
-                        },
-                        "reason": {
-                            "name": "reason",
-                            "override-type": "any",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
+                }
             },
             "ValidityState": {
                 "name": "ValidityState",
@@ -2535,6 +2461,74 @@
                         "composed": {
                             "name": "composed",
                             "override-type": "boolean",
+                            "required": 0
+                        }
+                    }
+                }
+            },
+            "PromiseRejectionEventInit": {
+                "name": "PromiseRejectionEventInit",
+                "extends": "EventInit",
+                "members": {
+                    "member": {
+                        "promise": {
+                            "name": "promise",
+                            "override-type": "Promise<any>",
+                            "required": 1
+                        },
+                        "reason": {
+                            "name": "reason",
+                            "override-type": "any"
+                        }
+                    }
+                }
+            },
+            "ScrollOptions": {
+                "flavor": "Web",
+                "name": "ScrollOptions",
+                "members": {
+                    "member": {
+                        "behavior": {
+                            "name": "behavior",
+                            "override-type": "ScrollBehavior",
+                            "required": 0
+                        }
+                    }
+                }
+            },
+            "ScrollToOptions": {
+                "flavor": "Web",
+                "name": "ScrollToOptions",
+                "extends": "ScrollOptions",
+                "members": {
+                    "member": {
+                        "left": {
+                            "name": "left",
+                            "override-type": "number",
+                            "required": 0
+                        },
+                        "top": {
+                            "name": "top",
+                            "override-type": "number",
+                            "required": 0
+                        }
+                    }
+                }
+            },
+            "ScrollIntoViewOptions": {
+                "flavor": "Web",
+                "name": "ScrollIntoViewOptions",
+                "extends": "ScrollOptions",
+                "members": {
+                    "member": {
+                        "block": {
+                            "name": "block",
+                            "override-type": "ScrollLogicalPosition",
+                            "required": 0
+                        },
+                        "inline": {
+                            "name": "inline",
+                            "override-type": "ScrollLogicalPosition",
                             "required": 0
                         }
                     }

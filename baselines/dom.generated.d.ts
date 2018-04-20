@@ -1193,6 +1193,11 @@ interface ProgressEventInit extends EventInit {
     total?: number;
 }
 
+interface PromiseRejectionEventInit extends EventInit {
+    promise: Promise<any>;
+    reason?: any;
+}
+
 interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
     composite?: CompositeOperation | (CompositeOperation | null)[];
     easing?: string | string[];
@@ -1680,6 +1685,20 @@ interface ScopedCredentialOptions {
 interface ScopedCredentialParameters {
     algorithm: string | Algorithm;
     type: ScopedCredentialType;
+}
+
+interface ScrollIntoViewOptions extends ScrollOptions {
+    block?: ScrollLogicalPosition;
+    inline?: ScrollLogicalPosition;
+}
+
+interface ScrollOptions {
+    behavior?: ScrollBehavior;
+}
+
+interface ScrollToOptions extends ScrollOptions {
+    left?: number;
+    top?: number;
 }
 
 interface SecurityPolicyViolationEventInit extends EventInit {
@@ -8493,15 +8512,6 @@ declare var HTMLVideoElement: {
     new(): HTMLVideoElement;
 };
 
-interface HTMLegendElement {
-    readonly form: HTMLFormElement | null;
-}
-
-declare var HTMLegendElement: {
-    prototype: HTMLegendElement;
-    new(): HTMLegendElement;
-};
-
 interface HashChangeEvent extends Event {
     readonly newURL: string;
     readonly oldURL: string;
@@ -10557,10 +10567,10 @@ interface PromiseRejectionEvent extends Event {
     readonly reason: any;
 }
 
-interface PromiseRejectionEventInit extends EventInit {
-    promise: PromiseLike<any>;
-    reason?: any;
-}
+declare var PromiseRejectionEvent: {
+    prototype: PromiseRejectionEvent;
+    new(): PromiseRejectionEvent;
+};
 
 interface PushManager {
     getSubscription(): Promise<PushSubscription | null>;
@@ -13282,20 +13292,6 @@ declare var ScriptProcessorNode: {
     prototype: ScriptProcessorNode;
     new(): ScriptProcessorNode;
 };
-
-interface ScrollIntoViewOptions extends ScrollOptions {
-    block?: ScrollLogicalPosition;
-    inline?: ScrollLogicalPosition;
-}
-
-interface ScrollOptions {
-    behavior?: ScrollBehavior;
-}
-
-interface ScrollToOptions extends ScrollOptions {
-    left?: number;
-    top?: number;
-}
 
 interface SecurityPolicyViolationEvent extends Event {
     readonly blockedURI: string;

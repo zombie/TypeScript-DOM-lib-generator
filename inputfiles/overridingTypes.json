@@ -1733,18 +1733,6 @@
                     }
                 }
             },
-            "HTMLegendElement": {
-                "name": "HTMLegendElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                }
-            },
             "Headers": {
                 "name": "Headers",
                 "constructor": {

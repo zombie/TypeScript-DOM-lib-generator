@@ -56,6 +56,10 @@
         "title": "Touch Events"
     },
     {
+        "url": "https://url.spec.whatwg.org/",
+        "title": "URL"
+    },
+    {
         "url": "https://www.w3.org/TR/user-timing-2/",
         "title": "User Timing"
     },

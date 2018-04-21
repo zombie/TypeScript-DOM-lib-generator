@@ -469,63 +469,14 @@
             },
             "URLSearchParams": {
                 "name": "URLSearchParams",
-                "methods": {
-                    "method": {
-                        "append": {
-                            "name": "append",
-                            "override-signatures": [
-                                "append(name: string, value: string): void"
-                            ]
-                        },
-                        "delete": {
-                            "name": "delete",
-                            "override-signatures": [
-                                "delete(name: string): void"
-                            ]
-                        },
-                        "get": {
-                            "name": "get",
-                            "override-signatures": [
-                                "get(name: string): string | null"
-                            ]
-                        },
-                        "getAll": {
-                            "name": "getAll",
-                            "override-signatures": [
-                                "getAll(name: string): string[]"
-                            ]
-                        },
-                        "has": {
-                            "name": "has",
-                            "override-signatures": [
-                                "has(name: string): boolean"
-                            ]
-                        },
-                        "set": {
-                            "name": "set",
-                            "override-signatures": [
-                                "set(name: string, value: string): void"
-                            ]
-                        }
-                    }
-                },
                 "constructor": {
                     "override-signatures": [
-                        "new (init?: string | URLSearchParams): URLSearchParams"
+                        "new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams"
                     ]
                 }
             },
             "URL": {
                 "name": "URL",
-                "properties": {
-                    "property": {
-                        "searchParams": {
-                            "name": "searchParams",
-                            "read-only": 1,
-                            "override-type": "URLSearchParams"
-                        }
-                    }
-                },
                 "methods": {
                     "method": {
                         "createObjectURL": {

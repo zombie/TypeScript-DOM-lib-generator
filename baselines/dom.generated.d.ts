@@ -127,6 +127,10 @@ interface BiquadFilterOptions extends AudioNodeOptions {
     type?: BiquadFilterType;
 }
 
+interface BlobPropertyBag {
+    type?: string;
+}
+
 interface ByteLengthChunk {
     byteLength?: number;
 }
@@ -417,6 +421,10 @@ interface FetchEventInit extends ExtendableEventInit {
     request: Request;
     resultingClientId?: string;
     targetClientId?: string;
+}
+
+interface FilePropertyBag extends BlobPropertyBag {
+    lastModified?: number;
 }
 
 interface FocusEventInit extends UIEventInit {
@@ -1043,10 +1051,6 @@ interface NotificationOptions {
     tag?: string;
     timestamp?: number;
     vibrate?: VibratePattern;
-}
-
-interface ObjectURLOptions {
-    oneTimeOnly?: boolean;
 }
 
 interface OfflineAudioCompletionEventInit extends EventInit {
@@ -2342,20 +2346,13 @@ declare var BiquadFilterNode: {
 interface Blob {
     readonly size: number;
     readonly type: string;
-    msClose(): void;
-    msDetachStream(): any;
     slice(start?: number, end?: number, contentType?: string): Blob;
 }
 
 declare var Blob: {
     prototype: Blob;
-    new (blobParts?: any[], options?: BlobPropertyBag): Blob;
+    new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
 };
-
-interface BlobPropertyBag {
-    endings?: string;
-    type?: string;
-}
 
 interface Body {
     readonly body: ReadableStream | null;
@@ -5104,15 +5101,12 @@ declare var External: {
 
 interface File extends Blob {
     readonly lastModified: number;
-    /** @deprecated */
-    readonly lastModifiedDate: Date;
     readonly name: string;
-    readonly webkitRelativePath: string;
 }
 
 declare var File: {
     prototype: File;
-    new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File;
+    new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File;
 };
 
 interface FileList {
@@ -5126,10 +5120,6 @@ declare var FileList: {
     new(): FileList;
 };
 
-interface FilePropertyBag extends BlobPropertyBag {
-    lastModified?: number;
-}
-
 interface FileReaderEventMap {
     "abort": ProgressEvent;
     "error": ProgressEvent;
@@ -5141,14 +5131,14 @@ interface FileReaderEventMap {
 
 interface FileReader extends EventTarget {
     readonly error: DOMException | null;
-    onabort: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onerror: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onload: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onloadend: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onloadstart: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onprogress: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onabort: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent) => any) | null;
     readonly readyState: number;
-    readonly result: any;
+    readonly result: string | ArrayBuffer | null;
     abort(): void;
     readAsArrayBuffer(blob: Blob): void;
     readAsBinaryString(blob: Blob): void;
@@ -5170,10 +5160,6 @@ declare var FileReader: {
     readonly EMPTY: number;
     readonly LOADING: number;
 };
-
-interface FileReaderProgressEvent extends ProgressEvent {
-    readonly target: FileReader | null;
-}
 
 interface FocusEvent extends UIEvent {
     readonly relatedTarget: EventTarget;
@@ -13964,7 +13950,7 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string, base?: string | URL): URL;
-    createObjectURL(object: any, options?: ObjectURLOptions): string;
+    createObjectURL(object: any): string;
     revokeObjectURL(url: string): void;
 };
 
@@ -16481,6 +16467,7 @@ declare function removeEventListener(type: string, listener: EventListenerOrEven
 type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
+type BlobPart = BufferSource | Blob | string;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;

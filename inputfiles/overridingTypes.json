@@ -945,14 +945,6 @@
                     }
                 }
             },
-            "Blob": {
-                "name": "Blob",
-                "constructor": {
-                    "override-signatures": [
-                        "new (blobParts?: any[], options?: BlobPropertyBag): Blob"
-                    ]
-                }
-            },
             "FormData": {
                 "name": "FormData",
                 "methods": {
@@ -982,23 +974,6 @@
                             "name": "source",
                             "nullable": 0,
                             "override-type": "MessageEventSource"
-                        }
-                    }
-                }
-            },
-            "File": {
-                "name": "File",
-                "constructor": {
-                    "override-signatures": [
-                        "new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"
-                    ]
-                },
-                "properties": {
-                    "property": {
-                        "lastModifiedDate": {
-                            "name": "lastModifiedDate",
-                            "read-only": 1,
-                            "override-type": "Date"
                         }
                     }
                 }
@@ -1710,37 +1685,33 @@
             },
             "FileReader": {
                 "name": "FileReader",
-                "properties": {
-                    "property": {
-                        "onloadstart": {
-                            "name": "onloadstart",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                "events": {
+                    "event": [
+                        {
+                            "name": "loadstart",
+                            "type": "ProgressEvent"
                         },
-                        "onprogress": {
-                            "name": "onprogress",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "progress",
+                            "type": "ProgressEvent"
                         },
-                        "onload": {
-                            "name": "onload",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "load",
+                            "type": "ProgressEvent"
                         },
-                        "onabort": {
-                            "name": "onabort",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "abort",
+                            "type": "ProgressEvent"
                         },
-                        "onerror": {
-                            "name": "onerror",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "error",
+                            "type": "ProgressEvent"
                         },
-                        "onloadend": {
-                            "name": "onloadend",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
-                        },
-                        "result": {
-                            "name": "result",
-                            "override-type": "any"
+                        {
+                            "name": "loadend",
+                            "type": "ProgressEvent"
                         }
-                    }
+                    ]
                 }
             },
             "MediaList": {

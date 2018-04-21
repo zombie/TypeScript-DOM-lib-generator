@@ -28,6 +28,13 @@ export function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolea
     return result;
 }
 
+export function exposesTo(o: { exposed?: string }, target: string) {
+    if (!o || typeof o.exposed !== "string") {
+        return true;
+    }
+    return o.exposed.includes(target);
+}
+
 export function merge<T>(src: T, target: T, shallow?: boolean): T {
     if (typeof src !== "object" || typeof target !== "object") {
         return target;
@@ -170,6 +177,20 @@ export function getEmptyWebIDL(): Browser.WebIdl {
         },
         "typedefs": {
             "typedef": []
+        }
+    }
+}
+
+export function resolveExposure(obj: any, exposure: string, override?: boolean) {
+    if (!exposure) {
+        throw new Error("No exposure set");
+    }
+    if ("exposed" in obj && (override || obj.exposed === undefined)) {
+        obj.exposed = exposure;
+    }
+    for (const key in obj) {
+        if (typeof obj[key] === "object") {
+            resolveExposure(obj[key], exposure, override);
         }
     }
 }

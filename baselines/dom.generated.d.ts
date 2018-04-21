@@ -3280,16 +3280,6 @@ declare var Console: {
     new(): Console;
 };
 
-interface ContentScriptGlobalScope extends EventTarget {
-    readonly msContentScript: ExtensionScriptApis;
-    readonly window: Window;
-}
-
-declare var ContentScriptGlobalScope: {
-    prototype: ContentScriptGlobalScope;
-    new(): ContentScriptGlobalScope;
-};
-
 interface ConvolverNode extends AudioNode {
     buffer: AudioBuffer | null;
     normalize: boolean;
@@ -10569,7 +10559,7 @@ interface PromiseRejectionEvent extends Event {
 
 declare var PromiseRejectionEvent: {
     prototype: PromiseRejectionEvent;
-    new(): PromiseRejectionEvent;
+    new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
 interface PushManager {
@@ -10889,24 +10879,6 @@ interface RTCIdentityAssertion {
 declare var RTCIdentityAssertion: {
     prototype: RTCIdentityAssertion;
     new(idp: string, name: string): RTCIdentityAssertion;
-};
-
-interface RTCIdentityProviderGlobalScope {
-    readonly rtcIdentityProvider: RTCIdentityProviderRegistrar;
-}
-
-declare var RTCIdentityProviderGlobalScope: {
-    prototype: RTCIdentityProviderGlobalScope;
-    new(): RTCIdentityProviderGlobalScope;
-};
-
-interface RTCIdentityProviderRegistrar {
-    register(idp: RTCIdentityProvider): void;
-}
-
-declare var RTCIdentityProviderRegistrar: {
-    prototype: RTCIdentityProviderRegistrar;
-    new(): RTCIdentityProviderRegistrar;
 };
 
 interface RTCPeerConnectionEventMap {

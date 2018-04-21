@@ -29,6 +29,56 @@ interface CloseEventInit extends EventInit {
     wasClean?: boolean;
 }
 
+interface DOMMatrix2DInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+}
+
+interface DOMMatrixInit extends DOMMatrix2DInit {
+    is2D?: boolean;
+    m13?: number;
+    m14?: number;
+    m23?: number;
+    m24?: number;
+    m31?: number;
+    m32?: number;
+    m33?: number;
+    m34?: number;
+    m43?: number;
+    m44?: number;
+}
+
+interface DOMPointInit {
+    w?: number;
+    x?: number;
+    y?: number;
+    z?: number;
+}
+
+interface DOMQuadInit {
+    p1?: DOMPointInit;
+    p2?: DOMPointInit;
+    p3?: DOMPointInit;
+    p4?: DOMPointInit;
+}
+
+interface DOMRectInit {
+    height?: number;
+    width?: number;
+    x?: number;
+    y?: number;
+}
+
 interface ErrorEventInit extends EventInit {
     colno?: number;
     error?: any;
@@ -146,6 +196,11 @@ interface ProgressEventInit extends EventInit {
     total?: number;
 }
 
+interface PromiseRejectionEventInit extends EventInit {
+    promise: Promise<any>;
+    reason?: any;
+}
+
 interface PushEventInit extends ExtendableEventInit {
     data?: PushMessageDataInit;
 }
@@ -199,6 +254,15 @@ interface SyncEventInit extends ExtendableEventInit {
     tag: string;
 }
 
+interface TextDecodeOptions {
+    stream?: boolean;
+}
+
+interface TextDecoderOptions {
+    fatal?: boolean;
+    ignoreBOM?: boolean;
+}
+
 interface EventListener {
     (evt: Event): void;
 }
@@ -215,20 +279,13 @@ interface AbstractWorker {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-interface AudioBuffer {
-    readonly duration: number;
-    readonly length: number;
-    readonly numberOfChannels: number;
-    readonly sampleRate: number;
-    copyFromChannel(destination: Float32Array, channelNumber: number, startInChannel?: number): void;
-    copyToChannel(source: Float32Array, channelNumber: number, startInChannel?: number): void;
-    getChannelData(channel: number): Float32Array;
+interface AesCfbParams extends Algorithm {
+    iv: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
-declare var AudioBuffer: {
-    prototype: AudioBuffer;
-    new(): AudioBuffer;
-};
+interface AesCmacParams extends Algorithm {
+    length: number;
+}
 
 interface Blob {
     readonly size: number;
@@ -256,6 +313,28 @@ interface Body {
     formData(): Promise<FormData>;
     json(): Promise<any>;
     text(): Promise<string>;
+}
+
+interface BroadcastChannel extends EventTarget {
+    readonly name: string;
+    onmessage: (ev: MessageEvent) => any;
+    onmessageerror: (ev: MessageEvent) => any;
+    addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    close(): void;
+    postMessage(message: any): void;
+    removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var BroadcastChannel: {
+    prototype: BroadcastChannel;
+    new(name: string): BroadcastChannel;
+};
+
+interface BroadcastChannelEventMap {
+    message: MessageEvent;
+    messageerror: MessageEvent;
 }
 
 interface Cache {
@@ -323,6 +402,15 @@ declare var CloseEvent: {
     new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
 };
 
+interface ConcatParams extends Algorithm {
+    algorithmId: Uint8Array;
+    hash?: string | Algorithm;
+    partyUInfo: Uint8Array;
+    partyVInfo: Uint8Array;
+    privateInfo?: Uint8Array;
+    publicInfo?: Uint8Array;
+}
+
 interface Console {
     memory: any;
     assert(condition?: boolean, message?: string, ...data: any[]): void;
@@ -368,16 +456,6 @@ interface CryptoKey {
 declare var CryptoKey: {
     prototype: CryptoKey;
     new(): CryptoKey;
-};
-
-interface DOMError {
-    readonly name: string;
-    toString(): string;
-}
-
-declare var DOMError: {
-    prototype: DOMError;
-    new(): DOMError;
 };
 
 interface DOMException {
@@ -441,6 +519,176 @@ declare var DOMException: {
     readonly WRONG_DOCUMENT_ERR: number;
 };
 
+interface DOMMatrix extends DOMMatrixReadOnly {
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    e: number;
+    f: number;
+    m11: number;
+    m12: number;
+    m13: number;
+    m14: number;
+    m21: number;
+    m22: number;
+    m23: number;
+    m24: number;
+    m31: number;
+    m32: number;
+    m33: number;
+    m34: number;
+    m41: number;
+    m42: number;
+    m43: number;
+    m44: number;
+    invertSelf(): DOMMatrix;
+    multiplySelf(other?: DOMMatrixInit): DOMMatrix;
+    preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
+    rotateAxisAngleSelf(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
+    rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+    scale3dSelf(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scaleSelf(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    skewXSelf(sx?: number): DOMMatrix;
+    skewYSelf(sy?: number): DOMMatrix;
+    translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare var DOMMatrix: {
+    prototype: DOMMatrix;
+    new(init?: string | number[]): DOMMatrix;
+    fromFloat32Array(array32: Float32Array): DOMMatrix;
+    fromFloat64Array(array64: Float64Array): DOMMatrix;
+    fromMatrix(other?: DOMMatrixInit): DOMMatrix;
+};
+
+interface DOMMatrixReadOnly {
+    readonly a: number;
+    readonly b: number;
+    readonly c: number;
+    readonly d: number;
+    readonly e: number;
+    readonly f: number;
+    readonly is2D: boolean;
+    readonly isIdentity: boolean;
+    readonly m11: number;
+    readonly m12: number;
+    readonly m13: number;
+    readonly m14: number;
+    readonly m21: number;
+    readonly m22: number;
+    readonly m23: number;
+    readonly m24: number;
+    readonly m31: number;
+    readonly m32: number;
+    readonly m33: number;
+    readonly m34: number;
+    readonly m41: number;
+    readonly m42: number;
+    readonly m43: number;
+    readonly m44: number;
+    flipX(): DOMMatrix;
+    flipY(): DOMMatrix;
+    inverse(): DOMMatrix;
+    multiply(other?: DOMMatrixInit): DOMMatrix;
+    rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+    rotateAxisAngle(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateFromVector(x?: number, y?: number): DOMMatrix;
+    scale(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scale3d(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    skewX(sx?: number): DOMMatrix;
+    skewY(sy?: number): DOMMatrix;
+    toFloat32Array(): Float32Array;
+    toFloat64Array(): Float64Array;
+    toJSON(): any;
+    transformPoint(point?: DOMPointInit): DOMPoint;
+    translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare var DOMMatrixReadOnly: {
+    prototype: DOMMatrixReadOnly;
+    new(init?: string | number[]): DOMMatrixReadOnly;
+    fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
+    fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
+    fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
+};
+
+interface DOMPoint extends DOMPointReadOnly {
+    w: number;
+    x: number;
+    y: number;
+    z: number;
+}
+
+declare var DOMPoint: {
+    prototype: DOMPoint;
+    new(x?: number, y?: number, z?: number, w?: number): DOMPoint;
+    fromPoint(other?: DOMPointInit): DOMPoint;
+};
+
+interface DOMPointReadOnly {
+    readonly w: number;
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
+    toJSON(): any;
+}
+
+declare var DOMPointReadOnly: {
+    prototype: DOMPointReadOnly;
+    new(x?: number, y?: number, z?: number, w?: number): DOMPointReadOnly;
+    fromPoint(other?: DOMPointInit): DOMPointReadOnly;
+};
+
+interface DOMQuad {
+    readonly p1: DOMPoint;
+    readonly p2: DOMPoint;
+    readonly p3: DOMPoint;
+    readonly p4: DOMPoint;
+    getBounds(): DOMRect;
+    toJSON(): any;
+}
+
+declare var DOMQuad: {
+    prototype: DOMQuad;
+    new(p1?: DOMPointInit, p2?: DOMPointInit, p3?: DOMPointInit, p4?: DOMPointInit): DOMQuad;
+    fromQuad(other?: DOMQuadInit): DOMQuad;
+    fromRect(other?: DOMRectInit): DOMQuad;
+};
+
+interface DOMRect extends DOMRectReadOnly {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+}
+
+declare var DOMRect: {
+    prototype: DOMRect;
+    new(x?: number, y?: number, width?: number, height?: number): DOMRect;
+    fromRect(other?: DOMRectInit): DOMRect;
+};
+
+interface DOMRectReadOnly {
+    readonly bottom: number;
+    readonly height: number;
+    readonly left: number;
+    readonly right: number;
+    readonly top: number;
+    readonly width: number;
+    readonly x: number;
+    readonly y: number;
+    toJSON(): any;
+}
+
+declare var DOMRectReadOnly: {
+    prototype: DOMRectReadOnly;
+    new(x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
+    fromRect(other?: DOMRectInit): DOMRectReadOnly;
+};
+
 interface DOMStringList {
     readonly length: number;
     contains(str: string): boolean;
@@ -471,6 +719,25 @@ declare var DedicatedWorkerGlobalScope: {
     prototype: DedicatedWorkerGlobalScope;
     new(): DedicatedWorkerGlobalScope;
 };
+
+interface DhImportKeyParams extends Algorithm {
+    generator: Uint8Array;
+    prime: Uint8Array;
+}
+
+interface DhKeyAlgorithm extends KeyAlgorithm {
+    generator: Uint8Array;
+    prime: Uint8Array;
+}
+
+interface DhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface DhKeyGenParams extends Algorithm {
+    generator: Uint8Array;
+    prime: Uint8Array;
+}
 
 interface ErrorEvent extends Event {
     readonly colno: number;
@@ -522,6 +789,28 @@ declare var Event: {
 
 interface EventListenerObject {
     handleEvent(evt: Event): void;
+}
+
+interface EventSource extends EventTarget {
+    readonly CLOSED: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+    onerror: (evt: MessageEvent) => any;
+    onmessage: (evt: MessageEvent) => any;
+    onopen: (evt: MessageEvent) => any;
+    readonly readyState: number;
+    readonly url: string;
+    readonly withCredentials: boolean;
+    close(): void;
+}
+
+declare var EventSource: {
+    prototype: EventSource;
+    new(url: string, eventSourceInitDict?: EventSourceInit): EventSource;
+};
+
+interface EventSourceInit {
+    readonly withCredentials: boolean;
 }
 
 interface EventTarget {
@@ -688,6 +977,12 @@ declare var Headers: {
     prototype: Headers;
     new(init?: HeadersInit): Headers;
 };
+
+interface HkdfCtrParams extends Algorithm {
+    context: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+    hash: string | Algorithm;
+    label: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+}
 
 interface IDBArrayKey extends Array<IDBValidKey> {
 }
@@ -919,9 +1214,6 @@ interface ImageBitmapOptions {
 }
 
 interface ImageData {
-    readonly data: Uint8ClampedArray;
-    readonly height: number;
-    readonly width: number;
 }
 
 declare var ImageData: {
@@ -1048,7 +1340,6 @@ declare var Notification: {
     new(title: string, options?: NotificationOptions): Notification;
     readonly maxActions: number;
     readonly permission: NotificationPermission;
-    requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 };
 
 interface NotificationEvent extends ExtendableEvent {
@@ -1066,12 +1357,8 @@ interface PerformanceEventMap {
 }
 
 interface Performance extends EventTarget {
-    /** @deprecated */
-    readonly navigation: PerformanceNavigation;
     onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
     readonly timeOrigin: number;
-    /** @deprecated */
-    readonly timing: PerformanceTiming;
     clearMarks(markName?: string): void;
     clearMeasures(measureName?: string): void;
     clearResourceTimings(): void;
@@ -1107,23 +1394,20 @@ declare var PerformanceEntry: {
     new(): PerformanceEntry;
 };
 
-interface PerformanceNavigation {
-    readonly redirectCount: number;
-    readonly type: number;
-    toJSON(): any;
-    readonly TYPE_BACK_FORWARD: number;
-    readonly TYPE_NAVIGATE: number;
-    readonly TYPE_RELOAD: number;
-    readonly TYPE_RESERVED: number;
+interface PerformanceMark extends PerformanceEntry {
 }
 
-declare var PerformanceNavigation: {
-    prototype: PerformanceNavigation;
-    new(): PerformanceNavigation;
-    readonly TYPE_BACK_FORWARD: number;
-    readonly TYPE_NAVIGATE: number;
-    readonly TYPE_RELOAD: number;
-    readonly TYPE_RESERVED: number;
+declare var PerformanceMark: {
+    prototype: PerformanceMark;
+    new(): PerformanceMark;
+};
+
+interface PerformanceMeasure extends PerformanceEntry {
+}
+
+declare var PerformanceMeasure: {
+    prototype: PerformanceMeasure;
+    new(): PerformanceMeasure;
 };
 
 interface PerformanceObserver {
@@ -1148,34 +1432,30 @@ declare var PerformanceObserverEntryList: {
     new(): PerformanceObserverEntryList;
 };
 
-interface PerformanceTiming {
+interface PerformanceResourceTiming extends PerformanceEntry {
     readonly connectEnd: number;
     readonly connectStart: number;
-    readonly domComplete: number;
-    readonly domContentLoadedEventEnd: number;
-    readonly domContentLoadedEventStart: number;
-    readonly domInteractive: number;
-    readonly domLoading: number;
+    readonly decodedBodySize: number;
     readonly domainLookupEnd: number;
     readonly domainLookupStart: number;
+    readonly encodedBodySize: number;
     readonly fetchStart: number;
-    readonly loadEventEnd: number;
-    readonly loadEventStart: number;
-    readonly navigationStart: number;
+    readonly initiatorType: string;
+    readonly nextHopProtocol: string;
     readonly redirectEnd: number;
     readonly redirectStart: number;
     readonly requestStart: number;
     readonly responseEnd: number;
     readonly responseStart: number;
     readonly secureConnectionStart: number;
-    readonly unloadEventEnd: number;
-    readonly unloadEventStart: number;
+    readonly transferSize: number;
+    readonly workerStart: number;
     toJSON(): any;
 }
 
-declare var PerformanceTiming: {
-    prototype: PerformanceTiming;
-    new(): PerformanceTiming;
+declare var PerformanceResourceTiming: {
+    prototype: PerformanceResourceTiming;
+    new(): PerformanceResourceTiming;
 };
 
 interface ProgressEvent extends Event {
@@ -1187,6 +1467,16 @@ interface ProgressEvent extends Event {
 declare var ProgressEvent: {
     prototype: ProgressEvent;
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
+};
+
+interface PromiseRejectionEvent extends Event {
+    readonly promise: PromiseLike<any>;
+    readonly reason: any;
+}
+
+declare var PromiseRejectionEvent: {
+    prototype: PromiseRejectionEvent;
+    new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
 interface PushEvent extends ExtendableEvent {
@@ -1317,6 +1607,15 @@ declare var Response: {
     new(body?: BodyInit | null, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string, status?: number): Response;
+};
+
+interface SVGStylable {
+    className: any;
+}
+
+declare var SVGStylable: {
+    prototype: SVGStylable;
+    new(): SVGStylable;
 };
 
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
@@ -1451,6 +1750,28 @@ interface SyncManager {
 declare var SyncManager: {
     prototype: SyncManager;
     new(): SyncManager;
+};
+
+interface TextDecoder {
+    readonly encoding: string;
+    readonly fatal: boolean;
+    readonly ignoreBOM: boolean;
+    decode(input?: BufferSource, options?: TextDecodeOptions): string;
+}
+
+declare var TextDecoder: {
+    prototype: TextDecoder;
+    new(label?: string, options?: TextDecoderOptions): TextDecoder;
+};
+
+interface TextEncoder {
+    readonly encoding: string;
+    encode(input?: string): Uint8Array;
+}
+
+declare var TextEncoder: {
+    prototype: TextEncoder;
+    new(): TextEncoder;
 };
 
 interface URL {
@@ -1665,7 +1986,6 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     readonly responseText: string;
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
-    readonly responseXML: object | null;
     readonly status: number;
     readonly statusText: string;
     timeout: number;
@@ -1742,14 +2062,6 @@ declare var XMLHttpRequestUpload: {
 };
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
-
-interface DecodeErrorCallback {
-    (error: DOMException): void;
-}
-
-interface DecodeSuccessCallback {
-    (decodedData: AudioBuffer): void;
-}
 
 interface ErrorEventHandler {
     (event: Event | string, source?: string, fileno?: number, columnNumber?: number, error?: Error): void;

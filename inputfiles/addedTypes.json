@@ -531,7 +531,7 @@
                         "createObjectURL": {
                             "name": "createObjectURL",
                             "override-signatures": [
-                                "createObjectURL(object: Blob | MediaSource): string"
+                                "createObjectURL(object: any): string"
                             ]
                         }
                     }

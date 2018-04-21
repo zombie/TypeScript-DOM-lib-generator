@@ -1458,7 +1458,7 @@ interface URL {
 declare var URL: {
     prototype: URL;
     new(url: string, base?: string | URL): URL;
-    createObjectURL(object: Blob | MediaSource): string;
+    createObjectURL(object: any): string;
     revokeObjectURL(url: string): void;
 };
 

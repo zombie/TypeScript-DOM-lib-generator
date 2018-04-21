@@ -4,6 +4,10 @@
         "title": "Encoding"
     },
     {
+        "url": "https://www.w3.org/TR/FileAPI/",
+        "title": "File"
+    },
+    {
         "url": "https://fetch.spec.whatwg.org/",
         "title": "Fetch"
     },

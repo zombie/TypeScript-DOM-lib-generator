@@ -20,6 +20,7 @@
     },
     "interfaces": {
         "interface": {
+            "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {
                     "method": {
@@ -52,6 +53,7 @@
     },
     "dictionaries": {
         "dictionary": {
+            "ObjectURLOptions": null,
             "RTCRtpContributingSource": {
                 "members": {
                     "member": {

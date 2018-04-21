@@ -182,20 +182,6 @@
                     }
                 }
             },
-            "FileReaderProgressEvent": {
-                "name": "FileReaderProgressEvent",
-                "extends": "ProgressEvent",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "target",
-                            "read-only": 1,
-                            "override-type": "FileReader | null"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "BroadcastChannel": {
                 "name": "BroadcastChannel",
                 "extends": "EventTarget",
@@ -539,6 +525,16 @@
                             "override-type": "URLSearchParams"
                         }
                     }
+                },
+                "methods": {
+                    "method": {
+                        "createObjectURL": {
+                            "name": "createObjectURL",
+                            "override-signatures": [
+                                "createObjectURL(object: Blob | MediaSource): string"
+                            ]
+                        }
+                    }
                 }
             },
             "NodeListOf<TNode extends Node>": {
@@ -592,38 +588,6 @@
                 "overide-index-signatures": [
                     "[index: number]: T"
                 ]
-            },
-            "BlobPropertyBag": {
-                "name": "BlobPropertyBag",
-                "properties": {
-                    "property": {
-                        "type": {
-                            "name": "type",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "endings": {
-                            "name": "endings",
-                            "override-type": "string",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "FilePropertyBag": {
-                "name": "FilePropertyBag",
-                "extends": "BlobPropertyBag",
-                "properties": {
-                    "property": {
-                        "lastModified": {
-                            "name": "lastModified",
-                            "override-type": "number",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
             },
             "EventListenerObject": {
                 "name": "EventListenerObject",
@@ -2197,18 +2161,6 @@
                         "typemustmatch": {
                             "name": "typemustmatch",
                             "override-type": "boolean"
-                        }
-                    }
-                }
-            },
-            "File": {
-                "name": "File",
-                "properties": {
-                    "property": {
-                        "lastModified": {
-                            "name": "lastModified",
-                            "read-only": 1,
-                            "override-type": "number"
                         }
                     }
                 }

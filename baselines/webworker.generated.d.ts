@@ -1452,7 +1452,7 @@ interface URL {
     search: string;
     readonly searchParams: URLSearchParams;
     username: string;
-    toString(): string;
+    toJSON(): string;
 }
 
 declare var URL: {
@@ -1487,11 +1487,13 @@ interface URLSearchParams {
      * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
      */
     set(name: string, value: string): void;
+    sort(): void;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
 }
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new (init?: string | URLSearchParams): URLSearchParams;
+    new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
 };
 
 interface WebSocketEventMap {

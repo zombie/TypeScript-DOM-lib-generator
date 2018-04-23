@@ -2311,19 +2311,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "RTCStatsEventInit": {
-                "specs": "webrtc",
-                "name": "RTCStatsEventInit",
-                "members": {
-                    "member": {
-                        "report": {
-                            "type-original": "RTCStatsReport",
-                            "type": "RTCStatsReport",
-                            "name": "report"
-                        }
-                    }
-                }
-            },
             "MessageEventInit": {
                 "name": "MessageEventInit",
                 "members": {

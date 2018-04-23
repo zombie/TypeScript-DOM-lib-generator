@@ -1482,13 +1482,20 @@ interface RTCRtpCodecParameters {
     sdpFmtpLine?: string;
 }
 
+interface RTCRtpCodingParameters {
+    rid?: string;
+}
+
 interface RTCRtpContributingSource {
     audioLevel?: number;
     source: number;
     timestamp: number;
 }
 
-interface RTCRtpEncodingParameters {
+interface RTCRtpDecodingParameters extends RTCRtpCodingParameters {
+}
+
+interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     active?: boolean;
     codecPayloadType?: number;
     dtx?: RTCDtxStatus;
@@ -1496,7 +1503,6 @@ interface RTCRtpEncodingParameters {
     maxFramerate?: number;
     priority?: RTCPriorityType;
     ptime?: number;
-    rid?: string;
     scaleResolutionDownBy?: number;
 }
 
@@ -1524,9 +1530,12 @@ interface RTCRtpHeaderExtensionParameters {
 
 interface RTCRtpParameters {
     codecs: RTCRtpCodecParameters[];
-    encodings: RTCRtpEncodingParameters[];
     headerExtensions: RTCRtpHeaderExtensionParameters[];
     rtcp: RTCRtcpParameters;
+}
+
+interface RTCRtpReceiveParameters extends RTCRtpParameters {
+    encodings: RTCRtpDecodingParameters[];
 }
 
 interface RTCRtpRtxParameters {
@@ -1535,6 +1544,7 @@ interface RTCRtpRtxParameters {
 
 interface RTCRtpSendParameters extends RTCRtpParameters {
     degradationPreference?: RTCDegradationPreference;
+    encodings: RTCRtpEncodingParameters[];
     transactionId: string;
 }
 
@@ -1585,8 +1595,8 @@ interface RTCStats {
     type: RTCStatsType;
 }
 
-interface RTCStatsEventInit {
-    report?: RTCStatsReport;
+interface RTCStatsEventInit extends EventInit {
+    report: RTCStatsReport;
 }
 
 interface RTCStatsReport {
@@ -10992,7 +11002,7 @@ interface RTCRtpReceiver {
     readonly track: MediaStreamTrack;
     readonly transport: RTCDtlsTransport | null;
     getContributingSources(): RTCRtpContributingSource[];
-    getParameters(): RTCRtpParameters;
+    getParameters(): RTCRtpReceiveParameters;
     getStats(): Promise<RTCStatsReport>;
     getSynchronizationSources(): RTCRtpSynchronizationSource[];
 }

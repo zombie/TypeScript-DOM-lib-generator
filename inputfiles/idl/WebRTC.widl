@@ -282,7 +282,6 @@ enum RTCRtpTransceiverDirection {
 };
 
 dictionary RTCRtpParameters {
-             required sequence<RTCRtpEncodingParameters>        encodings;
              required sequence<RTCRtpHeaderExtensionParameters> headerExtensions;
              required RTCRtcpParameters                         rtcp;
              required sequence<RTCRtpCodecParameters>           codecs;
@@ -290,10 +289,22 @@ dictionary RTCRtpParameters {
 
 dictionary RTCRtpSendParameters : RTCRtpParameters {
              required DOMString             transactionId;
+             required sequence<RTCRtpEncodingParameters>  encodings;
              RTCDegradationPreference       degradationPreference = "balanced";
 };
 
-dictionary RTCRtpEncodingParameters {
+dictionary RTCRtpReceiveParameters : RTCRtpParameters {
+             required sequence<RTCRtpDecodingParameters>  encodings;
+};
+
+dictionary RTCRtpCodingParameters {
+             DOMString           rid;
+};
+
+dictionary RTCRtpDecodingParameters : RTCRtpCodingParameters {
+};
+
+dictionary RTCRtpEncodingParameters : RTCRtpCodingParameters {
              octet               codecPayloadType;
              RTCDtxStatus        dtx;
              boolean             active = true;
@@ -301,7 +312,6 @@ dictionary RTCRtpEncodingParameters {
              unsigned long       ptime;
              unsigned long       maxBitrate;
              double              maxFramerate;
-             DOMString           rid;
              double              scaleResolutionDownBy;
 };
 
@@ -356,7 +366,7 @@ dictionary RTCRtpHeaderExtensionCapability {
     readonly        attribute RTCDtlsTransport? transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     static RTCRtpCapabilities          getCapabilities (DOMString kind);
-    RTCRtpParameters                   getParameters ();
+    RTCRtpReceiveParameters            getParameters ();
     sequence<RTCRtpContributingSource>    getContributingSources ();
     sequence<RTCRtpSynchronizationSource> getSynchronizationSources ();
     Promise<RTCStatsReport>   getStats();
@@ -584,6 +594,10 @@ dictionary RTCStats {
           eventInitDict), Exposed=Window]
           interface RTCStatsEvent : Event {
             readonly attribute RTCStatsReport report;
+          };
+
+dictionary RTCStatsEventInit : EventInit {
+            required RTCStatsReport report;
           };
 
 [Global, Exposed=RTCIdentityProviderGlobalScope]

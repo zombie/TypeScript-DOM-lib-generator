@@ -980,6 +980,7 @@
             },
             "ImageData": {
                 "name": "ImageData",
+                "exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
                         "new(width: number, height: number): ImageData",
@@ -1768,6 +1769,7 @@
             },
             "EventTarget": {
                 "name": "EventTarget",
+                "override-exposed": "Window Worker",
                 "methods": {
                     "method": {
                         "addEventListener": {
@@ -2100,6 +2102,34 @@
                         }
                     ]
                 }
+            },
+            "CryptoKey": {
+                "name": "CryptoKey",
+                "override-exposed": "Window Worker"
+            },
+            "DOMStringList": {
+                "name": "DOMStringList",
+                "override-exposed": "Window Worker"
+            },
+            "ErrorEvent": {
+                "name": "ErrorEvent",
+                "override-exposed": "Window Worker"
+            },
+            "Event": {
+                "name": "Event",
+                "override-exposed": "Window Worker"
+            },
+            "ReadableStream": {
+                "name": "ReadableStream",
+                "override-exposed": "Window Worker"
+            },
+            "ReadableStreamReader": {
+                "name": "ReadableStreamReader",
+                "override-exposed": "Window Worker"
+            },
+            "Worker": {
+                "name": "Worker",
+                "override-exposed": "Window Worker"
             }
         }
     },

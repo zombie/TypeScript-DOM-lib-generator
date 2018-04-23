@@ -1,7 +1,7 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, filterProperties, getEmptyWebIDL } from "./helpers";
+import { filter, merge, filterProperties, exposesTo, getEmptyWebIDL, resolveExposure } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 
@@ -14,7 +14,7 @@ function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, ts
     if (webidl.dictionaries) worker.dictionaries!.dictionary = filterProperties(webidl.dictionaries.dictionary, isKnownWorkerName);
     if (webidl.enums) worker.enums!.enum = filterProperties(webidl.enums.enum, isKnownWorkerName);
     if (webidl.mixins) worker.mixins!.mixin = filterProperties(webidl.mixins.mixin, isKnownWorkerName);
-    if (webidl.interfaces) worker.interfaces!.interface = filterProperties(webidl.interfaces.interface, isKnownWorkerName);
+    if (webidl.interfaces) worker.interfaces!.interface = filter(webidl.interfaces.interface, o => exposesTo(o, "Worker"));
     if (webidl.typedefs) worker.typedefs!.typedef = webidl.typedefs.typedef.filter(t => knownWorkerTypes.has(t["new-type"]));
 
     const result = emitWebIDl(worker, Flavor.Worker);
@@ -23,10 +23,7 @@ function emitDomWorker(webidl: Browser.WebIdl, knownWorkerTypes: Set<string>, ts
 }
 
 function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
-    const browser = filter(webidl, o => {
-        return !(o && typeof o.exposed === "string"
-            && o.exposed.includes("Worker") && !o.exposed.includes("Window"));
-    });
+    const browser = filter(webidl, o => exposesTo(o, "Window"));
 
     const result = emitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
@@ -72,6 +69,7 @@ function emitDom() {
         for (const partial of w.partialInterfaces) {
             const base = webidl.interfaces!.interface[partial.name];
             if (base) {
+                resolveExposure(partial, base.exposed!);
                 merge(base.constants, partial.constants, true);
                 merge(base.methods, partial.methods, true);
                 merge(base.properties, partial.properties, true);
@@ -99,6 +97,12 @@ function emitDom() {
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);
     webidl = merge(webidl, comments);
+    for (const name in webidl.interfaces!.interface) {
+        const i = webidl.interfaces!.interface[name];
+        if (i["override-exposed"]) {
+            resolveExposure(i, i["override-exposed"]!, true);
+        }
+    }
 
     emitDomWeb(webidl, tsWebOutput);
     emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);

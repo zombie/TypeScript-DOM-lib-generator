@@ -50,7 +50,7 @@ export function convert(text: string) {
     return { browser, partialInterfaces, partialDictionaries, includes };
 }
 
-function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {
+function getExposure(extAttrs: webidl2.ExtendedAttributes[], inheritedExposure?: string) {
     for (const extAttr of extAttrs) {
         if (extAttr.name === "Exposed") {
             if (Array.isArray(extAttr.rhs.value)) {
@@ -59,7 +59,7 @@ function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {
             return extAttr.rhs.value;
         }
     }
-    return "Window";
+    return inheritedExposure;
 }
 
 function hasExtAttr(extAttrs: webidl2.ExtendedAttributes[], name: string) {
@@ -100,15 +100,18 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         "no-interface-object": hasExtAttr(i.extAttrs, "NoInterfaceObject") ? 1 : undefined,
         "legacy-window-alias": getExtAttr(i.extAttrs, "LegacyWindowAlias")
     };
+    if (!result.exposed && i.type === "interface" && !i.partial) {
+        result.exposed = "Window";
+    }
     for (const member of i.members) {
         if (member.type === "const") {
             result.constants!.constant[member.name] = convertConstantMember(member);
         }
         else if (member.type === "attribute") {
-            result.properties!.property[member.name] = convertAttribute(member);
+            result.properties!.property[member.name] = convertAttribute(member, result.exposed);
         }
         else if (member.type === "operation" && member.name) {
-            const operation = convertOperation(member);
+            const operation = convertOperation(member, result.exposed);
             const { method } = result.methods;
             if (method[member.name]) {
                 method[member.name].signature.push(...operation.signature);
@@ -146,7 +149,7 @@ function getConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string) 
     }
 }
 
-function convertOperation(operation: webidl2.OperationMemberType): Browser.Method {
+function convertOperation(operation: webidl2.OperationMemberType, inheritedExposure: string | undefined): Browser.Method {
     if (!operation.name || !operation.idlType) {
         throw new Error("Unexpected anonymous operation");
     }
@@ -159,6 +162,7 @@ function convertOperation(operation: webidl2.OperationMemberType): Browser.Metho
         getter: operation.getter ? 1 : undefined,
         static: operation.static ? 1 : undefined,
         stringifier: operation.stringifier ? 1 : undefined,
+        exposed: getExposure(operation.extAttrs, inheritedExposure)
     };
 }
 
@@ -182,13 +186,14 @@ function convertArgument(arg: webidl2.Argument): Browser.Param {
     }
 }
 
-function convertAttribute(attribute: webidl2.AttributeMemberType): Browser.Property {
+function convertAttribute(attribute: webidl2.AttributeMemberType, inheritedExposure: string | undefined): Browser.Property {
     return {
         name: attribute.name,
         ...convertIdlType(attribute.idlType),
         static: attribute.static ? 1 : undefined,
         "read-only": attribute.readonly ? 1 : undefined,
-        "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined
+        "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined,
+        exposed: getExposure(attribute.extAttrs, inheritedExposure)
     }
 }
 

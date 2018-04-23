@@ -163,6 +163,7 @@ export interface Interface {
     "named-constructor"?: NamedConstructor;
     "override-builtins"?: 1;
     exposed?: string;
+    "override-exposed"?: string;
     tags?: string;
     "implicit-this"?: 1;
     "primary-global"?: string;

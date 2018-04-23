@@ -14,7 +14,7 @@
             },
             "ParentNode": {
                 "name": "ParentNode",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "firstElementChild": {
@@ -271,7 +271,7 @@
             },
             "StorageEventInit": {
                 "name": "StorageEventInit",
-                "flavor": "Web",
+                "exposed": "Window",
                 "extends": "EventInit",
                 "properties": {
                     "property": {
@@ -305,7 +305,7 @@
             },
             "Canvas2DContextAttributes": {
                 "name": "Canvas2DContextAttributes",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "alpha": {
@@ -490,7 +490,7 @@
             },
             "NodeListOf<TNode extends Node>": {
                 "name": "NodeListOf<TNode extends Node>",
-                "flavor": "Web",
+                "exposed": "Window",
                 "extends": "NodeList",
                 "properties": {
                     "property": {
@@ -517,7 +517,7 @@
             },
             "HTMLCollectionOf<T extends Element>": {
                 "name": "HTMLCollectionOf<T extends Element>",
-                "flavor": "Web",
+                "exposed": "Window",
                 "extends": "HTMLCollection",
                 "methods": {
                     "method": {
@@ -815,7 +815,7 @@
                 }
             },
             "ClipboardEventInit": {
-                "flavor": "Web",
+                "exposed": "Window",
                 "name": "ClipboardEventInit",
                 "extends": "EventInit",
                 "properties": {
@@ -1154,7 +1154,7 @@
                     "method": {
                         "getElementById": {
                             "name": "getElementById",
-                            "flavor": "Web",
+                            "exposed": "Window",
                             "override-signatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
                             ]
@@ -1188,7 +1188,7 @@
             },
             "DocumentOrShadowRoot": {
                 "name": "DocumentOrShadowRoot",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "getSelection": {
@@ -1230,7 +1230,7 @@
             "ShadowRoot": {
                 "name": "ShadowRoot",
                 "extends": "DocumentOrShadowRoot, DocumentFragment",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "host": {
@@ -1248,7 +1248,7 @@
             },
             "ShadowRootInit": {
                 "name": "ShadowRootInit",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "mode": {
@@ -1279,7 +1279,7 @@
             "HTMLSlotElement": {
                 "name": "HTMLSlotElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "name": {
@@ -1307,7 +1307,7 @@
             },
             "AssignedNodesOptions": {
                 "name": "AssignedNodesOptions",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "flatten": {
@@ -1343,7 +1343,7 @@
             },
             "ElementDefinitionOptions": {
                 "name": "ElementDefinitionOptions",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "extends": {
@@ -1356,7 +1356,7 @@
             },
             "ElementCreationOptions": {
                 "name": "ElementCreationOptions",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "is": {
@@ -1370,7 +1370,7 @@
             },
             "CustomElementRegistry": {
                 "name": "CustomElementRegistry",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "define": {
@@ -1398,7 +1398,12 @@
             "PromiseRejectionEvent": {
                 "name": "PromiseRejectionEvent",
                 "extends": "Event",
-                "flavor": "Web",
+                "exposed": "Window Worker",
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent"
+                    ]
+                },
                 "properties": {
                     "property": {
                         "promise": {
@@ -1420,7 +1425,7 @@
                     "property": {
                         "tooShort": {
                             "name": "tooShort",
-                            "flavor": "Web",
+                            "exposed": "Window",
                             "read-only": 1,
                             "override-type": "boolean"
                         }
@@ -1430,7 +1435,7 @@
             "HTMLDialogElement": {
                 "name": "HTMLDialogElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "open": {
@@ -1474,7 +1479,7 @@
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "constructor": {
                     "override-signatures": [
                         "new(): HTMLMainElement"
@@ -1484,7 +1489,7 @@
             "HTMLDetailsElement": {
                 "name": "HTMLDetailsElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "open": {
@@ -1502,7 +1507,7 @@
             "HTMLSummaryElement": {
                 "name": "HTMLSummaryElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "constructor": {
                     "override-signatures": [
                         "new(): HTMLSummaryElement"
@@ -1511,7 +1516,7 @@
             },
             "EXT_blend_minmax": {
                 "name": "EXT_blend_minmax",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "MIN_EXT": {
@@ -1530,7 +1535,7 @@
             },
             "EXT_frag_depth": {
                 "name": "EXT_frag_depth",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {}
                 },
@@ -1538,7 +1543,7 @@
             },
             "EXT_shader_texture_lod": {
                 "name": "EXT_shader_texture_lod",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {}
                 },
@@ -1546,7 +1551,7 @@
             },
             "EXT_sRGB": {
                 "name": "EXT_sRGB",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "SRGB_EXT": {
@@ -1575,7 +1580,7 @@
             },
             "DOMTokenList": {
                 "name": "DOMTokenList",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "replace": {
@@ -1593,7 +1598,7 @@
                     "method": {
                         "reportValidity": {
                             "name": "reportValidity",
-                            "flavor": "Web",
+                            "exposed": "Window",
                             "override-signatures": [
                                 "reportValidity(): boolean"
                             ]
@@ -1603,7 +1608,7 @@
             },
             "OES_vertex_array_object": {
                 "name": "OES_vertex_array_object",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "VERTEX_ARRAY_BINDING_OES": {
@@ -1645,7 +1650,7 @@
             },
             "WebGLVertexArrayObjectOES": {
                 "name": "WebGLVertexArrayObjectOES",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {}
                 },
@@ -1653,7 +1658,7 @@
             },
             "WEBGL_color_buffer_float": {
                 "name": "WEBGL_color_buffer_float",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "RGBA32F_EXT": {
@@ -1682,7 +1687,7 @@
             },
             "WEBGL_compressed_texture_astc": {
                 "name": "WEBGL_compressed_texture_astc",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "COMPRESSED_RGBA_ASTC_4x4_KHR": {
@@ -1841,7 +1846,7 @@
             },
             "WEBGL_compressed_texture_s3tc_srgb": {
                 "name": "WEBGL_compressed_texture_s3tc_srgb",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "COMPRESSED_SRGB_S3TC_DXT1_EXT": {
@@ -1870,7 +1875,7 @@
             },
             "WEBGL_debug_shaders": {
                 "name": "WEBGL_debug_shaders",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "getTranslatedShaderSource": {
@@ -1885,7 +1890,7 @@
             },
             "WEBGL_draw_buffers": {
                 "name": "WEBGL_draw_buffers",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "COLOR_ATTACHMENT0_WEBGL": {
@@ -2074,7 +2079,7 @@
             },
             "WEBGL_lose_context": {
                 "name": "WEBGL_lose_context",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "loseContext": {
@@ -2216,6 +2221,7 @@
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
+                "exposed": "Window",
                 "element": [
                     {
                         "specs": "HTML5",
@@ -2227,6 +2233,7 @@
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
                 "extends": "HTMLTableCellElement",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "scope": {
@@ -2283,7 +2290,8 @@
                             "name": "querySelector"
                         }
                     }
-                }
+                },
+                "exposed": "Window"
             },
             "CSS": {
                 "name": "CSS",
@@ -2387,7 +2395,7 @@
                 }
             },
             "ScrollOptions": {
-                "flavor": "Web",
+                "exposed": "Window",
                 "name": "ScrollOptions",
                 "members": {
                     "member": {
@@ -2400,7 +2408,7 @@
                 }
             },
             "ScrollToOptions": {
-                "flavor": "Web",
+                "exposed": "Window",
                 "name": "ScrollToOptions",
                 "extends": "ScrollOptions",
                 "members": {
@@ -2419,7 +2427,7 @@
                 }
             },
             "ScrollIntoViewOptions": {
-                "flavor": "Web",
+                "exposed": "Window",
                 "name": "ScrollIntoViewOptions",
                 "extends": "ScrollOptions",
                 "members": {

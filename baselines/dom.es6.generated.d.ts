@@ -53,6 +53,13 @@ interface HTMLCollectionBase {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
+interface HTMLCollectionOf<T extends Element> {
+    [Symbol.iterator](): IterableIterator<T>
+    entries(): IterableIterator<[number, T]>;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<T>;
+}
+
 interface Headers {
     [Symbol.iterator](): IterableIterator<[string, string]>
     entries(): IterableIterator<[string, string]>;
@@ -74,6 +81,13 @@ interface NamedNodeMap {
 
 interface NodeList {
     [Symbol.iterator](): IterableIterator<Node>
+}
+
+interface NodeListOf<TNode extends Node> {
+    [Symbol.iterator](): IterableIterator<TNode>
+    entries(): IterableIterator<[number, TNode]>;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<TNode>;
 }
 
 interface Plugin {

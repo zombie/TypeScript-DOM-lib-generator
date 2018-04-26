@@ -11097,6 +11097,7 @@ declare var RTCStatsProvider: {
 };
 
 interface RTCStatsReport {
+    forEach(callbackfn: (value: any, key: string, parent: RTCStatsReport) => void, thisArg?: any): void;
 }
 
 declare var RTCStatsReport: {

@@ -38,12 +38,26 @@ interface FileList {
     [Symbol.iterator](): IterableIterator<File>
 }
 
+interface FormData {
+    [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>
+    entries(): IterableIterator<[string, FormDataEntryValue]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<FormDataEntryValue>;
+}
+
 interface HTMLAllCollection {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
 interface HTMLCollection {
     [Symbol.iterator](): IterableIterator<Element>
+}
+
+interface Headers {
+    [Symbol.iterator](): IterableIterator<[string, string]>
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
 }
 
 interface MediaList {
@@ -70,6 +84,9 @@ interface PluginArray {
     [Symbol.iterator](): IterableIterator<Plugin>
 }
 
+interface RTCStatsReport extends ReadonlyMap<string, any> {
+}
+
 interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>
 }
@@ -88,6 +105,13 @@ interface TextTrackList {
 
 interface TouchList {
     [Symbol.iterator](): IterableIterator<Touch>
+}
+
+interface URLSearchParams {
+    [Symbol.iterator](): IterableIterator<[string, string]>
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
 }
 
 interface VideoTrackList {

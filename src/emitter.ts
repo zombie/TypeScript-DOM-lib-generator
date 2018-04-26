@@ -696,7 +696,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const value = subtype[subtype.length - 1];
         const key = subtype.length > 1 ? subtype[0] :
             i.iterator.type === "iterable" ? "number" : value;
-        printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${i.name}) => void, thisArg?: any): void;`);
+        const name = i.name.replace(/ extends \w+/, "");
+        printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`);
     }
 
     /// Emit the properties and methods of a given interface

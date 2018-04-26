@@ -49,7 +49,7 @@ interface HTMLAllCollection {
     [Symbol.iterator](): IterableIterator<Element>
 }
 
-interface HTMLCollection {
+interface HTMLCollectionBase {
     [Symbol.iterator](): IterableIterator<Element>
 }
 

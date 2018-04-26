@@ -1149,7 +1149,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const subtypes = getIteratorSubtypes();
         if (subtypes) {
             const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
-            printer.printLine(`interface ${i.name} ${iteratorExtends}{`);
+            const name = extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name;
+            printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();
             if (!iteratorExtends) {
                 printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>`);

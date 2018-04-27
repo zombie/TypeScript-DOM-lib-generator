@@ -120,7 +120,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
                 method[member.name] = operation;
             }
         }
-        else if (member.type === "iterable") {
+        else if (member.type === "iterable" || member.type === "maplike" || member.type === "setlike") {
             result.iterator = {
                 type: member.type,
                 readonly: member.readonly,

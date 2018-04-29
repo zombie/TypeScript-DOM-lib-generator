@@ -1003,6 +1003,10 @@
                         "selectedOptions": {
                             "name": "selectedOptions",
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
+                        },
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1468,6 +1472,14 @@
             },
             "HTMLButtonElement": {
                 "name": "HTMLButtonElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "button"
@@ -1504,6 +1516,14 @@
             },
             "HTMLMeterElement": {
                 "name": "HTMLMeterElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "meter"
@@ -1537,6 +1557,14 @@
             },
             "HTMLOutputElement": {
                 "name": "HTMLOutputElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "output"
@@ -1545,6 +1573,14 @@
             },
             "HTMLProgressElement": {
                 "name": "HTMLProgressElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "progress"
@@ -1553,6 +1589,14 @@
             },
             "HTMLTextAreaElement": {
                 "name": "HTMLTextAreaElement",
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
+                        }
+                    }
+                },
                 "methods": {
                     "method": {
                         "setSelectionRange": {

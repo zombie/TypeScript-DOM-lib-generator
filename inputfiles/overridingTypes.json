@@ -1005,7 +1005,12 @@
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "select"
+                    }
+                ]
             },
             "HTMLDataListElement": {
                 "name": "HTMLDataListElement",
@@ -1016,7 +1021,12 @@
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "datalist"
+                    }
+                ]
             },
             "HTMLTableElement": {
                 "name": "HTMLTableElement",
@@ -1456,6 +1466,22 @@
                     }
                 }
             },
+            "HTMLButtonElement": {
+                "name": "HTMLButtonElement",
+                "element": [
+                    {
+                        "name": "button"
+                    }
+                ]
+            },
+            "HTMLFieldSetElement": {
+                "name": "HTMLFieldSetElement",
+                "element": [
+                    {
+                        "name": "fieldset"
+                    }
+                ]
+            },
             "HTMLLabelElement": {
                 "name": "HTMLLabelElement",
                 "properties": {
@@ -1468,6 +1494,22 @@
                     }
                 }
             },
+            "HTMLLegendElement": {
+                "name": "HTMLLegendElement",
+                "element": [
+                    {
+                        "name": "legend"
+                    }
+                ]
+            },
+            "HTMLMeterElement": {
+                "name": "HTMLMeterElement",
+                "element": [
+                    {
+                        "name": "meter"
+                    }
+                ]
+            },
             "HTMLOptGroupElement": {
                 "name": "HTMLOptGroupElement",
                 "properties": {
@@ -1478,7 +1520,36 @@
                             "override-type": "HTMLFormElement | null"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "optgroup"
+                    }
+                ]
+            },
+            "HTMLOptionElement": {
+                "name": "HTMLOptionElement",
+                "element": [
+                    {
+                        "name": "option"
+                    }
+                ]
+            },
+            "HTMLOutputElement": {
+                "name": "HTMLOutputElement",
+                "element": [
+                    {
+                        "name": "output"
+                    }
+                ]
+            },
+            "HTMLProgressElement": {
+                "name": "HTMLProgressElement",
+                "element": [
+                    {
+                        "name": "progress"
+                    }
+                ]
             },
             "HTMLTextAreaElement": {
                 "name": "HTMLTextAreaElement",
@@ -1491,7 +1562,12 @@
                             ]
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "textarea"
+                    }
+                ]
             },
             "Headers": {
                 "name": "Headers",

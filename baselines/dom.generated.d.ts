@@ -5633,11 +5633,11 @@ interface HTMLButtonElement extends HTMLElement {
      * Overrides the target attribute on a form element.
      */
     formTarget: string;
+    readonly labels: NodeList;
     /**
      * Sets or retrieves the name of the object.
      */
     name: string;
-    status: any;
     /**
      * Gets the classification and default behavior of the button.
      */
@@ -5662,6 +5662,7 @@ interface HTMLButtonElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
+    reportValidity(): boolean;
     /**
      * Sets a custom error message that is displayed when a form is submitted.
      * @param error Sets a custom error message that is displayed when a form is submitted.
@@ -6095,16 +6096,14 @@ declare var HTMLEmbedElement: {
 };
 
 interface HTMLFieldSetElement extends HTMLElement {
-    /**
-     * Sets or retrieves how the object is aligned with adjacent text.
-     */
-    align: string;
     disabled: boolean;
+    readonly elements: HTMLCollection;
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
     readonly form: HTMLFormElement | null;
     name: string;
+    readonly type: string;
     /**
      * Returns the error message that would be displayed if the user submits the form, or an empty string if no error message. It also triggers the standard error message, such as "this is a required field". The result is that the user sees validation messages without actually submitting.
      */
@@ -6121,6 +6120,7 @@ interface HTMLFieldSetElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
+    reportValidity(): boolean;
     /**
      * Sets a custom error message that is displayed when a form is submitted.
      * @param error Sets a custom error message that is displayed when a form is submitted.
@@ -6872,11 +6872,6 @@ interface HTMLLegendElement extends HTMLElement {
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
-    /** @deprecated */
-    align: string;
-    /**
-     * Retrieves a reference to the form that the object is embedded in.
-     */
     readonly form: HTMLFormElement | null;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLLegendElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -7276,6 +7271,7 @@ declare var HTMLMetaElement: {
 
 interface HTMLMeterElement extends HTMLElement {
     high: number;
+    readonly labels: NodeList;
     low: number;
     max: number;
     min: number;
@@ -7531,6 +7527,7 @@ interface HTMLOutputElement extends HTMLElement {
     defaultValue: string;
     readonly form: HTMLFormElement | null;
     readonly htmlFor: DOMTokenList;
+    readonly labels: NodeList;
     name: string;
     readonly type: string;
     readonly validationMessage: string;
@@ -7629,10 +7626,7 @@ declare var HTMLPreElement: {
 };
 
 interface HTMLProgressElement extends HTMLElement {
-    /**
-     * Retrieves a reference to the form that the object is embedded in.
-     */
-    readonly form: HTMLFormElement | null;
+    readonly labels: NodeList;
     /**
      * Defines the maximum, or "done" value for a progress element.
      */
@@ -7719,6 +7713,7 @@ declare var HTMLScriptElement: {
 };
 
 interface HTMLSelectElement extends HTMLElement {
+    autocomplete: string;
     /**
      * Provides a way to direct a user to a specific field when a document loads. This can provide both direction and convenience for a user, reducing the need to click or tab to a field when a page opens. This attribute is true when present on an element, and false when missing.
      */
@@ -7728,6 +7723,7 @@ interface HTMLSelectElement extends HTMLElement {
      * Retrieves a reference to the form that the object is embedded in.
      */
     readonly form: HTMLFormElement | null;
+    readonly labels: NodeList;
     /**
      * Sets or retrieves the number of objects in a collection.
      */
@@ -7779,7 +7775,7 @@ interface HTMLSelectElement extends HTMLElement {
      * @param element Variant of type Number that specifies the index position in the collection where the element is placed. If no value is given, the method places the element at the end of the collection.
      * @param before Variant of type Object that specifies an element to insert before, or null to append the object to the collection.
      */
-    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number | null): void;
+    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number): void;
     /**
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
@@ -7789,17 +7785,19 @@ interface HTMLSelectElement extends HTMLElement {
      * @param name Variant of type Number or String that specifies the object or collection to retrieve. If this parameter is an integer, it is the zero-based index of the object. If this parameter is a string, all objects with matching name or id properties are retrieved, and a collection is returned if more than one match is made.
      * @param index Variant of type Number that specifies the zero-based index of the object to retrieve when a collection is returned.
      */
-    item(name?: any, index?: any): Element | null;
+    item(index: number): Element | null;
     /**
      * Retrieves a select object or an object from an options collection.
      * @param namedItem A String that specifies the name or id property of the object to retrieve. A collection is returned if more than one match is made.
      */
-    namedItem(name: string): any;
+    namedItem(name: string): HTMLOptionElement | null;
     /**
      * Removes an element from the collection.
      * @param index Number that specifies the zero-based index of the element to remove from the collection.
      */
-    remove(index?: number): void;
+    remove(): void;
+    remove(index: number): void;
+    reportValidity(): boolean;
     /**
      * Sets a custom error message that is displayed when a form is submitted.
      * @param error Sets a custom error message that is displayed when a form is submitted.
@@ -7809,7 +7807,7 @@ interface HTMLSelectElement extends HTMLElement {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSelectElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    [name: string]: any;
+    [index: number]: Element;
 }
 
 declare var HTMLSelectElement: {
@@ -8253,6 +8251,7 @@ declare var HTMLTemplateElement: {
 };
 
 interface HTMLTextAreaElement extends HTMLElement {
+    autocomplete: string;
     /**
      * Provides a way to direct a user to a specific field when a document loads. This can provide both direction and convenience for a user, reducing the need to click or tab to a field when a page opens. This attribute is true when present on an element, and false when missing.
      */
@@ -8265,11 +8264,13 @@ interface HTMLTextAreaElement extends HTMLElement {
      * Sets or retrieves the initial contents of the object.
      */
     defaultValue: string;
+    dirName: string;
     disabled: boolean;
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
     readonly form: HTMLFormElement | null;
+    readonly labels: NodeList;
     /**
      * Sets or retrieves the maximum number of characters that the user can enter in a text control.
      */
@@ -8295,6 +8296,7 @@ interface HTMLTextAreaElement extends HTMLElement {
      * Sets or retrieves the number of horizontal rows contained in the object.
      */
     rows: number;
+    selectionDirection: string;
     /**
      * Gets or sets the end position or offset of a text selection.
      */
@@ -8303,6 +8305,7 @@ interface HTMLTextAreaElement extends HTMLElement {
      * Gets or sets the starting position or offset of a text selection.
      */
     selectionStart: number;
+    readonly textLength: number;
     /**
      * Retrieves the type of control.
      */
@@ -8331,6 +8334,7 @@ interface HTMLTextAreaElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
+    reportValidity(): boolean;
     /**
      * Highlights the input area of a form element.
      */
@@ -8340,6 +8344,8 @@ interface HTMLTextAreaElement extends HTMLElement {
      * @param error Sets a custom error message that is displayed when a form is submitted.
      */
     setCustomValidity(error: string): void;
+    setRangeText(replacement: string): void;
+    setRangeText(replacement: string, start: number, end: number, selectionMode?: SelectionMode): void;
     /**
      * Sets the start and end positions of a selection in a text field.
      * @param start The offset into the text field for the start of the selection.
@@ -16625,6 +16631,7 @@ type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
+type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";

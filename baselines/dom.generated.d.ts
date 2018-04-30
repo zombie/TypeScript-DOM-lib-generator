@@ -3672,7 +3672,7 @@ declare var DOMSettableTokenList: {
 
 interface DOMStringList {
     readonly length: number;
-    contains(str: string): boolean;
+    contains(string: string): boolean;
     item(index: number): string | null;
     [index: number]: string;
 }
@@ -6158,7 +6158,7 @@ declare var HTMLFontElement: {
 };
 
 interface HTMLFormControlsCollection extends HTMLCollectionBase {
-    namedItem(name: string): HTMLCollection | Element | null;
+    namedItem(name: string): RadioNodeList | Element | null;
 }
 
 declare var HTMLFormControlsCollection: {
@@ -7521,7 +7521,7 @@ declare var HTMLOptionElement: {
 interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
     length: number;
     selectedIndex: number;
-    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number | null): void;
+    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number): void;
     remove(index: number): void;
 }
 
@@ -11115,6 +11115,15 @@ interface RTCTrackEvent extends Event {
 declare var RTCTrackEvent: {
     prototype: RTCTrackEvent;
     new(type: string, eventInitDict: RTCTrackEventInit): RTCTrackEvent;
+};
+
+interface RadioNodeList extends NodeList {
+    value: string;
+}
+
+declare var RadioNodeList: {
+    prototype: RadioNodeList;
+    new(): RadioNodeList;
 };
 
 interface RandomSource {

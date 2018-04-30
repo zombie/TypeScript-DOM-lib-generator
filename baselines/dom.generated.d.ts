@@ -1176,8 +1176,10 @@ interface PointerEventInit extends MouseEventInit {
     pointerId?: number;
     pointerType?: string;
     pressure?: number;
+    tangentialPressure?: number;
     tiltX?: number;
     tiltY?: number;
+    twist?: number;
     width?: number;
 }
 
@@ -4937,6 +4939,7 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     hasAttribute(name: string): boolean;
     hasAttributeNS(namespaceURI: string, localName: string): boolean;
     hasAttributes(): boolean;
+    hasPointerCapture(pointerId: number): boolean;
     insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null;
     insertAdjacentHTML(where: InsertPosition, html: string): void;
     insertAdjacentText(where: InsertPosition, text: string): void;
@@ -10486,26 +10489,21 @@ declare var PluginArray: {
 };
 
 interface PointerEvent extends MouseEvent {
-    readonly currentPoint: any;
     readonly height: number;
-    readonly hwTimestamp: number;
-    readonly intermediatePoints: any;
     readonly isPrimary: boolean;
     readonly pointerId: number;
-    readonly pointerType: any;
+    readonly pointerType: string;
     readonly pressure: number;
-    readonly rotation: number;
+    readonly tangentialPressure: number;
     readonly tiltX: number;
     readonly tiltY: number;
+    readonly twist: number;
     readonly width: number;
-    getCurrentPoint(element: Element): void;
-    getIntermediatePoints(element: Element): void;
-    initPointerEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget, offsetXArg: number, offsetYArg: number, widthArg: number, heightArg: number, pressure: number, rotation: number, tiltX: number, tiltY: number, pointerIdArg: number, pointerType: any, hwTimestampArg: number, isPrimary: boolean): void;
 }
 
 declare var PointerEvent: {
     prototype: PointerEvent;
-    new(typeArg: string, eventInitDict?: PointerEventInit): PointerEvent;
+    new(type: string, eventInitDict?: PointerEventInit): PointerEvent;
 };
 
 interface PopStateEvent extends Event {

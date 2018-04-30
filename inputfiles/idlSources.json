@@ -26,6 +26,14 @@
     {
         "url": "https://html.spec.whatwg.org/multipage/common-dom-interfaces.html",
         "title": "HTML - Common DOM interfaces"
+    }
+    {
+        "url": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html",
+        "title": "HTML - Form control infrastructure"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/form-elements.html",
+        "title": "HTML - Form elements"
     },
     {
         "url": "https://www.w3.org/TR/IndexedDB-2/",

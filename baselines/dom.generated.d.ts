@@ -1750,6 +1750,11 @@ interface StereoPannerOptions extends AudioNodeOptions {
     pan?: number;
 }
 
+interface StorageEstimate {
+    quota?: number;
+    usage?: number;
+}
+
 interface StoreExceptionsInformation extends ExceptionInformation {
     detailURI?: string | null;
     explanationString?: string | null;
@@ -9725,7 +9730,7 @@ declare var NavigationPreloadManager: {
     new(): NavigationPreloadManager;
 };
 
-interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage {
+interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
     readonly authentication: WebAuthentication;
     readonly cookieEnabled: boolean;
@@ -9784,6 +9789,10 @@ interface NavigatorLanguage {
 
 interface NavigatorOnLine {
     readonly onLine: boolean;
+}
+
+interface NavigatorStorage {
+    readonly storage: StorageManager;
 }
 
 interface NavigatorStorageUtils {
@@ -13597,6 +13606,17 @@ interface StorageEventInit extends EventInit {
     storageArea?: Storage;
     url: string;
 }
+
+interface StorageManager {
+    estimate(): Promise<StorageEstimate>;
+    persist(): Promise<boolean>;
+    persisted(): Promise<boolean>;
+}
+
+declare var StorageManager: {
+    prototype: StorageManager;
+    new(): StorageManager;
+};
 
 interface StyleMedia {
     readonly type: string;

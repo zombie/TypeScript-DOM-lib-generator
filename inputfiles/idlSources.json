@@ -26,7 +26,7 @@
     {
         "url": "https://html.spec.whatwg.org/multipage/common-dom-interfaces.html",
         "title": "HTML - Common DOM interfaces"
-    }
+    },
     {
         "url": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html",
         "title": "HTML - Form control infrastructure"
@@ -66,6 +66,10 @@
     {
         "url": "https://w3c.github.io/ServiceWorker/",
         "title": "Service Workers"
+    },
+    {
+        "url": "https://storage.spec.whatwg.org/",
+        "title": "Storage"
     },
     {
         "url": "https://w3c.github.io/touch-events/",

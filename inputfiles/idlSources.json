@@ -72,6 +72,10 @@
         "title": "Service Workers"
     },
     {
+        "url": "https://storage.spec.whatwg.org/",
+        "title": "Storage"
+    },
+    {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
     },

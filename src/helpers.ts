@@ -71,7 +71,7 @@ export function merge<T>(src: T, target: T, shallow?: boolean): T {
                     if (Array.isArray(srcProp) !== Array.isArray(targetProp)) {
                         throw new Error("Mismatch on property: " + k + JSON.stringify(targetProp));
                     }
-                    if (shallow && "name" in src[k] && "name" in target[k]) {
+                    if (shallow && typeof (src[k] as any).name === "string" && typeof (target[k] as any).name === "string") {
                         src[k] = target[k];
                     }
                     else {

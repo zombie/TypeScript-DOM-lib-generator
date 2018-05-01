@@ -290,22 +290,6 @@
                             "override-type": "any",
                             "read-only": 0
                         },
-                        "ontouchcancel": {
-                            "name": "ontouchcancel",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "ontouchend": {
-                            "name": "ontouchend",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "ontouchmove": {
-                            "name": "ontouchmove",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "ontouchstart": {
-                            "name": "ontouchstart",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
                         "location": {
                             "read-only": 0
                         }

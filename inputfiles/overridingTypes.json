@@ -89,6 +89,22 @@
                         {
                             "name": "touchstart",
                             "type": "TouchEvent"
+                        },
+                        {
+                            "name": "transitionrun",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitionstart",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitionend",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitioncancel",
+                            "type": "TransitionEvent"
                         }
                     ]
                 }

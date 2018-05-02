@@ -1811,6 +1811,7 @@ interface TrackEventInit extends EventInit {
 interface TransitionEventInit extends EventInit {
     elapsedTime?: number;
     propertyName?: string;
+    pseudoElement?: string;
 }
 
 interface UIEventInit extends EventInit {
@@ -5313,6 +5314,10 @@ interface GlobalEventHandlersEventMap {
     "touchend": TouchEvent;
     "touchmove": TouchEvent;
     "touchstart": TouchEvent;
+    "transitioncancel": TransitionEvent;
+    "transitionend": TransitionEvent;
+    "transitionrun": TransitionEvent;
+    "transitionstart": TransitionEvent;
     "wheel": WheelEvent;
 }
 
@@ -5335,6 +5340,10 @@ interface GlobalEventHandlers {
     ontouchend: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
     ontouchmove: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
     ontouchstart: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontransitioncancel: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    ontransitionend: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    ontransitionrun: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    ontransitionstart: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -13949,12 +13958,12 @@ declare var TrackEvent: {
 interface TransitionEvent extends Event {
     readonly elapsedTime: number;
     readonly propertyName: string;
-    initTransitionEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, propertyNameArg: string, elapsedTimeArg: number): void;
+    readonly pseudoElement: string;
 }
 
 declare var TransitionEvent: {
     prototype: TransitionEvent;
-    new(typeArg: string, eventInitDict?: TransitionEventInit): TransitionEvent;
+    new(type: string, transitionEventInitDict?: TransitionEventInit): TransitionEvent;
 };
 
 interface TreeWalker {
@@ -16516,6 +16525,10 @@ declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null;
 declare var ontouchend: ((this: Window, ev: TouchEvent) => any) | null;
 declare var ontouchmove: ((this: Window, ev: TouchEvent) => any) | null;
 declare var ontouchstart: ((this: Window, ev: TouchEvent) => any) | null;
+declare var ontransitioncancel: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var ontransitionend: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var ontransitionrun: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var ontransitionstart: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;

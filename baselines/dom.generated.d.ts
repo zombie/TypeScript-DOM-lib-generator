@@ -56,6 +56,7 @@ interface AnalyserOptions extends AudioNodeOptions {
 interface AnimationEventInit extends EventInit {
     animationName?: string;
     elapsedTime?: number;
+    pseudoElement?: string;
 }
 
 interface AnimationPlaybackEventInit extends EventInit {
@@ -1750,6 +1751,11 @@ interface StereoPannerOptions extends AudioNodeOptions {
     pan?: number;
 }
 
+interface StorageEstimate {
+    quota?: number;
+    usage?: number;
+}
+
 interface StoreExceptionsInformation extends ExceptionInformation {
     detailURI?: string | null;
     explanationString?: string | null;
@@ -1805,6 +1811,7 @@ interface TrackEventInit extends EventInit {
 interface TransitionEventInit extends EventInit {
     elapsedTime?: number;
     propertyName?: string;
+    pseudoElement?: string;
 }
 
 interface UIEventInit extends EventInit {
@@ -2007,11 +2014,12 @@ declare var AnimationEffect: {
 interface AnimationEvent extends Event {
     readonly animationName: string;
     readonly elapsedTime: number;
+    readonly pseudoElement: string;
 }
 
 declare var AnimationEvent: {
     prototype: AnimationEvent;
-    new(typeArg: string, eventInitDict?: AnimationEventInit): AnimationEvent;
+    new(type: string, animationEventInitDict?: AnimationEventInit): AnimationEvent;
 };
 
 interface AnimationPlaybackEvent extends Event {
@@ -2476,8 +2484,8 @@ interface CSSKeyframesRule extends CSSRule {
     readonly cssRules: CSSRuleList;
     name: string;
     appendRule(rule: string): void;
-    deleteRule(rule: string): void;
-    findRule(rule: string): CSSKeyframeRule | null;
+    deleteRule(select: string): void;
+    findRule(select: string): CSSKeyframeRule | null;
 }
 
 declare var CSSKeyframesRule: {
@@ -4369,10 +4377,6 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param ev The event.
      */
     ontimeupdate: ((this: Document, ev: Event) => any) | null;
-    ontouchcancel: ((this: Document, ev: TouchEvent) => any) | null;
-    ontouchend: ((this: Document, ev: TouchEvent) => any) | null;
-    ontouchmove: ((this: Document, ev: TouchEvent) => any) | null;
-    ontouchstart: ((this: Document, ev: TouchEvent) => any) | null;
     onvisibilitychange: (this: Document, ev: Event) => any;
     /**
      * Occurs when the volume is changed, or playback is muted or unmuted.
@@ -4896,8 +4900,6 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     readonly msRegionOverflow: string;
     onariarequest: ((this: Element, ev: Event) => any) | null;
     oncommand: ((this: Element, ev: Event) => any) | null;
-    ongotpointercapture: ((this: Element, ev: PointerEvent) => any) | null;
-    onlostpointercapture: ((this: Element, ev: PointerEvent) => any) | null;
     onmsgesturechange: ((this: Element, ev: Event) => any) | null;
     onmsgesturedoubletap: ((this: Element, ev: Event) => any) | null;
     onmsgestureend: ((this: Element, ev: Event) => any) | null;
@@ -4915,10 +4917,6 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     onmspointerout: ((this: Element, ev: Event) => any) | null;
     onmspointerover: ((this: Element, ev: Event) => any) | null;
     onmspointerup: ((this: Element, ev: Event) => any) | null;
-    ontouchcancel: ((this: Element, ev: TouchEvent) => any) | null;
-    ontouchend: ((this: Element, ev: TouchEvent) => any) | null;
-    ontouchmove: ((this: Element, ev: TouchEvent) => any) | null;
-    ontouchstart: ((this: Element, ev: TouchEvent) => any) | null;
     onwebkitfullscreenchange: ((this: Element, ev: Event) => any) | null;
     onwebkitfullscreenerror: ((this: Element, ev: Event) => any) | null;
     outerHTML: string;
@@ -5308,6 +5306,12 @@ interface GetSVGDocument {
 }
 
 interface GlobalEventHandlersEventMap {
+    "animationcancel": AnimationEvent;
+    "animationend": AnimationEvent;
+    "animationiteration": AnimationEvent;
+    "animationstart": AnimationEvent;
+    "gotpointercapture": PointerEvent;
+    "lostpointercapture": PointerEvent;
     "pointercancel": PointerEvent;
     "pointerdown": PointerEvent;
     "pointerenter": PointerEvent;
@@ -5316,10 +5320,24 @@ interface GlobalEventHandlersEventMap {
     "pointerout": PointerEvent;
     "pointerover": PointerEvent;
     "pointerup": PointerEvent;
+    "touchcancel": TouchEvent;
+    "touchend": TouchEvent;
+    "touchmove": TouchEvent;
+    "touchstart": TouchEvent;
+    "transitioncancel": TransitionEvent;
+    "transitionend": TransitionEvent;
+    "transitionrun": TransitionEvent;
+    "transitionstart": TransitionEvent;
     "wheel": WheelEvent;
 }
 
 interface GlobalEventHandlers {
+    onanimationcancel: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
+    onanimationend: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
+    onanimationiteration: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
+    onanimationstart: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
+    ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    onlostpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointercancel: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerdown: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerenter: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
@@ -5328,6 +5346,14 @@ interface GlobalEventHandlers {
     onpointerout: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerover: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerup: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    ontouchcancel: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchend: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchmove: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchstart: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontransitioncancel: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    ontransitionend: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    ontransitionrun: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    ontransitionstart: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -9716,7 +9742,7 @@ declare var NavigationPreloadManager: {
     new(): NavigationPreloadManager;
 };
 
-interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage {
+interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
     readonly authentication: WebAuthentication;
     readonly cookieEnabled: boolean;
@@ -9775,6 +9801,10 @@ interface NavigatorLanguage {
 
 interface NavigatorOnLine {
     readonly onLine: boolean;
+}
+
+interface NavigatorStorage {
+    readonly storage: StorageManager;
 }
 
 interface NavigatorStorageUtils {
@@ -13589,6 +13619,17 @@ interface StorageEventInit extends EventInit {
     url: string;
 }
 
+interface StorageManager {
+    estimate(): Promise<StorageEstimate>;
+    persist(): Promise<boolean>;
+    persisted(): Promise<boolean>;
+}
+
+declare var StorageManager: {
+    prototype: StorageManager;
+    new(): StorageManager;
+};
+
 interface StyleMedia {
     readonly type: string;
     matchMedium(mediaquery: string): boolean;
@@ -13908,12 +13949,12 @@ declare var TrackEvent: {
 interface TransitionEvent extends Event {
     readonly elapsedTime: number;
     readonly propertyName: string;
-    initTransitionEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, propertyNameArg: string, elapsedTimeArg: number): void;
+    readonly pseudoElement: string;
 }
 
 declare var TransitionEvent: {
     prototype: TransitionEvent;
-    new(typeArg: string, eventInitDict?: TransitionEventInit): TransitionEvent;
+    new(type: string, transitionEventInitDict?: TransitionEventInit): TransitionEvent;
 };
 
 interface TreeWalker {
@@ -15417,10 +15458,6 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "submit": Event;
     "suspend": Event;
     "timeupdate": Event;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
     "unload": Event;
     "volumechange": Event;
     "vrdisplayactivate": Event;
@@ -15551,10 +15588,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onsubmit: ((this: Window, ev: Event) => any) | null;
     onsuspend: ((this: Window, ev: Event) => any) | null;
     ontimeupdate: ((this: Window, ev: Event) => any) | null;
-    ontouchcancel: (ev: TouchEvent) => any;
-    ontouchend: (ev: TouchEvent) => any;
-    ontouchmove: (ev: TouchEvent) => any;
-    ontouchstart: (ev: TouchEvent) => any;
     onunload: ((this: Window, ev: Event) => any) | null;
     onvolumechange: ((this: Window, ev: Event) => any) | null;
     onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
@@ -16382,10 +16415,6 @@ declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
 declare var onsubmit: ((this: Window, ev: Event) => any) | null;
 declare var onsuspend: ((this: Window, ev: Event) => any) | null;
 declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
-declare var ontouchcancel: (ev: TouchEvent) => any;
-declare var ontouchend: (ev: TouchEvent) => any;
-declare var ontouchmove: (ev: TouchEvent) => any;
-declare var ontouchstart: (ev: TouchEvent) => any;
 declare var onunload: ((this: Window, ev: Event) => any) | null;
 declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
@@ -16475,6 +16504,12 @@ declare function setImmediate(handler: any, ...args: any[]): number;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var console: Console;
+declare var onanimationcancel: ((this: Window, ev: AnimationEvent) => any) | null;
+declare var onanimationend: ((this: Window, ev: AnimationEvent) => any) | null;
+declare var onanimationiteration: ((this: Window, ev: AnimationEvent) => any) | null;
+declare var onanimationstart: ((this: Window, ev: AnimationEvent) => any) | null;
+declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
+declare var onlostpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointercancel: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerdown: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerenter: ((this: Window, ev: PointerEvent) => any) | null;
@@ -16483,6 +16518,14 @@ declare var onpointermove: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerout: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerover: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerup: ((this: Window, ev: PointerEvent) => any) | null;
+declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null;
+declare var ontouchend: ((this: Window, ev: TouchEvent) => any) | null;
+declare var ontouchmove: ((this: Window, ev: TouchEvent) => any) | null;
+declare var ontouchstart: ((this: Window, ev: TouchEvent) => any) | null;
+declare var ontransitioncancel: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var ontransitionend: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var ontransitionrun: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var ontransitionstart: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;

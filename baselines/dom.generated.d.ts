@@ -3979,22 +3979,27 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Sets or gets the color of all active links in the document.
      */
+    /** @deprecated */
     alinkColor: string;
     /**
      * Returns a reference to the collection of elements contained by the object.
      */
+    /** @deprecated */
     readonly all: HTMLAllCollection;
     /**
      * Retrieves a collection of all a objects that have a name and/or id property. Objects in this collection are in HTML source order.
      */
+    /** @deprecated */
     readonly anchors: HTMLCollectionOf<HTMLAnchorElement>;
     /**
      * Retrieves a collection of all applet objects in the document.
      */
+    /** @deprecated */
     readonly applets: HTMLCollectionOf<HTMLAppletElement>;
     /**
      * Deprecated. Sets or retrieves a value that indicates the background color behind the object.
      */
+    /** @deprecated */
     bgColor: string;
     /**
      * Specifies the beginning and end of the document body.
@@ -4039,6 +4044,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Sets or gets the foreground (text) color of the document.
      */
+    /** @deprecated */
     fgColor: string;
     /**
      * Retrieves a collection, in source order, of all form objects in the document.
@@ -4067,6 +4073,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Sets or gets the color of the document links.
      */
+    /** @deprecated */
     linkColor: string;
     /**
      * Retrieves a collection of all a objects that specify the href property and all area objects in the document.
@@ -4415,6 +4422,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Sets or gets the color of the links that the user has visited.
      */
+    /** @deprecated */
     vlinkColor: string;
     readonly webkitCurrentFullScreenElement: Element | null;
     readonly webkitFullscreenElement: Element | null;
@@ -4427,8 +4435,10 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      */
     xmlVersion: string | null;
     adoptNode<T extends Node>(source: T): T;
+    /** @deprecated */
     captureEvents(): void;
     caretRangeFromPoint(x: number, y: number): Range;
+    /** @deprecated */
     clear(): void;
     /**
      * Closes an output stream and forces the sent data to display.
@@ -4648,6 +4658,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param commandId String that specifies a command identifier.
      */
     queryCommandValue(commandId: string): string;
+    /** @deprecated */
     releaseEvents(): void;
     updateSettings(): void;
     webkitCancelFullScreen(): void;
@@ -5103,12 +5114,11 @@ declare var ExtensionScriptApis: {
 };
 
 interface External {
+    /** @deprecated */
+    AddSearchProvider(): void;
+    /** @deprecated */
+    IsSearchProviderInstalled(): void;
 }
-
-declare var External: {
-    prototype: External;
-    new(): External;
-};
 
 interface File extends Blob {
     readonly lastModified: number;
@@ -5847,6 +5857,7 @@ declare var HTMLDialogElement: {
 };
 
 interface HTMLDirectoryElement extends HTMLElement {
+    /** @deprecated */
     compact: boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDirectoryElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -6066,6 +6077,8 @@ declare var HTMLElement: {
 };
 
 interface HTMLEmbedElement extends HTMLElement, GetSVGDocument {
+    /** @deprecated */
+    align: string;
     /**
      * Sets or retrieves the height of the object.
      */
@@ -6166,12 +6179,16 @@ declare var HTMLFieldSetElement: {
     new(): HTMLFieldSetElement;
 };
 
-interface HTMLFontElement extends HTMLElement, DOML2DeprecatedColorProperty, DOML2DeprecatedSizeProperty {
+interface HTMLFontElement extends HTMLElement {
+    /** @deprecated */
+    color: string;
     /**
      * Sets or retrieves the current typeface family.
      */
     /** @deprecated */
     face: string;
+    /** @deprecated */
+    size: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFontElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFontElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -6272,19 +6289,7 @@ declare var HTMLFormElement: {
     new(): HTMLFormElement;
 };
 
-interface HTMLFrameElementEventMap extends HTMLElementEventMap {
-    "load": Event;
-}
-
-interface HTMLFrameElement extends HTMLElement, GetSVGDocument {
-    /**
-     * Specifies the properties of a border drawn around an object.
-     */
-    border: string;
-    /**
-     * Sets or retrieves the border color of the object.
-     */
-    borderColor: any;
+interface HTMLFrameElement extends HTMLElement {
     /**
      * Retrieves the document object of the page or frame.
      */
@@ -6300,14 +6305,6 @@ interface HTMLFrameElement extends HTMLElement, GetSVGDocument {
      */
     /** @deprecated */
     frameBorder: string;
-    /**
-     * Sets or retrieves the amount of additional space between the frames.
-     */
-    frameSpacing: any;
-    /**
-     * Sets or retrieves the height of the object.
-     */
-    height: string | number;
     /**
      * Sets or retrieves a URI to a long description of the object.
      */
@@ -6343,13 +6340,9 @@ interface HTMLFrameElement extends HTMLElement, GetSVGDocument {
      */
     /** @deprecated */
     src: string;
-    /**
-     * Sets or retrieves the width of the object.
-     */
-    width: string | number;
-    addEventListener<K extends keyof HTMLFrameElementEventMap>(type: K, listener: (this: HTMLFrameElement, ev: HTMLFrameElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLFrameElementEventMap>(type: K, listener: (this: HTMLFrameElement, ev: HTMLFrameElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -6358,33 +6351,22 @@ declare var HTMLFrameElement: {
     new(): HTMLFrameElement;
 };
 
-interface HTMLFrameSetElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
-    "blur": FocusEvent;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
-    "load": Event;
-    "orientationchange": Event;
-    "resize": UIEvent;
-    "scroll": UIEvent;
-}
-
 interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
     /**
      * Sets or retrieves the frame widths of the object.
      */
     /** @deprecated */
     cols: string;
-    name: string;
-    onorientationchange: ((this: HTMLFrameSetElement, ev: Event) => any) | null;
-    onresize: ((this: HTMLFrameSetElement, ev: UIEvent) => any) | null;
     /**
      * Sets or retrieves the frame heights of the object.
      */
     /** @deprecated */
     rows: string;
-    addEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -6393,17 +6375,21 @@ declare var HTMLFrameSetElement: {
     new(): HTMLFrameSetElement;
 };
 
-interface HTMLHRElement extends HTMLElement, DOML2DeprecatedColorProperty, DOML2DeprecatedSizeProperty {
+interface HTMLHRElement extends HTMLElement {
     /**
      * Sets or retrieves how the object is aligned with adjacent text.
      */
     /** @deprecated */
     align: string;
+    /** @deprecated */
+    color: string;
     /**
      * Sets or retrieves whether the horizontal rule is drawn with 3-D shading.
      */
     /** @deprecated */
     noShade: boolean;
+    /** @deprecated */
+    size: string;
     /**
      * Sets or retrieves the width of the object.
      */
@@ -6596,6 +6582,7 @@ interface HTMLImageElement extends HTMLElement {
     /**
      * Sets or retrieves a Uniform Resource Identifier (URI) to a long description of the object.
      */
+    /** @deprecated */
     longDesc: string;
     /** @deprecated */
     lowsrc: string;
@@ -6898,6 +6885,8 @@ declare var HTMLLabelElement: {
 };
 
 interface HTMLLegendElement extends HTMLElement {
+    /** @deprecated */
+    align: string;
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
@@ -7700,6 +7689,7 @@ interface HTMLScriptElement extends HTMLElement {
     /**
      * Sets or retrieves the character set used to encode the object.
      */
+    /** @deprecated */
     charset: string;
     crossOrigin: string | null;
     /**
@@ -7903,6 +7893,7 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
     /**
      * Retrieves the CSS language in which the style sheet is written.
      */
+    /** @deprecated */
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLStyleElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -15496,6 +15487,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly doNotTrack: string;
     readonly document: Document;
     event: Event | undefined;
+    /** @deprecated */
     readonly external: External;
     readonly frameElement: Element;
     readonly frames: Window;
@@ -15636,6 +15628,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     alert(message?: any): void;
     blur(): void;
     cancelAnimationFrame(handle: number): void;
+    /** @deprecated */
     captureEvents(): void;
     close(): void;
     confirm(message?: string): boolean;
@@ -15654,6 +15647,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
     print(): void;
     prompt(message?: string, _default?: string): string | null;
+    /** @deprecated */
     releaseEvents(): void;
     requestAnimationFrame(callback: FrameRequestCallback): number;
     resizeBy(x?: number, y?: number): void;
@@ -16320,6 +16314,7 @@ declare var devicePixelRatio: number;
 declare var doNotTrack: string;
 declare var document: Document;
 declare var event: Event | undefined;
+/** @deprecated */
 declare var external: External;
 declare var frameElement: Element;
 declare var frames: Window;
@@ -16460,6 +16455,7 @@ declare var window: Window;
 declare function alert(message?: any): void;
 declare function blur(): void;
 declare function cancelAnimationFrame(handle: number): void;
+/** @deprecated */
 declare function captureEvents(): void;
 declare function close(): void;
 declare function confirm(message?: string): boolean;
@@ -16478,6 +16474,7 @@ declare function open(url?: string, target?: string, features?: string, replace?
 declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
+/** @deprecated */
 declare function releaseEvents(): void;
 declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare function resizeBy(x?: number, y?: number): void;

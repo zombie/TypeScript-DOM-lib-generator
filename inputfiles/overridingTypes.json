@@ -120,26 +120,6 @@
                             "read-only": 1,
                             "name": "relList",
                             "type": "DOMTokenList"
-                        },
-                        "coords": {
-                            "name": "coords",
-                            "deprecated": 1
-                        },
-                        "charset": {
-                            "name": "charset",
-                            "deprecated": 1
-                        },
-                        "name": {
-                            "name": "name",
-                            "deprecated": 1
-                        },
-                        "rev": {
-                            "name": "rev",
-                            "deprecated": 1
-                        },
-                        "shape": {
-                            "name": "shape",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -152,10 +132,6 @@
                             "read-only": 1,
                             "name": "relList",
                             "type": "DOMTokenList"
-                        },
-                        "noHref": {
-                            "name": "noHref",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -168,18 +144,6 @@
                             "read-only": 1,
                             "name": "relList",
                             "type": "DOMTokenList"
-                        },
-                        "charset": {
-                            "name": "charset",
-                            "deprecated": 1
-                        },
-                        "rev": {
-                            "name": "rev",
-                            "deprecated": 1
-                        },
-                        "target": {
-                            "name": "target",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -265,10 +229,6 @@
                         },
                         "location": {
                             "read-only": 0
-                        },
-                        "external": {
-                            "name": "external",
-                            "deprecated": 1
                         }
                     }
                 },
@@ -285,14 +245,6 @@
                             "override-signatures": [
                                 "alert(message?: any): void"
                             ]
-                        },
-                        "captureEvents": {
-                            "name": "captureEvents",
-                            "deprecated": 1
-                        },
-                        "releaseEvents": {
-                            "name": "releaseEvents",
-                            "deprecated": 1
                         }
                     }
                 },
@@ -369,18 +321,6 @@
                             "override-signatures": [
                                 "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
                             ]
-                        },
-                        "clear": {
-                            "name": "clear",
-                            "deprecated": 1
-                        },
-                        "captureEvents": {
-                            "name": "captureEvents",
-                            "deprecated": 1
-                        },
-                        "releaseEvents": {
-                            "name": "releaseEvents",
-                            "deprecated": 1
                         }
                     }
                 },
@@ -401,13 +341,11 @@
                         },
                         "anchors": {
                             "name": "anchors",
-                            "override-type": "HTMLCollectionOf<HTMLAnchorElement>",
-                            "deprecated": 1
+                            "override-type": "HTMLCollectionOf<HTMLAnchorElement>"
                         },
                         "applets": {
                             "name": "applets",
-                            "override-type": "HTMLCollectionOf<HTMLAppletElement>",
-                            "deprecated": 1
+                            "override-type": "HTMLCollectionOf<HTMLAppletElement>"
                         },
                         "embeds": {
                             "name": "embeds",
@@ -435,30 +373,6 @@
                         },
                         "location": {
                             "read-only": 0
-                        },
-                        "fgColor": {
-                            "name": "fgColor",
-                            "deprecated": 1
-                        },
-                        "linkColor": {
-                            "name": "linkColor",
-                            "deprecated": 1
-                        },
-                        "vlinkColor": {
-                            "name": "vlinkColor",
-                            "deprecated": 1
-                        },
-                        "alinkColor": {
-                            "name": "alinkColor",
-                            "deprecated": 1
-                        },
-                        "bgColor": {
-                            "name": "bgColor",
-                            "deprecated": 1
-                        },
-                        "all": {
-                            "name": "all",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -919,14 +833,6 @@
                         "hidden": {
                             "name": "hidden",
                             "override-type": "any"
-                        },
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "name": {
-                            "name": "name",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -1126,6 +1032,38 @@
                     }
                 ]
             },
+            "HTMLDirectoryElement": {
+                "name": "HTMLDirectoryElement",
+                "element": [
+                    {
+                        "name": "dir"
+                    }
+                ]
+            },
+            "HTMLFontElement": {
+                "name": "HTMLFontElement",
+                "element": [
+                    {
+                        "name": "font"
+                    }
+                ]
+            },
+            "HTMLFrameElement": {
+                "name": "HTMLFrameElement",
+                "element": [
+                    {
+                        "name": "frame"
+                    }
+                ]
+            },
+            "HTMLFrameSetElement": {
+                "name": "HTMLFrameSetElement",
+                "element": [
+                    {
+                        "name": "frameset"
+                    }
+                ]
+            },
             "HTMLTableElement": {
                 "name": "HTMLTableElement",
                 "properties": {
@@ -1137,42 +1075,6 @@
                         "tBodies": {
                             "name": "tBodies",
                             "override-type": "HTMLCollectionOf<HTMLTableSectionElement>"
-                        },
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "border": {
-                            "name": "border",
-                            "deprecated": 1
-                        },
-                        "frame": {
-                            "name": "frame",
-                            "deprecated": 1
-                        },
-                        "rules": {
-                            "name": "rules",
-                            "deprecated": 1
-                        },
-                        "summary": {
-                            "name": "summary",
-                            "deprecated": 1
-                        },
-                        "width": {
-                            "name": "width",
-                            "deprecated": 1
-                        },
-                        "bgColor": {
-                            "name": "bgColor",
-                            "deprecated": 1
-                        },
-                        "cellPadding": {
-                            "name": "cellPadding",
-                            "deprecated": 1
-                        },
-                        "cellSpacing": {
-                            "name": "cellSpacing",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -1194,22 +1096,6 @@
                         "rows": {
                             "name": "rows",
                             "override-type": "HTMLCollectionOf<HTMLTableRowElement>"
-                        },
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "ch": {
-                            "name": "ch",
-                            "deprecated": 1
-                        },
-                        "chOff": {
-                            "name": "chOff",
-                            "deprecated": 1
-                        },
-                        "vAlign": {
-                            "name": "vAlign",
-                            "deprecated": 1
                         }
                     }
                 }
@@ -1506,14 +1392,6 @@
                             "name": "form",
                             "read-only": 1,
                             "override-type": "HTMLFormElement | null"
-                        },
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "useMap": {
-                            "name": "useMap",
-                            "deprecated": 1
                         }
                     }
                 },
@@ -1666,15 +1544,7 @@
                     {
                         "name": "legend"
                     }
-                ],
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        }
-                    }
-                }
+                ]
             },
             "HTMLMeterElement": {
                 "name": "HTMLMeterElement",
@@ -1873,26 +1743,6 @@
                         "cells": {
                             "name": "cells",
                             "override-type": "HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>"
-                        },
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "ch": {
-                            "name": "ch",
-                            "deprecated": 1
-                        },
-                        "chOff": {
-                            "name": "chOff",
-                            "deprecated": 1
-                        },
-                        "vAlign": {
-                            "name": "vAlign",
-                            "deprecated": 1
-                        },
-                        "bgColor": {
-                            "name": "bgColor",
-                            "deprecated": 1
                         }
                     }
                 },
@@ -2404,78 +2254,6 @@
                         }
                     ]
                 },
-                "properties": {
-                    "property": {
-                        "behavior": {
-                            "name": "behavior",
-                            "deprecated": 1
-                        },
-                        "bgColor": {
-                            "name": "bgColor",
-                            "deprecated": 1
-                        },
-                        "direction": {
-                            "name": "direction",
-                            "deprecated": 1
-                        },
-                        "height": {
-                            "name": "height",
-                            "deprecated": 1
-                        },
-                        "hspace": {
-                            "name": "hspace",
-                            "deprecated": 1
-                        },
-                        "loop": {
-                            "name": "loop",
-                            "deprecated": 1
-                        },
-                        "scrollAmount": {
-                            "name": "scrollAmount",
-                            "deprecated": 1
-                        },
-                        "scrollDelay": {
-                            "name": "scrollDelay",
-                            "deprecated": 1
-                        },
-                        "trueSpeed": {
-                            "name": "trueSpeed",
-                            "deprecated": 1
-                        },
-                        "vspace": {
-                            "name": "vspace",
-                            "deprecated": 1
-                        },
-                        "width": {
-                            "name": "width",
-                            "deprecated": 1
-                        },
-                        "onbounce": {
-                            "name": "onbounce",
-                            "deprecated": 1
-                        },
-                        "onfinish": {
-                            "name": "onfinish",
-                            "deprecated": 1
-                        },
-                        "onstart": {
-                            "name": "onstart",
-                            "deprecated": 1
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "start": {
-                            "name": "start",
-                            "deprecated": 1
-                        },
-                        "stop": {
-                            "name": "stop",
-                            "deprecated": 1
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "marquee"
@@ -2515,566 +2293,6 @@
                             "override-signatures": [
                                 "getRandomValues<T extends Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null>(array: T): T"
                             ]
-                        }
-                    }
-                }
-            },
-            "HTMLFrameSetElement": {
-                "name": "HTMLFrameSetElement",
-                "properties": {
-                    "property": {
-                        "cols": {
-                            "name": "cols",
-                            "deprecated": 1
-                        },
-                        "rows": {
-                            "name": "rows",
-                            "deprecated": 1
-                        }
-                    }
-                },
-                "element": [
-                    {
-                        "name": "frameset"
-                    }
-                ]
-            },
-            "HTMLFrameElement": {
-                "name": "HTMLFrameElement",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "name",
-                            "deprecated": 1
-                        },
-                        "scrolling": {
-                            "name": "scrolling",
-                            "deprecated": 1
-                        },
-                        "src": {
-                            "name": "src",
-                            "deprecated": 1
-                        },
-                        "frameBorder": {
-                            "name": "frameBorder",
-                            "deprecated": 1
-                        },
-                        "longDesc": {
-                            "name": "longDesc",
-                            "deprecated": 1
-                        },
-                        "noResize": {
-                            "name": "noResize",
-                            "deprecated": 1
-                        },
-                        "contentDocument": {
-                            "name": "contentDocument",
-                            "deprecated": 1
-                        },
-                        "contentWindow": {
-                            "name": "contentWindow",
-                            "deprecated": 1
-                        },
-                        "marginHeight": {
-                            "name": "marginHeight",
-                            "deprecated": 1
-                        },
-                        "marginWidth": {
-                            "name": "marginWidth",
-                            "deprecated": 1
-                        }
-                    }
-                },
-                "element": [
-                    {
-                        "name": "frame"
-                    }
-                ]
-            },
-            "HTMLBodyElement": {
-                "name": "HTMLBodyElement",
-                "properties": {
-                    "property": {
-                        "text": {
-                            "name": "text",
-                            "deprecated": 1
-                        },
-                        "link": {
-                            "name": "link",
-                            "deprecated": 1
-                        },
-                        "vLink": {
-                            "name": "vLink",
-                            "deprecated": 1
-                        },
-                        "aLink": {
-                            "name": "aLink",
-                            "deprecated": 1
-                        },
-                        "bgColor": {
-                            "name": "bgColor",
-                            "deprecated": 1
-                        },
-                        "background": {
-                            "name": "background",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLBRElement": {
-                "name": "HTMLBRElement",
-                "properties": {
-                    "property": {
-                        "clear": {
-                            "name": "clear",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLTableCaptionElement": {
-                "name": "HTMLTableCaptionElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLTableColElement": {
-                "name": "HTMLTableColElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "ch": {
-                            "name": "ch",
-                            "deprecated": 1
-                        },
-                        "chOff": {
-                            "name": "chOff",
-                            "deprecated": 1
-                        },
-                        "vAlign": {
-                            "name": "vAlign",
-                            "deprecated": 1
-                        },
-                        "width": {
-                            "name": "width",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLDirectoryElement": {
-                "name": "HTMLDirectoryElement",
-                "properties": {
-                    "property": {
-                        "compact": {
-                            "name": "compact",
-                            "deprecated": 1
-                        }
-                    }
-                },
-                "element": [
-                    {
-                        "name": "dir"
-                    }
-                ]
-            },
-            "HTMLDivElement": {
-                "name": "HTMLDivElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLDListElement": {
-                "name": "HTMLDListElement",
-                "properties": {
-                    "property": {
-                        "compact": {
-                            "name": "compact",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLFontElement": {
-                "name": "HTMLFontElement",
-                "properties": {
-                    "property": {
-                        "color": {
-                            "name": "color",
-                            "deprecated": 1
-                        },
-                        "face": {
-                            "name": "face",
-                            "deprecated": 1
-                        },
-                        "size": {
-                            "name": "size",
-                            "deprecated": 1
-                        }
-                    }
-                },
-                "element": [
-                    {
-                        "name": "font"
-                    }
-                ]
-            },
-            "HTMLHeadingElement": {
-                "name": "HTMLHeadingElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLHRElement": {
-                "name": "HTMLHRElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "color": {
-                            "name": "color",
-                            "deprecated": 1
-                        },
-                        "noShade": {
-                            "name": "noShade",
-                            "deprecated": 1
-                        },
-                        "size": {
-                            "name": "size",
-                            "deprecated": 1
-                        },
-                        "width": {
-                            "name": "width",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLHtmlElement": {
-                "name": "HTMLHtmlElement",
-                "properties": {
-                    "property": {
-                        "version": {
-                            "name": "version",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLIFrameElement": {
-                "name": "HTMLIFrameElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "scrolling": {
-                            "name": "scrolling",
-                            "deprecated": 1
-                        },
-                        "frameBorder": {
-                            "name": "frameBorder",
-                            "deprecated": 1
-                        },
-                        "longDesc": {
-                            "name": "longDesc",
-                            "deprecated": 1
-                        },
-                        "marginHeight": {
-                            "name": "marginHeight",
-                            "deprecated": 1
-                        },
-                        "marginWidth": {
-                            "name": "marginWidth",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLImageElement": {
-                "name": "HTMLImageElement",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "name",
-                            "deprecated": 1
-                        },
-                        "lowsrc": {
-                            "name": "lowsrc",
-                            "deprecated": 1
-                        },
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "hspace": {
-                            "name": "hspace",
-                            "deprecated": 1
-                        },
-                        "vspace": {
-                            "name": "vspace",
-                            "deprecated": 1
-                        },
-                        "longDesc": {
-                            "name": "longDesc",
-                            "deprecated": 1
-                        },
-                        "border": {
-                            "name": "border",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLLIElement": {
-                "name": "HTMLLIElement",
-                "properties": {
-                    "property": {
-                        "type": {
-                            "name": "type",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLMenuElement": {
-                "name": "HTMLMenuElement",
-                "properties": {
-                    "property": {
-                        "compact": {
-                            "name": "compact",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLMetaElement": {
-                "name": "HTMLMetaElement",
-                "properties": {
-                    "property": {
-                        "scheme": {
-                            "name": "scheme",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLObjectElement": {
-                "name": "HTMLObjectElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "archive": {
-                            "name": "archive",
-                            "deprecated": 1
-                        },
-                        "code": {
-                            "name": "code",
-                            "deprecated": 1
-                        },
-                        "declare": {
-                            "name": "declare",
-                            "deprecated": 1
-                        },
-                        "hspace": {
-                            "name": "hspace",
-                            "deprecated": 1
-                        },
-                        "standby": {
-                            "name": "standby",
-                            "deprecated": 1
-                        },
-                        "vspace": {
-                            "name": "vspace",
-                            "deprecated": 1
-                        },
-                        "codeBase": {
-                            "name": "codeBase",
-                            "deprecated": 1
-                        },
-                        "codeType": {
-                            "name": "codeType",
-                            "deprecated": 1
-                        },
-                        "border": {
-                            "name": "border",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLOListElement": {
-                "name": "HTMLOListElement",
-                "properties": {
-                    "property": {
-                        "compact": {
-                            "name": "compact",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLParagraphElement": {
-                "name": "HTMLParagraphElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLParamElement": {
-                "name": "HTMLParamElement",
-                "properties": {
-                    "property": {
-                        "type": {
-                            "name": "type",
-                            "deprecated": 1
-                        },
-                        "valueType": {
-                            "name": "valueType",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLPreElement": {
-                "name": "HTMLPreElement",
-                "properties": {
-                    "property": {
-                        "width": {
-                            "name": "width",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLStyleElement": {
-                "name": "HTMLStyleElement",
-                "properties": {
-                    "property": {
-                        "type": {
-                            "name": "type",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLScriptElement": {
-                "name": "HTMLScriptElement",
-                "properties": {
-                    "property": {
-                        "charset": {
-                            "name": "charset",
-                            "deprecated": 1
-                        },
-                        "event": {
-                            "name": "event",
-                            "deprecated": 1
-                        },
-                        "htmlFor": {
-                            "name": "htmlFor",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLTableCellElement": {
-                "name": "HTMLTableCellElement",
-                "properties": {
-                    "property": {
-                        "align": {
-                            "name": "align",
-                            "deprecated": 1
-                        },
-                        "axis": {
-                            "name": "axis",
-                            "deprecated": 1
-                        },
-                        "height": {
-                            "name": "height",
-                            "deprecated": 1
-                        },
-                        "width": {
-                            "name": "width",
-                            "deprecated": 1
-                        },
-                        "ch": {
-                            "name": "ch",
-                            "deprecated": 1
-                        },
-                        "chOff": {
-                            "name": "chOff",
-                            "deprecated": 1
-                        },
-                        "noWrap": {
-                            "name": "noWrap",
-                            "deprecated": 1
-                        },
-                        "vAlign": {
-                            "name": "vAlign",
-                            "deprecated": 1
-                        },
-                        "bgColor": {
-                            "name": "bgColor",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLUListElement": {
-                "name": "HTMLUListElement",
-                "properties": {
-                    "property": {
-                        "compact": {
-                            "name": "compact",
-                            "deprecated": 1
-                        },
-                        "type": {
-                            "name": "type",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "External": {
-                "name": "External",
-                "methods": {
-                    "method": {
-                        "AddSearchProvider": {
-                            "name": "AddSearchProvider",
-                            "deprecated": 1
-                        },
-                        "IsSearchProviderInstalled": {
-                            "name": "IsSearchProviderInstalled",
-                            "deprecated": 1
                         }
                     }
                 }

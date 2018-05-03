@@ -37,7 +37,8 @@
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
-        "title": "HTML - Obsolete features"
+        "title": "HTML - Obsolete features",
+        "deprecated": true
     },
     {
         "url": "https://www.w3.org/TR/IndexedDB-2/",

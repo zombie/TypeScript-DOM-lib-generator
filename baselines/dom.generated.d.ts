@@ -16233,7 +16233,6 @@ interface HTMLElementTagNameMap {
 }
 
 interface SVGElementTagNameMap {
-    "a": SVGAElement;
     "circle": SVGCircleElement;
     "clipPath": SVGClipPathElement;
     "defs": SVGDefsElement;
@@ -16278,15 +16277,12 @@ interface SVGElementTagNameMap {
     "polyline": SVGPolylineElement;
     "radialGradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
-    "script": SVGScriptElement;
     "stop": SVGStopElement;
-    "style": SVGStyleElement;
     "svg": SVGSVGElement;
     "switch": SVGSwitchElement;
     "symbol": SVGSymbolElement;
     "text": SVGTextElement;
     "textPath": SVGTextPathElement;
-    "title": SVGTitleElement;
     "tspan": SVGTSpanElement;
     "use": SVGUseElement;
     "view": SVGViewElement;

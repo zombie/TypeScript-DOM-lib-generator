@@ -403,6 +403,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine("interface SVGElementTagNameMap {");
         printer.increaseIndent();
         for (const e of Object.keys(tagNameToEleName.svgResult).sort()) {
+            if (e in tagNameToEleName.htmlResult) {
+                // Skip conflicting fields with HTMLElementTagNameMap
+                // to be compatible with deprecated ElementTagNameMap
+                continue;
+            }
             const value = tagNameToEleName.svgResult[e];
             printer.printLine(`"${e}": ${value};`);
         }

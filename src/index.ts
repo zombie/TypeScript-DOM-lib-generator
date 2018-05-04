@@ -119,14 +119,7 @@ function emitDom() {
     emitES6DomIterators(webidl, tsWebES6Output);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
-        const result = getEmptyWebIDL();
-
-        if (obj["callback-functions"]) result["callback-functions"]!["callback-function"] = filterByNull(obj["callback-functions"]!["callback-function"], template["callback-functions"]!["callback-function"]);
-        if (obj["callback-interfaces"]) result["callback-interfaces"]!.interface = filterByNull(obj["callback-interfaces"]!.interface, template["callback-interfaces"]!.interface);
-        if (obj.dictionaries) result.dictionaries!.dictionary = filterByNull(obj.dictionaries.dictionary, template.dictionaries!.dictionary);
-        if (obj.enums) result.enums!.enum = filterByNull(obj.enums.enum, template.enums!.enum);
-        if (obj.mixins) result.mixins!.mixin = filterByNull(obj.mixins.mixin, template.mixins!.mixin);
-        if (obj.interfaces) result.interfaces!.interface = filterByNull(obj.interfaces.interface, template.interfaces!.interface);
+        const result = filterByNull(obj, template);
         if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => !(template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"])));
 
         return result;
@@ -135,7 +128,7 @@ function emitDom() {
             if (!template) return obj;
             const filtered: any = {};
             for (const k in obj) {
-                if (k in template) {
+                if (k in template && !Array.isArray(template[k])) {
                     if (template[k] !== null) {
                         filtered[k] = filterByNull(obj[k], template[k]);
                     }

@@ -177,30 +177,21 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
 
     function getTagNameToElementNameMap() {
-        const preferedElementMap: Record<string, string> = {
-            "script": "HTMLScriptElement",
-            "a": "HTMLAnchorElement",
-            "title": "HTMLTitleElement",
-            "style": "HTMLStyleElement",
-            "td": "HTMLTableDataCellElement",
-            "th": "HTMLTableHeaderCellElement"
-        };
-
-        function resolveElementConflict(tagName: string, iNames: string[]) {
-            const name = preferedElementMap[tagName] || "";
-            if (iNames.includes(name)) return name;
-            throw new Error("Element conflict occured! Typename: " + tagName);
-        }
-
-        const result: Record<string, string> = {};
+        const htmlResult: Record<string, string> = {};
+        const svgResult: Record<string, string> = {};
         for (const i of allNonCallbackInterfaces) {
             if (i.element) {
                 for (const e of i.element) {
-                    result[e.name] = result[e.name] ? resolveElementConflict(e.name, [result[e.name], i.name]) : i.name;
+                    if (e.namespace === "SVG") {
+                        svgResult[e.name] = i.name;
+                    }
+                    else {
+                        htmlResult[e.name] = i.name;
+                    }
                 }
             }
         }
-        return result;
+        return { htmlResult, svgResult };
     }
 
     function getExtendList(iName: string): string[] {
@@ -239,12 +230,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return iNameToIDependList[i1Name]
             ? iNameToIDependList[i1Name].includes(i2Name)
             : i2Name === "Object";
-    }
-
-    // Some params have the type of "(DOMString or DOMString [] or Number)"
-    // we need to transform it into [“DOMString", "DOMString []", "Number"]
-    function decomposeTypes(t: string) {
-        return t.replace(/[\(\)]/g, "").split(" or ");
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
@@ -312,37 +297,17 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMHighResTimeStamp": return "number";
             case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
-            default:
-                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
-                if (flavor === Flavor.Web && objDomType === "Client") return "object";
-                // Name of an interface / enum / dict. Just return itself
-                if (allInterfacesMap[objDomType] ||
-                    allLegacyWindowAliases.includes(objDomType) ||
-                    allCallbackFunctionsMap[objDomType] ||
-                    allDictionariesMap[objDomType] ||
-                    allEnumsMap[objDomType]) return objDomType;
-                // Name of a type alias. Just return itself
-                if (allTypeDefsMap.has(objDomType)) return objDomType;
-                // Union types
-                if (objDomType.includes(" or ")) {
-                    const allTypes: string[] = decomposeTypes(objDomType).map(t => convertDomTypeToTsTypeSimple(t.replace("?", "")));
-                    return allTypes.includes("any") ? "any" : allTypes.join(" | ");
-                }
-                else {
-                    // Check if is array type, which looks like "sequence<DOMString>"
-                    const unescaped = objDomType; // System.Web.HttpUtility.HtmlDecode(objDomType)
-                    const genericMatch = /^(\w+)<([\w, <>]+)>$/;
-                    const match = genericMatch.exec(unescaped);
-                    if (match) {
-                        const tName: string = convertDomTypeToTsTypeSimple(match[1]);
-                        const paramName: string = convertDomTypeToTsTypeSimple(match[2]);
-                        return tName === "Array" ? paramName + "[]" : tName + "<" + paramName + ">";
-                    }
-                    if (objDomType.endsWith("[]")) {
-                        return convertDomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
-                    }
-                }
         }
+        if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
+        if (flavor === Flavor.Web && objDomType === "Client") return "object";
+        // Name of an interface / enum / dict. Just return itself
+        if (allInterfacesMap[objDomType] ||
+            allLegacyWindowAliases.includes(objDomType) ||
+            allCallbackFunctionsMap[objDomType] ||
+            allDictionariesMap[objDomType] ||
+            allEnumsMap[objDomType]) return objDomType;
+        // Name of a type alias. Just return itself
+        if (allTypeDefsMap.has(objDomType)) return objDomType;
 
         throw new Error("Unknown DOM type: " + objDomType);
     }
@@ -425,11 +390,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitHTMLElementTagNameMap() {
         printer.printLine("interface HTMLElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName).sort()) {
-            const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && !iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e.toLowerCase()}": ${value};`);
-            }
+        for (const e of Object.keys(tagNameToEleName.htmlResult).sort()) {
+            const value = tagNameToEleName.htmlResult[e];
+            printer.printLine(`"${e.toLowerCase()}": ${value};`);
         }
         printer.decreaseIndent();
         printer.printLine("}");
@@ -439,11 +402,14 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitSVGElementTagNameMap() {
         printer.printLine("interface SVGElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName).sort()) {
-            const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e}": ${value};`);
+        for (const e of Object.keys(tagNameToEleName.svgResult).sort()) {
+            if (e in tagNameToEleName.htmlResult) {
+                // Skip conflicting fields with HTMLElementTagNameMap
+                // to be compatible with deprecated ElementTagNameMap
+                continue;
             }
+            const value = tagNameToEleName.svgResult[e];
+            printer.printLine(`"${e}": ${value};`);
         }
         printer.decreaseIndent();
         printer.printLine("}");
@@ -839,8 +805,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitIndexers(emitScope: EmitScope, i: Browser.Interface) {
-        if (i["overide-index-signatures"]) {
-            i["overide-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        if (i["override-index-signatures"]) {
+            i["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
         }
         else {
             // The indices could be within either Methods or Anonymous Methods

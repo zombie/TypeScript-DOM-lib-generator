@@ -325,7 +325,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[attribute: string]: boolean | string | undefined"
                 ],
                 "no-interface-object": "1"
@@ -511,7 +511,7 @@
                     }
                 },
                 "no-interface-object": "1",
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[index: number]: TNode"
                 ],
                 "iterator": {
@@ -542,7 +542,7 @@
                     }
                 },
                 "no-interface-object": "1",
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[index: number]: T"
                 ],
                 "iterator": {

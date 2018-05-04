@@ -241,12 +241,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             : i2Name === "Object";
     }
 
-    // Some params have the type of "(DOMString or DOMString [] or Number)"
-    // we need to transform it into [“DOMString", "DOMString []", "Number"]
-    function decomposeTypes(t: string) {
-        return t.replace(/[\(\)]/g, "").split(" or ");
-    }
-
     /// Get typescript type using object dom type, object name, and it's associated interface name
     function convertDomTypeToTsType(obj: Browser.Typed): string {
         if (obj["override-type"]) return obj["override-type"]!;
@@ -312,37 +306,17 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMHighResTimeStamp": return "number";
             case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
-            default:
-                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
-                if (flavor === Flavor.Web && objDomType === "Client") return "object";
-                // Name of an interface / enum / dict. Just return itself
-                if (allInterfacesMap[objDomType] ||
-                    allLegacyWindowAliases.includes(objDomType) ||
-                    allCallbackFunctionsMap[objDomType] ||
-                    allDictionariesMap[objDomType] ||
-                    allEnumsMap[objDomType]) return objDomType;
-                // Name of a type alias. Just return itself
-                if (allTypeDefsMap.has(objDomType)) return objDomType;
-                // Union types
-                if (objDomType.includes(" or ")) {
-                    const allTypes: string[] = decomposeTypes(objDomType).map(t => convertDomTypeToTsTypeSimple(t.replace("?", "")));
-                    return allTypes.includes("any") ? "any" : allTypes.join(" | ");
-                }
-                else {
-                    // Check if is array type, which looks like "sequence<DOMString>"
-                    const unescaped = objDomType; // System.Web.HttpUtility.HtmlDecode(objDomType)
-                    const genericMatch = /^(\w+)<([\w, <>]+)>$/;
-                    const match = genericMatch.exec(unescaped);
-                    if (match) {
-                        const tName: string = convertDomTypeToTsTypeSimple(match[1]);
-                        const paramName: string = convertDomTypeToTsTypeSimple(match[2]);
-                        return tName === "Array" ? paramName + "[]" : tName + "<" + paramName + ">";
-                    }
-                    if (objDomType.endsWith("[]")) {
-                        return convertDomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
-                    }
-                }
         }
+        if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
+        if (flavor === Flavor.Web && objDomType === "Client") return "object";
+        // Name of an interface / enum / dict. Just return itself
+        if (allInterfacesMap[objDomType] ||
+            allLegacyWindowAliases.includes(objDomType) ||
+            allCallbackFunctionsMap[objDomType] ||
+            allDictionariesMap[objDomType] ||
+            allEnumsMap[objDomType]) return objDomType;
+        // Name of a type alias. Just return itself
+        if (allTypeDefsMap.has(objDomType)) return objDomType;
 
         throw new Error("Unknown DOM type: " + objDomType);
     }

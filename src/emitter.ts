@@ -177,30 +177,21 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
 
     function getTagNameToElementNameMap() {
-        const preferedElementMap: Record<string, string> = {
-            "script": "HTMLScriptElement",
-            "a": "HTMLAnchorElement",
-            "title": "HTMLTitleElement",
-            "style": "HTMLStyleElement",
-            "td": "HTMLTableDataCellElement",
-            "th": "HTMLTableHeaderCellElement"
-        };
-
-        function resolveElementConflict(tagName: string, iNames: string[]) {
-            const name = preferedElementMap[tagName] || "";
-            if (iNames.includes(name)) return name;
-            throw new Error("Element conflict occured! Typename: " + tagName);
-        }
-
-        const result: Record<string, string> = {};
+        const htmlResult: Record<string, string> = {};
+        const svgResult: Record<string, string> = {};
         for (const i of allNonCallbackInterfaces) {
             if (i.element) {
                 for (const e of i.element) {
-                    result[e.name] = result[e.name] ? resolveElementConflict(e.name, [result[e.name], i.name]) : i.name;
+                    if (e.namespace === "SVG") {
+                        svgResult[e.name] = i.name;
+                    }
+                    else {
+                        htmlResult[e.name] = i.name;
+                    }
                 }
             }
         }
-        return result;
+        return { htmlResult, svgResult };
     }
 
     function getExtendList(iName: string): string[] {
@@ -399,11 +390,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitHTMLElementTagNameMap() {
         printer.printLine("interface HTMLElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName).sort()) {
-            const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && !iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e.toLowerCase()}": ${value};`);
-            }
+        for (const e of Object.keys(tagNameToEleName.htmlResult).sort()) {
+            const value = tagNameToEleName.htmlResult[e];
+            printer.printLine(`"${e.toLowerCase()}": ${value};`);
         }
         printer.decreaseIndent();
         printer.printLine("}");
@@ -413,11 +402,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitSVGElementTagNameMap() {
         printer.printLine("interface SVGElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName).sort()) {
-            const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e}": ${value};`);
-            }
+        for (const e of Object.keys(tagNameToEleName.svgResult).sort()) {
+            const value = tagNameToEleName.svgResult[e];
+            printer.printLine(`"${e}": ${value};`);
         }
         printer.decreaseIndent();
         printer.printLine("}");

@@ -173,7 +173,7 @@ export interface Interface {
     "no-interface-object"?: 1;
     global?: string;
     "type-parameters"?: string[];
-    "overide-index-signatures"?: string[];
+    "override-index-signatures"?: string[];
     specs?: string;
     iterable?: "value" | "pair" | "pair-iterator";
     iterator?: Iterator;

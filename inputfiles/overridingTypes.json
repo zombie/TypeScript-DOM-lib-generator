@@ -327,7 +327,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": []
+                "override-index-signatures": []
             },
             "Document": {
                 "name": "Document",
@@ -1257,7 +1257,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[name: number]: DataTransferItem"
                 ]
             },
@@ -1538,7 +1538,7 @@
             },
             "DOMStringMap": {
                 "name": "DOMStringMap",
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[name: string]: string | undefined"
                 ]
             },

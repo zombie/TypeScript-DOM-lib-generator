@@ -800,8 +800,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitIndexers(emitScope: EmitScope, i: Browser.Interface) {
-        if (i["overide-index-signatures"]) {
-            i["overide-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        if (i["override-index-signatures"]) {
+            i["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
         }
         else {
             // The indices could be within either Methods or Anonymous Methods

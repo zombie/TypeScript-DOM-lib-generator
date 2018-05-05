@@ -121,6 +121,10 @@
         "title": "WebRTC"
     },
     {
+        "url": "https://drafts.css-houdini.org/worklets/",
+        "title": "Worklets"
+    },
+    {
         "url": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest"
     }

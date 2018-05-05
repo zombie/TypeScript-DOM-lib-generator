@@ -1895,6 +1895,10 @@ interface WheelEventInit extends MouseEventInit {
     deltaZ?: number;
 }
 
+interface WorkletOptions {
+    credentials?: RequestCredentials;
+}
+
 interface EventListener {
     (evt: Event): void;
 }
@@ -15883,6 +15887,15 @@ interface Worker extends EventTarget, AbstractWorker {
 declare var Worker: {
     prototype: Worker;
     new(stringUrl: string): Worker;
+};
+
+interface Worklet {
+    addModule(moduleURL: string, options?: WorkletOptions): Promise<void>;
+}
+
+declare var Worklet: {
+    prototype: Worklet;
+    new(): Worklet;
 };
 
 interface WritableStream {

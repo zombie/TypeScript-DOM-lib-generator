@@ -103,10 +103,11 @@ interface AudioNodeOptions {
 }
 
 interface AudioParamDescriptor {
+    automationRate?: AutomationRate;
     defaultValue?: number;
     maxValue?: number;
     minValue?: number;
-    name?: string;
+    name: string;
 }
 
 interface AudioProcessingEventInit extends EventInit {
@@ -118,6 +119,14 @@ interface AudioProcessingEventInit extends EventInit {
 interface AudioTimestamp {
     contextTime?: number;
     performanceTime?: number;
+}
+
+interface AudioWorkletNodeOptions extends AudioNodeOptions {
+    numberOfInputs?: number;
+    numberOfOutputs?: number;
+    outputChannelCount?: number[];
+    parameterData?: Record<string, number>;
+    processorOptions?: any;
 }
 
 interface BiquadFilterOptions extends AudioNodeOptions {
@@ -901,6 +910,10 @@ interface MediaKeySystemMediaCapability {
     robustness?: string;
 }
 
+interface MediaStreamAudioSourceOptions {
+    mediaStream: MediaStream;
+}
+
 interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
     peerIdentity?: string;
@@ -913,6 +926,10 @@ interface MediaStreamErrorEventInit extends EventInit {
 
 interface MediaStreamEventInit extends EventInit {
     stream?: MediaStream;
+}
+
+interface MediaStreamTrackAudioSourceOptions {
+    mediaStreamTrack: MediaStreamTrack;
 }
 
 interface MediaStreamTrackEventInit extends EventInit {
@@ -1056,6 +1073,12 @@ interface NotificationOptions {
 
 interface OfflineAudioCompletionEventInit extends EventInit {
     renderedBuffer: AudioBuffer;
+}
+
+interface OfflineAudioContextOptions {
+    length: number;
+    numberOfChannels?: number;
+    sampleRate: number;
 }
 
 interface OptionalEffectTiming {
@@ -1957,7 +1980,7 @@ interface AnalyserNode extends AudioNode {
 
 declare var AnalyserNode: {
     prototype: AnalyserNode;
-    new(): AnalyserNode;
+    new(context: BaseAudioContext, options?: AnalyserOptions): AnalyserNode;
 };
 
 interface Animatable {
@@ -2117,80 +2140,47 @@ interface AudioBuffer {
 
 declare var AudioBuffer: {
     prototype: AudioBuffer;
-    new(): AudioBuffer;
+    new(options: AudioBufferOptions): AudioBuffer;
 };
 
-interface AudioBufferSourceNodeEventMap {
-    "ended": Event;
-}
-
-interface AudioBufferSourceNode extends AudioNode {
+interface AudioBufferSourceNode extends AudioScheduledSourceNode {
     buffer: AudioBuffer | null;
     readonly detune: AudioParam;
     loop: boolean;
     loopEnd: number;
     loopStart: number;
-    onended: ((this: AudioBufferSourceNode, ev: Event) => any) | null;
     readonly playbackRate: AudioParam;
     start(when?: number, offset?: number, duration?: number): void;
-    stop(when?: number): void;
-    addEventListener<K extends keyof AudioBufferSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioBufferSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioBufferSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioBufferSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioBufferSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioBufferSourceNode: {
     prototype: AudioBufferSourceNode;
-    new(): AudioBufferSourceNode;
+    new(context: BaseAudioContext, options?: AudioBufferSourceOptions): AudioBufferSourceNode;
 };
 
-interface AudioContextEventMap {
-    "statechange": Event;
-}
-
-interface AudioContextBase extends EventTarget {
-    readonly currentTime: number;
-    readonly destination: AudioDestinationNode;
-    readonly listener: AudioListener;
-    onstatechange: ((this: AudioContext, ev: Event) => any) | null;
-    readonly sampleRate: number;
-    readonly state: AudioContextState;
+interface AudioContext extends BaseAudioContext {
+    readonly baseLatency: number;
+    readonly outputLatency: number;
     close(): Promise<void>;
-    createAnalyser(): AnalyserNode;
-    createBiquadFilter(): BiquadFilterNode;
-    createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBuffer;
-    createBufferSource(): AudioBufferSourceNode;
-    createChannelMerger(numberOfInputs?: number): ChannelMergerNode;
-    createChannelSplitter(numberOfOutputs?: number): ChannelSplitterNode;
-    createConvolver(): ConvolverNode;
-    createDelay(maxDelayTime?: number): DelayNode;
-    createDynamicsCompressor(): DynamicsCompressorNode;
-    createGain(): GainNode;
-    createIIRFilter(feedforward: number[], feedback: number[]): IIRFilterNode;
     createMediaElementSource(mediaElement: HTMLMediaElement): MediaElementAudioSourceNode;
+    createMediaStreamDestination(): MediaStreamAudioDestinationNode;
     createMediaStreamSource(mediaStream: MediaStream): MediaStreamAudioSourceNode;
-    createOscillator(): OscillatorNode;
-    createPanner(): PannerNode;
-    createPeriodicWave(real: Float32Array, imag: Float32Array, constraints?: PeriodicWaveConstraints): PeriodicWave;
-    createScriptProcessor(bufferSize?: number, numberOfInputChannels?: number, numberOfOutputChannels?: number): ScriptProcessorNode;
-    createStereoPanner(): StereoPannerNode;
-    createWaveShaper(): WaveShaperNode;
-    decodeAudioData(audioData: ArrayBuffer, successCallback?: DecodeSuccessCallback, errorCallback?: DecodeErrorCallback): Promise<AudioBuffer>;
-    resume(): Promise<void>;
-    addEventListener<K extends keyof AudioContextEventMap>(type: K, listener: (this: AudioContext, ev: AudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioContextEventMap>(type: K, listener: (this: AudioContext, ev: AudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-interface AudioContext extends AudioContextBase {
+    createMediaStreamTrackSource(mediaStreamTrack: MediaStreamTrack): MediaStreamTrackAudioSourceNode;
+    getOutputTimestamp(): AudioTimestamp;
     suspend(): Promise<void>;
+    addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioContext: {
     prototype: AudioContext;
-    new(): AudioContext;
+    new(contextOptions?: AudioContextOptions): AudioContext;
 };
 
 interface AudioDestinationNode extends AudioNode {
@@ -2203,16 +2193,19 @@ declare var AudioDestinationNode: {
 };
 
 interface AudioListener {
-    /** @deprecated */
-    dopplerFactor: number;
-    /** @deprecated */
-    speedOfSound: number;
+    readonly forwardX: AudioParam;
+    readonly forwardY: AudioParam;
+    readonly forwardZ: AudioParam;
+    readonly positionX: AudioParam;
+    readonly positionY: AudioParam;
+    readonly positionZ: AudioParam;
+    readonly upX: AudioParam;
+    readonly upY: AudioParam;
+    readonly upZ: AudioParam;
     /** @deprecated */
     setOrientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): void;
     /** @deprecated */
     setPosition(x: number, y: number, z: number): void;
-    /** @deprecated */
-    setVelocity(x: number, y: number, z: number): void;
 }
 
 declare var AudioListener: {
@@ -2224,18 +2217,18 @@ interface AudioNode extends EventTarget {
     channelCount: number;
     channelCountMode: ChannelCountMode;
     channelInterpretation: ChannelInterpretation;
-    readonly context: AudioContext;
+    readonly context: BaseAudioContext;
     readonly numberOfInputs: number;
     readonly numberOfOutputs: number;
-    connect(destination: AudioNode, output?: number, input?: number): AudioNode;
-    connect(destination: AudioParam, output?: number): void;
+    connect(destinationNode: AudioNode, output?: number, input?: number): AudioNode;
+    connect(destinationParam: AudioParam, output?: number): void;
     disconnect(): void;
     disconnect(output: number): void;
-    disconnect(destination: AudioNode): void;
-    disconnect(destination: AudioNode, output: number): void;
-    disconnect(destination: AudioNode, output: number, input: number): void;
-    disconnect(destination: AudioParam): void;
-    disconnect(destination: AudioParam, output: number): void;
+    disconnect(destinationNode: AudioNode): void;
+    disconnect(destinationNode: AudioNode, output: number): void;
+    disconnect(destinationNode: AudioNode, output: number, input: number): void;
+    disconnect(destinationParam: AudioParam): void;
+    disconnect(destinationParam: AudioParam, output: number): void;
 }
 
 declare var AudioNode: {
@@ -2244,8 +2237,12 @@ declare var AudioNode: {
 };
 
 interface AudioParam {
+    automationRate: AutomationRate;
     readonly defaultValue: number;
+    readonly maxValue: number;
+    readonly minValue: number;
     value: number;
+    cancelAndHoldAtTime(cancelTime: number): AudioParam;
     cancelScheduledValues(cancelTime: number): AudioParam;
     exponentialRampToValueAtTime(value: number, endTime: number): AudioParam;
     linearRampToValueAtTime(value: number, endTime: number): AudioParam;
@@ -2259,6 +2256,15 @@ declare var AudioParam: {
     new(): AudioParam;
 };
 
+interface AudioParamMap {
+    forEach(callbackfn: (value: AudioParam, key: string, parent: AudioParamMap) => void, thisArg?: any): void;
+}
+
+declare var AudioParamMap: {
+    prototype: AudioParamMap;
+    new(): AudioParamMap;
+};
+
 interface AudioProcessingEvent extends Event {
     readonly inputBuffer: AudioBuffer;
     readonly outputBuffer: AudioBuffer;
@@ -2267,7 +2273,26 @@ interface AudioProcessingEvent extends Event {
 
 declare var AudioProcessingEvent: {
     prototype: AudioProcessingEvent;
-    new(): AudioProcessingEvent;
+    new(type: string, eventInitDict: AudioProcessingEventInit): AudioProcessingEvent;
+};
+
+interface AudioScheduledSourceNodeEventMap {
+    "ended": Event;
+}
+
+interface AudioScheduledSourceNode extends AudioNode {
+    onended: ((this: AudioScheduledSourceNode, ev: Event) => any) | null;
+    start(when?: number): void;
+    stop(when?: number): void;
+    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: AudioScheduledSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var AudioScheduledSourceNode: {
+    prototype: AudioScheduledSourceNode;
+    new(): AudioScheduledSourceNode;
 };
 
 interface AudioTrack {
@@ -2309,6 +2334,33 @@ declare var AudioTrackList: {
     new(): AudioTrackList;
 };
 
+interface AudioWorklet extends Worklet {
+}
+
+declare var AudioWorklet: {
+    prototype: AudioWorklet;
+    new(): AudioWorklet;
+};
+
+interface AudioWorkletNodeEventMap {
+    "processorerror": Event;
+}
+
+interface AudioWorkletNode extends AudioNode {
+    onprocessorerror: ((this: AudioWorkletNode, ev: Event) => any) | null;
+    readonly parameters: AudioParamMap;
+    readonly port: MessagePort;
+    addEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AudioWorkletNodeEventMap>(type: K, listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var AudioWorkletNode: {
+    prototype: AudioWorkletNode;
+    new(context: BaseAudioContext, name: string, options?: AudioWorkletNodeOptions): AudioWorkletNode;
+};
+
 interface BarProp {
     readonly visible: boolean;
 }
@@ -2316,6 +2368,49 @@ interface BarProp {
 declare var BarProp: {
     prototype: BarProp;
     new(): BarProp;
+};
+
+interface BaseAudioContextEventMap {
+    "statechange": Event;
+}
+
+interface BaseAudioContext extends EventTarget {
+    readonly audioWorklet: AudioWorklet;
+    readonly currentTime: number;
+    readonly destination: AudioDestinationNode;
+    readonly listener: AudioListener;
+    onstatechange: ((this: BaseAudioContext, ev: Event) => any) | null;
+    readonly sampleRate: number;
+    readonly state: AudioContextState;
+    createAnalyser(): AnalyserNode;
+    createBiquadFilter(): BiquadFilterNode;
+    createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBuffer;
+    createBufferSource(): AudioBufferSourceNode;
+    createChannelMerger(numberOfInputs?: number): ChannelMergerNode;
+    createChannelSplitter(numberOfOutputs?: number): ChannelSplitterNode;
+    createConstantSource(): ConstantSourceNode;
+    createConvolver(): ConvolverNode;
+    createDelay(maxDelayTime?: number): DelayNode;
+    createDynamicsCompressor(): DynamicsCompressorNode;
+    createGain(): GainNode;
+    createIIRFilter(feedforward: number[], feedback: number[]): IIRFilterNode;
+    createOscillator(): OscillatorNode;
+    createPanner(): PannerNode;
+    createPeriodicWave(real: number[] | Float32Array, imag: number[] | Float32Array, constraints?: PeriodicWaveConstraints): PeriodicWave;
+    createScriptProcessor(bufferSize?: number, numberOfInputChannels?: number, numberOfOutputChannels?: number): ScriptProcessorNode;
+    createStereoPanner(): StereoPannerNode;
+    createWaveShaper(): WaveShaperNode;
+    decodeAudioData(audioData: ArrayBuffer, successCallback?: DecodeSuccessCallback, errorCallback?: DecodeErrorCallback): Promise<AudioBuffer>;
+    resume(): Promise<void>;
+    addEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof BaseAudioContextEventMap>(type: K, listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var BaseAudioContext: {
+    prototype: BaseAudioContext;
+    new(): BaseAudioContext;
 };
 
 interface BeforeUnloadEvent extends Event {
@@ -2360,7 +2455,7 @@ interface BiquadFilterNode extends AudioNode {
 
 declare var BiquadFilterNode: {
     prototype: BiquadFilterNode;
-    new(): BiquadFilterNode;
+    new(context: BaseAudioContext, options?: BiquadFilterOptions): BiquadFilterNode;
 };
 
 interface Blob {
@@ -3151,7 +3246,7 @@ interface ChannelMergerNode extends AudioNode {
 
 declare var ChannelMergerNode: {
     prototype: ChannelMergerNode;
-    new(): ChannelMergerNode;
+    new(context: BaseAudioContext, options?: ChannelMergerOptions): ChannelMergerNode;
 };
 
 interface ChannelSplitterNode extends AudioNode {
@@ -3159,7 +3254,7 @@ interface ChannelSplitterNode extends AudioNode {
 
 declare var ChannelSplitterNode: {
     prototype: ChannelSplitterNode;
-    new(): ChannelSplitterNode;
+    new(context: BaseAudioContext, options?: ChannelSplitterNode): ChannelSplitterNode;
 };
 
 interface CharacterData extends Node, ChildNode {
@@ -3297,6 +3392,19 @@ declare var Console: {
     new(): Console;
 };
 
+interface ConstantSourceNode extends AudioScheduledSourceNode {
+    readonly offset: AudioParam;
+    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: ConstantSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: ConstantSourceNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var ConstantSourceNode: {
+    prototype: ConstantSourceNode;
+    new(context: BaseAudioContext, options?: ConstantSourceOptions): ConstantSourceNode;
+};
+
 interface ConvolverNode extends AudioNode {
     buffer: AudioBuffer | null;
     normalize: boolean;
@@ -3304,7 +3412,7 @@ interface ConvolverNode extends AudioNode {
 
 declare var ConvolverNode: {
     prototype: ConvolverNode;
-    new(): ConvolverNode;
+    new(context: BaseAudioContext, options?: ConvolverOptions): ConvolverNode;
 };
 
 interface Coordinates {
@@ -3793,7 +3901,7 @@ interface DelayNode extends AudioNode {
 
 declare var DelayNode: {
     prototype: DelayNode;
-    new(): DelayNode;
+    new(context: BaseAudioContext, options?: DelayOptions): DelayNode;
 };
 
 interface DeviceAcceleration {
@@ -4822,7 +4930,7 @@ interface DynamicsCompressorNode extends AudioNode {
 
 declare var DynamicsCompressorNode: {
     prototype: DynamicsCompressorNode;
-    new(): DynamicsCompressorNode;
+    new(context: BaseAudioContext, options?: DynamicsCompressorOptions): DynamicsCompressorNode;
 };
 
 interface EXT_blend_minmax {
@@ -5227,7 +5335,7 @@ interface GainNode extends AudioNode {
 
 declare var GainNode: {
     prototype: GainNode;
-    new(): GainNode;
+    new(context: BaseAudioContext, options?: GainOptions): GainNode;
 };
 
 interface Gamepad {
@@ -8795,7 +8903,7 @@ interface IIRFilterNode extends AudioNode {
 
 declare var IIRFilterNode: {
     prototype: IIRFilterNode;
-    new(): IIRFilterNode;
+    new(context: BaseAudioContext, options: IIRFilterOptions): IIRFilterNode;
 };
 
 interface ImageBitmap {
@@ -9299,11 +9407,12 @@ declare var MediaDevices: {
 };
 
 interface MediaElementAudioSourceNode extends AudioNode {
+    readonly mediaElement: HTMLMediaElement;
 }
 
 declare var MediaElementAudioSourceNode: {
     prototype: MediaElementAudioSourceNode;
-    new(): MediaElementAudioSourceNode;
+    new(context: BaseAudioContext, options: MediaElementAudioSourceOptions): MediaElementAudioSourceNode;
 };
 
 interface MediaEncryptedEvent extends Event {
@@ -9475,12 +9584,22 @@ declare var MediaStream: {
     new(tracks: MediaStreamTrack[]): MediaStream;
 };
 
+interface MediaStreamAudioDestinationNode extends AudioNode {
+    readonly stream: MediaStream;
+}
+
+declare var MediaStreamAudioDestinationNode: {
+    prototype: MediaStreamAudioDestinationNode;
+    new(context: BaseAudioContext, options?: AudioNodeOptions): MediaStreamAudioDestinationNode;
+};
+
 interface MediaStreamAudioSourceNode extends AudioNode {
+    readonly mediaStream: MediaStream;
 }
 
 declare var MediaStreamAudioSourceNode: {
     prototype: MediaStreamAudioSourceNode;
-    new(): MediaStreamAudioSourceNode;
+    new(context: BaseAudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
 };
 
 interface MediaStreamError {
@@ -9550,6 +9669,14 @@ interface MediaStreamTrack extends EventTarget {
 declare var MediaStreamTrack: {
     prototype: MediaStreamTrack;
     new(): MediaStreamTrack;
+};
+
+interface MediaStreamTrackAudioSourceNode extends AudioNode {
+}
+
+declare var MediaStreamTrackAudioSourceNode: {
+    prototype: MediaStreamTrackAudioSourceNode;
+    new(context: AudioContext, options: MediaStreamTrackAudioSourceOptions): MediaStreamTrackAudioSourceNode;
 };
 
 interface MediaStreamTrackEvent extends Event {
@@ -10064,14 +10191,14 @@ interface OfflineAudioCompletionEvent extends Event {
 
 declare var OfflineAudioCompletionEvent: {
     prototype: OfflineAudioCompletionEvent;
-    new(): OfflineAudioCompletionEvent;
+    new(type: string, eventInitDict: OfflineAudioCompletionEventInit): OfflineAudioCompletionEvent;
 };
 
-interface OfflineAudioContextEventMap extends AudioContextEventMap {
+interface OfflineAudioContextEventMap extends BaseAudioContextEventMap {
     "complete": OfflineAudioCompletionEvent;
 }
 
-interface OfflineAudioContext extends AudioContextBase {
+interface OfflineAudioContext extends BaseAudioContext {
     readonly length: number;
     oncomplete: ((this: OfflineAudioContext, ev: OfflineAudioCompletionEvent) => any) | null;
     startRendering(): Promise<AudioBuffer>;
@@ -10084,30 +10211,24 @@ interface OfflineAudioContext extends AudioContextBase {
 
 declare var OfflineAudioContext: {
     prototype: OfflineAudioContext;
+    new(contextOptions: OfflineAudioContextOptions): OfflineAudioContext;
     new(numberOfChannels: number, length: number, sampleRate: number): OfflineAudioContext;
 };
 
-interface OscillatorNodeEventMap {
-    "ended": Event;
-}
-
-interface OscillatorNode extends AudioNode {
+interface OscillatorNode extends AudioScheduledSourceNode {
     readonly detune: AudioParam;
     readonly frequency: AudioParam;
-    onended: ((this: OscillatorNode, ev: Event) => any) | null;
     type: OscillatorType;
     setPeriodicWave(periodicWave: PeriodicWave): void;
-    start(when?: number): void;
-    stop(when?: number): void;
-    addEventListener<K extends keyof OscillatorNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: OscillatorNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof OscillatorNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: OscillatorNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(type: K, listener: (this: OscillatorNode, ev: AudioScheduledSourceNodeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var OscillatorNode: {
     prototype: OscillatorNode;
-    new(): OscillatorNode;
+    new(context: BaseAudioContext, options?: OscillatorOptions): OscillatorNode;
 };
 
 interface OverflowEvent extends UIEvent {
@@ -10142,20 +10263,24 @@ interface PannerNode extends AudioNode {
     coneOuterGain: number;
     distanceModel: DistanceModelType;
     maxDistance: number;
+    readonly orientationX: AudioParam;
+    readonly orientationY: AudioParam;
+    readonly orientationZ: AudioParam;
     panningModel: PanningModelType;
+    readonly positionX: AudioParam;
+    readonly positionY: AudioParam;
+    readonly positionZ: AudioParam;
     refDistance: number;
     rolloffFactor: number;
     /** @deprecated */
     setOrientation(x: number, y: number, z: number): void;
     /** @deprecated */
     setPosition(x: number, y: number, z: number): void;
-    /** @deprecated */
-    setVelocity(x: number, y: number, z: number): void;
 }
 
 declare var PannerNode: {
     prototype: PannerNode;
-    new(): PannerNode;
+    new(context: BaseAudioContext, options?: PannerOptions): PannerNode;
 };
 
 interface ParentNode {
@@ -10464,7 +10589,7 @@ interface PeriodicWave {
 
 declare var PeriodicWave: {
     prototype: PeriodicWave;
-    new(): PeriodicWave;
+    new(context: BaseAudioContext, options?: PeriodicWaveOptions): PeriodicWave;
 };
 
 interface PermissionRequest extends DeferredPermissionRequest {
@@ -13580,7 +13705,7 @@ interface StereoPannerNode extends AudioNode {
 
 declare var StereoPannerNode: {
     prototype: StereoPannerNode;
-    new(): StereoPannerNode;
+    new(context: BaseAudioContext, options?: StereoPannerOptions): StereoPannerNode;
 };
 
 interface Storage {
@@ -14363,7 +14488,7 @@ interface WaveShaperNode extends AudioNode {
 
 declare var WaveShaperNode: {
     prototype: WaveShaperNode;
-    new(): WaveShaperNode;
+    new(context: BaseAudioContext, options?: WaveShaperOptions): WaveShaperNode;
 };
 
 interface WebAuthentication {
@@ -16589,6 +16714,7 @@ type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
+type AutomationRate = "a-rate" | "k-rate";
 type BinaryType = "blob" | "arraybuffer";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";
 type CanPlayTypeResult = "" | "maybe" | "probably";

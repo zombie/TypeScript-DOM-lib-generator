@@ -2375,6 +2375,70 @@
                         }
                     }
                 }
+            },
+            "AudioListener": {
+                "name": "AudioListener",
+                "methods": {
+                    "method": {
+                        "setPosition": {
+                            "name": "setPosition",
+                            "deprecated": 1
+                        },
+                        "setOrientation": {
+                            "name": "setOrientation",
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
+            "OfflineAudioContext": {
+                "name": "OfflineAudioContext",
+                "events": {
+                    "event": [
+                        {
+                            "name": "complete",
+                            "type": "OfflineAudioCompletionEvent"
+                        }
+                    ]
+                }
+            },
+            "PannerNode": {
+                "name": "PannerNode",
+                "methods": {
+                    "method": {
+                        "setPosition": {
+                            "name": "setPosition",
+                            "deprecated": 1
+                        },
+                        "setOrientation": {
+                            "name": "setOrientation",
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
+            "ScriptProcessorNode": {
+                "name": "ScriptProcessorNode",
+                "properties": {
+                    "property": {
+                        "onaudioprocess": {
+                            "name": "onaudioprocess",
+                            "deprecated": 1
+                        },
+                        "bufferSize": {
+                            "name": "bufferSize",
+                            "deprecated": 1
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "audioprocess",
+                            "type": "AudioProcessingEvent"
+                        }
+                    ]
+                }
             }
         }
     },

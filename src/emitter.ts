@@ -22,7 +22,6 @@ enum EmitScope {
 const defaultEventType = "Event";
 const tsKeywords = new Set(["default", "delete", "continue"]);
 const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
-    "AudioContext": { extendType: ["OfflineContext"], memberNames: new Set(["suspend"]) },
     "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
 };
 const eventTypeMap: Record<string, string> = {

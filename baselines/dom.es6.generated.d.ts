@@ -2,6 +2,9 @@
 /// DOM ES6 APIs
 /////////////////////////////
 
+interface AudioParamMap extends ReadonlyMap<string, AudioParam> {
+}
+
 interface AudioTrackList {
     [Symbol.iterator](): IterableIterator<AudioTrack>
 }

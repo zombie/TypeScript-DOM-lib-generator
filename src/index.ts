@@ -128,7 +128,7 @@ function emitDom() {
             if (!template) return obj;
             const filtered: any = {};
             for (const k in obj) {
-                if (k in template && !Array.isArray(template[k])) {
+                if (template.hasOwnProperty(k) && !Array.isArray(template[k])) {
                     if (template[k] !== null) {
                         filtered[k] = filterByNull(obj[k], template[k]);
                     }

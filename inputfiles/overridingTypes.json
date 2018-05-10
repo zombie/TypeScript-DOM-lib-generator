@@ -2361,7 +2361,14 @@
             },
             "Worker": {
                 "name": "Worker",
-                "override-exposed": "Window Worker"
+                "override-exposed": "Window Worker",
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "deprecated": 0
+                        }
+                    }
+                }
             },
             "Crypto": {
                 "name": "Crypto",

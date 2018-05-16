@@ -127,5 +127,9 @@
     {
         "url": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/web-messaging.html",
+        "title": "Web Messaging"
     }
 ]

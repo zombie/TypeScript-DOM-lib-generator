@@ -182,62 +182,6 @@
                     }
                 }
             },
-            "BroadcastChannel": {
-                "name": "BroadcastChannel",
-                "extends": "EventTarget",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "name",
-                            "read-only": 1,
-                            "override-type": "string"
-                        },
-                        "onmessage": {
-                            "name": "onmessage",
-                            "override-type": "(ev: MessageEvent) => any"
-                        },
-                        "onmessageerror": {
-                            "name": "onmessageerror",
-                            "override-type": "(ev: MessageEvent) => any"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "close": {
-                            "name": "close",
-                            "override-signatures": [
-                                "close(): void"
-                            ]
-                        },
-                        "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any): void"
-                            ]
-                        },
-                        "addEventListener": {
-                            "name": "addEventListener",
-                            "override-signatures": [
-                                "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void",
-                                "addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void"
-                            ]
-                        },
-                        "removeEventListener": {
-                            "name": "removeEventListener",
-                            "override-signatures": [
-                                "removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void",
-                                "removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void"
-                            ]
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(name: string): BroadcastChannel"
-                    ]
-                }
-            },
             "BroadcastChannelEventMap": {
                 "name": "BroadcastChannelEventMap",
                 "properties": {

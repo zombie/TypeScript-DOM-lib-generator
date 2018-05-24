@@ -278,6 +278,7 @@ enum RTCRtpTransceiverDirection {
     Promise<void>             setParameters (RTCRtpSendParameters parameters);
     RTCRtpSendParameters          getParameters ();
     Promise<void>             replaceTrack (MediaStreamTrack? withTrack);
+    void                            setStreams(MediaStream... streams);
     Promise<RTCStatsReport>   getStats();
 };
 
@@ -338,21 +339,21 @@ dictionary RTCRtpHeaderExtensionParameters {
 };
 
 dictionary RTCRtpCodecParameters {
-             octet          payloadType;
-             DOMString      mimeType;
-             unsigned long  clockRate;
+             required octet          payloadType;
+             required DOMString      mimeType;
+             required unsigned long  clockRate;
              unsigned short channels;
              DOMString      sdpFmtpLine;
 };
 
 dictionary RTCRtpCapabilities {
-             sequence<RTCRtpCodecCapability>           codecs;
-             sequence<RTCRtpHeaderExtensionCapability> headerExtensions;
+             required sequence<RTCRtpCodecCapability>           codecs;
+             required sequence<RTCRtpHeaderExtensionCapability> headerExtensions;
 };
 
 dictionary RTCRtpCodecCapability {
-             DOMString mimeType;
-             unsigned long  clockRate;
+             required DOMString mimeType;
+             required unsigned long  clockRate;
              unsigned short channels;
              DOMString      sdpFmtpLine;
 };
@@ -493,6 +494,7 @@ partial interface RTCPeerConnection {
     readonly        attribute RTCDtlsTransport transport;
     readonly        attribute RTCSctpTransportState state;
     readonly        attribute unrestricted double maxMessageSize;
+    readonly        attribute unsigned short? maxChannels;
                     attribute EventHandler     onstatechange;
 };
 

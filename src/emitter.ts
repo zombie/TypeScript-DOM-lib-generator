@@ -1068,15 +1068,34 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return `[${types.join(", ")}]`;
         }
 
-        function emitIterableDeclarationMethods(subtypes: string[]) {
+        function emitIterableDeclarationMethods(i: Browser.Interface, subtypes: string[]) {
             let [keyType, valueType] = subtypes;
             if (!valueType) {
                 valueType = keyType;
                 keyType = "number";
             }
-            printer.printLine(`entries(): IterableIterator<[${keyType}, ${valueType}]>;`);
-            printer.printLine(`keys(): IterableIterator<${keyType}>;`);
-            printer.printLine(`values(): IterableIterator<${valueType}>;`);
+
+            const methods = [{
+                name: 'entries',
+                definition: `IterableIterator<[${keyType}, ${valueType}]>`,
+            }, {
+                name: 'keys',
+                definition: `IterableIterator<${keyType}>`,
+            }, {
+                name: 'values',
+                definition: `IterableIterator<${valueType}>`,
+            }];
+
+            const comments = i.iterator
+                && i.iterator.comments
+                && i.iterator.comments.comment;
+
+            methods.forEach((m) => {
+                if (comments && comments[m.name]) {
+                    printer.printLine(comments[m.name]);
+                }
+                printer.printLine(`${ m.name }(): ${ m.definition };`);
+            });
         }
 
         function getIteratorExtends(iterator: Browser.Iterator | undefined, subtypes: string[]) {
@@ -1099,10 +1118,10 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();
             if (!iteratorExtends) {
-                printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>`);
+                printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>;`);
             }
             if (i.iterator && i.iterator.kind === "iterable") {
-                emitIterableDeclarationMethods(subtypes);
+                emitIterableDeclarationMethods(i, subtypes);
             }
             printer.decreaseIndent();
             printer.printLine("}");
@@ -1113,7 +1132,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitES6DomIterators() {
         printer.reset();
         printer.printLine("/////////////////////////////");
-        printer.printLine("/// DOM ES6 APIs");
+        printer.printLine("/// DOM Iterable APIs");
         printer.printLine("/////////////////////////////");
         printer.printLine("");
 

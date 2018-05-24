@@ -184,6 +184,9 @@ export interface Iterator {
     kind: "iterable" | "setlike" | "maplike";
     readonly: boolean;
     type: Typed[];
+    comments?: {
+        comment: Record<string, string>
+    };
 }
 
 export interface Enum {

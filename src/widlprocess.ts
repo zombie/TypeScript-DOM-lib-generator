@@ -51,16 +51,23 @@ export function convert(text: string, commentMap: Record<string, string>) {
     return { browser, partialInterfaces, partialDictionaries, includes };
 }
 
-function getExposure(extAttrs: webidl2.ExtendedAttributes[]) {
-    for (const extAttr of extAttrs) {
-        if (extAttr.name === "Exposed") {
-            if (Array.isArray(extAttr.rhs.value)) {
-                return extAttr.rhs.value.join(' ');
-            }
-            return extAttr.rhs.value;
-        }
+function hasExtAttr(extAttrs: webidl2.ExtendedAttributes[], name: string) {
+    return extAttrs.some(extAttr => extAttr.name === name);
+}
+
+function getExtAttr(extAttrs: webidl2.ExtendedAttributes[], name: string) {
+    const attr = extAttrs.find(extAttr => extAttr.name === name);
+    if (!attr || !attr.rhs) {
+        return;
     }
-    return "Window";
+    return attr.rhs.type === "identifier-list" ? attr.rhs.value : [attr.rhs.value];
+}
+
+function getExtAttrConcatenated(extAttrs: webidl2.ExtendedAttributes[], name: string) {
+    const extAttr = getExtAttr(extAttrs, name);
+    if (extAttr) {
+        return extAttr.join(" ");
+    }
 }
 
 function convertInterface(i: webidl2.InterfaceType, commentMap: Record<string, string>) {
@@ -93,35 +100,48 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         extends: "Object",
         constants: { constant: {} },
         methods: { method: {} },
+        "anonymous-methods": { method: [] },
         properties: { property: {} },
         constructor: getConstructor(i.extAttrs, i.name),
-        exposed: getExposure(i.extAttrs)
+        "named-constructor": getNamedConstructor(i.extAttrs, i.name),
+        exposed: getExtAttrConcatenated(i.extAttrs, "Exposed"),
+        global: getExtAttrConcatenated(i.extAttrs, "Global"),
+        "no-interface-object": hasExtAttr(i.extAttrs, "NoInterfaceObject") ? 1 : undefined,
+        "legacy-window-alias": getExtAttr(i.extAttrs, "LegacyWindowAlias")
     };
+    if (!result.exposed && i.type === "interface" && !i.partial) {
+        result.exposed = "Window";
+    }
     for (const member of i.members) {
         if (member.type === "const") {
             result.constants!.constant[member.name] = convertConstantMember(member);
             addComments(result.constants!.constant[member.name], commentMap, i.name, member.name);
         }
         else if (member.type === "attribute") {
-            result.properties!.property[member.name] = convertAttribute(member);
+            result.properties!.property[member.name] = convertAttribute(member, result.exposed);
             addComments(result.properties!.property[member.name], commentMap, i.name, member.name);
         }
-        else if (member.type === "operation" && member.name) {
-            const operation = convertOperation(member);
+        else if (member.type === "operation" && member.idlType) {
+            const operation = convertOperation(member, result.exposed);
             const { method } = result.methods;
-            if (method[member.name]) {
+            if (!member.name) {
+                result["anonymous-methods"]!.method.push(operation);
+            }
+            else if (method[member.name]) {
                 method[member.name].signature.push(...operation.signature);
             }
             else {
-                method[member.name] = operation;
+                method[member.name] = operation as Browser.Method;
             }
-            addComments(method[member.name], commentMap, i.name, member.name);
+            if (member.name) {
+                addComments(method[member.name], commentMap, i.name, member.name);
+            }
         }
-        else if (member.type === "iterable") {
+        else if (member.type === "iterable" || member.type === "maplike" || member.type === "setlike") {
             result.iterator = {
-                type: member.type,
+                kind: member.type,
                 readonly: member.readonly,
-                subtype: member.idlType.map(convertIdlType)
+                type: member.idlType.map(convertIdlType)
             };
         }
     }
@@ -146,8 +166,22 @@ function getConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string) 
     }
 }
 
-function convertOperation(operation: webidl2.OperationMemberType): Browser.Method {
-    if (!operation.name || !operation.idlType) {
+function getNamedConstructor(extAttrs: webidl2.ExtendedAttributes[], parent: string): Browser.NamedConstructor | undefined {
+    for (const extAttr of extAttrs) {
+        if (extAttr.name === "NamedConstructor" && typeof extAttr.rhs.value === "string") {
+            return {
+                name: extAttr.rhs.value,
+                signature: [{
+                    type: parent,
+                    param: extAttr.arguments ? extAttr.arguments.map(convertArgument) : []
+                }]
+            }
+        }
+    }
+}
+
+function convertOperation(operation: webidl2.OperationMemberType, inheritedExposure: string | undefined): Browser.AnonymousMethod | Browser.Method {
+    if (!operation.idlType) {
         throw new Error("Unexpected anonymous operation");
     }
     return {
@@ -159,6 +193,7 @@ function convertOperation(operation: webidl2.OperationMemberType): Browser.Metho
         getter: operation.getter ? 1 : undefined,
         static: operation.static ? 1 : undefined,
         stringifier: operation.stringifier ? 1 : undefined,
+        exposed: getExtAttrConcatenated(operation.extAttrs, "Exposed") || inheritedExposure
     };
 }
 
@@ -182,12 +217,14 @@ function convertArgument(arg: webidl2.Argument): Browser.Param {
     }
 }
 
-function convertAttribute(attribute: webidl2.AttributeMemberType): Browser.Property {
+function convertAttribute(attribute: webidl2.AttributeMemberType, inheritedExposure: string | undefined): Browser.Property {
     return {
         name: attribute.name,
         ...convertIdlType(attribute.idlType),
+        static: attribute.static ? 1 : undefined,
         "read-only": attribute.readonly ? 1 : undefined,
-        "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined
+        "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined,
+        exposed: getExtAttrConcatenated(attribute.extAttrs, "Exposed") || inheritedExposure
     }
 }
 

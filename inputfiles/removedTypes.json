@@ -1,12 +1,12 @@
 {
     "callback-functions": {
         "callback-function": {
-            "Function": {}
+            "Function": null
         }
     },
     "mixins": {
         "mixin": {
-            "XMLHttpRequestEventTarget": {}
+            "XMLHttpRequestEventTarget": null
         }
     },
     "callback-interfaces": {
@@ -14,33 +14,45 @@
     },
     "enums": {
         "enum": {
-            "ClientType": {},
-            "RequestType": {}
+            "ClientType": null,
+            "RequestType": null
         }
     },
     "interfaces": {
         "interface": {
+            "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {
                     "method": {
-                        "scrollIntoView": {},
-                        "insertAdjacentElement": {},
-                        "insertAdjacentHTML": {},
-                        "insertAdjacentText": {}
+                        "scrollIntoView": null,
+                        "insertAdjacentElement": null,
+                        "insertAdjacentHTML": null,
+                        "insertAdjacentText": null
                     }
                 }
+            },
+            "HTMLHRElement": {
+                "implements": null
             },
             "StorageEvent": {
                 "methods": {
                     "method": {
-                        "initStorageEvent": {}
+                        "initStorageEvent": null
                     }
                 }
             },
+            "SVGMatrix": null,
+            "SVGPoint": null,
+            "SVGRect": null,
+            "WebKitCSSMatrix": null,
             "Window": {
                 "properties": {
                     "property": {
-                        "browser": {}
+                        "browser": null,
+                        "ontouchcancel": null,
+                        "ontouchend": null,
+                        "ontouchmove": null,
+                        "ontouchstart": null
                     }
                 }
             }
@@ -48,17 +60,18 @@
     },
     "dictionaries": {
         "dictionary": {
+            "ObjectURLOptions": null,
             "RTCRtpContributingSource": {
                 "members": {
                     "member": {
-                        "csrc": {}
+                        "csrc": null
                     }
                 }
             },
             "MediaTrackConstraintSet": {
                 "members": {
                     "member": {
-                        "echoCancelation": {}
+                        "echoCancelation": null
                     }
                 }
             }

@@ -1,5 +1,5 @@
 import * as Browser from "./types";
-import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap } from "./helpers";
+import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
 
 export const enum Flavor {
     Web,
@@ -20,12 +20,8 @@ enum EmitScope {
 }
 
 const defaultEventType = "Event";
-// Extended types used but not defined in the spec
-const extendedTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);
-const integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
 const tsKeywords = new Set(["default", "delete", "continue"]);
 const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
-    "AudioContext": { extendType: ["OfflineContext"], memberNames: new Set(["suspend"]) },
     "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
 };
 const eventTypeMap: Record<string, string> = {
@@ -43,7 +39,7 @@ const eventTypeMap: Record<string, string> = {
 
 // Used to decide if a member should be emitted given its static property and
 // the intended scope level.
-function matchScope(scope: EmitScope, x: Browser.Method) {
+function matchScope(scope: EmitScope, x: { static?: 1 | undefined }) {
     return scope === EmitScope.All || (scope === EmitScope.StaticOnly) === !!x.static;
 }
 
@@ -137,6 +133,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         getElements(webidl.mixins, "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
+    const allLegacyWindowAliases = flatMap(allInterfaces, i => i["legacy-window-alias"]);
     const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
@@ -179,30 +176,21 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
 
     function getTagNameToElementNameMap() {
-        const preferedElementMap: Record<string, string> = {
-            "script": "HTMLScriptElement",
-            "a": "HTMLAnchorElement",
-            "title": "HTMLTitleElement",
-            "style": "HTMLStyleElement",
-            "td": "HTMLTableDataCellElement",
-            "th": "HTMLTableHeaderCellElement"
-        };
-
-        function resolveElementConflict(tagName: string, iNames: string[]) {
-            const name = preferedElementMap[tagName] || "";
-            if (iNames.includes(name)) return name;
-            throw new Error("Element conflict occured! Typename: " + tagName);
-        }
-
-        const result: Record<string, string> = {};
+        const htmlResult: Record<string, string> = {};
+        const svgResult: Record<string, string> = {};
         for (const i of allNonCallbackInterfaces) {
             if (i.element) {
                 for (const e of i.element) {
-                    result[e.name] = result[e.name] ? resolveElementConflict(e.name, [result[e.name], i.name]) : i.name;
+                    if (e.namespace === "SVG") {
+                        svgResult[e.name] = i.name;
+                    }
+                    else {
+                        htmlResult[e.name] = i.name;
+                    }
                 }
             }
         }
-        return result;
+        return { htmlResult, svgResult };
     }
 
     function getExtendList(iName: string): string[] {
@@ -241,12 +229,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return iNameToIDependList[i1Name]
             ? iNameToIDependList[i1Name].includes(i2Name)
             : i2Name === "Object";
-    }
-
-    // Some params have the type of "(DOMString or DOMString [] or Number)"
-    // we need to transform it into [“DOMString", "DOMString []", "Number"]
-    function decomposeTypes(t: string) {
-        return t.replace(/[\(\)]/g, "").split(" or ");
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
@@ -307,60 +289,24 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function convertDomTypeToTsTypeSimple(objDomType: string): string {
+        if (baseTypeConversionMap.has(objDomType)) {
+            return baseTypeConversionMap.get(objDomType)!;
+        }
         switch (objDomType) {
             case "DOMHighResTimeStamp": return "number";
             case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
-            case "double":
-            case "unrestricted double": return "number";
-            case "float": return "number";
-            case "object": return "any";
-            case "ByteString":
-            case "DOMString":
-            case "USVString": return "string";
-            case "sequence": return "Array";
-            case "record": return "Record";
-            case "FrozenArray": return "ReadonlyArray";
-            case "WindowProxy": return "Window";
-            case "any":
-            case "boolean":
-            case "BufferSource":
-            case "Date":
-            case "Function":
-            case "Promise":
-            case "void": return objDomType;
-            default:
-                if (integerTypes.has(objDomType)) return "number";
-                if (extendedTypes.has(objDomType)) return objDomType;
-                if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
-                if (flavor === Flavor.Web && objDomType === "Client") return "object";
-                // Name of an interface / enum / dict. Just return itself
-                if (allInterfacesMap[objDomType] ||
-                    allCallbackFunctionsMap[objDomType] ||
-                    allDictionariesMap[objDomType] ||
-                    allEnumsMap[objDomType]) return objDomType;
-                // Name of a type alias. Just return itself
-                if (allTypeDefsMap.has(objDomType)) return objDomType;
-                // Union types
-                if (objDomType.includes(" or ")) {
-                    const allTypes: string[] = decomposeTypes(objDomType).map(t => convertDomTypeToTsTypeSimple(t.replace("?", "")));
-                    return allTypes.includes("any") ? "any" : allTypes.join(" | ");
-                }
-                else {
-                    // Check if is array type, which looks like "sequence<DOMString>"
-                    const unescaped = objDomType; // System.Web.HttpUtility.HtmlDecode(objDomType)
-                    const genericMatch = /^(\w+)<([\w, <>]+)>$/;
-                    const match = genericMatch.exec(unescaped);
-                    if (match) {
-                        const tName: string = convertDomTypeToTsTypeSimple(match[1]);
-                        const paramName: string = convertDomTypeToTsTypeSimple(match[2]);
-                        return tName === "Array" ? paramName + "[]" : tName + "<" + paramName + ">";
-                    }
-                    if (objDomType.endsWith("[]")) {
-                        return convertDomTypeToTsTypeSimple(objDomType.replace("[]", "").trim()) + "[]";
-                    }
-                }
         }
+        if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
+        if (flavor === Flavor.Web && objDomType === "Client") return "object";
+        // Name of an interface / enum / dict. Just return itself
+        if (allInterfacesMap[objDomType] ||
+            allLegacyWindowAliases.includes(objDomType) ||
+            allCallbackFunctionsMap[objDomType] ||
+            allDictionariesMap[objDomType] ||
+            allEnumsMap[objDomType]) return objDomType;
+        // Name of a type alias. Just return itself
+        if (allTypeDefsMap.has(objDomType)) return objDomType;
 
         throw new Error("Unknown DOM type: " + objDomType);
     }
@@ -443,11 +389,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitHTMLElementTagNameMap() {
         printer.printLine("interface HTMLElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName).sort()) {
-            const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && !iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e.toLowerCase()}": ${value};`);
-            }
+        for (const e of Object.keys(tagNameToEleName.htmlResult).sort()) {
+            const value = tagNameToEleName.htmlResult[e];
+            printer.printLine(`"${e.toLowerCase()}": ${value};`);
         }
         printer.decreaseIndent();
         printer.printLine("}");
@@ -457,11 +401,14 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitSVGElementTagNameMap() {
         printer.printLine("interface SVGElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName).sort()) {
-            const value = tagNameToEleName[e];
-            if (iNameToIDependList[value] && iNameToIDependList[value].includes("SVGElement")) {
-                printer.printLine(`"${e}": ${value};`);
+        for (const e of Object.keys(tagNameToEleName.svgResult).sort()) {
+            if (e in tagNameToEleName.htmlResult) {
+                // Skip conflicting fields with HTMLElementTagNameMap
+                // to be compatible with deprecated ElementTagNameMap
+                continue;
             }
+            const value = tagNameToEleName.svgResult[e];
+            printer.printLine(`"${e}": ${value};`);
         }
         printer.decreaseIndent();
         printer.printLine("}");
@@ -618,10 +565,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitProperties(prefix: string, emitScope: EmitScope, i: Browser.Interface, conflictedMembers: Set<string>) {
-        // Note: the schema file shows the property doesn't have "static" attribute,
-        // therefore all properties are emited for the instance type.
-        if (emitScope !== EmitScope.StaticOnly && i.properties) {
+        if (i.properties) {
             mapToArray(i.properties.property)
+                .filter(m => matchScope(emitScope, m))
                 .filter(p => !isCovariantEventHandler(i, p))
                 .sort(compareName)
                 .forEach(p => emitProperty(prefix, i, emitScope, p, conflictedMembers));
@@ -691,15 +637,12 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (!i.iterator) {
             return;
         }
-        if (i.iterator.type === "iterable") {
-            const subtype = i.iterator.subtype.map(convertDomTypeToTsType);
-            const key = subtype.length > 1 ? subtype[0] : "number";
-            const value = subtype[subtype.length - 1];
-            printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${i.name}) => void, thisArg?: any): void;`);
-        }
-        else {
-            throw new Error(`Unsupported type ${i.iterator.type}`);
-        }
+        const subtype = i.iterator.type.map(convertDomTypeToTsType);
+        const value = subtype[subtype.length - 1];
+        const key = subtype.length > 1 ? subtype[0] :
+            i.iterator.kind === "iterable" ? "number" : value;
+        const name = i.name.replace(/ extends \w+/, "");
+        printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`);
     }
 
     /// Emit the properties and methods of a given interface
@@ -783,6 +726,14 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.decreaseIndent();
         printer.printLine("};");
         printer.printLine("");
+
+        if (flavor === Flavor.Web && i["legacy-window-alias"]) {
+            for (const alias of i["legacy-window-alias"]!) {
+                printer.printLine(`type ${alias} = ${i.name};`);
+                printer.printLine(`declare var ${alias}: typeof ${i.name};`);
+                printer.printLine("");
+            }
+        }
     }
 
     function emitNamedConstructor(i: Browser.Interface) {
@@ -827,7 +778,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     /// To decide if a given method is an indexer and should be emited
-    function shouldEmitIndexerSignature(i: Browser.Interface, m: Browser.Method) {
+    function shouldEmitIndexerSignature(i: Browser.Interface, m: Browser.AnonymousMethod) {
         if (m.getter && m.signature && m.signature[0].param && m.signature[0].param!.length === 1) {
             // TypeScript array indexer can only be number or string
             // for string, it must return a more generic type then all
@@ -853,12 +804,12 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitIndexers(emitScope: EmitScope, i: Browser.Interface) {
-        if (i["overide-index-signatures"]) {
-            i["overide-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        if (i["override-index-signatures"]) {
+            i["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
         }
         else {
             // The indices could be within either Methods or Anonymous Methods
-            mapToArray(i.methods && i.methods.method)
+            mapToArray<Browser.AnonymousMethod>(i.methods && i.methods.method)
                 .concat(i["anonymous-methods"] && i["anonymous-methods"]!.method || [])
                 .filter(m => shouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
                 .forEach(m => {
@@ -1079,7 +1030,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitIterator(i: Browser.Interface) {
 
         // check anonymous unsigned long getter and length property
-        const isIterableGetter = (m: Browser.Method) =>
+        const isIterableGetter = (m: Browser.AnonymousMethod) =>
             m.getter === 1 && !!m.signature.length && !!m.signature[0].param && m.signature[0].param!.length === 1 && typeof m.signature[0].param![0].type === "string" && integerTypes.has(<string>m.signature[0].param![0].type);
 
         function findIterableGetter() {
@@ -1094,17 +1045,68 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return p.name === "length" && typeof p.type === "string" && integerTypes.has(p.type);
         }
 
-        if (i.name !== "Window" && i.properties) {
-            const iterableGetter = findIterableGetter();
-            const lengthProperty = mapToArray(i.properties.property).find(findLengthProperty);
-            if (iterableGetter && lengthProperty) {
-                printer.printLine(`interface ${i.name} {`);
-                printer.increaseIndent();
-                printer.printLine(`[Symbol.iterator](): IterableIterator<${convertDomTypeToTsType({ type: iterableGetter.signature[0].type, nullable: undefined })}>`);
-                printer.decreaseIndent();
-                printer.printLine("}");
-                printer.printLine("");
+        function getIteratorSubtypes() {
+            if (i.iterator) {
+                if (i.iterator.type.length === 1) {
+                    return [convertDomTypeToTsType(i.iterator.type[0])];
+                }
+                return i.iterator.type.map(convertDomTypeToTsType);
             }
+            else if (i.name !== "Window" && i.properties) {
+                const iterableGetter = findIterableGetter();
+                const lengthProperty = mapToArray(i.properties.property).find(findLengthProperty);
+                if (iterableGetter && lengthProperty) {
+                    return [convertDomTypeToTsType({ type: iterableGetter.signature[0].type })];
+                }
+            }
+        }
+
+        function stringifySingleOrTupleTypes(types: string[]) {
+            if (types.length === 1) {
+                return types[0]
+            }
+            return `[${types.join(", ")}]`;
+        }
+
+        function emitIterableDeclarationMethods(subtypes: string[]) {
+            let [keyType, valueType] = subtypes;
+            if (!valueType) {
+                valueType = keyType;
+                keyType = "number";
+            }
+            printer.printLine(`entries(): IterableIterator<[${keyType}, ${valueType}]>;`);
+            printer.printLine(`keys(): IterableIterator<${keyType}>;`);
+            printer.printLine(`values(): IterableIterator<${valueType}>;`);
+        }
+
+        function getIteratorExtends(iterator: Browser.Iterator | undefined, subtypes: string[]) {
+            if (!iterator) {
+                return "";
+            }
+            const base = iterator.kind === "maplike" ? `Map<${subtypes[0]}, ${subtypes[1]}>` :
+                iterator.kind === "setlike" ? `Set<${subtypes[0]}>` : undefined;
+            if (!base) {
+                return "";
+            }
+            const result = iterator.readonly ? `Readonly${base}` : base;
+            return `extends ${result} `;
+        }
+
+        const subtypes = getIteratorSubtypes();
+        if (subtypes) {
+            const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
+            const name = extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name;
+            printer.printLine(`interface ${name} ${iteratorExtends}{`);
+            printer.increaseIndent();
+            if (!iteratorExtends) {
+                printer.printLine(`[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(subtypes)}>`);
+            }
+            if (i.iterator && i.iterator.kind === "iterable") {
+                emitIterableDeclarationMethods(subtypes);
+            }
+            printer.decreaseIndent();
+            printer.printLine("}");
+            printer.printLine("");
         }
     }
 

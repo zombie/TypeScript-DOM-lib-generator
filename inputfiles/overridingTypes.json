@@ -1,31 +1,112 @@
 {
     "mixins": {
         "mixin": {
-            "ElementTraversal": {
-                "name": "ElementTraversal",
-                "properties": {
-                    "property": {
-                        "firstElementChild": {
-                            "name": "firstElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "lastElementChild": {
-                            "name": "lastElementChild",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "nextElementSibling": {
-                            "name": "nextElementSibling",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "previousElementSibling": {
-                            "name": "previousElementSibling",
-                            "read-only": 1,
-                            "override-type": "Element | null"
+            "Animatable": {
+                "name": "Animatable",
+                "methods": {
+                    "method": {
+                        "animate": {
+                            "name": "animate",
+                            "override-signatures": [
+                                "animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation"
+                            ]
                         }
                     }
+                }
+            },
+            "GlobalEventHandlers": {
+                "name": "GlobalEventHandlers",
+                "events": {
+                    "event": [
+                        {
+                            "name": "animationcancel",
+                            "type": "AnimationEvent"
+                        },
+                        {
+                            "name": "animationend",
+                            "type": "AnimationEvent"
+                        },
+                        {
+                            "name": "animationiteration",
+                            "type": "AnimationEvent"
+                        },
+                        {
+                            "name": "animationstart",
+                            "type": "AnimationEvent"
+                        },
+                        {
+                            "name": "gotpointercapture",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "lostpointercapture",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointercancel",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointerdown",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointerenter",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointerleave",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointermove",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointerout",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointerover",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "pointerup",
+                            "type": "PointerEvent"
+                        },
+                        {
+                            "name": "touchcancel",
+                            "type": "TouchEvent"
+                        },
+                        {
+                            "name": "touchend",
+                            "type": "TouchEvent"
+                        },
+                        {
+                            "name": "touchmove",
+                            "type": "TouchEvent"
+                        },
+                        {
+                            "name": "touchstart",
+                            "type": "TouchEvent"
+                        },
+                        {
+                            "name": "transitionrun",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitionstart",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitionend",
+                            "type": "TransitionEvent"
+                        },
+                        {
+                            "name": "transitioncancel",
+                            "type": "TransitionEvent"
+                        }
+                    ]
                 }
             },
             "RandomSource": {
@@ -225,22 +306,6 @@
                             "override-type": "any",
                             "read-only": 0
                         },
-                        "ontouchcancel": {
-                            "name": "ontouchcancel",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "ontouchend": {
-                            "name": "ontouchend",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "ontouchmove": {
-                            "name": "ontouchmove",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
-                        "ontouchstart": {
-                            "name": "ontouchstart",
-                            "override-type": "(ev: TouchEvent) => any"
-                        },
                         "location": {
                             "read-only": 0
                         }
@@ -262,7 +327,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": []
+                "override-index-signatures": []
             },
             "Document": {
                 "name": "Document",
@@ -429,26 +494,6 @@
                             "read-only": 1,
                             "type-original": "boolean",
                             "type": "boolean"
-                        },
-                        "firstChild": {
-                            "name": "firstChild",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
-                        "lastChild": {
-                            "name": "lastChild",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
-                        "nextSibling": {
-                            "name": "nextSibling",
-                            "read-only": 1,
-                            "override-type": "Node | null"
-                        },
-                        "previousSibling": {
-                            "name": "previousSibling",
-                            "read-only": 1,
-                            "override-type": "Node | null"
                         },
                         "parentNode": {
                             "name": "parentNode",
@@ -665,27 +710,6 @@
                                 "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number): void",
                                 "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number, dstW: number, dstH: number): void",
                                 "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void"
-                            ]
-                        },
-                        "clip": {
-                            "name": "clip",
-                            "override-signatures": [
-                                "clip(fillRule?: CanvasFillRule): void",
-                                "clip(path: Path2D, fillRule?: CanvasFillRule): void"
-                            ]
-                        },
-                        "fill": {
-                            "name": "fill",
-                            "override-signatures": [
-                                "fill(fillRule?: CanvasFillRule): void",
-                                "fill(path: Path2D, fillRule?: CanvasFillRule): void"
-                            ]
-                        },
-                        "isPointInPath": {
-                            "name": "isPointInPath",
-                            "override-signatures": [
-                                "isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean",
-                                "isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean"
                             ]
                         },
                         "isPointInStroke": {
@@ -1000,14 +1024,6 @@
                     }
                 }
             },
-            "Blob": {
-                "name": "Blob",
-                "constructor": {
-                    "override-signatures": [
-                        "new (blobParts?: any[], options?: BlobPropertyBag): Blob"
-                    ]
-                }
-            },
             "FormData": {
                 "name": "FormData",
                 "methods": {
@@ -1031,44 +1047,24 @@
             },
             "MessageEvent": {
                 "name": "MessageEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict?: MessageEventInit): MessageEvent"
-                    ]
-                }
-            },
-            "File": {
-                "name": "File",
-                "constructor": {
-                    "override-signatures": [
-                        "new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File"
-                    ]
-                },
                 "properties": {
                     "property": {
-                        "lastModifiedDate": {
-                            "name": "lastModifiedDate",
-                            "read-only": 1,
-                            "override-type": "Date"
+                        "source": {
+                            "name": "source",
+                            "nullable": 0,
+                            "override-type": "MessageEventSource"
                         }
                     }
                 }
             },
             "ImageData": {
                 "name": "ImageData",
+                "exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
                         "new(width: number, height: number): ImageData",
                         "new(array: Uint8ClampedArray, width: number, height: number): ImageData"
                     ]
-                },
-                "properties": {
-                    "property": {
-                        "data": {
-                            "name": "data",
-                            "override-type": "Uint8ClampedArray"
-                        }
-                    }
                 }
             },
             "DOMException": {
@@ -1087,13 +1083,17 @@
                             "name": "selectedOptions",
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
                         },
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "select"
+                    }
+                ]
             },
             "HTMLDataListElement": {
                 "name": "HTMLDataListElement",
@@ -1104,44 +1104,47 @@
                             "override-type": "HTMLCollectionOf<HTMLOptionElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "datalist"
+                    }
+                ]
+            },
+            "HTMLDirectoryElement": {
+                "name": "HTMLDirectoryElement",
+                "element": [
+                    {
+                        "name": "dir"
+                    }
+                ]
+            },
+            "HTMLFontElement": {
+                "name": "HTMLFontElement",
+                "element": [
+                    {
+                        "name": "font"
+                    }
+                ]
+            },
+            "HTMLFrameElement": {
+                "name": "HTMLFrameElement",
+                "element": [
+                    {
+                        "name": "frame"
+                    }
+                ]
+            },
+            "HTMLFrameSetElement": {
+                "name": "HTMLFrameSetElement",
+                "element": [
+                    {
+                        "name": "frameset"
+                    }
+                ]
             },
             "HTMLTableElement": {
                 "name": "HTMLTableElement",
-                "methods": {
-                    "method": {
-                        "insertRow": {
-                            "name": "insertRow",
-                            "override-signatures": [
-                                "insertRow(index?: number): HTMLTableRowElement"
-                            ]
-                        },
-                        "createTHead": {
-                            "name": "createTHead",
-                            "override-signatures": [
-                                "createTHead(): HTMLTableSectionElement"
-                            ]
-                        },
-                        "createTBody": {
-                            "name": "createTBody",
-                            "override-signatures": [
-                                "createTBody(): HTMLTableSectionElement"
-                            ]
-                        },
-                        "createTFoot": {
-                            "name": "createTFoot",
-                            "override-signatures": [
-                                "createTFoot(): HTMLTableSectionElement"
-                            ]
-                        },
-                        "createCaption": {
-                            "name": "createCaption",
-                            "override-signatures": [
-                                "createCaption(): HTMLTableCaptionElement"
-                            ]
-                        }
-                    }
-                },
                 "properties": {
                     "property": {
                         "rows": {
@@ -1254,7 +1257,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[name: number]: DataTransferItem"
                 ]
             },
@@ -1535,7 +1538,7 @@
             },
             "DOMStringMap": {
                 "name": "DOMStringMap",
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[name: string]: string | undefined"
                 ]
             },
@@ -1556,14 +1559,6 @@
                             ]
                         }
                     }
-                }
-            },
-            "Text": {
-                "name": "Text",
-                "constructor": {
-                    "override-signatures": [
-                        "new(data?: string): Text"
-                    ]
                 }
             },
             "DragEvent": {
@@ -1590,25 +1585,25 @@
                 "name": "HTMLButtonElement",
                 "properties": {
                     "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "button"
+                    }
+                ]
             },
             "HTMLFieldSetElement": {
                 "name": "HTMLFieldSetElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
+                "element": [
+                    {
+                        "name": "fieldset"
                     }
-                }
+                ]
             },
             "HTMLLabelElement": {
                 "name": "HTMLLabelElement",
@@ -1624,27 +1619,27 @@
             },
             "HTMLLegendElement": {
                 "name": "HTMLLegendElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
+                "element": [
+                    {
+                        "name": "legend"
                     }
-                }
+                ]
             },
-            "HTMLObjectElement": {
-                "name": "HTMLObjectElement",
+            "HTMLMeterElement": {
+                "name": "HTMLMeterElement",
                 "properties": {
                     "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "meter"
+                    }
+                ]
             },
             "HTMLOptGroupElement": {
                 "name": "HTMLOptGroupElement",
@@ -1656,52 +1651,60 @@
                             "override-type": "HTMLFormElement | null"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "optgroup"
+                    }
+                ]
             },
             "HTMLOptionElement": {
                 "name": "HTMLOptionElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
+                "element": [
+                    {
+                        "name": "option"
                     }
-                }
+                ]
             },
             "HTMLOutputElement": {
                 "name": "HTMLOutputElement",
                 "properties": {
                     "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "output"
+                    }
+                ]
             },
             "HTMLProgressElement": {
                 "name": "HTMLProgressElement",
                 "properties": {
                     "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "progress"
+                    }
+                ]
             },
             "HTMLTextAreaElement": {
                 "name": "HTMLTextAreaElement",
                 "properties": {
                     "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
+                        "labels": {
+                            "name": "labels",
+                            "override-type": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1714,19 +1717,12 @@
                             ]
                         }
                     }
-                }
-            },
-            "HTMLegendElement": {
-                "name": "HTMLegendElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
+                },
+                "element": [
+                    {
+                        "name": "textarea"
                     }
-                }
+                ]
             },
             "Headers": {
                 "name": "Headers",
@@ -1747,6 +1743,22 @@
                             ]
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "controllerchange",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        }
+                    ]
                 }
             },
             "IntersectionObserverEntry": {
@@ -1798,19 +1810,6 @@
                             "name": "send",
                             "override-signatures": [
                                 "send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void"
-                            ]
-                        }
-                    }
-                }
-            },
-            "PushManager": {
-                "name": "PushManager",
-                "methods": {
-                    "method": {
-                        "getSubscription": {
-                            "name": "getSubscription",
-                            "override-signatures": [
-                                "getSubscription(): Promise<PushSubscription | null>"
                             ]
                         }
                     }
@@ -1917,37 +1916,33 @@
             },
             "FileReader": {
                 "name": "FileReader",
-                "properties": {
-                    "property": {
-                        "onloadstart": {
-                            "name": "onloadstart",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                "events": {
+                    "event": [
+                        {
+                            "name": "loadstart",
+                            "type": "ProgressEvent"
                         },
-                        "onprogress": {
-                            "name": "onprogress",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "progress",
+                            "type": "ProgressEvent"
                         },
-                        "onload": {
-                            "name": "onload",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "load",
+                            "type": "ProgressEvent"
                         },
-                        "onabort": {
-                            "name": "onabort",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "abort",
+                            "type": "ProgressEvent"
                         },
-                        "onerror": {
-                            "name": "onerror",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
+                        {
+                            "name": "error",
+                            "type": "ProgressEvent"
                         },
-                        "onloadend": {
-                            "name": "onloadend",
-                            "override-type": "(this: FileReader, ev: FileReaderProgressEvent) => any"
-                        },
-                        "result": {
-                            "name": "result",
-                            "override-type": "any"
+                        {
+                            "name": "loadend",
+                            "type": "ProgressEvent"
                         }
-                    }
+                    ]
                 }
             },
             "MediaList": {
@@ -2005,6 +2000,7 @@
             },
             "EventTarget": {
                 "name": "EventTarget",
+                "override-exposed": "Window Worker",
                 "methods": {
                     "method": {
                         "addEventListener": {
@@ -2180,12 +2176,273 @@
                 "events": {
                     "event": [
                         {
+                            "name": "install",
+                            "type": "ExtendableEvent"
+                        },
+                        {
+                            "name": "activate",
+                            "type": "ExtendableEvent"
+                        },
+                        {
+                            "name": "fetch",
+                            "type": "FetchEvent"
+                        },
+                        {
+                            "name": "message",
+                            "type": "ExtendableMessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "notificationclick",
+                            "type": "NotificationEvent"
+                        },
+                        {
+                            "name": "notificationclose",
+                            "type": "NotificationEvent"
+                        },
+                        {
                             "name": "push",
                             "type": "PushEvent"
                         },
                         {
-                            "name": "pushsubscriptionevent",
+                            "name": "pushsubscriptionchange",
                             "type": "PushSubscriptionChangeEvent"
+                        },
+                        {
+                            "name": "sync",
+                            "type": "SyncEvent"
+                        }
+                    ]
+                }
+            },
+            "Notification": {
+                "name": "Notification",
+                "events": {
+                    "event": [
+                        {
+                            "name": "click",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "close",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "show",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "Cache": {
+                "name": "Cache",
+                "methods": {
+                    "method": {
+                        "match": {
+                            "name": "match",
+                            "override-signatures": [
+                                "match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>"
+                            ]
+                        }
+                    }
+                }
+            },
+            "CacheStorage": {
+                "name": "CacheStorage",
+                "methods": {
+                    "method": {
+                        "match": {
+                            "name": "match",
+                            "override-signatures": [
+                                "match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>"
+                            ]
+                        }
+                    }
+                }
+            },
+            "Animation": {
+                "name": "Animation",
+                "events": {
+                    "event": [
+                        {
+                            "name": "finish",
+                            "type": "AnimationPlaybackEvent"
+                        },
+                        {
+                            "name": "cancel",
+                            "type": "AnimationPlaybackEvent"
+                        }
+                    ]
+                }
+            },
+            "KeyframeEffect": {
+                "name": "KeyframeEffect",
+                "constructor": {
+                    "override-signatures": [
+                        "new(target: Element | null, keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeEffectOptions): KeyframeEffect",
+                        "new(source: KeyframeEffect): KeyframeEffect"
+                    ]
+                },
+                "properties": {
+                    "property": {
+                        "target": {
+                            "name": "target",
+                            "override-type": "Element | null"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "getKeyframes": {
+                            "name": "getKeyframes",
+                            "override-signatures": [
+                                "getKeyframes(): ComputedKeyframe[]"
+                            ]
+                        },
+                        "setKeyframes": {
+                            "name": "setKeyframes",
+                            "override-signatures": [
+                                "setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void"
+                            ]
+                        }
+                    }
+                }
+            },
+            "HTMLMarqueeElement": {
+                "name": "HTMLMarqueeElement",
+                "events": {
+                    "event": [
+                        {
+                            "name": "bounce",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "finish",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "start",
+                            "type": "Event"
+                        }
+                    ]
+                },
+                "element": [
+                    {
+                        "name": "marquee"
+                    }
+                ]
+            },
+            "CryptoKey": {
+                "name": "CryptoKey",
+                "override-exposed": "Window Worker"
+            },
+            "ErrorEvent": {
+                "name": "ErrorEvent",
+                "override-exposed": "Window Worker"
+            },
+            "Event": {
+                "name": "Event",
+                "override-exposed": "Window Worker"
+            },
+            "ReadableStream": {
+                "name": "ReadableStream",
+                "override-exposed": "Window Worker"
+            },
+            "ReadableStreamReader": {
+                "name": "ReadableStreamReader",
+                "override-exposed": "Window Worker"
+            },
+            "Worker": {
+                "name": "Worker",
+                "override-exposed": "Window Worker",
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "deprecated": 0
+                        }
+                    }
+                }
+            },
+            "Crypto": {
+                "name": "Crypto",
+                "methods": {
+                    "method": {
+                        "getRandomValues": {
+                            "name": "getRandomValues",
+                            "override-signatures": [
+                                "getRandomValues<T extends Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null>(array: T): T"
+                            ]
+                        }
+                    }
+                }
+            },
+            "AudioListener": {
+                "name": "AudioListener",
+                "methods": {
+                    "method": {
+                        "setPosition": {
+                            "name": "setPosition",
+                            "deprecated": 1
+                        },
+                        "setOrientation": {
+                            "name": "setOrientation",
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
+            "OfflineAudioContext": {
+                "name": "OfflineAudioContext",
+                "events": {
+                    "event": [
+                        {
+                            "name": "complete",
+                            "type": "OfflineAudioCompletionEvent"
+                        }
+                    ]
+                }
+            },
+            "PannerNode": {
+                "name": "PannerNode",
+                "methods": {
+                    "method": {
+                        "setPosition": {
+                            "name": "setPosition",
+                            "deprecated": 1
+                        },
+                        "setOrientation": {
+                            "name": "setOrientation",
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
+            "ScriptProcessorNode": {
+                "name": "ScriptProcessorNode",
+                "properties": {
+                    "property": {
+                        "onaudioprocess": {
+                            "name": "onaudioprocess",
+                            "deprecated": 1
+                        },
+                        "bufferSize": {
+                            "name": "bufferSize",
+                            "deprecated": 1
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "audioprocess",
+                            "type": "AudioProcessingEvent"
                         }
                     ]
                 }
@@ -2208,29 +2465,6 @@
                 "type-parameters": [
                     "T = any"
                 ]
-            },
-            "IDBObjectStoreParameters": {
-                "name": "IDBObjectStoreParameters",
-                "members": {
-                    "member": {
-                        "keyPath": {
-                            "name": "keyPath",
-                            "override-type": "string | string[]",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "Algorithm": {
-                "name": "Algorithm",
-                "members": {
-                    "member": {
-                        "name": {
-                            "name": "name",
-                            "override-type": "string"
-                        }
-                    }
-                }
             },
             "AesGcmParams": {
                 "members": {
@@ -2375,6 +2609,18 @@
                         }
                     }
                 }
+            },
+            "BaseKeyframe": {
+                "name": "Keyframe",
+                "extends": "Record<keyof CSSStyleDeclaration, string>"
+            },
+            "BasePropertyIndexedKeyframe": {
+                "name": "PropertyIndexedKeyframes",
+                "extends": "Record<keyof CSSStyleDeclaration, string | string[]>"
+            },
+            "BaseComputedKeyframe": {
+                "name": "ComputedKeyframe",
+                "extends": "Record<keyof CSSStyleDeclaration, string>"
             }
         }
     },

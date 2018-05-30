@@ -14,9 +14,12 @@ interface IDLSource {
 async function fetchIDLs() {
     const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
     await Promise.all(idlSources.map(async source => {
-        const idl = await fetchIDL(source);
+        const { idl, comments } = await fetchIDL(source);
         const title = source.deprecated ? `${source.title}.deprecated` : source.title;
         fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${title}.widl`), idl + '\n');
+        if (comments) {
+            fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.commentmap.json`), comments + '\n');
+        }
     }));
 }
 
@@ -28,14 +31,55 @@ async function fetchIDL(source: IDLSource) {
         throw new Error("Found no IDL code");
     }
     const last = elements[elements.length - 1];
-    if (last.previousElementSibling &&
-        last.previousElementSibling.textContent!.includes("IDL Index")
-    ) {
-        // IDL Index includes all IDL codes
-        return last.textContent!.trim();
+    const idl = last.previousElementSibling && last.previousElementSibling.textContent!.includes("IDL Index")
+        ? last.textContent!.trim()
+        : elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
+    const comments = processComments(dom);
+    return { idl, comments };
+}
+
+function processComments(dom: JSDOM) {
+    const elements = Array.from(dom.window.document.querySelectorAll("dl.domintro"));
+    if (!elements.length) {
+        return undefined;
     }
 
-    return elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
+    const result: Record<string, string> = {};
+    for (const element of elements) {
+        let child = element.firstElementChild;
+        while (child) {
+            const key = getKey(child.innerHTML);
+            child = child.nextElementSibling;
+            const childKey = child && getKey(child.innerHTML);
+            if (key && child && (child === element.lastElementChild || !isNextKey(key, childKey))) {
+                result[key] = getCommentText(child.textContent!);
+                child = child.nextElementSibling;
+            }
+        }
+    }
+    return JSON.stringify(result, undefined, 4);
+}
+
+function isNextKey(k1: string, k2: string | null | undefined) {
+    return k2 && k1.split("-")[0] === k2.split("-")[0];
+}
+
+function getKey(s: string) {
+    const keyRegexp = /#dom-([a-zA-Z-_]+)/i;
+    const match = s.match(keyRegexp);
+    if (match) {
+        return match[1];
+    }
+    return undefined;
+}
+
+function getCommentText(text: string) {
+    return text
+        .replace(/’/g, "'")
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => !!line)
+        .map(line => line.slice(getIndentation(line))).join("\n");
 }
 
 /**

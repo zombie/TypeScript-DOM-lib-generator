@@ -2,7 +2,7 @@ import * as webidl2 from "webidl2";
 import * as Browser from "./types";
 import { getEmptyWebIDL } from "./helpers";
 
-export function convert(text: string) {
+export function convert(text: string, commentMap: Record<string, string>) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];
     const partialDictionaries: Browser.Dictionary[] = [];
@@ -10,7 +10,7 @@ export function convert(text: string) {
     const browser = getEmptyWebIDL();
     for (const rootType of rootTypes) {
         if (rootType.type === "interface") {
-            const converted = convertInterface(rootType);
+            const converted = convertInterface(rootType, commentMap);
             if (rootType.partial) {
                 partialInterfaces.push(converted);
             }
@@ -19,17 +19,18 @@ export function convert(text: string) {
             }
         }
         else if (rootType.type === "interface mixin") {
-            browser["mixins"]!.mixin[rootType.name] = convertInterfaceMixin(rootType);
+            browser["mixins"]!.mixin[rootType.name] = convertInterfaceMixin(rootType, commentMap);
         }
         else if (rootType.type === "callback interface") {
-            browser["callback-interfaces"]!.interface[rootType.name] = convertInterface(rootType);
+            browser["callback-interfaces"]!.interface[rootType.name] = convertInterface(rootType, commentMap);
         }
         else if (rootType.type === "callback") {
             browser["callback-functions"]!["callback-function"][rootType.name]
                 = convertCallbackFunctions(rootType);
+            addComments(browser["callback-functions"]!["callback-function"][rootType.name], commentMap, rootType.name);
         }
         else if (rootType.type === "dictionary") {
-            const converted = convertDictionary(rootType);
+            const converted = convertDictionary(rootType, commentMap);
             if (rootType.partial) {
                 partialDictionaries.push(converted);
             }
@@ -69,21 +70,31 @@ function getExtAttrConcatenated(extAttrs: webidl2.ExtendedAttributes[], name: st
     }
 }
 
-function convertInterface(i: webidl2.InterfaceType) {
-    const result = convertInterfaceCommon(i);
+function convertInterface(i: webidl2.InterfaceType, commentMap: Record<string, string>) {
+    const result = convertInterfaceCommon(i, commentMap);
     if (i.inheritance) {
         result.extends = i.inheritance;
     }
     return result;
 }
 
-function convertInterfaceMixin(i: webidl2.InterfaceMixinType) {
-    const result = convertInterfaceCommon(i);
+function convertInterfaceMixin(i: webidl2.InterfaceMixinType, commentMap: Record<string, string>) {
+    const result = convertInterfaceCommon(i, commentMap);
     result['no-interface-object'] = 1;
     return result;
 }
 
-function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixinType) {
+function addComments(obj: any, commentMap: Record<string, string>, container: string, member?: string) {
+    const key = container.toLowerCase() + (member ? "-" + member.toLowerCase() : "");
+    if (commentMap[key]) {
+        const comments = commentMap[key].split("\n");
+        obj["comment"] = "/**\n     * ";
+        obj["comment"] += comments.join("\n     * ");
+        obj["comment"] += "\n     */";
+    }
+}
+
+function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixinType, commentMap: Record<string, string>) {
     const result: Browser.Interface = {
         name: i.name,
         extends: "Object",
@@ -104,9 +115,11 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
     for (const member of i.members) {
         if (member.type === "const") {
             result.constants!.constant[member.name] = convertConstantMember(member);
+            addComments(result.constants!.constant[member.name], commentMap, i.name, member.name);
         }
         else if (member.type === "attribute") {
             result.properties!.property[member.name] = convertAttribute(member, result.exposed);
+            addComments(result.properties!.property[member.name], commentMap, i.name, member.name);
         }
         else if (member.type === "operation" && member.idlType) {
             const operation = convertOperation(member, result.exposed);
@@ -119,6 +132,9 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
             }
             else {
                 method[member.name] = operation as Browser.Method;
+            }
+            if (member.name) {
+                addComments(method[member.name], commentMap, i.name, member.name);
             }
         }
         else if (member.type === "iterable" || member.type === "maplike" || member.type === "setlike") {
@@ -238,7 +254,7 @@ function convertConstantValue(value: webidl2.ValueDescription): string {
     }
 }
 
-function convertDictionary(dictionary: webidl2.DictionaryType) {
+function convertDictionary(dictionary: webidl2.DictionaryType, commentsMap: Record<string, string>) {
     const result: Browser.Dictionary = {
         name: dictionary.name,
         extends: dictionary.inheritance || "Object",
@@ -246,7 +262,9 @@ function convertDictionary(dictionary: webidl2.DictionaryType) {
     }
     for (const member of dictionary.members) {
         result.members.member[member.name] = convertDictionaryMember(member);
+        addComments(result.members.member[member.name], commentsMap, dictionary.name, member.name);
     }
+    addComments(result, commentsMap, dictionary.name);
     return result;
 }
 

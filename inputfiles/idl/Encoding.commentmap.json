@@ -1,0 +1,10 @@
+{
+    "textdecoder": "Returns a new TextDecoder object.\nIf label is either not a label or is a label for replacement, throws a RangeError.",
+    "textdecoder-encoding": "Returns encoding's name, lowercased.",
+    "textdecoder-fatal": "Returns true if error mode is \"fatal\", and false\notherwise.",
+    "textdecoder-ignorebom": "Returns true if ignore BOM flag is set, and false otherwise.",
+    "textdecoder-decode": "Returns the result of running encoding's decoder. The\nmethod can be invoked zero or more times with options's stream set to\ntrue, and then once without options's stream (or set to false), to process\na fragmented stream. If the invocation without options's stream (or set to\nfalse) has no input, it's clearest to omit both arguments.\nvar string = \"\", decoder = new TextDecoder(encoding), buffer;\nwhile(buffer = next_chunk()) {\nstring += decoder.decode(buffer, {stream:true});\n}\nstring += decoder.decode(); // end-of-stream\nIf the error mode is \"fatal\" and encoding's decoder returns error, throws a TypeError.",
+    "textencoder": "Returns a new TextEncoder object.",
+    "textencoder-encoding": "Returns \"utf-8\".",
+    "textencoder-encode": "Returns the result of running UTF-8's encoder."
+}

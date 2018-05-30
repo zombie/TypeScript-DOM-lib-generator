@@ -1576,6 +1576,7 @@ interface Request extends Body {
     readonly destination: RequestDestination;
     readonly headers: Headers;
     readonly integrity: string;
+    readonly isHistoryNavigation: boolean;
     readonly isReloadNavigation: boolean;
     readonly keepalive: boolean;
     readonly method: string;

@@ -11384,6 +11384,7 @@ interface Request extends Body {
     readonly destination: RequestDestination;
     readonly headers: Headers;
     readonly integrity: string;
+    readonly isHistoryNavigation: boolean;
     readonly isReloadNavigation: boolean;
     readonly keepalive: boolean;
     readonly method: string;
@@ -15869,6 +15870,13 @@ interface WindowEventHandlers {
 
 interface WindowLocalStorage {
     readonly localStorage: Storage;
+}
+
+interface WindowOrWorkerGlobalScope {
+    readonly caches: CacheStorage;
+    readonly indexedDB: IDBFactory;
+    readonly performance: Performance;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
 interface WindowSessionStorage {

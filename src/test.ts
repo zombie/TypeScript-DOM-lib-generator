@@ -24,11 +24,11 @@ function compareToBaselines() {
 
 }
 
-function compileGeneratedFile(file: string) {
+function compileGeneratedFiles(lib: string, ...files: string[]) {
     try {
-        child_process.execSync(`node ${tscPath} --strict --lib es5 --types --noEmit ${path.join(outputFolder, file)}`);
+        child_process.execSync(`node ${tscPath} --strict --lib ${lib} --types --noEmit ${files.map(file => path.join(outputFolder, file)).join(" ")}`);
     } catch (e) {
-        console.error(`Test failed: could not compile '${file}':`);
+        console.error(`Test failed: could not compile '${files.join(",")}':`);
         console.error(e.stdout.toString());
         console.error();
         return false;
@@ -38,8 +38,9 @@ function compileGeneratedFile(file: string) {
 
 function test() {
     if (compareToBaselines() &&
-        compileGeneratedFile("dom.generated.d.ts") &&
-        compileGeneratedFile("webworker.generated.d.ts")) {
+        compileGeneratedFiles("es5", "dom.generated.d.ts") &&
+        compileGeneratedFiles("es5", "webworker.generated.d.ts") &&
+        compileGeneratedFiles("es6", "dom.generated.d.ts", "dom.iterable.generated.d.ts")) {
         console.log("All tests passed.");
         process.exit(0);
     }

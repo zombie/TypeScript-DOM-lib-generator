@@ -1489,22 +1489,22 @@ interface RTCRtcpParameters {
 }
 
 interface RTCRtpCapabilities {
-    codecs?: RTCRtpCodecCapability[];
-    headerExtensions?: RTCRtpHeaderExtensionCapability[];
+    codecs: RTCRtpCodecCapability[];
+    headerExtensions: RTCRtpHeaderExtensionCapability[];
 }
 
 interface RTCRtpCodecCapability {
     channels?: number;
-    clockRate?: number;
-    mimeType?: string;
+    clockRate: number;
+    mimeType: string;
     sdpFmtpLine?: string;
 }
 
 interface RTCRtpCodecParameters {
     channels?: number;
-    clockRate?: number;
-    mimeType?: string;
-    payloadType?: number;
+    clockRate: number;
+    mimeType: string;
+    payloadType: number;
     sdpFmtpLine?: string;
 }
 
@@ -3263,7 +3263,7 @@ interface ChannelSplitterNode extends AudioNode {
 
 declare var ChannelSplitterNode: {
     prototype: ChannelSplitterNode;
-    new(context: BaseAudioContext, options?: ChannelSplitterNode): ChannelSplitterNode;
+    new(context: BaseAudioContext, options?: ChannelSplitterOptions): ChannelSplitterNode;
 };
 
 interface CharacterData extends Node, ChildNode {
@@ -9421,7 +9421,7 @@ interface MediaElementAudioSourceNode extends AudioNode {
 
 declare var MediaElementAudioSourceNode: {
     prototype: MediaElementAudioSourceNode;
-    new(context: BaseAudioContext, options: MediaElementAudioSourceOptions): MediaElementAudioSourceNode;
+    new(context: AudioContext, options: MediaElementAudioSourceOptions): MediaElementAudioSourceNode;
 };
 
 interface MediaEncryptedEvent extends Event {
@@ -9599,7 +9599,7 @@ interface MediaStreamAudioDestinationNode extends AudioNode {
 
 declare var MediaStreamAudioDestinationNode: {
     prototype: MediaStreamAudioDestinationNode;
-    new(context: BaseAudioContext, options?: AudioNodeOptions): MediaStreamAudioDestinationNode;
+    new(context: AudioContext, options?: AudioNodeOptions): MediaStreamAudioDestinationNode;
 };
 
 interface MediaStreamAudioSourceNode extends AudioNode {
@@ -9608,7 +9608,7 @@ interface MediaStreamAudioSourceNode extends AudioNode {
 
 declare var MediaStreamAudioSourceNode: {
     prototype: MediaStreamAudioSourceNode;
-    new(context: BaseAudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
+    new(context: AudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
 };
 
 interface MediaStreamError {
@@ -11168,6 +11168,7 @@ interface RTCRtpSender {
     getStats(): Promise<RTCStatsReport>;
     replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
     setParameters(parameters: RTCRtpSendParameters): Promise<void>;
+    setStreams(...streams: MediaStream[]): void;
 }
 
 declare var RTCRtpSender: {
@@ -11197,6 +11198,7 @@ interface RTCSctpTransportEventMap {
 }
 
 interface RTCSctpTransport {
+    readonly maxChannels: number | null;
     readonly maxMessageSize: number;
     onstatechange: ((this: RTCSctpTransport, ev: Event) => any) | null;
     readonly state: RTCSctpTransportState;
@@ -11382,6 +11384,8 @@ interface Request extends Body {
     readonly destination: RequestDestination;
     readonly headers: Headers;
     readonly integrity: string;
+    readonly isHistoryNavigation: boolean;
+    readonly isReloadNavigation: boolean;
     readonly keepalive: boolean;
     readonly method: string;
     readonly mode: RequestMode;
@@ -15866,6 +15870,13 @@ interface WindowEventHandlers {
 
 interface WindowLocalStorage {
     readonly localStorage: Storage;
+}
+
+interface WindowOrWorkerGlobalScope {
+    readonly caches: CacheStorage;
+    readonly indexedDB: IDBFactory;
+    readonly performance: Performance;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
 interface WindowSessionStorage {

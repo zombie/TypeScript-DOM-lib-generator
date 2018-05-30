@@ -79,7 +79,7 @@ function emitDom() {
             // Fallback to mixins before every spec migrates to `partial interface mixin`.
             const base = webidl.interfaces!.interface[partial.name] || webidl.mixins!.mixin[partial.name];
             if (base) {
-                resolveExposure(partial, base.exposed!);
+                if (base.exposed) resolveExposure(partial, base.exposed);
                 merge(base.constants, partial.constants, true);
                 merge(base.methods, partial.methods, true);
                 merge(base.properties, partial.properties, true);

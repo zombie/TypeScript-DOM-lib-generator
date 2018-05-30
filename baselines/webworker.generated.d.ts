@@ -323,10 +323,19 @@ interface BroadcastChannelEventMap {
 }
 
 interface BroadcastChannel extends EventTarget {
+    /**
+     * Returns the channel name (as passed to the constructor).
+     */
     readonly name: string;
     onmessage: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
+    /**
+     * Closes the BroadcastChannel object, opening it up to garbage collection.
+     */
     close(): void;
+    /**
+     * Sends the given message to other BroadcastChannel objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.
+     */
     postMessage(message: any): void;
     addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -697,8 +706,18 @@ declare var DOMRectReadOnly: {
 };
 
 interface DOMStringList {
+    /**
+     * Returns the number of strings in strings.
+     */
     readonly length: number;
+    /**
+     * Returns true if strings contains string, and false
+     * otherwise.
+     */
     contains(string: string): boolean;
+    /**
+     * Returns the string with index index from strings.
+     */
     item(index: number): string | null;
     [index: number]: string;
 }
@@ -984,14 +1003,50 @@ interface IDBArrayKey extends Array<IDBValidKey> {
 }
 
 interface IDBCursor {
+    /**
+     * Returns the direction ("next", "nextunique", "prev" or "prevunique")
+     * of the cursor.
+     */
     readonly direction: IDBCursorDirection;
+    /**
+     * Returns the key of the cursor.
+     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     */
     readonly key: IDBValidKey | IDBKeyRange;
+    /**
+     * Returns the effective key of the cursor.
+     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     */
     readonly primaryKey: IDBValidKey | IDBKeyRange;
+    /**
+     * Returns the IDBObjectStore or IDBIndex the cursor was opened from.
+     */
     readonly source: IDBObjectStore | IDBIndex;
+    /**
+     * Advances the cursor through the next count records in
+     * range.
+     */
     advance(count: number): void;
+    /**
+     * Advances the cursor to the next record in range matching or
+     * after key.
+     */
     continue(key?: IDBValidKey | IDBKeyRange): void;
+    /**
+     * Advances the cursor to the next record in range matching
+     * or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
+     */
     continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void;
+    /**
+     * Delete the record pointed at by the cursor with a new value.
+     * If successful, request's result will be undefined.
+     */
     delete(): IDBRequest;
+    /**
+     * Updated the record pointed at by the cursor with a new value.
+     * Throws a "DataError" DOMException if the effective object store uses in-line keys and the key would have changed.
+     * If successful, request's result will be the record's key.
+     */
     update(value: any): IDBRequest;
 }
 
@@ -1001,6 +1056,9 @@ declare var IDBCursor: {
 };
 
 interface IDBCursorWithValue extends IDBCursor {
+    /**
+     * Returns the cursor's current value.
+     */
     readonly value: any;
 }
 
@@ -1017,16 +1075,40 @@ interface IDBDatabaseEventMap {
 }
 
 interface IDBDatabase extends EventTarget {
+    /**
+     * Returns the name of the database.
+     */
     readonly name: string;
+    /**
+     * Returns a list of the names of object stores in the database.
+     */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBDatabase, ev: Event) => any) | null;
     onclose: ((this: IDBDatabase, ev: Event) => any) | null;
     onerror: ((this: IDBDatabase, ev: Event) => any) | null;
     onversionchange: ((this: IDBDatabase, ev: IDBVersionChangeEvent) => any) | null;
+    /**
+     * Returns the version of the database.
+     */
     readonly version: number;
+    /**
+     * Closes the connection once all running transactions have finished.
+     */
     close(): void;
+    /**
+     * Creates a new object store with the given name and options and returns a new IDBObjectStore.
+     * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
+     */
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
+    /**
+     * Deletes the object store with the given name.
+     * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
+     */
     deleteObjectStore(name: string): void;
+    /**
+     * Returns a new transaction with the given mode ("readonly" or "readwrite")
+     * and scope which can be a single object store name or an array of names.
+     */
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -1040,8 +1122,26 @@ declare var IDBDatabase: {
 };
 
 interface IDBFactory {
+    /**
+     * Compares two values as keys. Returns -1 if key1 precedes key2, 1 if key2 precedes key1, and 0 if
+     * the keys are equal.
+     * Throws a "DataError" DOMException if either input is not a valid key.
+     */
     cmp(first: any, second: any): number;
+    /**
+     * Attempts to delete the named database. If the
+     * database already exists and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close. If the request
+     * is successful request's result will be null.
+     */
     deleteDatabase(name: string): IDBOpenDBRequest;
+    /**
+     * Attempts to open a connection to the named database with the specified version. If the database already exists
+     * with a lower version and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close, then an upgrade
+     * will occur. If the database already exists with a higher
+     * version the request will fail. If the request is
+     * successful request's result will
+     * be the connection.
+     */
     open(name: string, version?: number): IDBOpenDBRequest;
 }
 
@@ -1053,15 +1153,55 @@ declare var IDBFactory: {
 interface IDBIndex {
     readonly keyPath: string | string[];
     readonly multiEntry: boolean;
+    /**
+     * Updates the name of the store to newName.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     name: string;
+    /**
+     * Returns the IDBObjectStore the index belongs to.
+     */
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
+    /**
+     * Retrieves the number of records matching the given key or key range in query.
+     * If successful, request's result will be the
+     * count.
+     */
     count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Retrieves the value of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the value, or undefined if there was no matching record.
+     */
     get(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Retrieves the values of the records matching the given key or key range in query (up to count if given).
+     * If successful, request's result will be an Array of the values.
+     */
     getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the keys of records matching the given key or key range in query (up to count if given).
+     * If successful, request's result will be an Array of the keys.
+     */
     getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the key of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the key, or undefined if there was no matching record.
+     */
     getKey(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Opens a cursor over the records matching query,
+     * ordered by direction. If query is null, all records in index are matched.
+     * If successful, request's result will be an IDBCursorWithValue, or null if there were no matching records.
+     */
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
+     * If successful, request's result will be an IDBCursor, or null if there were no matching records.
+     */
     openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
 }
 
@@ -1071,40 +1211,148 @@ declare var IDBIndex: {
 };
 
 interface IDBKeyRange {
+    /**
+     * Returns lower bound, or undefined if none.
+     */
     readonly lower: any;
+    /**
+     * Returns true if the lower open flag is set, and false otherwise.
+     */
     readonly lowerOpen: boolean;
+    /**
+     * Returns upper bound, or undefined if none.
+     */
     readonly upper: any;
+    /**
+     * Returns true if the upper open flag is set, and false otherwise.
+     */
     readonly upperOpen: boolean;
+    /**
+     * Returns true if key is included in the range, and false otherwise.
+     */
     includes(key: any): boolean;
 }
 
 declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange spanning from lower to upper.
+     * If lowerOpen is true, lower is not included in the range.
+     * If upperOpen is true, upper is not included in the range.
+     */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange starting at key with no
+     * upper bound. If open is true, key is not included in the
+     * range.
+     */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange spanning only key.
+     */
     only(value: any): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     */
     upperBound(upper: any, open?: boolean): IDBKeyRange;
 };
 
 interface IDBObjectStore {
+    /**
+     * Returns true if the store has a key generator, and false otherwise.
+     */
     readonly autoIncrement: boolean;
+    /**
+     * Returns a list of the names of indexes in the store.
+     */
     readonly indexNames: DOMStringList;
+    /**
+     * Returns the key path of the store, or null if none.
+     */
     readonly keyPath: string | string[];
+    /**
+     * Updates the name of the store to newName.
+     * Throws "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     name: string;
+    /**
+     * Returns the associated transaction.
+     */
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Deletes all records in store.
+     * If successful, request's result will
+     * be undefined.
+     */
     clear(): IDBRequest;
+    /**
+     * Retrieves the number of records matching the
+     * given key or key range in query.
+     * If successful, request's result will be the count.
+     */
     count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be
+     * satisfied with the data already in store the upgrade
+     * transaction will abort with
+     * a "ConstraintError" DOMException.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
+    /**
+     * Deletes records in store with the given key or in the given key range in query.
+     * If successful, request's result will
+     * be undefined.
+     */
     delete(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Deletes the index in store with the given name.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     deleteIndex(name: string): void;
+    /**
+     * Retrieves the value of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the value, or undefined if there was no matching record.
+     */
     get(query: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Retrieves the values of the records matching the
+     * given key or key range in query (up to count if given).
+     * If successful, request's result will
+     * be an Array of the values.
+     */
     getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the keys of records matching the
+     * given key or key range in query (up to count if given).
+     * If successful, request's result will
+     * be an Array of the keys.
+     */
     getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the key of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the key, or undefined if there was no matching record.
+     */
     getKey(query: IDBValidKey | IDBKeyRange): IDBRequest;
     index(name: string): IDBIndex;
+    /**
+     * Opens a cursor over the records matching query,
+     * ordered by direction. If query is null, all records in store are matched.
+     * If successful, request's result will be an IDBCursorWithValue pointing at the first matching record, or null if there were no matching records.
+     */
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
+     * If successful, request's result will be an IDBCursor pointing at the first matching record, or
+     * null if there were no matching records.
+     */
     openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
 }
@@ -1139,12 +1387,33 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
+    /**
+     * When a request is completed, returns the error (a DOMException), or null if the request succeeded. Throws
+     * a "InvalidStateError" DOMException if the request is still pending.
+     */
     readonly error: DOMException | null;
     onerror: ((this: IDBRequest, ev: Event) => any) | null;
     onsuccess: ((this: IDBRequest, ev: Event) => any) | null;
+    /**
+     * Returns "pending" until a request is complete,
+     * then returns "done".
+     */
     readonly readyState: IDBRequestReadyState;
+    /**
+     * When a request is completed, returns the result,
+     * or undefined if the request failed. Throws a
+     * "InvalidStateError" DOMException if the request is still pending.
+     */
     readonly result: any;
+    /**
+     * Returns the IDBObjectStore, IDBIndex, or IDBCursor the request was made against, or null if is was an open
+     * request.
+     */
     readonly source: IDBObjectStore | IDBIndex | IDBCursor;
+    /**
+     * Returns the IDBTransaction the request was made within.
+     * If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
+     */
     readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -1164,14 +1433,38 @@ interface IDBTransactionEventMap {
 }
 
 interface IDBTransaction extends EventTarget {
+    /**
+     * Returns the transaction's connection.
+     */
     readonly db: IDBDatabase;
+    /**
+     * If the transaction was aborted, returns the
+     * error (a DOMException) providing the reason.
+     */
     readonly error: DOMException;
+    /**
+     * Returns the mode the transaction was created with
+     * ("readonly" or "readwrite"), or "versionchange" for
+     * an upgrade transaction.
+     */
     readonly mode: IDBTransactionMode;
+    /**
+     * Returns a list of the names of object stores in the
+     * transaction's scope. For an upgrade transaction this is all object stores in the database.
+     */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBTransaction, ev: Event) => any) | null;
     oncomplete: ((this: IDBTransaction, ev: Event) => any) | null;
     onerror: ((this: IDBTransaction, ev: Event) => any) | null;
+    /**
+     * Aborts the transaction. All pending requests will fail with
+     * a "AbortError" DOMException and all changes made to the database will be
+     * reverted.
+     */
     abort(): void;
+    /**
+     * Returns an IDBObjectStore in the transaction's scope.
+     */
     objectStore(name: string): IDBObjectStore;
     addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -1249,8 +1542,21 @@ interface MessagePortEventMap {
 interface MessagePort extends EventTarget {
     onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: MessagePort, ev: MessageEvent) => any) | null;
+    /**
+     * Disconnects the port, so that it is no longer active.
+     */
     close(): void;
+    /**
+     * Posts a message through the channel. Objects listed in transfer are
+     * transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * Throws a "DataCloneError" DOMException if
+     * transfer contains duplicate objects or port, or if message
+     * could not be cloned.
+     */
     postMessage(message: any, transfer?: any[]): void;
+    /**
+     * Begins dispatching messages received on the port.
+     */
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -1571,18 +1877,81 @@ declare var ReadableStreamReader: {
 };
 
 interface Request extends Body {
+    /**
+     * Returns the cache mode associated with request, which is a string indicating
+     * how the the request will interact with the browser's cache when fetching.
+     */
     readonly cache: RequestCache;
+    /**
+     * Returns the credentials mode associated with request, which is a string
+     * indicating whether credentials will be sent with the request always, never, or only when sent to a
+     * same-origin URL.
+     */
     readonly credentials: RequestCredentials;
+    /**
+     * Returns the kind of resource requested by request, e.g., "document" or
+     * "script".
+     */
     readonly destination: RequestDestination;
+    /**
+     * Returns a Headers object consisting of the headers associated with request.
+     * Note that headers added in the network layer by the user agent will not be accounted for in this
+     * object, e.g., the "Host" header.
+     */
     readonly headers: Headers;
+    /**
+     * Returns request's subresource integrity metadata, which is a cryptographic hash of
+     * the resource being fetched. Its value consists of multiple hashes separated by whitespace. [SRI]
+     */
     readonly integrity: string;
+    /**
+     * Returns a boolean indicating whether or not request is for a history
+     * navigation (a.k.a. back-foward navigation).
+     */
+    readonly isHistoryNavigation: boolean;
+    /**
+     * Returns a boolean indicating whether or not request is for a reload navigation.
+     */
+    readonly isReloadNavigation: boolean;
+    /**
+     * Returns a boolean indicating whether or not request can outlive the global in which
+     * it was created.
+     */
     readonly keepalive: boolean;
+    /**
+     * Returns request's HTTP method, which is "GET" by default.
+     */
     readonly method: string;
+    /**
+     * Returns the mode associated with request, which is a string indicating
+     * whether the request will use CORS, or will be restricted to same-origin URLs.
+     */
     readonly mode: RequestMode;
+    /**
+     * Returns the redirect mode associated with request, which is a string
+     * indicating how redirects for the request will be handled during fetching. A request will follow redirects by default.
+     */
     readonly redirect: RequestRedirect;
+    /**
+     * Returns the referrer of request. Its value can be a same-origin URL if
+     * explicitly set in init, the empty string to indicate no referrer, and
+     * "about:client" when defaulting to the global's default. This is used during
+     * fetching to determine the value of the `Referer` header of the request being made.
+     */
     readonly referrer: string;
+    /**
+     * Returns the referrer policy associated with request. This is used during
+     * fetching to compute the value of the request's referrer.
+     */
     readonly referrerPolicy: ReferrerPolicy;
+    /**
+     * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort
+     * event handler.
+     */
     readonly signal: object;
+    /**
+     * Returns the URL of request as a string.
+     */
     readonly url: string;
     clone(): Request;
 }
@@ -1765,9 +2134,32 @@ declare var SyncManager: {
 };
 
 interface TextDecoder {
+    /**
+     * Returns encoding's name, lowercased.
+     */
     readonly encoding: string;
+    /**
+     * Returns true if error mode is "fatal", and false
+     * otherwise.
+     */
     readonly fatal: boolean;
+    /**
+     * Returns true if ignore BOM flag is set, and false otherwise.
+     */
     readonly ignoreBOM: boolean;
+    /**
+     * Returns the result of running encoding's decoder. The
+     * method can be invoked zero or more times with options's stream set to
+     * true, and then once without options's stream (or set to false), to process
+     * a fragmented stream. If the invocation without options's stream (or set to
+     * false) has no input, it's clearest to omit both arguments.
+     * var string = "", decoder = new TextDecoder(encoding), buffer;
+     * while(buffer = next_chunk()) {
+     * string += decoder.decode(buffer, {stream:true});
+     * }
+     * string += decoder.decode(); // end-of-stream
+     * If the error mode is "fatal" and encoding's decoder returns error, throws a TypeError.
+     */
     decode(input?: BufferSource, options?: TextDecodeOptions): string;
 }
 
@@ -1777,7 +2169,13 @@ declare var TextDecoder: {
 };
 
 interface TextEncoder {
+    /**
+     * Returns "utf-8".
+     */
     readonly encoding: string;
+    /**
+     * Returns the result of running UTF-8's encoder.
+     */
     encode(input?: string): Uint8Array;
 }
 
@@ -1994,23 +2392,88 @@ interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
 
 interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    /**
+     * Returns client's state.
+     */
     readonly readyState: number;
+    /**
+     * Returns the response's body.
+     */
     readonly response: any;
+    /**
+     * Returns the text response.
+     * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
+     */
     readonly responseText: string;
+    /**
+     * Returns the response type.
+     * Can be set to change the response type. Values are:
+     * the empty string (default),
+     * "arraybuffer",
+     * "blob",
+     * "document",
+     * "json", and
+     * "text".
+     * When set: setting to "document" is ignored if current global object is not a Window object.
+     * When set: throws an "InvalidStateError" DOMException if state is loading or done.
+     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
+     */
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
     readonly status: number;
     readonly statusText: string;
+    /**
+     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the
+     * request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a
+     * "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
+     */
     timeout: number;
+    /**
+     * Returns the associated XMLHttpRequestUpload object. It can be used to gather transmission information when data is
+     * transferred to a server.
+     */
     readonly upload: XMLHttpRequestUpload;
+    /**
+     * True when credentials are to be included in a cross-origin request. False when they are
+     * to be excluded in a cross-origin request and when cookies are to be ignored in its response.
+     * Initially false.
+     * When set: throws an "InvalidStateError" DOMException if state is not unsent or opened, or if the send() flag is set.
+     */
     withCredentials: boolean;
+    /**
+     * Cancels any network activity.
+     */
     abort(): void;
     getAllResponseHeaders(): string;
     getResponseHeader(name: string): string | null;
+    /**
+     * Sets the request method, request URL, and synchronous flag.
+     * Throws a "SyntaxError" DOMException if either method is not a
+     * valid HTTP method or url cannot be parsed.
+     * Throws a "SecurityError" DOMException if method is a
+     * case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
+     * Throws an "InvalidAccessError" DOMException if async is false, current global object is a Window object, and the timeout attribute is not zero or the responseType attribute is not the empty string.
+     */
     open(method: string, url: string): void;
     open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
+    /**
+     * Acts as if the `Content-Type` header value for response is mime.
+     * (It does not actually change the header though.)
+     * Throws an "InvalidStateError" DOMException if state is loading or done.
+     */
     overrideMimeType(mime: string): void;
+    /**
+     * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
+     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
+     */
     send(body?: object | BodyInit): void;
+    /**
+     * Combines a header in author request headers.
+     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
+     * Throws a "SyntaxError" DOMException if name is not a header name
+     * or if value is not a header value.
+     */
     setRequestHeader(name: string, value: string): void;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
@@ -2116,10 +2579,10 @@ declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEven
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type BlobPart = BufferSource | Blob | string;
 type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
-type BlobPart = BufferSource | Blob | string;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;

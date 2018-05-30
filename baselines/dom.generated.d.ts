@@ -1489,22 +1489,22 @@ interface RTCRtcpParameters {
 }
 
 interface RTCRtpCapabilities {
-    codecs?: RTCRtpCodecCapability[];
-    headerExtensions?: RTCRtpHeaderExtensionCapability[];
+    codecs: RTCRtpCodecCapability[];
+    headerExtensions: RTCRtpHeaderExtensionCapability[];
 }
 
 interface RTCRtpCodecCapability {
     channels?: number;
-    clockRate?: number;
-    mimeType?: string;
+    clockRate: number;
+    mimeType: string;
     sdpFmtpLine?: string;
 }
 
 interface RTCRtpCodecParameters {
     channels?: number;
-    clockRate?: number;
-    mimeType?: string;
-    payloadType?: number;
+    clockRate: number;
+    mimeType: string;
+    payloadType: number;
     sdpFmtpLine?: string;
 }
 
@@ -2489,10 +2489,19 @@ interface BroadcastChannelEventMap {
 }
 
 interface BroadcastChannel extends EventTarget {
+    /**
+     * Returns the channel name (as passed to the constructor).
+     */
     readonly name: string;
     onmessage: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
+    /**
+     * Closes the BroadcastChannel object, opening it up to garbage collection.
+     */
     close(): void;
+    /**
+     * Sends the given message to other BroadcastChannel objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.
+     */
     postMessage(message: any): void;
     addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -3263,7 +3272,7 @@ interface ChannelSplitterNode extends AudioNode {
 
 declare var ChannelSplitterNode: {
     prototype: ChannelSplitterNode;
-    new(context: BaseAudioContext, options?: ChannelSplitterNode): ChannelSplitterNode;
+    new(context: BaseAudioContext, options?: ChannelSplitterOptions): ChannelSplitterNode;
 };
 
 interface CharacterData extends Node, ChildNode {
@@ -3796,8 +3805,18 @@ declare var DOMSettableTokenList: {
 };
 
 interface DOMStringList {
+    /**
+     * Returns the number of strings in strings.
+     */
     readonly length: number;
+    /**
+     * Returns true if strings contains string, and false
+     * otherwise.
+     */
     contains(string: string): boolean;
+    /**
+     * Returns the string with index index from strings.
+     */
     item(index: number): string | null;
     [index: number]: string;
 }
@@ -5483,8 +5502,17 @@ interface GlobalFetch {
 }
 
 interface HTMLAllCollection {
+    /**
+     * Returns the number of elements in the collection.
+     */
     readonly length: number;
+    /**
+     * element = collection(index)
+     */
     item(nameOrIndex?: string): HTMLCollection | Element | null;
+    /**
+     * element = collection(name)
+     */
     namedItem(name: string): HTMLCollection | Element | null;
     [index: number]: Element;
 }
@@ -6318,6 +6346,9 @@ declare var HTMLFontElement: {
 };
 
 interface HTMLFormControlsCollection extends HTMLCollectionBase {
+    /**
+     * element = collection[name]
+     */
     namedItem(name: string): RadioNodeList | Element | null;
 }
 
@@ -7647,9 +7678,30 @@ declare var HTMLOptionElement: {
 };
 
 interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
+    /**
+     * Returns the number of elements in the collection.
+     * When set to a smaller number, truncates the number of option elements in the corresponding container.
+     * When set to a greater number, adds new blank option elements to that container.
+     */
     length: number;
+    /**
+     * Returns the index of the first selected item, if any, or −1 if there is no selected
+     * item.
+     * Can be set, to change the selection.
+     */
     selectedIndex: number;
+    /**
+     * Inserts element before the node given by before.
+     * The before argument can be a number, in which case element is inserted before the item with that number, or an element from the
+     * collection, in which case element is inserted before that element.
+     * If before is omitted, null, or a number out of range, then element will be added at the end of the list.
+     * This method will throw a "HierarchyRequestError" DOMException if
+     * element is an ancestor of the element into which it is to be inserted.
+     */
     add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number): void;
+    /**
+     * Removes the item with index index from the collection.
+     */
     remove(index: number): void;
 }
 
@@ -9695,7 +9747,7 @@ interface MediaElementAudioSourceNode extends AudioNode {
 
 declare var MediaElementAudioSourceNode: {
     prototype: MediaElementAudioSourceNode;
-    new(context: BaseAudioContext, options: MediaElementAudioSourceOptions): MediaElementAudioSourceNode;
+    new(context: AudioContext, options: MediaElementAudioSourceOptions): MediaElementAudioSourceNode;
 };
 
 interface MediaEncryptedEvent extends Event {
@@ -9873,7 +9925,7 @@ interface MediaStreamAudioDestinationNode extends AudioNode {
 
 declare var MediaStreamAudioDestinationNode: {
     prototype: MediaStreamAudioDestinationNode;
-    new(context: BaseAudioContext, options?: AudioNodeOptions): MediaStreamAudioDestinationNode;
+    new(context: AudioContext, options?: AudioNodeOptions): MediaStreamAudioDestinationNode;
 };
 
 interface MediaStreamAudioSourceNode extends AudioNode {
@@ -9882,7 +9934,7 @@ interface MediaStreamAudioSourceNode extends AudioNode {
 
 declare var MediaStreamAudioSourceNode: {
     prototype: MediaStreamAudioSourceNode;
-    new(context: BaseAudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
+    new(context: AudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
 };
 
 interface MediaStreamError {
@@ -10002,8 +10054,21 @@ interface MessagePortEventMap {
 interface MessagePort extends EventTarget {
     onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: MessagePort, ev: MessageEvent) => any) | null;
+    /**
+     * Disconnects the port, so that it is no longer active.
+     */
     close(): void;
+    /**
+     * Posts a message through the channel. Objects listed in transfer are
+     * transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * Throws a "DataCloneError" DOMException if
+     * transfer contains duplicate objects or port, or if message
+     * could not be cloned.
+     */
     postMessage(message: any, transfer?: any[]): void;
+    /**
+     * Begins dispatching messages received on the port.
+     */
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -10344,6 +10409,12 @@ declare var NodeIterator: {
 interface NodeList {
     readonly length: number;
     item(index: number): Node;
+    /**
+     * Performs the specified action for each node in an list.
+     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
+     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
+    forEach(callbackfn: (value: Node, key: number, parent: NodeList) => void, thisArg?: any): void;
     [index: number]: Node;
 }
 
@@ -10355,6 +10426,11 @@ declare var NodeList: {
 interface NodeListOf<TNode extends Node> extends NodeList {
     length: number;
     item(index: number): TNode;
+    /**
+     * Performs the specified action for each node in an list.
+     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
+     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     forEach(callbackfn: (value: TNode, key: number, parent: NodeListOf<TNode>) => void, thisArg?: any): void;
     [index: number]: TNode;
 }
@@ -11431,6 +11507,7 @@ interface RTCRtpSender {
     getStats(): Promise<RTCStatsReport>;
     replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
     setParameters(parameters: RTCRtpSendParameters): Promise<void>;
+    setStreams(...streams: MediaStream[]): void;
 }
 
 declare var RTCRtpSender: {
@@ -11460,6 +11537,7 @@ interface RTCSctpTransportEventMap {
 }
 
 interface RTCSctpTransport {
+    readonly maxChannels: number | null;
     readonly maxMessageSize: number;
     onstatechange: ((this: RTCSctpTransport, ev: Event) => any) | null;
     readonly state: RTCSctpTransportState;
@@ -11664,9 +11742,18 @@ interface Request extends Body {
     readonly headers: Headers;
     /**
      * Returns request's subresource integrity metadata, which is a cryptographic hash of
-     * the resource being fetched. Its value may consist of multiple hashes separated by whitespace. [SRI]
+     * the resource being fetched. Its value consists of multiple hashes separated by whitespace. [SRI]
      */
     readonly integrity: string;
+    /**
+     * Returns a boolean indicating whether or not request is for a history
+     * navigation (a.k.a. back-foward navigation).
+     */
+    readonly isHistoryNavigation: boolean;
+    /**
+     * Returns a boolean indicating whether or not request is for a reload navigation.
+     */
+    readonly isReloadNavigation: boolean;
     /**
      * Returns a boolean indicating whether or not request can outlive the global in which
      * it was created.
@@ -16214,6 +16301,13 @@ interface WindowLocalStorage {
     readonly localStorage: Storage;
 }
 
+interface WindowOrWorkerGlobalScope {
+    readonly caches: CacheStorage;
+    readonly indexedDB: IDBFactory;
+    readonly performance: Performance;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+}
+
 interface WindowSessionStorage {
     readonly sessionStorage: Storage;
 }
@@ -16385,7 +16479,8 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     open(method: string, url: string): void;
     open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
     /**
-     * Acts as if the `Content-Type` header for response is mime.
+     * Acts as if the `Content-Type` header value for response is mime.
+     * (It does not actually change the header though.)
      * Throws an "InvalidStateError" DOMException if state is loading or done.
      */
     overrideMimeType(mime: string): void;
@@ -17104,10 +17199,10 @@ declare function addEventListener<K extends keyof WindowEventMap>(type: K, liste
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type BlobPart = BufferSource | Blob | string;
 type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
-type BlobPart = BufferSource | Blob | string;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;

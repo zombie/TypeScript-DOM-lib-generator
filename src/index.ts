@@ -33,8 +33,8 @@ function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
     return;
 }
 
-function emitES6DomIterators(webidl: Browser.WebIdl, tsWebES6Output: string) {
-    fs.writeFileSync(tsWebES6Output, emitWebIDl(webidl, Flavor.ES6Iterators));
+function emitES6DomIterators(webidl: Browser.WebIdl, tsWebIteratorsOutput: string) {
+    fs.writeFileSync(tsWebIteratorsOutput, emitWebIDl(webidl, Flavor.ES6Iterators));
 }
 
 function emitDom() {
@@ -48,7 +48,7 @@ function emitDom() {
     }
 
     const tsWebOutput = path.join(outputFolder, "dom.generated.d.ts");
-    const tsWebES6Output = path.join(outputFolder, "dom.es6.generated.d.ts");
+    const tsWebIteratorsOutput = path.join(outputFolder, "dom.iterable.generated.d.ts");
     const tsWorkerOutput = path.join(outputFolder, "webworker.generated.d.ts");
 
 
@@ -116,7 +116,7 @@ function emitDom() {
 
     emitDomWeb(webidl, tsWebOutput);
     emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
-    emitES6DomIterators(webidl, tsWebES6Output);
+    emitES6DomIterators(webidl, tsWebIteratorsOutput);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
         const result = filterByNull(obj, template);

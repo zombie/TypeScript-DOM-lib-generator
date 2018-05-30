@@ -1732,6 +1732,15 @@
                     ]
                 }
             },
+            "NodeList": {
+                "name": "NodeList",
+                "iterator": {
+                    "kind": "iterable",
+                    "type": [{
+                        "override-type": "Node"
+                    }]
+                }
+            },
             "ServiceWorkerContainer": {
                 "name": "ServiceWorkerContainer",
                 "methods": {

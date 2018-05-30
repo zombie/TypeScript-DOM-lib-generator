@@ -10070,6 +10070,12 @@ declare var NodeIterator: {
 interface NodeList {
     readonly length: number;
     item(index: number): Node;
+    /**
+     * Performs the specified action for each node in an list.
+     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
+     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
+    forEach(callbackfn: (value: Node, key: number, parent: NodeList) => void, thisArg?: any): void;
     [index: number]: Node;
 }
 
@@ -10081,6 +10087,11 @@ declare var NodeList: {
 interface NodeListOf<TNode extends Node> extends NodeList {
     length: number;
     item(index: number): TNode;
+    /**
+     * Performs the specified action for each node in an list.
+     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
+     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     forEach(callbackfn: (value: TNode, key: number, parent: NodeListOf<TNode>) => void, thisArg?: any): void;
     [index: number]: TNode;
 }

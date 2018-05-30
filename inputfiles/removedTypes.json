@@ -24,6 +24,7 @@
     },
     "interfaces": {
         "interface": {
+            "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {
                     "method": {
@@ -33,6 +34,9 @@
                         "insertAdjacentText": null
                     }
                 }
+            },
+            "HTMLHRElement": {
+                "implements": null
             },
             "MSStreamReader": null,
             "StorageEvent": {
@@ -54,7 +58,11 @@
             "Window": {
                 "properties": {
                     "property": {
-                        "browser": null
+                        "browser": null,
+                        "ontouchcancel": null,
+                        "ontouchend": null,
+                        "ontouchmove": null,
+                        "ontouchstart": null
                     }
                 }
             }
@@ -62,6 +70,7 @@
     },
     "dictionaries": {
         "dictionary": {
+            "ObjectURLOptions": null,
             "RTCRtpContributingSource": {
                 "members": {
                     "member": {

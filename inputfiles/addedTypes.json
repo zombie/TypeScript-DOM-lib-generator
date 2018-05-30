@@ -14,7 +14,7 @@
             },
             "ParentNode": {
                 "name": "ParentNode",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "firstElementChild": {
@@ -182,76 +182,6 @@
                     }
                 }
             },
-            "FileReaderProgressEvent": {
-                "name": "FileReaderProgressEvent",
-                "extends": "ProgressEvent",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "target",
-                            "read-only": 1,
-                            "override-type": "FileReader | null"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "BroadcastChannel": {
-                "name": "BroadcastChannel",
-                "extends": "EventTarget",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "name",
-                            "read-only": 1,
-                            "override-type": "string"
-                        },
-                        "onmessage": {
-                            "name": "onmessage",
-                            "override-type": "(ev: MessageEvent) => any"
-                        },
-                        "onmessageerror": {
-                            "name": "onmessageerror",
-                            "override-type": "(ev: MessageEvent) => any"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "close": {
-                            "name": "close",
-                            "override-signatures": [
-                                "close(): void"
-                            ]
-                        },
-                        "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any): void"
-                            ]
-                        },
-                        "addEventListener": {
-                            "name": "addEventListener",
-                            "override-signatures": [
-                                "addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void",
-                                "addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void"
-                            ]
-                        },
-                        "removeEventListener": {
-                            "name": "removeEventListener",
-                            "override-signatures": [
-                                "removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void",
-                                "removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void"
-                            ]
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(name: string): BroadcastChannel"
-                    ]
-                }
-            },
             "BroadcastChannelEventMap": {
                 "name": "BroadcastChannelEventMap",
                 "properties": {
@@ -285,7 +215,7 @@
             },
             "StorageEventInit": {
                 "name": "StorageEventInit",
-                "flavor": "Web",
+                "exposed": "Window",
                 "extends": "EventInit",
                 "properties": {
                     "property": {
@@ -319,7 +249,7 @@
             },
             "Canvas2DContextAttributes": {
                 "name": "Canvas2DContextAttributes",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "alpha": {
@@ -339,7 +269,7 @@
                         }
                     }
                 },
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[attribute: string]: boolean | string | undefined"
                 ],
                 "no-interface-object": "1"
@@ -483,67 +413,28 @@
             },
             "URLSearchParams": {
                 "name": "URLSearchParams",
-                "methods": {
-                    "method": {
-                        "append": {
-                            "name": "append",
-                            "override-signatures": [
-                                "append(name: string, value: string): void"
-                            ]
-                        },
-                        "delete": {
-                            "name": "delete",
-                            "override-signatures": [
-                                "delete(name: string): void"
-                            ]
-                        },
-                        "get": {
-                            "name": "get",
-                            "override-signatures": [
-                                "get(name: string): string | null"
-                            ]
-                        },
-                        "getAll": {
-                            "name": "getAll",
-                            "override-signatures": [
-                                "getAll(name: string): string[]"
-                            ]
-                        },
-                        "has": {
-                            "name": "has",
-                            "override-signatures": [
-                                "has(name: string): boolean"
-                            ]
-                        },
-                        "set": {
-                            "name": "set",
-                            "override-signatures": [
-                                "set(name: string, value: string): void"
-                            ]
-                        }
-                    }
-                },
                 "constructor": {
                     "override-signatures": [
-                        "new (init?: string | URLSearchParams): URLSearchParams"
+                        "new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams"
                     ]
                 }
             },
             "URL": {
                 "name": "URL",
-                "properties": {
-                    "property": {
-                        "searchParams": {
-                            "name": "searchParams",
-                            "read-only": 1,
-                            "override-type": "URLSearchParams"
+                "methods": {
+                    "method": {
+                        "createObjectURL": {
+                            "name": "createObjectURL",
+                            "override-signatures": [
+                                "createObjectURL(object: any): string"
+                            ]
                         }
                     }
                 }
             },
             "NodeListOf<TNode extends Node>": {
                 "name": "NodeListOf<TNode extends Node>",
-                "flavor": "Web",
+                "exposed": "Window",
                 "extends": "NodeList",
                 "properties": {
                     "property": {
@@ -564,13 +455,19 @@
                     }
                 },
                 "no-interface-object": "1",
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[index: number]: TNode"
-                ]
+                ],
+                "iterator": {
+                    "kind": "iterable",
+                    "type": [{
+                        "override-type": "TNode"
+                    }]
+                }
             },
             "HTMLCollectionOf<T extends Element>": {
                 "name": "HTMLCollectionOf<T extends Element>",
-                "flavor": "Web",
+                "exposed": "Window",
                 "extends": "HTMLCollection",
                 "methods": {
                     "method": {
@@ -589,41 +486,15 @@
                     }
                 },
                 "no-interface-object": "1",
-                "overide-index-signatures": [
+                "override-index-signatures": [
                     "[index: number]: T"
-                ]
-            },
-            "BlobPropertyBag": {
-                "name": "BlobPropertyBag",
-                "properties": {
-                    "property": {
-                        "type": {
-                            "name": "type",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "endings": {
-                            "name": "endings",
-                            "override-type": "string",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "FilePropertyBag": {
-                "name": "FilePropertyBag",
-                "extends": "BlobPropertyBag",
-                "properties": {
-                    "property": {
-                        "lastModified": {
-                            "name": "lastModified",
-                            "override-type": "number",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
+                ],
+                "iterator": {
+                    "kind": "iterable",
+                    "type": [{
+                        "override-type": "T"
+                    }]
+                }
             },
             "EventListenerObject": {
                 "name": "EventListenerObject",
@@ -765,60 +636,6 @@
                     }
                 }
             },
-            "ScrollOptions": {
-                "flavor": "Web",
-                "name": "ScrollOptions",
-                "properties": {
-                    "property": {
-                        "behavior": {
-                            "name": "behavior",
-                            "override-type": "ScrollBehavior",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "ScrollToOptions": {
-                "flavor": "Web",
-                "name": "ScrollToOptions",
-                "extends": "ScrollOptions",
-                "properties": {
-                    "property": {
-                        "left": {
-                            "name": "left",
-                            "override-type": "number",
-                            "required": 0
-                        },
-                        "top": {
-                            "name": "top",
-                            "override-type": "number",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "ScrollIntoViewOptions": {
-                "flavor": "Web",
-                "name": "ScrollIntoViewOptions",
-                "extends": "ScrollOptions",
-                "properties": {
-                    "property": {
-                        "block": {
-                            "name": "block",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        },
-                        "inline": {
-                            "name": "inline",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Document": {
                 "methods": {
                     "method": {
@@ -954,7 +771,7 @@
                 }
             },
             "ClipboardEventInit": {
-                "flavor": "Web",
+                "exposed": "Window",
                 "name": "ClipboardEventInit",
                 "extends": "EventInit",
                 "properties": {
@@ -1293,7 +1110,7 @@
                     "method": {
                         "getElementById": {
                             "name": "getElementById",
-                            "flavor": "Web",
+                            "exposed": "Window",
                             "override-signatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
                             ]
@@ -1327,7 +1144,7 @@
             },
             "DocumentOrShadowRoot": {
                 "name": "DocumentOrShadowRoot",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "getSelection": {
@@ -1369,7 +1186,7 @@
             "ShadowRoot": {
                 "name": "ShadowRoot",
                 "extends": "DocumentOrShadowRoot, DocumentFragment",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "host": {
@@ -1387,7 +1204,7 @@
             },
             "ShadowRootInit": {
                 "name": "ShadowRootInit",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "mode": {
@@ -1418,7 +1235,7 @@
             "HTMLSlotElement": {
                 "name": "HTMLSlotElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "name": {
@@ -1446,7 +1263,7 @@
             },
             "AssignedNodesOptions": {
                 "name": "AssignedNodesOptions",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "flatten": {
@@ -1482,7 +1299,7 @@
             },
             "ElementDefinitionOptions": {
                 "name": "ElementDefinitionOptions",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "extends": {
@@ -1495,7 +1312,7 @@
             },
             "ElementCreationOptions": {
                 "name": "ElementCreationOptions",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "is": {
@@ -1509,7 +1326,7 @@
             },
             "CustomElementRegistry": {
                 "name": "CustomElementRegistry",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "define": {
@@ -1537,7 +1354,12 @@
             "PromiseRejectionEvent": {
                 "name": "PromiseRejectionEvent",
                 "extends": "Event",
-                "flavor": "Web",
+                "exposed": "Window Worker",
+                "constructor": {
+                    "override-signatures": [
+                        "new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent"
+                    ]
+                },
                 "properties": {
                     "property": {
                         "promise": {
@@ -1551,27 +1373,7 @@
                             "override-type": "any"
                         }
                     }
-                },
-                "no-interface-object": "1"
-            },
-            "PromiseRejectionEventInit": {
-                "name": "PromiseRejectionEventInit",
-                "extends": "EventInit",
-                "flavor": "Web",
-                "properties": {
-                    "property": {
-                        "promise": {
-                            "name": "promise",
-                            "override-type": "PromiseLike<any>"
-                        },
-                        "reason": {
-                            "name": "reason",
-                            "override-type": "any",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
+                }
             },
             "ValidityState": {
                 "name": "ValidityState",
@@ -1579,7 +1381,7 @@
                     "property": {
                         "tooShort": {
                             "name": "tooShort",
-                            "flavor": "Web",
+                            "exposed": "Window",
                             "read-only": 1,
                             "override-type": "boolean"
                         }
@@ -1589,7 +1391,7 @@
             "HTMLDialogElement": {
                 "name": "HTMLDialogElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "open": {
@@ -1633,7 +1435,7 @@
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "constructor": {
                     "override-signatures": [
                         "new(): HTMLMainElement"
@@ -1643,7 +1445,7 @@
             "HTMLDetailsElement": {
                 "name": "HTMLDetailsElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "open": {
@@ -1661,7 +1463,7 @@
             "HTMLSummaryElement": {
                 "name": "HTMLSummaryElement",
                 "extends": "HTMLElement",
-                "flavor": "Web",
+                "exposed": "Window",
                 "constructor": {
                     "override-signatures": [
                         "new(): HTMLSummaryElement"
@@ -1670,7 +1472,7 @@
             },
             "EXT_blend_minmax": {
                 "name": "EXT_blend_minmax",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "MIN_EXT": {
@@ -1689,7 +1491,7 @@
             },
             "EXT_frag_depth": {
                 "name": "EXT_frag_depth",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {}
                 },
@@ -1697,7 +1499,7 @@
             },
             "EXT_shader_texture_lod": {
                 "name": "EXT_shader_texture_lod",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {}
                 },
@@ -1705,7 +1507,7 @@
             },
             "EXT_sRGB": {
                 "name": "EXT_sRGB",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "SRGB_EXT": {
@@ -1734,7 +1536,7 @@
             },
             "DOMTokenList": {
                 "name": "DOMTokenList",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "replace": {
@@ -1752,7 +1554,7 @@
                     "method": {
                         "reportValidity": {
                             "name": "reportValidity",
-                            "flavor": "Web",
+                            "exposed": "Window",
                             "override-signatures": [
                                 "reportValidity(): boolean"
                             ]
@@ -1762,7 +1564,7 @@
             },
             "OES_vertex_array_object": {
                 "name": "OES_vertex_array_object",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "VERTEX_ARRAY_BINDING_OES": {
@@ -1804,7 +1606,7 @@
             },
             "WebGLVertexArrayObjectOES": {
                 "name": "WebGLVertexArrayObjectOES",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {}
                 },
@@ -1812,7 +1614,7 @@
             },
             "WEBGL_color_buffer_float": {
                 "name": "WEBGL_color_buffer_float",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "RGBA32F_EXT": {
@@ -1841,7 +1643,7 @@
             },
             "WEBGL_compressed_texture_astc": {
                 "name": "WEBGL_compressed_texture_astc",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "COMPRESSED_RGBA_ASTC_4x4_KHR": {
@@ -2000,7 +1802,7 @@
             },
             "WEBGL_compressed_texture_s3tc_srgb": {
                 "name": "WEBGL_compressed_texture_s3tc_srgb",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "COMPRESSED_SRGB_S3TC_DXT1_EXT": {
@@ -2029,7 +1831,7 @@
             },
             "WEBGL_debug_shaders": {
                 "name": "WEBGL_debug_shaders",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "getTranslatedShaderSource": {
@@ -2044,7 +1846,7 @@
             },
             "WEBGL_draw_buffers": {
                 "name": "WEBGL_draw_buffers",
-                "flavor": "Web",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "COLOR_ATTACHMENT0_WEBGL": {
@@ -2233,7 +2035,7 @@
             },
             "WEBGL_lose_context": {
                 "name": "WEBGL_lose_context",
-                "flavor": "Web",
+                "exposed": "Window",
                 "methods": {
                     "method": {
                         "loseContext": {
@@ -2271,18 +2073,6 @@
                         "typemustmatch": {
                             "name": "typemustmatch",
                             "override-type": "boolean"
-                        }
-                    }
-                }
-            },
-            "File": {
-                "name": "File",
-                "properties": {
-                    "property": {
-                        "lastModified": {
-                            "name": "lastModified",
-                            "read-only": 1,
-                            "override-type": "number"
                         }
                     }
                 }
@@ -2387,6 +2177,7 @@
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
+                "exposed": "Window",
                 "element": [
                     {
                         "specs": "HTML5",
@@ -2398,6 +2189,7 @@
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
                 "extends": "HTMLTableCellElement",
+                "exposed": "Window",
                 "properties": {
                     "property": {
                         "scope": {
@@ -2454,7 +2246,8 @@
                             "name": "querySelector"
                         }
                     }
-                }
+                },
+                "exposed": "Window"
             },
             "CSS": {
                 "name": "CSS",
@@ -2474,19 +2267,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "RTCStatsEventInit": {
-                "specs": "webrtc",
-                "name": "RTCStatsEventInit",
-                "members": {
-                    "member": {
-                        "report": {
-                            "type-original": "RTCStatsReport",
-                            "type": "RTCStatsReport",
-                            "name": "report"
-                        }
-                    }
-                }
-            },
             "MessageEventInit": {
                 "name": "MessageEventInit",
                 "members": {
@@ -2535,6 +2315,74 @@
                         "composed": {
                             "name": "composed",
                             "override-type": "boolean",
+                            "required": 0
+                        }
+                    }
+                }
+            },
+            "PromiseRejectionEventInit": {
+                "name": "PromiseRejectionEventInit",
+                "extends": "EventInit",
+                "members": {
+                    "member": {
+                        "promise": {
+                            "name": "promise",
+                            "override-type": "Promise<any>",
+                            "required": 1
+                        },
+                        "reason": {
+                            "name": "reason",
+                            "override-type": "any"
+                        }
+                    }
+                }
+            },
+            "ScrollOptions": {
+                "exposed": "Window",
+                "name": "ScrollOptions",
+                "members": {
+                    "member": {
+                        "behavior": {
+                            "name": "behavior",
+                            "override-type": "ScrollBehavior",
+                            "required": 0
+                        }
+                    }
+                }
+            },
+            "ScrollToOptions": {
+                "exposed": "Window",
+                "name": "ScrollToOptions",
+                "extends": "ScrollOptions",
+                "members": {
+                    "member": {
+                        "left": {
+                            "name": "left",
+                            "override-type": "number",
+                            "required": 0
+                        },
+                        "top": {
+                            "name": "top",
+                            "override-type": "number",
+                            "required": 0
+                        }
+                    }
+                }
+            },
+            "ScrollIntoViewOptions": {
+                "exposed": "Window",
+                "name": "ScrollIntoViewOptions",
+                "extends": "ScrollOptions",
+                "members": {
+                    "member": {
+                        "block": {
+                            "name": "block",
+                            "override-type": "ScrollLogicalPosition",
+                            "required": 0
+                        },
+                        "inline": {
+                            "name": "inline",
+                            "override-type": "ScrollLogicalPosition",
                             "required": 0
                         }
                     }
@@ -2691,10 +2539,6 @@
             {
                 "new-type": "RTCTransport",
                 "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
-            },
-            {
-                "new-type": "RequestInfo",
-                "override-type": "Request | string"
             },
             {
                 "new-type": "USVString",

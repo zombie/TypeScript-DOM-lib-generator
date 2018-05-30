@@ -1,7 +1,19 @@
 [
     {
+        "url": "https://www.w3.org/TR/css-animations-1/",
+        "title": "CSS Animations"
+    },
+    {
+        "url": "https://www.w3.org/TR/css-transitions-1/",
+        "title": "CSS Transitions"
+    },
+    {
         "url": "https://encoding.spec.whatwg.org/",
         "title": "Encoding"
+    },
+    {
+        "url": "https://www.w3.org/TR/FileAPI/",
+        "title": "File"
     },
     {
         "url": "https://fetch.spec.whatwg.org/",
@@ -20,6 +32,23 @@
         "title": "High Resolution Time"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/common-dom-interfaces.html",
+        "title": "HTML - Common DOM interfaces"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html",
+        "title": "HTML - Form control infrastructure"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/form-elements.html",
+        "title": "HTML - Form elements"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
+        "title": "HTML - Obsolete features.deprecated",
+        "deprecated": true
+    },
+    {
         "url": "https://www.w3.org/TR/IndexedDB-2/",
         "title": "Indexed Database"
     },
@@ -36,6 +65,10 @@
         "title": "Performance Timeline"
     },
     {
+        "url": "https://www.w3.org/TR/pointerevents2/",
+        "title": "Pointer Events"
+    },
+    {
         "url": "https://www.w3.org/TR/push-api/",
         "title": "Push"
     },
@@ -48,8 +81,16 @@
         "title": "Service Workers"
     },
     {
+        "url": "https://storage.spec.whatwg.org/",
+        "title": "Storage"
+    },
+    {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
+    },
+    {
+        "url": "https://url.spec.whatwg.org/",
+        "title": "URL"
     },
     {
         "url": "https://www.w3.org/TR/user-timing-2/",
@@ -64,6 +105,10 @@
         "title": "Web Animations"
     },
     {
+        "url": "https://webaudio.github.io/web-audio-api/",
+        "title": "Web Audio"
+    },
+    {
         "url": "https://wicg.github.io/BackgroundSync/spec/",
         "title": "Web Background Synchronization"
     },
@@ -76,7 +121,15 @@
         "title": "WebRTC"
     },
     {
+        "url": "https://drafts.css-houdini.org/worklets/",
+        "title": "Worklets"
+    },
+    {
         "url": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/web-messaging.html",
+        "title": "Web Messaging"
     }
 ]

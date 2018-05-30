@@ -11,6 +11,10 @@ interface Algorithm {
     name: string;
 }
 
+interface BlobPropertyBag {
+    type?: string;
+}
+
 interface CacheQueryOptions {
     cacheName?: string;
     ignoreMethod?: boolean;
@@ -27,6 +31,56 @@ interface CloseEventInit extends EventInit {
     code?: number;
     reason?: string;
     wasClean?: boolean;
+}
+
+interface DOMMatrix2DInit {
+    a?: number;
+    b?: number;
+    c?: number;
+    d?: number;
+    e?: number;
+    f?: number;
+    m11?: number;
+    m12?: number;
+    m21?: number;
+    m22?: number;
+    m41?: number;
+    m42?: number;
+}
+
+interface DOMMatrixInit extends DOMMatrix2DInit {
+    is2D?: boolean;
+    m13?: number;
+    m14?: number;
+    m23?: number;
+    m24?: number;
+    m31?: number;
+    m32?: number;
+    m33?: number;
+    m34?: number;
+    m43?: number;
+    m44?: number;
+}
+
+interface DOMPointInit {
+    w?: number;
+    x?: number;
+    y?: number;
+    z?: number;
+}
+
+interface DOMQuadInit {
+    p1?: DOMPointInit;
+    p2?: DOMPointInit;
+    p3?: DOMPointInit;
+    p4?: DOMPointInit;
+}
+
+interface DOMRectInit {
+    height?: number;
+    width?: number;
+    x?: number;
+    y?: number;
 }
 
 interface ErrorEventInit extends EventInit {
@@ -64,6 +118,10 @@ interface FetchEventInit extends ExtendableEventInit {
     request: Request;
     resultingClientId?: string;
     targetClientId?: string;
+}
+
+interface FilePropertyBag extends BlobPropertyBag {
+    lastModified?: number;
 }
 
 interface GetNotificationOptions {
@@ -131,10 +189,6 @@ interface NotificationOptions {
     vibrate?: VibratePattern;
 }
 
-interface ObjectURLOptions {
-    oneTimeOnly?: boolean;
-}
-
 interface PerformanceObserverInit {
     buffered?: boolean;
     entryTypes: string[];
@@ -144,6 +198,11 @@ interface ProgressEventInit extends EventInit {
     lengthComputable?: boolean;
     loaded?: number;
     total?: number;
+}
+
+interface PromiseRejectionEventInit extends EventInit {
+    promise: Promise<any>;
+    reason?: any;
 }
 
 interface PushEventInit extends ExtendableEventInit {
@@ -194,9 +253,23 @@ interface ResponseInit {
     statusText?: string;
 }
 
+interface StorageEstimate {
+    quota?: number;
+    usage?: number;
+}
+
 interface SyncEventInit extends ExtendableEventInit {
     lastChance?: boolean;
     tag: string;
+}
+
+interface TextDecodeOptions {
+    stream?: boolean;
+}
+
+interface TextDecoderOptions {
+    fatal?: boolean;
+    ignoreBOM?: boolean;
 }
 
 interface EventListener {
@@ -215,38 +288,24 @@ interface AbstractWorker {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-interface AudioBuffer {
-    readonly duration: number;
-    readonly length: number;
-    readonly numberOfChannels: number;
-    readonly sampleRate: number;
-    copyFromChannel(destination: Float32Array, channelNumber: number, startInChannel?: number): void;
-    copyToChannel(source: Float32Array, channelNumber: number, startInChannel?: number): void;
-    getChannelData(channel: number): Float32Array;
+interface AesCfbParams extends Algorithm {
+    iv: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
-declare var AudioBuffer: {
-    prototype: AudioBuffer;
-    new(): AudioBuffer;
-};
+interface AesCmacParams extends Algorithm {
+    length: number;
+}
 
 interface Blob {
     readonly size: number;
     readonly type: string;
-    msClose(): void;
-    msDetachStream(): any;
     slice(start?: number, end?: number, contentType?: string): Blob;
 }
 
 declare var Blob: {
     prototype: Blob;
-    new (blobParts?: any[], options?: BlobPropertyBag): Blob;
+    new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
 };
-
-interface BlobPropertyBag {
-    endings?: string;
-    type?: string;
-}
 
 interface Body {
     readonly body: ReadableStream | null;
@@ -256,6 +315,42 @@ interface Body {
     formData(): Promise<FormData>;
     json(): Promise<any>;
     text(): Promise<string>;
+}
+
+interface BroadcastChannelEventMap {
+    "message": MessageEvent;
+    "messageerror": MessageEvent;
+}
+
+interface BroadcastChannel extends EventTarget {
+    /**
+     * Returns the channel name (as passed to the constructor).
+     */
+    readonly name: string;
+    onmessage: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
+    onmessageerror: ((this: BroadcastChannel, ev: MessageEvent) => any) | null;
+    /**
+     * Closes the BroadcastChannel object, opening it up to garbage collection.
+     */
+    close(): void;
+    /**
+     * Sends the given message to other BroadcastChannel objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.
+     */
+    postMessage(message: any): void;
+    addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var BroadcastChannel: {
+    prototype: BroadcastChannel;
+    new(name: string): BroadcastChannel;
+};
+
+interface BroadcastChannelEventMap {
+    message: MessageEvent;
+    messageerror: MessageEvent;
 }
 
 interface Cache {
@@ -323,6 +418,15 @@ declare var CloseEvent: {
     new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
 };
 
+interface ConcatParams extends Algorithm {
+    algorithmId: Uint8Array;
+    hash?: string | Algorithm;
+    partyUInfo: Uint8Array;
+    partyVInfo: Uint8Array;
+    privateInfo?: Uint8Array;
+    publicInfo?: Uint8Array;
+}
+
 interface Console {
     memory: any;
     assert(condition?: boolean, message?: string, ...data: any[]): void;
@@ -368,16 +472,6 @@ interface CryptoKey {
 declare var CryptoKey: {
     prototype: CryptoKey;
     new(): CryptoKey;
-};
-
-interface DOMError {
-    readonly name: string;
-    toString(): string;
-}
-
-declare var DOMError: {
-    prototype: DOMError;
-    new(): DOMError;
 };
 
 interface DOMException {
@@ -441,9 +535,189 @@ declare var DOMException: {
     readonly WRONG_DOCUMENT_ERR: number;
 };
 
+interface DOMMatrix extends DOMMatrixReadOnly {
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    e: number;
+    f: number;
+    m11: number;
+    m12: number;
+    m13: number;
+    m14: number;
+    m21: number;
+    m22: number;
+    m23: number;
+    m24: number;
+    m31: number;
+    m32: number;
+    m33: number;
+    m34: number;
+    m41: number;
+    m42: number;
+    m43: number;
+    m44: number;
+    invertSelf(): DOMMatrix;
+    multiplySelf(other?: DOMMatrixInit): DOMMatrix;
+    preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
+    rotateAxisAngleSelf(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
+    rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+    scale3dSelf(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scaleSelf(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    skewXSelf(sx?: number): DOMMatrix;
+    skewYSelf(sy?: number): DOMMatrix;
+    translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare var DOMMatrix: {
+    prototype: DOMMatrix;
+    new(init?: string | number[]): DOMMatrix;
+    fromFloat32Array(array32: Float32Array): DOMMatrix;
+    fromFloat64Array(array64: Float64Array): DOMMatrix;
+    fromMatrix(other?: DOMMatrixInit): DOMMatrix;
+};
+
+interface DOMMatrixReadOnly {
+    readonly a: number;
+    readonly b: number;
+    readonly c: number;
+    readonly d: number;
+    readonly e: number;
+    readonly f: number;
+    readonly is2D: boolean;
+    readonly isIdentity: boolean;
+    readonly m11: number;
+    readonly m12: number;
+    readonly m13: number;
+    readonly m14: number;
+    readonly m21: number;
+    readonly m22: number;
+    readonly m23: number;
+    readonly m24: number;
+    readonly m31: number;
+    readonly m32: number;
+    readonly m33: number;
+    readonly m34: number;
+    readonly m41: number;
+    readonly m42: number;
+    readonly m43: number;
+    readonly m44: number;
+    flipX(): DOMMatrix;
+    flipY(): DOMMatrix;
+    inverse(): DOMMatrix;
+    multiply(other?: DOMMatrixInit): DOMMatrix;
+    rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+    rotateAxisAngle(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
+    rotateFromVector(x?: number, y?: number): DOMMatrix;
+    scale(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    scale3d(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    skewX(sx?: number): DOMMatrix;
+    skewY(sy?: number): DOMMatrix;
+    toFloat32Array(): Float32Array;
+    toFloat64Array(): Float64Array;
+    toJSON(): any;
+    transformPoint(point?: DOMPointInit): DOMPoint;
+    translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare var DOMMatrixReadOnly: {
+    prototype: DOMMatrixReadOnly;
+    new(init?: string | number[]): DOMMatrixReadOnly;
+    fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
+    fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
+    fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
+};
+
+interface DOMPoint extends DOMPointReadOnly {
+    w: number;
+    x: number;
+    y: number;
+    z: number;
+}
+
+declare var DOMPoint: {
+    prototype: DOMPoint;
+    new(x?: number, y?: number, z?: number, w?: number): DOMPoint;
+    fromPoint(other?: DOMPointInit): DOMPoint;
+};
+
+interface DOMPointReadOnly {
+    readonly w: number;
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
+    toJSON(): any;
+}
+
+declare var DOMPointReadOnly: {
+    prototype: DOMPointReadOnly;
+    new(x?: number, y?: number, z?: number, w?: number): DOMPointReadOnly;
+    fromPoint(other?: DOMPointInit): DOMPointReadOnly;
+};
+
+interface DOMQuad {
+    readonly p1: DOMPoint;
+    readonly p2: DOMPoint;
+    readonly p3: DOMPoint;
+    readonly p4: DOMPoint;
+    getBounds(): DOMRect;
+    toJSON(): any;
+}
+
+declare var DOMQuad: {
+    prototype: DOMQuad;
+    new(p1?: DOMPointInit, p2?: DOMPointInit, p3?: DOMPointInit, p4?: DOMPointInit): DOMQuad;
+    fromQuad(other?: DOMQuadInit): DOMQuad;
+    fromRect(other?: DOMRectInit): DOMQuad;
+};
+
+interface DOMRect extends DOMRectReadOnly {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+}
+
+declare var DOMRect: {
+    prototype: DOMRect;
+    new(x?: number, y?: number, width?: number, height?: number): DOMRect;
+    fromRect(other?: DOMRectInit): DOMRect;
+};
+
+interface DOMRectReadOnly {
+    readonly bottom: number;
+    readonly height: number;
+    readonly left: number;
+    readonly right: number;
+    readonly top: number;
+    readonly width: number;
+    readonly x: number;
+    readonly y: number;
+    toJSON(): any;
+}
+
+declare var DOMRectReadOnly: {
+    prototype: DOMRectReadOnly;
+    new(x?: number, y?: number, width?: number, height?: number): DOMRectReadOnly;
+    fromRect(other?: DOMRectInit): DOMRectReadOnly;
+};
+
 interface DOMStringList {
+    /**
+     * Returns the number of strings in strings.
+     */
     readonly length: number;
-    contains(str: string): boolean;
+    /**
+     * Returns true if strings contains string, and false
+     * otherwise.
+     */
+    contains(string: string): boolean;
+    /**
+     * Returns the string with index index from strings.
+     */
     item(index: number): string | null;
     [index: number]: string;
 }
@@ -471,6 +745,25 @@ declare var DedicatedWorkerGlobalScope: {
     prototype: DedicatedWorkerGlobalScope;
     new(): DedicatedWorkerGlobalScope;
 };
+
+interface DhImportKeyParams extends Algorithm {
+    generator: Uint8Array;
+    prime: Uint8Array;
+}
+
+interface DhKeyAlgorithm extends KeyAlgorithm {
+    generator: Uint8Array;
+    prime: Uint8Array;
+}
+
+interface DhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface DhKeyGenParams extends Algorithm {
+    generator: Uint8Array;
+    prime: Uint8Array;
+}
 
 interface ErrorEvent extends Event {
     readonly colno: number;
@@ -524,6 +817,28 @@ interface EventListenerObject {
     handleEvent(evt: Event): void;
 }
 
+interface EventSource extends EventTarget {
+    readonly CLOSED: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+    onerror: (evt: MessageEvent) => any;
+    onmessage: (evt: MessageEvent) => any;
+    onopen: (evt: MessageEvent) => any;
+    readonly readyState: number;
+    readonly url: string;
+    readonly withCredentials: boolean;
+    close(): void;
+}
+
+declare var EventSource: {
+    prototype: EventSource;
+    new(url: string, eventSourceInitDict?: EventSourceInit): EventSource;
+};
+
+interface EventSourceInit {
+    readonly withCredentials: boolean;
+}
+
 interface EventTarget {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
     dispatchEvent(evt: Event): boolean;
@@ -573,15 +888,12 @@ declare var FetchEvent: {
 
 interface File extends Blob {
     readonly lastModified: number;
-    /** @deprecated */
-    readonly lastModifiedDate: Date;
     readonly name: string;
-    readonly webkitRelativePath: string;
 }
 
 declare var File: {
     prototype: File;
-    new (parts: (ArrayBuffer | ArrayBufferView | Blob | string)[], filename: string, properties?: FilePropertyBag): File;
+    new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File;
 };
 
 interface FileList {
@@ -595,10 +907,6 @@ declare var FileList: {
     new(): FileList;
 };
 
-interface FilePropertyBag extends BlobPropertyBag {
-    lastModified?: number;
-}
-
 interface FileReaderEventMap {
     "abort": ProgressEvent;
     "error": ProgressEvent;
@@ -610,14 +918,14 @@ interface FileReaderEventMap {
 
 interface FileReader extends EventTarget {
     readonly error: DOMException | null;
-    onabort: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onerror: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onload: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onloadend: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onloadstart: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
-    onprogress: ((this: FileReader, ev: FileReaderProgressEvent) => any) | null;
+    onabort: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent) => any) | null;
     readonly readyState: number;
-    readonly result: any;
+    readonly result: string | ArrayBuffer | null;
     abort(): void;
     readAsArrayBuffer(blob: Blob): void;
     readAsBinaryString(blob: Blob): void;
@@ -640,15 +948,11 @@ declare var FileReader: {
     readonly LOADING: number;
 };
 
-interface FileReaderProgressEvent extends ProgressEvent {
-    readonly target: FileReader | null;
-}
-
 interface FileReaderSync {
-    readAsArrayBuffer(blob: Blob): any;
-    readAsBinaryString(blob: Blob): void;
+    readAsArrayBuffer(blob: Blob): ArrayBuffer;
+    readAsBinaryString(blob: Blob): string;
     readAsDataURL(blob: Blob): string;
-    readAsText(blob: Blob, encoding?: string): string;
+    readAsText(blob: Blob, label?: string): string;
 }
 
 declare var FileReaderSync: {
@@ -689,18 +993,60 @@ declare var Headers: {
     new(init?: HeadersInit): Headers;
 };
 
+interface HkdfCtrParams extends Algorithm {
+    context: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+    hash: string | Algorithm;
+    label: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+}
+
 interface IDBArrayKey extends Array<IDBValidKey> {
 }
 
 interface IDBCursor {
+    /**
+     * Returns the direction ("next", "nextunique", "prev" or "prevunique")
+     * of the cursor.
+     */
     readonly direction: IDBCursorDirection;
+    /**
+     * Returns the key of the cursor.
+     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     */
     readonly key: IDBValidKey | IDBKeyRange;
+    /**
+     * Returns the effective key of the cursor.
+     * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
+     */
     readonly primaryKey: IDBValidKey | IDBKeyRange;
+    /**
+     * Returns the IDBObjectStore or IDBIndex the cursor was opened from.
+     */
     readonly source: IDBObjectStore | IDBIndex;
+    /**
+     * Advances the cursor through the next count records in
+     * range.
+     */
     advance(count: number): void;
+    /**
+     * Advances the cursor to the next record in range matching or
+     * after key.
+     */
     continue(key?: IDBValidKey | IDBKeyRange): void;
+    /**
+     * Advances the cursor to the next record in range matching
+     * or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
+     */
     continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void;
+    /**
+     * Delete the record pointed at by the cursor with a new value.
+     * If successful, request's result will be undefined.
+     */
     delete(): IDBRequest;
+    /**
+     * Updated the record pointed at by the cursor with a new value.
+     * Throws a "DataError" DOMException if the effective object store uses in-line keys and the key would have changed.
+     * If successful, request's result will be the record's key.
+     */
     update(value: any): IDBRequest;
 }
 
@@ -710,6 +1056,9 @@ declare var IDBCursor: {
 };
 
 interface IDBCursorWithValue extends IDBCursor {
+    /**
+     * Returns the cursor's current value.
+     */
     readonly value: any;
 }
 
@@ -726,16 +1075,40 @@ interface IDBDatabaseEventMap {
 }
 
 interface IDBDatabase extends EventTarget {
+    /**
+     * Returns the name of the database.
+     */
     readonly name: string;
+    /**
+     * Returns a list of the names of object stores in the database.
+     */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBDatabase, ev: Event) => any) | null;
     onclose: ((this: IDBDatabase, ev: Event) => any) | null;
     onerror: ((this: IDBDatabase, ev: Event) => any) | null;
     onversionchange: ((this: IDBDatabase, ev: IDBVersionChangeEvent) => any) | null;
+    /**
+     * Returns the version of the database.
+     */
     readonly version: number;
+    /**
+     * Closes the connection once all running transactions have finished.
+     */
     close(): void;
+    /**
+     * Creates a new object store with the given name and options and returns a new IDBObjectStore.
+     * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
+     */
     createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore;
+    /**
+     * Deletes the object store with the given name.
+     * Throws a "InvalidStateError" DOMException if not called within an upgrade transaction.
+     */
     deleteObjectStore(name: string): void;
+    /**
+     * Returns a new transaction with the given mode ("readonly" or "readwrite")
+     * and scope which can be a single object store name or an array of names.
+     */
     transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction;
     addEventListener<K extends keyof IDBDatabaseEventMap>(type: K, listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -749,8 +1122,26 @@ declare var IDBDatabase: {
 };
 
 interface IDBFactory {
+    /**
+     * Compares two values as keys. Returns -1 if key1 precedes key2, 1 if key2 precedes key1, and 0 if
+     * the keys are equal.
+     * Throws a "DataError" DOMException if either input is not a valid key.
+     */
     cmp(first: any, second: any): number;
+    /**
+     * Attempts to delete the named database. If the
+     * database already exists and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close. If the request
+     * is successful request's result will be null.
+     */
     deleteDatabase(name: string): IDBOpenDBRequest;
+    /**
+     * Attempts to open a connection to the named database with the specified version. If the database already exists
+     * with a lower version and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close, then an upgrade
+     * will occur. If the database already exists with a higher
+     * version the request will fail. If the request is
+     * successful request's result will
+     * be the connection.
+     */
     open(name: string, version?: number): IDBOpenDBRequest;
 }
 
@@ -762,15 +1153,55 @@ declare var IDBFactory: {
 interface IDBIndex {
     readonly keyPath: string | string[];
     readonly multiEntry: boolean;
+    /**
+     * Updates the name of the store to newName.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     name: string;
+    /**
+     * Returns the IDBObjectStore the index belongs to.
+     */
     readonly objectStore: IDBObjectStore;
     readonly unique: boolean;
+    /**
+     * Retrieves the number of records matching the given key or key range in query.
+     * If successful, request's result will be the
+     * count.
+     */
     count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Retrieves the value of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the value, or undefined if there was no matching record.
+     */
     get(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Retrieves the values of the records matching the given key or key range in query (up to count if given).
+     * If successful, request's result will be an Array of the values.
+     */
     getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the keys of records matching the given key or key range in query (up to count if given).
+     * If successful, request's result will be an Array of the keys.
+     */
     getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the key of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the key, or undefined if there was no matching record.
+     */
     getKey(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Opens a cursor over the records matching query,
+     * ordered by direction. If query is null, all records in index are matched.
+     * If successful, request's result will be an IDBCursorWithValue, or null if there were no matching records.
+     */
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
+     * If successful, request's result will be an IDBCursor, or null if there were no matching records.
+     */
     openKeyCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
 }
 
@@ -780,40 +1211,148 @@ declare var IDBIndex: {
 };
 
 interface IDBKeyRange {
+    /**
+     * Returns lower bound, or undefined if none.
+     */
     readonly lower: any;
+    /**
+     * Returns true if the lower open flag is set, and false otherwise.
+     */
     readonly lowerOpen: boolean;
+    /**
+     * Returns upper bound, or undefined if none.
+     */
     readonly upper: any;
+    /**
+     * Returns true if the upper open flag is set, and false otherwise.
+     */
     readonly upperOpen: boolean;
+    /**
+     * Returns true if key is included in the range, and false otherwise.
+     */
     includes(key: any): boolean;
 }
 
 declare var IDBKeyRange: {
     prototype: IDBKeyRange;
     new(): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange spanning from lower to upper.
+     * If lowerOpen is true, lower is not included in the range.
+     * If upperOpen is true, upper is not included in the range.
+     */
     bound(lower: any, upper: any, lowerOpen?: boolean, upperOpen?: boolean): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange starting at key with no
+     * upper bound. If open is true, key is not included in the
+     * range.
+     */
     lowerBound(lower: any, open?: boolean): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange spanning only key.
+     */
     only(value: any): IDBKeyRange;
+    /**
+     * Returns a new IDBKeyRange with no lower bound and ending at key. If open is true, key is not included in the range.
+     */
     upperBound(upper: any, open?: boolean): IDBKeyRange;
 };
 
 interface IDBObjectStore {
+    /**
+     * Returns true if the store has a key generator, and false otherwise.
+     */
     readonly autoIncrement: boolean;
+    /**
+     * Returns a list of the names of indexes in the store.
+     */
     readonly indexNames: DOMStringList;
+    /**
+     * Returns the key path of the store, or null if none.
+     */
     readonly keyPath: string | string[];
+    /**
+     * Updates the name of the store to newName.
+     * Throws "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     name: string;
+    /**
+     * Returns the associated transaction.
+     */
     readonly transaction: IDBTransaction;
     add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Deletes all records in store.
+     * If successful, request's result will
+     * be undefined.
+     */
     clear(): IDBRequest;
+    /**
+     * Retrieves the number of records matching the
+     * given key or key range in query.
+     * If successful, request's result will be the count.
+     */
     count(key?: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be
+     * satisfied with the data already in store the upgrade
+     * transaction will abort with
+     * a "ConstraintError" DOMException.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     createIndex(name: string, keyPath: string | string[], options?: IDBIndexParameters): IDBIndex;
+    /**
+     * Deletes records in store with the given key or in the given key range in query.
+     * If successful, request's result will
+     * be undefined.
+     */
     delete(key: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Deletes the index in store with the given name.
+     * Throws an "InvalidStateError" DOMException if not called within an upgrade
+     * transaction.
+     */
     deleteIndex(name: string): void;
+    /**
+     * Retrieves the value of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the value, or undefined if there was no matching record.
+     */
     get(query: IDBValidKey | IDBKeyRange): IDBRequest;
+    /**
+     * Retrieves the values of the records matching the
+     * given key or key range in query (up to count if given).
+     * If successful, request's result will
+     * be an Array of the values.
+     */
     getAll(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the keys of records matching the
+     * given key or key range in query (up to count if given).
+     * If successful, request's result will
+     * be an Array of the keys.
+     */
     getAllKeys(query?: IDBValidKey | IDBKeyRange, count?: number): IDBRequest;
+    /**
+     * Retrieves the key of the first record matching the
+     * given key or key range in query.
+     * If successful, request's result will be the key, or undefined if there was no matching record.
+     */
     getKey(query: IDBValidKey | IDBKeyRange): IDBRequest;
     index(name: string): IDBIndex;
+    /**
+     * Opens a cursor over the records matching query,
+     * ordered by direction. If query is null, all records in store are matched.
+     * If successful, request's result will be an IDBCursorWithValue pointing at the first matching record, or null if there were no matching records.
+     */
     openCursor(range?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
+    /**
+     * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
+     * If successful, request's result will be an IDBCursor pointing at the first matching record, or
+     * null if there were no matching records.
+     */
     openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest;
     put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest;
 }
@@ -848,12 +1387,33 @@ interface IDBRequestEventMap {
 }
 
 interface IDBRequest extends EventTarget {
+    /**
+     * When a request is completed, returns the error (a DOMException), or null if the request succeeded. Throws
+     * a "InvalidStateError" DOMException if the request is still pending.
+     */
     readonly error: DOMException | null;
     onerror: ((this: IDBRequest, ev: Event) => any) | null;
     onsuccess: ((this: IDBRequest, ev: Event) => any) | null;
+    /**
+     * Returns "pending" until a request is complete,
+     * then returns "done".
+     */
     readonly readyState: IDBRequestReadyState;
+    /**
+     * When a request is completed, returns the result,
+     * or undefined if the request failed. Throws a
+     * "InvalidStateError" DOMException if the request is still pending.
+     */
     readonly result: any;
+    /**
+     * Returns the IDBObjectStore, IDBIndex, or IDBCursor the request was made against, or null if is was an open
+     * request.
+     */
     readonly source: IDBObjectStore | IDBIndex | IDBCursor;
+    /**
+     * Returns the IDBTransaction the request was made within.
+     * If this as an open request, then it returns an upgrade transaction while it is running, or null otherwise.
+     */
     readonly transaction: IDBTransaction | null;
     addEventListener<K extends keyof IDBRequestEventMap>(type: K, listener: (this: IDBRequest, ev: IDBRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -873,14 +1433,38 @@ interface IDBTransactionEventMap {
 }
 
 interface IDBTransaction extends EventTarget {
+    /**
+     * Returns the transaction's connection.
+     */
     readonly db: IDBDatabase;
+    /**
+     * If the transaction was aborted, returns the
+     * error (a DOMException) providing the reason.
+     */
     readonly error: DOMException;
+    /**
+     * Returns the mode the transaction was created with
+     * ("readonly" or "readwrite"), or "versionchange" for
+     * an upgrade transaction.
+     */
     readonly mode: IDBTransactionMode;
+    /**
+     * Returns a list of the names of object stores in the
+     * transaction's scope. For an upgrade transaction this is all object stores in the database.
+     */
     readonly objectStoreNames: DOMStringList;
     onabort: ((this: IDBTransaction, ev: Event) => any) | null;
     oncomplete: ((this: IDBTransaction, ev: Event) => any) | null;
     onerror: ((this: IDBTransaction, ev: Event) => any) | null;
+    /**
+     * Aborts the transaction. All pending requests will fail with
+     * a "AbortError" DOMException and all changes made to the database will be
+     * reverted.
+     */
     abort(): void;
+    /**
+     * Returns an IDBObjectStore in the transaction's scope.
+     */
     objectStore(name: string): IDBObjectStore;
     addEventListener<K extends keyof IDBTransactionEventMap>(type: K, listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -919,9 +1503,6 @@ interface ImageBitmapOptions {
 }
 
 interface ImageData {
-    readonly data: Uint8ClampedArray;
-    readonly height: number;
-    readonly width: number;
 }
 
 declare var ImageData: {
@@ -955,12 +1536,27 @@ declare var MessageEvent: {
 
 interface MessagePortEventMap {
     "message": MessageEvent;
+    "messageerror": MessageEvent;
 }
 
 interface MessagePort extends EventTarget {
     onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
+    onmessageerror: ((this: MessagePort, ev: MessageEvent) => any) | null;
+    /**
+     * Disconnects the port, so that it is no longer active.
+     */
     close(): void;
-    postMessage(message?: any, transfer?: any[]): void;
+    /**
+     * Posts a message through the channel. Objects listed in transfer are
+     * transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * Throws a "DataCloneError" DOMException if
+     * transfer contains duplicate objects or port, or if message
+     * could not be cloned.
+     */
+    postMessage(message: any, transfer?: any[]): void;
+    /**
+     * Begins dispatching messages received on the port.
+     */
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -1009,6 +1605,10 @@ interface NavigatorOnLine {
     readonly onLine: boolean;
 }
 
+interface NavigatorStorage {
+    readonly storage: StorageManager;
+}
+
 interface NotificationEventMap {
     "click": Event;
     "close": Event;
@@ -1048,7 +1648,6 @@ declare var Notification: {
     new(title: string, options?: NotificationOptions): Notification;
     readonly maxActions: number;
     readonly permission: NotificationPermission;
-    requestPermission(deprecatedCallback?: NotificationPermissionCallback): Promise<NotificationPermission>;
 };
 
 interface NotificationEvent extends ExtendableEvent {
@@ -1066,12 +1665,8 @@ interface PerformanceEventMap {
 }
 
 interface Performance extends EventTarget {
-    /** @deprecated */
-    readonly navigation: PerformanceNavigation;
     onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
     readonly timeOrigin: number;
-    /** @deprecated */
-    readonly timing: PerformanceTiming;
     clearMarks(markName?: string): void;
     clearMeasures(measureName?: string): void;
     clearResourceTimings(): void;
@@ -1107,23 +1702,20 @@ declare var PerformanceEntry: {
     new(): PerformanceEntry;
 };
 
-interface PerformanceNavigation {
-    readonly redirectCount: number;
-    readonly type: number;
-    toJSON(): any;
-    readonly TYPE_BACK_FORWARD: number;
-    readonly TYPE_NAVIGATE: number;
-    readonly TYPE_RELOAD: number;
-    readonly TYPE_RESERVED: number;
+interface PerformanceMark extends PerformanceEntry {
 }
 
-declare var PerformanceNavigation: {
-    prototype: PerformanceNavigation;
-    new(): PerformanceNavigation;
-    readonly TYPE_BACK_FORWARD: number;
-    readonly TYPE_NAVIGATE: number;
-    readonly TYPE_RELOAD: number;
-    readonly TYPE_RESERVED: number;
+declare var PerformanceMark: {
+    prototype: PerformanceMark;
+    new(): PerformanceMark;
+};
+
+interface PerformanceMeasure extends PerformanceEntry {
+}
+
+declare var PerformanceMeasure: {
+    prototype: PerformanceMeasure;
+    new(): PerformanceMeasure;
 };
 
 interface PerformanceObserver {
@@ -1148,34 +1740,30 @@ declare var PerformanceObserverEntryList: {
     new(): PerformanceObserverEntryList;
 };
 
-interface PerformanceTiming {
+interface PerformanceResourceTiming extends PerformanceEntry {
     readonly connectEnd: number;
     readonly connectStart: number;
-    readonly domComplete: number;
-    readonly domContentLoadedEventEnd: number;
-    readonly domContentLoadedEventStart: number;
-    readonly domInteractive: number;
-    readonly domLoading: number;
+    readonly decodedBodySize: number;
     readonly domainLookupEnd: number;
     readonly domainLookupStart: number;
+    readonly encodedBodySize: number;
     readonly fetchStart: number;
-    readonly loadEventEnd: number;
-    readonly loadEventStart: number;
-    readonly navigationStart: number;
+    readonly initiatorType: string;
+    readonly nextHopProtocol: string;
     readonly redirectEnd: number;
     readonly redirectStart: number;
     readonly requestStart: number;
     readonly responseEnd: number;
     readonly responseStart: number;
     readonly secureConnectionStart: number;
-    readonly unloadEventEnd: number;
-    readonly unloadEventStart: number;
+    readonly transferSize: number;
+    readonly workerStart: number;
     toJSON(): any;
 }
 
-declare var PerformanceTiming: {
-    prototype: PerformanceTiming;
-    new(): PerformanceTiming;
+declare var PerformanceResourceTiming: {
+    prototype: PerformanceResourceTiming;
+    new(): PerformanceResourceTiming;
 };
 
 interface ProgressEvent extends Event {
@@ -1187,6 +1775,16 @@ interface ProgressEvent extends Event {
 declare var ProgressEvent: {
     prototype: ProgressEvent;
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
+};
+
+interface PromiseRejectionEvent extends Event {
+    readonly promise: PromiseLike<any>;
+    readonly reason: any;
+}
+
+declare var PromiseRejectionEvent: {
+    prototype: PromiseRejectionEvent;
+    new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
 interface PushEvent extends ExtendableEvent {
@@ -1279,18 +1877,81 @@ declare var ReadableStreamReader: {
 };
 
 interface Request extends Body {
+    /**
+     * Returns the cache mode associated with request, which is a string indicating
+     * how the the request will interact with the browser's cache when fetching.
+     */
     readonly cache: RequestCache;
+    /**
+     * Returns the credentials mode associated with request, which is a string
+     * indicating whether credentials will be sent with the request always, never, or only when sent to a
+     * same-origin URL.
+     */
     readonly credentials: RequestCredentials;
+    /**
+     * Returns the kind of resource requested by request, e.g., "document" or
+     * "script".
+     */
     readonly destination: RequestDestination;
+    /**
+     * Returns a Headers object consisting of the headers associated with request.
+     * Note that headers added in the network layer by the user agent will not be accounted for in this
+     * object, e.g., the "Host" header.
+     */
     readonly headers: Headers;
+    /**
+     * Returns request's subresource integrity metadata, which is a cryptographic hash of
+     * the resource being fetched. Its value consists of multiple hashes separated by whitespace. [SRI]
+     */
     readonly integrity: string;
+    /**
+     * Returns a boolean indicating whether or not request is for a history
+     * navigation (a.k.a. back-foward navigation).
+     */
+    readonly isHistoryNavigation: boolean;
+    /**
+     * Returns a boolean indicating whether or not request is for a reload navigation.
+     */
+    readonly isReloadNavigation: boolean;
+    /**
+     * Returns a boolean indicating whether or not request can outlive the global in which
+     * it was created.
+     */
     readonly keepalive: boolean;
+    /**
+     * Returns request's HTTP method, which is "GET" by default.
+     */
     readonly method: string;
+    /**
+     * Returns the mode associated with request, which is a string indicating
+     * whether the request will use CORS, or will be restricted to same-origin URLs.
+     */
     readonly mode: RequestMode;
+    /**
+     * Returns the redirect mode associated with request, which is a string
+     * indicating how redirects for the request will be handled during fetching. A request will follow redirects by default.
+     */
     readonly redirect: RequestRedirect;
+    /**
+     * Returns the referrer of request. Its value can be a same-origin URL if
+     * explicitly set in init, the empty string to indicate no referrer, and
+     * "about:client" when defaulting to the global's default. This is used during
+     * fetching to determine the value of the `Referer` header of the request being made.
+     */
     readonly referrer: string;
+    /**
+     * Returns the referrer policy associated with request. This is used during
+     * fetching to compute the value of the request's referrer.
+     */
     readonly referrerPolicy: ReferrerPolicy;
+    /**
+     * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort
+     * event handler.
+     */
     readonly signal: object;
+    /**
+     * Returns the URL of request as a string.
+     */
     readonly url: string;
     clone(): Request;
 }
@@ -1317,6 +1978,15 @@ declare var Response: {
     new(body?: BodyInit | null, init?: ResponseInit): Response;
     error(): Response;
     redirect(url: string, status?: number): Response;
+};
+
+interface SVGStylable {
+    className: any;
+}
+
+declare var SVGStylable: {
+    prototype: SVGStylable;
+    new(): SVGStylable;
 };
 
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
@@ -1433,6 +2103,16 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
+interface StorageManager {
+    estimate(): Promise<StorageEstimate>;
+    persisted(): Promise<boolean>;
+}
+
+declare var StorageManager: {
+    prototype: StorageManager;
+    new(): StorageManager;
+};
+
 interface SyncEvent extends ExtendableEvent {
     readonly lastChance: boolean;
     readonly tag: string;
@@ -1453,6 +2133,57 @@ declare var SyncManager: {
     new(): SyncManager;
 };
 
+interface TextDecoder {
+    /**
+     * Returns encoding's name, lowercased.
+     */
+    readonly encoding: string;
+    /**
+     * Returns true if error mode is "fatal", and false
+     * otherwise.
+     */
+    readonly fatal: boolean;
+    /**
+     * Returns true if ignore BOM flag is set, and false otherwise.
+     */
+    readonly ignoreBOM: boolean;
+    /**
+     * Returns the result of running encoding's decoder. The
+     * method can be invoked zero or more times with options's stream set to
+     * true, and then once without options's stream (or set to false), to process
+     * a fragmented stream. If the invocation without options's stream (or set to
+     * false) has no input, it's clearest to omit both arguments.
+     * var string = "", decoder = new TextDecoder(encoding), buffer;
+     * while(buffer = next_chunk()) {
+     * string += decoder.decode(buffer, {stream:true});
+     * }
+     * string += decoder.decode(); // end-of-stream
+     * If the error mode is "fatal" and encoding's decoder returns error, throws a TypeError.
+     */
+    decode(input?: BufferSource, options?: TextDecodeOptions): string;
+}
+
+declare var TextDecoder: {
+    prototype: TextDecoder;
+    new(label?: string, options?: TextDecoderOptions): TextDecoder;
+};
+
+interface TextEncoder {
+    /**
+     * Returns "utf-8".
+     */
+    readonly encoding: string;
+    /**
+     * Returns the result of running UTF-8's encoder.
+     */
+    encode(input?: string): Uint8Array;
+}
+
+declare var TextEncoder: {
+    prototype: TextEncoder;
+    new(): TextEncoder;
+};
+
 interface URL {
     hash: string;
     host: string;
@@ -1466,13 +2197,13 @@ interface URL {
     search: string;
     readonly searchParams: URLSearchParams;
     username: string;
-    toString(): string;
+    toJSON(): string;
 }
 
 declare var URL: {
     prototype: URL;
     new(url: string, base?: string | URL): URL;
-    createObjectURL(object: any, options?: ObjectURLOptions): string;
+    createObjectURL(object: any): string;
     revokeObjectURL(url: string): void;
 };
 
@@ -1501,11 +2232,13 @@ interface URLSearchParams {
      * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
      */
     set(name: string, value: string): void;
+    sort(): void;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
 }
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new (init?: string | URLSearchParams): URLSearchParams;
+    new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
 };
 
 interface WebSocketEventMap {
@@ -1575,7 +2308,6 @@ interface WorkerEventMap extends AbstractWorkerEventMap {
 
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
-    /** @deprecated */
     postMessage(message: any, transfer?: any[]): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1632,7 +2364,7 @@ declare var WorkerLocation: {
     new(): WorkerLocation;
 };
 
-interface WorkerNavigator extends NavigatorID, NavigatorOnLine, NavigatorBeacon, NavigatorConcurrentHardware {
+interface WorkerNavigator extends NavigatorID, NavigatorOnLine, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorStorage {
     readonly serviceWorker: ServiceWorkerContainer;
 }
 
@@ -1660,24 +2392,88 @@ interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
 
 interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    /**
+     * Returns client's state.
+     */
     readonly readyState: number;
+    /**
+     * Returns the response's body.
+     */
     readonly response: any;
+    /**
+     * Returns the text response.
+     * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
+     */
     readonly responseText: string;
+    /**
+     * Returns the response type.
+     * Can be set to change the response type. Values are:
+     * the empty string (default),
+     * "arraybuffer",
+     * "blob",
+     * "document",
+     * "json", and
+     * "text".
+     * When set: setting to "document" is ignored if current global object is not a Window object.
+     * When set: throws an "InvalidStateError" DOMException if state is loading or done.
+     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
+     */
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
-    readonly responseXML: object | null;
     readonly status: number;
     readonly statusText: string;
+    /**
+     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the
+     * request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a
+     * "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
+     */
     timeout: number;
+    /**
+     * Returns the associated XMLHttpRequestUpload object. It can be used to gather transmission information when data is
+     * transferred to a server.
+     */
     readonly upload: XMLHttpRequestUpload;
+    /**
+     * True when credentials are to be included in a cross-origin request. False when they are
+     * to be excluded in a cross-origin request and when cookies are to be ignored in its response.
+     * Initially false.
+     * When set: throws an "InvalidStateError" DOMException if state is not unsent or opened, or if the send() flag is set.
+     */
     withCredentials: boolean;
+    /**
+     * Cancels any network activity.
+     */
     abort(): void;
     getAllResponseHeaders(): string;
     getResponseHeader(name: string): string | null;
+    /**
+     * Sets the request method, request URL, and synchronous flag.
+     * Throws a "SyntaxError" DOMException if either method is not a
+     * valid HTTP method or url cannot be parsed.
+     * Throws a "SecurityError" DOMException if method is a
+     * case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
+     * Throws an "InvalidAccessError" DOMException if async is false, current global object is a Window object, and the timeout attribute is not zero or the responseType attribute is not the empty string.
+     */
     open(method: string, url: string): void;
     open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
+    /**
+     * Acts as if the `Content-Type` header value for response is mime.
+     * (It does not actually change the header though.)
+     * Throws an "InvalidStateError" DOMException if state is loading or done.
+     */
     overrideMimeType(mime: string): void;
+    /**
+     * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
+     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
+     */
     send(body?: object | BodyInit): void;
+    /**
+     * Combines a header in author request headers.
+     * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
+     * Throws a "SyntaxError" DOMException if name is not a header name
+     * or if value is not a header value.
+     */
     setRequestHeader(name: string, value: string): void;
     readonly DONE: number;
     readonly HEADERS_RECEIVED: number;
@@ -1743,28 +2539,8 @@ declare var XMLHttpRequestUpload: {
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
-interface DecodeErrorCallback {
-    (error: DOMException): void;
-}
-
-interface DecodeSuccessCallback {
-    (decodedData: AudioBuffer): void;
-}
-
-interface ErrorEventHandler {
-    (event: Event | string, source?: string, fileno?: number, columnNumber?: number, error?: Error): void;
-}
-
-interface ForEachCallback {
-    (keyId: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, status: MediaKeyStatus): void;
-}
-
-interface FunctionStringCallback {
-    (data: string): void;
-}
-
-interface NotificationPermissionCallback {
-    (permission: NotificationPermission): void;
+interface EventHandlerNonNull {
+    (event: Event): any;
 }
 
 interface PerformanceObserverCallback {
@@ -1803,46 +2579,24 @@ declare function addEventListener<K extends keyof DedicatedWorkerGlobalScopeEven
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+type BlobPart = BufferSource | Blob | string;
 type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
+type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
+type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type AlgorithmIdentifier = string | Algorithm;
-type AAGUID = string;
-type ByteString = string;
-type CryptoOperationData = ArrayBufferView;
-type GLbitfield = number;
-type GLboolean = boolean;
-type GLbyte = number;
-type GLclampf = number;
-type GLenum = number;
-type GLfloat = number;
-type GLint = number;
-type GLintptr = number;
-type GLshort = number;
-type GLsizei = number;
-type GLsizeiptr = number;
-type GLubyte = number;
-type GLuint = number;
-type GLushort = number;
-type IDBKeyPath = string;
-type USVString = string;
-type payloadtype = number;
 type MessageEventSource = object | MessagePort | ServiceWorker;
 type BinaryType = "blob" | "arraybuffer";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
-type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
-type KeyType = "public" | "private" | "secret";
-type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
-type MediaKeyStatus = "usable" | "expired" | "output-downscaled" | "output-not-allowed" | "status-pending" | "internal-error";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type PushEncryptionKeyName = "p256dh" | "auth";

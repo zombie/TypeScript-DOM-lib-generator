@@ -13,7 +13,7 @@
     "@types/node-fetch": "^1.6.7",
     "@types/webidl2": "^10.2.1",
     "cpx": "^1.5.0",
-    "jsdom": "^11.6.2",
+    "jsdom": "^11.11.0",
     "node-fetch": "^2.1.1",
     "typescript": "next",
     "webidl2": "^10.3.1"

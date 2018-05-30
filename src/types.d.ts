@@ -75,8 +75,7 @@ export interface Event {
     specs?: string;
 }
 
-export interface Method {
-    name: string;
+export interface AnonymousMethod {
     tags?: string;
     static?: 1;
     getter?: 1;
@@ -90,6 +89,10 @@ export interface Method {
     exposed?: string;
     deprecated?: 1;
     signature: Signature[];
+}
+
+export interface Method extends AnonymousMethod {
+    name: string;
 }
 
 export interface CallbackFunction {
@@ -154,7 +157,7 @@ export interface Interface {
     implements?: string[];
     static?: 1;
     "anonymous-methods"?: {
-        method: Method[];
+        method: AnonymousMethod[];
     }
     "anonymous-content-attributes"?: {
         parsedattribute: ParsedAttribute[];
@@ -163,13 +166,14 @@ export interface Interface {
     "named-constructor"?: NamedConstructor;
     "override-builtins"?: 1;
     exposed?: string;
+    "override-exposed"?: string;
     tags?: string;
     "implicit-this"?: 1;
     "primary-global"?: string;
     "no-interface-object"?: 1;
     global?: string;
     "type-parameters"?: string[];
-    "overide-index-signatures"?: string[];
+    "override-index-signatures"?: string[];
     specs?: string;
     iterable?: "value" | "pair" | "pair-iterator";
     iterator?: Iterator;
@@ -177,9 +181,12 @@ export interface Interface {
 }
 
 export interface Iterator {
-    type: "iterable" | "setlike" | "maplike";
+    kind: "iterable" | "setlike" | "maplike";
     readonly: boolean;
-    subtype: Typed[];
+    type: Typed[];
+    comments?: {
+        comment: Record<string, string>
+    };
 }
 
 export interface Enum {

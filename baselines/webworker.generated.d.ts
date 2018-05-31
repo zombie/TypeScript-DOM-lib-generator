@@ -1980,15 +1980,6 @@ declare var Response: {
     redirect(url: string, status?: number): Response;
 };
 
-interface SVGStylable {
-    className: any;
-}
-
-declare var SVGStylable: {
-    prototype: SVGStylable;
-    new(): SVGStylable;
-};
-
 interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
     "statechange": Event;
 }

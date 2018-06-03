@@ -193,6 +193,19 @@
     },
     "interfaces": {
         "interface": {
+            "MediaQueryListListener": {
+                "name": "MediaQueryListListener",
+                "methods": {
+                    "method": {
+                        "listener": {
+                            "name": "listener",
+                            "override-signatures": [
+                                "(mql: MediaQueryListEvent): void"
+                            ]
+                        }
+                    }
+                }
+            },
             "RTCIdentityProviderGlobalScope": {
                 "exposed": "RTCIdentityProviderGlobalScope",
                 "extends": "Object",

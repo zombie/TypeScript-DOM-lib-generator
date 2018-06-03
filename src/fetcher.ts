@@ -25,8 +25,8 @@ async function fetchIDLs() {
 
 async function fetchIDL(source: IDLSource) {
     const response = await fetch(source.url);
-    const dom = new JSDOM(await response.text());
-    const elements = Array.from(dom.window.document.querySelectorAll("pre.idl:not(.extract),code.idl-code"));
+    const dom = JSDOM.fragment(await response.text());
+    const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract),code.idl-code"));
     if (!elements.length) {
         throw new Error("Found no IDL code");
     }
@@ -38,8 +38,8 @@ async function fetchIDL(source: IDLSource) {
     return { idl, comments };
 }
 
-function processComments(dom: JSDOM) {
-    const elements = Array.from(dom.window.document.querySelectorAll("dl.domintro"));
+function processComments(dom: DocumentFragment) {
+    const elements = Array.from(dom.querySelectorAll("dl.domintro"));
     if (!elements.length) {
         return undefined;
     }

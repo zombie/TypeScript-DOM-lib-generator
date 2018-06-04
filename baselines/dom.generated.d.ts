@@ -5902,7 +5902,7 @@ interface HTMLCollectionBase {
     /**
      * Retrieves an object from various collections.
      */
-    item(index: number): Element;
+    item(index: number): Element | null;
     [index: number]: Element;
 }
 

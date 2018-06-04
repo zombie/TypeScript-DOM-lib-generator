@@ -1,0 +1,15 @@
+{
+    "storage-length": "Returns the number of key/value pairs currently present in the list associated with the\nobject.",
+    "storage-key": "Returns the name of the nth key in the list, or null if n is greater\nthan or equal to the number of key/value pairs in the object.",
+    "storage-getitem": "value = storage[key]",
+    "storage-setitem": "storage[key] = value",
+    "storage-removeitem": "delete storage[key]",
+    "storage-clear": "Empties the list associated with the object of all key/value pairs, if there are any.",
+    "sessionstorage": "Returns the Storage object associated with that origin's session storage\narea.",
+    "localstorage": "Returns the Storage object associated with that origin's local storage\narea.\nThrows a \"SecurityError\" DOMException if the\nDocument's origin is an opaque\norigin or if the request violates a policy decision (e.g. if the user agent is\nconfigured to not allow the page to persist data).",
+    "storageevent-key": "Returns the key of the storage item being changed.",
+    "storageevent-oldvalue": "Returns the old value of the key of the storage item whose value is being changed.",
+    "storageevent-newvalue": "Returns the new value of the key of the storage item whose value is being changed.",
+    "storageevent-url": "Returns the URL of the document whose storage item changed.",
+    "storageevent-storagearea": "Returns the Storage object that was affected."
+}

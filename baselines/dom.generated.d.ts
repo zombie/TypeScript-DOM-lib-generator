@@ -1779,6 +1779,14 @@ interface StorageEstimate {
     usage?: number;
 }
 
+interface StorageEventInit extends EventInit {
+    key?: string | null;
+    newValue?: string | null;
+    oldValue?: string | null;
+    storageArea?: Storage | null;
+    url?: string;
+}
+
 interface StoreExceptionsInformation extends ExceptionInformation {
     detailURI?: string | null;
     explanationString?: string | null;
@@ -14078,13 +14086,32 @@ declare var StereoPannerNode: {
 };
 
 interface Storage {
+    /**
+     * Returns the number of key/value pairs currently present in the list associated with the
+     * object.
+     */
     readonly length: number;
+    /**
+     * Empties the list associated with the object of all key/value pairs, if there are any.
+     */
     clear(): void;
+    /**
+     * value = storage[key]
+     */
     getItem(key: string): string | null;
+    /**
+     * Returns the name of the nth key in the list, or null if n is greater
+     * than or equal to the number of key/value pairs in the object.
+     */
     key(index: number): string | null;
+    /**
+     * delete storage[key]
+     */
     removeItem(key: string): void;
+    /**
+     * storage[key] = value
+     */
     setItem(key: string, value: string): void;
-    [key: string]: any;
 }
 
 declare var Storage: {
@@ -14093,25 +14120,32 @@ declare var Storage: {
 };
 
 interface StorageEvent extends Event {
+    /**
+     * Returns the key of the storage item being changed.
+     */
     readonly key: string | null;
+    /**
+     * Returns the new value of the key of the storage item whose value is being changed.
+     */
     readonly newValue: string | null;
+    /**
+     * Returns the old value of the key of the storage item whose value is being changed.
+     */
     readonly oldValue: string | null;
+    /**
+     * Returns the Storage object that was affected.
+     */
     readonly storageArea: Storage | null;
+    /**
+     * Returns the URL of the document whose storage item changed.
+     */
     readonly url: string;
 }
 
 declare var StorageEvent: {
     prototype: StorageEvent;
-    new (type: string, eventInitDict?: StorageEventInit): StorageEvent;
+    new(type: string, eventInitDict?: StorageEventInit): StorageEvent;
 };
-
-interface StorageEventInit extends EventInit {
-    key?: string;
-    newValue?: string;
-    oldValue?: string;
-    storageArea?: Storage;
-    url: string;
-}
 
 interface StorageManager {
     estimate(): Promise<StorageEstimate>;
@@ -17088,6 +17122,8 @@ declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare function fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+declare var sessionStorage: Storage;
+declare var localStorage: Storage;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

@@ -59,13 +59,13 @@ function emitDom() {
     const idlSources = require(path.join(inputFolder, "idlSources.json"));
     const widlStandardTypes = idlSources.map(convertWidl);
 
-    function convertWidl({ title }: { title: string }) {
+    function convertWidl({ title, deprecated }: { title: string; deprecated?: boolean }) {
         const filename = title + ".widl";
         const idl: string = fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" });
         const commentsMapFilePath = path.join(inputFolder, "idl", title + ".commentmap.json");
         const commentsMap: Record<string, string> = fs.existsSync(commentsMapFilePath) ? require(commentsMapFilePath) : {};
-        const result =  convert(idl, commentsMap);
-        if (filename.endsWith(".deprecated.widl")) {
+        const result = convert(idl, commentsMap);
+        if (deprecated) {
             mapToArray(result.browser.interfaces!.interface).forEach(markAsDeprecated);
             result.partialInterfaces.forEach(markAsDeprecated);
         }

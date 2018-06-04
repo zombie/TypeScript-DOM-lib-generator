@@ -213,40 +213,6 @@
                     }
                 }
             },
-            "StorageEventInit": {
-                "name": "StorageEventInit",
-                "exposed": "Window",
-                "extends": "EventInit",
-                "properties": {
-                    "property": {
-                        "key": {
-                            "name": "key",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "oldValue": {
-                            "name": "oldValue",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "newValue": {
-                            "name": "newValue",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "url": {
-                            "name": "url",
-                            "override-type": "string"
-                        },
-                        "storageArea": {
-                            "name": "storageArea",
-                            "override-type": "Storage",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Canvas2DContextAttributes": {
                 "name": "Canvas2DContextAttributes",
                 "exposed": "Window",

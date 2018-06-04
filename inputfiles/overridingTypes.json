@@ -1263,14 +1263,6 @@
                     }
                 }
             },
-            "StorageEvent": {
-                "name": "StorageEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new (type: string, eventInitDict?: StorageEventInit): StorageEvent"
-                    ]
-                }
-            },
             "IDBCursor": {
                 "name": "IDBCursor",
                 "properties": {

@@ -14144,16 +14144,8 @@ interface StorageEvent extends Event {
 
 declare var StorageEvent: {
     prototype: StorageEvent;
-    new (type: string, eventInitDict?: StorageEventInit): StorageEvent;
+    new(type: string, eventInitDict?: StorageEventInit): StorageEvent;
 };
-
-interface StorageEventInit extends EventInit {
-    key?: string;
-    newValue?: string;
-    oldValue?: string;
-    storageArea?: Storage;
-    url: string;
-}
 
 interface StorageManager {
     estimate(): Promise<StorageEstimate>;

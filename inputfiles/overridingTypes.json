@@ -511,19 +511,6 @@
                     }
                 }
             },
-            "HTMLCollection": {
-                "name": "HTMLCollection",
-                "methods": {
-                    "method": {
-                        "item": {
-                            "name": "item",
-                            "override-signatures": [
-                                "item(index: number): Element"
-                            ]
-                        }
-                    }
-                }
-            },
             "IDBObjectStore": {
                 "name": "IDBObjectStore",
                 "methods": {

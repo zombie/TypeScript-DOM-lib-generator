@@ -817,6 +817,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                     if (indexer) {
                         printer.printLine(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType({
                             type: m.signature[0].type,
+                            "override-type": m.signature[0]["override-type"],
                             subtype: m.signature[0].subtype,
                             nullable: undefined
                         })};`);
@@ -1041,8 +1042,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             else return undefined;
         }
 
-        function findLengthProperty(p: Browser.Property) {
-            return p.name === "length" && typeof p.type === "string" && integerTypes.has(p.type);
+        function findLengthProperty(i: Browser.Interface | undefined) {
+            const p = i && i.properties && i.properties.property.length;
+            return p && p.name === "length" && typeof p.type === "string" && integerTypes.has(p.type);
         }
 
         function getIteratorSubtypes() {
@@ -1052,11 +1054,14 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 }
                 return i.iterator.type.map(convertDomTypeToTsType);
             }
-            else if (i.name !== "Window" && i.properties) {
+            else if (i.name !== "Window") {
                 const iterableGetter = findIterableGetter();
-                const lengthProperty = mapToArray(i.properties.property).find(findLengthProperty);
+                const lengthProperty = findLengthProperty(i) || findLengthProperty(allInterfacesMap[i.extends]);
                 if (iterableGetter && lengthProperty) {
-                    return [convertDomTypeToTsType({ type: iterableGetter.signature[0].type })];
+                    return [convertDomTypeToTsType({ 
+                        type: iterableGetter.signature[0].type,
+                        "override-type": iterableGetter.signature[0]["override-type"]
+                    })];
                 }
             }
         }

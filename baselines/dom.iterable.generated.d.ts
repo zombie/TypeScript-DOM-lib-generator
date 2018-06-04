@@ -67,9 +67,6 @@ interface HTMLCollectionBase {
 
 interface HTMLCollectionOf<T extends Element> {
     [Symbol.iterator](): IterableIterator<T>;
-    entries(): IterableIterator<[number, T]>;
-    keys(): IterableIterator<number>;
-    values(): IterableIterator<T>;
 }
 
 interface HTMLSelectElement {

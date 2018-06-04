@@ -5910,7 +5910,7 @@ interface HTMLCollectionBase {
     /**
      * Retrieves an object from various collections.
      */
-    item(index: number): Element;
+    item(index: number): Element | null;
     [index: number]: Element;
 }
 
@@ -5927,9 +5927,8 @@ declare var HTMLCollection: {
 };
 
 interface HTMLCollectionOf<T extends Element> extends HTMLCollectionBase {
-    item(index: number): T;
-    namedItem(name: string): T;
-    forEach(callbackfn: (value: T, key: number, parent: HTMLCollectionOf<T>) => void, thisArg?: any): void;
+    item(index: number): T | null;
+    namedItem(name: string): T | null;
     [index: number]: T;
 }
 

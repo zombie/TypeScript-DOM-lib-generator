@@ -5919,9 +5919,8 @@ declare var HTMLCollection: {
 };
 
 interface HTMLCollectionOf<T extends Element> extends HTMLCollectionBase {
-    item(index: number): T;
-    namedItem(name: string): T;
-    forEach(callbackfn: (value: T, key: number, parent: HTMLCollectionOf<T>) => void, thisArg?: any): void;
+    item(index: number): T | null;
+    namedItem(name: string): T | null;
     [index: number]: T;
 }
 

@@ -472,29 +472,31 @@
                 "methods": {
                     "method": {
                         "item": {
-                            "name": "item",
-                            "override-signatures": [
-                                "item(index: number): T"
-                            ]
+                            "getter": 1,
+                            "signature": [
+                                {
+                                    "nullable": 1,
+                                    "override-type": "T",
+                                    "param": [
+                                        {
+                                            "name": "index",
+                                            "type": "unsigned long"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "specs": "html5",
+                            "name": "item"
                         },
                         "namedItem": {
                             "name": "namedItem",
                             "override-signatures": [
-                                "namedItem(name: string): T"
+                                "namedItem(name: string): T | null"
                             ]
                         }
                     }
                 },
-                "no-interface-object": "1",
-                "override-index-signatures": [
-                    "[index: number]: T"
-                ],
-                "iterator": {
-                    "kind": "iterable",
-                    "type": [{
-                        "override-type": "T"
-                    }]
-                }
+                "no-interface-object": "1"
             },
             "EventListenerObject": {
                 "name": "EventListenerObject",

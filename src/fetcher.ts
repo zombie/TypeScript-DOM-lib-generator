@@ -15,8 +15,7 @@ async function fetchIDLs() {
     const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
     await Promise.all(idlSources.map(async source => {
         const { idl, comments } = await fetchIDL(source);
-        const title = source.deprecated ? `${source.title}.deprecated` : source.title;
-        fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${title}.widl`), idl + '\n');
+        fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');
         if (comments) {
             fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.commentmap.json`), comments + '\n');
         }

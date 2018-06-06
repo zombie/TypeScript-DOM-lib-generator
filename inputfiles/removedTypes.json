@@ -24,7 +24,6 @@
     },
     "interfaces": {
         "interface": {
-            "MediaQueryListListener": null,
             "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {
@@ -39,6 +38,7 @@
             "HTMLHRElement": {
                 "implements": null
             },
+            "MediaQueryListListener": null,
             "MSStreamReader": null,
             "StorageEvent": {
                 "methods": {

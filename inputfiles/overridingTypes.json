@@ -496,17 +496,19 @@
                             "type": "boolean"
                         },
                         "parentNode": {
-                            "name": "parentNode",
-                            "read-only": 1,
-                            "override-type": "Node | null"
+                            "override-type": "Node & ParentNode | null"
                         },
                         "parentElement": {
-                            "name": "parentElement",
-                            "read-only": 1,
-                            "override-type": "HTMLElement | null"
+                            "override-type": "Element | null"
                         },
                         "childNodes": {
                             "override-type": "NodeListOf<Node & ChildNode>"
+                        },
+                        "firstChild": {
+                            "override-type": "Node & ChildNode | null"
+                        },
+                        "lastChild": {
+                            "override-type": "Node & ChildNode | null"
                         }
                     }
                 }

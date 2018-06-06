@@ -193,6 +193,10 @@
     },
     "interfaces": {
         "interface": {
+            "MediaQueryList": {
+                "name": "MediaQueryList",
+                "extends": "EventTarget"
+            },
             "RTCIdentityProviderGlobalScope": {
                 "exposed": "RTCIdentityProviderGlobalScope",
                 "extends": "Object",

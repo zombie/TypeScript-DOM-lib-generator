@@ -9815,7 +9815,7 @@ declare var MediaList: {
     new(): MediaList;
 };
 
-interface MediaQueryList {
+interface MediaQueryList extends EventTarget {
     readonly matches: boolean;
     readonly media: string;
     addListener(listener: MediaQueryListListener): void;

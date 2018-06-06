@@ -38,6 +38,7 @@
             "HTMLHRElement": {
                 "implements": null
             },
+            "MediaQueryListListener": null,
             "MSStreamReader": null,
             "StorageEvent": {
                 "methods": {

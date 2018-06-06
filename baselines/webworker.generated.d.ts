@@ -1511,25 +1511,6 @@ declare var ImageData: {
     new(array: Uint8ClampedArray, width: number, height: number): ImageData;
 };
 
-interface MediaQueryListEvent extends Event {
-    readonly matches: boolean;
-    readonly media: string;
-}
-
-declare var MediaQueryListEvent: {
-    prototype: MediaQueryListEvent;
-    new(init: {matches: boolean, media: string}): MediaQueryListEvent;
-};
-
-interface MediaQueryListListener {
-    (mql: MediaQueryListEvent): void;
-}
-
-declare var MediaQueryListListener: {
-    prototype: MediaQueryListListener;
-    new(): MediaQueryListListener;
-};
-
 interface MessageChannel {
     readonly port1: MessagePort;
     readonly port2: MessagePort;

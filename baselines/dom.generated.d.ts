@@ -4843,7 +4843,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
-    createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
     createEvent(eventInterface: "MediaStreamErrorEvent"): MediaStreamErrorEvent;
     createEvent(eventInterface: "MediaStreamEvent"): MediaStreamEvent;
     createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
@@ -9809,7 +9808,7 @@ declare var MediaList: {
     new(): MediaList;
 };
 
-interface MediaQueryList {
+interface MediaQueryList extends EventTarget {
     readonly matches: boolean;
     readonly media: string;
     addListener(listener: MediaQueryListListener): void;
@@ -9819,25 +9818,6 @@ interface MediaQueryList {
 declare var MediaQueryList: {
     prototype: MediaQueryList;
     new(): MediaQueryList;
-};
-
-interface MediaQueryListEvent extends Event {
-    readonly matches: boolean;
-    readonly media: string;
-}
-
-declare var MediaQueryListEvent: {
-    prototype: MediaQueryListEvent;
-    new(init: {matches: boolean, media: string}): MediaQueryListEvent;
-};
-
-interface MediaQueryListListener {
-    (mql: MediaQueryListEvent): void;
-}
-
-declare var MediaQueryListListener: {
-    prototype: MediaQueryListListener;
-    new(): MediaQueryListListener;
 };
 
 interface MediaSource extends EventTarget {

@@ -63,29 +63,6 @@
     },
     "interfaces": {
         "interface": {
-            "MediaQueryListEvent": {
-                "constructor": {
-                    "override-signatures": [
-                        "new(init: {matches: boolean, media: string}): MediaQueryListEvent"
-                    ]
-                },
-                "properties": {
-                    "property": {
-                        "matches": {
-                            "name": "matches",
-                            "type": "boolean",
-                            "read-only": 1
-                        },
-                        "media": {
-                            "name": "media",
-                            "type": "DOMString",
-                            "read-only": 1
-                        }
-                    }
-                },
-                "name": "MediaQueryListEvent",
-                "extends": "Event"
-            },
             "RTCError": {
                 "specs": "webrtc",
                 "constructor": {

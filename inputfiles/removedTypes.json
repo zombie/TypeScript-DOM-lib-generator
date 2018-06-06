@@ -24,6 +24,7 @@
     },
     "interfaces": {
         "interface": {
+            "MediaQueryListListener": null,
             "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {

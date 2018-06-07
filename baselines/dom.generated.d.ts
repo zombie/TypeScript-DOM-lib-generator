@@ -422,7 +422,7 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: object | ServiceWorker | MessagePort;
+    source?: object | ServiceWorker | MessagePort | null;
 }
 
 interface FetchEventInit extends ExtendableEventInit {
@@ -501,7 +501,7 @@ interface IDBIndexParameters {
 
 interface IDBObjectStoreParameters {
     autoIncrement?: boolean;
-    keyPath?: string | string[];
+    keyPath?: string | string[] | null;
 }
 
 interface IDBVersionChangeEventInit extends EventInit {
@@ -1250,7 +1250,7 @@ interface PushSubscriptionJSON {
 }
 
 interface PushSubscriptionOptionsInit {
-    applicationServerKey?: BufferSource | string;
+    applicationServerKey?: BufferSource | string | null;
     userVisibleOnly?: boolean;
 }
 
@@ -7699,7 +7699,7 @@ interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
      * This method will throw a "HierarchyRequestError" DOMException if
      * element is an ancestor of the element into which it is to be inserted.
      */
-    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number): void;
+    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number | null): void;
     /**
      * Removes the item with index index from the collection.
      */
@@ -7964,7 +7964,7 @@ interface HTMLSelectElement extends HTMLElement {
      * @param element Variant of type Number that specifies the index position in the collection where the element is placed. If no value is given, the method places the element at the end of the collection.
      * @param before Variant of type Object that specifies an element to insert before, or null to append the object to the collection.
      */
-    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number): void;
+    add(element: HTMLOptionElement | HTMLOptGroupElement, before?: HTMLElement | number | null): void;
     /**
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
@@ -16414,7 +16414,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
-    send(body?: Document | BodyInit): void;
+    send(body?: Document | BodyInit | null): void;
     /**
      * Combines a header in author request headers.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.

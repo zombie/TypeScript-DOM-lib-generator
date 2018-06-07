@@ -256,7 +256,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             else {
                 type = {
                     name: types.map(t => t.name).join(" | "),
-                    nullable: !!types.find(t => t.nullable)
+                    nullable: !!types.find(t => t.nullable) || !!obj.nullable
                 };
             }
         }

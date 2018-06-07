@@ -109,7 +109,7 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: Client | ServiceWorker | MessagePort;
+    source?: Client | ServiceWorker | MessagePort | null;
 }
 
 interface FetchEventInit extends ExtendableEventInit {
@@ -135,7 +135,7 @@ interface IDBIndexParameters {
 
 interface IDBObjectStoreParameters {
     autoIncrement?: boolean;
-    keyPath?: string | string[];
+    keyPath?: string | string[] | null;
 }
 
 interface IDBVersionChangeEventInit extends EventInit {
@@ -221,7 +221,7 @@ interface PushSubscriptionJSON {
 }
 
 interface PushSubscriptionOptionsInit {
-    applicationServerKey?: BufferSource | string;
+    applicationServerKey?: BufferSource | string | null;
     userVisibleOnly?: boolean;
 }
 
@@ -2458,7 +2458,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
-    send(body?: object | BodyInit): void;
+    send(body?: object | BodyInit | null): void;
     /**
      * Combines a header in author request headers.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.

@@ -13760,6 +13760,7 @@ interface Screen extends EventTarget {
     readonly logicalYDPI: number;
     readonly msOrientation: string;
     onmsorientationchange: ((this: Screen, ev: Event) => any) | null;
+    readonly orientation: ScreenOrientation;
     readonly pixelDepth: number;
     readonly systemXDPI: number;
     readonly systemYDPI: number;
@@ -13777,6 +13778,27 @@ interface Screen extends EventTarget {
 declare var Screen: {
     prototype: Screen;
     new(): Screen;
+};
+
+interface ScreenOrientationEventMap {
+    "change": Event;
+}
+
+interface ScreenOrientation extends EventTarget {
+    readonly angle: number;
+    onchange: ((this: ScreenOrientation, ev: Event) => any) | null;
+    readonly type: OrientationType;
+    lock(orientation: OrientationLockType): Promise<void>;
+    unlock(): void;
+    addEventListener<K extends keyof ScreenOrientationEventMap>(type: K, listener: (this: ScreenOrientation, ev: ScreenOrientationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof ScreenOrientationEventMap>(type: K, listener: (this: ScreenOrientation, ev: ScreenOrientationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var ScreenOrientation: {
+    prototype: ScreenOrientation;
+    new(): ScreenOrientation;
 };
 
 interface ScriptProcessorNodeEventMap {
@@ -17225,6 +17247,8 @@ type NavigationReason = "up" | "down" | "left" | "right";
 type NavigationType = "navigate" | "reload" | "back_forward" | "prerender";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
+type OrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
+type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 type OscillatorType = "sine" | "square" | "sawtooth" | "triangle" | "custom";
 type OverSampleType = "none" | "2x" | "4x";
 type PanningModelType = "equalpower" | "HRTF";

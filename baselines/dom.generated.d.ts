@@ -13765,10 +13765,6 @@ interface Screen extends EventTarget {
     readonly systemXDPI: number;
     readonly systemYDPI: number;
     readonly width: number;
-    lockOrientation(orientations: OrientationLockType | OrientationLockType[]): boolean;
-    msLockOrientation(orientations: string | string[]): boolean;
-    msUnlockOrientation(): void;
-    unlockOrientation(): void;
     addEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -17165,7 +17161,6 @@ type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
-type OrientationLockType = "any" | "natural" | "portrait" | "landscape" | "portrait-primary" | "portrait-secondary" | "landscape-primary"| "landscape-secondary";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
 type MutationRecordType = "attributes" | "characterData" | "childList";

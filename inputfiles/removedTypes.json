@@ -40,6 +40,14 @@
             },
             "MediaQueryListListener": null,
             "MSStreamReader": null,
+            "Screen": {
+                "methods": {
+                    "method": {
+                        "msLockOrientation": null,
+                        "msUnlockOrientation": null
+                    }
+                }
+            },
             "StorageEvent": {
                 "methods": {
                     "method": {

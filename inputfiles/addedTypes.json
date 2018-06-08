@@ -2229,6 +2229,10 @@
                             "name": "channel",
                             "override-type": "string",
                             "required": 0
+                        },
+                        "source": {
+                            "name": "source",
+                            "type": "MessageEventSource"
                         }
                     }
                 }

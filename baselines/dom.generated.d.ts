@@ -1006,7 +1006,7 @@ interface MessageEventInit extends EventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: Window | null;
+    source?: MessageEventSource | null;
 }
 
 interface MouseEventInit extends EventModifierInit {
@@ -3393,10 +3393,8 @@ interface Console {
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
-    msIsIndependentlyComposed(element: Element): boolean;
     profile(reportName?: string): void;
     profileEnd(): void;
-    select(element: Element): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;
@@ -5173,7 +5171,6 @@ interface Event {
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly srcElement: Element | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;
@@ -9997,7 +9994,6 @@ interface MessageEvent extends Event {
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
     readonly source: MessageEventSource;
-    initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: Window): void;
 }
 
 declare var MessageEvent: {

@@ -7058,7 +7058,6 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
     /** @deprecated */
     charset: string;
     crossOrigin: string | null;
-    /** @deprecated */
     disabled: boolean;
     /**
      * Sets or retrieves a destination URL or an anchor point.

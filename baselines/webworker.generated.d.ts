@@ -2472,7 +2472,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
-    send(body?: BodyInit): void;
+    send(body?: BodyInit | null): void;
     /**
      * Combines a header in author request headers.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.

@@ -61,7 +61,7 @@ function filterTypedefs(typedefs: Browser.TypeDef[], unexposedTypes: Set<string>
                 removed.add(typedef["new-type"]);
             }
             else {
-                exposed.push({ ...typedef, ...typesAsMixin(filteredType) });
+                exposed.push({ ...typedef, type: flattenType(filteredType) });
             }
         }
         else if (unexposedTypes.has(typedef.type)) {
@@ -97,7 +97,7 @@ function deepFilterUnexposedTypes(webidl: Browser.WebIdl, unexposedTypes: Set<st
             const types = Array.isArray(p.type) ? p.type : [p];
             const filtered = filterUnexposedTypeFromUnion(types, unexposedTypes);
             if (filtered.length >= 1) {
-                param.push({ ...p, ...typesAsMixin(filtered) });
+                param.push({ ...p, type: flattenType(filtered) });
             }
             else if (!p.optional) {
                 throw new Error("A non-optional parameter has unknown type");
@@ -117,7 +117,7 @@ function filterUnexposedTypeFromUnion(union: Browser.Typed[], unexposedTypes: Se
         if (Array.isArray(type.type)) {
             const filteredUnion = filterUnexposedTypeFromUnion(type.type, unexposedTypes);
             if (filteredUnion.length) {
-                result.push({ ...type, ...typesAsMixin(filteredUnion) });
+                result.push({ ...type, type: flattenType(filteredUnion) });
             }
         }
         else if (type["override-type"] || !unexposedTypes.has(type.type)) {
@@ -145,12 +145,12 @@ function deepClone<T>(o: T, custom: (o: any) => any): T {
     return clone;
 }
 
-function typesAsMixin(type: Browser.Typed[]) {
+function flattenType(type: Browser.Typed[]) {
     if (type.length > 1) {
-        return { type };
+        return type;
     }
     else if (type.length === 1) {
-        return type[0];
+        return type[0].type;
     }
     throw new Error("Cannot process empty union type");
 }

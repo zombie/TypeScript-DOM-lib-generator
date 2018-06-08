@@ -2123,25 +2123,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "Screen": {
-                "name": "Screen",
-                "methods": {
-                    "method": {
-                        "lockOrientation": {
-                            "name": "lockOrientation",
-                            "override-signatures": [
-                                "lockOrientation(orientations: OrientationLockType | OrientationLockType[]): boolean"
-                            ]
-                        },
-                        "unlockOrientation": {
-                            "name": "unlockOrientation",
-                            "override-signatures": [
-                                "unlockOrientation(): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2383,10 +2364,6 @@
             {
                 "override-type": "Headers | string[][] | Record<string, string>",
                 "new-type": "HeadersInit"
-            },
-            {
-                "override-type": "\"any\" | \"natural\" | \"portrait\" | \"landscape\" | \"portrait-primary\" | \"portrait-secondary\" | \"landscape-primary\"| \"landscape-secondary\"",
-                "new-type": "OrientationLockType"
             },
             {
                 "override-type": "number | string | Date | BufferSource | IDBArrayKey",

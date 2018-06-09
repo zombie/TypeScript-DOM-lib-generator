@@ -1,5 +1,10 @@
 [
     {
+        "url": "https://compat.spec.whatwg.org/",
+        "title": "Compatibility",
+        "deprecated": true
+    },
+    {
         "url": "https://www.w3.org/TR/css-animations-1/",
         "title": "CSS Animations"
     },

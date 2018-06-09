@@ -5772,6 +5772,7 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     link: string;
     /** @deprecated */
     noWrap: boolean;
+    /** @deprecated */
     onorientationchange: ((this: HTMLBodyElement, ev: Event) => any) | null;
     onresize: ((this: HTMLBodyElement, ev: UIEvent) => any) | null;
     /** @deprecated */
@@ -16090,6 +16091,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onmspointerup: ((this: Window, ev: Event) => any) | null;
     onoffline: ((this: Window, ev: Event) => any) | null;
     ononline: ((this: Window, ev: Event) => any) | null;
+    /** @deprecated */
     onorientationchange: ((this: Window, ev: Event) => any) | null;
     onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
     onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
@@ -16124,6 +16126,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
     onwaiting: ((this: Window, ev: Event) => any) | null;
     opener: any;
+    /** @deprecated */
     readonly orientation: string | number;
     readonly outerHeight: number;
     readonly outerWidth: number;
@@ -17001,6 +17004,7 @@ declare var onmspointerover: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerup: ((this: Window, ev: Event) => any) | null;
 declare var onoffline: ((this: Window, ev: Event) => any) | null;
 declare var ononline: ((this: Window, ev: Event) => any) | null;
+/** @deprecated */
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
 declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
 declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
@@ -17035,6 +17039,7 @@ declare var onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) |
 declare var onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
 declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var opener: any;
+/** @deprecated */
 declare var orientation: string | number;
 declare var outerHeight: number;
 declare var outerWidth: number;

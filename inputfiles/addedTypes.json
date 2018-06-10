@@ -2123,6 +2123,41 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLAnchorElement": {
+                "element": [
+                    {
+                        "name": "a"
+                    }
+                ]
+            },
+            "HTMLBRElement": {
+                "element": [
+                    {
+                        "name": "br"
+                    }
+                ]
+            },
+            "HTMLDataElement": {
+                "element": [
+                    {
+                        "name": "data"
+                    }
+                ]
+            },
+            "HTMLSpanElement": {
+                "element": [
+                    {
+                        "name": "span"
+                    }
+                ]
+            },
+            "HTMLTimeElement": {
+                "element": [
+                    {
+                        "name": "time"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",

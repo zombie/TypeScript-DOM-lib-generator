@@ -5525,7 +5525,6 @@ declare var HTMLAllCollection: {
 };
 
 interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
-    Methods: string;
     /**
      * Sets or retrieves the character set used to encode the object.
      */
@@ -5541,14 +5540,13 @@ interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
      * Sets or retrieves the language code of the object.
      */
     hreflang: string;
-    readonly mimeType: string;
     /**
      * Sets or retrieves the shape of the object.
      */
     /** @deprecated */
     name: string;
-    readonly nameProp: string;
-    readonly protocolLong: string;
+    ping: string;
+    referrerPolicy: string;
     /**
      * Sets or retrieves the relationship between the object and the destination of the link.
      */
@@ -5573,7 +5571,6 @@ interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
      */
     text: string;
     type: string;
-    urn: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLAnchorElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLAnchorElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

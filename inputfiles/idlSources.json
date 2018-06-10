@@ -49,6 +49,10 @@
         "deprecated": true
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/text-level-semantics.html",
+        "title": "HTML - Text level semantics"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/webstorage.html",
         "title": "HTML - Web storage"
     },

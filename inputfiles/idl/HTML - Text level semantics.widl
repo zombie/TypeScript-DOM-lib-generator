@@ -1,0 +1,36 @@
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLAnchorElement : HTMLElement {
+  [CEReactions] attribute DOMString target;
+  [CEReactions] attribute DOMString download;
+  [CEReactions] attribute USVString ping;
+  [CEReactions] attribute DOMString rel;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [CEReactions] attribute DOMString hreflang;
+  [CEReactions] attribute DOMString type;
+
+  [CEReactions] attribute DOMString text;
+
+  [CEReactions] attribute DOMString referrerPolicy;
+};
+HTMLAnchorElement includes HTMLHyperlinkElementUtils;
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLDataElement : HTMLElement {
+  [CEReactions] attribute DOMString value;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLTimeElement : HTMLElement {
+  [CEReactions] attribute DOMString dateTime;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLSpanElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLBRElement : HTMLElement {};

@@ -36,12 +36,24 @@
         "title": "HTML - Common DOM interfaces"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/edits.html",
+        "title": "HTML - Edits"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/embedded-content.html",
+        "title": "HTML - Embedded content"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html",
         "title": "HTML - Form control infrastructure"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/form-elements.html",
         "title": "HTML - Form elements"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/links.html",
+        "title": "HTML - Links"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",

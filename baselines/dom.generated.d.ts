@@ -6605,12 +6605,13 @@ interface HTMLHyperlinkElementUtils {
     host: string;
     hostname: string;
     href: string;
-    origin: string;
+    readonly origin: string;
+    password: string;
     pathname: string;
     port: string;
     protocol: string;
     search: string;
-    toString(): string;
+    username: string;
 }
 
 interface HTMLIFrameElementEventMap extends HTMLElementEventMap {
@@ -6733,19 +6734,6 @@ interface HTMLImageElement extends HTMLElement {
     /** @deprecated */
     lowsrc: string;
     /**
-     * Gets or sets whether the DLNA PlayTo device is available.
-     */
-    msPlayToDisabled: boolean;
-    msPlayToPreferredSourceUri: string;
-    /**
-     * Gets or sets the primary DLNA PlayTo device.
-     */
-    msPlayToPrimary: boolean;
-    /**
-     * Gets the source associated with the media element for use by the PlayToManager.
-     */
-    readonly msPlayToSource: any;
-    /**
      * Sets or retrieves the name of the object.
      */
     /** @deprecated */
@@ -6758,6 +6746,7 @@ interface HTMLImageElement extends HTMLElement {
      * The original width of the image resource before sizing.
      */
     readonly naturalWidth: number;
+    referrerPolicy: string;
     sizes: string;
     /**
      * The address or URL of the a media resource that is to be considered.
@@ -6777,9 +6766,7 @@ interface HTMLImageElement extends HTMLElement {
      * Sets or retrieves the width of the object.
      */
     width: number;
-    readonly x: number;
-    readonly y: number;
-    msGetAsCastingSource(): any;
+    decode(): Promise<void>;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLImageElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLImageElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -8014,8 +8001,6 @@ interface HTMLSourceElement extends HTMLElement {
      * Gets or sets the intended media type of the media source.
      */
     media: string;
-    /** @deprecated */
-    msKeySystem: string;
     sizes: string;
     /**
      * The address or URL of the a media resource that is to be considered.

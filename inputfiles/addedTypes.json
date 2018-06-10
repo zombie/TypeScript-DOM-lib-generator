@@ -180,7 +180,12 @@
                             "override-type": "\"async\" | \"sync\" | \"auto\""
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "img"
+                    }
+                ]
             },
             "BroadcastChannelEventMap": {
                 "name": "BroadcastChannelEventMap",
@@ -2141,6 +2146,30 @@
                 "element": [
                     {
                         "name": "data"
+                    }
+                ]
+            },
+            "HTMLModElement": {
+                "element": [
+                    {
+                        "name": "del"
+                    },
+                    {
+                        "name": "ins"
+                    }
+                ]
+            },
+            "HTMLPictureElement": {
+                "element": [
+                    {
+                        "name": "picture"
+                    }
+                ]
+            },
+            "HTMLSourceElement": {
+                "element": [
+                    {
+                        "name": "source"
                     }
                 ]
             },

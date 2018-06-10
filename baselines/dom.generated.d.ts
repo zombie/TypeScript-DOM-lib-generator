@@ -6556,8 +6556,6 @@ declare var HTMLHRElement: {
 };
 
 interface HTMLHeadElement extends HTMLElement {
-    /** @deprecated */
-    profile: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7052,13 +7050,13 @@ declare var HTMLLegendElement: {
 };
 
 interface HTMLLinkElement extends HTMLElement, LinkStyle {
+    as: string;
     /**
      * Sets or retrieves the character set used to encode the object.
      */
     /** @deprecated */
     charset: string;
     crossOrigin: string | null;
-    disabled: boolean;
     /**
      * Sets or retrieves a destination URL or an anchor point.
      */
@@ -7067,12 +7065,12 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
      * Sets or retrieves the language code of the object.
      */
     hreflang: string;
-    import?: Document;
     integrity: string;
     /**
      * Sets or retrieves the media type.
      */
     media: string;
+    referrerPolicy: string;
     /**
      * Sets or retrieves the relationship between the object and the destination of the link.
      */
@@ -7083,6 +7081,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
      */
     /** @deprecated */
     rev: string;
+    readonly sizes: DOMTokenList;
     /**
      * Sets or retrieves the window or frame at which to target content.
      */
@@ -7398,11 +7397,6 @@ declare var HTMLMenuElement: {
 
 interface HTMLMetaElement extends HTMLElement {
     /**
-     * Sets or retrieves the character set used to encode the object.
-     */
-    /** @deprecated */
-    charset: string;
-    /**
      * Gets or sets meta-information to associate with httpEquiv or name.
      */
     content: string;
@@ -7419,11 +7413,6 @@ interface HTMLMetaElement extends HTMLElement {
      */
     /** @deprecated */
     scheme: string;
-    /**
-     * Sets or retrieves the URL property that will be loaded after the specified time has elapsed.
-     */
-    /** @deprecated */
-    url: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMetaElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMetaElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -8053,8 +8042,6 @@ declare var HTMLSpanElement: {
 };
 
 interface HTMLStyleElement extends HTMLElement, LinkStyle {
-    /** @deprecated */
-    disabled: boolean;
     /**
      * Sets or retrieves the media type.
      */

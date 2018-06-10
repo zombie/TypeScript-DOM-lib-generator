@@ -235,23 +235,6 @@
                     }
                 }
             },
-            "HTMLLinkElement": {
-                "name": "HTMLLinkElement",
-                "properties": {
-                    "property": {
-                        "disabled":{
-                            "deprecated": 0,
-                            "name": "disabled",
-                            "type": "boolean"
-                        },
-                        "relList": {
-                            "read-only": 1,
-                            "name": "relList",
-                            "type": "DOMTokenList"
-                        }
-                    }
-                }
-            },
             "SourceBuffer": {
                 "specs": "media-source",
                 "name": "SourceBuffer",

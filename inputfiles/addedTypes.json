@@ -713,18 +713,6 @@
                     }
                 }
             },
-            "HTMLLinkElement": {
-                "name": "HTMLLinkElement",
-                "properties": {
-                    "property": {
-                        "import": {
-                            "name": "import",
-                            "override-type": "Document",
-                            "required": 0
-                        }
-                    }
-                }
-            },
             "HTMLCanvasElement": {
                 "name": "HTMLCanvasElement",
                 "methods": {
@@ -2123,6 +2111,48 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLBaseElement": {
+                "element": [
+                    {
+                        "name": "base"
+                    }
+                ]
+            },
+            "HTMLHeadElement": {
+                "element": [
+                    {
+                        "name": "head"
+                    }
+                ]
+            },
+            "HTMLHtmlElement": {
+                "element": [
+                    {
+                        "name": "html"
+                    }
+                ]
+            },
+            "HTMLLinkElement": {
+                "element": [
+                    {
+                        "name": "link"
+                    }
+                ]
+            },
+            "HTMLMetaElement": {
+                "element": [
+                    {
+                        "name": "meta"
+                    }
+                ]
+            },
+            "HTMLStyleElement": {
+                "element": [
+                    {
+                        "name": "style"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2150,6 +2180,13 @@
                 "element": [
                     {
                         "name": "th"
+                    }
+                ]
+            },
+            "HTMLTitleElement": {
+                "element": [
+                    {
+                        "name": "title"
                     }
                 ]
             },

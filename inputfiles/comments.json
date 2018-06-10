@@ -265,14 +265,8 @@
                         "content": {
                             "comment": "/**\r\n     * Gets or sets meta-information to associate with httpEquiv or name.\r\n     */"
                         },
-                        "url": {
-                            "comment": "/**\r\n     * Sets or retrieves the URL property that will be loaded after the specified time has elapsed.\r\n     */"
-                        },
                         "scheme": {
                             "comment": "/**\r\n     * Sets or retrieves a scheme to be used in interpreting the value of a property specified for the object.\r\n     */"
-                        },
-                        "charset": {
-                            "comment": "/**\r\n     * Sets or retrieves the character set used to encode the object.\r\n     */"
                         }
                     }
                 }

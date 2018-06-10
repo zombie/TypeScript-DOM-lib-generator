@@ -1517,9 +1517,6 @@
                     "property": {
                         "align": {
                             "comment": "/**\r\n     * Sets or retrieves how the object is aligned with adjacent text.\r\n     */"
-                        },
-                        "noWrap": {
-                            "comment": "/**\r\n     * Sets or retrieves whether the browser automatically performs wordwrap.\r\n     */"
                         }
                     }
                 }

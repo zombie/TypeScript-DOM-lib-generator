@@ -2123,6 +2123,80 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLDivElement": {
+                "element": [
+                    {
+                        "name": "div"
+                    }
+                ]
+            },
+            "HTMLDListElement": {
+                "element": [
+                    {
+                        "name": "dl"
+                    }
+                ]
+            },
+            "HTMLHRElement": {
+                "element": [
+                    {
+                        "name": "hr"
+                    }
+                ]
+            },
+            "HTMLLIElement": {
+                "element": [
+                    {
+                        "name": "li"
+                    }
+                ]
+            },
+            "HTMLMenuElement": {
+                "element": [
+                    {
+                        "name": "menu"
+                    }
+                ]
+            },
+            "HTMLOListElement": {
+                "element": [
+                    {
+                        "name": "ol"
+                    }
+                ]
+            },
+            "HTMLParagraphElement": {
+                "element": [
+                    {
+                        "name": "p"
+                    }
+                ]
+            },
+            "HTMLPreElement": {
+                "element": [
+                    {
+                        "name": "pre"
+                    },
+                    {
+                        "name": "listing",
+                        "deprecated": true
+                    },
+                    {
+                        "name": "xmp",
+                        "deprecated": true
+                    }
+                ]
+            },
+            "HTMLQuoteElement": {
+                "element": [
+                    {
+                        "name": "blockquote"
+                    },
+                    {
+                        "name": "q"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2150,6 +2224,13 @@
                 "element": [
                     {
                         "name": "th"
+                    }
+                ]
+            },
+            "HTMLUListElement": {
+                "element": [
+                    {
+                        "name": "ul"
                     }
                 ]
             },

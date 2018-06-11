@@ -763,17 +763,6 @@
                 "extends": "Array<IDBValidKey>",
                 "no-interface-object": "1"
             },
-            "HTMLInputElement": {
-                "name": "HTMLInputElement",
-                "properties": {
-                    "property": {
-                        "minLength": {
-                            "name": "minLength",
-                            "override-type": "number"
-                        }
-                    }
-                }
-            },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
                 "properties": {
@@ -1516,20 +1505,6 @@
                     }
                 }
             },
-            "HTMLFormElement": {
-                "name": "HTMLFormElement",
-                "methods": {
-                    "method": {
-                        "reportValidity": {
-                            "name": "reportValidity",
-                            "exposed": "Window",
-                            "override-signatures": [
-                                "reportValidity(): boolean"
-                            ]
-                        }
-                    }
-                }
-            },
             "OES_vertex_array_object": {
                 "name": "OES_vertex_array_object",
                 "exposed": "Window",
@@ -2022,18 +1997,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLLabelElement": {
-                "name": "HTMLLabelElement",
-                "properties": {
-                    "property": {
-                        "control": {
-                            "name": "control",
-                            "read-only": 1,
-                            "override-type": "HTMLInputElement | null"
-                        }
-                    }
-                }
-            },
             "HTMLObjectElement": {
                 "name": "HTMLObjectElement",
                 "properties": {
@@ -2123,6 +2086,68 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLAreaElement": {
+                "element": [
+                    {
+                        "name": "area"
+                    }
+                ]
+            },
+            "HTMLFormElement": {
+                "element": [
+                    {
+                        "name": "form"
+                    }
+                ]
+            },
+            "HTMLInputElement": {
+                "element": [
+                    {
+                        "name": "input"
+                    }
+                ]
+            },
+            "HTMLLabelElement": {
+                "element": [
+                    {
+                        "name": "label"
+                    }
+                ]
+            },
+            "HTMLMapElement": {
+                "element": [
+                    {
+                        "name": "map"
+                    }
+                ]
+            },
+            "HTMLTableCaptionElement": {
+                "element": [
+                    {
+                        "name": "caption"
+                    }
+                ]  
+            },
+            "HTMLTableCellElement": {
+                "element": [
+                    {
+                        "name": "td"
+                    },
+                    {
+                        "name": "th"
+                    }
+                ]  
+            },
+            "HTMLTableColElement": {
+                "element": [
+                    {
+                        "name": "col"
+                    },
+                    {
+                        "name": "colgroup"
+                    }
+                ]  
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2134,6 +2159,13 @@
                         "name": "td"
                     }
                 ]
+            },
+            "HTMLTableElement": {
+                "element": [
+                    {
+                        "name": "table"
+                    }
+                ]  
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
@@ -2152,6 +2184,26 @@
                         "name": "th"
                     }
                 ]
+            },
+            "HTMLTableRowElement": {
+                "element": [
+                    {
+                        "name": "tr"
+                    }
+                ]  
+            },
+            "HTMLTableSectionElement": {
+                "element": [
+                    {
+                        "name": "tbody"
+                    },
+                    {
+                        "name": "tfoot"
+                    },
+                    {
+                        "name": "thead"
+                    }
+                ]  
             },
             "NodeSelector": {
                 "name": "NodeSelector",

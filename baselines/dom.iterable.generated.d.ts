@@ -69,6 +69,10 @@ interface HTMLCollectionOf<T extends Element> {
     [Symbol.iterator](): IterableIterator<T>;
 }
 
+interface HTMLFormElement {
+    [Symbol.iterator](): IterableIterator<Element>;
+}
+
 interface HTMLSelectElement {
     [Symbol.iterator](): IterableIterator<Element>;
 }

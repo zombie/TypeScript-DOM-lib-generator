@@ -25,6 +25,7 @@
     "interfaces": {
         "interface": {
             "FileReaderProgressEvent": null,
+            "HTMLAreasCollection": null,
             "HTMLElement": {
                 "methods": {
                     "method": {

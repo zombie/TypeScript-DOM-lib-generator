@@ -1585,14 +1585,8 @@
                         "reset": {
                             "comment": "/**\r\n     * Fires when the user resets a form.\r\n     */"
                         },
-                        "item": {
-                            "comment": "/**\r\n     * Retrieves a form object or an object from an elements collection.\r\n     * @param name Variant of type Number or String that specifies the object or collection to retrieve. If this parameter is a Number, it is the zero-based index of the object. If this parameter is a string, all objects with matching name or id properties are retrieved, and a collection is returned if more than one match is made.\r\n     * @param index Variant of type Number that specifies the zero-based index of the object to retrieve when a collection is returned.\r\n     */"
-                        },
                         "submit": {
                             "comment": "/**\r\n     * Fires when a FORM is about to be submitted.\r\n     */"
-                        },
-                        "namedItem": {
-                            "comment": "/**\r\n     * Retrieves a form object or an object from an elements collection.\r\n     */"
                         },
                         "checkValidity": {
                             "comment": "/**\r\n     * Returns whether a form will validate when it is submitted, without having to submit it.\r\n     */"

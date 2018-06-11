@@ -153,7 +153,7 @@ interface MessageEventInit extends EventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: object | null;
+    source?: MessageEventSource | null;
 }
 
 interface NavigationPreloadState {
@@ -243,7 +243,7 @@ interface RequestInit {
     redirect?: RequestRedirect;
     referrer?: string;
     referrerPolicy?: ReferrerPolicy;
-    signal?: object | null;
+    signal?: AbortSignal | null;
     window?: any;
 }
 
@@ -275,6 +275,24 @@ interface TextDecoderOptions {
 interface EventListener {
     (evt: Event): void;
 }
+
+interface AbortSignalEventMap {
+    "abort": ProgressEvent;
+}
+
+interface AbortSignal extends EventTarget {
+    readonly aborted: boolean;
+    onabort: ((this: AbortSignal, ev: ProgressEvent) => any) | null;
+    addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var AbortSignal: {
+    prototype: AbortSignal;
+    new(): AbortSignal;
+};
 
 interface AbstractWorkerEventMap {
     "error": ErrorEvent;
@@ -443,10 +461,8 @@ interface Console {
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
-    msIsIndependentlyComposed(element: object): boolean;
     profile(reportName?: string): void;
     profileEnd(): void;
-    select(element: object): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;
@@ -789,7 +805,6 @@ interface Event {
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly srcElement: object | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;
@@ -972,7 +987,7 @@ interface FormData {
 
 declare var FormData: {
     prototype: FormData;
-    new(form?: object): FormData;
+    new(): FormData;
 };
 
 interface GlobalFetch {
@@ -1526,7 +1541,6 @@ interface MessageEvent extends Event {
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
     readonly source: MessageEventSource;
-    initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: object): void;
 }
 
 declare var MessageEvent: {
@@ -1948,7 +1962,7 @@ interface Request extends Body {
      * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort
      * event handler.
      */
-    readonly signal: object;
+    readonly signal: AbortSignal;
     /**
      * Returns the URL of request as a string.
      */
@@ -2458,7 +2472,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
-    send(body?: object | BodyInit | null): void;
+    send(body?: BodyInit | null): void;
     /**
      * Combines a header in author request headers.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
@@ -2582,7 +2596,7 @@ type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type MessageEventSource = object | MessagePort | ServiceWorker;
+type MessageEventSource = MessagePort | ServiceWorker;
 type BinaryType = "blob" | "arraybuffer";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";

@@ -2327,6 +2327,10 @@
                     }
                 ]
             },
+            "AbortSignal": {
+                "name": "AbortSignal",
+                "override-exposed": "Window Worker"
+            },
             "CryptoKey": {
                 "name": "CryptoKey",
                 "override-exposed": "Window Worker"

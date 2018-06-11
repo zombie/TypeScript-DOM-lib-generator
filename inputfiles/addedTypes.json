@@ -2101,6 +2101,13 @@
                 ]
             },
             "HTMLInputElement": {
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "override-type": "NodeListOf<HTMLLabelElement> | null"
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "input"

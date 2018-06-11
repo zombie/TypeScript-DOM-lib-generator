@@ -6847,7 +6847,7 @@ interface HTMLInputElement extends HTMLElement {
      */
     height: number;
     indeterminate: boolean;
-    readonly labels: NodeList | null;
+    readonly labels: NodeListOf<HTMLLabelElement> | null;
     /**
      * Specifies the ID of a pre-defined datalist of options for an input element.
      */

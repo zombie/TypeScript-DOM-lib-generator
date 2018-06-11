@@ -1008,6 +1008,12 @@
                             "override-signatures": [
                                 "trace(message?: any, ...optionalParams: any[]): void"
                             ]
+                        },
+                        "profileEnd": {
+                            "name": "profileEnd",
+                            "override-signatures": [
+                                "profileEnd(reportName?: string): void"
+                            ]
                         }
                     }
                 }

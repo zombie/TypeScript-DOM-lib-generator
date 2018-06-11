@@ -462,7 +462,7 @@ interface Console {
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
     profile(reportName?: string): void;
-    profileEnd(): void;
+    profileEnd(reportName?: string): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;

@@ -49,6 +49,10 @@
         "title": "HTML - Form elements"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/grouping-content.html",
+        "title": "HTML - Grouping content"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
         "title": "HTML - Obsolete features",
         "deprecated": true

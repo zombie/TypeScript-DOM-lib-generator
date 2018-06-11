@@ -4601,6 +4601,8 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param tagName The name of an element.
      */
     createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];
+    /** @deprecated */
+    createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];
     createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement;
@@ -6020,10 +6022,6 @@ interface HTMLDivElement extends HTMLElement {
      */
     /** @deprecated */
     align: string;
-    /**
-     * Sets or retrieves whether the browser automatically performs wordwrap.
-     */
-    noWrap: boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7382,7 +7380,6 @@ declare var HTMLMediaElement: {
 interface HTMLMenuElement extends HTMLElement {
     /** @deprecated */
     compact: boolean;
-    type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMenuElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMenuElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7475,6 +7472,7 @@ declare var HTMLModElement: {
 interface HTMLOListElement extends HTMLElement {
     /** @deprecated */
     compact: boolean;
+    reversed: boolean;
     /**
      * The starting number.
      */
@@ -7739,7 +7737,6 @@ interface HTMLParagraphElement extends HTMLElement {
      */
     /** @deprecated */
     align: string;
-    clear: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLParagraphElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLParagraphElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -16777,7 +16774,6 @@ interface HTMLElementTagNameMap {
     "legend": HTMLLegendElement;
     "li": HTMLLIElement;
     "link": HTMLLinkElement;
-    "listing": HTMLPreElement;
     "map": HTMLMapElement;
     "mark": HTMLElement;
     "marquee": HTMLMarqueeElement;
@@ -16835,6 +16831,10 @@ interface HTMLElementTagNameMap {
     "var": HTMLElement;
     "video": HTMLVideoElement;
     "wbr": HTMLElement;
+}
+
+interface HTMLElementDeprecatedTagNameMap {
+    "listing": HTMLPreElement;
     "xmp": HTMLPreElement;
 }
 

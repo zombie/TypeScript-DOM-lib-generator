@@ -919,6 +919,7 @@
                 "properties": {
                     "property": {
                         "className": {
+                            "deprecated": 1,
                             "name": "className",
                             "override-type": "any"
                         }

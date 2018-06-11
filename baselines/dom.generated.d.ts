@@ -12032,6 +12032,7 @@ interface SVGElementEventMap extends ElementEventMap {
 }
 
 interface SVGElement extends Element, ElementCSSInlineStyle {
+    /** @deprecated */
     readonly className: any;
     onclick: ((this: SVGElement, ev: MouseEvent) => any) | null;
     ondblclick: ((this: SVGElement, ev: MouseEvent) => any) | null;

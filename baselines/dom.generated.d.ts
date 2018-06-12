@@ -918,6 +918,11 @@ interface MediaKeySystemMediaCapability {
     robustness?: string;
 }
 
+interface MediaQueryListEventInit extends EventInit {
+    matches?: boolean;
+    media?: string;
+}
+
 interface MediaStreamAudioSourceOptions {
     mediaStream: MediaStream;
 }
@@ -3265,6 +3270,17 @@ declare var CanvasRenderingContext2D: {
     new(): CanvasRenderingContext2D;
 };
 
+interface CaretPosition {
+    readonly offset: number;
+    readonly offsetNode: Node;
+    getClientRect(): DOMRect | null;
+}
+
+declare var CaretPosition: {
+    prototype: CaretPosition;
+    new(): CaretPosition;
+};
+
 interface ChannelMergerNode extends AudioNode {
 }
 
@@ -4583,6 +4599,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     adoptNode<T extends Node>(source: T): T;
     /** @deprecated */
     captureEvents(): void;
+    caretPositionFromPoint(x: number, y: number): CaretPosition | null;
     caretRangeFromPoint(x: number, y: number): Range;
     /** @deprecated */
     clear(): void;
@@ -4713,7 +4730,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param x The x-offset
      * @param y The y-offset
      */
-    elementFromPoint(x: number, y: number): Element;
+    elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
     evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
     /**
@@ -4861,6 +4878,7 @@ interface DocumentEvent {
     createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
+    createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
     createEvent(eventInterface: "MediaStreamErrorEvent"): MediaStreamErrorEvent;
     createEvent(eventInterface: "MediaStreamEvent"): MediaStreamEvent;
     createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
@@ -5655,6 +5673,8 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
      */
     /** @deprecated */
     noHref: boolean;
+    ping: string;
+    referrerPolicy: string;
     rel: string;
     readonly relList: DOMTokenList;
     /**
@@ -5674,14 +5694,6 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
 declare var HTMLAreaElement: {
     prototype: HTMLAreaElement;
     new(): HTMLAreaElement;
-};
-
-interface HTMLAreasCollection extends HTMLCollectionBase {
-}
-
-declare var HTMLAreasCollection: {
-    prototype: HTMLAreasCollection;
-    new(): HTMLAreasCollection;
 };
 
 interface HTMLAudioElement extends HTMLMediaElement {
@@ -6134,7 +6146,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     lang: string;
     readonly offsetHeight: number;
     readonly offsetLeft: number;
-    readonly offsetParent: Element;
+    readonly offsetParent: Element | null;
     readonly offsetTop: number;
     readonly offsetWidth: number;
     onabort: ((this: HTMLElement, ev: UIEvent) => any) | null;
@@ -6409,16 +6421,6 @@ interface HTMLFormElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
-    /**
-     * Retrieves a form object or an object from an elements collection.
-     * @param name Variant of type Number or String that specifies the object or collection to retrieve. If this parameter is a Number, it is the zero-based index of the object. If this parameter is a string, all objects with matching name or id properties are retrieved, and a collection is returned if more than one match is made.
-     * @param index Variant of type Number that specifies the zero-based index of the object to retrieve when a collection is returned.
-     */
-    item(name?: any, index?: any): any;
-    /**
-     * Retrieves a form object or an object from an elements collection.
-     */
-    namedItem(name: string): any;
     reportValidity(): boolean;
     /**
      * Fires when the user resets a form.
@@ -6432,7 +6434,7 @@ interface HTMLFormElement extends HTMLElement {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    [name: string]: any;
+    [index: number]: Element;
 }
 
 declare var HTMLFormElement: {
@@ -6828,6 +6830,7 @@ interface HTMLInputElement extends HTMLElement {
      * Sets or retrieves the initial contents of the object.
      */
     defaultValue: string;
+    dirName: string;
     disabled: boolean;
     /**
      * Returns a FileList object on a file type input object.
@@ -6862,6 +6865,7 @@ interface HTMLInputElement extends HTMLElement {
      */
     height: number;
     indeterminate: boolean;
+    readonly labels: NodeListOf<HTMLLabelElement> | null;
     /**
      * Specifies the ID of a pre-defined datalist of options for an input element.
      */
@@ -6944,7 +6948,6 @@ interface HTMLInputElement extends HTMLElement {
      * Returns the input field value as a number.
      */
     valueAsNumber: number;
-    webkitdirectory: boolean;
     /**
      * Sets or retrieves the width of the object.
      */
@@ -6957,6 +6960,7 @@ interface HTMLInputElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
+    reportValidity(): boolean;
     /**
      * Makes the selection equal to the current object.
      */
@@ -6966,6 +6970,8 @@ interface HTMLInputElement extends HTMLElement {
      * @param error Sets a custom error message that is displayed when a form is submitted.
      */
     setCustomValidity(error: string): void;
+    setRangeText(replacement: string): void;
+    setRangeText(replacement: string, start: number, end: number, selectionMode?: SelectionMode): void;
     /**
      * Sets the start and end positions of a selection in a text field.
      * @param start The offset into the text field for the start of the selection.
@@ -7013,7 +7019,7 @@ declare var HTMLLIElement: {
 };
 
 interface HTMLLabelElement extends HTMLElement {
-    readonly control: HTMLInputElement | null;
+    readonly control: HTMLElement | null;
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
@@ -7121,7 +7127,7 @@ interface HTMLMapElement extends HTMLElement {
     /**
      * Retrieves a collection of the area objects defined for the given map object.
      */
-    readonly areas: HTMLAreasCollection;
+    readonly areas: HTMLCollection;
     /**
      * Sets or retrieves the name of the object.
      */
@@ -8288,7 +8294,7 @@ interface HTMLTableElement extends HTMLElement {
      * Removes the specified row (tr) from the element and from the rows collection.
      * @param index Number that specifies the zero-based position in the rows collection of the row to remove.
      */
-    deleteRow(index?: number): void;
+    deleteRow(index: number): void;
     /**
      * Deletes the tFoot element and its contents from the table.
      */
@@ -8356,7 +8362,7 @@ interface HTMLTableRowElement extends HTMLElement {
      * Removes the specified cell from the table row, as well as from the cells collection.
      * @param index Number that specifies the zero-based position of the cell to remove from the table row. If no value is provided, the last cell in the cells collection is deleted.
      */
-    deleteCell(index?: number): void;
+    deleteCell(index: number): void;
     /**
      * Creates a new cell in the table row, and adds the cell to the cells collection.
      * @param index Number that specifies where to insert the cell in the tr. The default value is -1, which appends the new cell to the end of the cells collection.
@@ -8393,7 +8399,7 @@ interface HTMLTableSectionElement extends HTMLElement {
      * Removes the specified row (tr) from the element and from the rows collection.
      * @param index Number that specifies the zero-based position in the rows collection of the row to remove.
      */
-    deleteRow(index?: number): void;
+    deleteRow(index: number): void;
     /**
      * Creates a new row (tr) in the table, and adds the row to the rows collection.
      * @param index Number that specifies where to insert the row in the rows collection. The default value is -1, which appends the new row to the end of the rows collection.
@@ -9798,16 +9804,35 @@ declare var MediaList: {
     new(): MediaList;
 };
 
+interface MediaQueryListEventMap {
+    "change": Event;
+}
+
 interface MediaQueryList extends EventTarget {
     readonly matches: boolean;
     readonly media: string;
-    addListener(listener: MediaQueryListListener): void;
-    removeListener(listener: MediaQueryListListener): void;
+    onchange: ((this: MediaQueryList, ev: Event) => any) | null;
+    addListener(listener: EventListenerOrEventListenerObject | null): void;
+    removeListener(listener: EventListenerOrEventListenerObject | null): void;
+    addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaQueryList: {
     prototype: MediaQueryList;
     new(): MediaQueryList;
+};
+
+interface MediaQueryListEvent extends Event {
+    readonly matches: boolean;
+    readonly media: string;
+}
+
+declare var MediaQueryListEvent: {
+    prototype: MediaQueryListEvent;
+    new(type: string, eventInitDict?: MediaQueryListEventInit): MediaQueryListEvent;
 };
 
 interface MediaSource extends EventTarget {
@@ -13725,33 +13750,14 @@ declare var ScopedCredentialInfo: {
     new(): ScopedCredentialInfo;
 };
 
-interface ScreenEventMap {
-    "MSOrientationChange": Event;
-}
-
-interface Screen extends EventTarget {
+interface Screen {
     readonly availHeight: number;
     readonly availWidth: number;
-    /** @deprecated */
-    bufferDepth: number;
     readonly colorDepth: number;
-    readonly deviceXDPI: number;
-    readonly deviceYDPI: number;
-    readonly fontSmoothingEnabled: boolean;
     readonly height: number;
-    readonly logicalXDPI: number;
-    readonly logicalYDPI: number;
-    readonly msOrientation: string;
-    onmsorientationchange: ((this: Screen, ev: Event) => any) | null;
     readonly orientation: ScreenOrientation;
     readonly pixelDepth: number;
-    readonly systemXDPI: number;
-    readonly systemYDPI: number;
     readonly width: number;
-    addEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Screen: {
@@ -16148,9 +16154,9 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
     getMatchedCSSRules(elt: Element, pseudoElt?: string | null): CSSRuleList;
     getSelection(): Selection;
-    matchMedia(mediaQuery: string): MediaQueryList;
-    moveBy(x?: number, y?: number): void;
-    moveTo(x?: number, y?: number): void;
+    matchMedia(query: string): MediaQueryList;
+    moveBy(x: number, y: number): void;
+    moveTo(x: number, y: number): void;
     msWriteProfilerMark(profilerMarkName: string): void;
     open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
     postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
@@ -16159,14 +16165,14 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     /** @deprecated */
     releaseEvents(): void;
     requestAnimationFrame(callback: FrameRequestCallback): number;
-    resizeBy(x?: number, y?: number): void;
-    resizeTo(x?: number, y?: number): void;
+    resizeBy(x: number, y: number): void;
+    resizeTo(x: number, y: number): void;
     scroll(options?: ScrollToOptions): void;
-    scroll(x?: number, y?: number): void;
+    scroll(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
-    scrollBy(x?: number, y?: number): void;
+    scrollBy(x: number, y: number): void;
     scrollTo(options?: ScrollToOptions): void;
-    scrollTo(x?: number, y?: number): void;
+    scrollTo(x: number, y: number): void;
     stop(): void;
     webkitCancelAnimationFrame(handle: number): void;
     webkitConvertPointFromNodeToPage(node: Node, pt: WebKitPoint): WebKitPoint;
@@ -17065,9 +17071,9 @@ declare function focus(): void;
 declare function getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
 declare function getMatchedCSSRules(elt: Element, pseudoElt?: string | null): CSSRuleList;
 declare function getSelection(): Selection;
-declare function matchMedia(mediaQuery: string): MediaQueryList;
-declare function moveBy(x?: number, y?: number): void;
-declare function moveTo(x?: number, y?: number): void;
+declare function matchMedia(query: string): MediaQueryList;
+declare function moveBy(x: number, y: number): void;
+declare function moveTo(x: number, y: number): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
 declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
@@ -17076,14 +17082,14 @@ declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */
 declare function releaseEvents(): void;
 declare function requestAnimationFrame(callback: FrameRequestCallback): number;
-declare function resizeBy(x?: number, y?: number): void;
-declare function resizeTo(x?: number, y?: number): void;
+declare function resizeBy(x: number, y: number): void;
+declare function resizeTo(x: number, y: number): void;
 declare function scroll(options?: ScrollToOptions): void;
-declare function scroll(x?: number, y?: number): void;
+declare function scroll(x: number, y: number): void;
 declare function scrollBy(options?: ScrollToOptions): void;
-declare function scrollBy(x?: number, y?: number): void;
+declare function scrollBy(x: number, y: number): void;
 declare function scrollTo(options?: ScrollToOptions): void;
-declare function scrollTo(x?: number, y?: number): void;
+declare function scrollTo(x: number, y: number): void;
 declare function stop(): void;
 declare function webkitCancelAnimationFrame(handle: number): void;
 declare function webkitConvertPointFromNodeToPage(node: Node, pt: WebKitPoint): WebKitPoint;
@@ -17147,8 +17153,6 @@ type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
-type ScrollBehavior = "auto" | "instant" | "smooth";
-type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
@@ -17281,6 +17285,8 @@ type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
+type ScrollBehavior = "auto" | "instant" | "smooth";
+type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";

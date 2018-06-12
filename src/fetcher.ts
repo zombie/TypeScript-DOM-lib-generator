@@ -25,14 +25,21 @@ async function fetchIDLs() {
 async function fetchIDL(source: IDLSource) {
     const response = await fetch(source.url);
     const dom = JSDOM.fragment(await response.text());
-    const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract),code.idl-code"));
+    const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract):not(.example)"))
+        .filter(el => {
+            if (el.parentElement && el.parentElement.classList.contains("example")) {
+                return false;
+            }
+            const previous = el.previousElementSibling;
+            if (!previous) {
+                return true;
+            }
+            return !previous.classList.contains("atrisk") && !previous.textContent!.includes("IDL Index");
+        });
     if (!elements.length) {
         throw new Error("Found no IDL code");
     }
-    const last = elements[elements.length - 1];
-    const idl = last.previousElementSibling && last.previousElementSibling.textContent!.includes("IDL Index")
-        ? last.textContent!.trim()
-        : elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
+    const idl = elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
     const comments = processComments(dom);
     return { idl, comments };
 }

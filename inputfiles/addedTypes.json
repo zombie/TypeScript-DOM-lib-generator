@@ -318,24 +318,6 @@
                                 "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
                                 "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
                             ]
-                        },
-                        "scroll": {
-                            "name": "scroll",
-                            "additional-signatures": [
-                                "scroll(options?: ScrollToOptions): void"
-                            ]
-                        },
-                        "scrollTo": {
-                            "name": "scrollTo",
-                            "additional-signatures": [
-                                "scrollTo(options?: ScrollToOptions): void"
-                            ]
-                        },
-                        "scrollBy": {
-                            "name": "scrollBy",
-                            "additional-signatures": [
-                                "scrollBy(options?: ScrollToOptions): void"
-                            ]
                         }
                     }
                 },
@@ -532,33 +514,6 @@
                                 "closest(selector: string): Element | null"
                             ]
                         },
-                        "scrollIntoView": {
-                            "name": "scrollIntoView",
-                            "override-signatures": [
-                                "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void"
-                            ]
-                        },
-                        "scroll": {
-                            "name": "scroll",
-                            "override-signatures": [
-                                "scroll(options?: ScrollToOptions): void",
-                                "scroll(x: number, y: number): void"
-                            ]
-                        },
-                        "scrollTo": {
-                            "name": "scrollTo",
-                            "override-signatures": [
-                                "scrollTo(options?: ScrollToOptions): void",
-                                "scrollTo(x: number, y: number): void"
-                            ]
-                        },
-                        "scrollBy": {
-                            "name": "scrollBy",
-                            "override-signatures": [
-                                "scrollBy(options?: ScrollToOptions): void",
-                                "scrollBy(x: number, y: number): void"
-                            ]
-                        },
                         "insertAdjacentElement": {
                             "name": "insertAdjacentElement",
                             "override-signatures": [
@@ -750,17 +705,6 @@
                 "name": "IDBArrayKey",
                 "extends": "Array<IDBValidKey>",
                 "no-interface-object": "1"
-            },
-            "HTMLInputElement": {
-                "name": "HTMLInputElement",
-                "properties": {
-                    "property": {
-                        "minLength": {
-                            "name": "minLength",
-                            "override-type": "number"
-                        }
-                    }
-                }
             },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
@@ -1336,20 +1280,6 @@
                     }
                 }
             },
-            "HTMLFormElement": {
-                "name": "HTMLFormElement",
-                "methods": {
-                    "method": {
-                        "reportValidity": {
-                            "name": "reportValidity",
-                            "exposed": "Window",
-                            "override-signatures": [
-                                "reportValidity(): boolean"
-                            ]
-                        }
-                    }
-                }
-            },
             "OES_vertex_array_object": {
                 "name": "OES_vertex_array_object",
                 "exposed": "Window",
@@ -1842,18 +1772,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLLabelElement": {
-                "name": "HTMLLabelElement",
-                "properties": {
-                    "property": {
-                        "control": {
-                            "name": "control",
-                            "read-only": 1,
-                            "override-type": "HTMLInputElement | null"
-                        }
-                    }
-                }
-            },
             "HTMLObjectElement": {
                 "name": "HTMLObjectElement",
                 "properties": {
@@ -1943,6 +1861,13 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLAreaElement": {
+                "element": [
+                    {
+                        "name": "area"
+                    }
+                ]
+            },
             "HTMLBaseElement": {
                 "element": [
                     {
@@ -1971,6 +1896,13 @@
                     }
                 ]
             },
+            "HTMLFormElement": {
+                "element": [
+                    {
+                        "name": "form"
+                    }
+                ]
+            },
             "HTMLHeadElement": {
                 "element": [
                     {
@@ -1992,6 +1924,21 @@
                     }
                 ]
             },
+            "HTMLInputElement": {
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "override-type": "NodeListOf<HTMLLabelElement> | null"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        
+                        "name": "input"
+                    }
+                ]
+            },
             "HTMLLinkElement": {
                 "properties": {
                     "property": {
@@ -2007,10 +1954,24 @@
                     }
                 ]
             },
+            "HTMLLabelElement": {
+                "element": [
+                    {
+                        "name": "label"
+                    }
+                ]
+            },
             "HTMLLIElement": {
                 "element": [
                     {
                         "name": "li"
+                    }
+                ]
+            },
+            "HTMLMapElement": {
+                "element": [
+                    {
+                        "name": "map"
                     }
                 ]
             },
@@ -2088,6 +2049,33 @@
                     }
                 ]
             },
+            "HTMLTableCaptionElement": {
+                "element": [
+                    {
+                        "name": "caption"
+                    }
+                ]  
+            },
+            "HTMLTableCellElement": {
+                "element": [
+                    {
+                        "name": "td"
+                    },
+                    {
+                        "name": "th"
+                    }
+                ]  
+            },
+            "HTMLTableColElement": {
+                "element": [
+                    {
+                        "name": "col"
+                    },
+                    {
+                        "name": "colgroup"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2099,6 +2087,13 @@
                         "name": "td"
                     }
                 ]
+            },
+            "HTMLTableElement": {
+                "element": [
+                    {
+                        "name": "table"
+                    }
+                ]  
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
@@ -2122,6 +2117,26 @@
                 "element": [
                     {
                         "name": "template"
+                    }
+                ]
+            },
+            "HTMLTableRowElement": {
+                "element": [
+                    {
+                        "name": "tr"
+                    }
+                ]  
+            },
+            "HTMLTableSectionElement": {
+                "element": [
+                    {
+                        "name": "tbody"
+                    },
+                    {
+                        "name": "tfoot"
+                    },
+                    {
+                        "name": "thead"
                     }
                 ]
             },
@@ -2331,14 +2346,6 @@
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "\"auto\" | \"instant\" | \"smooth\"",
-                "new-type": "ScrollBehavior"
-            },
-            {
-                "override-type": "\"start\" | \"center\" | \"end\" | \"nearest\"",
-                "new-type": "ScrollLogicalPosition"
-            },
             {
                 "override-type": "WheelEvent",
                 "new-type": "MouseWheelEvent"

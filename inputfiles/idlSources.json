@@ -53,8 +53,16 @@
         "title": "HTML - Form elements"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/forms.html",
+        "title": "HTML - Forms"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/grouping-content.html",
         "title": "HTML - Grouping content"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/image-maps.html",
+        "title": "HTML - Image maps"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
@@ -64,6 +72,14 @@
     {
         "url": "https://html.spec.whatwg.org/multipage/semantics.html",
         "title": "HTML - Semantics"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/tables.html",
+        "title": "HTML - Tabular data"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/input.html",
+        "title": "HTML - The input element"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/webstorage.html",

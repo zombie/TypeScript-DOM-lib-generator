@@ -5667,6 +5667,8 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
      */
     /** @deprecated */
     noHref: boolean;
+    ping: string;
+    referrerPolicy: string;
     rel: string;
     readonly relList: DOMTokenList;
     /**
@@ -5686,14 +5688,6 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
 declare var HTMLAreaElement: {
     prototype: HTMLAreaElement;
     new(): HTMLAreaElement;
-};
-
-interface HTMLAreasCollection extends HTMLCollectionBase {
-}
-
-declare var HTMLAreasCollection: {
-    prototype: HTMLAreasCollection;
-    new(): HTMLAreasCollection;
 };
 
 interface HTMLAudioElement extends HTMLMediaElement {
@@ -6421,16 +6415,6 @@ interface HTMLFormElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
-    /**
-     * Retrieves a form object or an object from an elements collection.
-     * @param name Variant of type Number or String that specifies the object or collection to retrieve. If this parameter is a Number, it is the zero-based index of the object. If this parameter is a string, all objects with matching name or id properties are retrieved, and a collection is returned if more than one match is made.
-     * @param index Variant of type Number that specifies the zero-based index of the object to retrieve when a collection is returned.
-     */
-    item(name?: any, index?: any): any;
-    /**
-     * Retrieves a form object or an object from an elements collection.
-     */
-    namedItem(name: string): any;
     reportValidity(): boolean;
     /**
      * Fires when the user resets a form.
@@ -6444,7 +6428,7 @@ interface HTMLFormElement extends HTMLElement {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    [name: string]: any;
+    [index: number]: Element;
 }
 
 declare var HTMLFormElement: {
@@ -6840,6 +6824,7 @@ interface HTMLInputElement extends HTMLElement {
      * Sets or retrieves the initial contents of the object.
      */
     defaultValue: string;
+    dirName: string;
     disabled: boolean;
     /**
      * Returns a FileList object on a file type input object.
@@ -6874,6 +6859,7 @@ interface HTMLInputElement extends HTMLElement {
      */
     height: number;
     indeterminate: boolean;
+    readonly labels: NodeListOf<HTMLLabelElement> | null;
     /**
      * Specifies the ID of a pre-defined datalist of options for an input element.
      */
@@ -6956,7 +6942,6 @@ interface HTMLInputElement extends HTMLElement {
      * Returns the input field value as a number.
      */
     valueAsNumber: number;
-    webkitdirectory: boolean;
     /**
      * Sets or retrieves the width of the object.
      */
@@ -6969,6 +6954,7 @@ interface HTMLInputElement extends HTMLElement {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
+    reportValidity(): boolean;
     /**
      * Makes the selection equal to the current object.
      */
@@ -6978,6 +6964,8 @@ interface HTMLInputElement extends HTMLElement {
      * @param error Sets a custom error message that is displayed when a form is submitted.
      */
     setCustomValidity(error: string): void;
+    setRangeText(replacement: string): void;
+    setRangeText(replacement: string, start: number, end: number, selectionMode?: SelectionMode): void;
     /**
      * Sets the start and end positions of a selection in a text field.
      * @param start The offset into the text field for the start of the selection.
@@ -7025,7 +7013,7 @@ declare var HTMLLIElement: {
 };
 
 interface HTMLLabelElement extends HTMLElement {
-    readonly control: HTMLInputElement | null;
+    readonly control: HTMLElement | null;
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
@@ -7133,7 +7121,7 @@ interface HTMLMapElement extends HTMLElement {
     /**
      * Retrieves a collection of the area objects defined for the given map object.
      */
-    readonly areas: HTMLAreasCollection;
+    readonly areas: HTMLCollection;
     /**
      * Sets or retrieves the name of the object.
      */
@@ -8305,7 +8293,7 @@ interface HTMLTableElement extends HTMLElement {
      * Removes the specified row (tr) from the element and from the rows collection.
      * @param index Number that specifies the zero-based position in the rows collection of the row to remove.
      */
-    deleteRow(index?: number): void;
+    deleteRow(index: number): void;
     /**
      * Deletes the tFoot element and its contents from the table.
      */
@@ -8373,7 +8361,7 @@ interface HTMLTableRowElement extends HTMLElement {
      * Removes the specified cell from the table row, as well as from the cells collection.
      * @param index Number that specifies the zero-based position of the cell to remove from the table row. If no value is provided, the last cell in the cells collection is deleted.
      */
-    deleteCell(index?: number): void;
+    deleteCell(index: number): void;
     /**
      * Creates a new cell in the table row, and adds the cell to the cells collection.
      * @param index Number that specifies where to insert the cell in the tr. The default value is -1, which appends the new cell to the end of the cells collection.
@@ -8410,7 +8398,7 @@ interface HTMLTableSectionElement extends HTMLElement {
      * Removes the specified row (tr) from the element and from the rows collection.
      * @param index Number that specifies the zero-based position in the rows collection of the row to remove.
      */
-    deleteRow(index?: number): void;
+    deleteRow(index: number): void;
     /**
      * Creates a new row (tr) in the table, and adds the row to the rows collection.
      * @param index Number that specifies where to insert the row in the rows collection. The default value is -1, which appends the new row to the end of the rows collection.

@@ -706,17 +706,6 @@
                 "extends": "Array<IDBValidKey>",
                 "no-interface-object": "1"
             },
-            "HTMLInputElement": {
-                "name": "HTMLInputElement",
-                "properties": {
-                    "property": {
-                        "minLength": {
-                            "name": "minLength",
-                            "override-type": "number"
-                        }
-                    }
-                }
-            },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
                 "properties": {
@@ -1459,20 +1448,6 @@
                     }
                 }
             },
-            "HTMLFormElement": {
-                "name": "HTMLFormElement",
-                "methods": {
-                    "method": {
-                        "reportValidity": {
-                            "name": "reportValidity",
-                            "exposed": "Window",
-                            "override-signatures": [
-                                "reportValidity(): boolean"
-                            ]
-                        }
-                    }
-                }
-            },
             "OES_vertex_array_object": {
                 "name": "OES_vertex_array_object",
                 "exposed": "Window",
@@ -1965,18 +1940,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLLabelElement": {
-                "name": "HTMLLabelElement",
-                "properties": {
-                    "property": {
-                        "control": {
-                            "name": "control",
-                            "read-only": 1,
-                            "override-type": "HTMLInputElement | null"
-                        }
-                    }
-                }
-            },
             "HTMLObjectElement": {
                 "name": "HTMLObjectElement",
                 "properties": {
@@ -2066,6 +2029,13 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLAreaElement": {
+                "element": [
+                    {
+                        "name": "area"
+                    }
+                ]
+            },
             "HTMLBaseElement": {
                 "element": [
                     {
@@ -2084,6 +2054,13 @@
                 "element": [
                     {
                         "name": "dl"
+                    }
+                ]
+            },
+            "HTMLFormElement": {
+                "element": [
+                    {
+                        "name": "form"
                     }
                 ]
             },
@@ -2108,6 +2085,21 @@
                     }
                 ]
             },
+            "HTMLInputElement": {
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "override-type": "NodeListOf<HTMLLabelElement> | null"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        
+                        "name": "input"
+                    }
+                ]
+            },
             "HTMLLinkElement": {
                 "properties": {
                     "property": {
@@ -2123,10 +2115,24 @@
                     }
                 ]
             },
+            "HTMLLabelElement": {
+                "element": [
+                    {
+                        "name": "label"
+                    }
+                ]
+            },
             "HTMLLIElement": {
                 "element": [
                     {
                         "name": "li"
+                    }
+                ]
+            },
+            "HTMLMapElement": {
+                "element": [
+                    {
+                        "name": "map"
                     }
                 ]
             },
@@ -2190,6 +2196,33 @@
                     }
                 ]
             },
+            "HTMLTableCaptionElement": {
+                "element": [
+                    {
+                        "name": "caption"
+                    }
+                ]  
+            },
+            "HTMLTableCellElement": {
+                "element": [
+                    {
+                        "name": "td"
+                    },
+                    {
+                        "name": "th"
+                    }
+                ]  
+            },
+            "HTMLTableColElement": {
+                "element": [
+                    {
+                        "name": "col"
+                    },
+                    {
+                        "name": "colgroup"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2201,6 +2234,13 @@
                         "name": "td"
                     }
                 ]
+            },
+            "HTMLTableElement": {
+                "element": [
+                    {
+                        "name": "table"
+                    }
+                ]  
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
@@ -2217,6 +2257,26 @@
                 "element": [
                     {
                         "name": "th"
+                    }
+                ]
+            },
+            "HTMLTableRowElement": {
+                "element": [
+                    {
+                        "name": "tr"
+                    }
+                ]  
+            },
+            "HTMLTableSectionElement": {
+                "element": [
+                    {
+                        "name": "tbody"
+                    },
+                    {
+                        "name": "tfoot"
+                    },
+                    {
+                        "name": "thead"
                     }
                 ]
             },

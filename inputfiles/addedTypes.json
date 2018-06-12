@@ -318,24 +318,6 @@
                                 "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
                                 "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
                             ]
-                        },
-                        "scroll": {
-                            "name": "scroll",
-                            "additional-signatures": [
-                                "scroll(options?: ScrollToOptions): void"
-                            ]
-                        },
-                        "scrollTo": {
-                            "name": "scrollTo",
-                            "additional-signatures": [
-                                "scrollTo(options?: ScrollToOptions): void"
-                            ]
-                        },
-                        "scrollBy": {
-                            "name": "scrollBy",
-                            "additional-signatures": [
-                                "scrollBy(options?: ScrollToOptions): void"
-                            ]
                         }
                     }
                 },
@@ -530,33 +512,6 @@
                                 "closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null",
                                 "closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null",
                                 "closest(selector: string): Element | null"
-                            ]
-                        },
-                        "scrollIntoView": {
-                            "name": "scrollIntoView",
-                            "override-signatures": [
-                                "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void"
-                            ]
-                        },
-                        "scroll": {
-                            "name": "scroll",
-                            "override-signatures": [
-                                "scroll(options?: ScrollToOptions): void",
-                                "scroll(x: number, y: number): void"
-                            ]
-                        },
-                        "scrollTo": {
-                            "name": "scrollTo",
-                            "override-signatures": [
-                                "scrollTo(options?: ScrollToOptions): void",
-                                "scrollTo(x: number, y: number): void"
-                            ]
-                        },
-                        "scrollBy": {
-                            "name": "scrollBy",
-                            "override-signatures": [
-                                "scrollBy(options?: ScrollToOptions): void",
-                                "scrollBy(x: number, y: number): void"
                             ]
                         },
                         "insertAdjacentElement": {
@@ -2471,14 +2426,6 @@
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "\"auto\" | \"instant\" | \"smooth\"",
-                "new-type": "ScrollBehavior"
-            },
-            {
-                "override-type": "\"start\" | \"center\" | \"end\" | \"nearest\"",
-                "new-type": "ScrollLogicalPosition"
-            },
             {
                 "override-type": "WheelEvent",
                 "new-type": "MouseWheelEvent"

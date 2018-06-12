@@ -910,6 +910,11 @@ interface MediaKeySystemMediaCapability {
     robustness?: string;
 }
 
+interface MediaQueryListEventInit extends EventInit {
+    matches?: boolean;
+    media?: string;
+}
+
 interface MediaStreamAudioSourceOptions {
     mediaStream: MediaStream;
 }
@@ -3261,6 +3266,17 @@ declare var CanvasRenderingContext2D: {
     new(): CanvasRenderingContext2D;
 };
 
+interface CaretPosition {
+    readonly offset: number;
+    readonly offsetNode: Node;
+    getClientRect(): DOMRect | null;
+}
+
+declare var CaretPosition: {
+    prototype: CaretPosition;
+    new(): CaretPosition;
+};
+
 interface ChannelMergerNode extends AudioNode {
 }
 
@@ -4573,6 +4589,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     adoptNode<T extends Node>(source: T): T;
     /** @deprecated */
     captureEvents(): void;
+    caretPositionFromPoint(x: number, y: number): CaretPosition | null;
     caretRangeFromPoint(x: number, y: number): Range;
     /** @deprecated */
     clear(): void;
@@ -4703,7 +4720,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param x The x-offset
      * @param y The y-offset
      */
-    elementFromPoint(x: number, y: number): Element;
+    elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
     evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
     /**
@@ -4851,6 +4868,7 @@ interface DocumentEvent {
     createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
+    createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
     createEvent(eventInterface: "MediaStreamErrorEvent"): MediaStreamErrorEvent;
     createEvent(eventInterface: "MediaStreamEvent"): MediaStreamEvent;
     createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
@@ -6128,7 +6146,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     lang: string;
     readonly offsetHeight: number;
     readonly offsetLeft: number;
-    readonly offsetParent: Element;
+    readonly offsetParent: Element | null;
     readonly offsetTop: number;
     readonly offsetWidth: number;
     onabort: ((this: HTMLElement, ev: UIEvent) => any) | null;
@@ -9797,16 +9815,35 @@ declare var MediaList: {
     new(): MediaList;
 };
 
+interface MediaQueryListEventMap {
+    "change": Event;
+}
+
 interface MediaQueryList extends EventTarget {
     readonly matches: boolean;
     readonly media: string;
-    addListener(listener: MediaQueryListListener): void;
-    removeListener(listener: MediaQueryListListener): void;
+    onchange: ((this: MediaQueryList, ev: Event) => any) | null;
+    addListener(listener: EventListenerOrEventListenerObject | null): void;
+    removeListener(listener: EventListenerOrEventListenerObject | null): void;
+    addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaQueryList: {
     prototype: MediaQueryList;
     new(): MediaQueryList;
+};
+
+interface MediaQueryListEvent extends Event {
+    readonly matches: boolean;
+    readonly media: string;
+}
+
+declare var MediaQueryListEvent: {
+    prototype: MediaQueryListEvent;
+    new(type: string, eventInitDict?: MediaQueryListEventInit): MediaQueryListEvent;
 };
 
 interface MediaSource extends EventTarget {
@@ -13724,33 +13761,14 @@ declare var ScopedCredentialInfo: {
     new(): ScopedCredentialInfo;
 };
 
-interface ScreenEventMap {
-    "MSOrientationChange": Event;
-}
-
-interface Screen extends EventTarget {
+interface Screen {
     readonly availHeight: number;
     readonly availWidth: number;
-    /** @deprecated */
-    bufferDepth: number;
     readonly colorDepth: number;
-    readonly deviceXDPI: number;
-    readonly deviceYDPI: number;
-    readonly fontSmoothingEnabled: boolean;
     readonly height: number;
-    readonly logicalXDPI: number;
-    readonly logicalYDPI: number;
-    readonly msOrientation: string;
-    onmsorientationchange: ((this: Screen, ev: Event) => any) | null;
     readonly orientation: ScreenOrientation;
     readonly pixelDepth: number;
-    readonly systemXDPI: number;
-    readonly systemYDPI: number;
     readonly width: number;
-    addEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ScreenEventMap>(type: K, listener: (this: Screen, ev: ScreenEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Screen: {
@@ -16147,9 +16165,9 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
     getMatchedCSSRules(elt: Element, pseudoElt?: string | null): CSSRuleList;
     getSelection(): Selection;
-    matchMedia(mediaQuery: string): MediaQueryList;
-    moveBy(x?: number, y?: number): void;
-    moveTo(x?: number, y?: number): void;
+    matchMedia(query: string): MediaQueryList;
+    moveBy(x: number, y: number): void;
+    moveTo(x: number, y: number): void;
     msWriteProfilerMark(profilerMarkName: string): void;
     open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
     postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
@@ -16158,14 +16176,14 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     /** @deprecated */
     releaseEvents(): void;
     requestAnimationFrame(callback: FrameRequestCallback): number;
-    resizeBy(x?: number, y?: number): void;
-    resizeTo(x?: number, y?: number): void;
+    resizeBy(x: number, y: number): void;
+    resizeTo(x: number, y: number): void;
     scroll(options?: ScrollToOptions): void;
-    scroll(x?: number, y?: number): void;
+    scroll(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
-    scrollBy(x?: number, y?: number): void;
+    scrollBy(x: number, y: number): void;
     scrollTo(options?: ScrollToOptions): void;
-    scrollTo(x?: number, y?: number): void;
+    scrollTo(x: number, y: number): void;
     stop(): void;
     webkitCancelAnimationFrame(handle: number): void;
     webkitConvertPointFromNodeToPage(node: Node, pt: WebKitPoint): WebKitPoint;
@@ -17063,9 +17081,9 @@ declare function focus(): void;
 declare function getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
 declare function getMatchedCSSRules(elt: Element, pseudoElt?: string | null): CSSRuleList;
 declare function getSelection(): Selection;
-declare function matchMedia(mediaQuery: string): MediaQueryList;
-declare function moveBy(x?: number, y?: number): void;
-declare function moveTo(x?: number, y?: number): void;
+declare function matchMedia(query: string): MediaQueryList;
+declare function moveBy(x: number, y: number): void;
+declare function moveTo(x: number, y: number): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
 declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
@@ -17074,14 +17092,14 @@ declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */
 declare function releaseEvents(): void;
 declare function requestAnimationFrame(callback: FrameRequestCallback): number;
-declare function resizeBy(x?: number, y?: number): void;
-declare function resizeTo(x?: number, y?: number): void;
+declare function resizeBy(x: number, y: number): void;
+declare function resizeTo(x: number, y: number): void;
 declare function scroll(options?: ScrollToOptions): void;
-declare function scroll(x?: number, y?: number): void;
+declare function scroll(x: number, y: number): void;
 declare function scrollBy(options?: ScrollToOptions): void;
-declare function scrollBy(x?: number, y?: number): void;
+declare function scrollBy(x: number, y: number): void;
 declare function scrollTo(options?: ScrollToOptions): void;
-declare function scrollTo(x?: number, y?: number): void;
+declare function scrollTo(x: number, y: number): void;
 declare function stop(): void;
 declare function webkitCancelAnimationFrame(handle: number): void;
 declare function webkitConvertPointFromNodeToPage(node: Node, pt: WebKitPoint): WebKitPoint;
@@ -17145,8 +17163,6 @@ type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
-type ScrollBehavior = "auto" | "instant" | "smooth";
-type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
@@ -17279,6 +17295,8 @@ type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
+type ScrollBehavior = "auto" | "instant" | "smooth";
+type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";

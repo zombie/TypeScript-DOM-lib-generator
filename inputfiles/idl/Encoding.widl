@@ -15,6 +15,7 @@ interface TextDecoder {
   readonly attribute boolean ignoreBOM;
   USVString decode(optional BufferSource input, optional TextDecodeOptions options);
 };
+
 [Constructor,
  Exposed=(Window,Worker)]
 interface TextEncoder {

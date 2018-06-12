@@ -1,5 +1,10 @@
 [
     {
+        "url": "https://compat.spec.whatwg.org/",
+        "title": "Compatibility",
+        "deprecated": true
+    },
+    {
         "url": "https://www.w3.org/TR/css-animations-1/",
         "title": "CSS Animations"
     },
@@ -48,6 +53,10 @@
         "title": "HTML - Forms"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/grouping-content.html",
+        "title": "HTML - Grouping content"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/image-maps.html",
         "title": "HTML - Image maps"
     },
@@ -55,6 +64,10 @@
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
         "title": "HTML - Obsolete features",
         "deprecated": true
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/semantics.html",
+        "title": "HTML - Semantics"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/tables.html",

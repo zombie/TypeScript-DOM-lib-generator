@@ -713,18 +713,6 @@
                     }
                 }
             },
-            "HTMLLinkElement": {
-                "name": "HTMLLinkElement",
-                "properties": {
-                    "property": {
-                        "import": {
-                            "name": "import",
-                            "override-type": "Document",
-                            "required": 0
-                        }
-                    }
-                }
-            },
             "HTMLCanvasElement": {
                 "name": "HTMLCanvasElement",
                 "methods": {
@@ -2093,10 +2081,52 @@
                     }
                 ]
             },
+            "HTMLBaseElement": {
+                "element": [
+                    {
+                        "name": "base"
+                    }
+                ]
+            },
+            "HTMLDivElement": {
+                "element": [
+                    {
+                        "name": "div"
+                    }
+                ]
+            },
+            "HTMLDListElement": {
+                "element": [
+                    {
+                        "name": "dl"
+                    }
+                ]
+            },
             "HTMLFormElement": {
                 "element": [
                     {
                         "name": "form"
+                    }
+                ]
+            },
+            "HTMLHeadElement": {
+                "element": [
+                    {
+                        "name": "head"
+                    }
+                ]
+            },
+            "HTMLHRElement": {
+                "element": [
+                    {
+                        "name": "hr"
+                    }
+                ]
+            },
+            "HTMLHtmlElement": {
+                "element": [
+                    {
+                        "name": "html"
                     }
                 ]
             },
@@ -2110,7 +2140,23 @@
                 },
                 "element": [
                     {
+                        
                         "name": "input"
+                    }
+                ]
+            },
+            "HTMLLinkElement": {
+                "properties": {
+                    "property": {
+                        "disabled":{
+                            "name": "disabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "link"
                     }
                 ]
             },
@@ -2121,10 +2167,77 @@
                     }
                 ]
             },
+            "HTMLLIElement": {
+                "element": [
+                    {
+                        "name": "li"
+                    }
+                ]
+            },
             "HTMLMapElement": {
                 "element": [
                     {
                         "name": "map"
+                    }
+                ]
+            },
+            "HTMLMenuElement": {
+                "element": [
+                    {
+                        "name": "menu"
+                    }
+                ]
+            },
+            "HTMLMetaElement": {
+                "element": [
+                    {
+                        "name": "meta"
+                    }
+                ]
+            },
+            "HTMLOListElement": {
+                "element": [
+                    {
+                        "name": "ol"
+                    }
+                ]
+            },
+            "HTMLParagraphElement": {
+                "element": [
+                    {
+                        "name": "p"
+                    }
+                ]
+            },
+            "HTMLPreElement": {
+                "element": [
+                    {
+                        "name": "pre"
+                    },
+                    {
+                        "name": "listing",
+                        "deprecated": true
+                    },
+                    {
+                        "name": "xmp",
+                        "deprecated": true
+                    }
+                ]
+            },
+            "HTMLQuoteElement": {
+                "element": [
+                    {
+                        "name": "blockquote"
+                    },
+                    {
+                        "name": "q"
+                    }
+                ]
+            },
+            "HTMLStyleElement": {
+                "element": [
+                    {
+                        "name": "style"
                     }
                 ]
             },
@@ -2153,7 +2266,7 @@
                     {
                         "name": "colgroup"
                     }
-                ]  
+                ]
             },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
@@ -2210,7 +2323,21 @@
                     {
                         "name": "thead"
                     }
-                ]  
+                ]
+            },
+            "HTMLTitleElement": {
+                "element": [
+                    {
+                        "name": "title"
+                    }
+                ]
+            },
+            "HTMLUListElement": {
+                "element": [
+                    {
+                        "name": "ul"
+                    }
+                ]
             },
             "NodeSelector": {
                 "name": "NodeSelector",
@@ -2288,6 +2415,10 @@
                             "name": "channel",
                             "override-type": "string",
                             "required": 0
+                        },
+                        "source": {
+                            "name": "source",
+                            "type": "MessageEventSource"
                         }
                     }
                 }

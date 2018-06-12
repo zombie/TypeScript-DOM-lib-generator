@@ -1,0 +1,48 @@
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLParagraphElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLHRElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLPreElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLQuoteElement : HTMLElement {
+  [CEReactions] attribute USVString cite;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLOListElement : HTMLElement {
+  [CEReactions] attribute boolean reversed;
+  [CEReactions] attribute long start;
+  [CEReactions] attribute DOMString type;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLUListElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLMenuElement : HTMLElement {
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLLIElement : HTMLElement {
+  [CEReactions] attribute long value;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLDListElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLDivElement : HTMLElement {};

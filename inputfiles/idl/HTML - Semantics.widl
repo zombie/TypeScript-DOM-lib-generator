@@ -1,0 +1,52 @@
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLHtmlElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLHeadElement : HTMLElement {};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLTitleElement : HTMLElement {
+  [CEReactions] attribute DOMString text;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLBaseElement : HTMLElement {
+  [CEReactions] attribute USVString href;
+  [CEReactions] attribute DOMString target;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLLinkElement : HTMLElement {
+  [CEReactions] attribute USVString href;
+  [CEReactions] attribute DOMString? crossOrigin;
+  [CEReactions] attribute DOMString rel;
+  [CEReactions] attribute DOMString as; // (default "")
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [CEReactions] attribute DOMString media;
+  [CEReactions] attribute DOMString integrity;
+  [CEReactions] attribute DOMString hreflang;
+  [CEReactions] attribute DOMString type;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList sizes;
+  [CEReactions] attribute DOMString referrerPolicy;
+};
+HTMLLinkElement includes LinkStyle;
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLMetaElement : HTMLElement {
+  [CEReactions] attribute DOMString name;
+  [CEReactions] attribute DOMString httpEquiv;
+  [CEReactions] attribute DOMString content;
+};
+
+[Exposed=Window,
+ HTMLConstructor]
+interface HTMLStyleElement : HTMLElement {
+  [CEReactions] attribute DOMString media;
+};
+HTMLStyleElement includes LinkStyle;

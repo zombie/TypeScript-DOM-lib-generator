@@ -1,6 +1,7 @@
 {
     "callback-functions": {
         "callback-function": {
+            "CustomElementConstructor": null,
             "Function": null
         }
     },
@@ -40,6 +41,7 @@
                 }
             },
             "FileReaderProgressEvent": null,
+            "HTMLAreasCollection": null,
             "HTMLElement": {
                 "methods": {
                     "method": {

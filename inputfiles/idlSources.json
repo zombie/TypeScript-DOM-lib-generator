@@ -9,6 +9,10 @@
         "title": "CSS Animations"
     },
     {
+        "url": "https://drafts.csswg.org/cssom-view/",
+        "title": "CSSOM View"
+    },
+    {
         "url": "https://www.w3.org/TR/css-transitions-1/",
         "title": "CSS Transitions"
     },
@@ -41,6 +45,10 @@
         "title": "HTML - Common DOM interfaces"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/custom-elements.html",
+        "title": "HTML - Custom elements"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/edits.html",
         "title": "HTML - Edits"
     },
@@ -57,8 +65,20 @@
         "title": "HTML - Form elements"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/forms.html",
+        "title": "HTML - Forms"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/grouping-content.html",
         "title": "HTML - Grouping content"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/interactive-elements.html",
+        "title": "HTML - Interactive elements"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/image-maps.html",
+        "title": "HTML - Image maps"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/links.html",
@@ -70,12 +90,24 @@
         "deprecated": true
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/scripting.html",
+        "title": "HTML - Scripting"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/semantics.html",
         "title": "HTML - Semantics"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/tables.html",
+        "title": "HTML - Tabular data"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/text-level-semantics.html",
         "title": "HTML - Text level semantics"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/input.html",
+        "title": "HTML - The input element"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/webstorage.html",

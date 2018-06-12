@@ -59,6 +59,7 @@ interface XMLHttpRequest : XMLHttpRequestEventTarget {
   readonly attribute USVString responseText;
   [Exposed=Window] readonly attribute Document? responseXML;
 };
+
 typedef (File or USVString) FormDataEntryValue;
 
 [Constructor(optional HTMLFormElement form),
@@ -74,6 +75,7 @@ interface FormData {
   void set(USVString name, Blob blobValue, optional USVString filename);
   iterable<USVString, FormDataEntryValue>;
 };
+
 [Constructor(DOMString type, optional ProgressEventInit eventInitDict),
  Exposed=(Window,DedicatedWorker,SharedWorker)]
 interface ProgressEvent : Event {

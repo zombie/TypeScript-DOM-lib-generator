@@ -323,24 +323,6 @@
                                 "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
                                 "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
                             ]
-                        },
-                        "scroll": {
-                            "name": "scroll",
-                            "additional-signatures": [
-                                "scroll(options?: ScrollToOptions): void"
-                            ]
-                        },
-                        "scrollTo": {
-                            "name": "scrollTo",
-                            "additional-signatures": [
-                                "scrollTo(options?: ScrollToOptions): void"
-                            ]
-                        },
-                        "scrollBy": {
-                            "name": "scrollBy",
-                            "additional-signatures": [
-                                "scrollBy(options?: ScrollToOptions): void"
-                            ]
                         }
                     }
                 },
@@ -537,33 +519,6 @@
                                 "closest(selector: string): Element | null"
                             ]
                         },
-                        "scrollIntoView": {
-                            "name": "scrollIntoView",
-                            "override-signatures": [
-                                "scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void"
-                            ]
-                        },
-                        "scroll": {
-                            "name": "scroll",
-                            "override-signatures": [
-                                "scroll(options?: ScrollToOptions): void",
-                                "scroll(x: number, y: number): void"
-                            ]
-                        },
-                        "scrollTo": {
-                            "name": "scrollTo",
-                            "override-signatures": [
-                                "scrollTo(options?: ScrollToOptions): void",
-                                "scrollTo(x: number, y: number): void"
-                            ]
-                        },
-                        "scrollBy": {
-                            "name": "scrollBy",
-                            "override-signatures": [
-                                "scrollBy(options?: ScrollToOptions): void",
-                                "scrollBy(x: number, y: number): void"
-                            ]
-                        },
                         "insertAdjacentElement": {
                             "name": "insertAdjacentElement",
                             "override-signatures": [
@@ -755,17 +710,6 @@
                 "name": "IDBArrayKey",
                 "extends": "Array<IDBValidKey>",
                 "no-interface-object": "1"
-            },
-            "HTMLInputElement": {
-                "name": "HTMLInputElement",
-                "properties": {
-                    "property": {
-                        "minLength": {
-                            "name": "minLength",
-                            "override-type": "number"
-                        }
-                    }
-                }
             },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
@@ -1193,49 +1137,6 @@
                     }
                 }
             },
-            "HTMLSlotElement": {
-                "name": "HTMLSlotElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "name",
-                            "override-type": "string"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "assignedNodes": {
-                            "name": "assignedNodes",
-                            "override-signatures": [
-                                "assignedNodes(options?: AssignedNodesOptions): Node[]"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1",
-                "element": [
-                    {
-                        "name": "slot"
-                    }
-                ]
-            },
-            "AssignedNodesOptions": {
-                "name": "AssignedNodesOptions",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "flatten": {
-                            "name": "flatten",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Event": {
                 "name": "Event",
                 "properties": {
@@ -1258,19 +1159,6 @@
                     }
                 }
             },
-            "ElementDefinitionOptions": {
-                "name": "ElementDefinitionOptions",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "extends": {
-                            "name": "extends",
-                            "override-type": "string"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ElementCreationOptions": {
                 "name": "ElementCreationOptions",
                 "exposed": "Window",
@@ -1280,33 +1168,6 @@
                             "name": "is",
                             "override-type": "string",
                             "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "CustomElementRegistry": {
-                "name": "CustomElementRegistry",
-                "exposed": "Window",
-                "methods": {
-                    "method": {
-                        "define": {
-                            "name": "define",
-                            "override-signatures": [
-                                "define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"
-                            ]
-                        },
-                        "get": {
-                            "name": "get",
-                            "override-signatures": [
-                                "get(name: string): any"
-                            ]
-                        },
-                        "whenDefined": {
-                            "name": "whenDefined",
-                            "override-signatures": [
-                                "whenDefined(name: string): PromiseLike<void>"
-                            ]
                         }
                     }
                 },
@@ -1336,63 +1197,6 @@
                     }
                 }
             },
-            "ValidityState": {
-                "name": "ValidityState",
-                "properties": {
-                    "property": {
-                        "tooShort": {
-                            "name": "tooShort",
-                            "exposed": "Window",
-                            "read-only": 1,
-                            "override-type": "boolean"
-                        }
-                    }
-                }
-            },
-            "HTMLDialogElement": {
-                "name": "HTMLDialogElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "open": {
-                            "name": "open",
-                            "override-type": "boolean"
-                        },
-                        "returnValue": {
-                            "name": "returnValue",
-                            "override-type": "string"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "close": {
-                            "name": "close",
-                            "override-signatures": [
-                                "close(returnValue?: string): void"
-                            ]
-                        },
-                        "show": {
-                            "name": "show",
-                            "override-signatures": [
-                                "show(): void"
-                            ]
-                        },
-                        "showModal": {
-                            "name": "showModal",
-                            "override-signatures": [
-                                "showModal(): void"
-                            ]
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLDialogElement"
-                    ]
-                }
-            },
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
                 "extends": "HTMLElement",
@@ -1400,34 +1204,6 @@
                 "constructor": {
                     "override-signatures": [
                         "new(): HTMLMainElement"
-                    ]
-                }
-            },
-            "HTMLDetailsElement": {
-                "name": "HTMLDetailsElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "open": {
-                            "name": "open",
-                            "override-type": "boolean"
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLDetailsElement"
-                    ]
-                }
-            },
-            "HTMLSummaryElement": {
-                "name": "HTMLSummaryElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLSummaryElement"
                     ]
                 }
             },
@@ -1504,20 +1280,6 @@
                             "name": "replace",
                             "override-signatures": [
                                 "replace(oldToken: string, newToken: string): void"
-                            ]
-                        }
-                    }
-                }
-            },
-            "HTMLFormElement": {
-                "name": "HTMLFormElement",
-                "methods": {
-                    "method": {
-                        "reportValidity": {
-                            "name": "reportValidity",
-                            "exposed": "Window",
-                            "override-signatures": [
-                                "reportValidity(): boolean"
                             ]
                         }
                     }
@@ -2015,18 +1777,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLLabelElement": {
-                "name": "HTMLLabelElement",
-                "properties": {
-                    "property": {
-                        "control": {
-                            "name": "control",
-                            "read-only": 1,
-                            "override-type": "HTMLInputElement | null"
-                        }
-                    }
-                }
-            },
             "HTMLObjectElement": {
                 "name": "HTMLObjectElement",
                 "properties": {
@@ -2123,6 +1873,13 @@
                     }
                 ]
             },
+            "HTMLAreaElement": {
+                "element": [
+                    {
+                        "name": "area"
+                    }
+                ]
+            },
             "HTMLBaseElement": {
                 "element": [
                     {
@@ -2144,6 +1901,13 @@
                     }
                 ]
             },
+            "HTMLDetailsElement": {
+                "element": [
+                    {
+                        "name": "details"
+                    }
+                ]
+            },
             "HTMLDivElement": {
                 "element": [
                     {
@@ -2155,6 +1919,13 @@
                 "element": [
                     {
                         "name": "dl"
+                    }
+                ]
+            },
+            "HTMLFormElement": {
+                "element": [
+                    {
+                        "name": "form"
                     }
                 ]
             },
@@ -2179,6 +1950,21 @@
                     }
                 ]
             },
+            "HTMLInputElement": {
+                "properties": {
+                    "property": {
+                        "labels": {
+                            "override-type": "NodeListOf<HTMLLabelElement> | null"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        
+                        "name": "input"
+                    }
+                ]
+            },
             "HTMLLinkElement": {
                 "properties": {
                     "property": {
@@ -2194,10 +1980,24 @@
                     }
                 ]
             },
+            "HTMLLabelElement": {
+                "element": [
+                    {
+                        "name": "label"
+                    }
+                ]
+            },
             "HTMLLIElement": {
                 "element": [
                     {
                         "name": "li"
+                    }
+                ]
+            },
+            "HTMLMapElement": {
+                "element": [
+                    {
+                        "name": "map"
                     }
                 ]
             },
@@ -2271,6 +2071,20 @@
                     }
                 ]
             },
+            "HTMLScriptElement": {
+                "element": [
+                    {
+                        "name": "script"
+                    }
+                ]
+            },
+            "HTMLSlotElement": {
+                "element": [
+                    {
+                        "name": "slot"
+                    }
+                ]
+            },
             "HTMLSourceElement": {
                 "element": [
                     {
@@ -2292,6 +2106,33 @@
                     }
                 ]
             },
+            "HTMLTableCaptionElement": {
+                "element": [
+                    {
+                        "name": "caption"
+                    }
+                ]  
+            },
+            "HTMLTableCellElement": {
+                "element": [
+                    {
+                        "name": "td"
+                    },
+                    {
+                        "name": "th"
+                    }
+                ]  
+            },
+            "HTMLTableColElement": {
+                "element": [
+                    {
+                        "name": "col"
+                    },
+                    {
+                        "name": "colgroup"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2303,6 +2144,13 @@
                         "name": "td"
                     }
                 ]
+            },
+            "HTMLTableElement": {
+                "element": [
+                    {
+                        "name": "table"
+                    }
+                ]  
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
@@ -2322,6 +2170,26 @@
                     }
                 ]
             },
+            "HTMLTableRowElement": {
+                "element": [
+                    {
+                        "name": "tr"
+                    }
+                ]  
+            },
+            "HTMLTableSectionElement": {
+                "element": [
+                    {
+                        "name": "tbody"
+                    },
+                    {
+                        "name": "tfoot"
+                    },
+                    {
+                        "name": "thead"
+                    }
+                ]
+            },
             "HTMLTimeElement": {
                 "element": [
                     {
@@ -2333,6 +2201,13 @@
                 "element": [
                     {
                         "name": "title"
+                    }
+                ]
+            },
+            "HTMLTemplateElement": {
+                "element": [
+                    {
+                        "name": "template"
                     }
                 ]
             },
@@ -2535,14 +2410,6 @@
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "\"auto\" | \"instant\" | \"smooth\"",
-                "new-type": "ScrollBehavior"
-            },
-            {
-                "override-type": "\"start\" | \"center\" | \"end\" | \"nearest\"",
-                "new-type": "ScrollLogicalPosition"
-            },
             {
                 "override-type": "WheelEvent",
                 "new-type": "MouseWheelEvent"

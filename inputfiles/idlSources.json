@@ -70,6 +70,10 @@
         "deprecated": true
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/semantics.html",
+        "title": "HTML - Semantics"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/text-level-semantics.html",
         "title": "HTML - Text level semantics"
     },

@@ -713,18 +713,6 @@
                     }
                 }
             },
-            "HTMLLinkElement": {
-                "name": "HTMLLinkElement",
-                "properties": {
-                    "property": {
-                        "import": {
-                            "name": "import",
-                            "override-type": "Document",
-                            "required": 0
-                        }
-                    }
-                }
-            },
             "HTMLCanvasElement": {
                 "name": "HTMLCanvasElement",
                 "methods": {
@@ -2123,6 +2111,13 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLBaseElement": {
+                "element": [
+                    {
+                        "name": "base"
+                    }
+                ]
+            },
             "HTMLDivElement": {
                 "element": [
                     {
@@ -2137,10 +2132,39 @@
                     }
                 ]
             },
+            "HTMLHeadElement": {
+                "element": [
+                    {
+                        "name": "head"
+                    }
+                ]
+            },
             "HTMLHRElement": {
                 "element": [
                     {
                         "name": "hr"
+                    }
+                ]
+            },
+            "HTMLHtmlElement": {
+                "element": [
+                    {
+                        "name": "html"
+                    }
+                ]
+            },
+            "HTMLLinkElement": {
+                "properties": {
+                    "property": {
+                        "disabled":{
+                            "name": "disabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "name": "link"
                     }
                 ]
             },
@@ -2155,6 +2179,13 @@
                 "element": [
                     {
                         "name": "menu"
+                    }
+                ]
+            },
+            "HTMLMetaElement": {
+                "element": [
+                    {
+                        "name": "meta"
                     }
                 ]
             },
@@ -2197,6 +2228,13 @@
                     }
                 ]
             },
+            "HTMLStyleElement": {
+                "element": [
+                    {
+                        "name": "style"
+                    }
+                ]
+            },
             "HTMLTableDataCellElement": {
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
@@ -2224,6 +2262,13 @@
                 "element": [
                     {
                         "name": "th"
+                    }
+                ]
+            },
+            "HTMLTitleElement": {
+                "element": [
+                    {
+                        "name": "title"
                     }
                 ]
             },

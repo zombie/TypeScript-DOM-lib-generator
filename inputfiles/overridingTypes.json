@@ -902,6 +902,7 @@
                 "properties": {
                     "property": {
                         "className": {
+                            "deprecated": 1,
                             "name": "className",
                             "override-type": "any"
                         }
@@ -989,6 +990,12 @@
                             "name": "trace",
                             "override-signatures": [
                                 "trace(message?: any, ...optionalParams: any[]): void"
+                            ]
+                        },
+                        "profileEnd": {
+                            "name": "profileEnd",
+                            "override-signatures": [
+                                "profileEnd(reportName?: string): void"
                             ]
                         }
                     }
@@ -2309,6 +2316,10 @@
                         "name": "marquee"
                     }
                 ]
+            },
+            "AbortSignal": {
+                "name": "AbortSignal",
+                "override-exposed": "Window Worker"
             },
             "CryptoKey": {
                 "name": "CryptoKey",

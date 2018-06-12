@@ -133,6 +133,7 @@ export interface ParsedAttribute{
 export interface Element {
     name: string;
     namespace?: string;
+    deprecated?: boolean;
     "html-self-closing"?: string;
     specs?: string;
 }

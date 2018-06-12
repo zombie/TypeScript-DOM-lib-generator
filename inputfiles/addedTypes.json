@@ -2118,10 +2118,31 @@
                     }
                 ]
             },
+            "HTMLDivElement": {
+                "element": [
+                    {
+                        "name": "div"
+                    }
+                ]
+            },
+            "HTMLDListElement": {
+                "element": [
+                    {
+                        "name": "dl"
+                    }
+                ]
+            },
             "HTMLHeadElement": {
                 "element": [
                     {
                         "name": "head"
+                    }
+                ]
+            },
+            "HTMLHRElement": {
+                "element": [
+                    {
+                        "name": "hr"
                     }
                 ]
             },
@@ -2139,10 +2160,63 @@
                     }
                 ]
             },
+            "HTMLLIElement": {
+                "element": [
+                    {
+                        "name": "li"
+                    }
+                ]
+            },
+            "HTMLMenuElement": {
+                "element": [
+                    {
+                        "name": "menu"
+                    }
+                ]
+            },
             "HTMLMetaElement": {
                 "element": [
                     {
                         "name": "meta"
+                    }
+                ]
+            },
+            "HTMLOListElement": {
+                "element": [
+                    {
+                        "name": "ol"
+                    }
+                ]
+            },
+            "HTMLParagraphElement": {
+                "element": [
+                    {
+                        "name": "p"
+                    }
+                ]
+            },
+            "HTMLPreElement": {
+                "element": [
+                    {
+                        "name": "pre"
+                    },
+                    {
+                        "name": "listing",
+                        "deprecated": true
+                    },
+                    {
+                        "name": "xmp",
+                        "deprecated": true
+                    }
+                ]
+            },
+            "HTMLQuoteElement": {
+                "element": [
+                    {
+                        "name": "blockquote"
+                    },
+                    {
+                        "name": "q"
                     }
                 ]
             },
@@ -2187,6 +2261,13 @@
                 "element": [
                     {
                         "name": "title"
+                    }
+                ]
+            },
+            "HTMLUListElement": {
+                "element": [
+                    {
+                        "name": "ul"
                     }
                 ]
             },
@@ -2266,6 +2347,10 @@
                             "name": "channel",
                             "override-type": "string",
                             "required": 0
+                        },
+                        "source": {
+                            "name": "source",
+                            "type": "MessageEventSource"
                         }
                     }
                 }

@@ -1,0 +1,3 @@
+{
+    "window-customelements": "Tries to upgrade all shadow-including\ninclusive descendant elements of root, even if they are not\nconnected."
+}

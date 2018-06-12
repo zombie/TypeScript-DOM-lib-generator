@@ -45,6 +45,10 @@
         "title": "HTML - Common DOM interfaces"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/custom-elements.html",
+        "title": "HTML - Custom elements"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html",
         "title": "HTML - Form control infrastructure"
     },
@@ -61,6 +65,10 @@
         "title": "HTML - Grouping content"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/interactive-elements.html",
+        "title": "HTML - Interactive elements"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/image-maps.html",
         "title": "HTML - Image maps"
     },
@@ -68,6 +76,10 @@
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
         "title": "HTML - Obsolete features",
         "deprecated": true
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/scripting.html",
+        "title": "HTML - Scripting"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/semantics.html",

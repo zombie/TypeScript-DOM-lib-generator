@@ -1132,49 +1132,6 @@
                     }
                 }
             },
-            "HTMLSlotElement": {
-                "name": "HTMLSlotElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "name": {
-                            "name": "name",
-                            "override-type": "string"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "assignedNodes": {
-                            "name": "assignedNodes",
-                            "override-signatures": [
-                                "assignedNodes(options?: AssignedNodesOptions): Node[]"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1",
-                "element": [
-                    {
-                        "name": "slot"
-                    }
-                ]
-            },
-            "AssignedNodesOptions": {
-                "name": "AssignedNodesOptions",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "flatten": {
-                            "name": "flatten",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Event": {
                 "name": "Event",
                 "properties": {
@@ -1197,19 +1154,6 @@
                     }
                 }
             },
-            "ElementDefinitionOptions": {
-                "name": "ElementDefinitionOptions",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "extends": {
-                            "name": "extends",
-                            "override-type": "string"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ElementCreationOptions": {
                 "name": "ElementCreationOptions",
                 "exposed": "Window",
@@ -1219,33 +1163,6 @@
                             "name": "is",
                             "override-type": "string",
                             "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "CustomElementRegistry": {
-                "name": "CustomElementRegistry",
-                "exposed": "Window",
-                "methods": {
-                    "method": {
-                        "define": {
-                            "name": "define",
-                            "override-signatures": [
-                                "define(name: string, constructor: Function, options?: ElementDefinitionOptions): void"
-                            ]
-                        },
-                        "get": {
-                            "name": "get",
-                            "override-signatures": [
-                                "get(name: string): any"
-                            ]
-                        },
-                        "whenDefined": {
-                            "name": "whenDefined",
-                            "override-signatures": [
-                                "whenDefined(name: string): PromiseLike<void>"
-                            ]
                         }
                     }
                 },
@@ -1275,63 +1192,6 @@
                     }
                 }
             },
-            "ValidityState": {
-                "name": "ValidityState",
-                "properties": {
-                    "property": {
-                        "tooShort": {
-                            "name": "tooShort",
-                            "exposed": "Window",
-                            "read-only": 1,
-                            "override-type": "boolean"
-                        }
-                    }
-                }
-            },
-            "HTMLDialogElement": {
-                "name": "HTMLDialogElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "open": {
-                            "name": "open",
-                            "override-type": "boolean"
-                        },
-                        "returnValue": {
-                            "name": "returnValue",
-                            "override-type": "string"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "close": {
-                            "name": "close",
-                            "override-signatures": [
-                                "close(returnValue?: string): void"
-                            ]
-                        },
-                        "show": {
-                            "name": "show",
-                            "override-signatures": [
-                                "show(): void"
-                            ]
-                        },
-                        "showModal": {
-                            "name": "showModal",
-                            "override-signatures": [
-                                "showModal(): void"
-                            ]
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLDialogElement"
-                    ]
-                }
-            },
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
                 "extends": "HTMLElement",
@@ -1339,34 +1199,6 @@
                 "constructor": {
                     "override-signatures": [
                         "new(): HTMLMainElement"
-                    ]
-                }
-            },
-            "HTMLDetailsElement": {
-                "name": "HTMLDetailsElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "open": {
-                            "name": "open",
-                            "override-type": "boolean"
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLDetailsElement"
-                    ]
-                }
-            },
-            "HTMLSummaryElement": {
-                "name": "HTMLSummaryElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLSummaryElement"
                     ]
                 }
             },
@@ -2043,6 +1875,13 @@
                     }
                 ]
             },
+            "HTMLDetailsElement": {
+                "element": [
+                    {
+                        "name": "details"
+                    }
+                ]
+            },
             "HTMLDivElement": {
                 "element": [
                     {
@@ -2189,6 +2028,20 @@
                     }
                 ]
             },
+            "HTMLScriptElement": {
+                "element": [
+                    {
+                        "name": "script"
+                    }
+                ]
+            },
+            "HTMLSlotElement": {
+                "element": [
+                    {
+                        "name": "slot"
+                    }
+                ]
+            },
             "HTMLStyleElement": {
                 "element": [
                     {
@@ -2257,6 +2110,13 @@
                 "element": [
                     {
                         "name": "th"
+                    }
+                ]
+            },
+            "HTMLTemplateElement": {
+                "element": [
+                    {
+                        "name": "template"
                     }
                 ]
             },

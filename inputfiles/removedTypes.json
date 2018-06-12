@@ -1,6 +1,7 @@
 {
     "callback-functions": {
         "callback-function": {
+            "CustomElementConstructor": null,
             "Function": null
         }
     },

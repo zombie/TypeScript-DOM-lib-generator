@@ -71,6 +71,10 @@ interface AssertionOptions {
     timeoutSeconds?: number;
 }
 
+interface AssignedNodesOptions {
+    flatten?: boolean;
+}
+
 interface AudioBufferOptions {
     length: number;
     numberOfChannels?: number;
@@ -372,6 +376,10 @@ interface EffectTiming {
     fill?: FillMode;
     iterationStart?: number;
     iterations?: number;
+}
+
+interface ElementDefinitionOptions {
+    extends?: string;
 }
 
 interface ErrorEventInit extends EventInit {
@@ -2122,10 +2130,6 @@ declare var ApplicationCache: {
     readonly UPDATEREADY: number;
 };
 
-interface AssignedNodesOptions {
-    flatten?: boolean;
-}
-
 interface Attr extends Node {
     readonly name: string;
     readonly ownerElement: Element | null;
@@ -3504,8 +3508,14 @@ declare var CryptoKeyPair: {
 interface CustomElementRegistry {
     define(name: string, constructor: Function, options?: ElementDefinitionOptions): void;
     get(name: string): any;
-    whenDefined(name: string): PromiseLike<void>;
+    upgrade(root: Node): void;
+    whenDefined(name: string): Promise<void>;
 }
+
+declare var CustomElementRegistry: {
+    prototype: CustomElementRegistry;
+    new(): CustomElementRegistry;
+};
 
 interface CustomEvent<T = any> extends Event {
     readonly detail: T;
@@ -5153,10 +5163,6 @@ interface ElementCSSInlineStyle {
 
 interface ElementCreationOptions {
     is?: string;
-}
-
-interface ElementDefinitionOptions {
-    extends: string;
 }
 
 interface ElementTraversal {
@@ -7868,6 +7874,7 @@ interface HTMLScriptElement extends HTMLElement {
     htmlFor: string;
     integrity: string;
     noModule: boolean;
+    referrerPolicy: string;
     /**
      * Retrieves the URL to an external file that contains the source code or data.
      */
@@ -7996,12 +8003,18 @@ declare var HTMLSelectElement: {
 
 interface HTMLSlotElement extends HTMLElement {
     name: string;
+    assignedElements(options?: AssignedNodesOptions): Element[];
     assignedNodes(options?: AssignedNodesOptions): Node[];
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSlotElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSlotElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
+
+declare var HTMLSlotElement: {
+    prototype: HTMLSlotElement;
+    new(): HTMLSlotElement;
+};
 
 interface HTMLSourceElement extends HTMLElement {
     /**
@@ -8062,18 +8075,6 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
 declare var HTMLStyleElement: {
     prototype: HTMLStyleElement;
     new(): HTMLStyleElement;
-};
-
-interface HTMLSummaryElement extends HTMLElement {
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSummaryElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLSummaryElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var HTMLSummaryElement: {
-    prototype: HTMLSummaryElement;
-    new(): HTMLSummaryElement;
 };
 
 interface HTMLTableCaptionElement extends HTMLElement {
@@ -16731,6 +16732,7 @@ interface HTMLElementTagNameMap {
     "datalist": HTMLDataListElement;
     "dd": HTMLElement;
     "del": HTMLModElement;
+    "details": HTMLDetailsElement;
     "dfn": HTMLElement;
     "dir": HTMLDirectoryElement;
     "div": HTMLDivElement;

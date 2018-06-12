@@ -2149,6 +2149,41 @@
                     }
                 ]
             },
+            "HTMLDivElement": {
+                "element": [
+                    {
+                        "name": "div"
+                    }
+                ]
+            },
+            "HTMLDListElement": {
+                "element": [
+                    {
+                        "name": "dl"
+                    }
+                ]
+            },
+            "HTMLHRElement": {
+                "element": [
+                    {
+                        "name": "hr"
+                    }
+                ]
+            },
+            "HTMLLIElement": {
+                "element": [
+                    {
+                        "name": "li"
+                    }
+                ]
+            },
+            "HTMLMenuElement": {
+                "element": [
+                    {
+                        "name": "menu"
+                    }
+                ]
+            },
             "HTMLModElement": {
                 "element": [
                     {
@@ -2159,10 +2194,49 @@
                     }
                 ]
             },
+            "HTMLOListElement": {
+                "element": [
+                    {
+                        "name": "ol"
+                    }
+                ]
+            },
+            "HTMLParagraphElement": {
+                "element": [
+                    {
+                        "name": "p"
+                    }
+                ]
+            },
             "HTMLPictureElement": {
                 "element": [
                     {
                         "name": "picture"
+                    }
+                ]
+            },
+            "HTMLPreElement": {
+                "element": [
+                    {
+                        "name": "pre"
+                    },
+                    {
+                        "name": "listing",
+                        "deprecated": true
+                    },
+                    {
+                        "name": "xmp",
+                        "deprecated": true
+                    }
+                ]
+            },
+            "HTMLQuoteElement": {
+                "element": [
+                    {
+                        "name": "blockquote"
+                    },
+                    {
+                        "name": "q"
                     }
                 ]
             },
@@ -2177,13 +2251,6 @@
                 "element": [
                     {
                         "name": "span"
-                    }
-                ]
-            },
-            "HTMLTimeElement": {
-                "element": [
-                    {
-                        "name": "time"
                     }
                 ]
             },
@@ -2214,6 +2281,20 @@
                 "element": [
                     {
                         "name": "th"
+                    }
+                ]
+            },
+            "HTMLTimeElement": {
+                "element": [
+                    {
+                        "name": "time"
+                    }
+                ]
+            },
+            "HTMLUListElement": {
+                "element": [
+                    {
+                        "name": "ul"
                     }
                 ]
             },
@@ -2293,6 +2374,10 @@
                             "name": "channel",
                             "override-type": "string",
                             "required": 0
+                        },
+                        "source": {
+                            "name": "source",
+                            "type": "MessageEventSource"
                         }
                     }
                 }

@@ -20,10 +20,10 @@ export const baseTypeConversionMap = new Map<string, string>([
     ["EventHandler", "EventHandler"]
 ]);
 
-export function filter(obj: any, fn: (o: any, n: string | undefined) => boolean): any {
+export function filter<T>(obj: T, fn: (o: any, n: string | undefined) => boolean): T {
     if (typeof obj === "object") {
         if (Array.isArray(obj)) {
-            return mapDefined(obj, e => fn(e, undefined) ? filter(e, fn) : undefined);
+            return mapDefined(obj, e => fn(e, undefined) ? filter(e, fn) : undefined) as any as T;
         }
         else {
             const result: any = {};

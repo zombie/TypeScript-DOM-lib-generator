@@ -24,6 +24,21 @@
     },
     "interfaces": {
         "interface": {
+            "Console": {
+                "methods": {
+                    "method": {
+                        "msIsIndependentlyComposed": null,
+                        "select": null
+                    }
+                }  
+            },
+            "Event": {
+                "properties": {
+                    "property": {
+                        "srcElement": null
+                    }
+                }
+            },
             "FileReaderProgressEvent": null,
             "HTMLElement": {
                 "methods": {
@@ -39,6 +54,13 @@
                 "implements": null
             },
             "MediaQueryListListener": null,
+            "MessageEvent": {
+                "methods": {
+                    "method": {
+                        "initMessageEvent": null
+                    }
+                }
+            },
             "MSStreamReader": null,
             "Screen": {
                 "methods": {

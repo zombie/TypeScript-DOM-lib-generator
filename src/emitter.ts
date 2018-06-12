@@ -177,6 +177,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function getTagNameToElementNameMap() {
         const htmlResult: Record<string, string> = {};
+        const htmlDeprecatedResult: Record<string, string> = {};
         const svgResult: Record<string, string> = {};
         for (const i of allNonCallbackInterfaces) {
             if (i.element) {
@@ -184,13 +185,16 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                     if (e.namespace === "SVG") {
                         svgResult[e.name] = i.name;
                     }
+                    else if (e.deprecated) {
+                        htmlDeprecatedResult[e.name] = i.name;
+                    } 
                     else {
                         htmlResult[e.name] = i.name;
                     }
                 }
             }
         }
-        return { htmlResult, svgResult };
+        return { htmlResult, htmlDeprecatedResult, svgResult };
     }
 
     function getExtendList(iName: string): string[] {
@@ -298,7 +302,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
         }
-        if (flavor === Flavor.Worker && (objDomType === "Element" || objDomType === "Window" || objDomType === "Document" || objDomType === "AbortSignal" || objDomType === "HTMLFormElement")) return "object";
         if (flavor === Flavor.Web && objDomType === "Client") return "object";
         // Name of an interface / enum / dict. Just return itself
         if (allInterfacesMap[objDomType] ||
@@ -356,6 +359,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitCreateElementOverloads(m: Browser.Method) {
         if (matchSingleParamMethodSignature(m, "createElement", "Element", "string")) {
             printer.printLine("createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];");
+            printer.printLine("/** @deprecated */");
+            printer.printLine("createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];");
             printer.printLine("createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;");
         }
     }
@@ -390,8 +395,18 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitHTMLElementTagNameMap() {
         printer.printLine("interface HTMLElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName.htmlResult).sort()) {
-            const value = tagNameToEleName.htmlResult[e];
+        for (const [e, value] of Object.entries(tagNameToEleName.htmlResult).sort()) {
+            printer.printLine(`"${e.toLowerCase()}": ${value};`);
+        }
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
+    }
+
+    function emitHTMLElementDeprecatedTagNameMap() {
+        printer.printLine("interface HTMLElementDeprecatedTagNameMap {");
+        printer.increaseIndent();
+        for (const [e, value] of Object.entries(tagNameToEleName.htmlDeprecatedResult).sort()) {
             printer.printLine(`"${e.toLowerCase()}": ${value};`);
         }
         printer.decreaseIndent();
@@ -402,13 +417,12 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitSVGElementTagNameMap() {
         printer.printLine("interface SVGElementTagNameMap {");
         printer.increaseIndent();
-        for (const e of Object.keys(tagNameToEleName.svgResult).sort()) {
+        for (const [e, value] of Object.entries(tagNameToEleName.svgResult).sort()) {
             if (e in tagNameToEleName.htmlResult) {
                 // Skip conflicting fields with HTMLElementTagNameMap
                 // to be compatible with deprecated ElementTagNameMap
                 continue;
             }
-            const value = tagNameToEleName.svgResult[e];
             printer.printLine(`"${e}": ${value};`);
         }
         printer.decreaseIndent();
@@ -1013,6 +1027,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         if (flavor !== Flavor.Worker) {
             emitHTMLElementTagNameMap();
+            emitHTMLElementDeprecatedTagNameMap();
             emitSVGElementTagNameMap();
             emitElementTagNameMap();
             emitNamedConstructors();

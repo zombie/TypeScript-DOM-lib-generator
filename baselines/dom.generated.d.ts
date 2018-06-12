@@ -1014,7 +1014,7 @@ interface MessageEventInit extends EventInit {
     lastEventId?: string;
     origin?: string;
     ports?: MessagePort[];
-    source?: Window | null;
+    source?: MessageEventSource | null;
 }
 
 interface MouseEventInit extends EventModifierInit {
@@ -3397,10 +3397,8 @@ interface Console {
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     markTimeline(label?: string): void;
-    msIsIndependentlyComposed(element: Element): boolean;
     profile(reportName?: string): void;
-    profileEnd(): void;
-    select(element: Element): void;
+    profileEnd(reportName?: string): void;
     table(...tabularData: any[]): void;
     time(label?: string): void;
     timeEnd(label?: string): void;
@@ -4613,6 +4611,8 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param tagName The name of an element.
      */
     createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];
+    /** @deprecated */
+    createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];
     createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement;
@@ -5179,7 +5179,6 @@ interface Event {
     readonly eventPhase: number;
     readonly isTrusted: boolean;
     returnValue: boolean;
-    readonly srcElement: Element | null;
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;
@@ -5778,6 +5777,7 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     link: string;
     /** @deprecated */
     noWrap: boolean;
+    /** @deprecated */
     onorientationchange: ((this: HTMLBodyElement, ev: Event) => any) | null;
     onresize: ((this: HTMLBodyElement, ev: UIEvent) => any) | null;
     /** @deprecated */
@@ -6028,10 +6028,6 @@ interface HTMLDivElement extends HTMLElement {
      */
     /** @deprecated */
     align: string;
-    /**
-     * Sets or retrieves whether the browser automatically performs wordwrap.
-     */
-    noWrap: boolean;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -6562,8 +6558,6 @@ declare var HTMLHRElement: {
 };
 
 interface HTMLHeadElement extends HTMLElement {
-    /** @deprecated */
-    profile: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7058,6 +7052,7 @@ declare var HTMLLegendElement: {
 };
 
 interface HTMLLinkElement extends HTMLElement, LinkStyle {
+    as: string;
     /**
      * Sets or retrieves the character set used to encode the object.
      */
@@ -7073,12 +7068,12 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
      * Sets or retrieves the language code of the object.
      */
     hreflang: string;
-    import?: Document;
     integrity: string;
     /**
      * Sets or retrieves the media type.
      */
     media: string;
+    referrerPolicy: string;
     /**
      * Sets or retrieves the relationship between the object and the destination of the link.
      */
@@ -7089,6 +7084,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
      */
     /** @deprecated */
     rev: string;
+    readonly sizes: DOMTokenList;
     /**
      * Sets or retrieves the window or frame at which to target content.
      */
@@ -7390,7 +7386,6 @@ declare var HTMLMediaElement: {
 interface HTMLMenuElement extends HTMLElement {
     /** @deprecated */
     compact: boolean;
-    type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMenuElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMenuElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7403,11 +7398,6 @@ declare var HTMLMenuElement: {
 };
 
 interface HTMLMetaElement extends HTMLElement {
-    /**
-     * Sets or retrieves the character set used to encode the object.
-     */
-    /** @deprecated */
-    charset: string;
     /**
      * Gets or sets meta-information to associate with httpEquiv or name.
      */
@@ -7425,11 +7415,6 @@ interface HTMLMetaElement extends HTMLElement {
      */
     /** @deprecated */
     scheme: string;
-    /**
-     * Sets or retrieves the URL property that will be loaded after the specified time has elapsed.
-     */
-    /** @deprecated */
-    url: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMetaElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMetaElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7483,6 +7468,7 @@ declare var HTMLModElement: {
 interface HTMLOListElement extends HTMLElement {
     /** @deprecated */
     compact: boolean;
+    reversed: boolean;
     /**
      * The starting number.
      */
@@ -7747,7 +7733,6 @@ interface HTMLParagraphElement extends HTMLElement {
      */
     /** @deprecated */
     align: string;
-    clear: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLParagraphElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLParagraphElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -8066,8 +8051,6 @@ declare var HTMLSpanElement: {
 };
 
 interface HTMLStyleElement extends HTMLElement, LinkStyle {
-    /** @deprecated */
-    disabled: boolean;
     /**
      * Sets or retrieves the media type.
      */
@@ -9997,7 +9980,6 @@ interface MessageEvent extends Event {
     readonly origin: string;
     readonly ports: ReadonlyArray<MessagePort>;
     readonly source: MessageEventSource;
-    initMessageEvent(type: string, bubbles: boolean, cancelable: boolean, data: any, origin: string, lastEventId: string, source: Window): void;
 }
 
 declare var MessageEvent: {
@@ -12039,6 +12021,7 @@ interface SVGElementEventMap extends ElementEventMap {
 }
 
 interface SVGElement extends Element, ElementCSSInlineStyle {
+    /** @deprecated */
     readonly className: any;
     onclick: ((this: SVGElement, ev: MouseEvent) => any) | null;
     ondblclick: ((this: SVGElement, ev: MouseEvent) => any) | null;
@@ -16091,6 +16074,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onmspointerup: ((this: Window, ev: Event) => any) | null;
     onoffline: ((this: Window, ev: Event) => any) | null;
     ononline: ((this: Window, ev: Event) => any) | null;
+    /** @deprecated */
     onorientationchange: ((this: Window, ev: Event) => any) | null;
     onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
     onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
@@ -16125,6 +16109,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
     onwaiting: ((this: Window, ev: Event) => any) | null;
     opener: any;
+    /** @deprecated */
     readonly orientation: string | number;
     readonly outerHeight: number;
     readonly outerWidth: number;
@@ -16780,7 +16765,6 @@ interface HTMLElementTagNameMap {
     "legend": HTMLLegendElement;
     "li": HTMLLIElement;
     "link": HTMLLinkElement;
-    "listing": HTMLPreElement;
     "map": HTMLMapElement;
     "mark": HTMLElement;
     "marquee": HTMLMarqueeElement;
@@ -16838,6 +16822,10 @@ interface HTMLElementTagNameMap {
     "var": HTMLElement;
     "video": HTMLVideoElement;
     "wbr": HTMLElement;
+}
+
+interface HTMLElementDeprecatedTagNameMap {
+    "listing": HTMLPreElement;
     "xmp": HTMLPreElement;
 }
 
@@ -17003,6 +16991,7 @@ declare var onmspointerover: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerup: ((this: Window, ev: Event) => any) | null;
 declare var onoffline: ((this: Window, ev: Event) => any) | null;
 declare var ononline: ((this: Window, ev: Event) => any) | null;
+/** @deprecated */
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
 declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
 declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
@@ -17037,6 +17026,7 @@ declare var onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) |
 declare var onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
 declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var opener: any;
+/** @deprecated */
 declare var orientation: string | number;
 declare var outerHeight: number;
 declare var outerWidth: number;

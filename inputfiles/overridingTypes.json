@@ -235,23 +235,6 @@
                     }
                 }
             },
-            "HTMLLinkElement": {
-                "name": "HTMLLinkElement",
-                "properties": {
-                    "property": {
-                        "disabled":{
-                            "deprecated": 0,
-                            "name": "disabled",
-                            "type": "boolean"
-                        },
-                        "relList": {
-                            "read-only": 1,
-                            "name": "relList",
-                            "type": "DOMTokenList"
-                        }
-                    }
-                }
-            },
             "SourceBuffer": {
                 "specs": "media-source",
                 "name": "SourceBuffer",
@@ -919,6 +902,7 @@
                 "properties": {
                     "property": {
                         "className": {
+                            "deprecated": 1,
                             "name": "className",
                             "override-type": "any"
                         }
@@ -1006,6 +990,12 @@
                             "name": "trace",
                             "override-signatures": [
                                 "trace(message?: any, ...optionalParams: any[]): void"
+                            ]
+                        },
+                        "profileEnd": {
+                            "name": "profileEnd",
+                            "override-signatures": [
+                                "profileEnd(reportName?: string): void"
                             ]
                         }
                     }
@@ -2326,6 +2316,10 @@
                         "name": "marquee"
                     }
                 ]
+            },
+            "AbortSignal": {
+                "name": "AbortSignal",
+                "override-exposed": "Window Worker"
             },
             "CryptoKey": {
                 "name": "CryptoKey",

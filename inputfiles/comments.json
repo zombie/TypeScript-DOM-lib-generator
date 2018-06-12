@@ -424,15 +424,6 @@
                         },
                         "complete": {
                             "comment": "/**\r\n     * Retrieves whether the object is fully loaded.\r\n     */"
-                        },
-                        "msPlayToPrimary": {
-                            "comment": "/**\r\n     * Gets or sets the primary DLNA PlayTo device.\r\n     */"
-                        },
-                        "msPlayToDisabled": {
-                            "comment": "/**\r\n     * Gets or sets whether the DLNA PlayTo device is available.\r\n     */"
-                        },
-                        "msPlayToSource": {
-                            "comment": "/**\r\n     * Gets the source associated with the media element for use by the PlayToManager.\r\n     */"
                         }
                     }
                 }

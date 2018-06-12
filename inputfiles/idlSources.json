@@ -49,6 +49,14 @@
         "title": "HTML - Custom elements"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/edits.html",
+        "title": "HTML - Edits"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/embedded-content.html",
+        "title": "HTML - Embedded content"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/form-control-infrastructure.html",
         "title": "HTML - Form control infrastructure"
     },
@@ -73,6 +81,10 @@
         "title": "HTML - Image maps"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/links.html",
+        "title": "HTML - Links"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
         "title": "HTML - Obsolete features",
         "deprecated": true
@@ -88,6 +100,10 @@
     {
         "url": "https://html.spec.whatwg.org/multipage/tables.html",
         "title": "HTML - Tabular data"
+    },
+    {
+        "url": "https://html.spec.whatwg.org/multipage/text-level-semantics.html",
+        "title": "HTML - Text level semantics"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/input.html",

@@ -180,7 +180,12 @@
                             "override-type": "\"async\" | \"sync\" | \"auto\""
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "img"
+                    }
+                ]
             },
             "BroadcastChannelEventMap": {
                 "name": "BroadcastChannelEventMap",
@@ -1861,6 +1866,13 @@
                 },
                 "no-interface-object": "1"
             },
+            "HTMLAnchorElement": {
+                "element": [
+                    {
+                        "name": "a"
+                    }
+                ]
+            },
             "HTMLAreaElement": {
                 "element": [
                     {
@@ -1872,6 +1884,20 @@
                 "element": [
                     {
                         "name": "base"
+                    }
+                ]
+            },
+            "HTMLBRElement": {
+                "element": [
+                    {
+                        "name": "br"
+                    }
+                ]
+            },
+            "HTMLDataElement": {
+                "element": [
+                    {
+                        "name": "data"
                     }
                 ]
             },
@@ -1989,6 +2015,16 @@
                     }
                 ]
             },
+            "HTMLModElement": {
+                "element": [
+                    {
+                        "name": "del"
+                    },
+                    {
+                        "name": "ins"
+                    }
+                ]
+            },
             "HTMLOListElement": {
                 "element": [
                     {
@@ -2000,6 +2036,13 @@
                 "element": [
                     {
                         "name": "p"
+                    }
+                ]
+            },
+            "HTMLPictureElement": {
+                "element": [
+                    {
+                        "name": "picture"
                     }
                 ]
             },
@@ -2039,6 +2082,20 @@
                 "element": [
                     {
                         "name": "slot"
+                    }
+                ]
+            },
+            "HTMLSourceElement": {
+                "element": [
+                    {
+                        "name": "source"
+                    }
+                ]
+            },
+            "HTMLSpanElement": {
+                "element": [
+                    {
+                        "name": "span"
                     }
                 ]
             },
@@ -2113,13 +2170,6 @@
                     }
                 ]
             },
-            "HTMLTemplateElement": {
-                "element": [
-                    {
-                        "name": "template"
-                    }
-                ]
-            },
             "HTMLTableRowElement": {
                 "element": [
                     {
@@ -2140,10 +2190,24 @@
                     }
                 ]
             },
+            "HTMLTimeElement": {
+                "element": [
+                    {
+                        "name": "time"
+                    }
+                ]
+            },
             "HTMLTitleElement": {
                 "element": [
                     {
                         "name": "title"
+                    }
+                ]
+            },
+            "HTMLTemplateElement": {
+                "element": [
+                    {
+                        "name": "template"
                     }
                 ]
             },

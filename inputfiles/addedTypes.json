@@ -632,7 +632,8 @@
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"title\"): SVGTitleElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"use\"): SVGUseElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"view\"): SVGViewElement",
-                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement"
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement",
+                                "createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): Element"
                             ]
                         }
                     }

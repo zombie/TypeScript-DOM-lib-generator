@@ -235,6 +235,26 @@
                     }
                 }
             },
+            "HTMLScriptElement": {
+                "properties": {
+                    "property": {
+                        "nonce": {
+                            "name": "nonce",
+                            "type": "DOMString"
+                        }
+                    }
+                }
+            },
+            "HTMLStyleElement": {
+                "properties": {
+                    "property": {
+                        "nonce": {
+                            "name": "nonce",
+                            "type": "DOMString"
+                        }
+                    }
+                }
+            },
             "SourceBuffer": {
                 "specs": "media-source",
                 "name": "SourceBuffer",

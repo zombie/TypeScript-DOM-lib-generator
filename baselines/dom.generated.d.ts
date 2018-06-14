@@ -7861,6 +7861,7 @@ interface HTMLScriptElement extends HTMLElement {
     htmlFor: string;
     integrity: string;
     noModule: boolean;
+    nonce: string;
     referrerPolicy: string;
     /**
      * Retrieves the URL to an external file that contains the source code or data.
@@ -8046,6 +8047,7 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
      * Sets or retrieves the media type.
      */
     media: string;
+    nonce: string;
     /**
      * Retrieves the CSS language in which the style sheet is written.
      */

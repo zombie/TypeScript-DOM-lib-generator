@@ -6065,7 +6065,7 @@ declare var HTMLDocument: {
     new(): HTMLDocument;
 };
 
-interface HTMLElementEventMap extends ElementEventMap {
+interface HTMLElementEventMap {
     "abort": UIEvent;
     "activate": Event;
     "beforeactivate": Event;
@@ -6135,7 +6135,7 @@ interface HTMLElementEventMap extends ElementEventMap {
     "waiting": Event;
 }
 
-interface HTMLElement extends Element, ElementCSSInlineStyle {
+interface HTMLElement extends Element, HTMLOrSVGElement, ElementCSSInlineStyle {
     accessKey: string;
     contentEditable: string;
     readonly dataset: DOMStringMap;
@@ -6225,7 +6225,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     blur(): void;
     click(): void;
     dragDrop(): boolean;
-    focus(): void;
+    focus(options?: FocusOptions): void;
     msGetInputContext(): MSInputMethodContext;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

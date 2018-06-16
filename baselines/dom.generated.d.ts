@@ -464,6 +464,10 @@ interface FocusNavigationOrigin {
     originWidth?: number;
 }
 
+interface FocusOptions {
+    preventScoll: boolean;
+}
+
 interface GainOptions extends AudioNodeOptions {
     gain?: number;
 }
@@ -7695,6 +7699,14 @@ declare var HTMLOptionsCollection: {
     new(): HTMLOptionsCollection;
 };
 
+interface HTMLOrSVGElement {
+    readonly dataset: DOMStringMap;
+    nonce: string;
+    tabIndex: number;
+    blur(): void;
+    focus(options?: FocusOptions): void;
+}
+
 interface HTMLOutputElement extends HTMLElement {
     defaultValue: string;
     readonly form: HTMLFormElement | null;
@@ -7861,7 +7873,6 @@ interface HTMLScriptElement extends HTMLElement {
     htmlFor: string;
     integrity: string;
     noModule: boolean;
-    nonce: string;
     referrerPolicy: string;
     /**
      * Retrieves the URL to an external file that contains the source code or data.
@@ -8047,7 +8058,6 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
      * Sets or retrieves the media type.
      */
     media: string;
-    nonce: string;
     /**
      * Retrieves the CSS language in which the style sheet is written.
      */

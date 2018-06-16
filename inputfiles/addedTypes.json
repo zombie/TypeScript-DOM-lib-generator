@@ -2392,66 +2392,11 @@
                         }
                     }
                 }
-            },
-            "ScrollOptions": {
-                "exposed": "Window",
-                "name": "ScrollOptions",
-                "members": {
-                    "member": {
-                        "behavior": {
-                            "name": "behavior",
-                            "override-type": "ScrollBehavior",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "ScrollToOptions": {
-                "exposed": "Window",
-                "name": "ScrollToOptions",
-                "extends": "ScrollOptions",
-                "members": {
-                    "member": {
-                        "left": {
-                            "name": "left",
-                            "override-type": "number",
-                            "required": 0
-                        },
-                        "top": {
-                            "name": "top",
-                            "override-type": "number",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "ScrollIntoViewOptions": {
-                "exposed": "Window",
-                "name": "ScrollIntoViewOptions",
-                "extends": "ScrollOptions",
-                "members": {
-                    "member": {
-                        "block": {
-                            "name": "block",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        },
-                        "inline": {
-                            "name": "inline",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        }
-                    }
-                }
             }
         }
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "WheelEvent",
-                "new-type": "MouseWheelEvent"
-            },
             {
                 "override-type": "\"auto\" | \"manual\"",
                 "new-type": "ScrollRestoration"

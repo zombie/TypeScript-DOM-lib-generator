@@ -1,20 +1,20 @@
 import * as Browser from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { filter, merge, exposesTo, resolveExposure, markAsDeprecated, mapToArray } from "./helpers";
+import { merge, resolveExposure, markAsDeprecated, mapToArray } from "./helpers";
 import { Flavor, emitWebIDl } from "./emitter";
 import { convert } from "./widlprocess";
 import { getExposedTypes } from "./expose";
 
-function emitDomWorker(webidl: Browser.WebIdl, forceKnownWorkerTypes: Set<string>, tsWorkerOutput: string) {
+function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnownWorkerTypes: Set<string>) {
     const worker = getExposedTypes(webidl, "Worker", forceKnownWorkerTypes);
     const result = emitWebIDl(worker, Flavor.Worker);
     fs.writeFileSync(tsWorkerOutput, result);
     return;
 }
 
-function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string) {
-    const browser = filter(webidl, o => exposesTo(o, "Window"));
+function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string, forceKnownWindowTypes: Set<string>) {
+    const browser = getExposedTypes(webidl, "Window", forceKnownWindowTypes);
 
     const result = emitWebIDl(browser, Flavor.Web);
     fs.writeFileSync(tsWebOutput, result);
@@ -63,7 +63,7 @@ function emitDom() {
     /// Load the input file
     let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));
 
-    const knownWorkerTypes = new Set<string>(require(path.join(inputFolder, "knownWorkerTypes.json")));
+    const knownTypes = require(path.join(inputFolder, "knownTypes.json"));
 
     for (const w of widlStandardTypes) {
         webidl = merge(webidl, w.browser, true);
@@ -108,8 +108,8 @@ function emitDom() {
         }
     }
 
-    emitDomWeb(webidl, tsWebOutput);
-    emitDomWorker(webidl, knownWorkerTypes, tsWorkerOutput);
+    emitDomWeb(webidl, tsWebOutput, new Set(knownTypes.Window));
+    emitDomWorker(webidl, tsWorkerOutput, new Set(knownTypes.Worker));
     emitES6DomIterators(webidl, tsWebIteratorsOutput);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {

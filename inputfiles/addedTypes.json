@@ -2364,18 +2364,6 @@
                     }
                 }
             },
-            "FocusOptions": {
-                "name": "FocusOptions",
-                "members": {
-                    "member": {
-                        "preventScoll": {
-                            "name": "preventScoll",
-                            "override-type": "boolean",
-                            "required": 1
-                        }
-                    }
-                }
-            },
             "EventInit": {
                 "name": "EventInit",
                 "members": {

@@ -114,6 +114,10 @@
         "title": "HTML - Web storage"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/interaction.html",
+        "title": "HTML - User interaction"
+    },
+    {
         "url": "https://www.w3.org/TR/IndexedDB-2/",
         "title": "Indexed Database"
     },

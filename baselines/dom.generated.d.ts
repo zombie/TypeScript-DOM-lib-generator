@@ -465,7 +465,7 @@ interface FocusNavigationOrigin {
 }
 
 interface FocusOptions {
-    preventScoll: boolean;
+    preventScroll?: boolean;
 }
 
 interface GainOptions extends AudioNodeOptions {
@@ -5166,6 +5166,12 @@ interface ElementCSSInlineStyle {
     readonly style: CSSStyleDeclaration;
 }
 
+interface ElementContentEditable {
+    contentEditable: string;
+    inputMode: string;
+    readonly isContentEditable: boolean;
+}
+
 interface ElementCreationOptions {
     is?: string;
 }
@@ -6065,7 +6071,7 @@ declare var HTMLDocument: {
     new(): HTMLDocument;
 };
 
-interface HTMLElementEventMap {
+interface HTMLElementEventMap extends ElementEventMap {
     "abort": UIEvent;
     "activate": Event;
     "beforeactivate": Event;
@@ -6135,7 +6141,7 @@ interface HTMLElementEventMap {
     "waiting": Event;
 }
 
-interface HTMLElement extends Element, HTMLOrSVGElement, ElementCSSInlineStyle {
+interface HTMLElement extends Element, ElementCSSInlineStyle {
     accessKey: string;
     contentEditable: string;
     readonly dataset: DOMStringMap;

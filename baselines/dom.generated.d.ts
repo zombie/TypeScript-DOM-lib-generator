@@ -422,25 +422,6 @@ interface ExceptionInformation {
     domain?: string | null;
 }
 
-interface ExtendableEventInit extends EventInit {
-}
-
-interface ExtendableMessageEventInit extends ExtendableEventInit {
-    data?: any;
-    lastEventId?: string;
-    origin?: string;
-    ports?: MessagePort[];
-    source?: ServiceWorker | MessagePort | null;
-}
-
-interface FetchEventInit extends ExtendableEventInit {
-    clientId?: string;
-    preloadResponse: Promise<any>;
-    request: Request;
-    resultingClientId?: string;
-    targetClientId?: string;
-}
-
 interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
 }
@@ -764,11 +745,6 @@ interface NotificationAction {
     title: string;
 }
 
-interface NotificationEventInit extends ExtendableEventInit {
-    action?: string;
-    notification: Notification;
-}
-
 interface NotificationOptions {
     actions?: NotificationAction[];
     badge?: string;
@@ -947,15 +923,6 @@ interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, str
     composite?: CompositeOperation | (CompositeOperation | null)[];
     easing?: string | string[];
     offset?: number | (number | null)[];
-}
-
-interface PushEventInit extends ExtendableEventInit {
-    data?: PushMessageDataInit;
-}
-
-interface PushSubscriptionChangeInit extends ExtendableEventInit {
-    newSubscription?: PushSubscription;
-    oldSubscription?: PushSubscription;
 }
 
 interface PushSubscriptionJSON {
@@ -1489,11 +1456,6 @@ interface StoreExceptionsInformation extends ExceptionInformation {
 
 interface StoreSiteSpecificExceptionsInformation extends StoreExceptionsInformation {
     arrayOfDomainStrings?: string[];
-}
-
-interface SyncEventInit extends ExtendableEventInit {
-    lastChance?: boolean;
-    tag: string;
 }
 
 interface TextDecodeOptions {
@@ -16772,7 +16734,6 @@ type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStrea
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
 type PerformanceEntryList = PerformanceEntry[];
-type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;

@@ -12,6 +12,43 @@
                     }
                 }
             },
+            "HTMLOrSVGElement": {
+                "name": "HTMLOrSVGElement",
+                "properties": {
+                    "property": {
+                        "nonce": {
+                            "name": "nonce",
+                            "type": "DOMString"
+                        },
+                        "tabIndex": {
+                            "name": "tabIndex",
+                            "type": "long"
+                        },
+                        "dataset": {
+                            "name": "dataset",
+                            "read-only": 1,
+                            "type": "DOMStringMap"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                      "blur": {
+                          "name": "blur",
+                          "override-signatures": [
+                              "blur(): void"
+                          ]
+                      },
+                      "focus": {
+                          "name": "focus",
+                          "override-signatures": [
+                              "focus(options?: FocusOptions): void"
+                          ]
+                      }
+                    }
+                },
+                "no-interface-object": "1"
+            },
             "ParentNode": {
                 "name": "ParentNode",
                 "exposed": "Window",
@@ -1961,7 +1998,7 @@
                 },
                 "element": [
                     {
-                        
+
                         "name": "input"
                     }
                 ]
@@ -2112,7 +2149,7 @@
                     {
                         "name": "caption"
                     }
-                ]  
+                ]
             },
             "HTMLTableCellElement": {
                 "element": [
@@ -2122,7 +2159,7 @@
                     {
                         "name": "th"
                     }
-                ]  
+                ]
             },
             "HTMLTableColElement": {
                 "element": [
@@ -2151,7 +2188,7 @@
                     {
                         "name": "table"
                     }
-                ]  
+                ]
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
@@ -2176,7 +2213,7 @@
                     {
                         "name": "tr"
                     }
-                ]  
+                ]
             },
             "HTMLTableSectionElement": {
                 "element": [

@@ -464,6 +464,10 @@ interface FocusNavigationOrigin {
     originWidth?: number;
 }
 
+interface FocusOptions {
+    preventScroll?: boolean;
+}
+
 interface GainOptions extends AudioNodeOptions {
     gain?: number;
 }
@@ -5162,6 +5166,12 @@ interface ElementCSSInlineStyle {
     readonly style: CSSStyleDeclaration;
 }
 
+interface ElementContentEditable {
+    contentEditable: string;
+    inputMode: string;
+    readonly isContentEditable: boolean;
+}
+
 interface ElementCreationOptions {
     is?: string;
 }
@@ -6131,7 +6141,7 @@ interface HTMLElementEventMap extends ElementEventMap {
     "waiting": Event;
 }
 
-interface HTMLElement extends Element, ElementCSSInlineStyle {
+interface HTMLElement extends Element, ElementCSSInlineStyle, HTMLOrSVGElement {
     accessKey: string;
     contentEditable: string;
     readonly dataset: DOMStringMap;
@@ -6221,7 +6231,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle {
     blur(): void;
     click(): void;
     dragDrop(): boolean;
-    focus(): void;
+    focus(options?: FocusOptions): void;
     msGetInputContext(): MSInputMethodContext;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -7694,6 +7704,14 @@ declare var HTMLOptionsCollection: {
     prototype: HTMLOptionsCollection;
     new(): HTMLOptionsCollection;
 };
+
+interface HTMLOrSVGElement {
+    readonly dataset: DOMStringMap;
+    nonce: string;
+    tabIndex: number;
+    blur(): void;
+    focus(options?: FocusOptions): void;
+}
 
 interface HTMLOutputElement extends HTMLElement {
     defaultValue: string;

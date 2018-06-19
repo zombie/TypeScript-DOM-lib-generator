@@ -897,6 +897,19 @@
                     }
                 }
             },
+            "HTMLElement": {
+              "implements": ["HTMLOrSVGElement"],
+                "methods": {
+                    "method": {
+                        "focus": {
+                            "name": "focus",
+                            "override-signatures": [
+                                "focus(options?: FocusOptions): void"
+                            ]
+                        }
+                    }
+                }
+            },
             "SVGElement": {
                 "name": "SVGElement",
                 "properties": {

@@ -32,6 +32,7 @@
         "ExtendableEventInit",
         "ExtendableMessageEventInit",
         "FetchEventInit",
+        "FocusOptions",
         "ForEachCallback",
         "GLbitfield",
         "GLboolean",

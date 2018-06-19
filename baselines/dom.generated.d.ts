@@ -4837,12 +4837,6 @@ interface ElementCSSInlineStyle {
     readonly style: CSSStyleDeclaration;
 }
 
-interface ElementContentEditable {
-    contentEditable: string;
-    inputMode: string;
-    readonly isContentEditable: boolean;
-}
-
 interface ElementCreationOptions {
     is?: string;
 }

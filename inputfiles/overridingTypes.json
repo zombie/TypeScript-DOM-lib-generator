@@ -898,6 +898,7 @@
                 }
             },
             "HTMLElement": {
+              "implements": ["HTMLOrSVGElement"],
                 "methods": {
                     "method": {
                         "focus": {

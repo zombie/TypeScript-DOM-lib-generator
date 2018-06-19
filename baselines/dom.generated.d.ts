@@ -6141,7 +6141,7 @@ interface HTMLElementEventMap extends ElementEventMap {
     "waiting": Event;
 }
 
-interface HTMLElement extends Element, ElementCSSInlineStyle {
+interface HTMLElement extends Element, ElementCSSInlineStyle, HTMLOrSVGElement {
     accessKey: string;
     contentEditable: string;
     readonly dataset: DOMStringMap;

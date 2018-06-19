@@ -1093,30 +1093,10 @@ interface RTCIceServer {
     username?: string;
 }
 
-interface RTCIdentityAssertionResult {
-    assertion: string;
-    idp: RTCIdentityProviderDetails;
-}
-
-interface RTCIdentityProvider {
-    generateAssertion: GenerateAssertionCallback;
-    validateAssertion: ValidateAssertionCallback;
-}
-
-interface RTCIdentityProviderDetails {
-    domain: string;
-    protocol?: string;
-}
-
 interface RTCIdentityProviderOptions {
     peerIdentity?: string;
     protocol?: string;
     usernameHint?: string;
-}
-
-interface RTCIdentityValidationResult {
-    contents: string;
-    identity: string;
 }
 
 interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
@@ -16289,10 +16269,6 @@ interface FunctionStringCallback {
     (data: string): void;
 }
 
-interface GenerateAssertionCallback {
-    (contents: string, origin: string, options: RTCIdentityProviderOptions): Promise<RTCIdentityAssertionResult>;
-}
-
 interface IntersectionObserverCallback {
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
 }
@@ -16339,10 +16315,6 @@ interface RTCSessionDescriptionCallback {
 
 interface RTCStatsCallback {
     (report: RTCStatsReport): void;
-}
-
-interface ValidateAssertionCallback {
-    (assertion: string, origin: string): Promise<RTCIdentityValidationResult>;
 }
 
 interface VoidFunction {

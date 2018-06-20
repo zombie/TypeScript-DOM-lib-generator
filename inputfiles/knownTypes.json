@@ -1,6 +1,5 @@
 {
     "Window": [
-        "AAGUID",
         "AesCbcParams",
         "AesCtrParams",
         "AesDerivedKeyParams",
@@ -10,7 +9,6 @@
         "AudioContextInfo",
         "AudioParamDescriptor",
         "ByteLengthChunk",
-        "ByteString",
         "CanvasRenderingContext2DSettings",
         "ClientData",
         "ClientQueryOptions",
@@ -31,20 +29,6 @@
         "EcdsaParams",
         "FocusOptions",
         "ForEachCallback",
-        "GLbitfield",
-        "GLboolean",
-        "GLbyte",
-        "GLclampf",
-        "GLenum",
-        "GLfloat",
-        "GLint",
-        "GLintptr",
-        "GLshort",
-        "GLsizei",
-        "GLsizeiptr",
-        "GLubyte",
-        "GLuint",
-        "GLushort",
         "HkdfParams",
         "HmacImportParams",
         "HmacKeyAlgorithm",
@@ -95,11 +79,8 @@
         "RsaOaepParams",
         "RsaPssParams",
         "ScrollRestoration",
-        "USVString",
-        "VREye",
         "VideoFacingModeEnum",
-        "WindowOrWorkerGlobalScope",
-        "payloadtype"
+        "WindowOrWorkerGlobalScope"
     ],
     "Worker": [
         "ClientTypes",

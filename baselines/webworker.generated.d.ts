@@ -148,7 +148,6 @@ interface KeyAlgorithm {
 }
 
 interface MessageEventInit extends EventInit {
-    channel?: string;
     data?: any;
     lastEventId?: string;
     origin?: string;
@@ -1537,10 +1536,31 @@ declare var MessageChannel: {
 };
 
 interface MessageEvent extends Event {
+    /**
+     * Returns the data of the message.
+     */
     readonly data: any;
+    /**
+     * Returns the last event ID string, for
+     * server-sent events.
+     */
+    readonly lastEventId: string;
+    /**
+     * Returns the origin of the message, for server-sent events and
+     * cross-document messaging.
+     */
     readonly origin: string;
+    /**
+     * Returns the MessagePort array sent with the message, for cross-document
+     * messaging and channel messaging.
+     */
     readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: MessageEventSource;
+    /**
+     * Returns the WindowProxy of the source window, for cross-document
+     * messaging, and the MessagePort being attached, in the connect event fired at
+     * SharedWorkerGlobalScope objects.
+     */
+    readonly source: MessageEventSource | null;
 }
 
 declare var MessageEvent: {
@@ -2589,6 +2609,7 @@ type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
+type MessageEventSource = MessagePort | ServiceWorker;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
@@ -2596,7 +2617,6 @@ type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type MessageEventSource = MessagePort | ServiceWorker;
 type BinaryType = "blob" | "arraybuffer";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";

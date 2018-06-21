@@ -45,6 +45,10 @@
         "title": "HTML - Common DOM interfaces"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/comms.html",
+        "title": "HTML - Communication"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/custom-elements.html",
         "title": "HTML - Custom elements"
     },

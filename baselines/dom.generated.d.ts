@@ -1018,7 +1018,6 @@ interface MediaTrackSupportedConstraints {
 }
 
 interface MessageEventInit extends EventInit {
-    channel?: string;
     data?: any;
     lastEventId?: string;
     origin?: string;
@@ -2031,10 +2030,10 @@ interface Animation extends EventTarget {
     timeline: AnimationTimeline | null;
     cancel(): void;
     finish(): void;
-    pause(): void;
-    play(): void;
-    reverse(): void;
-    updatePlaybackRate(playbackRate: number): void;
+    pause(): Promise<Animation>;
+    play(): Promise<Animation>;
+    reverse(): Promise<Animation>;
+    updatePlaybackRate(playbackRate: number): Promise<Animation>;
     addEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof AnimationEventMap>(type: K, listener: (this: Animation, ev: AnimationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -4721,7 +4720,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param data String that specifies the nodeValue property of the text node.
      */
     createTextNode(data: string): Text;
-    createTouch(view: Window, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
+    createTouch(view: WindowProxy, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch;
     createTouchList(...touches: Touch[]): TouchList;
     /**
      * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.
@@ -6461,7 +6460,7 @@ interface HTMLFrameElement extends HTMLElement {
      * Retrieves the object of the specified.
      */
     /** @deprecated */
-    readonly contentWindow: Window | null;
+    readonly contentWindow: WindowProxy | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
@@ -10005,10 +10004,31 @@ declare var MessageChannel: {
 };
 
 interface MessageEvent extends Event {
+    /**
+     * Returns the data of the message.
+     */
     readonly data: any;
+    /**
+     * Returns the last event ID string, for
+     * server-sent events.
+     */
+    readonly lastEventId: string;
+    /**
+     * Returns the origin of the message, for server-sent events and
+     * cross-document messaging.
+     */
     readonly origin: string;
+    /**
+     * Returns the MessagePort array sent with the message, for cross-document
+     * messaging and channel messaging.
+     */
     readonly ports: ReadonlyArray<MessagePort>;
-    readonly source: MessageEventSource;
+    /**
+     * Returns the WindowProxy of the source window, for cross-document
+     * messaging, and the MessagePort being attached, in the connect event fired at
+     * SharedWorkerGlobalScope objects.
+     */
+    readonly source: MessageEventSource | null;
 }
 
 declare var MessageEvent: {
@@ -17151,6 +17171,7 @@ type HeadersInit = Headers | string[][] | Record<string, string>;
 type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
+type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
@@ -17192,7 +17213,7 @@ type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type USVString = string;
 type payloadtype = number;
-type MessageEventSource = Window | MessagePort | ServiceWorker;
+type WindowProxy = Window;
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";

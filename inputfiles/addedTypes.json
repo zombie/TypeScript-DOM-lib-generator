@@ -2319,27 +2319,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "MessageEventInit": {
-                "name": "MessageEventInit",
-                "members": {
-                    "member": {
-                        "lastEventId": {
-                            "name": "lastEventId",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "channel": {
-                            "name": "channel",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "source": {
-                            "name": "source",
-                            "type": "MessageEventSource"
-                        }
-                    }
-                }
-            },
             "WebGLContextAttributes": {
                 "name": "WebGLContextAttributes",
                 "members": {
@@ -2593,18 +2572,8 @@
                 "override-type": "number"
             },
             {
-                "new-type": "MessageEventSource",
-                "type": [
-                    {
-                        "type": "Window"
-                    },
-                    {
-                        "type": "MessagePort"
-                    },
-                    {
-                        "type": "ServiceWorker"
-                    }
-                ]
+                "new-type": "WindowProxy",
+                "type": "Window"
             }
         ]
     }

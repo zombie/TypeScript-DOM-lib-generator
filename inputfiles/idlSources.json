@@ -45,6 +45,10 @@
         "title": "HTML - Common DOM interfaces"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/comms.html",
+        "title": "HTML - Communication"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/custom-elements.html",
         "title": "HTML - Custom elements"
     },
@@ -128,6 +132,10 @@
     {
         "url": "https://notifications.spec.whatwg.org/",
         "title": "Notifications"
+    },
+    {
+        "url": "https://w3c.github.io/page-visibility/",
+        "title": "Page Visibility"
     },
     {
         "url": "https://w3c.github.io/performance-timeline/",

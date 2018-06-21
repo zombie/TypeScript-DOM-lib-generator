@@ -675,13 +675,13 @@
                         }
                     }
                 },
-                "properties": {
-                    "property": {
-                        "onvisibilitychange": {
-                            "name": "onvisibilitychange",
-                            "override-type": "(this: Document, ev: Event) => any"
+                "events": {
+                    "event": [
+                        {
+                            "name": "visibilitychange",
+                            "type": "Event"
                         }
-                    }
+                    ]
                 }
             },
             "Navigator": {
@@ -2319,27 +2319,6 @@
     },
     "dictionaries": {
         "dictionary": {
-            "MessageEventInit": {
-                "name": "MessageEventInit",
-                "members": {
-                    "member": {
-                        "lastEventId": {
-                            "name": "lastEventId",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "channel": {
-                            "name": "channel",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "source": {
-                            "name": "source",
-                            "type": "MessageEventSource"
-                        }
-                    }
-                }
-            },
             "WebGLContextAttributes": {
                 "name": "WebGLContextAttributes",
                 "members": {
@@ -2454,18 +2433,8 @@
                 "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
             },
             {
-                "new-type": "MessageEventSource",
-                "type": [
-                    {
-                        "type": "Window"
-                    },
-                    {
-                        "type": "MessagePort"
-                    },
-                    {
-                        "type": "ServiceWorker"
-                    }
-                ]
+                "new-type": "WindowProxy",
+                "type": "Window"
             }
         ]
     }

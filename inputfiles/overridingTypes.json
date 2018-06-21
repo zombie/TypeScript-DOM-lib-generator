@@ -1021,18 +1021,6 @@
                     }
                 }
             },
-            "MessageEvent": {
-                "name": "MessageEvent",
-                "properties": {
-                    "property": {
-                        "source": {
-                            "name": "source",
-                            "nullable": 0,
-                            "override-type": "MessageEventSource"
-                        }
-                    }
-                }
-            },
             "ImageData": {
                 "name": "ImageData",
                 "exposed": "Window Worker",

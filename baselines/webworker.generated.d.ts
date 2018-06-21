@@ -2615,6 +2615,6 @@ type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
-type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
+type VisibilityState = "hidden" | "visible" | "prerender";
 type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

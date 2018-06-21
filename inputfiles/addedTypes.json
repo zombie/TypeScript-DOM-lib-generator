@@ -638,13 +638,13 @@
                         }
                     }
                 },
-                "properties": {
-                    "property": {
-                        "onvisibilitychange": {
-                            "name": "onvisibilitychange",
-                            "override-type": "(this: Document, ev: Event) => any"
+                "events": {
+                    "event": [
+                        {
+                            "name": "visibilitychange",
+                            "type": "Event"
                         }
-                    }
+                    ]
                 }
             },
             "Navigator": {

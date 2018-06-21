@@ -4119,6 +4119,7 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "touchend": TouchEvent;
     "touchmove": TouchEvent;
     "touchstart": TouchEvent;
+    "visibilitychange": Event;
     "volumechange": Event;
     "waiting": Event;
     "webkitfullscreenchange": Event;
@@ -4539,7 +4540,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param ev The event.
      */
     ontimeupdate: ((this: Document, ev: Event) => any) | null;
-    onvisibilitychange: (this: Document, ev: Event) => any;
+    onvisibilitychange: ((this: Document, ev: Event) => any) | null;
     /**
      * Occurs when the volume is changed, or playback is muted or unmuted.
      * @param ev The event.
@@ -17282,6 +17283,6 @@ type Transport = "usb" | "nfc" | "ble";
 type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted";
 type VREye = "left" | "right";
 type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
-type VisibilityState = "hidden" | "visible" | "prerender" | "unloaded";
+type VisibilityState = "hidden" | "visible" | "prerender";
 type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

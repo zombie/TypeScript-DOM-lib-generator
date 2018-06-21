@@ -63,6 +63,10 @@
                     }
                 }
             },
+            "MSCredentials": null,
+            "MSDCCEvent": null,
+            "MSDSHEvent": null,
+            "MSPortRange": null,
             "MSStreamReader": null,
             "Screen": {
                 "methods": {
@@ -92,6 +96,7 @@
                 "properties": {
                     "property": {
                         "browser": null,
+                        "msCredentials": null,
                         "ontouchcancel": null,
                         "ontouchend": null,
                         "ontouchmove": null,
@@ -104,6 +109,13 @@
     "dictionaries": {
         "dictionary": {
             "ObjectURLOptions": null,
+            "RTCIceGatherOptions": {
+                "members": {
+                    "member": {
+                        "portRange": null
+                    }
+                }
+            },
             "RTCRtpContributingSource": {
                 "members": {
                     "member": {

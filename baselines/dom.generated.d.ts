@@ -422,25 +422,6 @@ interface ExceptionInformation {
     domain?: string | null;
 }
 
-interface ExtendableEventInit extends EventInit {
-}
-
-interface ExtendableMessageEventInit extends ExtendableEventInit {
-    data?: any;
-    lastEventId?: string;
-    origin?: string;
-    ports?: MessagePort[];
-    source?: object | ServiceWorker | MessagePort | null;
-}
-
-interface FetchEventInit extends ExtendableEventInit {
-    clientId?: string;
-    preloadResponse: Promise<any>;
-    request: Request;
-    resultingClientId?: string;
-    targetClientId?: string;
-}
-
 interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
 }
@@ -591,308 +572,6 @@ interface KeyframeEffectOptions extends EffectTiming {
 interface LongRange {
     max?: number;
     min?: number;
-}
-
-interface MSAccountInfo {
-    accountImageUri?: string;
-    accountName?: string;
-    rpDisplayName: string;
-    userDisplayName: string;
-    userId?: string;
-}
-
-interface MSAudioLocalClientEvent extends MSLocalClientEventBase {
-    cpuInsufficientEventRatio?: number;
-    deviceCaptureNotFunctioningEventRatio?: number;
-    deviceClippingEventRatio?: number;
-    deviceEchoEventRatio?: number;
-    deviceGlitchesEventRatio?: number;
-    deviceHalfDuplexAECEventRatio?: number;
-    deviceHowlingEventCount?: number;
-    deviceLowSNREventRatio?: number;
-    deviceLowSpeechLevelEventRatio?: number;
-    deviceMultipleEndpointsEventCount?: number;
-    deviceNearEndToEchoRatioEventRatio?: number;
-    deviceRenderMuteEventRatio?: number;
-    deviceRenderNotFunctioningEventRatio?: number;
-    deviceRenderZeroVolumeEventRatio?: number;
-    networkDelayEventRatio?: number;
-    networkSendQualityEventRatio?: number;
-}
-
-interface MSAudioRecvPayload extends MSPayloadBase {
-    burstLossLength1?: number;
-    burstLossLength2?: number;
-    burstLossLength3?: number;
-    burstLossLength4?: number;
-    burstLossLength5?: number;
-    burstLossLength6?: number;
-    burstLossLength7?: number;
-    burstLossLength8OrHigher?: number;
-    fecRecvDistance1?: number;
-    fecRecvDistance2?: number;
-    fecRecvDistance3?: number;
-    packetReorderDepthAvg?: number;
-    packetReorderDepthMax?: number;
-    packetReorderRatio?: number;
-    ratioCompressedSamplesAvg?: number;
-    ratioConcealedSamplesAvg?: number;
-    ratioStretchedSamplesAvg?: number;
-    samplingRate?: number;
-    signal?: MSAudioRecvSignal;
-}
-
-interface MSAudioRecvSignal {
-    initialSignalLevelRMS?: number;
-    recvNoiseLevelCh1?: number;
-    recvSignalLevelCh1?: number;
-    renderLoopbackSignalLevel?: number;
-    renderNoiseLevel?: number;
-    renderSignalLevel?: number;
-}
-
-interface MSAudioSendPayload extends MSPayloadBase {
-    audioFECUsed?: boolean;
-    samplingRate?: number;
-    sendMutePercent?: number;
-    signal?: MSAudioSendSignal;
-}
-
-interface MSAudioSendSignal {
-    noiseLevel?: number;
-    sendNoiseLevelCh1?: number;
-    sendSignalLevelCh1?: number;
-}
-
-interface MSConnectivity {
-    iceType?: MSIceType;
-    iceWarningFlags?: MSIceWarningFlags;
-    relayAddress?: MSRelayAddress;
-}
-
-interface MSCredentialFilter {
-    accept?: MSCredentialSpec[];
-}
-
-interface MSCredentialParameters {
-    type?: MSCredentialType;
-}
-
-interface MSCredentialSpec {
-    id?: string;
-    type: MSCredentialType;
-}
-
-interface MSDCCEventInit extends EventInit {
-    maxFr?: number;
-    maxFs?: number;
-}
-
-interface MSDSHEventInit extends EventInit {
-    sources?: number[];
-    timestamp?: number;
-}
-
-interface MSDelay {
-    roundTrip?: number;
-    roundTripMax?: number;
-}
-
-interface MSDescription extends RTCStats {
-    connectivity?: MSConnectivity;
-    deviceDevName?: string;
-    localAddr?: MSIPAddressInfo;
-    networkconnectivity?: MSNetworkConnectivityInfo;
-    reflexiveLocalIPAddr?: MSIPAddressInfo;
-    remoteAddr?: MSIPAddressInfo;
-    transport?: RTCIceProtocol;
-}
-
-interface MSFIDOCredentialParameters extends MSCredentialParameters {
-    algorithm?: string | Algorithm;
-    authenticators?: string[];
-}
-
-interface MSIPAddressInfo {
-    ipAddr?: string;
-    manufacturerMacAddrMask?: string;
-    port?: number;
-}
-
-interface MSIceWarningFlags {
-    allocationMessageIntegrityFailed?: boolean;
-    alternateServerReceived?: boolean;
-    connCheckMessageIntegrityFailed?: boolean;
-    connCheckOtherError?: boolean;
-    fipsAllocationFailure?: boolean;
-    multipleRelayServersAttempted?: boolean;
-    noRelayServersConfigured?: boolean;
-    portRangeExhausted?: boolean;
-    pseudoTLSFailure?: boolean;
-    tcpNatConnectivityFailed?: boolean;
-    tcpRelayConnectivityFailed?: boolean;
-    turnAuthUnknownUsernameError?: boolean;
-    turnTcpAllocateFailed?: boolean;
-    turnTcpSendFailed?: boolean;
-    turnTcpTimedOut?: boolean;
-    turnTurnTcpConnectivityFailed?: boolean;
-    turnUdpAllocateFailed?: boolean;
-    turnUdpSendFailed?: boolean;
-    udpLocalConnectivityFailed?: boolean;
-    udpNatConnectivityFailed?: boolean;
-    udpRelayConnectivityFailed?: boolean;
-    useCandidateChecksFailed?: boolean;
-}
-
-interface MSJitter {
-    interArrival?: number;
-    interArrivalMax?: number;
-    interArrivalSD?: number;
-}
-
-interface MSLocalClientEventBase extends RTCStats {
-    networkBandwidthLowEventRatio?: number;
-    networkReceiveQualityEventRatio?: number;
-}
-
-interface MSNetwork extends RTCStats {
-    delay?: MSDelay;
-    jitter?: MSJitter;
-    packetLoss?: MSPacketLoss;
-    utilization?: MSUtilization;
-}
-
-interface MSNetworkConnectivityInfo {
-    linkspeed?: number;
-    networkConnectionDetails?: string;
-    vpn?: boolean;
-}
-
-interface MSNetworkInterfaceType {
-    interfaceTypeEthernet?: boolean;
-    interfaceTypePPP?: boolean;
-    interfaceTypeTunnel?: boolean;
-    interfaceTypeWWAN?: boolean;
-    interfaceTypeWireless?: boolean;
-}
-
-interface MSOutboundNetwork extends MSNetwork {
-    appliedBandwidthLimit?: number;
-}
-
-interface MSPacketLoss {
-    lossRate?: number;
-    lossRateMax?: number;
-}
-
-interface MSPayloadBase extends RTCStats {
-    payloadDescription?: string;
-}
-
-interface MSPortRange {
-    max?: number;
-    min?: number;
-}
-
-interface MSRelayAddress {
-    port?: number;
-    relayAddress?: string;
-}
-
-interface MSSignatureParameters {
-    userPrompt?: string;
-}
-
-interface MSTransportDiagnosticsStats extends RTCStats {
-    allocationTimeInMs?: number;
-    baseAddress?: string;
-    baseInterface?: MSNetworkInterfaceType;
-    iceRole?: RTCIceRole;
-    iceWarningFlags?: MSIceWarningFlags;
-    interfaces?: MSNetworkInterfaceType;
-    localAddrType?: MSIceAddrType;
-    localAddress?: string;
-    localInterface?: MSNetworkInterfaceType;
-    localMR?: string;
-    localMRTCPPort?: number;
-    localSite?: string;
-    msRtcEngineVersion?: string;
-    networkName?: string;
-    numConsentReqReceived?: number;
-    numConsentReqSent?: number;
-    numConsentRespReceived?: number;
-    numConsentRespSent?: number;
-    portRangeMax?: number;
-    portRangeMin?: number;
-    protocol?: RTCIceProtocol;
-    remoteAddrType?: MSIceAddrType;
-    remoteAddress?: string;
-    remoteMR?: string;
-    remoteMRTCPPort?: number;
-    remoteSite?: string;
-    rtpRtcpMux?: boolean;
-    stunVer?: number;
-}
-
-interface MSUtilization {
-    bandwidthEstimation?: number;
-    bandwidthEstimationAvg?: number;
-    bandwidthEstimationMax?: number;
-    bandwidthEstimationMin?: number;
-    bandwidthEstimationStdDev?: number;
-    packets?: number;
-}
-
-interface MSVideoPayload extends MSPayloadBase {
-    durationSeconds?: number;
-    resolution?: string;
-    videoBitRateAvg?: number;
-    videoBitRateMax?: number;
-    videoFrameRateAvg?: number;
-    videoPacketLossRate?: number;
-}
-
-interface MSVideoRecvPayload extends MSVideoPayload {
-    lowBitRateCallPercent?: number;
-    lowFrameRateCallPercent?: number;
-    recvBitRateAverage?: number;
-    recvBitRateMaximum?: number;
-    recvCodecType?: string;
-    recvFpsHarmonicAverage?: number;
-    recvFrameRateAverage?: number;
-    recvNumResSwitches?: number;
-    recvReorderBufferMaxSuccessfullyOrderedExtent?: number;
-    recvReorderBufferMaxSuccessfullyOrderedLateTime?: number;
-    recvReorderBufferPacketsDroppedDueToBufferExhaustion?: number;
-    recvReorderBufferPacketsDroppedDueToTimeout?: number;
-    recvReorderBufferReorderedPackets?: number;
-    recvResolutionHeight?: number;
-    recvResolutionWidth?: number;
-    recvVideoStreamsMax?: number;
-    recvVideoStreamsMin?: number;
-    recvVideoStreamsMode?: number;
-    reorderBufferTotalPackets?: number;
-    videoFrameLossRate?: number;
-    videoPostFECPLR?: number;
-    videoResolutions?: MSVideoResolutionDistribution;
-}
-
-interface MSVideoResolutionDistribution {
-    cifQuality?: number;
-    h1080Quality?: number;
-    h1440Quality?: number;
-    h2160Quality?: number;
-    h720Quality?: number;
-    vgaQuality?: number;
-}
-
-interface MSVideoSendPayload extends MSVideoPayload {
-    sendBitRateAverage?: number;
-    sendBitRateMaximum?: number;
-    sendFrameRateAverage?: number;
-    sendResolutionHeight?: number;
-    sendResolutionWidth?: number;
-    sendVideoStreamsMax?: number;
 }
 
 interface MediaElementAudioSourceOptions {
@@ -1063,11 +742,6 @@ interface NotificationAction {
     action: string;
     icon?: string;
     title: string;
-}
-
-interface NotificationEventInit extends ExtendableEventInit {
-    action?: string;
-    notification: Notification;
 }
 
 interface NotificationOptions {
@@ -1250,15 +924,6 @@ interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, str
     offset?: number | (number | null)[];
 }
 
-interface PushEventInit extends ExtendableEventInit {
-    data?: PushMessageDataInit;
-}
-
-interface PushSubscriptionChangeInit extends ExtendableEventInit {
-    newSubscription?: PushSubscription;
-    oldSubscription?: PushSubscription;
-}
-
 interface PushSubscriptionJSON {
     endpoint?: string;
     expirationTime?: number | null;
@@ -1380,7 +1045,6 @@ interface RTCIceCandidatePairStats extends RTCStats {
 interface RTCIceGatherOptions {
     gatherPolicy?: RTCIceGatherPolicy;
     iceservers?: RTCIceServer[];
-    portRange?: MSPortRange;
 }
 
 interface RTCIceParameters {
@@ -1395,30 +1059,10 @@ interface RTCIceServer {
     username?: string;
 }
 
-interface RTCIdentityAssertionResult {
-    assertion: string;
-    idp: RTCIdentityProviderDetails;
-}
-
-interface RTCIdentityProvider {
-    generateAssertion: GenerateAssertionCallback;
-    validateAssertion: ValidateAssertionCallback;
-}
-
-interface RTCIdentityProviderDetails {
-    domain: string;
-    protocol?: string;
-}
-
 interface RTCIdentityProviderOptions {
     peerIdentity?: string;
     protocol?: string;
     usernameHint?: string;
-}
-
-interface RTCIdentityValidationResult {
-    contents: string;
-    identity: string;
 }
 
 interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
@@ -1811,11 +1455,6 @@ interface StoreExceptionsInformation extends ExceptionInformation {
 
 interface StoreSiteSpecificExceptionsInformation extends StoreExceptionsInformation {
     arrayOfDomainStrings?: string[];
-}
-
-interface SyncEventInit extends ExtendableEventInit {
-    lastChance?: boolean;
-    tag: string;
 }
 
 interface TextDecodeOptions {
@@ -3617,10 +3256,6 @@ interface DOML2DeprecatedColorProperty {
     color: string;
 }
 
-interface DOML2DeprecatedSizeProperty {
-    size: number;
-}
-
 interface DOMMatrix extends DOMMatrixReadOnly {
     a: number;
     b: number;
@@ -4877,8 +4512,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
-    createEvent(eventInterface: "MSDCCEvent"): MSDCCEvent;
-    createEvent(eventInterface: "MSDSHEvent"): MSDSHEvent;
     createEvent(eventInterface: "MSMediaKeyMessageEvent"): MSMediaKeyMessageEvent;
     createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
@@ -5164,12 +4797,6 @@ declare var Element: {
 
 interface ElementCSSInlineStyle {
     readonly style: CSSStyleDeclaration;
-}
-
-interface ElementContentEditable {
-    contentEditable: string;
-    inputMode: string;
-    readonly isContentEditable: boolean;
 }
 
 interface ElementCreationOptions {
@@ -9397,36 +9024,6 @@ interface MSBlobBuilder {
 declare var MSBlobBuilder: {
     prototype: MSBlobBuilder;
     new(): MSBlobBuilder;
-};
-
-interface MSCredentials {
-    getAssertion(challenge: string, filter?: MSCredentialFilter, params?: MSSignatureParameters): Promise<MSAssertion>;
-    makeCredential(accountInfo: MSAccountInfo, params: MSCredentialParameters[], challenge?: string): Promise<MSAssertion>;
-}
-
-declare var MSCredentials: {
-    prototype: MSCredentials;
-    new(): MSCredentials;
-};
-
-interface MSDCCEvent extends Event {
-    readonly maxFr: number;
-    readonly maxFs: number;
-}
-
-declare var MSDCCEvent: {
-    prototype: MSDCCEvent;
-    new(type: string, eventInitDict: MSDCCEventInit): MSDCCEvent;
-};
-
-interface MSDSHEvent extends Event {
-    readonly sources: number[];
-    readonly timestamp: number;
-}
-
-declare var MSDSHEvent: {
-    prototype: MSDSHEvent;
-    new(type: string, eventInitDict: MSDSHEventInit): MSDSHEvent;
 };
 
 interface MSFIDOCredentialAssertion extends MSAssertion {
@@ -16037,7 +15634,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly locationbar: BarProp;
     readonly menubar: BarProp;
     readonly msContentScript: ExtensionScriptApis;
-    readonly msCredentials: MSCredentials;
     name: string;
     readonly navigator: Navigator;
     offscreenBuffering: string | boolean;
@@ -16650,20 +16246,12 @@ interface FunctionStringCallback {
     (data: string): void;
 }
 
-interface GenerateAssertionCallback {
-    (contents: string, origin: string, options: RTCIdentityProviderOptions): Promise<RTCIdentityAssertionResult>;
-}
-
 interface IntersectionObserverCallback {
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
 }
 
 interface MSLaunchUriCallback {
     (): void;
-}
-
-interface MediaQueryListListener {
-    (mql: MediaQueryList): void;
 }
 
 interface MutationCallback {
@@ -16704,10 +16292,6 @@ interface RTCSessionDescriptionCallback {
 
 interface RTCStatsCallback {
     (report: RTCStatsReport): void;
-}
-
-interface ValidateAssertionCallback {
-    (assertion: string, origin: string): Promise<RTCIdentityValidationResult>;
 }
 
 interface VoidFunction {
@@ -16954,7 +16538,6 @@ declare var location: Location;
 declare var locationbar: BarProp;
 declare var menubar: BarProp;
 declare var msContentScript: ExtensionScriptApis;
-declare var msCredentials: MSCredentials;
 declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
@@ -17173,46 +16756,23 @@ type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type PerformanceEntryList = PerformanceEntry[];
-type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
-type MouseWheelEvent = WheelEvent;
 type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
 type MutationRecordType = "attributes" | "characterData" | "childList";
-type AAGUID = string;
-type ByteString = string;
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type ConstrainDouble = number | ConstrainDoubleRange;
 type ConstrainLong = number | ConstrainLongRange;
 type CryptoOperationData = ArrayBufferView;
-type GLbitfield = number;
-type GLboolean = boolean;
-type GLbyte = number;
-type GLclampf = number;
-type GLenum = number;
-type GLfloat = number;
-type GLint = number;
-type GLintptr = number;
-type GLshort = number;
-type GLsizei = number;
-type GLsizeiptr = number;
-type GLubyte = number;
-type GLuint = number;
-type GLushort = number;
 type IDBKeyPath = string;
-type MSInboundPayload = MSVideoRecvPayload | MSAudioRecvPayload;
-type MSLocalClientEvent = MSLocalClientEventBase | MSAudioLocalClientEvent;
-type MSOutboundPayload = MSVideoSendPayload | MSAudioSendPayload;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
-type USVString = string;
-type payloadtype = number;
 type WindowProxy = Window;
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
@@ -17246,9 +16806,6 @@ type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 type ListeningState = "inactive" | "active" | "disambiguation";
 type MSCredentialType = "FIDO_2_0";
-type MSIceAddrType = "os" | "stun" | "turn" | "peer-derived";
-type MSIceType = "failed" | "direct" | "relay";
-type MSStatsType = "description" | "localclientevent" | "inbound-network" | "outbound-network" | "inbound-payload" | "outbound-payload" | "transportdiagnostics";
 type MSTransportType = "Embedded" | "USB" | "NFC" | "BT";
 type MSWebViewPermissionState = "unknown" | "defer" | "allow" | "deny";
 type MSWebViewPermissionType = "geolocation" | "unlimitedIndexedDBQuota" | "media" | "pointerlock" | "webnotifications";
@@ -17320,7 +16877,6 @@ type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
 type Transport = "usb" | "nfc" | "ble";
 type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted";
-type VREye = "left" | "right";
 type VideoFacingModeEnum = "user" | "environment" | "left" | "right";
 type VisibilityState = "hidden" | "visible" | "prerender";
 type WorkerType = "classic" | "module";

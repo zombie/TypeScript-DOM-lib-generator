@@ -2371,66 +2371,11 @@
                         }
                     }
                 }
-            },
-            "ScrollOptions": {
-                "exposed": "Window",
-                "name": "ScrollOptions",
-                "members": {
-                    "member": {
-                        "behavior": {
-                            "name": "behavior",
-                            "override-type": "ScrollBehavior",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "ScrollToOptions": {
-                "exposed": "Window",
-                "name": "ScrollToOptions",
-                "extends": "ScrollOptions",
-                "members": {
-                    "member": {
-                        "left": {
-                            "name": "left",
-                            "override-type": "number",
-                            "required": 0
-                        },
-                        "top": {
-                            "name": "top",
-                            "override-type": "number",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "ScrollIntoViewOptions": {
-                "exposed": "Window",
-                "name": "ScrollIntoViewOptions",
-                "extends": "ScrollOptions",
-                "members": {
-                    "member": {
-                        "block": {
-                            "name": "block",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        },
-                        "inline": {
-                            "name": "inline",
-                            "override-type": "ScrollLogicalPosition",
-                            "required": 0
-                        }
-                    }
-                }
             }
         }
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "WheelEvent",
-                "new-type": "MouseWheelEvent"
-            },
             {
                 "override-type": "\"auto\" | \"manual\"",
                 "new-type": "ScrollRestoration"
@@ -2456,14 +2401,6 @@
                 "override-type": "\"attributes\" | \"characterData\" | \"childList\""
             },
             {
-                "new-type": "AAGUID",
-                "override-type": "string"
-            },
-            {
-                "new-type": "ByteString",
-                "override-type": "string"
-            },
-            {
                 "new-type": "ConstrainBoolean",
                 "override-type": "boolean | ConstrainBooleanParameters"
             },
@@ -2484,76 +2421,8 @@
                 "override-type": "ArrayBufferView"
             },
             {
-                "new-type": "GLbitfield",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLboolean",
-                "override-type": "boolean"
-            },
-            {
-                "new-type": "GLbyte",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLclampf",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLenum",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLfloat",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLint",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLintptr",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLshort",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLsizei",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLsizeiptr",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLubyte",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLuint",
-                "override-type": "number"
-            },
-            {
-                "new-type": "GLushort",
-                "override-type": "number"
-            },
-            {
                 "new-type": "IDBKeyPath",
                 "override-type": "string"
-            },
-            {
-                "new-type": "MSInboundPayload",
-                "override-type": "MSVideoRecvPayload | MSAudioRecvPayload"
-            },
-            {
-                "new-type": "MSLocalClientEvent",
-                "override-type": "MSLocalClientEventBase | MSAudioLocalClientEvent"
-            },
-            {
-                "new-type": "MSOutboundPayload",
-                "override-type": "MSVideoSendPayload | MSAudioSendPayload"
             },
             {
                 "new-type": "RTCIceGatherCandidate",
@@ -2562,14 +2431,6 @@
             {
                 "new-type": "RTCTransport",
                 "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
-            },
-            {
-                "new-type": "USVString",
-                "override-type": "string"
-            },
-            {
-                "new-type": "payloadtype",
-                "override-type": "number"
             },
             {
                 "new-type": "WindowProxy",

@@ -323,7 +323,7 @@
             },
             "ImageBitmap": {
                 "name": "ImageBitmap",
-                "flavor": "All",
+                "exposed": "Window Worker",
                 "properties": {
                     "property": {
                         "width": {

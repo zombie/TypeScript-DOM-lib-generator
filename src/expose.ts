@@ -6,7 +6,7 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
     const filtered = getEmptyWebIDL();
     if (webidl.interfaces) {
         filtered.interfaces!.interface = filter(webidl.interfaces.interface, o => exposesTo(o, target));
-        const unexposedInterfaces = mapToArray(webidl.interfaces.interface).filter(i => i.exposed && !i.exposed.includes(target));
+        const unexposedInterfaces = mapToArray(webidl.interfaces.interface).filter(i => !i.exposed || !i.exposed.includes(target));
         for (const i of unexposedInterfaces) {
             unexposedTypes.add(i.name);
         }

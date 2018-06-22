@@ -511,11 +511,6 @@ interface IIRFilterOptions extends AudioNodeOptions {
     feedforward: number[];
 }
 
-interface ImageEncodeOptions {
-    quality?: number;
-    type?: string;
-}
-
 interface IntersectionObserverEntryInit {
     boundingClientRect: DOMRectInit;
     intersectionRect: DOMRectInit;
@@ -5622,7 +5617,6 @@ interface HTMLCanvasElement extends HTMLElement {
      * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
      */
     toDataURL(type?: string, quality?: any): string;
-    transferControlToOffscreen(): OffscreenCanvas;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLCanvasElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLCanvasElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -10266,62 +10260,6 @@ declare var OfflineAudioContext: {
     prototype: OfflineAudioContext;
     new(contextOptions: OfflineAudioContextOptions): OfflineAudioContext;
     new(numberOfChannels: number, length: number, sampleRate: number): OfflineAudioContext;
-};
-
-interface OffscreenCanvas extends EventTarget {
-    /**
-     * These attributes return the dimensions of the OffscreenCanvas object's bitmap.
-     * They can be set, to replace the bitmap with a
-     * new, transparent black bitmap of the specified dimensions (effectively resizing
-     * it).
-     */
-    height: number;
-    width: number;
-    /**
-     * Returns a promise that will fulfill with a new Blob object representing a file
-     * containing the image in the OffscreenCanvas object.
-     * The argument, if provided, is a dictionary that controls the encoding options of the image
-     * file to be created. The type
-     * field specifies the file format and has a default value of "image/png"; that type
-     * is also used if the requested type isn't supported. If the image format supports variable
-     * quality (such as "image/jpeg"), then the quality field is a number in the range 0.0
-     * to 1.0 inclusive indicating the desired quality level for the resulting image.
-     */
-    convertToBlob(options?: ImageEncodeOptions): Promise<Blob>;
-    /**
-     * Returns an object that exposes an API for drawing on the OffscreenCanvas
-     * object. contextId specifies the desired API: "2d" or "webgl". options is handled by that
-     * API.
-     * This specification defines the "2d" context below,
-     * which is similar but distinct from the "2d"
-     * context that is created from a canvas element. There is also a specification that
-     * defines a "webgl" context. [WEBGL]
-     * Returns null if the canvas has already been initialized with another context type (e.g.,
-     * trying to get a "2d" context after getting a
-     * "webgl" context).
-     */
-    getContext(contextId: OffscreenRenderingContextId, options?: any): OffscreenRenderingContext | null;
-    /**
-     * Returns a newly created ImageBitmap object with the image in the
-     * OffscreenCanvas object. The image in the OffscreenCanvas object is
-     * replaced with a new blank image.
-     */
-    transferToImageBitmap(): ImageBitmap;
-}
-
-declare var OffscreenCanvas: {
-    prototype: OffscreenCanvas;
-    new(width: number, height: number): OffscreenCanvas;
-};
-
-interface OffscreenCanvasRenderingContext2D extends CanvasState, CanvasTransform, CanvasCompositing, CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasPath {
-    readonly canvas: OffscreenCanvas;
-    commit(): void;
-}
-
-declare var OffscreenCanvasRenderingContext2D: {
-    prototype: OffscreenCanvasRenderingContext2D;
-    new(): OffscreenCanvasRenderingContext2D;
 };
 
 interface OscillatorNode extends AudioScheduledSourceNode {
@@ -16936,8 +16874,7 @@ type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
 type RenderingContext = CanvasRenderingContext2D | ImageBitmapRenderingContext | WebGLRenderingContext;
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
-type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
-type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | WebGLRenderingContext;
+type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
@@ -17009,7 +16946,6 @@ type NavigationReason = "up" | "down" | "left" | "right";
 type NavigationType = "navigate" | "reload" | "back_forward" | "prerender";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
-type OffscreenRenderingContextId = "2d" | "webgl";
 type OrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 type OscillatorType = "sine" | "square" | "sawtooth" | "triangle" | "custom";

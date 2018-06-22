@@ -31,7 +31,7 @@
                         "msIsIndependentlyComposed": null,
                         "select": null
                     }
-                }  
+                }
             },
             "Event": {
                 "properties": {
@@ -49,6 +49,13 @@
                         "insertAdjacentElement": null,
                         "insertAdjacentHTML": null,
                         "insertAdjacentText": null
+                    }
+                }
+            },
+            "HTMLCanvasElement": {
+                "methods": {
+                    "method": {
+                        "transferControlToOffscreen": null
                     }
                 }
             },
@@ -133,8 +140,10 @@
         }
     },
     "typedefs": {
-        "typedef": [{
-            "new-type": "ArrayBufferView"
-        }]
+        "typedef": [
+            {
+                "new-type": "ArrayBufferView"
+            }
+        ]
     }
 }

@@ -830,25 +830,6 @@
                     ]
                 }
             },
-            "CanvasRenderingContext2D": {
-                "name": "CanvasRenderingContext2D",
-                "properties": {
-                    "property": {
-                        "mozImageSmoothingEnabled": {
-                            "name": "mozImageSmoothingEnabled",
-                            "override-type": "boolean"
-                        },
-                        "webkitImageSmoothingEnabled": {
-                            "name": "webkitImageSmoothingEnabled",
-                            "override-type": "boolean"
-                        },
-                        "oImageSmoothingEnabled": {
-                            "name": "oImageSmoothingEnabled",
-                            "override-type": "boolean"
-                        }
-                    }
-                }
-            },
             "AesCmacParams": {
                 "name": "AesCmacParams",
                 "extends": "Algorithm",

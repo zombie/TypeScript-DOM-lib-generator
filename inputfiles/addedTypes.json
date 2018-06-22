@@ -255,33 +255,6 @@
                     }
                 }
             },
-            "Canvas2DContextAttributes": {
-                "name": "Canvas2DContextAttributes",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "alpha": {
-                            "name": "alpha",
-                            "override-type": "boolean",
-                            "required": 0
-                        },
-                        "willReadFrequently": {
-                            "name": "willReadFrequently",
-                            "override-type": "boolean",
-                            "required": 0
-                        },
-                        "storage": {
-                            "name": "storage",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                },
-                "override-index-signatures": [
-                    "[attribute: string]: boolean | string | undefined"
-                ],
-                "no-interface-object": "1"
-            },
             "ImageBitmapOptions": {
                 "flavor": "All",
                 "name": "ImageBitmapOptions",

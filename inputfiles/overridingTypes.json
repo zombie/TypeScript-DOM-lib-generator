@@ -819,7 +819,7 @@
                         "getContext": {
                             "name": "getContext",
                             "override-signatures": [
-                                "getContext(contextId: \"2d\", contextAttributes?: Canvas2DContextAttributes): CanvasRenderingContext2D | null",
+                                "getContext(contextId: \"2d\", contextAttributes?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null",
                                 "getContext(contextId: \"webgl\" | \"experimental-webgl\", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null",
                                 "getContext(contextId: string, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext | null"
                             ]

@@ -2087,14 +2087,6 @@
                     ]
                 }
             },
-            "Path2D": {
-                "name": "Path2D",
-                "constructor": {
-                    "override-signatures": [
-                        "new(d?: Path2D | string): Path2D"
-                    ]
-                }
-            },
             "Performance": {
                 "name": "Performance",
                 "properties": {

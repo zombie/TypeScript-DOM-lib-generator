@@ -1454,18 +1454,6 @@
                     }
                 }
             },
-            "DataTransfer": {
-                "name": "DataTransfer",
-                "properties": {
-                    "property": {
-                        "types": {
-                            "name": "types",
-                            "read-only": 1,
-                            "override-type": "string[]"
-                        }
-                    }
-                }
-            },
             "XPathEvaluator": {
                 "name": "XPathEvaluator",
                 "methods": {
@@ -1515,14 +1503,6 @@
                             ]
                         }
                     }
-                }
-            },
-            "DragEvent": {
-                "name": "DragEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: \"drag\" | \"dragend\" | \"dragenter\" | \"dragexit\" | \"dragleave\" | \"dragover\" | \"dragstart\" | \"drop\", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent"
-                    ]
                 }
             },
             "HTMLAppletElement": {
@@ -1679,14 +1659,6 @@
                         "name": "textarea"
                     }
                 ]
-            },
-            "Headers": {
-                "name": "Headers",
-                "constructor": {
-                    "override-signatures": [
-                        "new(init?: HeadersInit): Headers"
-                    ]
-                }
             },
             "NodeList": {
                 "name": "NodeList",

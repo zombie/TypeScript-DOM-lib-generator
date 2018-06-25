@@ -162,7 +162,7 @@ interface FetchEvent : ExtendableEvent {
 
 dictionary FetchEventInit : ExtendableEventInit {
   required Request request;
-  required Promise<any> preloadResponse;
+  Promise<any> preloadResponse;
   DOMString clientId = "";
   DOMString resultingClientId = "";
   DOMString targetClientId = "";

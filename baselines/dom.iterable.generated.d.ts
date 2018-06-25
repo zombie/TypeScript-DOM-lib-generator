@@ -34,7 +34,7 @@ interface DOMTokenList {
 }
 
 interface DataTransferItemList {
-    [Symbol.iterator](): IterableIterator<File>;
+    [Symbol.iterator](): IterableIterator<DataTransferItem>;
 }
 
 interface FileList {

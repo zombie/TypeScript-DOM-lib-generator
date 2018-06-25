@@ -1061,17 +1061,6 @@
                     }
                 }
             },
-            "History": {
-                "name": "History",
-                "properties": {
-                    "property": {
-                        "scrollRestoration": {
-                            "name": "scrollRestoration",
-                            "override-type": "ScrollRestoration"
-                        }
-                    }
-                }
-            },
             "CanvasPattern": {
                 "name": "CanvasPattern",
                 "methods": {
@@ -2376,10 +2365,6 @@
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "\"auto\" | \"manual\"",
-                "new-type": "ScrollRestoration"
-            },
             {
                 "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
                 "new-type": "InsertPosition"

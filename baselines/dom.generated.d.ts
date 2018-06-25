@@ -8342,11 +8342,11 @@ interface History {
     readonly length: number;
     scrollRestoration: ScrollRestoration;
     readonly state: any;
-    back(distance?: any): void;
-    forward(distance?: any): void;
-    go(delta?: any): void;
-    pushState(data: any, title?: string, url?: string | null): void;
-    replaceState(data: any, title?: string, url?: string | null): void;
+    back(): void;
+    forward(): void;
+    go(delta?: number): void;
+    pushState(data: any, title: string, url?: string | null): void;
+    replaceState(data: any, title: string, url?: string | null): void;
 }
 
 declare var History: {
@@ -8986,19 +8986,68 @@ declare var ListeningStateChangedEvent: {
 };
 
 interface Location {
+    /**
+     * Returns a DOMStringList object listing the origins of the ancestor browsing contexts, from the parent browsing
+     * context to the top-level browsing context.
+     */
+    readonly ancestorOrigins: DOMStringList;
+    /**
+     * Returns the Location object's URL's fragment (includes leading "#" if non-empty).
+     * Can be set, to navigate to the same URL with a changed fragment (ignores leading "#").
+     */
     hash: string;
+    /**
+     * Returns the Location object's URL's host and port (if different from the default
+     * port for the scheme).
+     * Can be set, to navigate to the same URL with a changed host and port.
+     */
     host: string;
+    /**
+     * Returns the Location object's URL's host.
+     * Can be set, to navigate to the same URL with a changed host.
+     */
     hostname: string;
+    /**
+     * Returns the Location object's URL.
+     * Can be set, to navigate to the given URL.
+     */
     href: string;
+    /**
+     * Returns the Location object's URL's origin.
+     */
     readonly origin: string;
+    /**
+     * Returns the Location object's URL's path.
+     * Can be set, to navigate to the same URL with a changed path.
+     */
     pathname: string;
+    /**
+     * Returns the Location object's URL's port.
+     * Can be set, to navigate to the same URL with a changed port.
+     */
     port: string;
+    /**
+     * Returns the Location object's URL's scheme.
+     * Can be set, to navigate to the same URL with a changed scheme.
+     */
     protocol: string;
+    /**
+     * Returns the Location object's URL's query (includes leading "?" if non-empty).
+     * Can be set, to navigate to the same URL with a changed query (ignores leading "?").
+     */
     search: string;
+    /**
+     * Navigates to the given URL.
+     */
     assign(url: string): void;
-    reload(forcedReload?: boolean): void;
+    /**
+     * Reloads the current page.
+     */
+    reload(): void;
+    /**
+     * Removes the current page from the session history and navigates to the given URL.
+     */
     replace(url: string): void;
-    toString(): string;
 }
 
 declare var Location: {
@@ -16760,7 +16809,6 @@ type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
-type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
@@ -16869,6 +16917,7 @@ type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaquer
 type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
+type ScrollRestoration = "auto" | "manual";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";

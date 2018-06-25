@@ -33,18 +33,18 @@
                 },
                 "methods": {
                     "method": {
-                      "blur": {
-                          "name": "blur",
-                          "override-signatures": [
-                              "blur(): void"
-                          ]
-                      },
-                      "focus": {
-                          "name": "focus",
-                          "override-signatures": [
-                              "focus(options?: FocusOptions): void"
-                          ]
-                      }
+                        "blur": {
+                            "name": "blur",
+                            "override-signatures": [
+                                "blur(): void"
+                            ]
+                        },
+                        "focus": {
+                            "name": "focus",
+                            "override-signatures": [
+                                "focus(options?: FocusOptions): void"
+                            ]
+                        }
                     }
                 },
                 "no-interface-object": "1"
@@ -100,6 +100,44 @@
     },
     "interfaces": {
         "interface": {
+            "ApplicationCache": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "checking",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "noupdate",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "downloading",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "progress",
+                            "type": "ProgressEvent"
+                        },
+                        {
+                            "name": "cached",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "updateready",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "obsolete",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
             "RTCError": {
                 "specs": "webrtc",
                 "constructor": {
@@ -450,9 +488,11 @@
                 ],
                 "iterator": {
                     "kind": "iterable",
-                    "type": [{
-                        "override-type": "TNode"
-                    }]
+                    "type": [
+                        {
+                            "override-type": "TNode"
+                        }
+                    ]
                 }
             },
             "HTMLCollectionOf<T extends Element>": {
@@ -1057,17 +1097,6 @@
                             "override-signatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
                             ]
-                        }
-                    }
-                }
-            },
-            "History": {
-                "name": "History",
-                "properties": {
-                    "property": {
-                        "scrollRestoration": {
-                            "name": "scrollRestoration",
-                            "override-type": "ScrollRestoration"
                         }
                     }
                 }
@@ -1998,7 +2027,6 @@
                 },
                 "element": [
                     {
-
                         "name": "input"
                     }
                 ]
@@ -2006,7 +2034,7 @@
             "HTMLLinkElement": {
                 "properties": {
                     "property": {
-                        "disabled":{
+                        "disabled": {
                             "name": "disabled",
                             "type": "boolean"
                         }
@@ -2376,10 +2404,6 @@
     },
     "typedefs": {
         "typedef": [
-            {
-                "override-type": "\"auto\" | \"manual\"",
-                "new-type": "ScrollRestoration"
-            },
             {
                 "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
                 "new-type": "InsertPosition"

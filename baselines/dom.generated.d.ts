@@ -339,6 +339,10 @@ interface DoubleRange {
     min?: number;
 }
 
+interface DragEventInit extends MouseEventInit {
+    dataTransfer?: DataTransfer | null;
+}
+
 interface DynamicsCompressorOptions extends AudioNodeOptions {
     attack?: number;
     knee?: number;
@@ -1737,17 +1741,29 @@ interface ApplicationCacheEventMap {
 }
 
 interface ApplicationCache extends EventTarget {
+    /** @deprecated */
     oncached: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onchecking: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     ondownloading: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onerror: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onnoupdate: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onobsolete: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onprogress: ((this: ApplicationCache, ev: ProgressEvent) => any) | null;
+    /** @deprecated */
     onupdateready: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     readonly status: number;
+    /** @deprecated */
     abort(): void;
+    /** @deprecated */
     swapCache(): void;
+    /** @deprecated */
     update(): void;
     readonly CHECKING: number;
     readonly DOWNLOADING: number;
@@ -3532,12 +3548,35 @@ declare var DataCue: {
 interface DataTransfer {
     dropEffect: string;
     effectAllowed: string;
+    /**
+     * Returns a FileList of the files being dragged, if any.
+     */
     readonly files: FileList;
+    /**
+     * Returns a DataTransferItemList object, with the drag data.
+     */
     readonly items: DataTransferItemList;
-    readonly types: string[];
-    clearData(format?: string): boolean;
+    /**
+     * Returns a frozen array listing the formats that were set in the dragstart event. In addition, if any files are being
+     * dragged, then one of the types will be the string "Files".
+     */
+    readonly types: ReadonlyArray<string>;
+    /**
+     * Removes the data of the specified formats. Removes all data if the argument is omitted.
+     */
+    clearData(format?: string): void;
+    /**
+     * Returns the specified data. If there is no such data, returns the empty string.
+     */
     getData(format: string): string;
-    setData(format: string, data: string): boolean;
+    /**
+     * Adds the specified data.
+     */
+    setData(format: string, data: string): void;
+    /**
+     * Uses the given element to update the drag feedback, replacing any previously specified
+     * feedback.
+     */
     setDragImage(image: Element, x: number, y: number): void;
 }
 
@@ -3547,10 +3586,24 @@ declare var DataTransfer: {
 };
 
 interface DataTransferItem {
+    /**
+     * Returns the drag data item kind, one of: "string",
+     * "file".
+     */
     readonly kind: string;
+    /**
+     * Returns the drag data item type string.
+     */
     readonly type: string;
+    /**
+     * Returns a File object, if the drag data item kind is File.
+     */
     getAsFile(): File | null;
-    getAsString(_callback: FunctionStringCallback | null): void;
+    /**
+     * Invokes the callback with the string data as the argument, if the drag data item
+     * kind is Plain Unicode string.
+     */
+    getAsString(callback: FunctionStringCallback | null): void;
     webkitGetAsEntry(): any;
 }
 
@@ -3560,11 +3613,25 @@ declare var DataTransferItem: {
 };
 
 interface DataTransferItemList {
+    /**
+     * Returns the number of items in the drag data store.
+     */
     readonly length: number;
-    add(data: File): DataTransferItem | null;
+    /**
+     * Adds a new entry for the given data to the drag data store. If the data is plain
+     * text  then a type string has to be provided
+     * also.
+     */
     add(data: string, type: string): DataTransferItem | null;
+    add(data: File): DataTransferItem | null;
+    /**
+     * Removes all the entries in the drag data store.
+     */
     clear(): void;
     item(index: number): DataTransferItem;
+    /**
+     * Removes the indexth entry in the drag data store.
+     */
     remove(index: number): void;
     [name: number]: DataTransferItem;
 }
@@ -4605,14 +4672,15 @@ declare var DocumentType: {
 };
 
 interface DragEvent extends MouseEvent {
-    readonly dataTransfer: DataTransfer;
-    initDragEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget, dataTransferArg: DataTransfer): void;
-    msConvertURL(file: File, targetType: string, targetURL?: string): void;
+    /**
+     * Returns the DataTransfer object for the event.
+     */
+    readonly dataTransfer: DataTransfer | null;
 }
 
 declare var DragEvent: {
     prototype: DragEvent;
-    new(type: "drag" | "dragend" | "dragenter" | "dragexit" | "dragleave" | "dragover" | "dragstart" | "drop", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent;
+    new(type: string, eventInitDict?: DragEventInit): DragEvent;
 };
 
 interface DynamicsCompressorNode extends AudioNode {
@@ -8342,11 +8410,11 @@ interface History {
     readonly length: number;
     scrollRestoration: ScrollRestoration;
     readonly state: any;
-    back(distance?: any): void;
-    forward(distance?: any): void;
-    go(delta?: any): void;
-    pushState(data: any, title?: string, url?: string | null): void;
-    replaceState(data: any, title?: string, url?: string | null): void;
+    back(): void;
+    forward(): void;
+    go(delta?: number): void;
+    pushState(data: any, title: string, url?: string | null): void;
+    replaceState(data: any, title: string, url?: string | null): void;
 }
 
 declare var History: {
@@ -8986,19 +9054,68 @@ declare var ListeningStateChangedEvent: {
 };
 
 interface Location {
+    /**
+     * Returns a DOMStringList object listing the origins of the ancestor browsing contexts, from the parent browsing
+     * context to the top-level browsing context.
+     */
+    readonly ancestorOrigins: DOMStringList;
+    /**
+     * Returns the Location object's URL's fragment (includes leading "#" if non-empty).
+     * Can be set, to navigate to the same URL with a changed fragment (ignores leading "#").
+     */
     hash: string;
+    /**
+     * Returns the Location object's URL's host and port (if different from the default
+     * port for the scheme).
+     * Can be set, to navigate to the same URL with a changed host and port.
+     */
     host: string;
+    /**
+     * Returns the Location object's URL's host.
+     * Can be set, to navigate to the same URL with a changed host.
+     */
     hostname: string;
+    /**
+     * Returns the Location object's URL.
+     * Can be set, to navigate to the given URL.
+     */
     href: string;
+    /**
+     * Returns the Location object's URL's origin.
+     */
     readonly origin: string;
+    /**
+     * Returns the Location object's URL's path.
+     * Can be set, to navigate to the same URL with a changed path.
+     */
     pathname: string;
+    /**
+     * Returns the Location object's URL's port.
+     * Can be set, to navigate to the same URL with a changed port.
+     */
     port: string;
+    /**
+     * Returns the Location object's URL's scheme.
+     * Can be set, to navigate to the same URL with a changed scheme.
+     */
     protocol: string;
+    /**
+     * Returns the Location object's URL's query (includes leading "?" if non-empty).
+     * Can be set, to navigate to the same URL with a changed query (ignores leading "?").
+     */
     search: string;
+    /**
+     * Navigates to the given URL.
+     */
     assign(url: string): void;
-    reload(forcedReload?: boolean): void;
+    /**
+     * Reloads the current page.
+     */
+    reload(): void;
+    /**
+     * Removes the current page from the session history and navigates to the given URL.
+     */
     replace(url: string): void;
-    toString(): string;
 }
 
 declare var Location: {
@@ -16804,7 +16921,6 @@ type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type LineAndPositionSetting = number | AutoKeyword;
 type FormDataEntryValue = File | string;
-type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
@@ -16919,6 +17035,7 @@ type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type ScrollSetting = "" | "up";
+type ScrollRestoration = "auto" | "manual";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";

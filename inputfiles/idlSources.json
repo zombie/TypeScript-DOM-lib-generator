@@ -194,12 +194,20 @@
         "title": "Web Background Synchronization"
     },
     {
+        "url": "https://www.w3.org/TR/webdriver1/",
+        "title": "WebDriver"
+    },
+    {
         "url": "https://heycam.github.io/webidl/",
         "title": "Web IDL"
     },
     {
         "url": "https://w3c.github.io/webrtc-pc/",
         "title": "WebRTC"
+    },
+    {
+        "url": "https://www.w3.org/TR/webvtt1/",
+        "title": "WebVTT"
     },
     {
         "url": "https://drafts.css-houdini.org/worklets/",

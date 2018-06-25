@@ -9806,7 +9806,7 @@ declare var NavigationPreloadManager: {
     new(): NavigationPreloadManager;
 };
 
-interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage {
+interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage, NavigatorAutomationInformation {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
     readonly authentication: WebAuthentication;
     readonly cookieEnabled: boolean;
@@ -9834,6 +9834,10 @@ declare var Navigator: {
     prototype: Navigator;
     new(): Navigator;
 };
+
+interface NavigatorAutomationInformation {
+    readonly webdriver: boolean;
+}
 
 interface NavigatorBeacon {
     sendBeacon(url: string, data?: Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | FormData | string | null): boolean;
@@ -14337,6 +14341,45 @@ declare var VRPose: {
     new(): VRPose;
 };
 
+interface VTTCue extends TextTrackCue {
+    align: AlignSetting;
+    line: LineAndPositionSetting;
+    lineAlign: LineAlignSetting;
+    position: LineAndPositionSetting;
+    positionAlign: PositionAlignSetting;
+    region: VTTRegion | null;
+    size: number;
+    snapToLines: boolean;
+    text: string;
+    vertical: DirectionSetting;
+    getCueAsHTML(): DocumentFragment;
+    addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var VTTCue: {
+    prototype: VTTCue;
+    new(startTime: number, endTime: number, text: string): VTTCue;
+};
+
+interface VTTRegion {
+    id: string;
+    lines: number;
+    regionAnchorX: number;
+    regionAnchorY: number;
+    scroll: ScrollSetting;
+    viewportAnchorX: number;
+    viewportAnchorY: number;
+    width: number;
+}
+
+declare var VTTRegion: {
+    prototype: VTTRegion;
+    new(): VTTRegion;
+};
+
 interface ValidityState {
     readonly badInput: boolean;
     readonly customError: boolean;
@@ -16759,6 +16802,7 @@ type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
+type LineAndPositionSetting = number | AutoKeyword;
 type FormDataEntryValue = File | string;
 type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
@@ -16774,10 +16818,12 @@ type IDBKeyPath = string;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type WindowProxy = Window;
+type AlignSetting = "start" | "center" | "end" | "left" | "right";
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
+type AutoKeyword = "auto";
 type AutomationRate = "a-rate" | "k-rate";
 type BinaryType = "blob" | "arraybuffer";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";
@@ -16787,6 +16833,7 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
+type DirectionSetting = "" | "rl" | "lr";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
@@ -16804,6 +16851,7 @@ type IterationCompositeOperation = "replace" | "accumulate";
 type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
 type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
+type LineAlignSetting = "start" | "center" | "end";
 type ListeningState = "inactive" | "active" | "disambiguation";
 type MSCredentialType = "FIDO_2_0";
 type MSTransportType = "Embedded" | "USB" | "NFC" | "BT";
@@ -16827,6 +16875,7 @@ type PanningModelType = "equalpower" | "HRTF";
 type PaymentComplete = "success" | "fail" | "unknown";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
 type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
+type PositionAlignSetting = "line-left" | "center" | "line-right" | "auto";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
@@ -16869,6 +16918,7 @@ type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaquer
 type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
+type ScrollSetting = "" | "up";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";

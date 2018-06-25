@@ -114,7 +114,7 @@ interface ExtendableMessageEventInit extends ExtendableEventInit {
 
 interface FetchEventInit extends ExtendableEventInit {
     clientId?: string;
-    preloadResponse: Promise<any>;
+    preloadResponse?: Promise<any>;
     request: Request;
     resultingClientId?: string;
     targetClientId?: string;

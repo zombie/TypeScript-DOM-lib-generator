@@ -343,6 +343,10 @@ interface DoubleRange {
     min?: number;
 }
 
+interface DragEventInit extends MouseEventInit {
+    dataTransfer?: DataTransfer | null;
+}
+
 interface DynamicsCompressorOptions extends AudioNodeOptions {
     attack?: number;
     knee?: number;
@@ -1741,17 +1745,29 @@ interface ApplicationCacheEventMap {
 }
 
 interface ApplicationCache extends EventTarget {
+    /** @deprecated */
     oncached: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onchecking: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     ondownloading: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onerror: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onnoupdate: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onobsolete: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onprogress: ((this: ApplicationCache, ev: ProgressEvent) => any) | null;
+    /** @deprecated */
     onupdateready: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     readonly status: number;
+    /** @deprecated */
     abort(): void;
+    /** @deprecated */
     swapCache(): void;
+    /** @deprecated */
     update(): void;
     readonly CHECKING: number;
     readonly DOWNLOADING: number;
@@ -3592,12 +3608,35 @@ declare var DataCue: {
 interface DataTransfer {
     dropEffect: string;
     effectAllowed: string;
+    /**
+     * Returns a FileList of the files being dragged, if any.
+     */
     readonly files: FileList;
+    /**
+     * Returns a DataTransferItemList object, with the drag data.
+     */
     readonly items: DataTransferItemList;
-    readonly types: string[];
-    clearData(format?: string): boolean;
+    /**
+     * Returns a frozen array listing the formats that were set in the dragstart event. In addition, if any files are being
+     * dragged, then one of the types will be the string "Files".
+     */
+    readonly types: ReadonlyArray<string>;
+    /**
+     * Removes the data of the specified formats. Removes all data if the argument is omitted.
+     */
+    clearData(format?: string): void;
+    /**
+     * Returns the specified data. If there is no such data, returns the empty string.
+     */
     getData(format: string): string;
-    setData(format: string, data: string): boolean;
+    /**
+     * Adds the specified data.
+     */
+    setData(format: string, data: string): void;
+    /**
+     * Uses the given element to update the drag feedback, replacing any previously specified
+     * feedback.
+     */
     setDragImage(image: Element, x: number, y: number): void;
 }
 
@@ -3607,10 +3646,24 @@ declare var DataTransfer: {
 };
 
 interface DataTransferItem {
+    /**
+     * Returns the drag data item kind, one of: "string",
+     * "file".
+     */
     readonly kind: string;
+    /**
+     * Returns the drag data item type string.
+     */
     readonly type: string;
+    /**
+     * Returns a File object, if the drag data item kind is File.
+     */
     getAsFile(): File | null;
-    getAsString(_callback: FunctionStringCallback | null): void;
+    /**
+     * Invokes the callback with the string data as the argument, if the drag data item
+     * kind is Plain Unicode string.
+     */
+    getAsString(callback: FunctionStringCallback | null): void;
     webkitGetAsEntry(): any;
 }
 
@@ -3620,11 +3673,25 @@ declare var DataTransferItem: {
 };
 
 interface DataTransferItemList {
+    /**
+     * Returns the number of items in the drag data store.
+     */
     readonly length: number;
-    add(data: File): DataTransferItem | null;
+    /**
+     * Adds a new entry for the given data to the drag data store. If the data is plain
+     * text  then a type string has to be provided
+     * also.
+     */
     add(data: string, type: string): DataTransferItem | null;
+    add(data: File): DataTransferItem | null;
+    /**
+     * Removes all the entries in the drag data store.
+     */
     clear(): void;
     item(index: number): DataTransferItem;
+    /**
+     * Removes the indexth entry in the drag data store.
+     */
     remove(index: number): void;
     [name: number]: DataTransferItem;
 }
@@ -4665,14 +4732,15 @@ declare var DocumentType: {
 };
 
 interface DragEvent extends MouseEvent {
-    readonly dataTransfer: DataTransfer;
-    initDragEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget, dataTransferArg: DataTransfer): void;
-    msConvertURL(file: File, targetType: string, targetURL?: string): void;
+    /**
+     * Returns the DataTransfer object for the event.
+     */
+    readonly dataTransfer: DataTransfer | null;
 }
 
 declare var DragEvent: {
     prototype: DragEvent;
-    new(type: "drag" | "dragend" | "dragenter" | "dragexit" | "dragleave" | "dragover" | "dragstart" | "drop", dragEventInit?: { dataTransfer?: DataTransfer }): DragEvent;
+    new(type: string, eventInitDict?: DragEventInit): DragEvent;
 };
 
 interface DynamicsCompressorNode extends AudioNode {
@@ -8398,11 +8466,11 @@ interface History {
     readonly length: number;
     scrollRestoration: ScrollRestoration;
     readonly state: any;
-    back(distance?: any): void;
-    forward(distance?: any): void;
-    go(delta?: any): void;
-    pushState(data: any, title?: string, url?: string | null): void;
-    replaceState(data: any, title?: string, url?: string | null): void;
+    back(): void;
+    forward(): void;
+    go(delta?: number): void;
+    pushState(data: any, title: string, url?: string | null): void;
+    replaceState(data: any, title: string, url?: string | null): void;
 }
 
 declare var History: {
@@ -9068,19 +9136,68 @@ declare var ListeningStateChangedEvent: {
 };
 
 interface Location {
+    /**
+     * Returns a DOMStringList object listing the origins of the ancestor browsing contexts, from the parent browsing
+     * context to the top-level browsing context.
+     */
+    readonly ancestorOrigins: DOMStringList;
+    /**
+     * Returns the Location object's URL's fragment (includes leading "#" if non-empty).
+     * Can be set, to navigate to the same URL with a changed fragment (ignores leading "#").
+     */
     hash: string;
+    /**
+     * Returns the Location object's URL's host and port (if different from the default
+     * port for the scheme).
+     * Can be set, to navigate to the same URL with a changed host and port.
+     */
     host: string;
+    /**
+     * Returns the Location object's URL's host.
+     * Can be set, to navigate to the same URL with a changed host.
+     */
     hostname: string;
+    /**
+     * Returns the Location object's URL.
+     * Can be set, to navigate to the given URL.
+     */
     href: string;
+    /**
+     * Returns the Location object's URL's origin.
+     */
     readonly origin: string;
+    /**
+     * Returns the Location object's URL's path.
+     * Can be set, to navigate to the same URL with a changed path.
+     */
     pathname: string;
+    /**
+     * Returns the Location object's URL's port.
+     * Can be set, to navigate to the same URL with a changed port.
+     */
     port: string;
+    /**
+     * Returns the Location object's URL's scheme.
+     * Can be set, to navigate to the same URL with a changed scheme.
+     */
     protocol: string;
+    /**
+     * Returns the Location object's URL's query (includes leading "?" if non-empty).
+     * Can be set, to navigate to the same URL with a changed query (ignores leading "?").
+     */
     search: string;
+    /**
+     * Navigates to the given URL.
+     */
     assign(url: string): void;
-    reload(forcedReload?: boolean): void;
+    /**
+     * Reloads the current page.
+     */
+    reload(): void;
+    /**
+     * Removes the current page from the session history and navigates to the given URL.
+     */
     replace(url: string): void;
-    toString(): string;
 }
 
 declare var Location: {
@@ -9888,7 +10005,7 @@ declare var NavigationPreloadManager: {
     new(): NavigationPreloadManager;
 };
 
-interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage {
+interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage, NavigatorAutomationInformation {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
     readonly authentication: WebAuthentication;
     readonly cookieEnabled: boolean;
@@ -9916,6 +10033,10 @@ declare var Navigator: {
     prototype: Navigator;
     new(): Navigator;
 };
+
+interface NavigatorAutomationInformation {
+    readonly webdriver: boolean;
+}
 
 interface NavigatorBeacon {
     sendBeacon(url: string, data?: Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | FormData | string | null): boolean;
@@ -14434,6 +14555,45 @@ declare var VRPose: {
     new(): VRPose;
 };
 
+interface VTTCue extends TextTrackCue {
+    align: AlignSetting;
+    line: LineAndPositionSetting;
+    lineAlign: LineAlignSetting;
+    position: LineAndPositionSetting;
+    positionAlign: PositionAlignSetting;
+    region: VTTRegion | null;
+    size: number;
+    snapToLines: boolean;
+    text: string;
+    vertical: DirectionSetting;
+    getCueAsHTML(): DocumentFragment;
+    addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var VTTCue: {
+    prototype: VTTCue;
+    new(startTime: number, endTime: number, text: string): VTTCue;
+};
+
+interface VTTRegion {
+    id: string;
+    lines: number;
+    regionAnchorX: number;
+    regionAnchorY: number;
+    scroll: ScrollSetting;
+    viewportAnchorX: number;
+    viewportAnchorY: number;
+    width: number;
+}
+
+declare var VTTRegion: {
+    prototype: VTTRegion;
+    new(): VTTRegion;
+};
+
 interface ValidityState {
     readonly badInput: boolean;
     readonly customError: boolean;
@@ -16863,8 +17023,8 @@ type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
+type LineAndPositionSetting = number | AutoKeyword;
 type FormDataEntryValue = File | string;
-type ScrollRestoration = "auto" | "manual";
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type AlgorithmIdentifier = string | Algorithm;
@@ -16878,10 +17038,12 @@ type IDBKeyPath = string;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type WindowProxy = Window;
+type AlignSetting = "start" | "center" | "end" | "left" | "right";
 type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 type AppendMode = "segments" | "sequence";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
 type AudioContextState = "suspended" | "running" | "closed";
+type AutoKeyword = "auto";
 type AutomationRate = "a-rate" | "k-rate";
 type BinaryType = "blob" | "arraybuffer";
 type BiquadFilterType = "lowpass" | "highpass" | "bandpass" | "lowshelf" | "highshelf" | "peaking" | "notch" | "allpass";
@@ -16896,6 +17058,7 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
+type DirectionSetting = "" | "rl" | "lr";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
@@ -16914,6 +17077,7 @@ type IterationCompositeOperation = "replace" | "accumulate";
 type KeyFormat = "raw" | "spki" | "pkcs8" | "jwk";
 type KeyType = "public" | "private" | "secret";
 type KeyUsage = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
+type LineAlignSetting = "start" | "center" | "end";
 type ListeningState = "inactive" | "active" | "disambiguation";
 type MSCredentialType = "FIDO_2_0";
 type MSTransportType = "Embedded" | "USB" | "NFC" | "BT";
@@ -16937,6 +17101,7 @@ type PanningModelType = "equalpower" | "HRTF";
 type PaymentComplete = "success" | "fail" | "unknown";
 type PaymentShippingType = "shipping" | "delivery" | "pickup";
 type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
+type PositionAlignSetting = "line-left" | "center" | "line-right" | "auto";
 type PushEncryptionKeyName = "p256dh" | "auth";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-compat" | "max-bundle";
@@ -16979,6 +17144,8 @@ type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaquer
 type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "instant" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
+type ScrollRestoration = "auto" | "manual";
+type ScrollSetting = "" | "up";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";

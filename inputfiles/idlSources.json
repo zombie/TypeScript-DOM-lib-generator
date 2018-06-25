@@ -111,6 +111,10 @@
         "title": "HTML - Semantics"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/history.html",
+        "title": "HTML - Session history and navigation"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/tables.html",
         "title": "HTML - Tabular data"
     },

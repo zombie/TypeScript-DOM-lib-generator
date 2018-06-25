@@ -98,6 +98,11 @@
         "deprecated": true
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/offline.html",
+        "title": "HTML - Offline Web applications",
+        "deprecated": true
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/scripting.html",
         "title": "HTML - Scripting"
     },

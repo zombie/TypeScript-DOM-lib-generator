@@ -1741,17 +1741,29 @@ interface ApplicationCacheEventMap {
 }
 
 interface ApplicationCache extends EventTarget {
+    /** @deprecated */
     oncached: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onchecking: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     ondownloading: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onerror: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onnoupdate: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onobsolete: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     onprogress: ((this: ApplicationCache, ev: ProgressEvent) => any) | null;
+    /** @deprecated */
     onupdateready: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
     readonly status: number;
+    /** @deprecated */
     abort(): void;
+    /** @deprecated */
     swapCache(): void;
+    /** @deprecated */
     update(): void;
     readonly CHECKING: number;
     readonly DOWNLOADING: number;

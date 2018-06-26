@@ -1059,7 +1059,7 @@
                     }
                 ],
                 "override-index-signatures": [
-                    "[name: string]: HTMLOptionElement | HTMLOptGroupElement"
+                    "[name: number]: HTMLOptionElement | HTMLOptGroupElement"
                 ]
             },
             "HTMLDataListElement": {

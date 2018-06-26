@@ -1057,6 +1057,9 @@
                     {
                         "name": "select"
                     }
+                ],
+                "override-index-signatures": [
+                    "[name: number]: HTMLOptionElement | HTMLOptGroupElement"
                 ]
             },
             "HTMLDataListElement": {

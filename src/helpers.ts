@@ -37,8 +37,8 @@ export function filter<T>(obj: T, fn: (o: any, n: string | undefined) => boolean
     return obj;
 }
 
-export function filterProperties<T>(obj: Record<string, T>, fn: (o: T) => boolean): Record<string, T> {
-    const result: Record<string, T> = {};
+export function filterProperties<T, U extends T>(obj: Record<string, U>, fn: (o: T) => boolean): Record<string, U> {
+    const result: Record<string, U> = {};
     for (const e in obj) {
         if (fn(obj[e])) {
             result[e] = obj[e];

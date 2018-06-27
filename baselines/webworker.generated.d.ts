@@ -398,6 +398,47 @@ declare var CacheStorage: {
     new(): CacheStorage;
 };
 
+interface CanvasGradient {
+    /**
+     * Adds a color stop with the given color to the gradient at the given offset. 0.0 is the offset
+     * at one end of the gradient, 1.0 is the offset at the other end.
+     * Throws an "IndexSizeError" DOMException if the offset
+     * is out of range. Throws a "SyntaxError" DOMException if
+     * the color cannot be parsed.
+     */
+    addColorStop(offset: number, color: string): void;
+}
+
+declare var CanvasGradient: {
+    prototype: CanvasGradient;
+    new(): CanvasGradient;
+};
+
+interface CanvasPath {
+    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    closePath(): void;
+    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    lineTo(x: number, y: number): void;
+    moveTo(x: number, y: number): void;
+    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+    rect(x: number, y: number, w: number, h: number): void;
+}
+
+interface CanvasPattern {
+    /**
+     * Sets the transformation matrix that will be used when rendering the pattern during a fill or
+     * stroke painting operation.
+     */
+    setTransform(transform?: DOMMatrix2DInit): void;
+}
+
+declare var CanvasPattern: {
+    prototype: CanvasPattern;
+    new(): CanvasPattern;
+};
+
 interface Client {
     readonly id: string;
     readonly type: ClientTypes;
@@ -1517,6 +1558,17 @@ interface ImageBitmapOptions {
 }
 
 interface ImageData {
+    /**
+     * Returns the one-dimensional array containing the data in RGBA order, as integers in the
+     * range 0 to 255.
+     */
+    readonly data: Uint8ClampedArray;
+    /**
+     * Returns the actual dimensions of the data in the ImageData object, in
+     * pixels.
+     */
+    readonly height: number;
+    readonly width: number;
 }
 
 declare var ImageData: {
@@ -1692,6 +1744,15 @@ interface NotificationEvent extends ExtendableEvent {
 declare var NotificationEvent: {
     prototype: NotificationEvent;
     new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
+};
+
+interface Path2D extends CanvasPath {
+    addPath(path: Path2D, transform?: DOMMatrix2DInit): void;
+}
+
+declare var Path2D: {
+    prototype: Path2D;
+    new(path?: Path2D | string): Path2D;
 };
 
 interface PerformanceEventMap {

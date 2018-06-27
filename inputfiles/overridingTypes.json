@@ -667,40 +667,6 @@
                     }
                 }
             },
-            "CanvasRenderingContext2D": {
-                "name": "CanvasRenderingContext2D",
-                "methods": {
-                    "method": {
-                        "drawImage": {
-                            "name": "drawImage",
-                            "override-signatures": [
-                                "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number): void",
-                                "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, dstX: number, dstY: number, dstW: number, dstH: number): void",
-                                "drawImage(image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, srcX: number, srcY: number, srcW: number, srcH: number, dstX: number, dstY: number, dstW: number, dstH: number): void"
-                            ]
-                        },
-                        "isPointInStroke": {
-                            "name": "isPointInStroke",
-                            "override-signatures": [
-                                "isPointInStroke(x: number, y: number, fillRule?: CanvasFillRule): boolean",
-                                "isPointInStroke(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "fillStyle": {
-                            "name": "fillStyle",
-                            "override-type": "string | CanvasGradient | CanvasPattern"
-                        },
-                        "strokeStyle": {
-                            "name": "strokeStyle",
-                            "override-type": "string | CanvasGradient | CanvasPattern"
-                        }
-                    }
-                }
-            },
             "WebGLRenderingContext": {
                 "name": "WebGLRenderingContext",
                 "methods": {
@@ -853,13 +819,19 @@
                         "getContext": {
                             "name": "getContext",
                             "override-signatures": [
-                                "getContext(contextId: \"2d\", contextAttributes?: Canvas2DContextAttributes): CanvasRenderingContext2D | null",
+                                "getContext(contextId: \"2d\", contextAttributes?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null",
                                 "getContext(contextId: \"webgl\" | \"experimental-webgl\", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null",
                                 "getContext(contextId: string, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext | null"
                             ]
                         }
                     }
                 }
+            },
+            "OffscreenCanvas": {
+                "exposed": ""
+            },
+            "OffscreenCanvasRenderingContext2D": {
+                "exposed": ""
             },
             "BeforeUnloadEvent": {
                 "name": "BeforeUnloadEvent",
@@ -2087,14 +2059,6 @@
                             "name": "statsended",
                             "type": "RTCStatsEvent"
                         }
-                    ]
-                }
-            },
-            "Path2D": {
-                "name": "Path2D",
-                "constructor": {
-                    "override-signatures": [
-                        "new(d?: Path2D | string): Path2D"
                     ]
                 }
             },

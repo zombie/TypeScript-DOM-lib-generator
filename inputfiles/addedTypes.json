@@ -293,33 +293,6 @@
                     }
                 }
             },
-            "Canvas2DContextAttributes": {
-                "name": "Canvas2DContextAttributes",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "alpha": {
-                            "name": "alpha",
-                            "override-type": "boolean",
-                            "required": 0
-                        },
-                        "willReadFrequently": {
-                            "name": "willReadFrequently",
-                            "override-type": "boolean",
-                            "required": 0
-                        },
-                        "storage": {
-                            "name": "storage",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                },
-                "override-index-signatures": [
-                    "[attribute: string]: boolean | string | undefined"
-                ],
-                "no-interface-object": "1"
-            },
             "ImageBitmapOptions": {
                 "flavor": "All",
                 "name": "ImageBitmapOptions",
@@ -361,7 +334,7 @@
             },
             "ImageBitmap": {
                 "name": "ImageBitmap",
-                "flavor": "All",
+                "exposed": "Window Worker",
                 "properties": {
                     "property": {
                         "width": {
@@ -751,19 +724,6 @@
                     }
                 }
             },
-            "HTMLCanvasElement": {
-                "name": "HTMLCanvasElement",
-                "methods": {
-                    "method": {
-                        "toBlob": {
-                            "name": "toBlob",
-                            "override-signatures": [
-                                "toBlob(callback: (result: Blob | null) => void, type?: string, ...arguments: any[]): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "ClipboardEventInit": {
                 "exposed": "Window",
                 "name": "ClipboardEventInit",
@@ -881,25 +841,6 @@
                             "type": "Event"
                         }
                     ]
-                }
-            },
-            "CanvasRenderingContext2D": {
-                "name": "CanvasRenderingContext2D",
-                "properties": {
-                    "property": {
-                        "mozImageSmoothingEnabled": {
-                            "name": "mozImageSmoothingEnabled",
-                            "override-type": "boolean"
-                        },
-                        "webkitImageSmoothingEnabled": {
-                            "name": "webkitImageSmoothingEnabled",
-                            "override-type": "boolean"
-                        },
-                        "oImageSmoothingEnabled": {
-                            "name": "oImageSmoothingEnabled",
-                            "override-type": "boolean"
-                        }
-                    }
                 }
             },
             "AesCmacParams": {
@@ -1096,19 +1037,6 @@
                             "exposed": "Window",
                             "override-signatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
-                            ]
-                        }
-                    }
-                }
-            },
-            "CanvasPattern": {
-                "name": "CanvasPattern",
-                "methods": {
-                    "method": {
-                        "setTransform": {
-                            "name": "setTransform",
-                            "override-signatures": [
-                                "setTransform(matrix: SVGMatrix): void"
                             ]
                         }
                     }
@@ -1958,6 +1886,13 @@
                 "element": [
                     {
                         "name": "br"
+                    }
+                ]
+            },
+            "HTMLCanvasElement": {
+                "element": [
+                    {
+                        "name": "canvas"
                     }
                 ]
             },

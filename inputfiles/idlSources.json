@@ -89,6 +89,10 @@
         "title": "HTML - Interactive elements"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html",
+        "title": "HTML - ImageBitmap and animations"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/image-maps.html",
         "title": "HTML - Image maps"
     },

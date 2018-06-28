@@ -1543,10 +1543,26 @@ declare var IDBVersionChangeEvent: {
 };
 
 interface ImageBitmap {
+    /**
+     * Returns the intrinsic height of the image, in CSS
+     * pixels.
+     */
     readonly height: number;
+    /**
+     * Returns the intrinsic width of the image, in CSS
+     * pixels.
+     */
     readonly width: number;
+    /**
+     * Releases imageBitmap's underlying bitmap data.
+     */
     close(): void;
 }
+
+declare var ImageBitmap: {
+    prototype: ImageBitmap;
+    new(): ImageBitmap;
+};
 
 interface ImageBitmapOptions {
     colorSpaceConversion?: "none" | "default";

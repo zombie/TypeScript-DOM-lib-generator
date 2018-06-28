@@ -332,35 +332,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "ImageBitmap": {
-                "name": "ImageBitmap",
-                "exposed": "Window Worker",
-                "properties": {
-                    "property": {
-                        "width": {
-                            "name": "width",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "height": {
-                            "name": "height",
-                            "read-only": 1,
-                            "override-type": "number"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "close": {
-                            "name": "close",
-                            "override-signatures": [
-                                "close(): void"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Window": {
                 "name": "Window",
                 "methods": {

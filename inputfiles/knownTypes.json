@@ -78,7 +78,6 @@
         "RsaKeyGenParams",
         "RsaOaepParams",
         "RsaPssParams",
-        "ScrollRestoration",
         "VideoFacingModeEnum",
         "WindowOrWorkerGlobalScope"
     ],
@@ -86,7 +85,6 @@
         "ClientTypes",
         "IDBArrayKey",
         "IDBValidKey",
-        "MessageEventSource",
         "PromiseRejectionEventInit"
     ]
 }

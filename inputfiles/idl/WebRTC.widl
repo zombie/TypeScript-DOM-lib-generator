@@ -241,7 +241,7 @@ dictionary RTCCertificateExpiration {
     DOMTimeStamp expires;
 };
 
-[Exposed=Window] interface RTCCertificate {
+[Exposed=Window, Serializable] interface RTCCertificate {
     readonly        attribute DOMTimeStamp expires;
     static sequence<AlgorithmIdentifier> getSupportedAlgorithms();
     sequence<RTCDtlsFingerprint> getFingerprints ();

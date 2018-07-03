@@ -847,7 +847,7 @@ interface Event {
     readonly target: EventTarget | null;
     readonly timeStamp: number;
     readonly type: string;
-    deepPath(): EventTarget[];
+    composedPath(): EventTarget[];
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
     preventDefault(): void;
     stopImmediatePropagation(): void;

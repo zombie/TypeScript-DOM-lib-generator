@@ -1126,10 +1126,10 @@
                 },
                 "methods": {
                     "method": {
-                        "deepPath": {
-                            "name": "deepPath",
+                        "composedPath": {
+                            "name": "composedPath",
                             "override-signatures": [
-                                "deepPath(): EventTarget[]"
+                                "composedPath(): EventTarget[]"
                             ]
                         }
                     }

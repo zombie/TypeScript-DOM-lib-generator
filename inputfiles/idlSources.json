@@ -17,6 +17,10 @@
         "title": "CSS Transitions"
     },
     {
+        "url": "https://dom.spec.whatwg.org/",
+        "title": "DOM"
+    },
+    {
         "url": "https://encoding.spec.whatwg.org/",
         "title": "Encoding"
     },

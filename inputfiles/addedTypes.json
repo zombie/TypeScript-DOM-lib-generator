@@ -1113,28 +1113,6 @@
                     }
                 }
             },
-            "Event": {
-                "name": "Event",
-                "properties": {
-                    "property": {
-                        "composed": {
-                            "name": "composed",
-                            "read-only": 1,
-                            "override-type": "boolean"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "composedPath": {
-                            "name": "composedPath",
-                            "override-signatures": [
-                                "composedPath(): EventTarget[]"
-                            ]
-                        }
-                    }
-                }
-            },
             "ElementCreationOptions": {
                 "name": "ElementCreationOptions",
                 "exposed": "Window",

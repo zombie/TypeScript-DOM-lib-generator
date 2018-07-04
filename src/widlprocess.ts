@@ -218,12 +218,15 @@ function convertArgument(arg: webidl2.Argument): Browser.Param {
 }
 
 function convertAttribute(attribute: webidl2.AttributeMemberType, inheritedExposure: string | undefined): Browser.Property {
+    const isEventHandler =
+        typeof attribute.idlType.idlType === "string" &&
+        attribute.idlType.idlType.endsWith("EventHandler"); // includes OnErrorEventHandler
     return {
         name: attribute.name,
         ...convertIdlType(attribute.idlType),
         static: attribute.static ? 1 : undefined,
         "read-only": attribute.readonly ? 1 : undefined,
-        "event-handler": attribute.idlType.idlType === "EventHandler" ? attribute.name.slice(2) : undefined,
+        "event-handler": isEventHandler ? attribute.name.slice(2) : undefined,
         exposed: getExtAttrConcatenated(attribute.extAttrs, "Exposed") || inheritedExposure
     }
 }

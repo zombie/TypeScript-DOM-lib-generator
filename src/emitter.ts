@@ -118,7 +118,7 @@ function createTextWriter(newLine: string) {
 }
 
 function isEventHandler(p: Browser.Property) {
-    return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
+    return typeof p["event-handler"] === "string";
 }
 
 export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {

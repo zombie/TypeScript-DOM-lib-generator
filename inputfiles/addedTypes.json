@@ -1,6 +1,16 @@
 {
     "mixins": {
         "mixin": {
+            "GlobalEventHandlers": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "cancel",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
             "HTMLHyperlinkElementUtils": {
                 "name": "HTMLHyperlinkElementUtils",
                 "properties": {
@@ -334,17 +344,6 @@
             },
             "Window": {
                 "name": "Window",
-                "methods": {
-                    "method": {
-                        "createImageBitmap": {
-                            "name": "createImageBitmap",
-                            "override-signatures": [
-                                "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-                                "createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
-                            ]
-                        }
-                    }
-                },
                 "properties": {
                     "property": {
                         "URL": {
@@ -365,20 +364,6 @@
                         "customElements": {
                             "name": "customElements",
                             "override-type": "CustomElementRegistry"
-                        }
-                    }
-                }
-            },
-            "WorkerGlobalScope": {
-                "name": "WorkerGlobalScope",
-                "methods": {
-                    "method": {
-                        "createImageBitmap": {
-                            "name": "createImageBitmap",
-                            "override-signatures": [
-                                "createImageBitmap(image: ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>",
-                                "createImageBitmap(image: ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>"
-                            ]
                         }
                     }
                 }
@@ -1090,6 +1075,9 @@
                     }
                 },
                 "no-interface-object": "1"
+            },
+            "SVGElement": {
+                "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
             },
             "Text": {
                 "name": "Text",
@@ -1831,6 +1819,9 @@
                     }
                 },
                 "no-interface-object": "1"
+            },
+            "HTMLElement": {
+                "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
             },
             "HTMLAnchorElement": {
                 "element": [

@@ -469,10 +469,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         function paramToString(p: Browser.Param) {
             const isOptional = !p.variadic && p.optional;
             const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
+            const variadicParams = p.variadic && pType.indexOf('|') !== -1;
             return (p.variadic ? "..." : "") +
                 adjustParamName(p.name) +
                 (isOptional ? "?: " : ": ") +
-                pType +
+                (variadicParams ? "(" : "") + pType + (variadicParams ? ")" : "") +
                 (p.variadic ? "[]" : "");
         }
         return ps.map(paramToString).join(", ");

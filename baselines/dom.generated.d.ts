@@ -5132,7 +5132,7 @@ interface GlobalEventHandlers {
     ondurationchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onemptied: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onended: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    onerror: (this: GlobalEventHandlers, ev: ErrorEvent) => any;
+    onerror: ((this: GlobalEventHandlers, ev: ErrorEvent) => any) | null;
     onfocus: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
     ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     oninput: ((this: GlobalEventHandlers, ev: Event) => any) | null;
@@ -15891,7 +15891,7 @@ interface WindowEventHandlersEventMap {
 interface WindowEventHandlers {
     onafterprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
-    onbeforeunload: (this: WindowEventHandlers, ev: BeforeUnloadEvent) => any;
+    onbeforeunload: ((this: WindowEventHandlers, ev: BeforeUnloadEvent) => any) | null;
     onhashchange: ((this: WindowEventHandlers, ev: HashChangeEvent) => any) | null;
     onlanguagechange: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onmessage: ((this: WindowEventHandlers, ev: MessageEvent) => any) | null;
@@ -16746,7 +16746,7 @@ declare var ondrop: ((this: Window, ev: DragEvent) => any) | null;
 declare var ondurationchange: ((this: Window, ev: Event) => any) | null;
 declare var onemptied: ((this: Window, ev: Event) => any) | null;
 declare var onended: ((this: Window, ev: Event) => any) | null;
-declare var onerror: (this: Window, ev: ErrorEvent) => any;
+declare var onerror: ((this: Window, ev: ErrorEvent) => any) | null;
 declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
 declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 declare var oninput: ((this: Window, ev: Event) => any) | null;

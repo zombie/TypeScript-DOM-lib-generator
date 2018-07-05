@@ -352,12 +352,16 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function matchSingleParamMethodSignature(m: Browser.Method, expectedMName: string, expectedMType: string, expectedParamType: string) {
+    function matchParamMethodSignature(m: Browser.Method, expectedMName: string, expectedMType: string, expectedParamType: string | string[]) {
+        if (!Array.isArray(expectedParamType)) {
+            expectedParamType = [expectedParamType];
+        }
+
         return expectedMName === m.name &&
             m.signature && m.signature.length === 1 &&
             convertDomTypeToNullableTsType(m.signature[0]) === expectedMType &&
-            m.signature[0].param && m.signature[0].param!.length === 1 &&
-            convertDomTypeToTsType(m.signature[0].param![0]) === expectedParamType;
+            m.signature[0].param && m.signature[0].param!.length === expectedParamType.length &&
+            expectedParamType.every((pt, idx) => convertDomTypeToTsType(m.signature[0].param![idx]) === pt);
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
@@ -366,7 +370,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the createElement method
     function emitCreateElementOverloads(m: Browser.Method) {
-        if (matchSingleParamMethodSignature(m, "createElement", "Element", "string")) {
+        if (matchParamMethodSignature(m, "createElement", "Element", ["string", "string | ElementCreationOptions"])) {
             printer.printLine("createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K];");
             printer.printLine("/** @deprecated */");
             printer.printLine("createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];");
@@ -376,7 +380,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the getElementsByTagName method
     function emitGetElementsByTagNameOverloads(m: Browser.Method) {
-        if (matchSingleParamMethodSignature(m, "getElementsByTagName", "NodeList", "string")) {
+        if (matchParamMethodSignature(m, "getElementsByTagName", "NodeList", "string")) {
             printer.printLine(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<HTMLElementTagNameMap[K]>;`);
             printer.printLine(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<SVGElementTagNameMap[K]>;`);
             printer.printLine(`getElementsByTagName(${m.signature[0].param![0].name}: string): NodeListOf<Element>;`);
@@ -385,7 +389,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the querySelector method
     function emitQuerySelectorOverloads(m: Browser.Method) {
-        if (matchSingleParamMethodSignature(m, "querySelector", "Element | null", "string")) {
+        if (matchParamMethodSignature(m, "querySelector", "Element | null", "string")) {
             printer.printLine("querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;");
             printer.printLine("querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;");
             printer.printLine("querySelector<E extends Element = Element>(selectors: string): E | null;");
@@ -394,7 +398,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the querySelectorAll method
     function emitQuerySelectorAllOverloads(m: Browser.Method) {
-        if (matchSingleParamMethodSignature(m, "querySelectorAll", "NodeList", "string")) {
+        if (matchParamMethodSignature(m, "querySelectorAll", "NodeList", "string")) {
             printer.printLine("querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;");
             printer.printLine("querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;");
             printer.printLine("querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;");
@@ -447,7 +451,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the createEvent method
     function emitCreateEventOverloads(m: Browser.Method) {
-        if (matchSingleParamMethodSignature(m, "createEvent", "Event", "string")) {
+        if (matchParamMethodSignature(m, "createEvent", "Event", "string")) {
             // Emit plurals. For example, "Events", "MutationEvents"
             const hasPlurals = ["Event", "MutationEvent", "MouseEvent", "SVGZoomEvent", "UIEvent"];
             for (const x of distinctETypeList) {

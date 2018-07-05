@@ -1,4 +1,152 @@
 {
+    "mixins": {
+        "mixin": {
+            "GlobalEventHandlers": {
+                "properties": {
+                    "property": {
+                        "ondragleave": {
+                            "comment": "/**\r\n     * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.\r\n     * @param ev The drag event.\r\n     */"
+                        },
+                        "ondragenter": {
+                            "comment": "/**\r\n     * Fires on the target element when the user drags the object to a valid drop target.\r\n     * @param ev The drag event.\r\n     */"
+                        },
+                        "ondragend": {
+                            "comment": "/**\r\n     * Fires on the source object when the user releases the mouse at the close of a drag operation.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "ondragover": {
+                            "comment": "/**\r\n     * Fires on the target element continuously while the user drags the object over a valid drop target.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "ondragstart": {
+                            "comment": "/**\r\n     * Fires on the source object when the user starts to drag a text selection or selected object.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "ondrag": {
+                            "comment": "/**\r\n     * Fires on the source object continuously during a drag operation.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onseeked": {
+                            "comment": "/**\r\n     * Occurs when the seek operation ends.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onseeking": {
+                            "comment": "/**\r\n     * Occurs when the current playback position is moved.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onreset": {
+                            "comment": "/**\r\n     * Fires when the user resets a form.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onkeydown": {
+                            "comment": "/**\r\n     * Fires when the user presses a key.\r\n     * @param ev The keyboard event\r\n     */"
+                        },
+                        "onkeyup": {
+                            "comment": "/**\r\n     * Fires when the user releases a key.\r\n     * @param ev The keyboard event\r\n     */"
+                        },
+                        "ondurationchange": {
+                            "comment": "/**\r\n     * Occurs when the duration attribute is updated.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onblur": {
+                            "comment": "/**\r\n     * Fires when the object loses the input focus.\r\n     * @param ev The focus event.\r\n     */"
+                        },
+                        "onload": {
+                            "comment": "/**\r\n     * Fires immediately after the browser loads the object.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onscroll": {
+                            "comment": "/**\r\n     * Fires when the user repositions the scroll box in the scroll bar on the object.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onpause": {
+                            "comment": "/**\r\n     * Occurs when playback is paused.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onmousedown": {
+                            "comment": "/**\r\n     * Fires when the user clicks the object with either mouse button.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onclick": {
+                            "comment": "/**\r\n     * Fires when the user clicks the left mouse button on the object\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onwaiting": {
+                            "comment": "/**\r\n     * Occurs when playback stops because the next frame of a video resource is not available.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onkeypress": {
+                            "comment": "/**\r\n     * Fires when the user presses an alphanumeric key.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onloadeddata": {
+                            "comment": "/**\r\n     * Occurs when media data is loaded at the current playback position.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onfocus": {
+                            "comment": "/**\r\n     * Fires when the object receives focus.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "ontimeupdate": {
+                            "comment": "/**\r\n     * Occurs to indicate the current playback position.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onselect": {
+                            "comment": "/**\r\n     * Fires when the current selection changes.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onended": {
+                            "comment": "/**\r\n     * Occurs when the end of playback is reached.\r\n     * @param ev The event\r\n     */"
+                        },
+                        "onabort": {
+                            "comment": "/**\r\n     * Fires when the user aborts the download.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onratechange": {
+                            "comment": "/**\r\n     * Occurs when the playback rate is increased or decreased.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onprogress": {
+                            "comment": "/**\r\n     * Occurs to indicate progress while downloading media data.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "ondblclick": {
+                            "comment": "/**\r\n     * Fires when the user double-clicks the object.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "oncontextmenu": {
+                            "comment": "/**\r\n     * Fires when the user clicks the right mouse button in the client area, opening the context menu.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onloadedmetadata": {
+                            "comment": "/**\r\n     * Occurs when the duration and dimensions of the media have been determined.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onerror": {
+                            "comment": "/**\r\n     * Fires when an error occurs during object loading.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onplay": {
+                            "comment": "/**\r\n     * Occurs when the play method is requested.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onplaying": {
+                            "comment": "/**\r\n     * Occurs when the audio or video has started playing.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onstalled": {
+                            "comment": "/**\r\n     * Occurs when the download has stopped.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onmousemove": {
+                            "comment": "/**\r\n     * Fires when the user moves the mouse over the object.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onmouseup": {
+                            "comment": "/**\r\n     * Fires when the user releases a mouse button while the mouse is over the object.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onmouseover": {
+                            "comment": "/**\r\n     * Fires when the user moves the mouse pointer into the object.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onsuspend": {
+                            "comment": "/**\r\n     * Occurs if the load operation has been intentionally halted.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onmouseout": {
+                            "comment": "/**\r\n     * Fires when the user moves the mouse pointer outside the boundaries of the object.\r\n     * @param ev The mouse event.\r\n     */"
+                        },
+                        "onmousewheel": {
+                            "comment": "/**\r\n     * Fires when the wheel button is rotated.\r\n     * @param ev The mouse event\r\n     */"
+                        },
+                        "onvolumechange": {
+                            "comment": "/**\r\n     * Occurs when the volume is changed, or playback is muted or unmuted.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onchange": {
+                            "comment": "/**\r\n     * Fires when the contents of the object or selection have changed.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "oncanplay": {
+                            "comment": "/**\r\n     * Occurs when playback is possible, but would require further buffering.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onloadstart": {
+                            "comment": "/**\r\n     * Occurs when Internet Explorer begins looking for media data.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onemptied": {
+                            "comment": "/**\r\n     * Occurs when the media element is reset to its initial state.\r\n     * @param ev The event.\r\n     */"
+                        }
+                    }
+                }
+            }
+        }
+    },
     "interfaces": {
         "interface": {
             "Headers": {
@@ -519,26 +667,23 @@
                     }
                 }
             },
+            "DocumentOrShadowRoot": {
+                "properties": {
+                    "property": {
+                        "styleSheets": {
+                            "comment": "/**\r\n     * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.\r\n     */"
+                        }
+                    }
+                }
+            },
             "Document": {
                 "properties": {
                     "property": {
-                        "onkeydown": {
-                            "comment": "/**\r\n     * Fires when the user presses a key.\r\n     * @param ev The keyboard event\r\n     */"
-                        },
-                        "onkeyup": {
-                            "comment": "/**\r\n     * Fires when the user releases a key.\r\n     * @param ev The keyboard event\r\n     */"
-                        },
                         "implementation": {
                             "comment": "/**\r\n     * Gets the implementation object of the current document.\r\n     */"
                         },
-                        "onreset": {
-                            "comment": "/**\r\n     * Fires when the user resets a form.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "scripts": {
                             "comment": "/**\r\n     * Retrieves a collection of all script objects in the document.\r\n     */"
-                        },
-                        "ondragleave": {
-                            "comment": "/**\r\n     * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.\r\n     * @param ev The drag event.\r\n     */"
                         },
                         "charset": {
                             "comment": "/**\r\n     * Gets or sets the character set used to encode the object.\r\n     */"
@@ -546,20 +691,11 @@
                         "vlinkColor": {
                             "comment": "/**\r\n     * Sets or gets the color of the links that the user has visited.\r\n     */"
                         },
-                        "onseeked": {
-                            "comment": "/**\r\n     * Occurs when the seek operation ends.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "title": {
                             "comment": "/**\r\n     * Contains the title of the document.\r\n     */"
                         },
                         "embeds": {
                             "comment": "/**\r\n     * Retrieves a collection of all embed objects in the document.\r\n     */"
-                        },
-                        "styleSheets": {
-                            "comment": "/**\r\n     * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.\r\n     */"
-                        },
-                        "ondurationchange": {
-                            "comment": "/**\r\n     * Occurs when the duration attribute is updated.\r\n     * @param ev The event.\r\n     */"
                         },
                         "all": {
                             "comment": "/**\r\n     * Returns a reference to the collection of elements contained by the object.\r\n     */"
@@ -567,44 +703,23 @@
                         "forms": {
                             "comment": "/**\r\n     * Retrieves a collection, in source order, of all form objects in the document.\r\n     */"
                         },
-                        "onblur": {
-                            "comment": "/**\r\n     * Fires when the object loses the input focus.\r\n     * @param ev The focus event.\r\n     */"
-                        },
                         "dir": {
                             "comment": "/**\r\n     * Sets or retrieves a value that indicates the reading order of the object.\r\n     */"
-                        },
-                        "onemptied": {
-                            "comment": "/**\r\n     * Occurs when the media element is reset to its initial state.\r\n     * @param ev The event.\r\n     */"
                         },
                         "designMode": {
                             "comment": "/**\r\n     * Sets or gets a value that indicates whether the document can be edited.\r\n     */"
                         },
-                        "onseeking": {
-                            "comment": "/**\r\n     * Occurs when the current playback position is moved.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "ondeactivate": {
                             "comment": "/**\r\n     * Fires when the activeElement is changed from the current object to another object in the parent document.\r\n     * @param ev The UI Event\r\n     */"
                         },
-                        "oncanplay": {
-                            "comment": "/**\r\n     * Occurs when playback is possible, but would require further buffering.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onloadstart": {
-                            "comment": "/**\r\n     * Occurs when Internet Explorer begins looking for media data.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "URLUnencoded": {
                             "comment": "/**\r\n     * Gets the URL for the document, stripped of any character encoding.\r\n     */"
-                        },
-                        "ondragenter": {
-                            "comment": "/**\r\n     * Fires on the target element when the user drags the object to a valid drop target.\r\n     * @param ev The drag event.\r\n     */"
                         },
                         "inputEncoding": {
                             "comment": "/**\r\n     * Returns the character encoding used to create the webpage that is loaded into the document object.\r\n     */"
                         },
                         "activeElement": {
                             "comment": "/**\r\n     * Gets the object that has the focus when the parent document has focus.\r\n     */"
-                        },
-                        "onchange": {
-                            "comment": "/**\r\n     * Fires when the contents of the object or selection have changed.\r\n     * @param ev The event.\r\n     */"
                         },
                         "links": {
                             "comment": "/**\r\n     * Retrieves a collection of all a objects that specify the href property and all area objects in the document.\r\n     */"
@@ -618,9 +733,6 @@
                         "anchors": {
                             "comment": "/**\r\n     * Retrieves a collection of all a objects that have a name and/or id property. Objects in this collection are in HTML source order.\r\n     */"
                         },
-                        "onsuspend": {
-                            "comment": "/**\r\n     * Occurs if the load operation has been intentionally halted.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "rootElement": {
                             "comment": "/**\r\n     * Gets the root svg element in the document hierarchy.\r\n     */"
                         },
@@ -633,59 +745,20 @@
                         "alinkColor": {
                             "comment": "/**\r\n     * Sets or gets the color of all active links in the document.\r\n     */"
                         },
-                        "onmouseout": {
-                            "comment": "/**\r\n     * Fires when the user moves the mouse pointer outside the boundaries of the object.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
                         "onmsthumbnailclick": {
                             "comment": "/**\r\n     * Occurs when a user clicks a button in a Thumbnail Toolbar of a webpage running in Site Mode.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onmousewheel": {
-                            "comment": "/**\r\n     * Fires when the wheel button is rotated.\r\n     * @param ev The mouse event\r\n     */"
-                        },
-                        "onvolumechange": {
-                            "comment": "/**\r\n     * Occurs when the volume is changed, or playback is muted or unmuted.\r\n     * @param ev The event.\r\n     */"
                         },
                         "xmlVersion": {
                             "comment": "/**\r\n     * Gets or sets the version attribute specified in the declaration of an XML document.\r\n     */"
                         },
-                        "ondragend": {
-                            "comment": "/**\r\n     * Fires on the source object when the user releases the mouse at the close of a drag operation.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "doctype": {
                             "comment": "/**\r\n     * Gets an object representing the document type declaration associated with the current document.\r\n     */"
-                        },
-                        "ondragover": {
-                            "comment": "/**\r\n     * Fires on the target element continuously while the user drags the object over a valid drop target.\r\n     * @param ev The event.\r\n     */"
                         },
                         "bgColor": {
                             "comment": "/**\r\n     * Deprecated. Sets or retrieves a value that indicates the background color behind the object.\r\n     */"
                         },
-                        "ondragstart": {
-                            "comment": "/**\r\n     * Fires on the source object when the user starts to drag a text selection or selected object.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onmouseup": {
-                            "comment": "/**\r\n     * Fires when the user releases a mouse button while the mouse is over the object.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
-                        "ondrag": {
-                            "comment": "/**\r\n     * Fires on the source object continuously during a drag operation.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onmouseover": {
-                            "comment": "/**\r\n     * Fires when the user moves the mouse pointer into the object.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
                         "linkColor": {
                             "comment": "/**\r\n     * Sets or gets the color of the document links.\r\n     */"
-                        },
-                        "onpause": {
-                            "comment": "/**\r\n     * Occurs when playback is paused.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onmousedown": {
-                            "comment": "/**\r\n     * Fires when the user clicks the object with either mouse button.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
-                        "onclick": {
-                            "comment": "/**\r\n     * Fires when the user clicks the left mouse button on the object\r\n     * @param ev The mouse event.\r\n     */"
-                        },
-                        "onwaiting": {
-                            "comment": "/**\r\n     * Occurs when playback stops because the next frame of a video resource is not available.\r\n     * @param ev The event.\r\n     */"
                         },
                         "onstop": {
                             "comment": "/**\r\n     * Fires when the user clicks the Stop button or leaves the Web page.\r\n     * @param ev The event.\r\n     */"
@@ -702,47 +775,14 @@
                         "domain": {
                             "comment": "/**\r\n     * Sets or gets the security domain of the document.\r\n     */"
                         },
-                        "onstalled": {
-                            "comment": "/**\r\n     * Occurs when the download has stopped.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onmousemove": {
-                            "comment": "/**\r\n     * Fires when the user moves the mouse over the object.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
                         "documentElement": {
                             "comment": "/**\r\n     * Gets a reference to the root node of the document.\r\n     */"
-                        },
-                        "onratechange": {
-                            "comment": "/**\r\n     * Occurs when the playback rate is increased or decreased.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onprogress": {
-                            "comment": "/**\r\n     * Occurs to indicate progress while downloading media data.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "ondblclick": {
-                            "comment": "/**\r\n     * Fires when the user double-clicks the object.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
-                        "oncontextmenu": {
-                            "comment": "/**\r\n     * Fires when the user clicks the right mouse button in the client area, opening the context menu.\r\n     * @param ev The mouse event.\r\n     */"
-                        },
-                        "onloadedmetadata": {
-                            "comment": "/**\r\n     * Occurs when the duration and dimensions of the media have been determined.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onerror": {
-                            "comment": "/**\r\n     * Fires when an error occurs during object loading.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onplay": {
-                            "comment": "/**\r\n     * Occurs when the play method is requested.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onplaying": {
-                            "comment": "/**\r\n     * Occurs when the audio or video has started playing.\r\n     * @param ev The event.\r\n     */"
                         },
                         "images": {
                             "comment": "/**\r\n     * Retrieves a collection, in source order, of img objects in the document.\r\n     */"
                         },
                         "location": {
                             "comment": "/**\r\n     * Contains information about the current URL.\r\n     */"
-                        },
-                        "onabort": {
-                            "comment": "/**\r\n     * Fires when the user aborts the download.\r\n     * @param ev The event.\r\n     */"
                         },
                         "onselectionchange": {
                             "comment": "/**\r\n     * Fires when the selection state of a document changes.\r\n     * @param ev The event.\r\n     */"
@@ -753,41 +793,17 @@
                         "lastModified": {
                             "comment": "/**\r\n     * Gets the date that the page was last modified, if the page supplies one.\r\n     */"
                         },
-                        "onkeypress": {
-                            "comment": "/**\r\n     * Fires when the user presses an alphanumeric key.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onloadeddata": {
-                            "comment": "/**\r\n     * Occurs when media data is loaded at the current playback position.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "onbeforedeactivate": {
                             "comment": "/**\r\n     * Fires immediately before the activeElement is changed from the current object to another object in the parent document.\r\n     * @param ev The event.\r\n     */"
                         },
                         "onactivate": {
                             "comment": "/**\r\n     * Fires when the object is set as the active element.\r\n     * @param ev The event.\r\n     */"
                         },
-                        "onfocus": {
-                            "comment": "/**\r\n     * Fires when the object receives focus.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "fgColor": {
                             "comment": "/**\r\n     * Sets or gets the foreground (text) color of the document.\r\n     */"
                         },
-                        "ontimeupdate": {
-                            "comment": "/**\r\n     * Occurs to indicate the current playback position.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onselect": {
-                            "comment": "/**\r\n     * Fires when the current selection changes.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onended": {
-                            "comment": "/**\r\n     * Occurs when the end of playback is reached.\r\n     * @param ev The event\r\n     */"
-                        },
                         "compatMode": {
                             "comment": "/**\r\n     * Gets a value that indicates whether standards-compliant mode is switched on for the object.\r\n     */"
-                        },
-                        "onscroll": {
-                            "comment": "/**\r\n     * Fires when the user repositions the scroll box in the scroll bar on the object.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onload": {
-                            "comment": "/**\r\n     * Fires immediately after the browser loads the object.\r\n     * @param ev The event.\r\n     */"
                         }
                     }
                 },

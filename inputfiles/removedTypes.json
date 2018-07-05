@@ -7,7 +7,23 @@
     },
     "mixins": {
         "mixin": {
-            "XMLHttpRequestEventTarget": null
+            "XMLHttpRequestEventTarget": null,
+            "WindowTimers": {
+                "methods": null,
+                "implements": null
+            },
+            "WorkerUtils": {
+                "methods": {
+                    "method": {
+                        "clearImmediate": null,
+                        "clearInterval": null,
+                        "clearTimeout": null,
+                        "setImmediate": null,
+                        "setInterval": null,
+                        "setTimeout": null
+                    }
+                }
+            }
         }
     },
     "callback-interfaces": {
@@ -42,6 +58,13 @@
             },
             "FileReaderProgressEvent": null,
             "HTMLAreasCollection": null,
+            "HTMLBodyElement": {
+                "properties": {
+                    "property": {
+                        "onresize": null
+                    }
+                }
+            },
             "HTMLElement": {
                 "methods": {
                     "method": {
@@ -87,6 +110,16 @@
                 "methods": {
                     "method": {
                         "initStorageEvent": null
+                    }
+                }
+            },
+            "SVGSVGElement": {
+                "properties": {
+                    "property": {
+                        "onabort": null,
+                        "onerror": null,
+                        "onresize": null,
+                        "onscroll": null
                     }
                 }
             },

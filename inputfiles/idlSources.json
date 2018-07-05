@@ -135,6 +135,10 @@
         "title": "HTML - The input element"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/webappapis.html",
+        "title": "HTML - Web application APIs"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/webstorage.html",
         "title": "HTML - Web storage"
     },

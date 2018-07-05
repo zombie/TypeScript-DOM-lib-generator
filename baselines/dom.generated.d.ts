@@ -4014,11 +4014,6 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     msCSSOMElementFloatMetrics: boolean;
     msCapsLockWarningOff: boolean;
     /**
-     * Fires when the user aborts the download.
-     * @param ev The event.
-     */
-    onabort: ((this: Document, ev: UIEvent) => any) | null;
-    /**
      * Fires when the object is set as the active element.
      * @param ev The event.
      */
@@ -4034,161 +4029,12 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      */
     onbeforedeactivate: ((this: Document, ev: Event) => any) | null;
     /**
-     * Fires when the object loses the input focus.
-     * @param ev The focus event.
-     */
-    onblur: ((this: Document, ev: FocusEvent) => any) | null;
-    /**
-     * Occurs when playback is possible, but would require further buffering.
-     * @param ev The event.
-     */
-    oncanplay: ((this: Document, ev: Event) => any) | null;
-    oncanplaythrough: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the contents of the object or selection have changed.
-     * @param ev The event.
-     */
-    onchange: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the user clicks the left mouse button on the object
-     * @param ev The mouse event.
-     */
-    onclick: ((this: Document, ev: MouseEvent) => any) | null;
-    /**
-     * Fires when the user clicks the right mouse button in the client area, opening the context menu.
-     * @param ev The mouse event.
-     */
-    oncontextmenu: ((this: Document, ev: PointerEvent) => any) | null;
-    /**
-     * Fires when the user double-clicks the object.
-     * @param ev The mouse event.
-     */
-    ondblclick: ((this: Document, ev: MouseEvent) => any) | null;
-    /**
      * Fires when the activeElement is changed from the current object to another object in the parent document.
      * @param ev The UI Event
      */
     ondeactivate: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires on the source object continuously during a drag operation.
-     * @param ev The event.
-     */
-    ondrag: ((this: Document, ev: DragEvent) => any) | null;
-    /**
-     * Fires on the source object when the user releases the mouse at the close of a drag operation.
-     * @param ev The event.
-     */
-    ondragend: ((this: Document, ev: DragEvent) => any) | null;
-    /**
-     * Fires on the target element when the user drags the object to a valid drop target.
-     * @param ev The drag event.
-     */
-    ondragenter: ((this: Document, ev: DragEvent) => any) | null;
-    /**
-     * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
-     * @param ev The drag event.
-     */
-    ondragleave: ((this: Document, ev: DragEvent) => any) | null;
-    /**
-     * Fires on the target element continuously while the user drags the object over a valid drop target.
-     * @param ev The event.
-     */
-    ondragover: ((this: Document, ev: DragEvent) => any) | null;
-    /**
-     * Fires on the source object when the user starts to drag a text selection or selected object.
-     * @param ev The event.
-     */
-    ondragstart: ((this: Document, ev: DragEvent) => any) | null;
-    ondrop: ((this: Document, ev: DragEvent) => any) | null;
-    /**
-     * Occurs when the duration attribute is updated.
-     * @param ev The event.
-     */
-    ondurationchange: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the media element is reset to its initial state.
-     * @param ev The event.
-     */
-    onemptied: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the end of playback is reached.
-     * @param ev The event
-     */
-    onended: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when an error occurs during object loading.
-     * @param ev The event.
-     */
-    onerror: ((this: Document, ev: ErrorEvent) => any) | null;
-    /**
-     * Fires when the object receives focus.
-     * @param ev The event.
-     */
-    onfocus: ((this: Document, ev: FocusEvent) => any) | null;
     onfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onfullscreenerror: ((this: Document, ev: Event) => any) | null;
-    oninput: ((this: Document, ev: Event) => any) | null;
-    oninvalid: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the user presses a key.
-     * @param ev The keyboard event
-     */
-    onkeydown: ((this: Document, ev: KeyboardEvent) => any) | null;
-    /**
-     * Fires when the user presses an alphanumeric key.
-     * @param ev The event.
-     */
-    onkeypress: ((this: Document, ev: KeyboardEvent) => any) | null;
-    /**
-     * Fires when the user releases a key.
-     * @param ev The keyboard event
-     */
-    onkeyup: ((this: Document, ev: KeyboardEvent) => any) | null;
-    /**
-     * Fires immediately after the browser loads the object.
-     * @param ev The event.
-     */
-    onload: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when media data is loaded at the current playback position.
-     * @param ev The event.
-     */
-    onloadeddata: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the duration and dimensions of the media have been determined.
-     * @param ev The event.
-     */
-    onloadedmetadata: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when Internet Explorer begins looking for media data.
-     * @param ev The event.
-     */
-    onloadstart: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the user clicks the object with either mouse button.
-     * @param ev The mouse event.
-     */
-    onmousedown: ((this: Document, ev: MouseEvent) => any) | null;
-    /**
-     * Fires when the user moves the mouse over the object.
-     * @param ev The mouse event.
-     */
-    onmousemove: ((this: Document, ev: MouseEvent) => any) | null;
-    /**
-     * Fires when the user moves the mouse pointer outside the boundaries of the object.
-     * @param ev The mouse event.
-     */
-    onmouseout: ((this: Document, ev: MouseEvent) => any) | null;
-    /**
-     * Fires when the user moves the mouse pointer into the object.
-     * @param ev The mouse event.
-     */
-    onmouseover: ((this: Document, ev: MouseEvent) => any) | null;
-    /**
-     * Fires when the user releases a mouse button while the mouse is over the object.
-     * @param ev The mouse event.
-     */
-    onmouseup: ((this: Document, ev: MouseEvent) => any) | null;
     /**
      * Fires when the wheel button is rotated.
      * @param ev The mouse event
@@ -4221,63 +4067,13 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param ev The event.
      */
     onmsthumbnailclick: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when playback is paused.
-     * @param ev The event.
-     */
-    onpause: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the play method is requested.
-     * @param ev The event.
-     */
-    onplay: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the audio or video has started playing.
-     * @param ev The event.
-     */
-    onplaying: ((this: Document, ev: Event) => any) | null;
     onpointerlockchange: ((this: Document, ev: Event) => any) | null;
     onpointerlockerror: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs to indicate progress while downloading media data.
-     * @param ev The event.
-     */
-    onprogress: ((this: Document, ev: ProgressEvent) => any) | null;
-    /**
-     * Occurs when the playback rate is increased or decreased.
-     * @param ev The event.
-     */
-    onratechange: ((this: Document, ev: Event) => any) | null;
     /**
      * Fires when the state of the object has changed.
      * @param ev The event
      */
     onreadystatechange: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the user resets a form.
-     * @param ev The event.
-     */
-    onreset: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the user repositions the scroll box in the scroll bar on the object.
-     * @param ev The event.
-     */
-    onscroll: ((this: Document, ev: UIEvent) => any) | null;
-    /**
-     * Occurs when the seek operation ends.
-     * @param ev The event.
-     */
-    onseeked: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the current playback position is moved.
-     * @param ev The event.
-     */
-    onseeking: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the current selection changes.
-     * @param ev The event.
-     */
-    onselect: ((this: Document, ev: UIEvent) => any) | null;
     /**
      * Fires when the selection state of a document changes.
      * @param ev The event.
@@ -4285,37 +4081,11 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     onselectionchange: ((this: Document, ev: Event) => any) | null;
     onselectstart: ((this: Document, ev: Event) => any) | null;
     /**
-     * Occurs when the download has stopped.
-     * @param ev The event.
-     */
-    onstalled: ((this: Document, ev: Event) => any) | null;
-    /**
      * Fires when the user clicks the Stop button or leaves the Web page.
      * @param ev The event.
      */
     onstop: ((this: Document, ev: Event) => any) | null;
-    onsubmit: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs if the load operation has been intentionally halted.
-     * @param ev The event.
-     */
-    onsuspend: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs to indicate the current playback position.
-     * @param ev The event.
-     */
-    ontimeupdate: ((this: Document, ev: Event) => any) | null;
     onvisibilitychange: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when the volume is changed, or playback is muted or unmuted.
-     * @param ev The event.
-     */
-    onvolumechange: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when playback stops because the next frame of a video resource is not available.
-     * @param ev The event.
-     */
-    onwaiting: ((this: Document, ev: Event) => any) | null;
     onwebkitfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onwebkitfullscreenerror: ((this: Document, ev: Event) => any) | null;
     readonly plugins: HTMLCollectionOf<HTMLEmbedElement>;
@@ -4615,6 +4385,22 @@ declare var Document: {
     prototype: Document;
     new(): Document;
 };
+
+interface DocumentAndElementEventHandlersEventMap {
+    "copy": ClipboardEvent;
+    "cut": ClipboardEvent;
+    "paste": ClipboardEvent;
+}
+
+interface DocumentAndElementEventHandlers {
+    oncopy: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
+    oncut: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
+    onpaste: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null;
+    addEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
 
 interface DocumentEvent {
     createEvent(eventInterface: "AnimationEvent"): AnimationEvent;
@@ -4945,12 +4731,11 @@ interface ErrorEvent extends Event {
     readonly filename: string;
     readonly lineno: number;
     readonly message: string;
-    initErrorEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, messageArg: string, filenameArg: string, linenoArg: number): void;
 }
 
 declare var ErrorEvent: {
     prototype: ErrorEvent;
-    new(typeArg: string, eventInitDict?: ErrorEventInit): ErrorEvent;
+    new(type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
 };
 
 interface Event {
@@ -5233,12 +5018,57 @@ interface GetSVGDocument {
 }
 
 interface GlobalEventHandlersEventMap {
+    "abort": UIEvent;
     "animationcancel": AnimationEvent;
     "animationend": AnimationEvent;
     "animationiteration": AnimationEvent;
     "animationstart": AnimationEvent;
+    "auxclick": Event;
+    "blur": FocusEvent;
+    "cancel": Event;
+    "canplay": Event;
+    "canplaythrough": Event;
+    "change": Event;
+    "click": MouseEvent;
+    "close": Event;
+    "contextmenu": PointerEvent;
+    "cuechange": Event;
+    "dblclick": MouseEvent;
+    "drag": DragEvent;
+    "dragend": DragEvent;
+    "dragenter": DragEvent;
+    "dragexit": Event;
+    "dragleave": DragEvent;
+    "dragover": DragEvent;
+    "dragstart": DragEvent;
+    "drop": DragEvent;
+    "durationchange": Event;
+    "emptied": Event;
+    "ended": Event;
+    "error": ErrorEvent;
+    "focus": FocusEvent;
     "gotpointercapture": PointerEvent;
+    "input": Event;
+    "invalid": Event;
+    "keydown": KeyboardEvent;
+    "keypress": KeyboardEvent;
+    "keyup": KeyboardEvent;
+    "load": Event;
+    "loadeddata": Event;
+    "loadedmetadata": Event;
+    "loadend": ProgressEvent;
+    "loadstart": Event;
     "lostpointercapture": PointerEvent;
+    "mousedown": MouseEvent;
+    "mouseenter": MouseEvent;
+    "mouseleave": MouseEvent;
+    "mousemove": MouseEvent;
+    "mouseout": MouseEvent;
+    "mouseover": MouseEvent;
+    "mouseup": MouseEvent;
+    "pause": Event;
+    "play": Event;
+    "playing": Event;
     "pointercancel": PointerEvent;
     "pointerdown": PointerEvent;
     "pointerenter": PointerEvent;
@@ -5247,6 +5077,20 @@ interface GlobalEventHandlersEventMap {
     "pointerout": PointerEvent;
     "pointerover": PointerEvent;
     "pointerup": PointerEvent;
+    "progress": ProgressEvent;
+    "ratechange": Event;
+    "reset": Event;
+    "resize": UIEvent;
+    "scroll": UIEvent;
+    "securitypolicyviolation": SecurityPolicyViolationEvent;
+    "seeked": Event;
+    "seeking": Event;
+    "select": UIEvent;
+    "stalled": Event;
+    "submit": Event;
+    "suspend": Event;
+    "timeupdate": Event;
+    "toggle": Event;
     "touchcancel": TouchEvent;
     "touchend": TouchEvent;
     "touchmove": TouchEvent;
@@ -5255,16 +5099,63 @@ interface GlobalEventHandlersEventMap {
     "transitionend": TransitionEvent;
     "transitionrun": TransitionEvent;
     "transitionstart": TransitionEvent;
+    "volumechange": Event;
+    "waiting": Event;
     "wheel": WheelEvent;
 }
 
 interface GlobalEventHandlers {
+    onabort: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
     onanimationcancel: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationend: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationiteration: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationstart: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
+    onauxclick: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onblur: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
+    oncancel: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    oncanplay: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    oncanplaythrough: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onclose: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    oncontextmenu: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    oncuechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    ondblclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    ondrag: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondragend: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondragenter: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondragexit: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    ondragleave: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondragover: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondragstart: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondrop: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    ondurationchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onemptied: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onended: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onerror: ((this: GlobalEventHandlers, ev: ErrorEvent) => any) | null;
+    onfocus: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
     ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    oninput: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    oninvalid: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onkeydown: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
+    onkeypress: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
+    onkeyup: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
+    onload: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onloadeddata: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onloadedmetadata: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onloadend: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onlostpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    onmousedown: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onmouseenter: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onmouseleave: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onmousemove: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onmouseout: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onmouseover: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onmouseup: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    onpause: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onplay: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onplaying: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onpointercancel: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerdown: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerenter: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
@@ -5273,6 +5164,20 @@ interface GlobalEventHandlers {
     onpointerout: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerover: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerup: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    onprogress: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null;
+    onratechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onreset: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onresize: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    onscroll: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    onsecuritypolicyviolation: ((this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) | null;
+    onseeked: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onseeking: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onselect: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    onstalled: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onsubmit: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onsuspend: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    ontimeupdate: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    ontoggle: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     ontouchcancel: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
     ontouchend: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
     ontouchmove: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
@@ -5281,6 +5186,8 @@ interface GlobalEventHandlers {
     ontransitionend: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     ontransitionrun: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     ontransitionstart: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    onvolumechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onwaiting: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -5536,7 +5443,6 @@ interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandle
     "focus": FocusEvent;
     "load": Event;
     "orientationchange": Event;
-    "resize": UIEvent;
     "scroll": UIEvent;
 }
 
@@ -5554,7 +5460,6 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     noWrap: boolean;
     /** @deprecated */
     onorientationchange: ((this: HTMLBodyElement, ev: Event) => any) | null;
-    onresize: ((this: HTMLBodyElement, ev: UIEvent) => any) | null;
     /** @deprecated */
     text: string;
     /** @deprecated */
@@ -5822,7 +5727,7 @@ declare var HTMLDocument: {
     new(): HTMLDocument;
 };
 
-interface HTMLElementEventMap extends ElementEventMap {
+interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
     "abort": UIEvent;
     "activate": Event;
     "beforeactivate": Event;
@@ -5892,7 +5797,7 @@ interface HTMLElementEventMap extends ElementEventMap {
     "waiting": Event;
 }
 
-interface HTMLElement extends Element, ElementCSSInlineStyle, HTMLOrSVGElement {
+interface HTMLElement extends Element, ElementCSSInlineStyle, GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement {
     accessKey: string;
     contentEditable: string;
     readonly dataset: DOMStringMap;
@@ -5908,73 +5813,17 @@ interface HTMLElement extends Element, ElementCSSInlineStyle, HTMLOrSVGElement {
     readonly offsetParent: Element | null;
     readonly offsetTop: number;
     readonly offsetWidth: number;
-    onabort: ((this: HTMLElement, ev: UIEvent) => any) | null;
     onactivate: ((this: HTMLElement, ev: Event) => any) | null;
     onbeforeactivate: ((this: HTMLElement, ev: Event) => any) | null;
     onbeforecopy: ((this: HTMLElement, ev: Event) => any) | null;
     onbeforecut: ((this: HTMLElement, ev: Event) => any) | null;
     onbeforedeactivate: ((this: HTMLElement, ev: Event) => any) | null;
     onbeforepaste: ((this: HTMLElement, ev: Event) => any) | null;
-    onblur: ((this: HTMLElement, ev: FocusEvent) => any) | null;
-    oncanplay: ((this: HTMLElement, ev: Event) => any) | null;
-    oncanplaythrough: ((this: HTMLElement, ev: Event) => any) | null;
-    onchange: ((this: HTMLElement, ev: Event) => any) | null;
-    onclick: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    oncontextmenu: ((this: HTMLElement, ev: PointerEvent) => any) | null;
-    oncopy: ((this: HTMLElement, ev: ClipboardEvent) => any) | null;
-    oncuechange: ((this: HTMLElement, ev: Event) => any) | null;
-    oncut: ((this: HTMLElement, ev: ClipboardEvent) => any) | null;
-    ondblclick: ((this: HTMLElement, ev: MouseEvent) => any) | null;
     ondeactivate: ((this: HTMLElement, ev: Event) => any) | null;
-    ondrag: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondragend: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondragenter: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondragleave: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondragover: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondragstart: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondrop: ((this: HTMLElement, ev: DragEvent) => any) | null;
-    ondurationchange: ((this: HTMLElement, ev: Event) => any) | null;
-    onemptied: ((this: HTMLElement, ev: Event) => any) | null;
-    onended: ((this: HTMLElement, ev: Event) => any) | null;
-    onerror: ((this: HTMLElement, ev: ErrorEvent) => any) | null;
-    onfocus: ((this: HTMLElement, ev: FocusEvent) => any) | null;
-    oninput: ((this: HTMLElement, ev: Event) => any) | null;
-    oninvalid: ((this: HTMLElement, ev: Event) => any) | null;
-    onkeydown: ((this: HTMLElement, ev: KeyboardEvent) => any) | null;
-    onkeypress: ((this: HTMLElement, ev: KeyboardEvent) => any) | null;
-    onkeyup: ((this: HTMLElement, ev: KeyboardEvent) => any) | null;
-    onload: ((this: HTMLElement, ev: Event) => any) | null;
-    onloadeddata: ((this: HTMLElement, ev: Event) => any) | null;
-    onloadedmetadata: ((this: HTMLElement, ev: Event) => any) | null;
-    onloadstart: ((this: HTMLElement, ev: Event) => any) | null;
-    onmousedown: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    onmouseenter: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    onmouseleave: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    onmousemove: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    onmouseout: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    onmouseover: ((this: HTMLElement, ev: MouseEvent) => any) | null;
-    onmouseup: ((this: HTMLElement, ev: MouseEvent) => any) | null;
     onmousewheel: ((this: HTMLElement, ev: WheelEvent) => any) | null;
     onmscontentzoom: ((this: HTMLElement, ev: Event) => any) | null;
     onmsmanipulationstatechanged: ((this: HTMLElement, ev: Event) => any) | null;
-    onpaste: ((this: HTMLElement, ev: ClipboardEvent) => any) | null;
-    onpause: ((this: HTMLElement, ev: Event) => any) | null;
-    onplay: ((this: HTMLElement, ev: Event) => any) | null;
-    onplaying: ((this: HTMLElement, ev: Event) => any) | null;
-    onprogress: ((this: HTMLElement, ev: ProgressEvent) => any) | null;
-    onratechange: ((this: HTMLElement, ev: Event) => any) | null;
-    onreset: ((this: HTMLElement, ev: Event) => any) | null;
-    onscroll: ((this: HTMLElement, ev: UIEvent) => any) | null;
-    onseeked: ((this: HTMLElement, ev: Event) => any) | null;
-    onseeking: ((this: HTMLElement, ev: Event) => any) | null;
-    onselect: ((this: HTMLElement, ev: UIEvent) => any) | null;
     onselectstart: ((this: HTMLElement, ev: Event) => any) | null;
-    onstalled: ((this: HTMLElement, ev: Event) => any) | null;
-    onsubmit: ((this: HTMLElement, ev: Event) => any) | null;
-    onsuspend: ((this: HTMLElement, ev: Event) => any) | null;
-    ontimeupdate: ((this: HTMLElement, ev: Event) => any) | null;
-    onvolumechange: ((this: HTMLElement, ev: Event) => any) | null;
-    onwaiting: ((this: HTMLElement, ev: Event) => any) | null;
     outerText: string;
     spellcheck: boolean;
     tabIndex: number;
@@ -11873,7 +11722,7 @@ declare var SVGDescElement: {
     new(): SVGDescElement;
 };
 
-interface SVGElementEventMap extends ElementEventMap {
+interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
     "click": MouseEvent;
     "dblclick": MouseEvent;
     "focusin": FocusEvent;
@@ -11886,19 +11735,11 @@ interface SVGElementEventMap extends ElementEventMap {
     "mouseup": MouseEvent;
 }
 
-interface SVGElement extends Element, ElementCSSInlineStyle {
+interface SVGElement extends Element, ElementCSSInlineStyle, GlobalEventHandlers, DocumentAndElementEventHandlers {
     /** @deprecated */
     readonly className: any;
-    onclick: ((this: SVGElement, ev: MouseEvent) => any) | null;
-    ondblclick: ((this: SVGElement, ev: MouseEvent) => any) | null;
     onfocusin: ((this: SVGElement, ev: FocusEvent) => any) | null;
     onfocusout: ((this: SVGElement, ev: FocusEvent) => any) | null;
-    onload: ((this: SVGElement, ev: Event) => any) | null;
-    onmousedown: ((this: SVGElement, ev: MouseEvent) => any) | null;
-    onmousemove: ((this: SVGElement, ev: MouseEvent) => any) | null;
-    onmouseout: ((this: SVGElement, ev: MouseEvent) => any) | null;
-    onmouseover: ((this: SVGElement, ev: MouseEvent) => any) | null;
-    onmouseup: ((this: SVGElement, ev: MouseEvent) => any) | null;
     readonly ownerSVGElement: SVGSVGElement | null;
     readonly viewportElement: SVGElement | null;
     /** @deprecated */
@@ -13179,10 +13020,6 @@ declare var SVGRectElement: {
 };
 
 interface SVGSVGElementEventMap extends SVGElementEventMap {
-    "SVGAbort": Event;
-    "SVGError": Event;
-    "resize": UIEvent;
-    "scroll": UIEvent;
     "SVGUnload": Event;
     "SVGZoom": SVGZoomEvent;
 }
@@ -13195,10 +13032,6 @@ interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewB
     currentScale: number;
     readonly currentTranslate: SVGPoint;
     readonly height: SVGAnimatedLength;
-    onabort: ((this: SVGSVGElement, ev: Event) => any) | null;
-    onerror: ((this: SVGSVGElement, ev: Event) => any) | null;
-    onresize: ((this: SVGSVGElement, ev: UIEvent) => any) | null;
-    onscroll: ((this: SVGSVGElement, ev: UIEvent) => any) | null;
     onunload: ((this: SVGSVGElement, ev: Event) => any) | null;
     onzoom: ((this: SVGSVGElement, ev: SVGZoomEvent) => any) | null;
     /** @deprecated */
@@ -15879,7 +15712,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "waiting": Event;
 }
 
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch {
+interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch, WindowOrWorkerGlobalScope {
     Blob: typeof Blob;
     URL: typeof URL;
     URLSearchParams: typeof URLSearchParams;
@@ -15910,51 +15743,15 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     name: string;
     readonly navigator: Navigator;
     offscreenBuffering: string | boolean;
-    onabort: ((this: Window, ev: UIEvent) => any) | null;
     onafterprint: ((this: Window, ev: Event) => any) | null;
     onbeforeprint: ((this: Window, ev: Event) => any) | null;
     onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
-    onblur: ((this: Window, ev: FocusEvent) => any) | null;
-    oncanplay: ((this: Window, ev: Event) => any) | null;
-    oncanplaythrough: ((this: Window, ev: Event) => any) | null;
-    onchange: ((this: Window, ev: Event) => any) | null;
-    onclick: ((this: Window, ev: MouseEvent) => any) | null;
     oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
-    oncontextmenu: ((this: Window, ev: PointerEvent) => any) | null;
-    ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
     ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
-    ondrag: ((this: Window, ev: DragEvent) => any) | null;
-    ondragend: ((this: Window, ev: DragEvent) => any) | null;
-    ondragenter: ((this: Window, ev: DragEvent) => any) | null;
-    ondragleave: ((this: Window, ev: DragEvent) => any) | null;
-    ondragover: ((this: Window, ev: DragEvent) => any) | null;
-    ondragstart: ((this: Window, ev: DragEvent) => any) | null;
-    ondrop: ((this: Window, ev: DragEvent) => any) | null;
-    ondurationchange: ((this: Window, ev: Event) => any) | null;
-    onemptied: ((this: Window, ev: Event) => any) | null;
-    onended: ((this: Window, ev: Event) => any) | null;
-    onerror: ErrorEventHandler;
-    onfocus: ((this: Window, ev: FocusEvent) => any) | null;
     onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
-    oninput: ((this: Window, ev: Event) => any) | null;
-    oninvalid: ((this: Window, ev: Event) => any) | null;
-    onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
-    onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
-    onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
-    onload: ((this: Window, ev: Event) => any) | null;
-    onloadeddata: ((this: Window, ev: Event) => any) | null;
-    onloadedmetadata: ((this: Window, ev: Event) => any) | null;
-    onloadstart: ((this: Window, ev: Event) => any) | null;
     onmessage: ((this: Window, ev: MessageEvent) => any) | null;
-    onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
-    onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
-    onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
-    onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
-    onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
-    onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
-    onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
     onmousewheel: ((this: Window, ev: WheelEvent) => any) | null;
     onmsgesturechange: ((this: Window, ev: Event) => any) | null;
     onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -15977,26 +15774,10 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onorientationchange: ((this: Window, ev: Event) => any) | null;
     onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
     onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
-    onpause: ((this: Window, ev: Event) => any) | null;
-    onplay: ((this: Window, ev: Event) => any) | null;
-    onplaying: ((this: Window, ev: Event) => any) | null;
     onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
-    onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
-    onratechange: ((this: Window, ev: Event) => any) | null;
     onreadystatechange: ((this: Window, ev: ProgressEvent) => any) | null;
-    onreset: ((this: Window, ev: Event) => any) | null;
-    onresize: ((this: Window, ev: UIEvent) => any) | null;
-    onscroll: ((this: Window, ev: UIEvent) => any) | null;
-    onseeked: ((this: Window, ev: Event) => any) | null;
-    onseeking: ((this: Window, ev: Event) => any) | null;
-    onselect: ((this: Window, ev: UIEvent) => any) | null;
-    onstalled: ((this: Window, ev: Event) => any) | null;
     onstorage: ((this: Window, ev: StorageEvent) => any) | null;
-    onsubmit: ((this: Window, ev: Event) => any) | null;
-    onsuspend: ((this: Window, ev: Event) => any) | null;
-    ontimeupdate: ((this: Window, ev: Event) => any) | null;
     onunload: ((this: Window, ev: Event) => any) | null;
-    onvolumechange: ((this: Window, ev: Event) => any) | null;
     onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
     onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
     onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
@@ -16006,7 +15787,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
-    onwaiting: ((this: Window, ev: Event) => any) | null;
     opener: any;
     /** @deprecated */
     readonly orientation: string | number;
@@ -16040,8 +15820,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     captureEvents(): void;
     close(): void;
     confirm(message?: string): boolean;
-    createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
-    createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     departFocus(navigationReason: NavigationReason, origin: FocusNavigationOrigin): void;
     focus(): void;
     getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
@@ -16096,13 +15874,17 @@ interface WindowEventHandlersEventMap {
     "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
     "hashchange": HashChangeEvent;
+    "languagechange": Event;
     "message": MessageEvent;
+    "messageerror": MessageEvent;
     "offline": Event;
     "online": Event;
     "pagehide": PageTransitionEvent;
     "pageshow": PageTransitionEvent;
     "popstate": PopStateEvent;
+    "rejectionhandled": Event;
     "storage": StorageEvent;
+    "unhandledrejection": Event;
     "unload": Event;
 }
 
@@ -16111,13 +15893,17 @@ interface WindowEventHandlers {
     onbeforeprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeunload: ((this: WindowEventHandlers, ev: BeforeUnloadEvent) => any) | null;
     onhashchange: ((this: WindowEventHandlers, ev: HashChangeEvent) => any) | null;
+    onlanguagechange: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onmessage: ((this: WindowEventHandlers, ev: MessageEvent) => any) | null;
+    onmessageerror: ((this: WindowEventHandlers, ev: MessageEvent) => any) | null;
     onoffline: ((this: WindowEventHandlers, ev: Event) => any) | null;
     ononline: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onpagehide: ((this: WindowEventHandlers, ev: PageTransitionEvent) => any) | null;
     onpageshow: ((this: WindowEventHandlers, ev: PageTransitionEvent) => any) | null;
     onpopstate: ((this: WindowEventHandlers, ev: PopStateEvent) => any) | null;
+    onrejectionhandled: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onstorage: ((this: WindowEventHandlers, ev: StorageEvent) => any) | null;
+    onunhandledrejection: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onunload: ((this: WindowEventHandlers, ev: Event) => any) | null;
     addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: WindowEventHandlers, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -16132,27 +15918,23 @@ interface WindowLocalStorage {
 interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
     readonly indexedDB: IDBFactory;
+    readonly origin: string;
     readonly performance: Performance;
-    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+    atob(data: string): string;
+    btoa(data: string): string;
+    clearInterval(handle?: number): void;
+    clearTimeout(handle?: number): void;
+    createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
+    createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+    setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+    setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 }
 
 interface WindowSessionStorage {
     readonly sessionStorage: Storage;
 }
 
-interface WindowTimers extends WindowTimersExtension {
-    clearInterval(handle?: number): void;
-    clearTimeout(handle?: number): void;
-    setInterval(handler: (...args: any[]) => void, timeout: number): number;
-    setInterval(handler: any, timeout?: any, ...args: any[]): number;
-    setTimeout(handler: (...args: any[]) => void, timeout: number): number;
-    setTimeout(handler: any, timeout?: any, ...args: any[]): number;
-}
-
-interface WindowTimersExtension {
-    clearImmediate(handle: number): void;
-    setImmediate(handler: (...args: any[]) => void): number;
-    setImmediate(handler: any, ...args: any[]): number;
+interface WindowTimers {
 }
 
 interface WorkerEventMap extends AbstractWorkerEventMap {
@@ -16547,6 +16329,14 @@ interface NotificationPermissionCallback {
     (permission: NotificationPermission): void;
 }
 
+interface OnBeforeUnloadEventHandlerNonNull {
+    (event: Event): string | null;
+}
+
+interface OnErrorEventHandlerNonNull {
+    (event: Event | string, source?: string, lineno?: number, colno?: number, error?: any): any;
+}
+
 interface PerformanceObserverCallback {
     (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
 }
@@ -16818,51 +16608,15 @@ declare var msContentScript: ExtensionScriptApis;
 declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
-declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
 declare var onafterprint: ((this: Window, ev: Event) => any) | null;
 declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
 declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
-declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
-declare var oncanplay: ((this: Window, ev: Event) => any) | null;
-declare var oncanplaythrough: ((this: Window, ev: Event) => any) | null;
-declare var onchange: ((this: Window, ev: Event) => any) | null;
-declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
 declare var oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
-declare var oncontextmenu: ((this: Window, ev: PointerEvent) => any) | null;
-declare var ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
 declare var ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
-declare var ondrag: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondragleave: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondragover: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondragstart: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondrop: ((this: Window, ev: DragEvent) => any) | null;
-declare var ondurationchange: ((this: Window, ev: Event) => any) | null;
-declare var onemptied: ((this: Window, ev: Event) => any) | null;
-declare var onended: ((this: Window, ev: Event) => any) | null;
-declare var onerror: ErrorEventHandler;
-declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
 declare var onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
-declare var oninput: ((this: Window, ev: Event) => any) | null;
-declare var oninvalid: ((this: Window, ev: Event) => any) | null;
-declare var onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
-declare var onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
-declare var onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
-declare var onload: ((this: Window, ev: Event) => any) | null;
-declare var onloadeddata: ((this: Window, ev: Event) => any) | null;
-declare var onloadedmetadata: ((this: Window, ev: Event) => any) | null;
-declare var onloadstart: ((this: Window, ev: Event) => any) | null;
 declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
-declare var onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
-declare var onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
-declare var onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
-declare var onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
-declare var onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
-declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
-declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmousewheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -16885,26 +16639,10 @@ declare var ononline: ((this: Window, ev: Event) => any) | null;
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
 declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
 declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
-declare var onpause: ((this: Window, ev: Event) => any) | null;
-declare var onplay: ((this: Window, ev: Event) => any) | null;
-declare var onplaying: ((this: Window, ev: Event) => any) | null;
 declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
-declare var onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
-declare var onratechange: ((this: Window, ev: Event) => any) | null;
 declare var onreadystatechange: ((this: Window, ev: ProgressEvent) => any) | null;
-declare var onreset: ((this: Window, ev: Event) => any) | null;
-declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
-declare var onscroll: ((this: Window, ev: UIEvent) => any) | null;
-declare var onseeked: ((this: Window, ev: Event) => any) | null;
-declare var onseeking: ((this: Window, ev: Event) => any) | null;
-declare var onselect: ((this: Window, ev: UIEvent) => any) | null;
-declare var onstalled: ((this: Window, ev: Event) => any) | null;
 declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
-declare var onsubmit: ((this: Window, ev: Event) => any) | null;
-declare var onsuspend: ((this: Window, ev: Event) => any) | null;
-declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
 declare var onunload: ((this: Window, ev: Event) => any) | null;
-declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
@@ -16914,7 +16652,6 @@ declare var onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
-declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var opener: any;
 /** @deprecated */
 declare var orientation: string | number;
@@ -16948,8 +16685,6 @@ declare function cancelAnimationFrame(handle: number): void;
 declare function captureEvents(): void;
 declare function close(): void;
 declare function confirm(message?: string): boolean;
-declare function createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, options?: ImageBitmapOptions): Promise<ImageBitmap>;
-declare function createImageBitmap(image: HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | ImageData | Blob, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
 declare function departFocus(navigationReason: NavigationReason, origin: FocusNavigationOrigin): void;
 declare function focus(): void;
 declare function getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
@@ -16981,24 +16716,60 @@ declare function webkitConvertPointFromPageToNode(node: Node, pt: WebKitPoint): 
 declare function webkitRequestAnimationFrame(callback: FrameRequestCallback): number;
 declare function toString(): string;
 declare function dispatchEvent(evt: Event): boolean;
-declare function clearInterval(handle?: number): void;
-declare function clearTimeout(handle?: number): void;
-declare function setInterval(handler: (...args: any[]) => void, timeout: number): number;
-declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
-declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
-declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
-declare function clearImmediate(handle: number): void;
-declare function setImmediate(handler: (...args: any[]) => void): number;
-declare function setImmediate(handler: any, ...args: any[]): number;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var console: Console;
+declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
 declare var onanimationcancel: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationend: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationiteration: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationstart: ((this: Window, ev: AnimationEvent) => any) | null;
+declare var onauxclick: ((this: Window, ev: Event) => any) | null;
+declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
+declare var oncancel: ((this: Window, ev: Event) => any) | null;
+declare var oncanplay: ((this: Window, ev: Event) => any) | null;
+declare var oncanplaythrough: ((this: Window, ev: Event) => any) | null;
+declare var onchange: ((this: Window, ev: Event) => any) | null;
+declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onclose: ((this: Window, ev: Event) => any) | null;
+declare var oncontextmenu: ((this: Window, ev: PointerEvent) => any) | null;
+declare var oncuechange: ((this: Window, ev: Event) => any) | null;
+declare var ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
+declare var ondrag: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragexit: ((this: Window, ev: Event) => any) | null;
+declare var ondragleave: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragover: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondragstart: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondrop: ((this: Window, ev: DragEvent) => any) | null;
+declare var ondurationchange: ((this: Window, ev: Event) => any) | null;
+declare var onemptied: ((this: Window, ev: Event) => any) | null;
+declare var onended: ((this: Window, ev: Event) => any) | null;
+declare var onerror: ((this: Window, ev: ErrorEvent) => any) | null;
+declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
 declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
+declare var oninput: ((this: Window, ev: Event) => any) | null;
+declare var oninvalid: ((this: Window, ev: Event) => any) | null;
+declare var onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
+declare var onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
+declare var onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
+declare var onload: ((this: Window, ev: Event) => any) | null;
+declare var onloadeddata: ((this: Window, ev: Event) => any) | null;
+declare var onloadedmetadata: ((this: Window, ev: Event) => any) | null;
+declare var onloadend: ((this: Window, ev: ProgressEvent) => any) | null;
+declare var onloadstart: ((this: Window, ev: Event) => any) | null;
 declare var onlostpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
+declare var onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
+declare var onpause: ((this: Window, ev: Event) => any) | null;
+declare var onplay: ((this: Window, ev: Event) => any) | null;
+declare var onplaying: ((this: Window, ev: Event) => any) | null;
 declare var onpointercancel: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerdown: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerenter: ((this: Window, ev: PointerEvent) => any) | null;
@@ -17007,6 +16778,20 @@ declare var onpointermove: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerout: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerover: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerup: ((this: Window, ev: PointerEvent) => any) | null;
+declare var onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
+declare var onratechange: ((this: Window, ev: Event) => any) | null;
+declare var onreset: ((this: Window, ev: Event) => any) | null;
+declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
+declare var onscroll: ((this: Window, ev: UIEvent) => any) | null;
+declare var onsecuritypolicyviolation: ((this: Window, ev: SecurityPolicyViolationEvent) => any) | null;
+declare var onseeked: ((this: Window, ev: Event) => any) | null;
+declare var onseeking: ((this: Window, ev: Event) => any) | null;
+declare var onselect: ((this: Window, ev: UIEvent) => any) | null;
+declare var onstalled: ((this: Window, ev: Event) => any) | null;
+declare var onsubmit: ((this: Window, ev: Event) => any) | null;
+declare var onsuspend: ((this: Window, ev: Event) => any) | null;
+declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
+declare var ontoggle: ((this: Window, ev: Event) => any) | null;
 declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null;
 declare var ontouchend: ((this: Window, ev: TouchEvent) => any) | null;
 declare var ontouchmove: ((this: Window, ev: TouchEvent) => any) | null;
@@ -17015,11 +16800,25 @@ declare var ontransitioncancel: ((this: Window, ev: TransitionEvent) => any) | n
 declare var ontransitionend: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionrun: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionstart: ((this: Window, ev: TransitionEvent) => any) | null;
+declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
+declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare function fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+declare var caches: CacheStorage;
+declare var indexedDB: IDBFactory;
+declare var origin: string;
+declare var performance: Performance;
+declare function atob(data: string): string;
+declare function btoa(data: string): string;
+declare function clearInterval(handle?: number): void;
+declare function clearTimeout(handle?: number): void;
+declare function createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
+declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -17035,6 +16834,10 @@ type RenderingContext = CanvasRenderingContext2D | ImageBitmapRenderingContext |
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
+type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
+type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
+type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;
+type TimerHandler = string | Function;
 type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
 type BufferSource = ArrayBufferView | ArrayBuffer;

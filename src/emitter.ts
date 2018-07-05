@@ -118,7 +118,7 @@ function createTextWriter(newLine: string) {
 }
 
 function isEventHandler(p: Browser.Property) {
-    return p.type === "EventHandlerNonNull" || p.type === "EventHandler";
+    return typeof p["event-handler"] === "string";
 }
 
 export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
@@ -556,7 +556,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
                 const eType = p["event-handler"] ? getEventTypeInInterface(p["event-handler"]!, i) : "Event";
                 pType = `(${emitEventHandlerThis(prefix, i)}ev: ${eType}) => any`;
-                if (p.type === "EventHandler") {
+                if (typeof p.type === "string" && !p.type.endsWith("NonNull")) {
                     pType = `(${pType}) | null`;
                 }
             }

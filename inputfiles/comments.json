@@ -141,6 +141,9 @@
                         },
                         "onemptied": {
                             "comment": "/**\r\n     * Occurs when the media element is reset to its initial state.\r\n     * @param ev The event.\r\n     */"
+                        },
+                        "onselectionchange": {
+                            "comment": "/**\r\n     * Fires when the selection state of a document changes.\r\n     * @param ev The event.\r\n     */"
                         }
                     }
                 }
@@ -709,12 +712,6 @@
                         "designMode": {
                             "comment": "/**\r\n     * Sets or gets a value that indicates whether the document can be edited.\r\n     */"
                         },
-                        "ondeactivate": {
-                            "comment": "/**\r\n     * Fires when the activeElement is changed from the current object to another object in the parent document.\r\n     * @param ev The UI Event\r\n     */"
-                        },
-                        "URLUnencoded": {
-                            "comment": "/**\r\n     * Gets the URL for the document, stripped of any character encoding.\r\n     */"
-                        },
                         "inputEncoding": {
                             "comment": "/**\r\n     * Returns the character encoding used to create the webpage that is loaded into the document object.\r\n     */"
                         },
@@ -727,14 +724,8 @@
                         "URL": {
                             "comment": "/**\r\n     * Sets or gets the URL for the current document.\r\n     */"
                         },
-                        "onbeforeactivate": {
-                            "comment": "/**\r\n     * Fires immediately before the object is set as the active element.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "anchors": {
                             "comment": "/**\r\n     * Retrieves a collection of all a objects that have a name and/or id property. Objects in this collection are in HTML source order.\r\n     */"
-                        },
-                        "rootElement": {
-                            "comment": "/**\r\n     * Gets the root svg element in the document hierarchy.\r\n     */"
                         },
                         "readyState": {
                             "comment": "/**\r\n     * Retrieves a value that indicates the current state of the object.\r\n     */"
@@ -745,12 +736,6 @@
                         "alinkColor": {
                             "comment": "/**\r\n     * Sets or gets the color of all active links in the document.\r\n     */"
                         },
-                        "onmsthumbnailclick": {
-                            "comment": "/**\r\n     * Occurs when a user clicks a button in a Thumbnail Toolbar of a webpage running in Site Mode.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "xmlVersion": {
-                            "comment": "/**\r\n     * Gets or sets the version attribute specified in the declaration of an XML document.\r\n     */"
-                        },
                         "doctype": {
                             "comment": "/**\r\n     * Gets an object representing the document type declaration associated with the current document.\r\n     */"
                         },
@@ -759,12 +744,6 @@
                         },
                         "linkColor": {
                             "comment": "/**\r\n     * Sets or gets the color of the document links.\r\n     */"
-                        },
-                        "onstop": {
-                            "comment": "/**\r\n     * Fires when the user clicks the Stop button or leaves the Web page.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onmssitemodejumplistitemremoved": {
-                            "comment": "/**\r\n     * Occurs when an item is removed from a Jump List of a webpage running in Site Mode.\r\n     * @param ev The event.\r\n     */"
                         },
                         "applets": {
                             "comment": "/**\r\n     * Retrieves a collection of all applet objects in the document.\r\n     */"
@@ -784,20 +763,11 @@
                         "location": {
                             "comment": "/**\r\n     * Contains information about the current URL.\r\n     */"
                         },
-                        "onselectionchange": {
-                            "comment": "/**\r\n     * Fires when the selection state of a document changes.\r\n     * @param ev The event.\r\n     */"
-                        },
                         "onreadystatechange": {
                             "comment": "/**\r\n     * Fires when the state of the object has changed.\r\n     * @param ev The event\r\n     */"
                         },
                         "lastModified": {
                             "comment": "/**\r\n     * Gets the date that the page was last modified, if the page supplies one.\r\n     */"
-                        },
-                        "onbeforedeactivate": {
-                            "comment": "/**\r\n     * Fires immediately before the activeElement is changed from the current object to another object in the parent document.\r\n     * @param ev The event.\r\n     */"
-                        },
-                        "onactivate": {
-                            "comment": "/**\r\n     * Fires when the object is set as the active element.\r\n     * @param ev The event.\r\n     */"
                         },
                         "fgColor": {
                             "comment": "/**\r\n     * Sets or gets the foreground (text) color of the document.\r\n     */"

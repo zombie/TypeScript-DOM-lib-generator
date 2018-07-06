@@ -380,10 +380,10 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Emit overloads for the getElementsByTagName method
     function emitGetElementsByTagNameOverloads(m: Browser.Method) {
-        if (matchParamMethodSignature(m, "getElementsByTagName", "NodeList", "string")) {
-            printer.printLine(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<HTMLElementTagNameMap[K]>;`);
-            printer.printLine(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.signature[0].param![0].name}: K): NodeListOf<SVGElementTagNameMap[K]>;`);
-            printer.printLine(`getElementsByTagName(${m.signature[0].param![0].name}: string): NodeListOf<Element>;`);
+        if (matchParamMethodSignature(m, "getElementsByTagName", "HTMLCollection", "string")) {
+            printer.printLine(`getElementsByTagName<K extends keyof HTMLElementTagNameMap>(${m.signature[0].param![0].name}: K): HTMLCollectionOf<HTMLElementTagNameMap[K]>;`);
+            printer.printLine(`getElementsByTagName<K extends keyof SVGElementTagNameMap>(${m.signature[0].param![0].name}: K): HTMLCollectionOf<SVGElementTagNameMap[K]>;`);
+            printer.printLine(`getElementsByTagName(${m.signature[0].param![0].name}: string): HTMLCollectionOf<Element>;`);
         }
     }
 

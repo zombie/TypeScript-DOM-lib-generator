@@ -231,6 +231,10 @@
         "title": "WebRTC"
     },
     {
+        "url": "https://w3c.github.io/speech-api/",
+        "title": "Web Speech API"
+    },
+    {
         "url": "https://www.w3.org/TR/webvtt1/",
         "title": "WebVTT"
     },

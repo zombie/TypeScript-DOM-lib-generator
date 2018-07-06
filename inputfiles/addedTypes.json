@@ -1076,6 +1076,62 @@
                 },
                 "no-interface-object": "1"
             },
+            "SpeechRecognition": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "result",
+                            "type": "SpeechRecognitionEvent"
+                        },
+                        {
+                            "name": "nomatch",
+                            "type": "SpeechRecognitionEvent"
+                        },
+                        {
+                            "name": "error",
+                            "type": "SpeechRecognitionError"
+                        },
+                        {
+                            "name": "end",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "SpeechSynthesisUtterance": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "start",
+                            "type": "SpeechSynthesisEvent"
+                        },
+                        {
+                            "name": "end",
+                            "type": "SpeechSynthesisEvent"
+                        },
+                        {
+                            "name": "error",
+                            "type": "SpeechSynthesisErrorEvent"
+                        },
+                        {
+                            "name": "pause",
+                            "type": "SpeechSynthesisEvent"
+                        },
+                        {
+                            "name": "resume",
+                            "type": "SpeechSynthesisEvent"
+                        },
+                        {
+                            "name": "mark",
+                            "type": "SpeechSynthesisEvent"
+                        },
+                        {
+                            "name": "boundary",
+                            "type": "SpeechSynthesisEvent"
+                        }
+                    ]
+                }
+            },
             "SVGElement": {
                 "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
             },

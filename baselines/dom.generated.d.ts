@@ -1430,14 +1430,6 @@ interface ServiceWorkerMessageEventInit extends EventInit {
     source?: ServiceWorker | MessagePort | null;
 }
 
-interface SpeechSynthesisEventInit extends EventInit {
-    charIndex?: number;
-    charLength?: number;
-    elapsedTime?: number;
-    name?: string;
-    utterance?: SpeechSynthesisUtterance | null;
-}
-
 interface StereoPannerOptions extends AudioNodeOptions {
     pan?: number;
 }
@@ -4463,6 +4455,9 @@ interface DocumentEvent {
     createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
     createEvent(eventInterface: "ServiceWorkerMessageEvent"): ServiceWorkerMessageEvent;
+    createEvent(eventInterface: "SpeechRecognitionError"): SpeechRecognitionError;
+    createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
+    createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
     createEvent(eventInterface: "TextEvent"): TextEvent;
@@ -13669,6 +13664,130 @@ declare var SourceBufferList: {
     new(): SourceBufferList;
 };
 
+interface SpeechGrammar {
+    src: string;
+    weight: number;
+}
+
+declare var SpeechGrammar: {
+    prototype: SpeechGrammar;
+    new(): SpeechGrammar;
+};
+
+interface SpeechGrammarList {
+    readonly length: number;
+    addFromString(string: string, weight?: number): void;
+    addFromURI(src: string, weight?: number): void;
+    item(index: number): SpeechGrammar;
+    [index: number]: SpeechGrammar;
+}
+
+declare var SpeechGrammarList: {
+    prototype: SpeechGrammarList;
+    new(): SpeechGrammarList;
+};
+
+interface SpeechRecognitionEventMap {
+    "audioend": Event;
+    "audiostart": Event;
+    "end": Event;
+    "error": SpeechRecognitionError;
+    "nomatch": SpeechRecognitionEvent;
+    "result": SpeechRecognitionEvent;
+    "soundend": Event;
+    "soundstart": Event;
+    "speechend": Event;
+    "speechstart": Event;
+    "start": Event;
+}
+
+interface SpeechRecognition extends EventTarget {
+    continuous: boolean;
+    grammars: SpeechGrammarList;
+    interimResults: boolean;
+    lang: string;
+    maxAlternatives: number;
+    onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onerror: ((this: SpeechRecognition, ev: SpeechRecognitionError) => any) | null;
+    onnomatch: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onsoundend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onsoundstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    serviceURI: string;
+    abort(): void;
+    start(): void;
+    stop(): void;
+    addEventListener<K extends keyof SpeechRecognitionEventMap>(type: K, listener: (this: SpeechRecognition, ev: SpeechRecognitionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SpeechRecognitionEventMap>(type: K, listener: (this: SpeechRecognition, ev: SpeechRecognitionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SpeechRecognition: {
+    prototype: SpeechRecognition;
+    new(): SpeechRecognition;
+};
+
+interface SpeechRecognitionAlternative {
+    readonly confidence: number;
+    readonly transcript: string;
+}
+
+declare var SpeechRecognitionAlternative: {
+    prototype: SpeechRecognitionAlternative;
+    new(): SpeechRecognitionAlternative;
+};
+
+interface SpeechRecognitionError extends Event {
+    readonly error: SpeechRecognitionErrorCode;
+    readonly message: string;
+}
+
+declare var SpeechRecognitionError: {
+    prototype: SpeechRecognitionError;
+    new(): SpeechRecognitionError;
+};
+
+interface SpeechRecognitionEvent extends Event {
+    readonly emma: Document | null;
+    readonly interpretation: any;
+    readonly resultIndex: number;
+    readonly results: SpeechRecognitionResultList;
+}
+
+declare var SpeechRecognitionEvent: {
+    prototype: SpeechRecognitionEvent;
+    new(): SpeechRecognitionEvent;
+};
+
+interface SpeechRecognitionResult {
+    readonly isFinal: boolean;
+    readonly length: number;
+    item(index: number): SpeechRecognitionAlternative;
+    [index: number]: SpeechRecognitionAlternative;
+}
+
+declare var SpeechRecognitionResult: {
+    prototype: SpeechRecognitionResult;
+    new(): SpeechRecognitionResult;
+};
+
+interface SpeechRecognitionResultList {
+    readonly length: number;
+    item(index: number): SpeechRecognitionResult;
+    [index: number]: SpeechRecognitionResult;
+}
+
+declare var SpeechRecognitionResultList: {
+    prototype: SpeechRecognitionResultList;
+    new(): SpeechRecognitionResultList;
+};
+
 interface SpeechSynthesisEventMap {
     "voiceschanged": Event;
 }
@@ -13694,9 +13813,17 @@ declare var SpeechSynthesis: {
     new(): SpeechSynthesis;
 };
 
+interface SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
+    readonly error: SpeechSynthesisErrorCode;
+}
+
+declare var SpeechSynthesisErrorEvent: {
+    prototype: SpeechSynthesisErrorEvent;
+    new(): SpeechSynthesisErrorEvent;
+};
+
 interface SpeechSynthesisEvent extends Event {
     readonly charIndex: number;
-    readonly charLength: number;
     readonly elapsedTime: number;
     readonly name: string;
     readonly utterance: SpeechSynthesisUtterance;
@@ -13704,28 +13831,28 @@ interface SpeechSynthesisEvent extends Event {
 
 declare var SpeechSynthesisEvent: {
     prototype: SpeechSynthesisEvent;
-    new(type: string, eventInitDict?: SpeechSynthesisEventInit): SpeechSynthesisEvent;
+    new(): SpeechSynthesisEvent;
 };
 
 interface SpeechSynthesisUtteranceEventMap {
-    "boundary": Event;
-    "end": Event;
-    "error": Event;
-    "mark": Event;
-    "pause": Event;
-    "resume": Event;
-    "start": Event;
+    "boundary": SpeechSynthesisEvent;
+    "end": SpeechSynthesisEvent;
+    "error": SpeechSynthesisErrorEvent;
+    "mark": SpeechSynthesisEvent;
+    "pause": SpeechSynthesisEvent;
+    "resume": SpeechSynthesisEvent;
+    "start": SpeechSynthesisEvent;
 }
 
 interface SpeechSynthesisUtterance extends EventTarget {
     lang: string;
-    onboundary: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
-    onend: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
-    onerror: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
-    onmark: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
-    onpause: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
-    onresume: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
-    onstart: ((this: SpeechSynthesisUtterance, ev: Event) => any) | null;
+    onboundary: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisEvent) => any) | null;
+    onend: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisEvent) => any) | null;
+    onerror: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisErrorEvent) => any) | null;
+    onmark: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisEvent) => any) | null;
+    onpause: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisEvent) => any) | null;
+    onresume: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisEvent) => any) | null;
+    onstart: ((this: SpeechSynthesisUtterance, ev: SpeechSynthesisEvent) => any) | null;
     pitch: number;
     rate: number;
     text: string;
@@ -16968,6 +17095,8 @@ type ScrollSetting = "" | "up";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
+type SpeechRecognitionErrorCode = "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
+type SpeechSynthesisErrorCode = "canceled" | "interrupted" | "audio-busy" | "audio-hardware" | "network" | "synthesis-unavailable" | "synthesis-failed" | "language-unavailable" | "voice-unavailable" | "text-too-long" | "invalid-argument";
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";

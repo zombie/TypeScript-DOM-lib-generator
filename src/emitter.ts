@@ -152,7 +152,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Distinct event type list, used in the "createEvent" function
     const distinctETypeList = distinct(
         flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event.map(e => e.type) : [])
-            .concat(allNonCallbackInterfaces.filter(i => (i.extends === "Event" || i.extends === "UIEvent") && i.name.endsWith("Event")).map(i => i.name))
+            .concat(allNonCallbackInterfaces.filter(i => i.extends && i.extends.endsWith("Event") && i.name.endsWith("Event")).map(i => i.name))
     ).sort();
 
     /// Interface name to its related eventhandler name list map

@@ -1093,30 +1093,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "PromiseRejectionEvent": {
-                "name": "PromiseRejectionEvent",
-                "extends": "Event",
-                "exposed": "Window Worker",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent"
-                    ]
-                },
-                "properties": {
-                    "property": {
-                        "promise": {
-                            "name": "promise",
-                            "read-only": 1,
-                            "override-type": "PromiseLike<any>"
-                        },
-                        "reason": {
-                            "name": "reason",
-                            "read-only": 1,
-                            "override-type": "any"
-                        }
-                    }
-                }
-            },
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
                 "extends": "HTMLElement",
@@ -2345,23 +2321,6 @@
                             "name": "composed",
                             "override-type": "boolean",
                             "required": 0
-                        }
-                    }
-                }
-            },
-            "PromiseRejectionEventInit": {
-                "name": "PromiseRejectionEventInit",
-                "extends": "EventInit",
-                "members": {
-                    "member": {
-                        "promise": {
-                            "name": "promise",
-                            "override-type": "Promise<any>",
-                            "required": 1
-                        },
-                        "reason": {
-                            "name": "reason",
-                            "override-type": "any"
                         }
                     }
                 }

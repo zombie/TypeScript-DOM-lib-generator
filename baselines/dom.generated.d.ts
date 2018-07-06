@@ -10941,7 +10941,7 @@ declare var ProgressEvent: {
 };
 
 interface PromiseRejectionEvent extends Event {
-    readonly promise: PromiseLike<any>;
+    readonly promise: Promise<any>;
     readonly reason: any;
 }
 

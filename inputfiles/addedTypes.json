@@ -1,6 +1,24 @@
 {
     "mixins": {
         "mixin": {
+            "DocumentAndElementEventHandlers": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "copy",
+                            "type": "ClipboardEvent"
+                        },
+                        {
+                            "name": "cut",
+                            "type": "ClipboardEvent"
+                        },
+                        {
+                            "name": "paste",
+                            "type": "ClipboardEvent"
+                        }
+                    ]
+                }
+            },
             "GlobalEventHandlers": {
                 "events": {
                     "event": [

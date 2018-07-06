@@ -152,6 +152,18 @@ interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>;
 }
 
+interface SpeechGrammarList {
+    [Symbol.iterator](): IterableIterator<SpeechGrammar>;
+}
+
+interface SpeechRecognitionResult {
+    [Symbol.iterator](): IterableIterator<SpeechRecognitionAlternative>;
+}
+
+interface SpeechRecognitionResultList {
+    [Symbol.iterator](): IterableIterator<SpeechRecognitionResult>;
+}
+
 interface StyleSheetList {
     [Symbol.iterator](): IterableIterator<StyleSheet>;
 }

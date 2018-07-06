@@ -22,43 +22,6 @@
                     }
                 }
             },
-            "HTMLOrSVGElement": {
-                "name": "HTMLOrSVGElement",
-                "properties": {
-                    "property": {
-                        "nonce": {
-                            "name": "nonce",
-                            "type": "DOMString"
-                        },
-                        "tabIndex": {
-                            "name": "tabIndex",
-                            "type": "long"
-                        },
-                        "dataset": {
-                            "name": "dataset",
-                            "read-only": 1,
-                            "type": "DOMStringMap"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "blur": {
-                            "name": "blur",
-                            "override-signatures": [
-                                "blur(): void"
-                            ]
-                        },
-                        "focus": {
-                            "name": "focus",
-                            "override-signatures": [
-                                "focus(options?: FocusOptions): void"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ParentNode": {
                 "name": "ParentNode",
                 "exposed": "Window",
@@ -1077,7 +1040,10 @@
                 "no-interface-object": "1"
             },
             "SVGElement": {
-                "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
+                "implements": [
+                    "GlobalEventHandlers",
+                    "DocumentAndElementEventHandlers"
+                ]
             },
             "Text": {
                 "name": "Text",
@@ -1820,9 +1786,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLElement": {
-                "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
-            },
             "HTMLAnchorElement": {
                 "element": [
                     {
@@ -1883,6 +1846,112 @@
                 "element": [
                     {
                         "name": "dl"
+                    }
+                ]
+            },
+            "HTMLElement": {
+                "element": [
+                    {
+                        "name": "abbr"
+                    },
+                    {
+                        "name": "address"
+                    },
+                    {
+                        "name": "article"
+                    },
+                    {
+                        "name": "aside"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "bdo"
+                    },
+                    {
+                        "name": "cite"
+                    },
+                    {
+                        "name": "code"
+                    },
+                    {
+                        "name": "dd"
+                    },
+                    {
+                        "name": "dfn"
+                    },
+                    {
+                        "name": "dt"
+                    },
+                    {
+                        "name": "em"
+                    },
+                    {
+                        "name": "figcaption"
+                    },
+                    {
+                        "name": "figure"
+                    },
+                    {
+                        "name": "footer"
+                    },
+                    {
+                        "name": "header"
+                    },
+                    {
+                        "name": "hgroup"
+                    },
+                    {
+                        "name": "i"
+                    },
+                    {
+                        "name": "kbd"
+                    },
+                    {
+                        "name": "mark"
+                    },
+                    {
+                        "name": "nav"
+                    },
+                    {
+                        "name": "noscript"
+                    },
+                    {
+                        "name": "rt"
+                    },
+                    {
+                        "name": "ruby"
+                    },
+                    {
+                        "name": "s"
+                    },
+                    {
+                        "name": "samp"
+                    },
+                    {
+                        "name": "section"
+                    },
+                    {
+                        "name": "small"
+                    },
+                    {
+                        "name": "strong"
+                    },
+                    {
+                        "name": "sub"
+                    },
+                    {
+                        "name": "sup"
+                    },
+                    {
+                        "name": "u"
+                    },
+                    {
+                        "name": "var"
+                    },
+                    {
+                        "name": "wbr"
                     }
                 ]
             },

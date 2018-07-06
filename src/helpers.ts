@@ -208,7 +208,7 @@ export function resolveExposure(obj: any, exposure: string, override?: boolean) 
         obj.exposed = exposure;
     }
     for (const key in obj) {
-        if (typeof obj[key] === "object") {
+        if (typeof obj[key] === "object" && obj[key]) {
             resolveExposure(obj[key], exposure, override);
         }
     }

@@ -215,7 +215,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
         const implementedParentsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
-        return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
+        return distinct(extendedParentWithEventHandler.concat(implementedParentsWithEventHandler));
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {

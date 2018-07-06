@@ -143,19 +143,6 @@
     "callback-interfaces": {
         "interface": {}
     },
-    "enums": {
-        "enum": {
-            "DocumentReadyState": {
-                "specs": "dom4",
-                "value": [
-                    "loading",
-                    "interactive",
-                    "complete"
-                ],
-                "name": "DocumentReadyState"
-            }
-        }
-    },
     "interfaces": {
         "interface": {
             "MediaQueryList": {
@@ -348,18 +335,9 @@
                 },
                 "properties": {
                     "property": {
-                        "readyState": {
-                            "name": "readyState",
-                            "override-type": "DocumentReadyState"
-                        },
                         "documentElement": {
                             "name": "documentElement",
                             "override-type": "HTMLElement"
-                        },
-                        "currentScript": {
-                            "name": "currentScript",
-                            "read-only": 1,
-                            "override-type": "HTMLScriptElement | SVGScriptElement | null"
                         },
                         "anchors": {
                             "name": "anchors",
@@ -816,19 +794,6 @@
                         "hidden": {
                             "name": "hidden",
                             "override-type": "any"
-                        }
-                    }
-                }
-            },
-            "HTMLElement": {
-              "implements": ["HTMLOrSVGElement"],
-                "methods": {
-                    "method": {
-                        "focus": {
-                            "name": "focus",
-                            "override-signatures": [
-                                "focus(options?: FocusOptions): void"
-                            ]
                         }
                     }
                 }

@@ -1089,7 +1089,7 @@
                         },
                         {
                             "name": "error",
-                            "type": "SpeechRecognitionErrorEvent"
+                            "type": "SpeechRecognitionError"
                         },
                         {
                             "name": "end",

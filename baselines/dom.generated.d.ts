@@ -5468,13 +5468,8 @@ declare var HTMLBaseFontElement: {
     new(): HTMLBaseFontElement;
 };
 
-interface HTMLBodyElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap, WindowEventHandlersEventMap {
-    "blur": FocusEvent;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
-    "load": Event;
+interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
     "orientationchange": Event;
-    "scroll": UIEvent;
 }
 
 interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
@@ -6058,7 +6053,7 @@ declare var HTMLFrameElement: {
     new(): HTMLFrameElement;
 };
 
-interface HTMLFrameSetElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap, WindowEventHandlersEventMap {
+interface HTMLFrameSetElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
 }
 
 interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {

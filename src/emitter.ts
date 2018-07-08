@@ -215,6 +215,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
         const implementedParentsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
+
+        if (extendedParentWithEventHandler.length > 1 && implementedParentsWithEventHandler.length === 0) {
+            return [allInterfacesMap[i.extends]];
+        }
+
         return distinct(extendedParentWithEventHandler.concat(implementedParentsWithEventHandler));
     }
 
@@ -702,14 +707,15 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         function tryEmitTypedEventHandlerForInterface(addOrRemove: string, optionsType: string) {
-            if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
+            const hasEventListener = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+            const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
+
+            if (hasEventListener || ehParentCount > 1) {
                 emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType);
                 return true;
             }
-            if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
-                iNameToEhParents[i.name]
-                    .sort(compareName)
-                    .forEach(i => emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType));
+            else if (ehParentCount === 1) {
+                emitTypedEventHandler(fPrefix, addOrRemove, iNameToEhParents[i.name][0], optionsType);
                 return true;
             }
             return false;
@@ -846,9 +852,12 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLine(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
         }
 
-        if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
+        const hasEventHandlers = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+        const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
+
+        if (hasEventHandlers || ehParentCount > 1) {
             printer.printLine(`interface ${i.name}EventMap`);
-            if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
+            if (ehParentCount) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
                 printer.print(` extends ${extend.join(", ")}`);
             }

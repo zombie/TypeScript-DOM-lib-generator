@@ -85,6 +85,13 @@
             "HTMLHRElement": {
                 "implements": null
             },
+            "HTMLIFrameElement": {
+                "properties": {
+                    "property": {
+                        "onload": null
+                    }
+                }
+            },
             "MediaQueryListListener": null,
             "MessageEvent": {
                 "methods": {

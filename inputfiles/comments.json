@@ -1069,9 +1069,6 @@
                         },
                         "longDesc": {
                             "comment": "/**\r\n     * Sets or retrieves a URI to a long description of the object.\r\n     */"
-                        },
-                        "onload": {
-                            "comment": "/**\r\n     * Raised when the object has been completely received from the server.\r\n     */"
                         }
                     }
                 }

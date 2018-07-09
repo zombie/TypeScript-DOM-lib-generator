@@ -3320,7 +3320,8 @@ interface DOMImplementation {
     createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document;
     createDocumentType(qualifiedName: string, publicId: string, systemId: string): DocumentType;
     createHTMLDocument(title?: string): Document;
-    hasFeature(feature: string | null, version: string | null): boolean;
+    /** @deprecated */
+    hasFeature(...args: any[]): true;
 }
 
 declare var DOMImplementation: {

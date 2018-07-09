@@ -1433,8 +1433,9 @@
                         "hasFeature": {
                             "name": "hasFeature",
                             "override-signatures": [
-                                "hasFeature(feature: string | null, version: string | null): boolean"
-                            ]
+                                "hasFeature(...args: any[]): true"
+                            ],
+                            "deprecated": 1
                         },
                         "createDocument": {
                             "name": "createDocument",

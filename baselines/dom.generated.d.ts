@@ -5191,7 +5191,7 @@ interface GlobalEventHandlers {
 }
 
 interface GlobalFetch {
-    fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
 interface HTMLAllCollection {
@@ -16933,7 +16933,7 @@ declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
-declare function fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 declare var caches: CacheStorage;
 declare var indexedDB: IDBFactory;
 declare var origin: string;

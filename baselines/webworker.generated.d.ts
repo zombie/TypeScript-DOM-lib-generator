@@ -1030,7 +1030,7 @@ declare var FormData: {
 };
 
 interface GlobalFetch {
-    fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
 interface Headers {
@@ -2674,7 +2674,7 @@ declare function importScripts(...urls: string[]): void;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare var console: Console;
-declare function fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 declare var caches: CacheStorage;
 declare var indexedDB: IDBFactory;
 declare var origin: string;

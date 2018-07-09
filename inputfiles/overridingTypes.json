@@ -1,6 +1,19 @@
 {
     "mixins": {
         "mixin": {
+            "GlobalFetch": {
+                "name": "GlobalFetch",
+                "methods": {
+                    "method": {
+                        "fetch": {
+                            "name": "fetch",
+                            "override-signatures": [
+                                "fetch(input: RequestInfo, init?: RequestInit): Promise<Response>"
+                            ]
+                        }
+                    }
+                }
+            },
             "Animatable": {
                 "name": "Animatable",
                 "methods": {

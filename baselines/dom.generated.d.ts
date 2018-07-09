@@ -3791,7 +3791,7 @@ interface DhKeyGenParams extends Algorithm {
     prime: Uint8Array;
 }
 
-interface DocumentEventMap extends GlobalEventHandlersEventMap {
+interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
     "abort": UIEvent;
     "activate": Event;
     "beforeactivate": Event;
@@ -3883,7 +3883,7 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap {
     "webkitfullscreenerror": Event;
 }
 
-interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent {
+interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent, DocumentAndElementEventHandlers {
     /**
      * Sets or gets the URL for the current document.
      */
@@ -3895,7 +3895,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Gets the object that has the focus when the parent document has focus.
      */
-    readonly activeElement: Element;
+    readonly activeElement: Element | null;
     /**
      * Sets or gets the color of all active links in the document.
      */
@@ -3924,7 +3924,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Specifies the beginning and end of the document body.
      */
-    body: HTMLElement;
+    body: HTMLElement | null;
     readonly characterSet: string;
     /**
      * Gets or sets the character set used to encode the object.
@@ -3934,9 +3934,28 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * Gets a value that indicates whether standards-compliant mode is switched on for the object.
      */
     readonly compatMode: string;
+    /**
+     * Returns the HTTP cookies that apply to the Document. If there are no cookies or
+     * cookies can't be applied to this resource, the empty string will be returned.
+     * Can be set, to add a new cookie to the element's set of HTTP cookies.
+     * If the contents are sandboxed into a
+     * unique origin (e.g. in an iframe with the sandbox attribute), a
+     * "SecurityError" DOMException will be thrown on getting
+     * and setting.
+     */
     cookie: string;
-    readonly currentScript: HTMLScriptElement | SVGScriptElement | null;
-    readonly defaultView: Window;
+    /**
+     * Returns the script element, or the SVG script element,
+     * that is currently executing, as long as the element represents a classic script.
+     * In the case of reentrant script execution, returns the one that most recently started executing
+     * amongst those that have not yet finished executing.
+     * Returns null if the Document is not currently executing a script
+     * or SVG script element (e.g., because the running script is an event
+     * handler, or a timeout), or if the currently executing script or SVG
+     * script element represents a module script.
+     */
+    readonly currentScript: HTMLOrSVGScriptElement | null;
+    readonly defaultView: WindowProxy | null;
     /**
      * Sets or gets a value that indicates whether the document can be edited.
      */
@@ -3972,7 +3991,10 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     readonly forms: HTMLCollectionOf<HTMLFormElement>;
     readonly fullscreenElement: Element | null;
     readonly fullscreenEnabled: boolean;
-    readonly head: HTMLHeadElement;
+    /**
+     * Returns the head element.
+     */
+    readonly head: HTMLHeadElement | null;
     readonly hidden: boolean;
     /**
      * Retrieves a collection, in source order, of img objects in the document.
@@ -4002,7 +4024,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     /**
      * Contains information about the current URL.
      */
-    location: Location;
+    location: Location | null;
     msCSSOMElementFloatMetrics: boolean;
     msCapsLockWarningOff: boolean;
     /**
@@ -4080,6 +4102,9 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
     onvisibilitychange: ((this: Document, ev: Event) => any) | null;
     onwebkitfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onwebkitfullscreenerror: ((this: Document, ev: Event) => any) | null;
+    /**
+     * Return an HTMLCollection of the embed elements in the Document.
+     */
     readonly plugins: HTMLCollectionOf<HTMLEmbedElement>;
     readonly pointerLockElement: Element;
     /**
@@ -4268,7 +4293,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * @param showUI Display the user interface, defaults to false.
      * @param value Value to assign.
      */
-    execCommand(commandId: string, showUI?: boolean, value?: any): boolean;
+    execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
     /**
      * Displays help information for the given command identifier.
      * @param commandId Displays help information for the given command identifier.
@@ -4361,12 +4386,12 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent 
      * Writes one or more HTML expressions to a document in the specified window.
      * @param content Specifies the text and HTML tags to write.
      */
-    write(...content: string[]): void;
+    write(...text: string[]): void;
     /**
      * Writes one or more HTML expressions, followed by a carriage return, to a document in the specified window.
      * @param content The text and HTML tags to write.
      */
-    writeln(...content: string[]): void;
+    writeln(...text: string[]): void;
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -4706,6 +4731,12 @@ declare var Element: {
 
 interface ElementCSSInlineStyle {
     readonly style: CSSStyleDeclaration;
+}
+
+interface ElementContentEditable {
+    contentEditable: string;
+    inputMode: string;
+    readonly isContentEditable: boolean;
 }
 
 interface ElementCreationOptions {
@@ -5433,12 +5464,7 @@ declare var HTMLBaseFontElement: {
 };
 
 interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
-    "blur": FocusEvent;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
-    "load": Event;
     "orientationchange": Event;
-    "scroll": UIEvent;
 }
 
 interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
@@ -5723,111 +5749,26 @@ declare var HTMLDocument: {
 };
 
 interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
-    "abort": UIEvent;
-    "activate": Event;
-    "beforeactivate": Event;
-    "beforecopy": Event;
-    "beforecut": Event;
-    "beforedeactivate": Event;
-    "beforepaste": Event;
-    "blur": FocusEvent;
-    "canplay": Event;
-    "canplaythrough": Event;
-    "change": Event;
-    "click": MouseEvent;
-    "contextmenu": PointerEvent;
-    "copy": ClipboardEvent;
-    "cuechange": Event;
-    "cut": ClipboardEvent;
-    "dblclick": MouseEvent;
-    "deactivate": Event;
-    "drag": DragEvent;
-    "dragend": DragEvent;
-    "dragenter": DragEvent;
-    "dragleave": DragEvent;
-    "dragover": DragEvent;
-    "dragstart": DragEvent;
-    "drop": DragEvent;
-    "durationchange": Event;
-    "emptied": Event;
-    "ended": Event;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
-    "input": Event;
-    "invalid": Event;
-    "keydown": KeyboardEvent;
-    "keypress": KeyboardEvent;
-    "keyup": KeyboardEvent;
-    "load": Event;
-    "loadeddata": Event;
-    "loadedmetadata": Event;
-    "loadstart": Event;
-    "mousedown": MouseEvent;
-    "mouseenter": MouseEvent;
-    "mouseleave": MouseEvent;
-    "mousemove": MouseEvent;
-    "mouseout": MouseEvent;
-    "mouseover": MouseEvent;
-    "mouseup": MouseEvent;
-    "mousewheel": WheelEvent;
-    "MSContentZoom": Event;
-    "MSManipulationStateChanged": Event;
-    "paste": ClipboardEvent;
-    "pause": Event;
-    "play": Event;
-    "playing": Event;
-    "progress": ProgressEvent;
-    "ratechange": Event;
-    "reset": Event;
-    "scroll": UIEvent;
-    "seeked": Event;
-    "seeking": Event;
-    "select": UIEvent;
-    "selectstart": Event;
-    "stalled": Event;
-    "submit": Event;
-    "suspend": Event;
-    "timeupdate": Event;
-    "volumechange": Event;
-    "waiting": Event;
 }
 
-interface HTMLElement extends Element, ElementCSSInlineStyle, GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement {
+interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement {
     accessKey: string;
-    contentEditable: string;
-    readonly dataset: DOMStringMap;
+    readonly accessKeyLabel: string;
+    autocapitalize: string;
     dir: string;
     draggable: boolean;
     hidden: boolean;
-    hideFocus: boolean;
     innerText: string;
-    readonly isContentEditable: boolean;
     lang: string;
     readonly offsetHeight: number;
     readonly offsetLeft: number;
     readonly offsetParent: Element | null;
     readonly offsetTop: number;
     readonly offsetWidth: number;
-    onactivate: ((this: HTMLElement, ev: Event) => any) | null;
-    onbeforeactivate: ((this: HTMLElement, ev: Event) => any) | null;
-    onbeforecopy: ((this: HTMLElement, ev: Event) => any) | null;
-    onbeforecut: ((this: HTMLElement, ev: Event) => any) | null;
-    onbeforedeactivate: ((this: HTMLElement, ev: Event) => any) | null;
-    onbeforepaste: ((this: HTMLElement, ev: Event) => any) | null;
-    ondeactivate: ((this: HTMLElement, ev: Event) => any) | null;
-    onmousewheel: ((this: HTMLElement, ev: WheelEvent) => any) | null;
-    onmscontentzoom: ((this: HTMLElement, ev: Event) => any) | null;
-    onmsmanipulationstatechanged: ((this: HTMLElement, ev: Event) => any) | null;
-    onselectstart: ((this: HTMLElement, ev: Event) => any) | null;
-    outerText: string;
     spellcheck: boolean;
-    tabIndex: number;
     title: string;
-    blur(): void;
+    translate: boolean;
     click(): void;
-    dragDrop(): boolean;
-    focus(options?: FocusOptions): void;
-    msGetInputContext(): MSInputMethodContext;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -6107,6 +6048,9 @@ declare var HTMLFrameElement: {
     new(): HTMLFrameElement;
 };
 
+interface HTMLFrameSetElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
+}
+
 interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
     /**
      * Sets or retrieves the frame widths of the object.
@@ -6118,11 +6062,9 @@ interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
      */
     /** @deprecated */
     rows: string;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLFrameSetElementEventMap>(type: K, listener: (this: HTMLFrameSetElement, ev: HTMLFrameSetElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -6222,10 +6164,6 @@ interface HTMLHyperlinkElementUtils {
     username: string;
 }
 
-interface HTMLIFrameElementEventMap extends HTMLElementEventMap {
-    "load": Event;
-}
-
 interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
     /**
      * Sets or retrieves how the object is aligned with adjacent text.
@@ -6288,9 +6226,9 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves the width of the object.
      */
     width: string;
-    addEventListener<K extends keyof HTMLIFrameElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLIFrameElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLIFrameElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLIFrameElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -10713,7 +10651,7 @@ declare var ProgressEvent: {
 };
 
 interface PromiseRejectionEvent extends Event {
-    readonly promise: PromiseLike<any>;
+    readonly promise: Promise<any>;
     readonly reason: any;
 }
 
@@ -16507,7 +16445,6 @@ interface WritableStreamErrorCallback {
 interface HTMLElementTagNameMap {
     "a": HTMLAnchorElement;
     "abbr": HTMLElement;
-    "acronym": HTMLElement;
     "address": HTMLElement;
     "applet": HTMLAppletElement;
     "area": HTMLAreaElement;
@@ -16518,14 +16455,12 @@ interface HTMLElementTagNameMap {
     "base": HTMLBaseElement;
     "basefont": HTMLBaseFontElement;
     "bdo": HTMLElement;
-    "big": HTMLElement;
     "blockquote": HTMLQuoteElement;
     "body": HTMLBodyElement;
     "br": HTMLBRElement;
     "button": HTMLButtonElement;
     "canvas": HTMLCanvasElement;
     "caption": HTMLTableCaptionElement;
-    "center": HTMLElement;
     "cite": HTMLElement;
     "code": HTMLElement;
     "col": HTMLTableColElement;
@@ -16566,9 +16501,7 @@ interface HTMLElementTagNameMap {
     "img": HTMLImageElement;
     "input": HTMLInputElement;
     "ins": HTMLModElement;
-    "isindex": HTMLUnknownElement;
     "kbd": HTMLElement;
-    "keygen": HTMLElement;
     "label": HTMLLabelElement;
     "legend": HTMLLegendElement;
     "li": HTMLLIElement;
@@ -16580,9 +16513,6 @@ interface HTMLElementTagNameMap {
     "meta": HTMLMetaElement;
     "meter": HTMLMeterElement;
     "nav": HTMLElement;
-    "nextid": HTMLUnknownElement;
-    "nobr": HTMLElement;
-    "noframes": HTMLElement;
     "noscript": HTMLElement;
     "object": HTMLObjectElement;
     "ol": HTMLOListElement;
@@ -16592,7 +16522,6 @@ interface HTMLElementTagNameMap {
     "p": HTMLParagraphElement;
     "param": HTMLParamElement;
     "picture": HTMLPictureElement;
-    "plaintext": HTMLElement;
     "pre": HTMLPreElement;
     "progress": HTMLProgressElement;
     "q": HTMLQuoteElement;
@@ -16607,7 +16536,6 @@ interface HTMLElementTagNameMap {
     "small": HTMLElement;
     "source": HTMLSourceElement;
     "span": HTMLSpanElement;
-    "strike": HTMLElement;
     "strong": HTMLElement;
     "style": HTMLStyleElement;
     "sub": HTMLElement;
@@ -16624,7 +16552,6 @@ interface HTMLElementTagNameMap {
     "title": HTMLTitleElement;
     "tr": HTMLTableRowElement;
     "track": HTMLTrackElement;
-    "tt": HTMLElement;
     "u": HTMLElement;
     "ul": HTMLUListElement;
     "var": HTMLElement;
@@ -16961,6 +16888,7 @@ type RenderingContext = CanvasRenderingContext2D | ImageBitmapRenderingContext |
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
+type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;

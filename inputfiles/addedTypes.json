@@ -22,43 +22,6 @@
                     }
                 }
             },
-            "HTMLOrSVGElement": {
-                "name": "HTMLOrSVGElement",
-                "properties": {
-                    "property": {
-                        "nonce": {
-                            "name": "nonce",
-                            "type": "DOMString"
-                        },
-                        "tabIndex": {
-                            "name": "tabIndex",
-                            "type": "long"
-                        },
-                        "dataset": {
-                            "name": "dataset",
-                            "read-only": 1,
-                            "type": "DOMStringMap"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "blur": {
-                            "name": "blur",
-                            "override-signatures": [
-                                "blur(): void"
-                            ]
-                        },
-                        "focus": {
-                            "name": "focus",
-                            "override-signatures": [
-                                "focus(options?: FocusOptions): void"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ParentNode": {
                 "name": "ParentNode",
                 "exposed": "Window",
@@ -1133,7 +1096,10 @@
                 }
             },
             "SVGElement": {
-                "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
+                "implements": [
+                    "GlobalEventHandlers",
+                    "DocumentAndElementEventHandlers"
+                ]
             },
             "Text": {
                 "name": "Text",
@@ -1182,30 +1148,6 @@
                     }
                 },
                 "no-interface-object": "1"
-            },
-            "PromiseRejectionEvent": {
-                "name": "PromiseRejectionEvent",
-                "extends": "Event",
-                "exposed": "Window Worker",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent"
-                    ]
-                },
-                "properties": {
-                    "property": {
-                        "promise": {
-                            "name": "promise",
-                            "read-only": 1,
-                            "override-type": "PromiseLike<any>"
-                        },
-                        "reason": {
-                            "name": "reason",
-                            "read-only": 1,
-                            "override-type": "any"
-                        }
-                    }
-                }
             },
             "HTMLMainElement": {
                 "name": "HTMLMainElement",
@@ -1876,9 +1818,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLElement": {
-                "implements": ["GlobalEventHandlers", "DocumentAndElementEventHandlers"]
-            },
             "HTMLAnchorElement": {
                 "element": [
                     {
@@ -1939,6 +1878,112 @@
                 "element": [
                     {
                         "name": "dl"
+                    }
+                ]
+            },
+            "HTMLElement": {
+                "element": [
+                    {
+                        "name": "abbr"
+                    },
+                    {
+                        "name": "address"
+                    },
+                    {
+                        "name": "article"
+                    },
+                    {
+                        "name": "aside"
+                    },
+                    {
+                        "name": "b"
+                    },
+                    {
+                        "name": "bdo"
+                    },
+                    {
+                        "name": "cite"
+                    },
+                    {
+                        "name": "code"
+                    },
+                    {
+                        "name": "dd"
+                    },
+                    {
+                        "name": "dfn"
+                    },
+                    {
+                        "name": "dt"
+                    },
+                    {
+                        "name": "em"
+                    },
+                    {
+                        "name": "figcaption"
+                    },
+                    {
+                        "name": "figure"
+                    },
+                    {
+                        "name": "footer"
+                    },
+                    {
+                        "name": "header"
+                    },
+                    {
+                        "name": "hgroup"
+                    },
+                    {
+                        "name": "i"
+                    },
+                    {
+                        "name": "kbd"
+                    },
+                    {
+                        "name": "mark"
+                    },
+                    {
+                        "name": "nav"
+                    },
+                    {
+                        "name": "noscript"
+                    },
+                    {
+                        "name": "rt"
+                    },
+                    {
+                        "name": "ruby"
+                    },
+                    {
+                        "name": "s"
+                    },
+                    {
+                        "name": "samp"
+                    },
+                    {
+                        "name": "section"
+                    },
+                    {
+                        "name": "small"
+                    },
+                    {
+                        "name": "strong"
+                    },
+                    {
+                        "name": "sub"
+                    },
+                    {
+                        "name": "sup"
+                    },
+                    {
+                        "name": "u"
+                    },
+                    {
+                        "name": "var"
+                    },
+                    {
+                        "name": "wbr"
                     }
                 ]
             },
@@ -2332,23 +2377,6 @@
                             "name": "composed",
                             "override-type": "boolean",
                             "required": 0
-                        }
-                    }
-                }
-            },
-            "PromiseRejectionEventInit": {
-                "name": "PromiseRejectionEventInit",
-                "extends": "EventInit",
-                "members": {
-                    "member": {
-                        "promise": {
-                            "name": "promise",
-                            "override-type": "Promise<any>",
-                            "required": 1
-                        },
-                        "reason": {
-                            "name": "reason",
-                            "override-type": "any"
                         }
                     }
                 }

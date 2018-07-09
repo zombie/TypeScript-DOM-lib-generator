@@ -42,7 +42,6 @@
         "Keyframe",
         "MutationRecordType",
         "Pbkdf2Params",
-        "PromiseRejectionEventInit",
         "PropertyIndexedKeyframes",
         "RTCAnswerOptions",
         "RTCCertificateExpiration",
@@ -78,13 +77,11 @@
         "RsaKeyGenParams",
         "RsaOaepParams",
         "RsaPssParams",
-        "VideoFacingModeEnum",
-        "WindowOrWorkerGlobalScope"
+        "VideoFacingModeEnum"
     ],
     "Worker": [
         "ClientTypes",
         "IDBArrayKey",
-        "IDBValidKey",
-        "PromiseRejectionEventInit"
+        "IDBValidKey"
     ]
 }

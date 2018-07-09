@@ -61,7 +61,12 @@
             "HTMLBodyElement": {
                 "properties": {
                     "property": {
-                        "onresize": null
+                        "onblur": null,
+                        "onerror": null,
+                        "onfocus": null,
+                        "onload": null,
+                        "onresize": null,
+                        "onscroll": null
                     }
                 }
             },
@@ -84,6 +89,13 @@
             },
             "HTMLHRElement": {
                 "implements": null
+            },
+            "HTMLIFrameElement": {
+                "properties": {
+                    "property": {
+                        "onload": null
+                    }
+                }
             },
             "MediaQueryListListener": null,
             "MessageEvent": {

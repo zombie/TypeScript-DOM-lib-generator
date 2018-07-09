@@ -187,7 +187,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                     }
                     else if (e.deprecated) {
                         htmlDeprecatedResult[e.name] = i.name;
-                    } 
+                    }
                     else {
                         htmlResult[e.name] = i.name;
                     }
@@ -210,12 +210,21 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function getParentsWithEventHandler(i: Browser.Interface) {
         function getParentEventHandler(i: Browser.Interface): Browser.Interface[] {
-            return iNameToEhList[i.name] && iNameToEhList[i.name].length ? [i] : getParentsWithEventHandler(i);
+            const hasEventListener = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+            if (hasEventListener) {
+                return [i];
+            }
+            const ehParents = getParentsWithEventHandler(i);
+            if (ehParents.length > 1) {
+                return [i];
+            }
+            return ehParents;
         }
 
         const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
         const implementedParentsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
-        return extendedParentWithEventHandler.concat(implementedParentsWithEventHandler);
+
+        return distinct(extendedParentWithEventHandler.concat(implementedParentsWithEventHandler));
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
@@ -702,14 +711,15 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         function tryEmitTypedEventHandlerForInterface(addOrRemove: string, optionsType: string) {
-            if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
+            const hasEventListener = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+            const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
+
+            if (hasEventListener || ehParentCount > 1) {
                 emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType);
                 return true;
             }
-            if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
-                iNameToEhParents[i.name]
-                    .sort(compareName)
-                    .forEach(i => emitTypedEventHandler(fPrefix, addOrRemove, i, optionsType));
+            else if (ehParentCount === 1) {
+                emitTypedEventHandler(fPrefix, addOrRemove, iNameToEhParents[i.name][0], optionsType);
                 return true;
             }
             return false;
@@ -846,9 +856,12 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLine(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
         }
 
-        if (iNameToEhList[i.name] && iNameToEhList[i.name].length) {
+        const hasEventHandlers = iNameToEhList[i.name] && iNameToEhList[i.name].length;
+        const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
+
+        if (hasEventHandlers || ehParentCount > 1) {
             printer.printLine(`interface ${i.name}EventMap`);
-            if (iNameToEhParents[i.name] && iNameToEhParents[i.name].length) {
+            if (ehParentCount) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
                 printer.print(` extends ${extend.join(", ")}`);
             }
@@ -1074,7 +1087,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 const iterableGetter = findIterableGetter();
                 const lengthProperty = findLengthProperty(i) || findLengthProperty(allInterfacesMap[i.extends]);
                 if (iterableGetter && lengthProperty) {
-                    return [convertDomTypeToTsType({ 
+                    return [convertDomTypeToTsType({
                         type: iterableGetter.signature[0].type,
                         "override-type": iterableGetter.signature[0]["override-type"]
                     })];
@@ -1115,7 +1128,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 if (comments && comments[m.name]) {
                     printer.printLine(comments[m.name]);
                 }
-                printer.printLine(`${ m.name }(): ${ m.definition };`);
+                printer.printLine(`${m.name}(): ${m.definition};`);
             });
         }
 

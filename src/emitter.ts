@@ -221,7 +221,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return ehParents;
         }
 
-        const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
+        const iExtends = i.extends && i.extends.replace(/<.*>$/, '');
+        const extendedParentWithEventHandler = allInterfacesMap[iExtends] && getParentEventHandler(allInterfacesMap[iExtends]) || [];
         const implementedParentsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
 
         return distinct(extendedParentWithEventHandler.concat(implementedParentsWithEventHandler));
@@ -338,6 +339,15 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     function convertDomTypeToNullableTsType(obj: Browser.Typed) {
         const resolvedType = convertDomTypeToTsType(obj);
         return obj.nullable ? makeNullable(resolvedType) : resolvedType;
+    }
+
+    function nameWithForwardedTypes (i: Browser.Interface) {
+        const typeParameters = i["type-parameters"];
+
+        if (!typeParameters) return i.name;
+        if (!typeParameters.length) return i.name;
+
+        return `${i.name}<${typeParameters.map(t => t.replace(/\s+=.*$/, ''))}>`;
     }
 
     function emitConstant(c: Browser.Constant) {
@@ -520,7 +530,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitEventHandlerThis(prefix: string, i: Browser.Interface) {
         if (prefix === "") {
-            return `this: ${i.name}, `;
+            return `this: ${nameWithForwardedTypes(i)}, `;
         }
         else {
             return pollutor ? `this: ${pollutor.name}, ` : "";
@@ -707,7 +717,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return;
 
         function emitTypedEventHandler(prefix: string, addOrRemove: string, iParent: Browser.Interface, optionsType: string) {
-            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${i.name}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${optionsType}): void;`);
+            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${nameWithForwardedTypes(i)}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${optionsType}): void;`);
         }
 
         function tryEmitTypedEventHandlerForInterface(addOrRemove: string, optionsType: string) {

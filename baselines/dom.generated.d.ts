@@ -11679,14 +11679,8 @@ declare var SVGElement: {
 };
 
 interface SVGElementInstance extends EventTarget {
-    readonly childNodes: SVGElementInstanceList;
     readonly correspondingElement: SVGElement;
     readonly correspondingUseElement: SVGUseElement;
-    readonly firstChild: SVGElementInstance;
-    readonly lastChild: SVGElementInstance;
-    readonly nextSibling: SVGElementInstance;
-    readonly parentNode: SVGElementInstance;
-    readonly previousSibling: SVGElementInstance;
 }
 
 declare var SVGElementInstance: {

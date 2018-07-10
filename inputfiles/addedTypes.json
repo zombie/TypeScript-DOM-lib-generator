@@ -715,6 +715,7 @@
             },
             "IDBOpenDBRequest": {
                 "name": "IDBOpenDBRequest",
+                "extends": "IDBRequest<IDBDatabase>",
                 "events": {
                     "event": [
                         {

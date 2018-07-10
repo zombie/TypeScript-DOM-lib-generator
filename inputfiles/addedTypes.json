@@ -183,6 +183,16 @@
     },
     "interfaces": {
         "interface": {
+            "AbortSignal": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "abort",
+                            "type": "ProgressEvent"
+                        }
+                    ]
+                }
+            },
             "ApplicationCache": {
                 "events": {
                     "event": [

@@ -195,6 +195,10 @@
         "title": "Storage"
     },
     {
+        "url": "https://svgwg.org/svg2-draft/types.html",
+        "title": "SVG - Basic Data Types and Interfaces"
+    },
+    {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
     },

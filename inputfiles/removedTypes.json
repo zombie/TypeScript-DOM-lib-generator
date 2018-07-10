@@ -125,6 +125,18 @@
                     }
                 }
             },
+            "SVGElementInstance": {
+                "properties": {
+                    "property": {
+                        "childNodes": null,
+                        "firstChild": null,
+                        "lastChild": null,
+                        "nextSibling": null,
+                        "parentNode": null,
+                        "previousSibling": null
+                    }
+                }
+            },
             "SVGSVGElement": {
                 "properties": {
                     "property": {

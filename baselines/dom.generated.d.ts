@@ -1377,6 +1377,13 @@ interface RsaPssParams extends Algorithm {
     saltLength: number;
 }
 
+interface SVGBoundingBoxOptions {
+    clipped?: boolean;
+    fill?: boolean;
+    markers?: boolean;
+    stroke?: boolean;
+}
+
 interface ScopedCredentialDescriptor {
     id: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null;
     transports?: Transport[];
@@ -4729,10 +4736,6 @@ declare var Element: {
     prototype: Element;
     new(): Element;
 };
-
-interface ElementCSSInlineStyle {
-    readonly style: CSSStyleDeclaration;
-}
 
 interface ElementContentEditable {
     contentEditable: string;
@@ -11544,8 +11547,8 @@ declare var SVGAnimatedPreserveAspectRatio: {
 };
 
 interface SVGAnimatedRect {
-    readonly animVal: SVGRect;
-    readonly baseVal: SVGRect;
+    readonly animVal: DOMRectReadOnly;
+    readonly baseVal: DOMRect;
 }
 
 declare var SVGAnimatedRect: {
@@ -11657,27 +11660,13 @@ declare var SVGDescElement: {
 };
 
 interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
-    "click": MouseEvent;
-    "dblclick": MouseEvent;
-    "focusin": FocusEvent;
-    "focusout": FocusEvent;
-    "load": Event;
-    "mousedown": MouseEvent;
-    "mousemove": MouseEvent;
-    "mouseout": MouseEvent;
-    "mouseover": MouseEvent;
-    "mouseup": MouseEvent;
 }
 
-interface SVGElement extends Element, ElementCSSInlineStyle, GlobalEventHandlers, DocumentAndElementEventHandlers {
+interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, SVGElementInstance, HTMLOrSVGElement {
     /** @deprecated */
     readonly className: any;
-    onfocusin: ((this: SVGElement, ev: FocusEvent) => any) | null;
-    onfocusout: ((this: SVGElement, ev: FocusEvent) => any) | null;
     readonly ownerSVGElement: SVGSVGElement | null;
     readonly viewportElement: SVGElement | null;
-    /** @deprecated */
-    xmlbase: string;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -11690,14 +11679,8 @@ declare var SVGElement: {
 };
 
 interface SVGElementInstance extends EventTarget {
-    readonly childNodes: SVGElementInstanceList;
     readonly correspondingElement: SVGElement;
     readonly correspondingUseElement: SVGUseElement;
-    readonly firstChild: SVGElementInstance;
-    readonly lastChild: SVGElementInstance;
-    readonly nextSibling: SVGElementInstance;
-    readonly parentNode: SVGElementInstance;
-    readonly previousSibling: SVGElementInstance;
 }
 
 declare var SVGElementInstance: {
@@ -12255,6 +12238,23 @@ declare var SVGGElement: {
     new(): SVGGElement;
 };
 
+interface SVGGeometryElement extends SVGGraphicsElement {
+    readonly pathLength: SVGAnimatedNumber;
+    getPointAtLength(distance: number): DOMPoint;
+    getTotalLength(): number;
+    isPointInFill(point?: DOMPointInit): boolean;
+    isPointInStroke(point?: DOMPointInit): boolean;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGGeometryElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGGeometryElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGGeometryElement: {
+    prototype: SVGGeometryElement;
+    new(): SVGGeometryElement;
+};
+
 interface SVGGradientElement extends SVGElement, SVGUnitTypes, SVGURIReference {
     readonly gradientTransform: SVGAnimatedTransformList;
     readonly gradientUnits: SVGAnimatedEnumeration;
@@ -12279,16 +12279,10 @@ declare var SVGGradientElement: {
 };
 
 interface SVGGraphicsElement extends SVGElement, SVGTests {
-    /** @deprecated */
-    readonly farthestViewportElement: SVGElement | null;
-    /** @deprecated */
-    readonly nearestViewportElement: SVGElement | null;
     readonly transform: SVGAnimatedTransformList;
-    getBBox(): SVGRect;
-    getCTM(): SVGMatrix | null;
-    getScreenCTM(): SVGMatrix | null;
-    /** @deprecated */
-    getTransformToElement(element: SVGElement): SVGMatrix;
+    getBBox(options?: SVGBoundingBoxOptions): DOMRect;
+    getCTM(): DOMMatrix | null;
+    getScreenCTM(): DOMMatrix | null;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGGraphicsElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGGraphicsElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -12354,6 +12348,7 @@ declare var SVGLength: {
 };
 
 interface SVGLengthList {
+    readonly length: number;
     readonly numberOfItems: number;
     appendItem(newItem: SVGLength): SVGLength;
     clear(): void;
@@ -12362,6 +12357,7 @@ interface SVGLengthList {
     insertItemBefore(newItem: SVGLength, index: number): SVGLength;
     removeItem(index: number): SVGLength;
     replaceItem(newItem: SVGLength, index: number): SVGLength;
+    [index: number]: SVGLength;
 }
 
 declare var SVGLengthList: {
@@ -12474,6 +12470,7 @@ declare var SVGNumber: {
 };
 
 interface SVGNumberList {
+    readonly length: number;
     readonly numberOfItems: number;
     appendItem(newItem: SVGNumber): SVGNumber;
     clear(): void;
@@ -12482,6 +12479,7 @@ interface SVGNumberList {
     insertItemBefore(newItem: SVGNumber, index: number): SVGNumber;
     removeItem(index: number): SVGNumber;
     replaceItem(newItem: SVGNumber, index: number): SVGNumber;
+    [index: number]: SVGNumber;
 }
 
 declare var SVGNumberList: {
@@ -13050,6 +13048,7 @@ declare var SVGStopElement: {
 };
 
 interface SVGStringList {
+    readonly length: number;
     readonly numberOfItems: number;
     appendItem(newItem: string): string;
     clear(): void;
@@ -13058,6 +13057,7 @@ interface SVGStringList {
     insertItemBefore(newItem: string, index: number): string;
     removeItem(index: number): string;
     replaceItem(newItem: string, index: number): string;
+    [index: number]: string;
 }
 
 declare var SVGStringList: {
@@ -13119,11 +13119,7 @@ declare var SVGTSpanElement: {
 
 interface SVGTests {
     readonly requiredExtensions: SVGStringList;
-    /** @deprecated */
-    readonly requiredFeatures: SVGStringList;
     readonly systemLanguage: SVGStringList;
-    /** @deprecated */
-    hasExtension(extension: string): boolean;
 }
 
 interface SVGTextContentElement extends SVGGraphicsElement {
@@ -13281,7 +13277,14 @@ interface SVGUnitTypes {
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
     readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 }
-declare var SVGUnitTypes: SVGUnitTypes;
+
+declare var SVGUnitTypes: {
+    prototype: SVGUnitTypes;
+    new(): SVGUnitTypes;
+    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
+    readonly SVG_UNIT_TYPE_UNKNOWN: number;
+    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
+};
 
 interface SVGUseElement extends SVGGraphicsElement, SVGURIReference {
     readonly animatedInstanceRoot: SVGElementInstance | null;

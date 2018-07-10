@@ -148,6 +148,18 @@ interface PluginArray {
 interface RTCStatsReport extends ReadonlyMap<string, any> {
 }
 
+interface SVGLengthList {
+    [Symbol.iterator](): IterableIterator<SVGLength>;
+}
+
+interface SVGNumberList {
+    [Symbol.iterator](): IterableIterator<SVGNumber>;
+}
+
+interface SVGStringList {
+    [Symbol.iterator](): IterableIterator<string>;
+}
+
 interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>;
 }

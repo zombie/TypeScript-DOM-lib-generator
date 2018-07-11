@@ -33,6 +33,10 @@ interface CloseEventInit extends EventInit {
     wasClean?: boolean;
 }
 
+interface CustomEventInit<T = any> extends EventInit {
+    detail?: T;
+}
+
 interface DOMMatrix2DInit {
     a?: number;
     b?: number;
@@ -275,11 +279,32 @@ interface EventListener {
     (evt: Event): void;
 }
 
+interface AbortController {
+    /**
+     * Returns the AbortSignal object associated with this object.
+     */
+    readonly signal: AbortSignal;
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and
+     * signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}
+
+declare var AbortController: {
+    prototype: AbortController;
+    new(): AbortController;
+};
+
 interface AbortSignalEventMap {
     "abort": ProgressEvent;
 }
 
 interface AbortSignal extends EventTarget {
+    /**
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false
+     * otherwise.
+     */
     readonly aborted: boolean;
     onabort: ((this: AbortSignal, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -528,6 +553,20 @@ interface CryptoKey {
 declare var CryptoKey: {
     prototype: CryptoKey;
     new(): CryptoKey;
+};
+
+interface CustomEvent<T = any> extends Event {
+    /**
+     * Returns any custom data event was created with.
+     * Typically used for synthetic events.
+     */
+    readonly detail: T;
+    initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
+}
+
+declare var CustomEvent: {
+    prototype: CustomEvent;
+    new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
 };
 
 interface DOMException {
@@ -835,22 +874,56 @@ declare var ErrorEvent: {
 };
 
 interface Event {
+    /**
+     * Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise.
+     */
     readonly bubbles: boolean;
     cancelBubble: boolean;
     readonly cancelable: boolean;
+    /**
+     * Returns true or false depending on how event was initialized. True if event invokes listeners past a ShadowRoot node that is the root of its target, and false otherwise.
+     */
     readonly composed: boolean;
+    /**
+     * Returns the object whose event listener's callback is currently being
+     * invoked.
+     */
     readonly currentTarget: EventTarget | null;
     readonly defaultPrevented: boolean;
     readonly eventPhase: number;
+    /**
+     * Returns true if event was dispatched by the user agent, and
+     * false otherwise.
+     */
     readonly isTrusted: boolean;
     returnValue: boolean;
+    /**
+     * Returns the object to which event is dispatched (its target).
+     */
     readonly target: EventTarget | null;
+    /**
+     * Returns the event's timestamp as the number of milliseconds measured relative to
+     * the time origin.
+     */
     readonly timeStamp: number;
+    /**
+     * Returns the type of event, e.g.
+     * "click", "hashchange", or
+     * "submit".
+     */
     readonly type: string;
     composedPath(): EventTarget[];
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
     preventDefault(): void;
+    /**
+     * Invoking this method prevents event from reaching
+     * any registered event listeners after the current one finishes running and, when dispatched in a tree, also prevents event from reaching any
+     * other objects.
+     */
     stopImmediatePropagation(): void;
+    /**
+     * When dispatched in a tree, invoking this method prevents event from reaching any objects other than the current object.
+     */
     stopPropagation(): void;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
@@ -860,7 +933,7 @@ interface Event {
 
 declare var Event: {
     prototype: Event;
-    new(typeArg: string, eventInitDict?: EventInit): Event;
+    new(type: string, eventInitDict?: EventInit): Event;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
     readonly CAPTURING_PHASE: number;
@@ -894,9 +967,26 @@ interface EventSourceInit {
 }
 
 interface EventTarget {
+    /**
+     * Appends an event listener for events whose type attribute value is type. The callback argument sets the callback that will be invoked when the event is dispatched.
+     * The options argument sets listener-specific options. For compatibility this can be a
+     * boolean, in which case the method behaves exactly as if the value was specified as options's capture.
+     * When set to true, options's capture prevents callback from being invoked when the event's eventPhase attribute value is BUBBLING_PHASE. When false (or not present), callback will not be invoked when event's eventPhase attribute value is CAPTURING_PHASE. Either way, callback will be invoked if event's eventPhase attribute value is AT_TARGET.
+     * When set to true, options's passive indicates that the callback will not cancel the event by invoking preventDefault(). This is used to enable performance optimizations described in §2.8 Observing event listeners.
+     * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will
+     * be removed.
+     * The event listener is appended to target's event listener list and is not appended if it has the same type, callback, and capture.
+     */
     addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
-    dispatchEvent(evt: Event): boolean;
-    removeEventListener(type: string, listener?: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+    /**
+     * Dispatches a synthetic event event to target and returns true
+     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+     */
+    dispatchEvent(event: Event): boolean;
+    /**
+     * Removes the event listener in target's event listener list with the same type, callback, and options.
+     */
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
 }
 
 declare var EventTarget: {
@@ -2658,7 +2748,11 @@ interface PerformanceObserverCallback {
 declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
 declare function close(): void;
 declare function postMessage(message: any, transfer?: any[]): void;
-declare function dispatchEvent(evt: Event): boolean;
+/**
+     * Dispatches a synthetic event event to target and returns true
+     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+     */
+declare function dispatchEvent(event: Event): boolean;
 declare var caches: CacheStorage;
 declare var isSecureContext: boolean;
 declare var location: WorkerLocation;
@@ -2666,7 +2760,11 @@ declare var onerror: ((this: DedicatedWorkerGlobalScope, ev: ErrorEvent) => any)
 declare var performance: Performance;
 declare var self: WorkerGlobalScope;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
-declare function dispatchEvent(evt: Event): boolean;
+/**
+     * Dispatches a synthetic event event to target and returns true
+     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+     */
+declare function dispatchEvent(event: Event): boolean;
 declare var indexedDB: IDBFactory;
 declare var msIndexedDB: IDBFactory;
 declare var navigator: WorkerNavigator;

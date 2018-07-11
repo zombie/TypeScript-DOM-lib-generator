@@ -469,6 +469,10 @@ interface GetNotificationOptions {
     tag?: string;
 }
 
+interface GetRootNodeOptions {
+    composed?: boolean;
+}
+
 interface HashChangeEventInit extends EventInit {
     newURL?: string;
     oldURL?: string;
@@ -720,15 +724,6 @@ interface MouseEventInit extends EventModifierInit {
     relatedTarget?: EventTarget | null;
     screenX?: number;
     screenY?: number;
-}
-
-interface MsZoomToOptions {
-    animate?: string;
-    contentX?: number;
-    contentY?: number;
-    scaleFactor?: number;
-    viewportX?: string | null;
-    viewportY?: string | null;
 }
 
 interface MutationObserverInit {
@@ -1587,7 +1582,14 @@ declare var ANGLE_instanced_arrays: {
 };
 
 interface AbortController {
+    /**
+     * Returns the AbortSignal object associated with this object.
+     */
     readonly signal: AbortSignal;
+    /**
+     * Invoking this method will set this object's AbortSignal's aborted flag and
+     * signal to any observers that the associated activity is to be aborted.
+     */
     abort(): void;
 }
 
@@ -1601,6 +1603,10 @@ interface AbortSignalEventMap {
 }
 
 interface AbortSignal extends EventTarget {
+    /**
+     * Returns true if this AbortSignal's AbortController has signaled to abort, and false
+     * otherwise.
+     */
     readonly aborted: boolean;
     onabort: ((this: AbortSignal, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1612,6 +1618,19 @@ interface AbortSignal extends EventTarget {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
+};
+
+interface AbstractRange {
+    readonly collapsed: boolean;
+    readonly endContainer: Node;
+    readonly endOffset: number;
+    readonly startContainer: Node;
+    readonly startOffset: number;
+}
+
+declare var AbstractRange: {
+    prototype: AbstractRange;
+    new(): AbstractRange;
 };
 
 interface AbstractWorkerEventMap {
@@ -1792,7 +1811,9 @@ declare var ApplicationCache: {
 };
 
 interface Attr extends Node {
+    readonly localName: string;
     readonly name: string;
+    readonly namespaceURI: string | null;
     readonly ownerElement: Element | null;
     readonly prefix: string | null;
     readonly specified: boolean;
@@ -3014,13 +3035,13 @@ declare var ChannelSplitterNode: {
     new(context: BaseAudioContext, options?: ChannelSplitterOptions): ChannelSplitterNode;
 };
 
-interface CharacterData extends Node, ChildNode {
+interface CharacterData extends Node, NonDocumentTypeChildNode, ChildNode {
     data: string;
     readonly length: number;
-    appendData(arg: string): void;
+    appendData(data: string): void;
     deleteData(offset: number, count: number): void;
-    insertData(offset: number, arg: string): void;
-    replaceData(offset: number, count: number, arg: string): void;
+    insertData(offset: number, data: string): void;
+    replaceData(offset: number, count: number, data: string): void;
     substringData(offset: number, count: number): string;
 }
 
@@ -3030,7 +3051,28 @@ declare var CharacterData: {
 };
 
 interface ChildNode {
+    /**
+     * Inserts nodes just after node, while replacing strings in nodes with equivalent Text nodes.
+     * Throws a "HierarchyRequestError" DOMException if the constraints of
+     * the node tree are violated.
+     */
+    after(...nodes: (Node | string)[]): void;
+    /**
+     * Inserts nodes just before node, while replacing strings in nodes with equivalent Text nodes.
+     * Throws a "HierarchyRequestError" DOMException if the constraints of
+     * the node tree are violated.
+     */
+    before(...nodes: (Node | string)[]): void;
+    /**
+     * Removes node.
+     */
     remove(): void;
+    /**
+     * Replaces node with nodes, while replacing strings in nodes with equivalent Text nodes.
+     * Throws a "HierarchyRequestError" DOMException if the constraints of
+     * the node tree are violated.
+     */
+    replaceWith(...nodes: (Node | string)[]): void;
 }
 
 interface ClientRect {
@@ -3086,7 +3128,6 @@ declare var CloseEvent: {
 };
 
 interface Comment extends CharacterData {
-    text: string;
 }
 
 declare var Comment: {
@@ -3235,6 +3276,10 @@ declare var CustomElementRegistry: {
 };
 
 interface CustomEvent<T = any> extends Event {
+    /**
+     * Returns any custom data event was created with.
+     * Typically used for synthetic events.
+     */
     readonly detail: T;
     initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
 }
@@ -3576,14 +3621,56 @@ declare var DOMStringMap: {
 };
 
 interface DOMTokenList {
+    /**
+     * Returns the number of tokens.
+     */
     readonly length: number;
+    /**
+     * Returns the associated set as string.
+     * Can be set, to change the associated attribute.
+     */
+    value: string;
+    /**
+     * Adds all arguments passed, except those already present.
+     * Throws a "SyntaxError" DOMException if one of the arguments is the empty
+     * string.
+     * Throws an "InvalidCharacterError" DOMException if one of the arguments
+     * contains any ASCII whitespace.
+     */
     add(...tokens: string[]): void;
+    /**
+     * Returns true if token is present, and false otherwise.
+     */
     contains(token: string): boolean;
+    /**
+     * tokenlist[index]
+     */
     item(index: number): string | null;
+    /**
+     * Removes arguments passed, if they are present.
+     * Throws a "SyntaxError" DOMException if one of the arguments is the empty
+     * string.
+     * Throws an "InvalidCharacterError" DOMException if one of the arguments
+     * contains any ASCII whitespace.
+     */
     remove(...tokens: string[]): void;
+    /**
+     * Replaces token with newToken.
+     * Returns true if token was replaced with newToken, and false otherwise.
+     * Throws a "SyntaxError" DOMException if one of the arguments is the empty
+     * string.
+     * Throws an "InvalidCharacterError" DOMException if one of the arguments
+     * contains any ASCII whitespace.
+     */
     replace(oldToken: string, newToken: string): void;
-    toString(): string;
+    /**
+     * Returns true if token is in the associated attribute's supported tokens. Returns
+     * false otherwise.
+     * Throws a TypeError if the associated attribute has no supported tokens defined.
+     */
+    supports(token: string): boolean;
     toggle(token: string, force?: boolean): boolean;
+    forEach(callbackfn: (value: string, key: number, parent: DOMTokenList) => void, thisArg?: any): void;
     [index: number]: string;
 }
 
@@ -3800,106 +3887,15 @@ interface DhKeyGenParams extends Algorithm {
 }
 
 interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
-    "abort": UIEvent;
-    "activate": Event;
-    "beforeactivate": Event;
-    "beforedeactivate": Event;
-    "blur": FocusEvent;
-    "canplay": Event;
-    "canplaythrough": Event;
-    "change": Event;
-    "click": MouseEvent;
-    "contextmenu": PointerEvent;
-    "dblclick": MouseEvent;
-    "deactivate": Event;
-    "drag": DragEvent;
-    "dragend": DragEvent;
-    "dragenter": DragEvent;
-    "dragleave": DragEvent;
-    "dragover": DragEvent;
-    "dragstart": DragEvent;
-    "drop": DragEvent;
-    "durationchange": Event;
-    "emptied": Event;
-    "ended": Event;
-    "error": ErrorEvent;
-    "focus": FocusEvent;
-    "fullscreenchange": Event;
-    "fullscreenerror": Event;
-    "input": Event;
-    "invalid": Event;
-    "keydown": KeyboardEvent;
-    "keypress": KeyboardEvent;
-    "keyup": KeyboardEvent;
-    "load": Event;
-    "loadeddata": Event;
-    "loadedmetadata": Event;
-    "loadstart": Event;
-    "mousedown": MouseEvent;
-    "mousemove": MouseEvent;
-    "mouseout": MouseEvent;
-    "mouseover": MouseEvent;
-    "mouseup": MouseEvent;
-    "mousewheel": WheelEvent;
-    "MSContentZoom": Event;
-    "MSGestureChange": Event;
-    "MSGestureDoubleTap": Event;
-    "MSGestureEnd": Event;
-    "MSGestureHold": Event;
-    "MSGestureStart": Event;
-    "MSGestureTap": Event;
-    "MSInertiaStart": Event;
-    "MSManipulationStateChanged": Event;
-    "MSPointerCancel": Event;
-    "MSPointerDown": Event;
-    "MSPointerEnter": Event;
-    "MSPointerLeave": Event;
-    "MSPointerMove": Event;
-    "MSPointerOut": Event;
-    "MSPointerOver": Event;
-    "MSPointerUp": Event;
-    "mssitemodejumplistitemremoved": Event;
-    "msthumbnailclick": Event;
-    "pause": Event;
-    "play": Event;
-    "playing": Event;
-    "pointerlockchange": Event;
-    "pointerlockerror": Event;
-    "progress": ProgressEvent;
-    "ratechange": Event;
-    "readystatechange": Event;
-    "reset": Event;
-    "scroll": UIEvent;
-    "seeked": Event;
-    "seeking": Event;
-    "select": UIEvent;
-    "selectionchange": Event;
-    "selectstart": Event;
-    "stalled": Event;
-    "stop": Event;
-    "submit": Event;
-    "suspend": Event;
-    "timeupdate": Event;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
+    "readystatechange": ProgressEvent;
     "visibilitychange": Event;
-    "volumechange": Event;
-    "waiting": Event;
-    "webkitfullscreenchange": Event;
-    "webkitfullscreenerror": Event;
 }
 
-interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent, DocumentAndElementEventHandlers {
+interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, ParentNode, GlobalEventHandlers, DocumentAndElementEventHandlers {
     /**
      * Sets or gets the URL for the current document.
      */
     readonly URL: string;
-    /**
-     * Gets the URL for the document, stripped of any character encoding.
-     */
-    readonly URLUnencoded: string;
     /**
      * Gets the object that has the focus when the parent document has focus.
      */
@@ -3933,15 +3929,22 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * Specifies the beginning and end of the document body.
      */
     body: HTMLElement | null;
+    /**
+     * Returns document's encoding.
+     */
     readonly characterSet: string;
     /**
      * Gets or sets the character set used to encode the object.
      */
-    charset: string;
+    readonly charset: string;
     /**
      * Gets a value that indicates whether standards-compliant mode is switched on for the object.
      */
     readonly compatMode: string;
+    /**
+     * Returns document's content type.
+     */
+    readonly contentType: string;
     /**
      * Returns the HTTP cookies that apply to the Document. If there are no cookies or
      * cookies can't be applied to this resource, the empty string will be returned.
@@ -3975,11 +3978,15 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
     /**
      * Gets an object representing the document type declaration associated with the current document.
      */
-    readonly doctype: DocumentType;
+    readonly doctype: DocumentType | null;
     /**
      * Gets a reference to the root node of the document.
      */
-    readonly documentElement: HTMLElement;
+    readonly documentElement: HTMLElement | null;
+    /**
+     * Returns document's URL.
+     */
+    readonly documentURI: string;
     /**
      * Sets or gets the security domain of the document.
      */
@@ -3997,8 +4004,6 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * Retrieves a collection, in source order, of all form objects in the document.
      */
     readonly forms: HTMLCollectionOf<HTMLFormElement>;
-    readonly fullscreenElement: Element | null;
-    readonly fullscreenEnabled: boolean;
     /**
      * Returns the head element.
      */
@@ -4015,7 +4020,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
     /**
      * Returns the character encoding used to create the webpage that is loaded into the document object.
      */
-    readonly inputEncoding: string | null;
+    readonly inputEncoding: string;
     /**
      * Gets the date that the page was last modified, if the page supplies one.
      */
@@ -4033,88 +4038,20 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * Contains information about the current URL.
      */
     location: Location | null;
-    msCSSOMElementFloatMetrics: boolean;
-    msCapsLockWarningOff: boolean;
-    /**
-     * Fires when the object is set as the active element.
-     * @param ev The event.
-     */
-    onactivate: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires immediately before the object is set as the active element.
-     * @param ev The event.
-     */
-    onbeforeactivate: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires immediately before the activeElement is changed from the current object to another object in the parent document.
-     * @param ev The event.
-     */
-    onbeforedeactivate: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the activeElement is changed from the current object to another object in the parent document.
-     * @param ev The UI Event
-     */
-    ondeactivate: ((this: Document, ev: Event) => any) | null;
-    onfullscreenchange: ((this: Document, ev: Event) => any) | null;
-    onfullscreenerror: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the wheel button is rotated.
-     * @param ev The mouse event
-     */
-    onmousewheel: ((this: Document, ev: WheelEvent) => any) | null;
-    onmscontentzoom: ((this: Document, ev: Event) => any) | null;
-    onmsgesturechange: ((this: Document, ev: Event) => any) | null;
-    onmsgesturedoubletap: ((this: Document, ev: Event) => any) | null;
-    onmsgestureend: ((this: Document, ev: Event) => any) | null;
-    onmsgesturehold: ((this: Document, ev: Event) => any) | null;
-    onmsgesturestart: ((this: Document, ev: Event) => any) | null;
-    onmsgesturetap: ((this: Document, ev: Event) => any) | null;
-    onmsinertiastart: ((this: Document, ev: Event) => any) | null;
-    onmsmanipulationstatechanged: ((this: Document, ev: Event) => any) | null;
-    onmspointercancel: ((this: Document, ev: Event) => any) | null;
-    onmspointerdown: ((this: Document, ev: Event) => any) | null;
-    onmspointerenter: ((this: Document, ev: Event) => any) | null;
-    onmspointerleave: ((this: Document, ev: Event) => any) | null;
-    onmspointermove: ((this: Document, ev: Event) => any) | null;
-    onmspointerout: ((this: Document, ev: Event) => any) | null;
-    onmspointerover: ((this: Document, ev: Event) => any) | null;
-    onmspointerup: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when an item is removed from a Jump List of a webpage running in Site Mode.
-     * @param ev The event.
-     */
-    onmssitemodejumplistitemremoved: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Occurs when a user clicks a button in a Thumbnail Toolbar of a webpage running in Site Mode.
-     * @param ev The event.
-     */
-    onmsthumbnailclick: ((this: Document, ev: Event) => any) | null;
-    onpointerlockchange: ((this: Document, ev: Event) => any) | null;
-    onpointerlockerror: ((this: Document, ev: Event) => any) | null;
     /**
      * Fires when the state of the object has changed.
      * @param ev The event
      */
-    onreadystatechange: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the selection state of a document changes.
-     * @param ev The event.
-     */
-    onselectionchange: ((this: Document, ev: Event) => any) | null;
-    onselectstart: ((this: Document, ev: Event) => any) | null;
-    /**
-     * Fires when the user clicks the Stop button or leaves the Web page.
-     * @param ev The event.
-     */
-    onstop: ((this: Document, ev: Event) => any) | null;
+    onreadystatechange: ((this: Document, ev: ProgressEvent) => any) | null;
     onvisibilitychange: ((this: Document, ev: Event) => any) | null;
-    onwebkitfullscreenchange: ((this: Document, ev: Event) => any) | null;
-    onwebkitfullscreenerror: ((this: Document, ev: Event) => any) | null;
+    /**
+     * Returns document's origin.
+     */
+    readonly origin: string;
     /**
      * Return an HTMLCollection of the embed elements in the Document.
      */
     readonly plugins: HTMLCollectionOf<HTMLEmbedElement>;
-    readonly pointerLockElement: Element;
     /**
      * Retrieves a value that indicates the current state of the object.
      */
@@ -4124,18 +4061,10 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      */
     readonly referrer: string;
     /**
-     * Gets the root svg element in the document hierarchy.
-     */
-    readonly rootElement: SVGSVGElement;
-    /**
      * Retrieves a collection of all script objects in the document.
      */
     readonly scripts: HTMLCollectionOf<HTMLScriptElement>;
     readonly scrollingElement: Element | null;
-    /**
-     * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
-     */
-    readonly styleSheets: StyleSheetList;
     readonly timeline: DocumentTimeline;
     /**
      * Contains the title of the document.
@@ -4147,21 +4076,15 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      */
     /** @deprecated */
     vlinkColor: string;
-    readonly webkitCurrentFullScreenElement: Element | null;
-    readonly webkitFullscreenElement: Element | null;
-    readonly webkitFullscreenEnabled: boolean;
-    readonly webkitIsFullScreen: boolean;
-    readonly xmlEncoding: string | null;
-    xmlStandalone: boolean;
     /**
-     * Gets or sets the version attribute specified in the declaration of an XML document.
+     * Moves node from another document and returns it.
+     * If node is a document, throws a "NotSupportedError" DOMException or, if node is a shadow root, throws a
+     * "HierarchyRequestError" DOMException.
      */
-    xmlVersion: string | null;
     adoptNode<T extends Node>(source: T): T;
     /** @deprecated */
     captureEvents(): void;
     caretPositionFromPoint(x: number, y: number): CaretPosition | null;
-    caretRangeFromPoint(x: number, y: number): Range;
     /** @deprecated */
     clear(): void;
     /**
@@ -4172,8 +4095,11 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * Creates an attribute object with a specified name.
      * @param name String that sets the attribute object's name.
      */
-    createAttribute(name: string): Attr;
-    createAttributeNS(namespaceURI: string | null, qualifiedName: string): Attr;
+    createAttribute(localName: string): Attr;
+    createAttributeNS(namespace: string | null, qualifiedName: string): Attr;
+    /**
+     * Returns a CDATASection node whose data is data.
+     */
     createCDATASection(data: string): CDATASection;
     /**
      * Creates a comment object with the specified data.
@@ -4192,6 +4118,20 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
     /** @deprecated */
     createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];
     createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
+    /**
+     * Returns an element with namespace namespace. Its namespace prefix will be everything before ":" (U+003E) in qualifiedName or null. Its local name will be everything after
+     * ":" (U+003E) in qualifiedName or qualifiedName.
+     * If localName does not match the Name production an
+     * "InvalidCharacterError" DOMException will be thrown.
+     * If one of the following conditions is true a "NamespaceError" DOMException will be thrown:
+     * localName does not match the QName production.
+     * Namespace prefix is not null and namespace is the empty string.
+     * Namespace prefix is "xml" and namespace is not the XML namespace.
+     * qualifiedName or namespace prefix is "xmlns" and namespace is not the XMLNS namespace.
+     * namespace is the XMLNS namespace and
+     * neither qualifiedName nor namespace prefix is "xmlns".
+     * When supplied, options's is can be used to create a customized built-in element.
+     */
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "circle"): SVGCircleElement;
@@ -4256,9 +4196,85 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "view"): SVGViewElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: string): SVGElement;
     createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): Element;
-    createElementNS(namespaceURI: string | null, qualifiedName: string): Element;
-    createExpression(expression: string, resolver: XPathNSResolver): XPathExpression;
-    createNSResolver(nodeResolver: Node): XPathNSResolver;
+    createElementNS(namespace: string | null, qualifiedName: string, options?: string | ElementCreationOptions): Element;
+    createEvent(eventInterface: "AnimationEvent"): AnimationEvent;
+    createEvent(eventInterface: "AnimationPlaybackEvent"): AnimationPlaybackEvent;
+    createEvent(eventInterface: "AudioProcessingEvent"): AudioProcessingEvent;
+    createEvent(eventInterface: "BeforeUnloadEvent"): BeforeUnloadEvent;
+    createEvent(eventInterface: "ClipboardEvent"): ClipboardEvent;
+    createEvent(eventInterface: "CloseEvent"): CloseEvent;
+    createEvent(eventInterface: "CompositionEvent"): CompositionEvent;
+    createEvent(eventInterface: "CustomEvent"): CustomEvent;
+    createEvent(eventInterface: "DeviceLightEvent"): DeviceLightEvent;
+    createEvent(eventInterface: "DeviceMotionEvent"): DeviceMotionEvent;
+    createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
+    createEvent(eventInterface: "DragEvent"): DragEvent;
+    createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
+    createEvent(eventInterface: "Event"): Event;
+    createEvent(eventInterface: "Events"): Event;
+    createEvent(eventInterface: "FocusEvent"): FocusEvent;
+    createEvent(eventInterface: "FocusNavigationEvent"): FocusNavigationEvent;
+    createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
+    createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
+    createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
+    createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
+    createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
+    createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
+    createEvent(eventInterface: "MSMediaKeyMessageEvent"): MSMediaKeyMessageEvent;
+    createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
+    createEvent(eventInterface: "MSPointerEvent"): MSPointerEvent;
+    createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
+    createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
+    createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
+    createEvent(eventInterface: "MediaStreamErrorEvent"): MediaStreamErrorEvent;
+    createEvent(eventInterface: "MediaStreamEvent"): MediaStreamEvent;
+    createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
+    createEvent(eventInterface: "MessageEvent"): MessageEvent;
+    createEvent(eventInterface: "MouseEvent"): MouseEvent;
+    createEvent(eventInterface: "MouseEvents"): MouseEvent;
+    createEvent(eventInterface: "MutationEvent"): MutationEvent;
+    createEvent(eventInterface: "MutationEvents"): MutationEvent;
+    createEvent(eventInterface: "OfflineAudioCompletionEvent"): OfflineAudioCompletionEvent;
+    createEvent(eventInterface: "OverflowEvent"): OverflowEvent;
+    createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
+    createEvent(eventInterface: "PaymentRequestUpdateEvent"): PaymentRequestUpdateEvent;
+    createEvent(eventInterface: "PermissionRequestedEvent"): PermissionRequestedEvent;
+    createEvent(eventInterface: "PointerEvent"): PointerEvent;
+    createEvent(eventInterface: "PopStateEvent"): PopStateEvent;
+    createEvent(eventInterface: "ProgressEvent"): ProgressEvent;
+    createEvent(eventInterface: "PromiseRejectionEvent"): PromiseRejectionEvent;
+    createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
+    createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
+    createEvent(eventInterface: "RTCDtlsTransportStateChangedEvent"): RTCDtlsTransportStateChangedEvent;
+    createEvent(eventInterface: "RTCErrorEvent"): RTCErrorEvent;
+    createEvent(eventInterface: "RTCIceCandidatePairChangedEvent"): RTCIceCandidatePairChangedEvent;
+    createEvent(eventInterface: "RTCIceGathererEvent"): RTCIceGathererEvent;
+    createEvent(eventInterface: "RTCIceTransportStateChangedEvent"): RTCIceTransportStateChangedEvent;
+    createEvent(eventInterface: "RTCPeerConnectionIceErrorEvent"): RTCPeerConnectionIceErrorEvent;
+    createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
+    createEvent(eventInterface: "RTCSsrcConflictEvent"): RTCSsrcConflictEvent;
+    createEvent(eventInterface: "RTCStatsEvent"): RTCStatsEvent;
+    createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
+    createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
+    createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
+    createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
+    createEvent(eventInterface: "ServiceWorkerMessageEvent"): ServiceWorkerMessageEvent;
+    createEvent(eventInterface: "SpeechRecognitionError"): SpeechRecognitionError;
+    createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
+    createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
+    createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
+    createEvent(eventInterface: "StorageEvent"): StorageEvent;
+    createEvent(eventInterface: "TextEvent"): TextEvent;
+    createEvent(eventInterface: "TouchEvent"): TouchEvent;
+    createEvent(eventInterface: "TrackEvent"): TrackEvent;
+    createEvent(eventInterface: "TransitionEvent"): TransitionEvent;
+    createEvent(eventInterface: "UIEvent"): UIEvent;
+    createEvent(eventInterface: "UIEvents"): UIEvent;
+    createEvent(eventInterface: "VRDisplayEvent"): VRDisplayEvent;
+    createEvent(eventInterface: "VRDisplayEvent "): VRDisplayEvent ;
+    createEvent(eventInterface: "WebGLContextEvent"): WebGLContextEvent;
+    createEvent(eventInterface: "WheelEvent"): WheelEvent;
+    createEvent(eventInterface: string): Event;
     /**
      * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.
      * @param root The root element or node to start traversing on.
@@ -4266,7 +4282,14 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * @param filter A custom NodeFilter function to use. For more information, see filter. Use null for no filter.
      * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.
      */
-    createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter, entityReferenceExpansion?: boolean): NodeIterator;
+    createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter | null): NodeIterator;
+    /**
+     * Returns a ProcessingInstruction node whose target is target and data is data.
+     * If target does not match the Name production an
+     * "InvalidCharacterError" DOMException will be thrown.
+     * If data contains "?>" an
+     * "InvalidCharacterError" DOMException will be thrown.
+     */
     createProcessingInstruction(target: string, data: string): ProcessingInstruction;
     /**
      *  Returns an empty range object that has both of its boundary points positioned at the beginning of the document.
@@ -4286,7 +4309,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * @param filter A custom NodeFilter function to use.
      * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.
      */
-    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter, entityReferenceExpansion?: boolean): TreeWalker;
+    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null): TreeWalker;
     /**
      * Returns the element for the specified x coordinate and the specified y coordinate.
      * @param x The x-offset
@@ -4302,24 +4325,15 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * @param value Value to assign.
      */
     execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
-    /**
-     * Displays help information for the given command identifier.
-     * @param commandId Displays help information for the given command identifier.
-     */
-    execCommandShowHelp(commandId: string): boolean;
-    exitFullscreen(): void;
-    exitPointerLock(): void;
-    /**
-     * Causes the element to receive the focus and executes the code specified by the onfocus event.
-     */
-    /** @deprecated */
-    focus(): void;
     getAnimations(): Animation[];
     /**
      * Returns a reference to the first object with the specified value of the ID or NAME attribute.
      * @param elementId String that specifies the ID value. Case-insensitive.
      */
     getElementById(elementId: string): HTMLElement | null;
+    /**
+     * collection = element . getElementsByClassName(classNames)
+     */
     getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
     /**
      * Gets a collection of objects based on the value of the NAME or ID attribute.
@@ -4327,26 +4341,74 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      */
     getElementsByName(elementName: string): NodeListOf<HTMLElement>;
     /**
+     * Displays help information for the given command identifier.
+     * @param commandId Displays help information for the given command identifier.
+     */
+    /**
      * Retrieves a collection of objects based on the specified element name.
      * @param name Specifies the name of an element.
      */
-    getElementsByTagName<K extends keyof HTMLElementTagNameMap>(tagname: K): NodeListOf<HTMLElementTagNameMap[K]>;
-    getElementsByTagName<K extends keyof SVGElementTagNameMap>(tagname: K): NodeListOf<SVGElementTagNameMap[K]>;
-    getElementsByTagName(tagname: string): NodeListOf<Element>;
-    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
-    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
-    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
+    getElementsByTagName<K extends keyof HTMLElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<HTMLElementTagNameMap[K]>;
+    getElementsByTagName<K extends keyof SVGElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<SVGElementTagNameMap[K]>;
+    getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
+    /**
+     * Causes the element to receive the focus and executes the code specified by the onfocus event.
+     */
+    /**
+     * Retrieves the string associated with a command.
+     * @param commandId String that contains the identifier of a command. This can be any command identifier given in the list of Command Identifiers.
+     */
+    /**
+     * Returns the current value of the document, range, or current selection for the given command.
+     * @param commandId String that specifies a command identifier.
+     */
+    queryCommandValue(commandId: string): string;
     /**
      * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.
      */
-    getSelection(): Selection;
+    /**
+     * Returns a Boolean value that indicates the current state of the command.
+     * @param commandId String that specifies a command identifier.
+     */
+    queryCommandState(commandId: string): boolean;
+    /** @deprecated */
+    releaseEvents(): void;
+    /**
+     * Returns a Boolean value that indicates whether the specified command is in the indeterminate state.
+     * @param commandId String that specifies a command identifier.
+     */
+    queryCommandIndeterm(commandId: string): boolean;
+    /**
+     * Returns a Boolean value that indicates whether a specified command can be successfully executed using execCommand, given the current state of the document.
+     * @param commandId Specifies a command identifier.
+     */
+    queryCommandEnabled(commandId: string): boolean;
     /**
      * Gets a value indicating whether the object currently has focus.
      */
     hasFocus(): boolean;
-    importNode<T extends Node>(importedNode: T, deep: boolean): T;
-    msElementsFromPoint(x: number, y: number): NodeListOf<Element>;
+    /**
+     * Returns a Boolean value that indicates whether the current command is supported on the current range.
+     * @param commandId Specifies a command identifier.
+     */
+    queryCommandSupported(commandId: string): boolean;
     msElementsFromRect(left: number, top: number, width: number, height: number): NodeListOf<Element>;
+    msElementsFromPoint(x: number, y: number): NodeListOf<Element>;
+    /**
+     * Writes one or more HTML expressions to a document in the specified window.
+     * @param content Specifies the text and HTML tags to write.
+     */
+    write(...text: string[]): void;
+    /**
+     * If namespace and localName are
+     * "*" returns a HTMLCollection of all descendant elements.
+     * If only namespace is "*" returns a HTMLCollection of all descendant elements whose local name is localName.
+     * If only localName is "*" returns a HTMLCollection of all descendant elements whose namespace is namespace.
+     * Otherwise, returns a HTMLCollection of all descendant elements whose namespace is namespace and local name is localName.
+     */
+    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
+    getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
+    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
     /**
      * Opens a new window and loads a document specified by a given URL. Also, opens a new window that uses the url parameter and the name parameter to collect the output of the write method and the writeln method.
      * @param url Specifies a MIME type for the document.
@@ -4355,46 +4417,7 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
      * @param replace Specifies whether the existing entry for the document is replaced in the history list.
      */
     open(url?: string, name?: string, features?: string, replace?: boolean): Document;
-    /**
-     * Returns a Boolean value that indicates whether a specified command can be successfully executed using execCommand, given the current state of the document.
-     * @param commandId Specifies a command identifier.
-     */
-    queryCommandEnabled(commandId: string): boolean;
-    /**
-     * Returns a Boolean value that indicates whether the specified command is in the indeterminate state.
-     * @param commandId String that specifies a command identifier.
-     */
-    queryCommandIndeterm(commandId: string): boolean;
-    /**
-     * Returns a Boolean value that indicates the current state of the command.
-     * @param commandId String that specifies a command identifier.
-     */
-    queryCommandState(commandId: string): boolean;
-    /**
-     * Returns a Boolean value that indicates whether the current command is supported on the current range.
-     * @param commandId Specifies a command identifier.
-     */
-    queryCommandSupported(commandId: string): boolean;
-    /**
-     * Retrieves the string associated with a command.
-     * @param commandId String that contains the identifier of a command. This can be any command identifier given in the list of Command Identifiers.
-     */
-    queryCommandText(commandId: string): string;
-    /**
-     * Returns the current value of the document, range, or current selection for the given command.
-     * @param commandId String that specifies a command identifier.
-     */
-    queryCommandValue(commandId: string): string;
-    /** @deprecated */
-    releaseEvents(): void;
-    updateSettings(): void;
-    webkitCancelFullScreen(): void;
-    webkitExitFullscreen(): void;
-    /**
-     * Writes one or more HTML expressions to a document in the specified window.
-     * @param content Specifies the text and HTML tags to write.
-     */
-    write(...text: string[]): void;
+    importNode<T extends Node>(importedNode: T, deep: boolean): T;
     /**
      * Writes one or more HTML expressions, followed by a carriage return, to a document in the specified window.
      * @param content The text and HTML tags to write.
@@ -4450,8 +4473,10 @@ interface DocumentEvent {
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
+    createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
     createEvent(eventInterface: "MSMediaKeyMessageEvent"): MSMediaKeyMessageEvent;
     createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
+    createEvent(eventInterface: "MSPointerEvent"): MSPointerEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
@@ -4506,7 +4531,7 @@ interface DocumentEvent {
     createEvent(eventInterface: string): Event;
 }
 
-interface DocumentFragment extends Node, ParentNode {
+interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
     getElementById(elementId: string): HTMLElement | null;
 }
 
@@ -4517,6 +4542,9 @@ declare var DocumentFragment: {
 
 interface DocumentOrShadowRoot {
     readonly activeElement: Element | null;
+    /**
+     * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
+     */
     readonly styleSheets: StyleSheetList;
     elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
@@ -4532,10 +4560,7 @@ declare var DocumentTimeline: {
 };
 
 interface DocumentType extends Node, ChildNode {
-    readonly entities: NamedNodeMap;
-    readonly internalSubset: string | null;
     readonly name: string;
-    readonly notations: NamedNodeMap;
     readonly publicId: string;
     readonly systemId: string;
 }
@@ -4601,116 +4626,123 @@ declare var EXT_texture_filter_anisotropic: {
     readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
 };
 
-interface ElementEventMap extends GlobalEventHandlersEventMap {
-    "ariarequest": Event;
-    "command": Event;
-    "gotpointercapture": PointerEvent;
-    "lostpointercapture": PointerEvent;
-    "MSGestureChange": Event;
-    "MSGestureDoubleTap": Event;
-    "MSGestureEnd": Event;
-    "MSGestureHold": Event;
-    "MSGestureStart": Event;
-    "MSGestureTap": Event;
-    "MSGotPointerCapture": Event;
-    "MSInertiaStart": Event;
-    "MSLostPointerCapture": Event;
-    "MSPointerCancel": Event;
-    "MSPointerDown": Event;
-    "MSPointerEnter": Event;
-    "MSPointerLeave": Event;
-    "MSPointerMove": Event;
-    "MSPointerOut": Event;
-    "MSPointerOver": Event;
-    "MSPointerUp": Event;
-    "touchcancel": TouchEvent;
-    "touchend": TouchEvent;
-    "touchmove": TouchEvent;
-    "touchstart": TouchEvent;
-    "webkitfullscreenchange": Event;
-    "webkitfullscreenerror": Event;
-}
-
-interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNode, ChildNode, Animatable {
+interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode, Slotable, Animatable {
     readonly assignedSlot: HTMLSlotElement | null;
     readonly attributes: NamedNodeMap;
+    /**
+     * Allows for manipulation of element's class content attribute as a
+     * set of whitespace-separated tokens through a DOMTokenList object.
+     */
     readonly classList: DOMTokenList;
+    /**
+     * Returns the value of element's class content attribute. Can be set
+     * to change it.
+     */
     className: string;
     readonly clientHeight: number;
     readonly clientLeft: number;
     readonly clientTop: number;
     readonly clientWidth: number;
+    /**
+     * Returns the value of element's id content attribute. Can be set to
+     * change it.
+     */
     id: string;
-    innerHTML: string;
-    msContentZoomFactor: number;
-    readonly msRegionOverflow: string;
-    onariarequest: ((this: Element, ev: Event) => any) | null;
-    oncommand: ((this: Element, ev: Event) => any) | null;
-    onmsgesturechange: ((this: Element, ev: Event) => any) | null;
-    onmsgesturedoubletap: ((this: Element, ev: Event) => any) | null;
-    onmsgestureend: ((this: Element, ev: Event) => any) | null;
-    onmsgesturehold: ((this: Element, ev: Event) => any) | null;
-    onmsgesturestart: ((this: Element, ev: Event) => any) | null;
-    onmsgesturetap: ((this: Element, ev: Event) => any) | null;
-    onmsgotpointercapture: ((this: Element, ev: Event) => any) | null;
-    onmsinertiastart: ((this: Element, ev: Event) => any) | null;
-    onmslostpointercapture: ((this: Element, ev: Event) => any) | null;
-    onmspointercancel: ((this: Element, ev: Event) => any) | null;
-    onmspointerdown: ((this: Element, ev: Event) => any) | null;
-    onmspointerenter: ((this: Element, ev: Event) => any) | null;
-    onmspointerleave: ((this: Element, ev: Event) => any) | null;
-    onmspointermove: ((this: Element, ev: Event) => any) | null;
-    onmspointerout: ((this: Element, ev: Event) => any) | null;
-    onmspointerover: ((this: Element, ev: Event) => any) | null;
-    onmspointerup: ((this: Element, ev: Event) => any) | null;
-    onwebkitfullscreenchange: ((this: Element, ev: Event) => any) | null;
-    onwebkitfullscreenerror: ((this: Element, ev: Event) => any) | null;
-    outerHTML: string;
+    /**
+     * Returns the local name.
+     */
+    readonly localName: string;
+    /**
+     * Returns the namespace.
+     */
+    readonly namespaceURI: string | null;
+    /**
+     * Returns the namespace prefix.
+     */
     readonly prefix: string | null;
     readonly scrollHeight: number;
     scrollLeft: number;
     scrollTop: number;
     readonly scrollWidth: number;
+    /**
+     * Returns element's shadow root, if any, and if shadow root's mode is "open", and null otherwise.
+     */
     readonly shadowRoot: ShadowRoot | null;
+    /**
+     * Returns the value of element's slot content attribute. Can be set to
+     * change it.
+     */
     slot: string;
+    /**
+     * Returns the HTML-uppercased qualified name.
+     */
     readonly tagName: string;
+    /**
+     * Creates a shadow root for element and returns it.
+     */
     attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
+    /**
+     * Returns the first (starting at element) inclusive ancestor that matches selectors, and null otherwise.
+     */
     closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
     closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null;
     closest(selector: string): Element | null;
+    /**
+     * Returns element's first attribute whose qualified name is qualifiedName, and null if there is no such attribute otherwise.
+     */
     getAttribute(qualifiedName: string): string | null;
-    getAttributeNS(namespaceURI: string, localName: string): string;
+    /**
+     * Returns element's attribute whose namespace is namespace and local name is localName, and null if there is
+     * no such attribute otherwise.
+     */
+    getAttributeNS(namespace: string | null, localName: string): string | null;
+    /**
+     * Returns the qualified names of all element's attributes.
+     * Can contain duplicates.
+     */
+    getAttributeNames(): string[];
     getAttributeNode(name: string): Attr | null;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr | null;
     getBoundingClientRect(): ClientRect | DOMRect;
     getClientRects(): ClientRectList | DOMRectList;
     getElementsByClassName(classNames: string): NodeListOf<Element>;
-    getElementsByTagName<K extends keyof HTMLElementTagNameMap>(name: K): NodeListOf<HTMLElementTagNameMap[K]>;
-    getElementsByTagName<K extends keyof SVGElementTagNameMap>(name: K): NodeListOf<SVGElementTagNameMap[K]>;
-    getElementsByTagName(name: string): NodeListOf<Element>;
+    getElementsByTagName<K extends keyof HTMLElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<HTMLElementTagNameMap[K]>;
+    getElementsByTagName<K extends keyof SVGElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<SVGElementTagNameMap[K]>;
+    getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
     getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
-    hasAttribute(name: string): boolean;
-    hasAttributeNS(namespaceURI: string, localName: string): boolean;
+    /**
+     * Returns true if element has an attribute whose qualified name is qualifiedName, and false otherwise.
+     */
+    hasAttribute(qualifiedName: string): boolean;
+    /**
+     * Returns true if element has an attribute whose namespace is namespace and local name is localName.
+     */
+    hasAttributeNS(namespace: string | null, localName: string): boolean;
+    /**
+     * Returns true if element has attributes, and false otherwise.
+     */
     hasAttributes(): boolean;
     hasPointerCapture(pointerId: number): boolean;
     insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null;
     insertAdjacentHTML(where: InsertPosition, html: string): void;
     insertAdjacentText(where: InsertPosition, text: string): void;
+    /**
+     * Returns true if matching selectors against element's root yields element, and false otherwise.
+     */
     matches(selectors: string): boolean;
     msGetRegionContent(): any;
-    msGetUntransformedBounds(): ClientRect;
-    msMatchesSelector(selectors: string): boolean;
-    msReleasePointerCapture(pointerId: number): void;
-    msSetPointerCapture(pointerId: number): void;
-    msZoomTo(args: MsZoomToOptions): void;
     releasePointerCapture(pointerId: number): void;
+    /**
+     * Removes element's first attribute whose qualified name is qualifiedName.
+     */
     removeAttribute(qualifiedName: string): void;
-    removeAttributeNS(namespaceURI: string, localName: string): void;
-    removeAttributeNode(oldAttr: Attr): Attr;
-    requestFullscreen(): void;
-    requestPointerLock(): void;
+    /**
+     * Removes element's attribute whose namespace is namespace and local name is localName.
+     */
+    removeAttributeNS(namespace: string | null, localName: string): void;
+    removeAttributeNode(attr: Attr): Attr;
     scroll(options?: ScrollToOptions): void;
     scroll(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;
@@ -4718,18 +4750,24 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
     scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void;
     scrollTo(options?: ScrollToOptions): void;
     scrollTo(x: number, y: number): void;
+    /**
+     * Sets the value of element's first attribute whose qualified name is qualifiedName to value.
+     */
     setAttribute(qualifiedName: string, value: string): void;
-    setAttributeNS(namespaceURI: string, qualifiedName: string, value: string): void;
-    setAttributeNode(newAttr: Attr): Attr;
-    setAttributeNodeNS(newAttr: Attr): Attr;
+    /**
+     * Sets the value of element's attribute whose namespace is namespace and local name is localName to value.
+     */
+    setAttributeNS(namespace: string | null, qualifiedName: string, value: string): void;
+    setAttributeNode(attr: Attr): Attr | null;
+    setAttributeNodeNS(attr: Attr): Attr | null;
     setPointerCapture(pointerId: number): void;
+    /**
+     * If force is not given, "toggles" qualifiedName, removing it if it is
+     * present and adding it if it is not present. If force is true, adds qualifiedName. If force is false, removes qualifiedName.
+     * Returns true if qualifiedName is now present, and false otherwise.
+     */
+    toggleAttribute(qualifiedName: string, force?: boolean): boolean;
     webkitMatchesSelector(selectors: string): boolean;
-    webkitRequestFullScreen(): void;
-    webkitRequestFullscreen(): void;
-    addEventListener<K extends keyof ElementEventMap>(type: K, listener: (this: Element, ev: ElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ElementEventMap>(type: K, listener: (this: Element, ev: ElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var Element: {
@@ -4747,14 +4785,6 @@ interface ElementCreationOptions {
     is?: string;
 }
 
-interface ElementTraversal {
-    readonly childElementCount: number;
-    readonly firstElementChild: Element | null;
-    readonly lastElementChild: Element | null;
-    readonly nextElementSibling: Element | null;
-    readonly previousElementSibling: Element | null;
-}
-
 interface ErrorEvent extends Event {
     readonly colno: number;
     readonly error: any;
@@ -4769,22 +4799,56 @@ declare var ErrorEvent: {
 };
 
 interface Event {
+    /**
+     * Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise.
+     */
     readonly bubbles: boolean;
     cancelBubble: boolean;
     readonly cancelable: boolean;
+    /**
+     * Returns true or false depending on how event was initialized. True if event invokes listeners past a ShadowRoot node that is the root of its target, and false otherwise.
+     */
     readonly composed: boolean;
+    /**
+     * Returns the object whose event listener's callback is currently being
+     * invoked.
+     */
     readonly currentTarget: EventTarget | null;
     readonly defaultPrevented: boolean;
     readonly eventPhase: number;
+    /**
+     * Returns true if event was dispatched by the user agent, and
+     * false otherwise.
+     */
     readonly isTrusted: boolean;
     returnValue: boolean;
+    /**
+     * Returns the object to which event is dispatched (its target).
+     */
     readonly target: EventTarget | null;
+    /**
+     * Returns the event's timestamp as the number of milliseconds measured relative to
+     * the time origin.
+     */
     readonly timeStamp: number;
+    /**
+     * Returns the type of event, e.g.
+     * "click", "hashchange", or
+     * "submit".
+     */
     readonly type: string;
     composedPath(): EventTarget[];
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
     preventDefault(): void;
+    /**
+     * Invoking this method prevents event from reaching
+     * any registered event listeners after the current one finishes running and, when dispatched in a tree, also prevents event from reaching any
+     * other objects.
+     */
     stopImmediatePropagation(): void;
+    /**
+     * When dispatched in a tree, invoking this method prevents event from reaching any objects other than the current object.
+     */
     stopPropagation(): void;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
@@ -4794,7 +4858,7 @@ interface Event {
 
 declare var Event: {
     prototype: Event;
-    new(typeArg: string, eventInitDict?: EventInit): Event;
+    new(type: string, eventInitDict?: EventInit): Event;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
     readonly CAPTURING_PHASE: number;
@@ -4828,9 +4892,26 @@ interface EventSourceInit {
 }
 
 interface EventTarget {
+    /**
+     * Appends an event listener for events whose type attribute value is type. The callback argument sets the callback that will be invoked when the event is dispatched.
+     * The options argument sets listener-specific options. For compatibility this can be a
+     * boolean, in which case the method behaves exactly as if the value was specified as options's capture.
+     * When set to true, options's capture prevents callback from being invoked when the event's eventPhase attribute value is BUBBLING_PHASE. When false (or not present), callback will not be invoked when event's eventPhase attribute value is CAPTURING_PHASE. Either way, callback will be invoked if event's eventPhase attribute value is AT_TARGET.
+     * When set to true, options's passive indicates that the callback will not cancel the event by invoking preventDefault(). This is used to enable performance optimizations described in §2.8 Observing event listeners.
+     * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will
+     * be removed.
+     * The event listener is appended to target's event listener list and is not appended if it has the same type, callback, and capture.
+     */
     addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
-    dispatchEvent(evt: Event): boolean;
-    removeEventListener(type: string, listener?: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+    /**
+     * Dispatches a synthetic event event to target and returns true
+     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+     */
+    dispatchEvent(event: Event): boolean;
+    /**
+     * Removes the event listener in target's event listener list with the same type, callback, and options.
+     */
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
 }
 
 declare var EventTarget: {
@@ -5061,7 +5142,7 @@ interface GlobalEventHandlersEventMap {
     "change": Event;
     "click": MouseEvent;
     "close": Event;
-    "contextmenu": PointerEvent;
+    "contextmenu": MouseEvent;
     "cuechange": Event;
     "dblclick": MouseEvent;
     "drag": DragEvent;
@@ -5135,56 +5216,188 @@ interface GlobalEventHandlersEventMap {
 }
 
 interface GlobalEventHandlers {
+    /**
+     * Fires when the user aborts the download.
+     * @param ev The event.
+     */
     onabort: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
     onanimationcancel: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationend: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationiteration: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onanimationstart: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
     onauxclick: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the object loses the input focus.
+     * @param ev The focus event.
+     */
     onblur: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
     oncancel: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when playback is possible, but would require further buffering.
+     * @param ev The event.
+     */
     oncanplay: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     oncanplaythrough: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the contents of the object or selection have changed.
+     * @param ev The event.
+     */
     onchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the user clicks the left mouse button on the object
+     * @param ev The mouse event.
+     */
     onclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
     onclose: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    oncontextmenu: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    /**
+     * Fires when the user clicks the right mouse button in the client area, opening the context menu.
+     * @param ev The mouse event.
+     */
+    oncontextmenu: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
     oncuechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the user double-clicks the object.
+     * @param ev The mouse event.
+     */
     ondblclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    /**
+     * Fires on the source object continuously during a drag operation.
+     * @param ev The event.
+     */
     ondrag: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    /**
+     * Fires on the source object when the user releases the mouse at the close of a drag operation.
+     * @param ev The event.
+     */
     ondragend: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    /**
+     * Fires on the target element when the user drags the object to a valid drop target.
+     * @param ev The drag event.
+     */
     ondragenter: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
     ondragexit: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
+     * @param ev The drag event.
+     */
     ondragleave: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    /**
+     * Fires on the target element continuously while the user drags the object over a valid drop target.
+     * @param ev The event.
+     */
     ondragover: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    /**
+     * Fires on the source object when the user starts to drag a text selection or selected object.
+     * @param ev The event.
+     */
     ondragstart: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
     ondrop: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    /**
+     * Occurs when the duration attribute is updated.
+     * @param ev The event.
+     */
     ondurationchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when the media element is reset to its initial state.
+     * @param ev The event.
+     */
     onemptied: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when the end of playback is reached.
+     * @param ev The event
+     */
     onended: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when an error occurs during object loading.
+     * @param ev The event.
+     */
     onerror: ((this: GlobalEventHandlers, ev: ErrorEvent) => any) | null;
+    /**
+     * Fires when the object receives focus.
+     * @param ev The event.
+     */
     onfocus: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
     ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     oninput: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     oninvalid: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the user presses a key.
+     * @param ev The keyboard event
+     */
     onkeydown: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
+    /**
+     * Fires when the user presses an alphanumeric key.
+     * @param ev The event.
+     */
     onkeypress: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
+    /**
+     * Fires when the user releases a key.
+     * @param ev The keyboard event
+     */
     onkeyup: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
+    /**
+     * Fires immediately after the browser loads the object.
+     * @param ev The event.
+     */
     onload: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when media data is loaded at the current playback position.
+     * @param ev The event.
+     */
     onloadeddata: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when the duration and dimensions of the media have been determined.
+     * @param ev The event.
+     */
     onloadedmetadata: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onloadend: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null;
+    /**
+     * Occurs when Internet Explorer begins looking for media data.
+     * @param ev The event.
+     */
     onloadstart: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onlostpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    /**
+     * Fires when the user clicks the object with either mouse button.
+     * @param ev The mouse event.
+     */
     onmousedown: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
     onmouseenter: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
     onmouseleave: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    /**
+     * Fires when the user moves the mouse over the object.
+     * @param ev The mouse event.
+     */
     onmousemove: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    /**
+     * Fires when the user moves the mouse pointer outside the boundaries of the object.
+     * @param ev The mouse event.
+     */
     onmouseout: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    /**
+     * Fires when the user moves the mouse pointer into the object.
+     * @param ev The mouse event.
+     */
     onmouseover: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    /**
+     * Fires when the user releases a mouse button while the mouse is over the object.
+     * @param ev The mouse event.
+     */
     onmouseup: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
+    /**
+     * Occurs when playback is paused.
+     * @param ev The event.
+     */
     onpause: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when the play method is requested.
+     * @param ev The event.
+     */
     onplay: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when the audio or video has started playing.
+     * @param ev The event.
+     */
     onplaying: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onpointercancel: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerdown: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
@@ -5194,18 +5407,58 @@ interface GlobalEventHandlers {
     onpointerout: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerover: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     onpointerup: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
+    /**
+     * Occurs to indicate progress while downloading media data.
+     * @param ev The event.
+     */
     onprogress: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null;
+    /**
+     * Occurs when the playback rate is increased or decreased.
+     * @param ev The event.
+     */
     onratechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the user resets a form.
+     * @param ev The event.
+     */
     onreset: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onresize: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    /**
+     * Fires when the user repositions the scroll box in the scroll bar on the object.
+     * @param ev The event.
+     */
     onscroll: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
     onsecuritypolicyviolation: ((this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) | null;
+    /**
+     * Occurs when the seek operation ends.
+     * @param ev The event.
+     */
     onseeked: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when the current playback position is moved.
+     * @param ev The event.
+     */
     onseeking: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Fires when the current selection changes.
+     * @param ev The event.
+     */
     onselect: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    /**
+     * Occurs when the download has stopped.
+     * @param ev The event.
+     */
     onstalled: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onsubmit: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs if the load operation has been intentionally halted.
+     * @param ev The event.
+     */
     onsuspend: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs to indicate the current playback position.
+     * @param ev The event.
+     */
     ontimeupdate: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     ontoggle: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     ontouchcancel: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
@@ -5216,7 +5469,15 @@ interface GlobalEventHandlers {
     ontransitionend: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     ontransitionrun: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     ontransitionstart: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
+    /**
+     * Occurs when the volume is changed, or playback is muted or unmuted.
+     * @param ev The event.
+     */
     onvolumechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /**
+     * Occurs when playback stops because the next frame of a video resource is not available.
+     * @param ev The event.
+     */
     onwaiting: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -5752,7 +6013,7 @@ declare var HTMLDocument: {
     new(): HTMLDocument;
 };
 
-interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
+interface HTMLElementEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
 }
 
 interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement {
@@ -9752,7 +10013,40 @@ declare var MutationEvent: {
 
 interface MutationObserver {
     disconnect(): void;
-    observe(target: Node, options: MutationObserverInit): void;
+    /**
+     * Instructs the user agent to observe a given target (a node) and report any mutations based on
+     * the criteria given by options (an object).
+     * The options argument allows for setting mutation
+     * observation options via object members. These are the object members that
+     * can be used:
+     * childList
+     * Set to true if mutations to target's children are to be observed.
+     * attributes
+     * Set to true if mutations to target's attributes are to be observed. Can be omitted if attributeOldValue or attributeFilter is
+     * specified.
+     * characterData
+     * Set to true if mutations to target's data are to be observed. Can be omitted if characterDataOldValue is specified.
+     * subtree
+     * Set to true if mutations to not just target, but
+     * also target's descendants are to be
+     * observed.
+     * attributeOldValue
+     * Set to true if attributes is true or omitted
+     * and target's attribute value before the mutation
+     * needs to be recorded.
+     * characterDataOldValue
+     * Set to true if characterData is set to true or omitted and target's data before the mutation
+     * needs to be recorded.
+     * attributeFilter
+     * Set to a list of attribute local names (without namespace) if not all attribute mutations need to be
+     * observed and attributes is true
+     * or omitted.
+     */
+    observe(target: Node, options?: MutationObserverInit): void;
+    /**
+     * Empties the record queue and
+     * returns what was in there.
+     */
     takeRecords(): MutationRecord[];
 }
 
@@ -9763,13 +10057,41 @@ declare var MutationObserver: {
 
 interface MutationRecord {
     readonly addedNodes: NodeList;
+    /**
+     * Returns the local name of the
+     * changed attribute, and null otherwise.
+     */
     readonly attributeName: string | null;
+    /**
+     * Returns the namespace of the
+     * changed attribute, and null otherwise.
+     */
     readonly attributeNamespace: string | null;
+    /**
+     * Return the previous and next sibling respectively
+     * of the added or removed nodes, and null otherwise.
+     */
     readonly nextSibling: Node | null;
+    /**
+     * The return value depends on type. For
+     * "attributes", it is the value of the
+     * changed attribute before the change.
+     * For "characterData", it is the data of the changed node before the change. For
+     * "childList", it is null.
+     */
     readonly oldValue: string | null;
     readonly previousSibling: Node | null;
+    /**
+     * Return the nodes added and removed
+     * respectively.
+     */
     readonly removedNodes: NodeList;
     readonly target: Node;
+    /**
+     * Returns "attributes" if it was an attribute mutation.
+     * "characterData" if it was a mutation to a CharacterData node. And
+     * "childList" if it was a mutation to the tree of nodes.
+     */
     readonly type: MutationRecordType;
 }
 
@@ -9886,33 +10208,103 @@ interface NavigatorUserMedia {
 }
 
 interface Node extends EventTarget {
-    readonly baseURI: string | null;
+    /**
+     * Returns node's node document's document base URL.
+     */
+    readonly baseURI: string;
+    /**
+     * Returns the children.
+     */
     readonly childNodes: NodeListOf<Node & ChildNode>;
+    /**
+     * Returns the first child.
+     */
     readonly firstChild: Node & ChildNode | null;
+    /**
+     * Returns true if node is connected and false otherwise.
+     */
     readonly isConnected: boolean;
+    /**
+     * Returns the last child.
+     */
     readonly lastChild: Node & ChildNode | null;
-    readonly localName: string | null;
-    readonly namespaceURI: string | null;
+    /**
+     * Returns the next sibling.
+     */
     readonly nextSibling: Node | null;
+    /**
+     * Returns a string appropriate for the type of node, as
+     * follows:
+     * Element
+     * Its HTML-uppercased qualified name.
+     * Attr
+     * Its qualified name.
+     * Text
+     * "#text".
+     * CDATASection
+     * "#cdata-section".
+     * ProcessingInstruction
+     * Its target.
+     * Comment
+     * "#comment".
+     * Document
+     * "#document".
+     * DocumentType
+     * Its name.
+     * DocumentFragment
+     * "#document-fragment".
+     */
     readonly nodeName: string;
     readonly nodeType: number;
     nodeValue: string | null;
-    readonly ownerDocument: Document;
+    /**
+     * Returns the node document.
+     * Returns null for documents.
+     */
+    readonly ownerDocument: Document | null;
+    /**
+     * Returns the parent element.
+     */
     readonly parentElement: Element | null;
+    /**
+     * Returns the parent.
+     */
     readonly parentNode: Node & ParentNode | null;
+    /**
+     * Returns the previous sibling.
+     */
     readonly previousSibling: Node | null;
     textContent: string | null;
     appendChild<T extends Node>(newChild: T): T;
+    /**
+     * Returns a copy of node. If deep is true, the copy also includes the node's descendants.
+     */
     cloneNode(deep?: boolean): Node;
     compareDocumentPosition(other: Node): number;
-    contains(child: Node): boolean;
+    /**
+     * Returns true if other is an inclusive descendant of node, and false otherwise.
+     */
+    contains(other: Node | null): boolean;
+    /**
+     * Returns node's shadow-including root.
+     */
+    getRootNode(options?: GetRootNodeOptions): Node;
+    /**
+     * Returns whether node has children.
+     */
     hasChildNodes(): boolean;
     insertBefore<T extends Node>(newChild: T, refChild: Node | null): T;
-    isDefaultNamespace(namespaceURI: string | null): boolean;
-    isEqualNode(arg: Node): boolean;
-    isSameNode(other: Node): boolean;
+    isDefaultNamespace(namespace: string | null): boolean;
+    /**
+     * Returns whether node and otherNode have the same properties.
+     */
+    isEqualNode(otherNode: Node | null): boolean;
+    isSameNode(otherNode: Node | null): boolean;
     lookupNamespaceURI(prefix: string | null): string | null;
-    lookupPrefix(namespaceURI: string | null): string | null;
+    lookupPrefix(namespace: string | null): string | null;
+    /**
+     * Removes empty exclusive Text nodes and concatenates the data of remaining contiguous exclusive Text nodes into the first of their nodes.
+     */
     normalize(): void;
     removeChild<T extends Node>(oldChild: T): T;
     replaceChild<T extends Node>(newChild: Node, oldChild: T): T;
@@ -9983,9 +10375,9 @@ declare var NodeFilter: {
 };
 
 interface NodeIterator {
-    /** @deprecated */
-    readonly expandEntityReferences: boolean;
     readonly filter: NodeFilter | null;
+    readonly pointerBeforeReferenceNode: boolean;
+    readonly referenceNode: Node;
     readonly root: Node;
     readonly whatToShow: number;
     detach(): void;
@@ -9999,8 +10391,14 @@ declare var NodeIterator: {
 };
 
 interface NodeList {
+    /**
+     * Returns the number of nodes in the collection.
+     */
     readonly length: number;
-    item(index: number): Node;
+    /**
+     * element = collection[index]
+     */
+    item(index: number): Node | null;
     /**
      * Performs the specified action for each node in an list.
      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
@@ -10034,6 +10432,26 @@ interface NodeSelector {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
+}
+
+interface NonDocumentTypeChildNode {
+    /**
+     * Returns the first following sibling that
+     * is an element, and null otherwise.
+     */
+    readonly nextElementSibling: Element | null;
+    /**
+     * Returns the first preceding sibling that
+     * is an element, and null otherwise.
+     */
+    readonly previousElementSibling: Element | null;
+}
+
+interface NonElementParentNode {
+    /**
+     * Returns the first element within node's descendants whose ID is elementId.
+     */
+    getElementById(elementId: string): Element | null;
 }
 
 interface NotificationEventMap {
@@ -10238,12 +10656,43 @@ declare var PannerNode: {
 
 interface ParentNode {
     readonly childElementCount: number;
+    /**
+     * Returns the child elements.
+     */
     readonly children: HTMLCollection;
+    /**
+     * Returns the first child that is an element, and null otherwise.
+     */
     readonly firstElementChild: Element | null;
+    /**
+     * Returns the last child that is an element, and null otherwise.
+     */
     readonly lastElementChild: Element | null;
+    /**
+     * Inserts nodes after the last child of node, while replacing
+     * strings in nodes with equivalent Text nodes.
+     * Throws a "HierarchyRequestError" DOMException if the constraints of
+     * the node tree are violated.
+     */
+    append(...nodes: (Node | string)[]): void;
+    /**
+     * Inserts nodes before the first child of node, while
+     * replacing strings in nodes with equivalent Text nodes.
+     * Throws a "HierarchyRequestError" DOMException if the constraints of
+     * the node tree are violated.
+     */
+    prepend(...nodes: (Node | string)[]): void;
+    /**
+     * Returns the first element that is a descendant of node that
+     * matches selectors.
+     */
     querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
     querySelector<E extends Element = Element>(selectors: string): E | null;
+    /**
+     * Returns all element descendants of node that
+     * match selectors.
+     */
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
@@ -11243,25 +11692,31 @@ declare var RandomSource: {
     new(): RandomSource;
 };
 
-interface Range {
-    readonly collapsed: boolean;
+interface Range extends AbstractRange {
+    /**
+     * Returns the node, furthest away from
+     * the document, that is an ancestor of both range's start node and end node.
+     */
     readonly commonAncestorContainer: Node;
-    readonly endContainer: Node;
-    readonly endOffset: number;
-    readonly startContainer: Node;
-    readonly startOffset: number;
     cloneContents(): DocumentFragment;
     cloneRange(): Range;
     collapse(toStart?: boolean): void;
     compareBoundaryPoints(how: number, sourceRange: Range): number;
-    createContextualFragment(fragment: string): DocumentFragment;
+    /**
+     * Returns −1 if the point is before the range, 0 if the point is
+     * in the range, and 1 if the point is after the range.
+     */
+    comparePoint(node: Node, offset: number): number;
     deleteContents(): void;
     detach(): void;
-    expand(Unit: ExpandGranularity): boolean;
     extractContents(): DocumentFragment;
     getBoundingClientRect(): ClientRect | DOMRect;
     getClientRects(): ClientRectList | DOMRectList;
     insertNode(node: Node): void;
+    /**
+     * Returns whether range intersects node.
+     */
+    intersectsNode(node: Node): boolean;
     isPointInRange(node: Node, offset: number): boolean;
     selectNode(node: Node): void;
     selectNodeContents(node: Node): void;
@@ -11272,7 +11727,6 @@ interface Range {
     setStartAfter(node: Node): void;
     setStartBefore(node: Node): void;
     surroundContents(newParent: Node): void;
-    toString(): string;
     readonly END_TO_END: number;
     readonly END_TO_START: number;
     readonly START_TO_END: number;
@@ -11659,7 +12113,7 @@ declare var SVGDescElement: {
     new(): SVGDescElement;
 };
 
-interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
+interface SVGElementEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
 }
 
 interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, SVGElementInstance, HTMLOrSVGElement {
@@ -13564,14 +14018,19 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
-interface ShadowRoot extends DocumentOrShadowRoot, DocumentFragment {
+interface ShadowRoot extends DocumentOrShadowRoot, DocumentFragment, DocumentOrShadowRoot {
     readonly host: Element;
     innerHTML: string;
+    readonly mode: ShadowRootMode;
 }
 
 interface ShadowRootInit {
     delegatesFocus?: boolean;
     mode: "open" | "closed";
+}
+
+interface Slotable {
+    readonly assignedSlot: HTMLSlotElement | null;
 }
 
 interface SourceBuffer extends EventTarget {
@@ -13825,6 +14284,14 @@ declare var SpeechSynthesisVoice: {
     new(): SpeechSynthesisVoice;
 };
 
+interface StaticRange extends AbstractRange {
+}
+
+declare var StaticRange: {
+    prototype: StaticRange;
+    new(): StaticRange;
+};
+
 interface StereoPannerNode extends AudioNode {
     readonly pan: AudioParam;
 }
@@ -13979,9 +14446,15 @@ declare var SyncManager: {
     new(): SyncManager;
 };
 
-interface Text extends CharacterData {
+interface Text extends CharacterData, Slotable {
     readonly assignedSlot: HTMLSlotElement | null;
+    /**
+     * Returns the combined data of all direct Text node siblings.
+     */
     readonly wholeText: string;
+    /**
+     * Splits data at the given offset and returns the remainder as Text node.
+     */
     splitText(offset: number): Text;
 }
 
@@ -14279,8 +14752,6 @@ declare var TransitionEvent: {
 
 interface TreeWalker {
     currentNode: Node;
-    /** @deprecated */
-    readonly expandEntityReferences: boolean;
     readonly filter: NodeFilter | null;
     readonly root: Node;
     readonly whatToShow: number;
@@ -15693,7 +16164,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "change": Event;
     "click": MouseEvent;
     "compassneedscalibration": Event;
-    "contextmenu": PointerEvent;
+    "contextmenu": MouseEvent;
     "dblclick": MouseEvent;
     "devicelight": DeviceLightEvent;
     "devicemotion": DeviceMotionEvent;
@@ -15728,7 +16199,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "mouseout": MouseEvent;
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
-    "mousewheel": WheelEvent;
+    "mousewheel": Event;
     "MSGestureChange": Event;
     "MSGestureDoubleTap": Event;
     "MSGestureEnd": Event;
@@ -15795,7 +16266,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly devicePixelRatio: number;
     readonly doNotTrack: string;
     readonly document: Document;
-    event: Event | undefined;
+    readonly event: Event | undefined;
     /** @deprecated */
     readonly external: External;
     readonly frameElement: Element;
@@ -15821,7 +16292,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
     onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
     onmessage: ((this: Window, ev: MessageEvent) => any) | null;
-    onmousewheel: ((this: Window, ev: WheelEvent) => any) | null;
+    onmousewheel: ((this: Window, ev: Event) => any) | null;
     onmsgesturechange: ((this: Window, ev: Event) => any) | null;
     onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
     onmsgestureend: ((this: Window, ev: Event) => any) | null;
@@ -16675,7 +17146,7 @@ declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | nul
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
 declare var onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
 declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
-declare var onmousewheel: ((this: Window, ev: WheelEvent) => any) | null;
+declare var onmousewheel: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
 declare var onmsgestureend: ((this: Window, ev: Event) => any) | null;
@@ -16773,60 +17244,196 @@ declare function webkitConvertPointFromNodeToPage(node: Node, pt: WebKitPoint): 
 declare function webkitConvertPointFromPageToNode(node: Node, pt: WebKitPoint): WebKitPoint;
 declare function webkitRequestAnimationFrame(callback: FrameRequestCallback): number;
 declare function toString(): string;
-declare function dispatchEvent(evt: Event): boolean;
+/**
+     * Dispatches a synthetic event event to target and returns true
+     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+     */
+declare function dispatchEvent(event: Event): boolean;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var console: Console;
+/**
+     * Fires when the user aborts the download.
+     * @param ev The event.
+     */
 declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
 declare var onanimationcancel: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationend: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationiteration: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationstart: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onauxclick: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the object loses the input focus.
+     * @param ev The focus event.
+     */
 declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
 declare var oncancel: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when playback is possible, but would require further buffering.
+     * @param ev The event.
+     */
 declare var oncanplay: ((this: Window, ev: Event) => any) | null;
 declare var oncanplaythrough: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the contents of the object or selection have changed.
+     * @param ev The event.
+     */
 declare var onchange: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the user clicks the left mouse button on the object
+     * @param ev The mouse event.
+     */
 declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onclose: ((this: Window, ev: Event) => any) | null;
-declare var oncontextmenu: ((this: Window, ev: PointerEvent) => any) | null;
+/**
+     * Fires when the user clicks the right mouse button in the client area, opening the context menu.
+     * @param ev The mouse event.
+     */
+declare var oncontextmenu: ((this: Window, ev: MouseEvent) => any) | null;
 declare var oncuechange: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the user double-clicks the object.
+     * @param ev The mouse event.
+     */
 declare var ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
+/**
+     * Fires on the source object continuously during a drag operation.
+     * @param ev The event.
+     */
 declare var ondrag: ((this: Window, ev: DragEvent) => any) | null;
+/**
+     * Fires on the source object when the user releases the mouse at the close of a drag operation.
+     * @param ev The event.
+     */
 declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
+/**
+     * Fires on the target element when the user drags the object to a valid drop target.
+     * @param ev The drag event.
+     */
 declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
 declare var ondragexit: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
+     * @param ev The drag event.
+     */
 declare var ondragleave: ((this: Window, ev: DragEvent) => any) | null;
+/**
+     * Fires on the target element continuously while the user drags the object over a valid drop target.
+     * @param ev The event.
+     */
 declare var ondragover: ((this: Window, ev: DragEvent) => any) | null;
+/**
+     * Fires on the source object when the user starts to drag a text selection or selected object.
+     * @param ev The event.
+     */
 declare var ondragstart: ((this: Window, ev: DragEvent) => any) | null;
 declare var ondrop: ((this: Window, ev: DragEvent) => any) | null;
+/**
+     * Occurs when the duration attribute is updated.
+     * @param ev The event.
+     */
 declare var ondurationchange: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when the media element is reset to its initial state.
+     * @param ev The event.
+     */
 declare var onemptied: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when the end of playback is reached.
+     * @param ev The event
+     */
 declare var onended: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when an error occurs during object loading.
+     * @param ev The event.
+     */
 declare var onerror: ((this: Window, ev: ErrorEvent) => any) | null;
+/**
+     * Fires when the object receives focus.
+     * @param ev The event.
+     */
 declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
 declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 declare var oninput: ((this: Window, ev: Event) => any) | null;
 declare var oninvalid: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the user presses a key.
+     * @param ev The keyboard event
+     */
 declare var onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
+/**
+     * Fires when the user presses an alphanumeric key.
+     * @param ev The event.
+     */
 declare var onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
+/**
+     * Fires when the user releases a key.
+     * @param ev The keyboard event
+     */
 declare var onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
+/**
+     * Fires immediately after the browser loads the object.
+     * @param ev The event.
+     */
 declare var onload: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when media data is loaded at the current playback position.
+     * @param ev The event.
+     */
 declare var onloadeddata: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when the duration and dimensions of the media have been determined.
+     * @param ev The event.
+     */
 declare var onloadedmetadata: ((this: Window, ev: Event) => any) | null;
 declare var onloadend: ((this: Window, ev: ProgressEvent) => any) | null;
+/**
+     * Occurs when Internet Explorer begins looking for media data.
+     * @param ev The event.
+     */
 declare var onloadstart: ((this: Window, ev: Event) => any) | null;
 declare var onlostpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
+/**
+     * Fires when the user clicks the object with either mouse button.
+     * @param ev The mouse event.
+     */
 declare var onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
+/**
+     * Fires when the user moves the mouse over the object.
+     * @param ev The mouse event.
+     */
 declare var onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
+/**
+     * Fires when the user moves the mouse pointer outside the boundaries of the object.
+     * @param ev The mouse event.
+     */
 declare var onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
+/**
+     * Fires when the user moves the mouse pointer into the object.
+     * @param ev The mouse event.
+     */
 declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
+/**
+     * Fires when the user releases a mouse button while the mouse is over the object.
+     * @param ev The mouse event.
+     */
 declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
+/**
+     * Occurs when playback is paused.
+     * @param ev The event.
+     */
 declare var onpause: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when the play method is requested.
+     * @param ev The event.
+     */
 declare var onplay: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when the audio or video has started playing.
+     * @param ev The event.
+     */
 declare var onplaying: ((this: Window, ev: Event) => any) | null;
 declare var onpointercancel: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerdown: ((this: Window, ev: PointerEvent) => any) | null;
@@ -16836,18 +17443,58 @@ declare var onpointermove: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerout: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerover: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerup: ((this: Window, ev: PointerEvent) => any) | null;
+/**
+     * Occurs to indicate progress while downloading media data.
+     * @param ev The event.
+     */
 declare var onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
+/**
+     * Occurs when the playback rate is increased or decreased.
+     * @param ev The event.
+     */
 declare var onratechange: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the user resets a form.
+     * @param ev The event.
+     */
 declare var onreset: ((this: Window, ev: Event) => any) | null;
 declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
+/**
+     * Fires when the user repositions the scroll box in the scroll bar on the object.
+     * @param ev The event.
+     */
 declare var onscroll: ((this: Window, ev: UIEvent) => any) | null;
 declare var onsecuritypolicyviolation: ((this: Window, ev: SecurityPolicyViolationEvent) => any) | null;
+/**
+     * Occurs when the seek operation ends.
+     * @param ev The event.
+     */
 declare var onseeked: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when the current playback position is moved.
+     * @param ev The event.
+     */
 declare var onseeking: ((this: Window, ev: Event) => any) | null;
+/**
+     * Fires when the current selection changes.
+     * @param ev The event.
+     */
 declare var onselect: ((this: Window, ev: UIEvent) => any) | null;
+/**
+     * Occurs when the download has stopped.
+     * @param ev The event.
+     */
 declare var onstalled: ((this: Window, ev: Event) => any) | null;
 declare var onsubmit: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs if the load operation has been intentionally halted.
+     * @param ev The event.
+     */
 declare var onsuspend: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs to indicate the current playback position.
+     * @param ev The event.
+     */
 declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
 declare var ontoggle: ((this: Window, ev: Event) => any) | null;
 declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null;
@@ -16858,7 +17505,15 @@ declare var ontransitioncancel: ((this: Window, ev: TransitionEvent) => any) | n
 declare var ontransitionend: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionrun: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionstart: ((this: Window, ev: TransitionEvent) => any) | null;
+/**
+     * Occurs when the volume is changed, or playback is muted or unmuted.
+     * @param ev The event.
+     */
 declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
+/**
+     * Occurs when playback stops because the next frame of a video resource is not available.
+     * @param ev The event.
+     */
 declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;
@@ -16941,7 +17596,6 @@ type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
-type ExpandGranularity = "character" | "word" | "sentence" | "textedit";
 type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";
@@ -17027,6 +17681,7 @@ type ScrollSetting = "" | "up";
 type SelectionMode = "select" | "start" | "end" | "preserve";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
+type ShadowRootMode = "open" | "closed";
 type SpeechRecognitionErrorCode = "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
 type SpeechSynthesisErrorCode = "canceled" | "interrupted" | "audio-busy" | "audio-hardware" | "network" | "synthesis-unavailable" | "synthesis-failed" | "language-unavailable" | "voice-unavailable" | "text-too-long" | "invalid-argument";
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";

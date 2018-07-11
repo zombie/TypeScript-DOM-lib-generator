@@ -31,6 +31,9 @@ interface DOMStringList {
 
 interface DOMTokenList {
     [Symbol.iterator](): IterableIterator<string>;
+    entries(): IterableIterator<[number, string]>;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<string>;
 }
 
 interface DataTransferItemList {

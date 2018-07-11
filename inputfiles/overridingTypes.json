@@ -224,7 +224,10 @@
                     }
                 },
                 "type-parameters": [
-                    "T = any"
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
                 ],
                 "constructor": {
                     "override-signatures": [
@@ -1224,7 +1227,10 @@
                     }
                 },
                 "type-parameters": [
-                    "T = any"
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
                 ]
             },
             "IDBTransaction": {
@@ -2338,7 +2344,10 @@
                     }
                 },
                 "type-parameters": [
-                    "T = any"
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
                 ]
             },
             "AesGcmParams": {

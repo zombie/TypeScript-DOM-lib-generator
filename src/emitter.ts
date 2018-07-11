@@ -347,7 +347,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (!typeParameters) return i.name;
         if (!typeParameters.length) return i.name;
 
-        return `${i.name}<${typeParameters.map(t => t.replace(/\s+=.*$/, ''))}>`;
+        return `${i.name}<${typeParameters.map(t => t.name)}>`;
     }
 
     function emitConstant(c: Browser.Constant) {
@@ -371,7 +371,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
-        return i["type-parameters"] ? name + "<" + i["type-parameters"]!.join(", ") + ">" : name;
+        function typeParameterWithDefault (type: Browser.TypeParameter) {
+            return type.default ? type.name + " = " + type.default : type.name
+        }
+
+        return i["type-parameters"] ? name + "<" + i["type-parameters"]!.map(typeParameterWithDefault).join(", ") + ">" : name;
     }
 
     /// Emit overloads for the createElement method

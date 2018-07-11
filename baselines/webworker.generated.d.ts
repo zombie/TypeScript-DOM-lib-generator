@@ -2749,9 +2749,9 @@ declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => 
 declare function close(): void;
 declare function postMessage(message: any, transfer?: any[]): void;
 /**
-     * Dispatches a synthetic event event to target and returns true
-     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
-     */
+ * Dispatches a synthetic event event to target and returns true
+ * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+ */
 declare function dispatchEvent(event: Event): boolean;
 declare var caches: CacheStorage;
 declare var isSecureContext: boolean;
@@ -2761,9 +2761,9 @@ declare var performance: Performance;
 declare var self: WorkerGlobalScope;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 /**
-     * Dispatches a synthetic event event to target and returns true
-     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
-     */
+ * Dispatches a synthetic event event to target and returns true
+ * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+ */
 declare function dispatchEvent(event: Event): boolean;
 declare var indexedDB: IDBFactory;
 declare var msIndexedDB: IDBFactory;

@@ -17245,17 +17245,17 @@ declare function webkitConvertPointFromPageToNode(node: Node, pt: WebKitPoint): 
 declare function webkitRequestAnimationFrame(callback: FrameRequestCallback): number;
 declare function toString(): string;
 /**
-     * Dispatches a synthetic event event to target and returns true
-     * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
-     */
+ * Dispatches a synthetic event event to target and returns true
+ * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
+ */
 declare function dispatchEvent(event: Event): boolean;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
 declare var console: Console;
 /**
-     * Fires when the user aborts the download.
-     * @param ev The event.
-     */
+ * Fires when the user aborts the download.
+ * @param ev The event.
+ */
 declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
 declare var onanimationcancel: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onanimationend: ((this: Window, ev: AnimationEvent) => any) | null;
@@ -17263,177 +17263,177 @@ declare var onanimationiteration: ((this: Window, ev: AnimationEvent) => any) | 
 declare var onanimationstart: ((this: Window, ev: AnimationEvent) => any) | null;
 declare var onauxclick: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the object loses the input focus.
-     * @param ev The focus event.
-     */
+ * Fires when the object loses the input focus.
+ * @param ev The focus event.
+ */
 declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
 declare var oncancel: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when playback is possible, but would require further buffering.
-     * @param ev The event.
-     */
+ * Occurs when playback is possible, but would require further buffering.
+ * @param ev The event.
+ */
 declare var oncanplay: ((this: Window, ev: Event) => any) | null;
 declare var oncanplaythrough: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the contents of the object or selection have changed.
-     * @param ev The event.
-     */
+ * Fires when the contents of the object or selection have changed.
+ * @param ev The event.
+ */
 declare var onchange: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the user clicks the left mouse button on the object
-     * @param ev The mouse event.
-     */
+ * Fires when the user clicks the left mouse button on the object
+ * @param ev The mouse event.
+ */
 declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onclose: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the user clicks the right mouse button in the client area, opening the context menu.
-     * @param ev The mouse event.
-     */
+ * Fires when the user clicks the right mouse button in the client area, opening the context menu.
+ * @param ev The mouse event.
+ */
 declare var oncontextmenu: ((this: Window, ev: MouseEvent) => any) | null;
 declare var oncuechange: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the user double-clicks the object.
-     * @param ev The mouse event.
-     */
+ * Fires when the user double-clicks the object.
+ * @param ev The mouse event.
+ */
 declare var ondblclick: ((this: Window, ev: MouseEvent) => any) | null;
 /**
-     * Fires on the source object continuously during a drag operation.
-     * @param ev The event.
-     */
+ * Fires on the source object continuously during a drag operation.
+ * @param ev The event.
+ */
 declare var ondrag: ((this: Window, ev: DragEvent) => any) | null;
 /**
-     * Fires on the source object when the user releases the mouse at the close of a drag operation.
-     * @param ev The event.
-     */
+ * Fires on the source object when the user releases the mouse at the close of a drag operation.
+ * @param ev The event.
+ */
 declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
 /**
-     * Fires on the target element when the user drags the object to a valid drop target.
-     * @param ev The drag event.
-     */
+ * Fires on the target element when the user drags the object to a valid drop target.
+ * @param ev The drag event.
+ */
 declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
 declare var ondragexit: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
-     * @param ev The drag event.
-     */
+ * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
+ * @param ev The drag event.
+ */
 declare var ondragleave: ((this: Window, ev: DragEvent) => any) | null;
 /**
-     * Fires on the target element continuously while the user drags the object over a valid drop target.
-     * @param ev The event.
-     */
+ * Fires on the target element continuously while the user drags the object over a valid drop target.
+ * @param ev The event.
+ */
 declare var ondragover: ((this: Window, ev: DragEvent) => any) | null;
 /**
-     * Fires on the source object when the user starts to drag a text selection or selected object.
-     * @param ev The event.
-     */
+ * Fires on the source object when the user starts to drag a text selection or selected object.
+ * @param ev The event.
+ */
 declare var ondragstart: ((this: Window, ev: DragEvent) => any) | null;
 declare var ondrop: ((this: Window, ev: DragEvent) => any) | null;
 /**
-     * Occurs when the duration attribute is updated.
-     * @param ev The event.
-     */
+ * Occurs when the duration attribute is updated.
+ * @param ev The event.
+ */
 declare var ondurationchange: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when the media element is reset to its initial state.
-     * @param ev The event.
-     */
+ * Occurs when the media element is reset to its initial state.
+ * @param ev The event.
+ */
 declare var onemptied: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when the end of playback is reached.
-     * @param ev The event
-     */
+ * Occurs when the end of playback is reached.
+ * @param ev The event
+ */
 declare var onended: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when an error occurs during object loading.
-     * @param ev The event.
-     */
+ * Fires when an error occurs during object loading.
+ * @param ev The event.
+ */
 declare var onerror: ((this: Window, ev: ErrorEvent) => any) | null;
 /**
-     * Fires when the object receives focus.
-     * @param ev The event.
-     */
+ * Fires when the object receives focus.
+ * @param ev The event.
+ */
 declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
 declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 declare var oninput: ((this: Window, ev: Event) => any) | null;
 declare var oninvalid: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the user presses a key.
-     * @param ev The keyboard event
-     */
+ * Fires when the user presses a key.
+ * @param ev The keyboard event
+ */
 declare var onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
 /**
-     * Fires when the user presses an alphanumeric key.
-     * @param ev The event.
-     */
+ * Fires when the user presses an alphanumeric key.
+ * @param ev The event.
+ */
 declare var onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
 /**
-     * Fires when the user releases a key.
-     * @param ev The keyboard event
-     */
+ * Fires when the user releases a key.
+ * @param ev The keyboard event
+ */
 declare var onkeyup: ((this: Window, ev: KeyboardEvent) => any) | null;
 /**
-     * Fires immediately after the browser loads the object.
-     * @param ev The event.
-     */
+ * Fires immediately after the browser loads the object.
+ * @param ev The event.
+ */
 declare var onload: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when media data is loaded at the current playback position.
-     * @param ev The event.
-     */
+ * Occurs when media data is loaded at the current playback position.
+ * @param ev The event.
+ */
 declare var onloadeddata: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when the duration and dimensions of the media have been determined.
-     * @param ev The event.
-     */
+ * Occurs when the duration and dimensions of the media have been determined.
+ * @param ev The event.
+ */
 declare var onloadedmetadata: ((this: Window, ev: Event) => any) | null;
 declare var onloadend: ((this: Window, ev: ProgressEvent) => any) | null;
 /**
-     * Occurs when Internet Explorer begins looking for media data.
-     * @param ev The event.
-     */
+ * Occurs when Internet Explorer begins looking for media data.
+ * @param ev The event.
+ */
 declare var onloadstart: ((this: Window, ev: Event) => any) | null;
 declare var onlostpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 /**
-     * Fires when the user clicks the object with either mouse button.
-     * @param ev The mouse event.
-     */
+ * Fires when the user clicks the object with either mouse button.
+ * @param ev The mouse event.
+ */
 declare var onmousedown: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmouseenter: ((this: Window, ev: MouseEvent) => any) | null;
 declare var onmouseleave: ((this: Window, ev: MouseEvent) => any) | null;
 /**
-     * Fires when the user moves the mouse over the object.
-     * @param ev The mouse event.
-     */
+ * Fires when the user moves the mouse over the object.
+ * @param ev The mouse event.
+ */
 declare var onmousemove: ((this: Window, ev: MouseEvent) => any) | null;
 /**
-     * Fires when the user moves the mouse pointer outside the boundaries of the object.
-     * @param ev The mouse event.
-     */
+ * Fires when the user moves the mouse pointer outside the boundaries of the object.
+ * @param ev The mouse event.
+ */
 declare var onmouseout: ((this: Window, ev: MouseEvent) => any) | null;
 /**
-     * Fires when the user moves the mouse pointer into the object.
-     * @param ev The mouse event.
-     */
+ * Fires when the user moves the mouse pointer into the object.
+ * @param ev The mouse event.
+ */
 declare var onmouseover: ((this: Window, ev: MouseEvent) => any) | null;
 /**
-     * Fires when the user releases a mouse button while the mouse is over the object.
-     * @param ev The mouse event.
-     */
+ * Fires when the user releases a mouse button while the mouse is over the object.
+ * @param ev The mouse event.
+ */
 declare var onmouseup: ((this: Window, ev: MouseEvent) => any) | null;
 /**
-     * Occurs when playback is paused.
-     * @param ev The event.
-     */
+ * Occurs when playback is paused.
+ * @param ev The event.
+ */
 declare var onpause: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when the play method is requested.
-     * @param ev The event.
-     */
+ * Occurs when the play method is requested.
+ * @param ev The event.
+ */
 declare var onplay: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when the audio or video has started playing.
-     * @param ev The event.
-     */
+ * Occurs when the audio or video has started playing.
+ * @param ev The event.
+ */
 declare var onplaying: ((this: Window, ev: Event) => any) | null;
 declare var onpointercancel: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerdown: ((this: Window, ev: PointerEvent) => any) | null;
@@ -17444,57 +17444,57 @@ declare var onpointerout: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerover: ((this: Window, ev: PointerEvent) => any) | null;
 declare var onpointerup: ((this: Window, ev: PointerEvent) => any) | null;
 /**
-     * Occurs to indicate progress while downloading media data.
-     * @param ev The event.
-     */
+ * Occurs to indicate progress while downloading media data.
+ * @param ev The event.
+ */
 declare var onprogress: ((this: Window, ev: ProgressEvent) => any) | null;
 /**
-     * Occurs when the playback rate is increased or decreased.
-     * @param ev The event.
-     */
+ * Occurs when the playback rate is increased or decreased.
+ * @param ev The event.
+ */
 declare var onratechange: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the user resets a form.
-     * @param ev The event.
-     */
+ * Fires when the user resets a form.
+ * @param ev The event.
+ */
 declare var onreset: ((this: Window, ev: Event) => any) | null;
 declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
 /**
-     * Fires when the user repositions the scroll box in the scroll bar on the object.
-     * @param ev The event.
-     */
+ * Fires when the user repositions the scroll box in the scroll bar on the object.
+ * @param ev The event.
+ */
 declare var onscroll: ((this: Window, ev: UIEvent) => any) | null;
 declare var onsecuritypolicyviolation: ((this: Window, ev: SecurityPolicyViolationEvent) => any) | null;
 /**
-     * Occurs when the seek operation ends.
-     * @param ev The event.
-     */
+ * Occurs when the seek operation ends.
+ * @param ev The event.
+ */
 declare var onseeked: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when the current playback position is moved.
-     * @param ev The event.
-     */
+ * Occurs when the current playback position is moved.
+ * @param ev The event.
+ */
 declare var onseeking: ((this: Window, ev: Event) => any) | null;
 /**
-     * Fires when the current selection changes.
-     * @param ev The event.
-     */
+ * Fires when the current selection changes.
+ * @param ev The event.
+ */
 declare var onselect: ((this: Window, ev: UIEvent) => any) | null;
 /**
-     * Occurs when the download has stopped.
-     * @param ev The event.
-     */
+ * Occurs when the download has stopped.
+ * @param ev The event.
+ */
 declare var onstalled: ((this: Window, ev: Event) => any) | null;
 declare var onsubmit: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs if the load operation has been intentionally halted.
-     * @param ev The event.
-     */
+ * Occurs if the load operation has been intentionally halted.
+ * @param ev The event.
+ */
 declare var onsuspend: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs to indicate the current playback position.
-     * @param ev The event.
-     */
+ * Occurs to indicate the current playback position.
+ * @param ev The event.
+ */
 declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
 declare var ontoggle: ((this: Window, ev: Event) => any) | null;
 declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null;
@@ -17506,14 +17506,14 @@ declare var ontransitionend: ((this: Window, ev: TransitionEvent) => any) | null
 declare var ontransitionrun: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionstart: ((this: Window, ev: TransitionEvent) => any) | null;
 /**
-     * Occurs when the volume is changed, or playback is muted or unmuted.
-     * @param ev The event.
-     */
+ * Occurs when the volume is changed, or playback is muted or unmuted.
+ * @param ev The event.
+ */
 declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
 /**
-     * Occurs when playback stops because the next frame of a video resource is not available.
-     * @param ev The event.
-     */
+ * Occurs when playback stops because the next frame of a video resource is not available.
+ * @param ev The event.
+ */
 declare var onwaiting: ((this: Window, ev: Event) => any) | null;
 declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;

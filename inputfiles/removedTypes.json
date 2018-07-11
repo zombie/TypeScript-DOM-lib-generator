@@ -125,6 +125,11 @@
                     }
                 }
             },
+            "SVGClipPathElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ]
+            },
             "SVGElementInstance": {
                 "properties": {
                     "property": {
@@ -137,7 +142,33 @@
                     }
                 }
             },
+            "SVGFilterElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ]
+            },
+            "SVGGradientElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ]
+            },
+            "SVGMaskElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ]
+            },
+            "SVGMatrix": null,
+            "SVGPatternElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ]
+            },
+            "SVGPoint": null,
+            "SVGRect": null,
             "SVGSVGElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ],
                 "properties": {
                     "property": {
                         "onabort": null,
@@ -147,9 +178,11 @@
                     }
                 }
             },
-            "SVGMatrix": null,
-            "SVGPoint": null,
-            "SVGRect": null,
+            "SVGViewElement": {
+                "implements": [
+                    "SVGUnitTypes"
+                ]
+            },
             "WebKitCSSMatrix": null,
             "WebKitDirectoryEntry": null,
             "WebKitDirectoryReader": null,
@@ -198,9 +231,7 @@
     },
     "typedefs": {
         "typedef": [
-            {
-                "new-type": "ArrayBufferView"
-            }
+            "ArrayBufferView"
         ]
     }
 }

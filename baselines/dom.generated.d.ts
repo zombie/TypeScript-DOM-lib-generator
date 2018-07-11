@@ -11591,7 +11591,7 @@ declare var SVGCircleElement: {
     new(): SVGCircleElement;
 };
 
-interface SVGClipPathElement extends SVGGraphicsElement, SVGUnitTypes {
+interface SVGClipPathElement extends SVGGraphicsElement {
     readonly clipPathUnits: SVGAnimatedEnumeration;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -12173,7 +12173,7 @@ declare var SVGFETurbulenceElement: {
     readonly SVG_TURBULENCE_TYPE_UNKNOWN: number;
 };
 
-interface SVGFilterElement extends SVGElement, SVGUnitTypes, SVGURIReference {
+interface SVGFilterElement extends SVGElement, SVGURIReference {
     /** @deprecated */
     readonly filterResX: SVGAnimatedInteger;
     /** @deprecated */
@@ -12255,7 +12255,7 @@ declare var SVGGeometryElement: {
     new(): SVGGeometryElement;
 };
 
-interface SVGGradientElement extends SVGElement, SVGUnitTypes, SVGURIReference {
+interface SVGGradientElement extends SVGElement, SVGURIReference {
     readonly gradientTransform: SVGAnimatedTransformList;
     readonly gradientUnits: SVGAnimatedEnumeration;
     readonly spreadMethod: SVGAnimatedEnumeration;
@@ -12430,7 +12430,7 @@ declare var SVGMarkerElement: {
     readonly SVG_MARKER_ORIENT_UNKNOWN: number;
 };
 
-interface SVGMaskElement extends SVGElement, SVGTests, SVGUnitTypes {
+interface SVGMaskElement extends SVGElement, SVGTests {
     readonly height: SVGAnimatedLength;
     readonly maskContentUnits: SVGAnimatedEnumeration;
     readonly maskUnits: SVGAnimatedEnumeration;
@@ -12819,7 +12819,7 @@ declare var SVGPathSegMovetoRel: {
     new(): SVGPathSegMovetoRel;
 };
 
-interface SVGPatternElement extends SVGElement, SVGTests, SVGUnitTypes, SVGFitToViewBox, SVGURIReference {
+interface SVGPatternElement extends SVGElement, SVGTests, SVGFitToViewBox, SVGURIReference {
     readonly height: SVGAnimatedLength;
     readonly patternContentUnits: SVGAnimatedEnumeration;
     readonly patternTransform: SVGAnimatedTransformList;
@@ -13019,6 +13019,9 @@ interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewB
 declare var SVGSVGElement: {
     prototype: SVGSVGElement;
     new(): SVGSVGElement;
+    readonly SVG_ZOOMANDPAN_DISABLE: number;
+    readonly SVG_ZOOMANDPAN_MAGNIFY: number;
+    readonly SVG_ZOOMANDPAN_UNKNOWN: number;
 };
 
 interface SVGScriptElement extends SVGElement, SVGURIReference {
@@ -13316,6 +13319,9 @@ interface SVGViewElement extends SVGElement, SVGFitToViewBox, SVGZoomAndPan {
 declare var SVGViewElement: {
     prototype: SVGViewElement;
     new(): SVGViewElement;
+    readonly SVG_ZOOMANDPAN_DISABLE: number;
+    readonly SVG_ZOOMANDPAN_MAGNIFY: number;
+    readonly SVG_ZOOMANDPAN_UNKNOWN: number;
 };
 
 interface SVGZoomAndPan {

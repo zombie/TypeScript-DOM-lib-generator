@@ -169,9 +169,14 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const eventType = eType === "Event" || dependsOn(eType, "Event") ? eType : defaultEventType;
             return { name: p.name, eventName, eventType };
         }));
+    
+    const iNameToConstList = arrayToMap(allInterfaces, i => i.name, i =>
+        !i.constants ? [] : mapToArray(i.constants.constant));
 
     // Map of interface.Name -> List of base interfaces with event handlers
     const iNameToEhParents = arrayToMap(allInterfaces, i => i.name, getParentsWithEventHandler);
+
+    const iNameToConstParents = arrayToMap(allInterfaces, i => i.name, getParentsWithConstant);
 
     return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
 
@@ -221,10 +226,21 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return ehParents;
         }
 
-        const extendedParentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
-        const implementedParentsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
+        const parentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
+        const mixinsWithEventHandler = flatMap(i.implements || [], i => getParentEventHandler(allInterfacesMap[i]));
 
-        return distinct(extendedParentWithEventHandler.concat(implementedParentsWithEventHandler));
+        return distinct(parentWithEventHandler.concat(mixinsWithEventHandler));
+    }
+
+    function getParentsWithConstant(i: Browser.Interface) {
+        function getParentConstant(i: Browser.Interface): Browser.Interface[] {
+            const hasConst = iNameToConstList[i.name] && iNameToConstList[i.name].length;
+            return (hasConst ? [i] : []).concat(getParentsWithConstant(i));
+        }
+
+        const mixinsWithConstant = flatMap(i.implements || [], i => getParentConstant(allInterfacesMap[i]));
+
+        return distinct(mixinsWithConstant);
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
@@ -746,6 +762,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine(`prototype: ${i.name};`);
         emitConstructorSignature(i);
         emitConstants(i);
+        if (iNameToConstParents[i.name] && iNameToConstParents[i.name].length) {
+            for (const parent of iNameToConstParents[i.name]) {
+                emitConstants(parent);
+            }
+        }
         emitMembers(/*prefix*/ "", EmitScope.StaticOnly, i);
 
         printer.decreaseIndent();

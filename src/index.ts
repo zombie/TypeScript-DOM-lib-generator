@@ -113,22 +113,27 @@ function emitDom() {
     emitES6DomIterators(webidl, tsWebIteratorsOutput);
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
-        const result = filterByNull(obj, template);
-        if (obj.typedefs) result.typedefs!.typedef = obj.typedefs.typedef.filter(t => !(template.typedefs && template.typedefs.typedef.find(o => o["new-type"] === t["new-type"])));
-
-        return result;
+        return filterByNull(obj, template);
 
         function filterByNull(obj: any, template: any) {
             if (!template) return obj;
             const filtered: any = {};
             for (const k in obj) {
-                if (template.hasOwnProperty(k) && !Array.isArray(template[k])) {
-                    if (template[k] !== null) {
-                        filtered[k] = filterByNull(obj[k], template[k]);
-                    }
-                }
-                else {
+                if (!template.hasOwnProperty(k)) {
                     filtered[k] = obj[k];
+                }
+                else if (Array.isArray(template[k])) {
+                    if (!Array.isArray(obj[k])) {
+                        throw new Error(`Removal template ${k} is an array but the original field is not`);
+                    }
+                    // template should include strings
+                    filtered[k] = obj[k].filter((item: any) => {
+                        const name = typeof item === "string" ? item : (item.name || item["new-type"]);
+                        return !template[k].includes(name);
+                    });
+                }
+                else if (template[k] !== null) {
+                    filtered[k] = filterByNull(obj[k], template[k]);
                 }
             }
             return filtered;

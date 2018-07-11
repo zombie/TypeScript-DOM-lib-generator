@@ -586,7 +586,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitComments(entity: { comment?: string; deprecated?: 1 }, print: (s: string) => void) {
         if (entity.comment) {
-            print(entity.comment);
+            entity.comment.split('\n').forEach(print);
         }
         if (entity.deprecated) {
             print(`/** @deprecated */`);
@@ -1131,7 +1131,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
             methods.forEach((m) => {
                 if (comments && comments[m.name]) {
-                    printer.printLine(comments[m.name]);
+                    comments[m.name].split('\n').forEach(printer.printLine);
                 }
                 printer.printLine(`${m.name}(): ${m.definition};`);
             });

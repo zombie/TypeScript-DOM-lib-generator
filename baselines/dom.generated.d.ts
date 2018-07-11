@@ -11591,7 +11591,7 @@ declare var SVGCircleElement: {
     new(): SVGCircleElement;
 };
 
-interface SVGClipPathElement extends SVGGraphicsElement, SVGUnitTypes {
+interface SVGClipPathElement extends SVGGraphicsElement {
     readonly clipPathUnits: SVGAnimatedEnumeration;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -11602,9 +11602,6 @@ interface SVGClipPathElement extends SVGGraphicsElement, SVGUnitTypes {
 declare var SVGClipPathElement: {
     prototype: SVGClipPathElement;
     new(): SVGClipPathElement;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGComponentTransferFunctionElement extends SVGElement {
@@ -12176,7 +12173,7 @@ declare var SVGFETurbulenceElement: {
     readonly SVG_TURBULENCE_TYPE_UNKNOWN: number;
 };
 
-interface SVGFilterElement extends SVGElement, SVGUnitTypes, SVGURIReference {
+interface SVGFilterElement extends SVGElement, SVGURIReference {
     /** @deprecated */
     readonly filterResX: SVGAnimatedInteger;
     /** @deprecated */
@@ -12198,9 +12195,6 @@ interface SVGFilterElement extends SVGElement, SVGUnitTypes, SVGURIReference {
 declare var SVGFilterElement: {
     prototype: SVGFilterElement;
     new(): SVGFilterElement;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGFilterPrimitiveStandardAttributes {
@@ -12261,7 +12255,7 @@ declare var SVGGeometryElement: {
     new(): SVGGeometryElement;
 };
 
-interface SVGGradientElement extends SVGElement, SVGUnitTypes, SVGURIReference {
+interface SVGGradientElement extends SVGElement, SVGURIReference {
     readonly gradientTransform: SVGAnimatedTransformList;
     readonly gradientUnits: SVGAnimatedEnumeration;
     readonly spreadMethod: SVGAnimatedEnumeration;
@@ -12282,9 +12276,6 @@ declare var SVGGradientElement: {
     readonly SVG_SPREADMETHOD_REFLECT: number;
     readonly SVG_SPREADMETHOD_REPEAT: number;
     readonly SVG_SPREADMETHOD_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGGraphicsElement extends SVGElement, SVGTests {
@@ -12439,7 +12430,7 @@ declare var SVGMarkerElement: {
     readonly SVG_MARKER_ORIENT_UNKNOWN: number;
 };
 
-interface SVGMaskElement extends SVGElement, SVGTests, SVGUnitTypes {
+interface SVGMaskElement extends SVGElement, SVGTests {
     readonly height: SVGAnimatedLength;
     readonly maskContentUnits: SVGAnimatedEnumeration;
     readonly maskUnits: SVGAnimatedEnumeration;
@@ -12455,9 +12446,6 @@ interface SVGMaskElement extends SVGElement, SVGTests, SVGUnitTypes {
 declare var SVGMaskElement: {
     prototype: SVGMaskElement;
     new(): SVGMaskElement;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGMetadataElement extends SVGElement {
@@ -12831,7 +12819,7 @@ declare var SVGPathSegMovetoRel: {
     new(): SVGPathSegMovetoRel;
 };
 
-interface SVGPatternElement extends SVGElement, SVGTests, SVGUnitTypes, SVGFitToViewBox, SVGURIReference {
+interface SVGPatternElement extends SVGElement, SVGTests, SVGFitToViewBox, SVGURIReference {
     readonly height: SVGAnimatedLength;
     readonly patternContentUnits: SVGAnimatedEnumeration;
     readonly patternTransform: SVGAnimatedTransformList;
@@ -12848,9 +12836,6 @@ interface SVGPatternElement extends SVGElement, SVGTests, SVGUnitTypes, SVGFitTo
 declare var SVGPatternElement: {
     prototype: SVGPatternElement;
     new(): SVGPatternElement;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGPointList {

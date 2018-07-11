@@ -227,7 +227,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         const parentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
-        const mixinsWithEventHandler = i.implements ? flatMap(i.implements, i => getParentEventHandler(allInterfacesMap[i])) : [];
+        const mixinsWithEventHandler = flatMap(i.implements || [], i => getParentEventHandler(allInterfacesMap[i]));
 
         return distinct(parentWithEventHandler.concat(mixinsWithEventHandler));
     }
@@ -238,10 +238,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return (hasConst ? [i] : []).concat(getParentsWithConstant(i));
         }
 
-        const parentWithConstant = allInterfacesMap[i.extends] && getParentConstant(allInterfacesMap[i.extends]) || [];
-        const mixinsWithConstant = i.implements ? flatMap(i.implements, i => getParentConstant(allInterfacesMap[i])) : [];
+        const mixinsWithConstant = flatMap(i.implements || [], i => getParentConstant(allInterfacesMap[i]));
 
-        return distinct(parentWithConstant.concat(mixinsWithConstant));
+        return distinct(mixinsWithConstant);
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {

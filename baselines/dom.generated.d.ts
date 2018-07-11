@@ -1711,10 +1711,6 @@ interface AnimationEvent extends Event {
 declare var AnimationEvent: {
     prototype: AnimationEvent;
     new(type: string, animationEventInitDict?: AnimationEventInit): AnimationEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface AnimationPlaybackEvent extends Event {
@@ -1725,10 +1721,6 @@ interface AnimationPlaybackEvent extends Event {
 declare var AnimationPlaybackEvent: {
     prototype: AnimationPlaybackEvent;
     new(type: string, eventInitDict?: AnimationPlaybackEventInit): AnimationPlaybackEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface AnimationTimeline {
@@ -1810,24 +1802,6 @@ interface Attr extends Node {
 declare var Attr: {
     prototype: Attr;
     new(): Attr;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface AudioBuffer {
@@ -1976,10 +1950,6 @@ interface AudioProcessingEvent extends Event {
 declare var AudioProcessingEvent: {
     prototype: AudioProcessingEvent;
     new(type: string, eventInitDict: AudioProcessingEventInit): AudioProcessingEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface AudioScheduledSourceNodeEventMap {
@@ -2126,10 +2096,6 @@ interface BeforeUnloadEvent extends Event {
 declare var BeforeUnloadEvent: {
     prototype: BeforeUnloadEvent;
     new(): BeforeUnloadEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface BhxBrowser {
@@ -2241,24 +2207,6 @@ interface CDATASection extends Text {
 declare var CDATASection: {
     prototype: CDATASection;
     new(): CDATASection;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface CSS {
@@ -2274,18 +2222,6 @@ interface CSSConditionRule extends CSSGroupingRule {
 declare var CSSConditionRule: {
     prototype: CSSConditionRule;
     new(): CSSConditionRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSFontFaceRule extends CSSRule {
@@ -2295,18 +2231,6 @@ interface CSSFontFaceRule extends CSSRule {
 declare var CSSFontFaceRule: {
     prototype: CSSFontFaceRule;
     new(): CSSFontFaceRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSGroupingRule extends CSSRule {
@@ -2318,18 +2242,6 @@ interface CSSGroupingRule extends CSSRule {
 declare var CSSGroupingRule: {
     prototype: CSSGroupingRule;
     new(): CSSGroupingRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSImportRule extends CSSRule {
@@ -2341,18 +2253,6 @@ interface CSSImportRule extends CSSRule {
 declare var CSSImportRule: {
     prototype: CSSImportRule;
     new(): CSSImportRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSKeyframeRule extends CSSRule {
@@ -2363,18 +2263,6 @@ interface CSSKeyframeRule extends CSSRule {
 declare var CSSKeyframeRule: {
     prototype: CSSKeyframeRule;
     new(): CSSKeyframeRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSKeyframesRule extends CSSRule {
@@ -2388,18 +2276,6 @@ interface CSSKeyframesRule extends CSSRule {
 declare var CSSKeyframesRule: {
     prototype: CSSKeyframesRule;
     new(): CSSKeyframesRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSMediaRule extends CSSConditionRule {
@@ -2409,18 +2285,6 @@ interface CSSMediaRule extends CSSConditionRule {
 declare var CSSMediaRule: {
     prototype: CSSMediaRule;
     new(): CSSMediaRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSNamespaceRule extends CSSRule {
@@ -2431,18 +2295,6 @@ interface CSSNamespaceRule extends CSSRule {
 declare var CSSNamespaceRule: {
     prototype: CSSNamespaceRule;
     new(): CSSNamespaceRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSPageRule extends CSSRule {
@@ -2455,18 +2307,6 @@ interface CSSPageRule extends CSSRule {
 declare var CSSPageRule: {
     prototype: CSSPageRule;
     new(): CSSPageRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSRule {
@@ -2912,18 +2752,6 @@ interface CSSStyleRule extends CSSRule {
 declare var CSSStyleRule: {
     prototype: CSSStyleRule;
     new(): CSSStyleRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface CSSStyleSheet extends StyleSheet {
@@ -2969,18 +2797,6 @@ interface CSSSupportsRule extends CSSConditionRule {
 declare var CSSSupportsRule: {
     prototype: CSSSupportsRule;
     new(): CSSSupportsRule;
-    readonly CHARSET_RULE: number;
-    readonly FONT_FACE_RULE: number;
-    readonly IMPORT_RULE: number;
-    readonly KEYFRAMES_RULE: number;
-    readonly KEYFRAME_RULE: number;
-    readonly MEDIA_RULE: number;
-    readonly NAMESPACE_RULE: number;
-    readonly PAGE_RULE: number;
-    readonly STYLE_RULE: number;
-    readonly SUPPORTS_RULE: number;
-    readonly UNKNOWN_RULE: number;
-    readonly VIEWPORT_RULE: number;
 };
 
 interface Cache {
@@ -3211,24 +3027,6 @@ interface CharacterData extends Node, ChildNode {
 declare var CharacterData: {
     prototype: CharacterData;
     new(): CharacterData;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface ChildNode {
@@ -3267,10 +3065,6 @@ interface ClipboardEvent extends Event {
 declare var ClipboardEvent: {
     prototype: ClipboardEvent;
     new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ClipboardEventInit extends EventInit {
@@ -3289,10 +3083,6 @@ interface CloseEvent extends Event {
 declare var CloseEvent: {
     prototype: CloseEvent;
     new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Comment extends CharacterData {
@@ -3302,24 +3092,6 @@ interface Comment extends CharacterData {
 declare var Comment: {
     prototype: Comment;
     new(data?: string): Comment;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface CompositionEvent extends UIEvent {
@@ -3331,10 +3103,6 @@ interface CompositionEvent extends UIEvent {
 declare var CompositionEvent: {
     prototype: CompositionEvent;
     new(typeArg: string, eventInitDict?: CompositionEventInit): CompositionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ConcatParams extends Algorithm {
@@ -3474,10 +3242,6 @@ interface CustomEvent<T = any> extends Event {
 declare var CustomEvent: {
     prototype: CustomEvent;
     new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface DOMError {
@@ -3977,10 +3741,6 @@ interface DeviceLightEvent extends Event {
 declare var DeviceLightEvent: {
     prototype: DeviceLightEvent;
     new(typeArg: string, eventInitDict?: DeviceLightEventInit): DeviceLightEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface DeviceMotionEvent extends Event {
@@ -3994,10 +3754,6 @@ interface DeviceMotionEvent extends Event {
 declare var DeviceMotionEvent: {
     prototype: DeviceMotionEvent;
     new(typeArg: string, eventInitDict?: DeviceMotionEventInit): DeviceMotionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface DeviceOrientationEvent extends Event {
@@ -4011,10 +3767,6 @@ interface DeviceOrientationEvent extends Event {
 declare var DeviceOrientationEvent: {
     prototype: DeviceOrientationEvent;
     new(typeArg: string, eventInitDict?: DeviceOrientationEventInit): DeviceOrientationEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface DeviceRotationRate {
@@ -4657,24 +4409,6 @@ interface Document extends Node, GlobalEventHandlers, ParentNode, DocumentEvent,
 declare var Document: {
     prototype: Document;
     new(): Document;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface DocumentAndElementEventHandlersEventMap {
@@ -4779,24 +4513,6 @@ interface DocumentFragment extends Node, ParentNode {
 declare var DocumentFragment: {
     prototype: DocumentFragment;
     new(): DocumentFragment;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface DocumentOrShadowRoot {
@@ -4827,24 +4543,6 @@ interface DocumentType extends Node, ChildNode {
 declare var DocumentType: {
     prototype: DocumentType;
     new(): DocumentType;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface DragEvent extends MouseEvent {
@@ -4857,10 +4555,6 @@ interface DragEvent extends MouseEvent {
 declare var DragEvent: {
     prototype: DragEvent;
     new(type: string, eventInitDict?: DragEventInit): DragEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface DynamicsCompressorNode extends AudioNode {
@@ -5041,24 +4735,6 @@ interface Element extends Node, GlobalEventHandlers, ElementTraversal, ParentNod
 declare var Element: {
     prototype: Element;
     new(): Element;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface ElementContentEditable {
@@ -5090,10 +4766,6 @@ interface ErrorEvent extends Event {
 declare var ErrorEvent: {
     prototype: ErrorEvent;
     new(type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Event {
@@ -5260,10 +4932,6 @@ interface FocusEvent extends UIEvent {
 declare var FocusEvent: {
     prototype: FocusEvent;
     new(typeArg: string, eventInitDict?: FocusEventInit): FocusEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface FocusNavigationEvent extends Event {
@@ -5278,10 +4946,6 @@ interface FocusNavigationEvent extends Event {
 declare var FocusNavigationEvent: {
     prototype: FocusNavigationEvent;
     new(type: string, eventInitDict?: FocusNavigationEventInit): FocusNavigationEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface FormData {
@@ -5345,10 +5009,6 @@ interface GamepadEvent extends Event {
 declare var GamepadEvent: {
     prototype: GamepadEvent;
     new(typeArg: string, eventInitDict?: GamepadEventInit): GamepadEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface GamepadHapticActuator {
@@ -5646,24 +5306,6 @@ interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
 declare var HTMLAnchorElement: {
     prototype: HTMLAnchorElement;
     new(): HTMLAnchorElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLAppletElement extends HTMLElement {
@@ -5714,24 +5356,6 @@ interface HTMLAppletElement extends HTMLElement {
 declare var HTMLAppletElement: {
     prototype: HTMLAppletElement;
     new(): HTMLAppletElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
@@ -5770,24 +5394,6 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
 declare var HTMLAreaElement: {
     prototype: HTMLAreaElement;
     new(): HTMLAreaElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLAudioElement extends HTMLMediaElement {
@@ -5800,33 +5406,6 @@ interface HTMLAudioElement extends HTMLMediaElement {
 declare var HTMLAudioElement: {
     prototype: HTMLAudioElement;
     new(): HTMLAudioElement;
-    readonly HAVE_CURRENT_DATA: number;
-    readonly HAVE_ENOUGH_DATA: number;
-    readonly HAVE_FUTURE_DATA: number;
-    readonly HAVE_METADATA: number;
-    readonly HAVE_NOTHING: number;
-    readonly NETWORK_EMPTY: number;
-    readonly NETWORK_IDLE: number;
-    readonly NETWORK_LOADING: number;
-    readonly NETWORK_NO_SOURCE: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLBRElement extends HTMLElement {
@@ -5844,24 +5423,6 @@ interface HTMLBRElement extends HTMLElement {
 declare var HTMLBRElement: {
     prototype: HTMLBRElement;
     new(): HTMLBRElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLBaseElement extends HTMLElement {
@@ -5882,24 +5443,6 @@ interface HTMLBaseElement extends HTMLElement {
 declare var HTMLBaseElement: {
     prototype: HTMLBaseElement;
     new(): HTMLBaseElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLBaseFontElement extends HTMLElement, DOML2DeprecatedColorProperty {
@@ -5922,24 +5465,6 @@ interface HTMLBaseFontElement extends HTMLElement, DOML2DeprecatedColorProperty 
 declare var HTMLBaseFontElement: {
     prototype: HTMLBaseFontElement;
     new(): HTMLBaseFontElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
@@ -5973,24 +5498,6 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
 declare var HTMLBodyElement: {
     prototype: HTMLBodyElement;
     new(): HTMLBodyElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLButtonElement extends HTMLElement {
@@ -6067,24 +5574,6 @@ interface HTMLButtonElement extends HTMLElement {
 declare var HTMLButtonElement: {
     prototype: HTMLButtonElement;
     new(): HTMLButtonElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLCanvasElement extends HTMLElement {
@@ -6118,24 +5607,6 @@ interface HTMLCanvasElement extends HTMLElement {
 declare var HTMLCanvasElement: {
     prototype: HTMLCanvasElement;
     new(): HTMLCanvasElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLCollectionBase {
@@ -6180,24 +5651,6 @@ interface HTMLDListElement extends HTMLElement {
 declare var HTMLDListElement: {
     prototype: HTMLDListElement;
     new(): HTMLDListElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDataElement extends HTMLElement {
@@ -6211,24 +5664,6 @@ interface HTMLDataElement extends HTMLElement {
 declare var HTMLDataElement: {
     prototype: HTMLDataElement;
     new(): HTMLDataElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDataListElement extends HTMLElement {
@@ -6242,24 +5677,6 @@ interface HTMLDataListElement extends HTMLElement {
 declare var HTMLDataListElement: {
     prototype: HTMLDataListElement;
     new(): HTMLDataListElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDetailsElement extends HTMLElement {
@@ -6273,24 +5690,6 @@ interface HTMLDetailsElement extends HTMLElement {
 declare var HTMLDetailsElement: {
     prototype: HTMLDetailsElement;
     new(): HTMLDetailsElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDialogElement extends HTMLElement {
@@ -6308,24 +5707,6 @@ interface HTMLDialogElement extends HTMLElement {
 declare var HTMLDialogElement: {
     prototype: HTMLDialogElement;
     new(): HTMLDialogElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDirectoryElement extends HTMLElement {
@@ -6340,24 +5721,6 @@ interface HTMLDirectoryElement extends HTMLElement {
 declare var HTMLDirectoryElement: {
     prototype: HTMLDirectoryElement;
     new(): HTMLDirectoryElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDivElement extends HTMLElement {
@@ -6375,24 +5738,6 @@ interface HTMLDivElement extends HTMLElement {
 declare var HTMLDivElement: {
     prototype: HTMLDivElement;
     new(): HTMLDivElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLDocument extends Document {
@@ -6405,24 +5750,6 @@ interface HTMLDocument extends Document {
 declare var HTMLDocument: {
     prototype: HTMLDocument;
     new(): HTMLDocument;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
@@ -6455,24 +5782,6 @@ interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEv
 declare var HTMLElement: {
     prototype: HTMLElement;
     new(): HTMLElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLEmbedElement extends HTMLElement, GetSVGDocument {
@@ -6534,24 +5843,6 @@ interface HTMLEmbedElement extends HTMLElement, GetSVGDocument {
 declare var HTMLEmbedElement: {
     prototype: HTMLEmbedElement;
     new(): HTMLEmbedElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLFieldSetElement extends HTMLElement {
@@ -6594,24 +5885,6 @@ interface HTMLFieldSetElement extends HTMLElement {
 declare var HTMLFieldSetElement: {
     prototype: HTMLFieldSetElement;
     new(): HTMLFieldSetElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLFontElement extends HTMLElement {
@@ -6633,24 +5906,6 @@ interface HTMLFontElement extends HTMLElement {
 declare var HTMLFontElement: {
     prototype: HTMLFontElement;
     new(): HTMLFontElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLFormControlsCollection extends HTMLCollectionBase {
@@ -6733,24 +5988,6 @@ interface HTMLFormElement extends HTMLElement {
 declare var HTMLFormElement: {
     prototype: HTMLFormElement;
     new(): HTMLFormElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLFrameElement extends HTMLElement {
@@ -6813,24 +6050,6 @@ interface HTMLFrameElement extends HTMLElement {
 declare var HTMLFrameElement: {
     prototype: HTMLFrameElement;
     new(): HTMLFrameElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLFrameSetElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
@@ -6856,24 +6075,6 @@ interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
 declare var HTMLFrameSetElement: {
     prototype: HTMLFrameSetElement;
     new(): HTMLFrameSetElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLHRElement extends HTMLElement {
@@ -6905,24 +6106,6 @@ interface HTMLHRElement extends HTMLElement {
 declare var HTMLHRElement: {
     prototype: HTMLHRElement;
     new(): HTMLHRElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLHeadElement extends HTMLElement {
@@ -6935,24 +6118,6 @@ interface HTMLHeadElement extends HTMLElement {
 declare var HTMLHeadElement: {
     prototype: HTMLHeadElement;
     new(): HTMLHeadElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLHeadingElement extends HTMLElement {
@@ -6970,24 +6135,6 @@ interface HTMLHeadingElement extends HTMLElement {
 declare var HTMLHeadingElement: {
     prototype: HTMLHeadingElement;
     new(): HTMLHeadingElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLHtmlElement extends HTMLElement {
@@ -7005,24 +6152,6 @@ interface HTMLHtmlElement extends HTMLElement {
 declare var HTMLHtmlElement: {
     prototype: HTMLHtmlElement;
     new(): HTMLHtmlElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLHyperlinkElementUtils {
@@ -7110,24 +6239,6 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
 declare var HTMLIFrameElement: {
     prototype: HTMLIFrameElement;
     new(): HTMLIFrameElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLImageElement extends HTMLElement {
@@ -7217,24 +6328,6 @@ interface HTMLImageElement extends HTMLElement {
 declare var HTMLImageElement: {
     prototype: HTMLImageElement;
     new(): HTMLImageElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLInputElement extends HTMLElement {
@@ -7439,24 +6532,6 @@ interface HTMLInputElement extends HTMLElement {
 declare var HTMLInputElement: {
     prototype: HTMLInputElement;
     new(): HTMLInputElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLLIElement extends HTMLElement {
@@ -7475,24 +6550,6 @@ interface HTMLLIElement extends HTMLElement {
 declare var HTMLLIElement: {
     prototype: HTMLLIElement;
     new(): HTMLLIElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLLabelElement extends HTMLElement {
@@ -7514,24 +6571,6 @@ interface HTMLLabelElement extends HTMLElement {
 declare var HTMLLabelElement: {
     prototype: HTMLLabelElement;
     new(): HTMLLabelElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLLegendElement extends HTMLElement {
@@ -7550,24 +6589,6 @@ interface HTMLLegendElement extends HTMLElement {
 declare var HTMLLegendElement: {
     prototype: HTMLLegendElement;
     new(): HTMLLegendElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLLinkElement extends HTMLElement, LinkStyle {
@@ -7622,24 +6643,6 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
 declare var HTMLLinkElement: {
     prototype: HTMLLinkElement;
     new(): HTMLLinkElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMainElement extends HTMLElement {
@@ -7652,24 +6655,6 @@ interface HTMLMainElement extends HTMLElement {
 declare var HTMLMainElement: {
     prototype: HTMLMainElement;
     new(): HTMLMainElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMapElement extends HTMLElement {
@@ -7690,24 +6675,6 @@ interface HTMLMapElement extends HTMLElement {
 declare var HTMLMapElement: {
     prototype: HTMLMapElement;
     new(): HTMLMapElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMarqueeElementEventMap extends HTMLElementEventMap {
@@ -7758,24 +6725,6 @@ interface HTMLMarqueeElement extends HTMLElement {
 declare var HTMLMarqueeElement: {
     prototype: HTMLMarqueeElement;
     new(): HTMLMarqueeElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMediaElementEventMap extends HTMLElementEventMap {
@@ -7972,24 +6921,6 @@ declare var HTMLMediaElement: {
     readonly NETWORK_IDLE: number;
     readonly NETWORK_LOADING: number;
     readonly NETWORK_NO_SOURCE: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMenuElement extends HTMLElement {
@@ -8004,24 +6935,6 @@ interface HTMLMenuElement extends HTMLElement {
 declare var HTMLMenuElement: {
     prototype: HTMLMenuElement;
     new(): HTMLMenuElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMetaElement extends HTMLElement {
@@ -8051,24 +6964,6 @@ interface HTMLMetaElement extends HTMLElement {
 declare var HTMLMetaElement: {
     prototype: HTMLMetaElement;
     new(): HTMLMetaElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLMeterElement extends HTMLElement {
@@ -8088,24 +6983,6 @@ interface HTMLMeterElement extends HTMLElement {
 declare var HTMLMeterElement: {
     prototype: HTMLMeterElement;
     new(): HTMLMeterElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLModElement extends HTMLElement {
@@ -8126,24 +7003,6 @@ interface HTMLModElement extends HTMLElement {
 declare var HTMLModElement: {
     prototype: HTMLModElement;
     new(): HTMLModElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLOListElement extends HTMLElement {
@@ -8164,24 +7023,6 @@ interface HTMLOListElement extends HTMLElement {
 declare var HTMLOListElement: {
     prototype: HTMLOListElement;
     new(): HTMLOListElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
@@ -8304,24 +7145,6 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
 declare var HTMLObjectElement: {
     prototype: HTMLObjectElement;
     new(): HTMLObjectElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLOptGroupElement extends HTMLElement {
@@ -8343,24 +7166,6 @@ interface HTMLOptGroupElement extends HTMLElement {
 declare var HTMLOptGroupElement: {
     prototype: HTMLOptGroupElement;
     new(): HTMLOptGroupElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLOptionElement extends HTMLElement {
@@ -8402,24 +7207,6 @@ interface HTMLOptionElement extends HTMLElement {
 declare var HTMLOptionElement: {
     prototype: HTMLOptionElement;
     new(): HTMLOptionElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
@@ -8486,24 +7273,6 @@ interface HTMLOutputElement extends HTMLElement {
 declare var HTMLOutputElement: {
     prototype: HTMLOutputElement;
     new(): HTMLOutputElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLParagraphElement extends HTMLElement {
@@ -8521,24 +7290,6 @@ interface HTMLParagraphElement extends HTMLElement {
 declare var HTMLParagraphElement: {
     prototype: HTMLParagraphElement;
     new(): HTMLParagraphElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLParamElement extends HTMLElement {
@@ -8569,24 +7320,6 @@ interface HTMLParamElement extends HTMLElement {
 declare var HTMLParamElement: {
     prototype: HTMLParamElement;
     new(): HTMLParamElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLPictureElement extends HTMLElement {
@@ -8599,24 +7332,6 @@ interface HTMLPictureElement extends HTMLElement {
 declare var HTMLPictureElement: {
     prototype: HTMLPictureElement;
     new(): HTMLPictureElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLPreElement extends HTMLElement {
@@ -8634,24 +7349,6 @@ interface HTMLPreElement extends HTMLElement {
 declare var HTMLPreElement: {
     prototype: HTMLPreElement;
     new(): HTMLPreElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLProgressElement extends HTMLElement {
@@ -8677,24 +7374,6 @@ interface HTMLProgressElement extends HTMLElement {
 declare var HTMLProgressElement: {
     prototype: HTMLProgressElement;
     new(): HTMLProgressElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLQuoteElement extends HTMLElement {
@@ -8711,24 +7390,6 @@ interface HTMLQuoteElement extends HTMLElement {
 declare var HTMLQuoteElement: {
     prototype: HTMLQuoteElement;
     new(): HTMLQuoteElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLScriptElement extends HTMLElement {
@@ -8777,24 +7438,6 @@ interface HTMLScriptElement extends HTMLElement {
 declare var HTMLScriptElement: {
     prototype: HTMLScriptElement;
     new(): HTMLScriptElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLSelectElement extends HTMLElement {
@@ -8898,24 +7541,6 @@ interface HTMLSelectElement extends HTMLElement {
 declare var HTMLSelectElement: {
     prototype: HTMLSelectElement;
     new(): HTMLSelectElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLSlotElement extends HTMLElement {
@@ -8931,24 +7556,6 @@ interface HTMLSlotElement extends HTMLElement {
 declare var HTMLSlotElement: {
     prototype: HTMLSlotElement;
     new(): HTMLSlotElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLSourceElement extends HTMLElement {
@@ -8975,24 +7582,6 @@ interface HTMLSourceElement extends HTMLElement {
 declare var HTMLSourceElement: {
     prototype: HTMLSourceElement;
     new(): HTMLSourceElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLSpanElement extends HTMLElement {
@@ -9005,24 +7594,6 @@ interface HTMLSpanElement extends HTMLElement {
 declare var HTMLSpanElement: {
     prototype: HTMLSpanElement;
     new(): HTMLSpanElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLStyleElement extends HTMLElement, LinkStyle {
@@ -9044,24 +7615,6 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
 declare var HTMLStyleElement: {
     prototype: HTMLStyleElement;
     new(): HTMLStyleElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableCaptionElement extends HTMLElement {
@@ -9079,24 +7632,6 @@ interface HTMLTableCaptionElement extends HTMLElement {
 declare var HTMLTableCaptionElement: {
     prototype: HTMLTableCaptionElement;
     new(): HTMLTableCaptionElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableCellElement extends HTMLElement {
@@ -9166,24 +7701,6 @@ interface HTMLTableCellElement extends HTMLElement {
 declare var HTMLTableCellElement: {
     prototype: HTMLTableCellElement;
     new(): HTMLTableCellElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableColElement extends HTMLElement {
@@ -9216,24 +7733,6 @@ interface HTMLTableColElement extends HTMLElement {
 declare var HTMLTableColElement: {
     prototype: HTMLTableColElement;
     new(): HTMLTableColElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableDataCellElement extends HTMLTableCellElement {
@@ -9246,24 +7745,6 @@ interface HTMLTableDataCellElement extends HTMLTableCellElement {
 declare var HTMLTableDataCellElement: {
     prototype: HTMLTableDataCellElement;
     new(): HTMLTableDataCellElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableElement extends HTMLElement {
@@ -9376,24 +7857,6 @@ interface HTMLTableElement extends HTMLElement {
 declare var HTMLTableElement: {
     prototype: HTMLTableElement;
     new(): HTMLTableElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
@@ -9407,24 +7870,6 @@ interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
 declare var HTMLTableHeaderCellElement: {
     prototype: HTMLTableHeaderCellElement;
     new(): HTMLTableHeaderCellElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableRowElement extends HTMLElement {
@@ -9472,24 +7917,6 @@ interface HTMLTableRowElement extends HTMLElement {
 declare var HTMLTableRowElement: {
     prototype: HTMLTableRowElement;
     new(): HTMLTableRowElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTableSectionElement extends HTMLElement {
@@ -9527,24 +7954,6 @@ interface HTMLTableSectionElement extends HTMLElement {
 declare var HTMLTableSectionElement: {
     prototype: HTMLTableSectionElement;
     new(): HTMLTableSectionElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTemplateElement extends HTMLElement {
@@ -9558,24 +7967,6 @@ interface HTMLTemplateElement extends HTMLElement {
 declare var HTMLTemplateElement: {
     prototype: HTMLTemplateElement;
     new(): HTMLTemplateElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTextAreaElement extends HTMLElement {
@@ -9690,24 +8081,6 @@ interface HTMLTextAreaElement extends HTMLElement {
 declare var HTMLTextAreaElement: {
     prototype: HTMLTextAreaElement;
     new(): HTMLTextAreaElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTimeElement extends HTMLElement {
@@ -9721,24 +8094,6 @@ interface HTMLTimeElement extends HTMLElement {
 declare var HTMLTimeElement: {
     prototype: HTMLTimeElement;
     new(): HTMLTimeElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTitleElement extends HTMLElement {
@@ -9755,24 +8110,6 @@ interface HTMLTitleElement extends HTMLElement {
 declare var HTMLTitleElement: {
     prototype: HTMLTitleElement;
     new(): HTMLTitleElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLTrackElement extends HTMLElement {
@@ -9800,24 +8137,6 @@ declare var HTMLTrackElement: {
     readonly LOADED: number;
     readonly LOADING: number;
     readonly NONE: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLUListElement extends HTMLElement {
@@ -9834,24 +8153,6 @@ interface HTMLUListElement extends HTMLElement {
 declare var HTMLUListElement: {
     prototype: HTMLUListElement;
     new(): HTMLUListElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLUnknownElement extends HTMLElement {
@@ -9864,24 +8165,6 @@ interface HTMLUnknownElement extends HTMLElement {
 declare var HTMLUnknownElement: {
     prototype: HTMLUnknownElement;
     new(): HTMLUnknownElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HTMLVideoElementEventMap extends HTMLMediaElementEventMap {
@@ -9939,33 +8222,6 @@ interface HTMLVideoElement extends HTMLMediaElement {
 declare var HTMLVideoElement: {
     prototype: HTMLVideoElement;
     new(): HTMLVideoElement;
-    readonly HAVE_CURRENT_DATA: number;
-    readonly HAVE_ENOUGH_DATA: number;
-    readonly HAVE_FUTURE_DATA: number;
-    readonly HAVE_METADATA: number;
-    readonly HAVE_NOTHING: number;
-    readonly NETWORK_EMPTY: number;
-    readonly NETWORK_IDLE: number;
-    readonly NETWORK_LOADING: number;
-    readonly NETWORK_NO_SOURCE: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface HashChangeEvent extends Event {
@@ -9976,10 +8232,6 @@ interface HashChangeEvent extends Event {
 declare var HashChangeEvent: {
     prototype: HashChangeEvent;
     new(type: string, eventInitDict?: HashChangeEventInit): HashChangeEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Headers {
@@ -10508,10 +8760,6 @@ interface IDBVersionChangeEvent extends Event {
 declare var IDBVersionChangeEvent: {
     prototype: IDBVersionChangeEvent;
     new(type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface IIRFilterNode extends AudioNode {
@@ -10659,10 +8907,6 @@ declare var KeyboardEvent: {
     readonly DOM_KEY_LOCATION_NUMPAD: number;
     readonly DOM_KEY_LOCATION_RIGHT: number;
     readonly DOM_KEY_LOCATION_STANDARD: number;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface KeyframeEffect extends AnimationEffect {
@@ -10691,10 +8935,6 @@ interface ListeningStateChangedEvent extends Event {
 declare var ListeningStateChangedEvent: {
     prototype: ListeningStateChangedEvent;
     new(): ListeningStateChangedEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Location {
@@ -10869,10 +9109,6 @@ declare var MSGestureEvent: {
     readonly MSGESTURE_FLAG_END: number;
     readonly MSGESTURE_FLAG_INERTIA: number;
     readonly MSGESTURE_FLAG_NONE: number;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MSGraphicsTrust {
@@ -10943,10 +9179,6 @@ interface MSMediaKeyMessageEvent extends Event {
 declare var MSMediaKeyMessageEvent: {
     prototype: MSMediaKeyMessageEvent;
     new(): MSMediaKeyMessageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MSMediaKeyNeededEvent extends Event {
@@ -10956,10 +9188,6 @@ interface MSMediaKeyNeededEvent extends Event {
 declare var MSMediaKeyNeededEvent: {
     prototype: MSMediaKeyNeededEvent;
     new(): MSMediaKeyNeededEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MSMediaKeySession extends EventTarget {
@@ -11017,10 +9245,6 @@ interface MSPointerEvent extends MouseEvent {
 declare var MSPointerEvent: {
     prototype: MSPointerEvent;
     new(typeArg: string, eventInitDict?: PointerEventInit): MSPointerEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MSStream {
@@ -11083,10 +9307,6 @@ interface MediaEncryptedEvent extends Event {
 declare var MediaEncryptedEvent: {
     prototype: MediaEncryptedEvent;
     new(type: string, eventInitDict?: MediaEncryptedEventInit): MediaEncryptedEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MediaError {
@@ -11118,10 +9338,6 @@ interface MediaKeyMessageEvent extends Event {
 declare var MediaKeyMessageEvent: {
     prototype: MediaKeyMessageEvent;
     new(type: string, eventInitDict?: MediaKeyMessageEventInit): MediaKeyMessageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MediaKeySession extends EventTarget {
@@ -11218,10 +9434,6 @@ interface MediaQueryListEvent extends Event {
 declare var MediaQueryListEvent: {
     prototype: MediaQueryListEvent;
     new(type: string, eventInitDict?: MediaQueryListEventInit): MediaQueryListEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MediaSource extends EventTarget {
@@ -11311,10 +9523,6 @@ interface MediaStreamErrorEvent extends Event {
 declare var MediaStreamErrorEvent: {
     prototype: MediaStreamErrorEvent;
     new(typeArg: string, eventInitDict?: MediaStreamErrorEventInit): MediaStreamErrorEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MediaStreamEvent extends Event {
@@ -11324,10 +9532,6 @@ interface MediaStreamEvent extends Event {
 declare var MediaStreamEvent: {
     prototype: MediaStreamEvent;
     new(type: string, eventInitDict: MediaStreamEventInit): MediaStreamEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MediaStreamTrackEventMap {
@@ -11385,10 +9589,6 @@ interface MediaStreamTrackEvent extends Event {
 declare var MediaStreamTrackEvent: {
     prototype: MediaStreamTrackEvent;
     new(typeArg: string, eventInitDict?: MediaStreamTrackEventInit): MediaStreamTrackEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MessageChannel {
@@ -11432,10 +9632,6 @@ interface MessageEvent extends Event {
 declare var MessageEvent: {
     prototype: MessageEvent;
     new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MessagePortEventMap {
@@ -11532,10 +9728,6 @@ interface MouseEvent extends UIEvent {
 declare var MouseEvent: {
     prototype: MouseEvent;
     new(typeArg: string, eventInitDict?: MouseEventInit): MouseEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MutationEvent extends Event {
@@ -11556,10 +9748,6 @@ declare var MutationEvent: {
     readonly ADDITION: number;
     readonly MODIFICATION: number;
     readonly REMOVAL: number;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MutationObserver {
@@ -11957,10 +10145,6 @@ interface OfflineAudioCompletionEvent extends Event {
 declare var OfflineAudioCompletionEvent: {
     prototype: OfflineAudioCompletionEvent;
     new(type: string, eventInitDict: OfflineAudioCompletionEventInit): OfflineAudioCompletionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface OfflineAudioContextEventMap extends BaseAudioContextEventMap {
@@ -12015,10 +10199,6 @@ declare var OverflowEvent: {
     readonly BOTH: number;
     readonly HORIZONTAL: number;
     readonly VERTICAL: number;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PageTransitionEvent extends Event {
@@ -12028,10 +10208,6 @@ interface PageTransitionEvent extends Event {
 declare var PageTransitionEvent: {
     prototype: PageTransitionEvent;
     new(): PageTransitionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PannerNode extends AudioNode {
@@ -12135,10 +10311,6 @@ interface PaymentRequestUpdateEvent extends Event {
 declare var PaymentRequestUpdateEvent: {
     prototype: PaymentRequestUpdateEvent;
     new(type: string, eventInitDict?: PaymentRequestUpdateEventInit): PaymentRequestUpdateEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PaymentResponse {
@@ -12391,10 +10563,6 @@ interface PermissionRequestedEvent extends Event {
 declare var PermissionRequestedEvent: {
     prototype: PermissionRequestedEvent;
     new(): PermissionRequestedEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Plugin {
@@ -12442,10 +10610,6 @@ interface PointerEvent extends MouseEvent {
 declare var PointerEvent: {
     prototype: PointerEvent;
     new(type: string, eventInitDict?: PointerEventInit): PointerEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PopStateEvent extends Event {
@@ -12455,10 +10619,6 @@ interface PopStateEvent extends Event {
 declare var PopStateEvent: {
     prototype: PopStateEvent;
     new(type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Position {
@@ -12481,24 +10641,6 @@ interface ProcessingInstruction extends CharacterData {
 declare var ProcessingInstruction: {
     prototype: ProcessingInstruction;
     new(): ProcessingInstruction;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface ProgressEvent extends Event {
@@ -12510,10 +10652,6 @@ interface ProgressEvent extends Event {
 declare var ProgressEvent: {
     prototype: ProgressEvent;
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PromiseRejectionEvent extends Event {
@@ -12524,10 +10662,6 @@ interface PromiseRejectionEvent extends Event {
 declare var PromiseRejectionEvent: {
     prototype: PromiseRejectionEvent;
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PushManager {
@@ -12604,10 +10738,6 @@ interface RTCDTMFToneChangeEvent extends Event {
 declare var RTCDTMFToneChangeEvent: {
     prototype: RTCDTMFToneChangeEvent;
     new(type: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCDataChannelEventMap {
@@ -12659,10 +10789,6 @@ interface RTCDataChannelEvent extends Event {
 declare var RTCDataChannelEvent: {
     prototype: RTCDataChannelEvent;
     new(type: string, eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCDtlsTransportEventMap {
@@ -12694,10 +10820,6 @@ interface RTCDtlsTransportStateChangedEvent extends Event {
 declare var RTCDtlsTransportStateChangedEvent: {
     prototype: RTCDtlsTransportStateChangedEvent;
     new(): RTCDtlsTransportStateChangedEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCDtmfSenderEventMap {
@@ -12746,10 +10868,6 @@ interface RTCErrorEvent extends Event {
 declare var RTCErrorEvent: {
     prototype: RTCErrorEvent;
     new(type: string, eventInitDict: RTCErrorEventInit): RTCErrorEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCIceCandidate {
@@ -12782,10 +10900,6 @@ interface RTCIceCandidatePairChangedEvent extends Event {
 declare var RTCIceCandidatePairChangedEvent: {
     prototype: RTCIceCandidatePairChangedEvent;
     new(): RTCIceCandidatePairChangedEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCIceGathererEventMap {
@@ -12818,10 +10932,6 @@ interface RTCIceGathererEvent extends Event {
 declare var RTCIceGathererEvent: {
     prototype: RTCIceGathererEvent;
     new(): RTCIceGathererEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCIceTransportEventMap {
@@ -12861,10 +10971,6 @@ interface RTCIceTransportStateChangedEvent extends Event {
 declare var RTCIceTransportStateChangedEvent: {
     prototype: RTCIceTransportStateChangedEvent;
     new(): RTCIceTransportStateChangedEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCIdentityAssertion {
@@ -12957,10 +11063,6 @@ interface RTCPeerConnectionIceErrorEvent extends Event {
 declare var RTCPeerConnectionIceErrorEvent: {
     prototype: RTCPeerConnectionIceErrorEvent;
     new(type: string, eventInitDict: RTCPeerConnectionIceErrorEventInit): RTCPeerConnectionIceErrorEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCPeerConnectionIceEvent extends Event {
@@ -12971,10 +11073,6 @@ interface RTCPeerConnectionIceEvent extends Event {
 declare var RTCPeerConnectionIceEvent: {
     prototype: RTCPeerConnectionIceEvent;
     new(type: string, eventInitDict?: RTCPeerConnectionIceEventInit): RTCPeerConnectionIceEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCRtpReceiver {
@@ -13085,10 +11183,6 @@ interface RTCSsrcConflictEvent extends Event {
 declare var RTCSsrcConflictEvent: {
     prototype: RTCSsrcConflictEvent;
     new(): RTCSsrcConflictEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCStatsEvent extends Event {
@@ -13098,10 +11192,6 @@ interface RTCStatsEvent extends Event {
 declare var RTCStatsEvent: {
     prototype: RTCStatsEvent;
     new(type: string, eventInitDict: RTCStatsEventInit): RTCStatsEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RTCStatsProvider extends EventTarget {
@@ -13133,10 +11223,6 @@ interface RTCTrackEvent extends Event {
 declare var RTCTrackEvent: {
     prototype: RTCTrackEvent;
     new(type: string, eventInitDict: RTCTrackEventInit): RTCTrackEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface RadioNodeList extends NodeList {
@@ -13339,24 +11425,6 @@ interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
 declare var SVGAElement: {
     prototype: SVGAElement;
     new(): SVGAElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGAngle {
@@ -13521,24 +11589,6 @@ interface SVGCircleElement extends SVGGraphicsElement {
 declare var SVGCircleElement: {
     prototype: SVGCircleElement;
     new(): SVGCircleElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGClipPathElement extends SVGGraphicsElement, SVGUnitTypes {
@@ -13552,24 +11602,6 @@ interface SVGClipPathElement extends SVGGraphicsElement, SVGUnitTypes {
 declare var SVGClipPathElement: {
     prototype: SVGClipPathElement;
     new(): SVGClipPathElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
     readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
@@ -13604,24 +11636,6 @@ declare var SVGComponentTransferFunctionElement: {
     readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGDefsElement extends SVGGraphicsElement {
@@ -13634,24 +11648,6 @@ interface SVGDefsElement extends SVGGraphicsElement {
 declare var SVGDefsElement: {
     prototype: SVGDefsElement;
     new(): SVGDefsElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGDescElement extends SVGElement {
@@ -13664,24 +11660,6 @@ interface SVGDescElement extends SVGElement {
 declare var SVGDescElement: {
     prototype: SVGDescElement;
     new(): SVGDescElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
@@ -13701,24 +11679,6 @@ interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEve
 declare var SVGElement: {
     prototype: SVGElement;
     new(): SVGElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGElementInstance extends EventTarget {
@@ -13757,24 +11717,6 @@ interface SVGEllipseElement extends SVGGraphicsElement {
 declare var SVGEllipseElement: {
     prototype: SVGEllipseElement;
     new(): SVGEllipseElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEBlendElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -13824,24 +11766,6 @@ declare var SVGFEBlendElement: {
     readonly SVG_FEBLEND_MODE_SCREEN: number;
     readonly SVG_FEBLEND_MODE_SOFT_LIGHT: number;
     readonly SVG_FEBLEND_MODE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEColorMatrixElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -13867,24 +11791,6 @@ declare var SVGFEColorMatrixElement: {
     readonly SVG_FECOLORMATRIX_TYPE_MATRIX: number;
     readonly SVG_FECOLORMATRIX_TYPE_SATURATE: number;
     readonly SVG_FECOLORMATRIX_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEComponentTransferElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -13898,24 +11804,6 @@ interface SVGFEComponentTransferElement extends SVGElement, SVGFilterPrimitiveSt
 declare var SVGFEComponentTransferElement: {
     prototype: SVGFEComponentTransferElement;
     new(): SVGFEComponentTransferElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFECompositeElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -13949,24 +11837,6 @@ declare var SVGFECompositeElement: {
     readonly SVG_FECOMPOSITE_OPERATOR_OVER: number;
     readonly SVG_FECOMPOSITE_OPERATOR_UNKNOWN: number;
     readonly SVG_FECOMPOSITE_OPERATOR_XOR: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEConvolveMatrixElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -13999,24 +11869,6 @@ declare var SVGFEConvolveMatrixElement: {
     readonly SVG_EDGEMODE_NONE: number;
     readonly SVG_EDGEMODE_UNKNOWN: number;
     readonly SVG_EDGEMODE_WRAP: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEDiffuseLightingElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14034,24 +11886,6 @@ interface SVGFEDiffuseLightingElement extends SVGElement, SVGFilterPrimitiveStan
 declare var SVGFEDiffuseLightingElement: {
     prototype: SVGFEDiffuseLightingElement;
     new(): SVGFEDiffuseLightingElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEDisplacementMapElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14079,24 +11913,6 @@ declare var SVGFEDisplacementMapElement: {
     readonly SVG_CHANNEL_G: number;
     readonly SVG_CHANNEL_R: number;
     readonly SVG_CHANNEL_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEDistantLightElement extends SVGElement {
@@ -14111,24 +11927,6 @@ interface SVGFEDistantLightElement extends SVGElement {
 declare var SVGFEDistantLightElement: {
     prototype: SVGFEDistantLightElement;
     new(): SVGFEDistantLightElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEFloodElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14141,24 +11939,6 @@ interface SVGFEFloodElement extends SVGElement, SVGFilterPrimitiveStandardAttrib
 declare var SVGFEFloodElement: {
     prototype: SVGFEFloodElement;
     new(): SVGFEFloodElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
@@ -14171,30 +11951,6 @@ interface SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
 declare var SVGFEFuncAElement: {
     prototype: SVGFEFuncAElement;
     new(): SVGFEFuncAElement;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_GAMMA: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEFuncBElement extends SVGComponentTransferFunctionElement {
@@ -14207,30 +11963,6 @@ interface SVGFEFuncBElement extends SVGComponentTransferFunctionElement {
 declare var SVGFEFuncBElement: {
     prototype: SVGFEFuncBElement;
     new(): SVGFEFuncBElement;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_GAMMA: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEFuncGElement extends SVGComponentTransferFunctionElement {
@@ -14243,30 +11975,6 @@ interface SVGFEFuncGElement extends SVGComponentTransferFunctionElement {
 declare var SVGFEFuncGElement: {
     prototype: SVGFEFuncGElement;
     new(): SVGFEFuncGElement;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_GAMMA: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEFuncRElement extends SVGComponentTransferFunctionElement {
@@ -14279,30 +11987,6 @@ interface SVGFEFuncRElement extends SVGComponentTransferFunctionElement {
 declare var SVGFEFuncRElement: {
     prototype: SVGFEFuncRElement;
     new(): SVGFEFuncRElement;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_GAMMA: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
-    readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEGaussianBlurElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14319,24 +12003,6 @@ interface SVGFEGaussianBlurElement extends SVGElement, SVGFilterPrimitiveStandar
 declare var SVGFEGaussianBlurElement: {
     prototype: SVGFEGaussianBlurElement;
     new(): SVGFEGaussianBlurElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEImageElement extends SVGElement, SVGFilterPrimitiveStandardAttributes, SVGURIReference {
@@ -14350,24 +12016,6 @@ interface SVGFEImageElement extends SVGElement, SVGFilterPrimitiveStandardAttrib
 declare var SVGFEImageElement: {
     prototype: SVGFEImageElement;
     new(): SVGFEImageElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEMergeElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14380,24 +12028,6 @@ interface SVGFEMergeElement extends SVGElement, SVGFilterPrimitiveStandardAttrib
 declare var SVGFEMergeElement: {
     prototype: SVGFEMergeElement;
     new(): SVGFEMergeElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEMergeNodeElement extends SVGElement {
@@ -14411,24 +12041,6 @@ interface SVGFEMergeNodeElement extends SVGElement {
 declare var SVGFEMergeNodeElement: {
     prototype: SVGFEMergeNodeElement;
     new(): SVGFEMergeNodeElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEMorphologyElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14451,24 +12063,6 @@ declare var SVGFEMorphologyElement: {
     readonly SVG_MORPHOLOGY_OPERATOR_DILATE: number;
     readonly SVG_MORPHOLOGY_OPERATOR_ERODE: number;
     readonly SVG_MORPHOLOGY_OPERATOR_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEOffsetElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14484,24 +12078,6 @@ interface SVGFEOffsetElement extends SVGElement, SVGFilterPrimitiveStandardAttri
 declare var SVGFEOffsetElement: {
     prototype: SVGFEOffsetElement;
     new(): SVGFEOffsetElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFEPointLightElement extends SVGElement {
@@ -14517,24 +12093,6 @@ interface SVGFEPointLightElement extends SVGElement {
 declare var SVGFEPointLightElement: {
     prototype: SVGFEPointLightElement;
     new(): SVGFEPointLightElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFESpecularLightingElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14553,24 +12111,6 @@ interface SVGFESpecularLightingElement extends SVGElement, SVGFilterPrimitiveSta
 declare var SVGFESpecularLightingElement: {
     prototype: SVGFESpecularLightingElement;
     new(): SVGFESpecularLightingElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFESpotLightElement extends SVGElement {
@@ -14591,24 +12131,6 @@ interface SVGFESpotLightElement extends SVGElement {
 declare var SVGFESpotLightElement: {
     prototype: SVGFESpotLightElement;
     new(): SVGFESpotLightElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFETileElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14622,24 +12144,6 @@ interface SVGFETileElement extends SVGElement, SVGFilterPrimitiveStandardAttribu
 declare var SVGFETileElement: {
     prototype: SVGFETileElement;
     new(): SVGFETileElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFETurbulenceElement extends SVGElement, SVGFilterPrimitiveStandardAttributes {
@@ -14670,24 +12174,6 @@ declare var SVGFETurbulenceElement: {
     readonly SVG_TURBULENCE_TYPE_FRACTALNOISE: number;
     readonly SVG_TURBULENCE_TYPE_TURBULENCE: number;
     readonly SVG_TURBULENCE_TYPE_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGFilterElement extends SVGElement, SVGUnitTypes, SVGURIReference {
@@ -14712,24 +12198,6 @@ interface SVGFilterElement extends SVGElement, SVGUnitTypes, SVGURIReference {
 declare var SVGFilterElement: {
     prototype: SVGFilterElement;
     new(): SVGFilterElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
     readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
@@ -14762,24 +12230,6 @@ interface SVGForeignObjectElement extends SVGGraphicsElement {
 declare var SVGForeignObjectElement: {
     prototype: SVGForeignObjectElement;
     new(): SVGForeignObjectElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGGElement extends SVGGraphicsElement {
@@ -14792,24 +12242,6 @@ interface SVGGElement extends SVGGraphicsElement {
 declare var SVGGElement: {
     prototype: SVGGElement;
     new(): SVGGElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGGeometryElement extends SVGGraphicsElement {
@@ -14827,24 +12259,6 @@ interface SVGGeometryElement extends SVGGraphicsElement {
 declare var SVGGeometryElement: {
     prototype: SVGGeometryElement;
     new(): SVGGeometryElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGGradientElement extends SVGElement, SVGUnitTypes, SVGURIReference {
@@ -14868,24 +12282,6 @@ declare var SVGGradientElement: {
     readonly SVG_SPREADMETHOD_REFLECT: number;
     readonly SVG_SPREADMETHOD_REPEAT: number;
     readonly SVG_SPREADMETHOD_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
     readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
@@ -14905,24 +12301,6 @@ interface SVGGraphicsElement extends SVGElement, SVGTests {
 declare var SVGGraphicsElement: {
     prototype: SVGGraphicsElement;
     new(): SVGGraphicsElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGImageElement extends SVGGraphicsElement, SVGURIReference {
@@ -14940,24 +12318,6 @@ interface SVGImageElement extends SVGGraphicsElement, SVGURIReference {
 declare var SVGImageElement: {
     prototype: SVGImageElement;
     new(): SVGImageElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGLength {
@@ -15028,24 +12388,6 @@ interface SVGLineElement extends SVGGraphicsElement {
 declare var SVGLineElement: {
     prototype: SVGLineElement;
     new(): SVGLineElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGLinearGradientElement extends SVGGradientElement {
@@ -15062,31 +12404,6 @@ interface SVGLinearGradientElement extends SVGGradientElement {
 declare var SVGLinearGradientElement: {
     prototype: SVGLinearGradientElement;
     new(): SVGLinearGradientElement;
-    readonly SVG_SPREADMETHOD_PAD: number;
-    readonly SVG_SPREADMETHOD_REFLECT: number;
-    readonly SVG_SPREADMETHOD_REPEAT: number;
-    readonly SVG_SPREADMETHOD_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGMarkerElement extends SVGElement, SVGFitToViewBox {
@@ -15120,24 +12437,6 @@ declare var SVGMarkerElement: {
     readonly SVG_MARKER_ORIENT_ANGLE: number;
     readonly SVG_MARKER_ORIENT_AUTO: number;
     readonly SVG_MARKER_ORIENT_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGMaskElement extends SVGElement, SVGTests, SVGUnitTypes {
@@ -15156,24 +12455,6 @@ interface SVGMaskElement extends SVGElement, SVGTests, SVGUnitTypes {
 declare var SVGMaskElement: {
     prototype: SVGMaskElement;
     new(): SVGMaskElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
     readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
@@ -15189,24 +12470,6 @@ interface SVGMetadataElement extends SVGElement {
 declare var SVGMetadataElement: {
     prototype: SVGMetadataElement;
     new(): SVGMetadataElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGNumber {
@@ -15290,24 +12553,6 @@ interface SVGPathElement extends SVGGraphicsElement {
 declare var SVGPathElement: {
     prototype: SVGPathElement;
     new(): SVGPathElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGPathSeg {
@@ -15373,26 +12618,6 @@ interface SVGPathSegArcAbs extends SVGPathSeg {
 declare var SVGPathSegArcAbs: {
     prototype: SVGPathSegArcAbs;
     new(): SVGPathSegArcAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegArcRel extends SVGPathSeg {
@@ -15408,26 +12633,6 @@ interface SVGPathSegArcRel extends SVGPathSeg {
 declare var SVGPathSegArcRel: {
     prototype: SVGPathSegArcRel;
     new(): SVGPathSegArcRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegClosePath extends SVGPathSeg {
@@ -15436,26 +12641,6 @@ interface SVGPathSegClosePath extends SVGPathSeg {
 declare var SVGPathSegClosePath: {
     prototype: SVGPathSegClosePath;
     new(): SVGPathSegClosePath;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoCubicAbs extends SVGPathSeg {
@@ -15470,26 +12655,6 @@ interface SVGPathSegCurvetoCubicAbs extends SVGPathSeg {
 declare var SVGPathSegCurvetoCubicAbs: {
     prototype: SVGPathSegCurvetoCubicAbs;
     new(): SVGPathSegCurvetoCubicAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoCubicRel extends SVGPathSeg {
@@ -15504,26 +12669,6 @@ interface SVGPathSegCurvetoCubicRel extends SVGPathSeg {
 declare var SVGPathSegCurvetoCubicRel: {
     prototype: SVGPathSegCurvetoCubicRel;
     new(): SVGPathSegCurvetoCubicRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoCubicSmoothAbs extends SVGPathSeg {
@@ -15536,26 +12681,6 @@ interface SVGPathSegCurvetoCubicSmoothAbs extends SVGPathSeg {
 declare var SVGPathSegCurvetoCubicSmoothAbs: {
     prototype: SVGPathSegCurvetoCubicSmoothAbs;
     new(): SVGPathSegCurvetoCubicSmoothAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoCubicSmoothRel extends SVGPathSeg {
@@ -15568,26 +12693,6 @@ interface SVGPathSegCurvetoCubicSmoothRel extends SVGPathSeg {
 declare var SVGPathSegCurvetoCubicSmoothRel: {
     prototype: SVGPathSegCurvetoCubicSmoothRel;
     new(): SVGPathSegCurvetoCubicSmoothRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoQuadraticAbs extends SVGPathSeg {
@@ -15600,26 +12705,6 @@ interface SVGPathSegCurvetoQuadraticAbs extends SVGPathSeg {
 declare var SVGPathSegCurvetoQuadraticAbs: {
     prototype: SVGPathSegCurvetoQuadraticAbs;
     new(): SVGPathSegCurvetoQuadraticAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoQuadraticRel extends SVGPathSeg {
@@ -15632,26 +12717,6 @@ interface SVGPathSegCurvetoQuadraticRel extends SVGPathSeg {
 declare var SVGPathSegCurvetoQuadraticRel: {
     prototype: SVGPathSegCurvetoQuadraticRel;
     new(): SVGPathSegCurvetoQuadraticRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoQuadraticSmoothAbs extends SVGPathSeg {
@@ -15662,26 +12727,6 @@ interface SVGPathSegCurvetoQuadraticSmoothAbs extends SVGPathSeg {
 declare var SVGPathSegCurvetoQuadraticSmoothAbs: {
     prototype: SVGPathSegCurvetoQuadraticSmoothAbs;
     new(): SVGPathSegCurvetoQuadraticSmoothAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegCurvetoQuadraticSmoothRel extends SVGPathSeg {
@@ -15692,26 +12737,6 @@ interface SVGPathSegCurvetoQuadraticSmoothRel extends SVGPathSeg {
 declare var SVGPathSegCurvetoQuadraticSmoothRel: {
     prototype: SVGPathSegCurvetoQuadraticSmoothRel;
     new(): SVGPathSegCurvetoQuadraticSmoothRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegLinetoAbs extends SVGPathSeg {
@@ -15722,26 +12747,6 @@ interface SVGPathSegLinetoAbs extends SVGPathSeg {
 declare var SVGPathSegLinetoAbs: {
     prototype: SVGPathSegLinetoAbs;
     new(): SVGPathSegLinetoAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegLinetoHorizontalAbs extends SVGPathSeg {
@@ -15751,26 +12756,6 @@ interface SVGPathSegLinetoHorizontalAbs extends SVGPathSeg {
 declare var SVGPathSegLinetoHorizontalAbs: {
     prototype: SVGPathSegLinetoHorizontalAbs;
     new(): SVGPathSegLinetoHorizontalAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegLinetoHorizontalRel extends SVGPathSeg {
@@ -15780,26 +12765,6 @@ interface SVGPathSegLinetoHorizontalRel extends SVGPathSeg {
 declare var SVGPathSegLinetoHorizontalRel: {
     prototype: SVGPathSegLinetoHorizontalRel;
     new(): SVGPathSegLinetoHorizontalRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegLinetoRel extends SVGPathSeg {
@@ -15810,26 +12775,6 @@ interface SVGPathSegLinetoRel extends SVGPathSeg {
 declare var SVGPathSegLinetoRel: {
     prototype: SVGPathSegLinetoRel;
     new(): SVGPathSegLinetoRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegLinetoVerticalAbs extends SVGPathSeg {
@@ -15839,26 +12784,6 @@ interface SVGPathSegLinetoVerticalAbs extends SVGPathSeg {
 declare var SVGPathSegLinetoVerticalAbs: {
     prototype: SVGPathSegLinetoVerticalAbs;
     new(): SVGPathSegLinetoVerticalAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegLinetoVerticalRel extends SVGPathSeg {
@@ -15868,26 +12793,6 @@ interface SVGPathSegLinetoVerticalRel extends SVGPathSeg {
 declare var SVGPathSegLinetoVerticalRel: {
     prototype: SVGPathSegLinetoVerticalRel;
     new(): SVGPathSegLinetoVerticalRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegList {
@@ -15914,26 +12819,6 @@ interface SVGPathSegMovetoAbs extends SVGPathSeg {
 declare var SVGPathSegMovetoAbs: {
     prototype: SVGPathSegMovetoAbs;
     new(): SVGPathSegMovetoAbs;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPathSegMovetoRel extends SVGPathSeg {
@@ -15944,26 +12829,6 @@ interface SVGPathSegMovetoRel extends SVGPathSeg {
 declare var SVGPathSegMovetoRel: {
     prototype: SVGPathSegMovetoRel;
     new(): SVGPathSegMovetoRel;
-    readonly PATHSEG_ARC_ABS: number;
-    readonly PATHSEG_ARC_REL: number;
-    readonly PATHSEG_CLOSEPATH: number;
-    readonly PATHSEG_CURVETO_CUBIC_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_REL: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_CUBIC_SMOOTH_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_REL: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS: number;
-    readonly PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL: number;
-    readonly PATHSEG_LINETO_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_ABS: number;
-    readonly PATHSEG_LINETO_HORIZONTAL_REL: number;
-    readonly PATHSEG_LINETO_REL: number;
-    readonly PATHSEG_LINETO_VERTICAL_ABS: number;
-    readonly PATHSEG_LINETO_VERTICAL_REL: number;
-    readonly PATHSEG_MOVETO_ABS: number;
-    readonly PATHSEG_MOVETO_REL: number;
-    readonly PATHSEG_UNKNOWN: number;
 };
 
 interface SVGPatternElement extends SVGElement, SVGTests, SVGUnitTypes, SVGFitToViewBox, SVGURIReference {
@@ -15983,24 +12848,6 @@ interface SVGPatternElement extends SVGElement, SVGTests, SVGUnitTypes, SVGFitTo
 declare var SVGPatternElement: {
     prototype: SVGPatternElement;
     new(): SVGPatternElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
     readonly SVG_UNIT_TYPE_UNKNOWN: number;
     readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
@@ -16032,24 +12879,6 @@ interface SVGPolygonElement extends SVGGraphicsElement, SVGAnimatedPoints {
 declare var SVGPolygonElement: {
     prototype: SVGPolygonElement;
     new(): SVGPolygonElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGPolylineElement extends SVGGraphicsElement, SVGAnimatedPoints {
@@ -16062,24 +12891,6 @@ interface SVGPolylineElement extends SVGGraphicsElement, SVGAnimatedPoints {
 declare var SVGPolylineElement: {
     prototype: SVGPolylineElement;
     new(): SVGPolylineElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGPreserveAspectRatio {
@@ -16135,31 +12946,6 @@ interface SVGRadialGradientElement extends SVGGradientElement {
 declare var SVGRadialGradientElement: {
     prototype: SVGRadialGradientElement;
     new(): SVGRadialGradientElement;
-    readonly SVG_SPREADMETHOD_PAD: number;
-    readonly SVG_SPREADMETHOD_REFLECT: number;
-    readonly SVG_SPREADMETHOD_REPEAT: number;
-    readonly SVG_SPREADMETHOD_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
-    readonly SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: number;
-    readonly SVG_UNIT_TYPE_UNKNOWN: number;
-    readonly SVG_UNIT_TYPE_USERSPACEONUSE: number;
 };
 
 interface SVGRectElement extends SVGGraphicsElement {
@@ -16178,24 +12964,6 @@ interface SVGRectElement extends SVGGraphicsElement {
 declare var SVGRectElement: {
     prototype: SVGRectElement;
     new(): SVGRectElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGSVGElementEventMap extends SVGElementEventMap {
@@ -16266,24 +13034,6 @@ interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewB
 declare var SVGSVGElement: {
     prototype: SVGSVGElement;
     new(): SVGSVGElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_ZOOMANDPAN_DISABLE: number;
     readonly SVG_ZOOMANDPAN_MAGNIFY: number;
     readonly SVG_ZOOMANDPAN_UNKNOWN: number;
@@ -16300,24 +13050,6 @@ interface SVGScriptElement extends SVGElement, SVGURIReference {
 declare var SVGScriptElement: {
     prototype: SVGScriptElement;
     new(): SVGScriptElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGStopElement extends SVGElement {
@@ -16331,24 +13063,6 @@ interface SVGStopElement extends SVGElement {
 declare var SVGStopElement: {
     prototype: SVGStopElement;
     new(): SVGStopElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGStringList {
@@ -16383,24 +13097,6 @@ interface SVGStyleElement extends SVGElement {
 declare var SVGStyleElement: {
     prototype: SVGStyleElement;
     new(): SVGStyleElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGSwitchElement extends SVGGraphicsElement {
@@ -16413,24 +13109,6 @@ interface SVGSwitchElement extends SVGGraphicsElement {
 declare var SVGSwitchElement: {
     prototype: SVGSwitchElement;
     new(): SVGSwitchElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGSymbolElement extends SVGElement, SVGFitToViewBox {
@@ -16443,24 +13121,6 @@ interface SVGSymbolElement extends SVGElement, SVGFitToViewBox {
 declare var SVGSymbolElement: {
     prototype: SVGSymbolElement;
     new(): SVGSymbolElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTSpanElement extends SVGTextPositioningElement {
@@ -16473,27 +13133,6 @@ interface SVGTSpanElement extends SVGTextPositioningElement {
 declare var SVGTSpanElement: {
     prototype: SVGTSpanElement;
     new(): SVGTSpanElement;
-    readonly LENGTHADJUST_SPACING: number;
-    readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
-    readonly LENGTHADJUST_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTests {
@@ -16528,24 +13167,6 @@ declare var SVGTextContentElement: {
     readonly LENGTHADJUST_SPACING: number;
     readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
     readonly LENGTHADJUST_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTextElement extends SVGTextPositioningElement {
@@ -16558,27 +13179,6 @@ interface SVGTextElement extends SVGTextPositioningElement {
 declare var SVGTextElement: {
     prototype: SVGTextElement;
     new(): SVGTextElement;
-    readonly LENGTHADJUST_SPACING: number;
-    readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
-    readonly LENGTHADJUST_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTextPathElement extends SVGTextContentElement, SVGURIReference {
@@ -16606,27 +13206,6 @@ declare var SVGTextPathElement: {
     readonly TEXTPATH_SPACINGTYPE_AUTO: number;
     readonly TEXTPATH_SPACINGTYPE_EXACT: number;
     readonly TEXTPATH_SPACINGTYPE_UNKNOWN: number;
-    readonly LENGTHADJUST_SPACING: number;
-    readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
-    readonly LENGTHADJUST_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTextPositioningElement extends SVGTextContentElement {
@@ -16644,27 +13223,6 @@ interface SVGTextPositioningElement extends SVGTextContentElement {
 declare var SVGTextPositioningElement: {
     prototype: SVGTextPositioningElement;
     new(): SVGTextPositioningElement;
-    readonly LENGTHADJUST_SPACING: number;
-    readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
-    readonly LENGTHADJUST_UNKNOWN: number;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTitleElement extends SVGElement {
@@ -16677,24 +13235,6 @@ interface SVGTitleElement extends SVGElement {
 declare var SVGTitleElement: {
     prototype: SVGTitleElement;
     new(): SVGTitleElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGTransform {
@@ -16780,24 +13320,6 @@ interface SVGUseElement extends SVGGraphicsElement, SVGURIReference {
 declare var SVGUseElement: {
     prototype: SVGUseElement;
     new(): SVGUseElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface SVGViewElement extends SVGElement, SVGFitToViewBox, SVGZoomAndPan {
@@ -16812,24 +13334,6 @@ interface SVGViewElement extends SVGElement, SVGFitToViewBox, SVGZoomAndPan {
 declare var SVGViewElement: {
     prototype: SVGViewElement;
     new(): SVGViewElement;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
     readonly SVG_ZOOMANDPAN_DISABLE: number;
     readonly SVG_ZOOMANDPAN_MAGNIFY: number;
     readonly SVG_ZOOMANDPAN_UNKNOWN: number;
@@ -16856,10 +13360,6 @@ interface SVGZoomEvent extends UIEvent {
 declare var SVGZoomEvent: {
     prototype: SVGZoomEvent;
     new(): SVGZoomEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ScopedCredential {
@@ -16954,10 +13454,6 @@ interface SecurityPolicyViolationEvent extends Event {
 declare var SecurityPolicyViolationEvent: {
     prototype: SecurityPolicyViolationEvent;
     new(type: string, eventInitDict?: SecurityPolicyViolationEventInit): SecurityPolicyViolationEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Selection {
@@ -17058,10 +13554,6 @@ interface ServiceWorkerMessageEvent extends Event {
 declare var ServiceWorkerMessageEvent: {
     prototype: ServiceWorkerMessageEvent;
     new(type: string, eventInitDict?: ServiceWorkerMessageEventInit): ServiceWorkerMessageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ServiceWorkerRegistrationEventMap {
@@ -17222,10 +13714,6 @@ interface SpeechRecognitionError extends Event {
 declare var SpeechRecognitionError: {
     prototype: SpeechRecognitionError;
     new(): SpeechRecognitionError;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface SpeechRecognitionEvent extends Event {
@@ -17238,10 +13726,6 @@ interface SpeechRecognitionEvent extends Event {
 declare var SpeechRecognitionEvent: {
     prototype: SpeechRecognitionEvent;
     new(): SpeechRecognitionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface SpeechRecognitionResult {
@@ -17299,10 +13783,6 @@ interface SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
 declare var SpeechSynthesisErrorEvent: {
     prototype: SpeechSynthesisErrorEvent;
     new(): SpeechSynthesisErrorEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface SpeechSynthesisEvent extends Event {
@@ -17315,10 +13795,6 @@ interface SpeechSynthesisEvent extends Event {
 declare var SpeechSynthesisEvent: {
     prototype: SpeechSynthesisEvent;
     new(): SpeechSynthesisEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface SpeechSynthesisUtteranceEventMap {
@@ -17439,10 +13915,6 @@ interface StorageEvent extends Event {
 declare var StorageEvent: {
     prototype: StorageEvent;
     new(type: string, eventInitDict?: StorageEventInit): StorageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface StorageManager {
@@ -17537,24 +14009,6 @@ interface Text extends CharacterData {
 declare var Text: {
     prototype: Text;
     new(data?: string): Text;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface TextDecoder {
@@ -17636,10 +14090,6 @@ declare var TextEvent: {
     readonly DOM_INPUT_METHOD_SCRIPT: number;
     readonly DOM_INPUT_METHOD_UNKNOWN: number;
     readonly DOM_INPUT_METHOD_VOICE: number;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface TextMetrics {
@@ -17815,10 +14265,6 @@ interface TouchEvent extends UIEvent {
 declare var TouchEvent: {
     prototype: TouchEvent;
     new(type: string, eventInitDict?: TouchEventInit): TouchEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface TouchList {
@@ -17839,10 +14285,6 @@ interface TrackEvent extends Event {
 declare var TrackEvent: {
     prototype: TrackEvent;
     new(typeArg: string, eventInitDict?: TrackEventInit): TrackEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface TransitionEvent extends Event {
@@ -17854,10 +14296,6 @@ interface TransitionEvent extends Event {
 declare var TransitionEvent: {
     prototype: TransitionEvent;
     new(type: string, transitionEventInitDict?: TransitionEventInit): TransitionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface TreeWalker {
@@ -17890,10 +14328,6 @@ interface UIEvent extends Event {
 declare var UIEvent: {
     prototype: UIEvent;
     new(typeArg: string, eventInitDict?: UIEventInit): UIEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface URL {
@@ -18004,10 +14438,6 @@ interface VRDisplayEvent extends Event {
 declare var VRDisplayEvent: {
     prototype: VRDisplayEvent;
     new(type: string, eventInitDict: VRDisplayEventInit): VRDisplayEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface VREyeParameters {
@@ -18364,10 +14794,6 @@ interface WebGLContextEvent extends Event {
 declare var WebGLContextEvent: {
     prototype: WebGLContextEvent;
     new(typeArg: string, eventInitDict?: WebGLContextEventInit): WebGLContextEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface WebGLFramebuffer extends WebGLObject {
@@ -19275,10 +15701,6 @@ declare var WheelEvent: {
     readonly DOM_DELTA_LINE: number;
     readonly DOM_DELTA_PAGE: number;
     readonly DOM_DELTA_PIXEL: number;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface WindowEventMap extends GlobalEventHandlersEventMap {
@@ -19678,24 +16100,6 @@ interface XMLDocument extends Document {
 declare var XMLDocument: {
     prototype: XMLDocument;
     new(): XMLDocument;
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
 };
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {

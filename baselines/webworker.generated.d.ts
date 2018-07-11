@@ -474,10 +474,6 @@ interface CloseEvent extends Event {
 declare var CloseEvent: {
     prototype: CloseEvent;
     new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ConcatParams extends Algorithm {
@@ -836,10 +832,6 @@ interface ErrorEvent extends Event {
 declare var ErrorEvent: {
     prototype: ErrorEvent;
     new(type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Event {
@@ -919,10 +911,6 @@ interface ExtendableEvent extends Event {
 declare var ExtendableEvent: {
     prototype: ExtendableEvent;
     new(type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ExtendableMessageEvent extends ExtendableEvent {
@@ -936,10 +924,6 @@ interface ExtendableMessageEvent extends ExtendableEvent {
 declare var ExtendableMessageEvent: {
     prototype: ExtendableMessageEvent;
     new(type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface FetchEvent extends ExtendableEvent {
@@ -954,10 +938,6 @@ interface FetchEvent extends ExtendableEvent {
 declare var FetchEvent: {
     prototype: FetchEvent;
     new(type: string, eventInitDict: FetchEventInit): FetchEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface File extends Blob {
@@ -1559,10 +1539,6 @@ interface IDBVersionChangeEvent extends Event {
 declare var IDBVersionChangeEvent: {
     prototype: IDBVersionChangeEvent;
     new(type: string, eventInitDict?: IDBVersionChangeEventInit): IDBVersionChangeEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface ImageBitmap {
@@ -1657,10 +1633,6 @@ interface MessageEvent extends Event {
 declare var MessageEvent: {
     prototype: MessageEvent;
     new(type: string, eventInitDict?: MessageEventInit): MessageEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface MessagePortEventMap {
@@ -1787,10 +1759,6 @@ interface NotificationEvent extends ExtendableEvent {
 declare var NotificationEvent: {
     prototype: NotificationEvent;
     new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface Path2D extends CanvasPath {
@@ -1917,10 +1885,6 @@ interface ProgressEvent extends Event {
 declare var ProgressEvent: {
     prototype: ProgressEvent;
     new(type: string, eventInitDict?: ProgressEventInit): ProgressEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PromiseRejectionEvent extends Event {
@@ -1931,10 +1895,6 @@ interface PromiseRejectionEvent extends Event {
 declare var PromiseRejectionEvent: {
     prototype: PromiseRejectionEvent;
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PushEvent extends ExtendableEvent {
@@ -1944,10 +1904,6 @@ interface PushEvent extends ExtendableEvent {
 declare var PushEvent: {
     prototype: PushEvent;
     new(type: string, eventInitDict?: PushEventInit): PushEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PushManager {
@@ -1996,10 +1952,6 @@ interface PushSubscriptionChangeEvent extends ExtendableEvent {
 declare var PushSubscriptionChangeEvent: {
     prototype: PushSubscriptionChangeEvent;
     new(type: string, eventInitDict?: PushSubscriptionChangeInit): PushSubscriptionChangeEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface PushSubscriptionOptions {
@@ -2270,10 +2222,6 @@ interface SyncEvent extends ExtendableEvent {
 declare var SyncEvent: {
     prototype: SyncEvent;
     new(type: string, init: SyncEventInit): SyncEvent;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 interface SyncManager {

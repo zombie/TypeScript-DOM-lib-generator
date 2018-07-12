@@ -138,6 +138,11 @@ export interface Element {
     specs?: string;
 }
 
+export interface TypeParameter {
+    name: string;
+    default?: string;
+}
+
 export interface Interface {
     name: string;
     extends: string;
@@ -173,7 +178,7 @@ export interface Interface {
     "primary-global"?: string;
     "no-interface-object"?: 1;
     global?: string;
-    "type-parameters"?: string[];
+    "type-parameters"?: TypeParameter[];
     "override-index-signatures"?: string[];
     specs?: string;
     iterable?: "value" | "pair" | "pair-iterator";
@@ -207,7 +212,7 @@ export interface Dictionary {
         member: Record<string, Member>;
     }
     specs?: string;
-    "type-parameters"?: string[];
+    "type-parameters"?: TypeParameter[];
 }
 
 export interface WebIdl {

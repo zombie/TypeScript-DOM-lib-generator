@@ -82,11 +82,9 @@ function createTextWriter(newLine: string) {
         stack = [];
     }
 
-    function writeLine() {
-        if (!lineStart) {
-            output += newLine;
-            lineStart = true;
-        }
+    function endLine() {
+        output += newLine;
+        lineStart = true;
     }
 
     reset();
@@ -98,8 +96,9 @@ function createTextWriter(newLine: string) {
         increaseIndent() { indent++; },
         decreaseIndent() { indent--; },
 
+        endLine: endLine,
         print: write,
-        printLine(c: string) { writeLine(); write(c); },
+        printLine(c: string) { write(c); endLine(); },
 
         clearStack() { stack = []; },
         stackIsEmpty() { return stack.length === 0; },
@@ -226,7 +225,8 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             return ehParents;
         }
 
-        const parentWithEventHandler = allInterfacesMap[i.extends] && getParentEventHandler(allInterfacesMap[i.extends]) || [];
+        const iExtends = i.extends && i.extends.replace(/<.*>$/, '');
+        const parentWithEventHandler = allInterfacesMap[iExtends] && getParentEventHandler(allInterfacesMap[iExtends]) || [];
         const mixinsWithEventHandler = flatMap(i.implements || [], i => getParentEventHandler(allInterfacesMap[i]));
 
         return distinct(parentWithEventHandler.concat(mixinsWithEventHandler));
@@ -356,6 +356,15 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return obj.nullable ? makeNullable(resolvedType) : resolvedType;
     }
 
+    function nameWithForwardedTypes (i: Browser.Interface) {
+        const typeParameters = i["type-parameters"];
+
+        if (!typeParameters) return i.name;
+        if (!typeParameters.length) return i.name;
+
+        return `${i.name}<${typeParameters.map(t => t.name)}>`;
+    }
+
     function emitConstant(c: Browser.Constant) {
         printer.printLine(`readonly ${c.name}: ${convertDomTypeToTsType(c)};`);
     }
@@ -377,7 +386,11 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
-        return i["type-parameters"] ? name + "<" + i["type-parameters"]!.join(", ") + ">" : name;
+        function typeParameterWithDefault (type: Browser.TypeParameter) {
+            return type.default ? type.name + " = " + type.default : type.name
+        }
+
+        return i["type-parameters"] ? name + "<" + i["type-parameters"]!.map(typeParameterWithDefault).join(", ") + ">" : name;
     }
 
     /// Emit overloads for the createElement method
@@ -536,7 +549,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitEventHandlerThis(prefix: string, i: Browser.Interface) {
         if (prefix === "") {
-            return `this: ${i.name}, `;
+            return `this: ${nameWithForwardedTypes(i)}, `;
         }
         else {
             return pollutor ? `this: ${pollutor.name}, ` : "";
@@ -723,7 +736,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         return;
 
         function emitTypedEventHandler(prefix: string, addOrRemove: string, iParent: Browser.Interface, optionsType: string) {
-            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${i.name}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${optionsType}): void;`);
+            printer.printLine(`${prefix}${addOrRemove}EventListener<K extends keyof ${iParent.name}EventMap>(type: K, listener: (this: ${nameWithForwardedTypes(i)}, ev: ${iParent.name}EventMap[K]) => any, options?: boolean | ${optionsType}): void;`);
         }
 
         function tryEmitTypedEventHandlerForInterface(addOrRemove: string, optionsType: string) {
@@ -811,7 +824,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLineToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
         }
 
-        printer.printLine(`interface ${processInterfaceType(i, processedIName)}`);
+        printer.print(`interface ${processInterfaceType(i, processedIName)}`);
 
         const finalExtends = distinct([i.extends || "Object"].concat(i.implements || [])
             .filter(i => i !== "Object")
@@ -821,6 +834,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.print(` extends ${finalExtends.join(", ")}`);
         }
         printer.print(" {");
+        printer.endLine();
     }
 
     /// To decide if a given method is an indexer and should be emited
@@ -881,12 +895,13 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
 
         if (hasEventHandlers || ehParentCount > 1) {
-            printer.printLine(`interface ${i.name}EventMap`);
+            printer.print(`interface ${i.name}EventMap`);
             if (ehParentCount) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
                 printer.print(` extends ${extend.join(", ")}`);
             }
             printer.print(" {");
+            printer.endLine();
             printer.increaseIndent();
             iNameToEhList[i.name]
                 .sort(compareName)
@@ -1170,6 +1185,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (subtypes) {
             const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
             const name = extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name;
+            printer.printLine("");
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();
             if (!iteratorExtends) {
@@ -1180,7 +1196,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
             printer.decreaseIndent();
             printer.printLine("}");
-            printer.printLine("");
         }
     }
 
@@ -1189,7 +1204,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine("/////////////////////////////");
         printer.printLine("/// DOM Iterable APIs");
         printer.printLine("/////////////////////////////");
-        printer.printLine("");
 
         allInterfaces
             .sort(compareName)

@@ -82,11 +82,9 @@ function createTextWriter(newLine: string) {
         stack = [];
     }
 
-    function writeLine() {
-        if (!lineStart) {
-            output += newLine;
-            lineStart = true;
-        }
+    function endLine() {
+        output += newLine;
+        lineStart = true;
     }
 
     reset();
@@ -98,8 +96,9 @@ function createTextWriter(newLine: string) {
         increaseIndent() { indent++; },
         decreaseIndent() { indent--; },
 
+        endLine: endLine,
         print: write,
-        printLine(c: string) { writeLine(); write(c); },
+        printLine(c: string) { write(c); endLine(); },
 
         clearStack() { stack = []; },
         stackIsEmpty() { return stack.length === 0; },
@@ -825,7 +824,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLineToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
         }
 
-        printer.printLine(`interface ${processInterfaceType(i, processedIName)}`);
+        printer.print(`interface ${processInterfaceType(i, processedIName)}`);
 
         const finalExtends = distinct([i.extends || "Object"].concat(i.implements || [])
             .filter(i => i !== "Object")
@@ -835,6 +834,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.print(` extends ${finalExtends.join(", ")}`);
         }
         printer.print(" {");
+        printer.endLine();
     }
 
     /// To decide if a given method is an indexer and should be emited
@@ -895,12 +895,13 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
 
         if (hasEventHandlers || ehParentCount > 1) {
-            printer.printLine(`interface ${i.name}EventMap`);
+            printer.print(`interface ${i.name}EventMap`);
             if (ehParentCount) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
                 printer.print(` extends ${extend.join(", ")}`);
             }
             printer.print(" {");
+            printer.endLine();
             printer.increaseIndent();
             iNameToEhList[i.name]
                 .sort(compareName)
@@ -1184,6 +1185,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (subtypes) {
             const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
             const name = extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name;
+            printer.printLine("");
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();
             if (!iteratorExtends) {
@@ -1194,7 +1196,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
             printer.decreaseIndent();
             printer.printLine("}");
-            printer.printLine("");
         }
     }
 
@@ -1203,7 +1204,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine("/////////////////////////////");
         printer.printLine("/// DOM Iterable APIs");
         printer.printLine("/////////////////////////////");
-        printer.printLine("");
 
         allInterfaces
             .sort(compareName)

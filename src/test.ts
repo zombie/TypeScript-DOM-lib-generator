@@ -9,7 +9,7 @@ const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
 const tscPath = path.join(__SOURCE_DIRECTORY__, "../", "node_modules", "typescript", "lib", "tsc.js");
 
 function normalizeLineEndings(text: string): string {
-    return text.replace(/\r\n?/g, "\n").replace(/\n*$/, "\n");
+    return text.replace(/\r\n?/g, "\n");
 }
 
 function compareToBaselines() {

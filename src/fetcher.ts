@@ -24,6 +24,9 @@ async function fetchIDLs() {
 
 async function fetchIDL(source: IDLSource) {
     const response = await fetch(source.url);
+    if (source.url.endsWith(".idl")) {
+        return { idl: await response.text() };
+    }
     const dom = JSDOM.fragment(await response.text());
     const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract):not(.example),pre.code code.idl-code"))
         .filter(el => {

@@ -134,6 +134,41 @@
                         }
                     }
                 }
+            },
+            "WebGLRenderingContextBase": {
+                "name": "WebGLRenderingContextBase",
+                "methods": {
+                    "method": {
+                        "getExtension": {
+                            "name": "getExtension",
+                            "override-signatures": [
+                                "getExtension(extensionName: \"EXT_blend_minmax\"): EXT_blend_minmax | null",
+                                "getExtension(extensionName: \"EXT_texture_filter_anisotropic\"): EXT_texture_filter_anisotropic | null",
+                                "getExtension(extensionName: \"EXT_frag_depth\"): EXT_frag_depth | null",
+                                "getExtension(extensionName: \"EXT_shader_texture_lod\"): EXT_shader_texture_lod | null",
+                                "getExtension(extensionName: \"EXT_sRGB\"): EXT_sRGB | null",
+                                "getExtension(extensionName: \"OES_vertex_array_object\"): OES_vertex_array_object | null",
+                                "getExtension(extensionName: \"WEBGL_color_buffer_float\"): WEBGL_color_buffer_float | null",
+                                "getExtension(extensionName: \"WEBGL_compressed_texture_astc\"): WEBGL_compressed_texture_astc | null",
+                                "getExtension(extensionName: \"WEBGL_compressed_texture_s3tc_srgb\"): WEBGL_compressed_texture_s3tc_srgb | null",
+                                "getExtension(extensionName: \"WEBGL_debug_shaders\"): WEBGL_debug_shaders | null",
+                                "getExtension(extensionName: \"WEBGL_draw_buffers\"): WEBGL_draw_buffers | null",
+                                "getExtension(extensionName: \"WEBGL_lose_context\"): WEBGL_lose_context | null",
+                                "getExtension(extensionName: \"WEBGL_depth_texture\"): WEBGL_depth_texture | null",
+                                "getExtension(extensionName: \"WEBGL_debug_renderer_info\"): WEBGL_debug_renderer_info | null",
+                                "getExtension(extensionName: \"WEBGL_compressed_texture_s3tc\"): WEBGL_compressed_texture_s3tc | null",
+                                "getExtension(extensionName: \"OES_texture_half_float_linear\"): OES_texture_half_float_linear | null",
+                                "getExtension(extensionName: \"OES_texture_half_float\"): OES_texture_half_float | null",
+                                "getExtension(extensionName: \"OES_texture_float_linear\"): OES_texture_float_linear | null",
+                                "getExtension(extensionName: \"OES_texture_float\"): OES_texture_float | null",
+                                "getExtension(extensionName: \"OES_standard_derivatives\"): OES_standard_derivatives | null",
+                                "getExtension(extensionName: \"OES_element_index_uint\"): OES_element_index_uint | null",
+                                "getExtension(extensionName: \"ANGLE_instanced_arrays\"): ANGLE_instanced_arrays | null",
+                                "getExtension(extensionName: string): any"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },
@@ -649,151 +684,6 @@
                         "version": {
                             "name": "version",
                             "override-type": "number"
-                        }
-                    }
-                }
-            },
-            "WebGLRenderingContext": {
-                "name": "WebGLRenderingContext",
-                "methods": {
-                    "method": {
-                        "texSubImage2D": {
-                            "name": "texSubImage2D",
-                            "override-signatures": [
-                                "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number, height: number, format: number, type: number, pixels: ArrayBufferView | null): void",
-                                "texSubImage2D(target: number, level: number, xoffset: number, yoffset: number, format: number, type: number, pixels: ImageBitmap | ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
-                            ]
-                        },
-                        "texImage2D": {
-                            "name": "texImage2D",
-                            "override-signatures": [
-                                "texImage2D(target: number, level: number, internalformat: number, width: number, height: number, border: number, format: number, type: number, pixels: ArrayBufferView | null): void",
-                                "texImage2D(target: number, level: number, internalformat: number, format: number, type: number, pixels: ImageBitmap | ImageData | HTMLVideoElement | HTMLImageElement | HTMLCanvasElement): void"
-                            ]
-                        },
-                        "pixelStorei": {
-                            "name": "pixelStorei",
-                            "override-signatures": [
-                                "pixelStorei(pname: number, param: number | boolean): void"
-                            ]
-                        },
-                        "uniform1fv": {
-                            "name": "uniform1fv",
-                            "override-signatures": [
-                                "uniform1fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform2fv": {
-                            "name": "uniform2fv",
-                            "override-signatures": [
-                                "uniform2fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform3fv": {
-                            "name": "uniform3fv",
-                            "override-signatures": [
-                                "uniform3fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform4fv": {
-                            "name": "uniform4fv",
-                            "override-signatures": [
-                                "uniform4fv(location: WebGLUniformLocation | null, v: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform1iv": {
-                            "name": "uniform1iv",
-                            "override-signatures": [
-                                "uniform1iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform2iv": {
-                            "name": "uniform2iv",
-                            "override-signatures": [
-                                "uniform2iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform3iv": {
-                            "name": "uniform3iv",
-                            "override-signatures": [
-                                "uniform3iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniform4iv": {
-                            "name": "uniform4iv",
-                            "override-signatures": [
-                                "uniform4iv(location: WebGLUniformLocation | null, v: Int32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniformMatrix2fv": {
-                            "name": "uniformMatrix2fv",
-                            "override-signatures": [
-                                "uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniformMatrix3fv": {
-                            "name": "uniformMatrix3fv",
-                            "override-signatures": [
-                                "uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "uniformMatrix4fv": {
-                            "name": "uniformMatrix4fv",
-                            "override-signatures": [
-                                "uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: boolean, value: Float32Array | ArrayLike<number>): void"
-                            ]
-                        },
-                        "vertexAttrib1fv": {
-                            "name": "vertexAttrib1fv",
-                            "override-signatures": [
-                                "vertexAttrib1fv(indx: number, values: Float32Array | number[]): void"
-                            ]
-                        },
-                        "vertexAttrib2fv": {
-                            "name": "vertexAttrib2fv",
-                            "override-signatures": [
-                                "vertexAttrib2fv(indx: number, values: Float32Array | number[]): void"
-                            ]
-                        },
-                        "vertexAttrib3fv": {
-                            "name": "vertexAttrib3fv",
-                            "override-signatures": [
-                                "vertexAttrib3fv(indx: number, values: Float32Array | number[]): void"
-                            ]
-                        },
-                        "vertexAttrib4fv": {
-                            "name": "vertexAttrib4fv",
-                            "override-signatures": [
-                                "vertexAttrib4fv(indx: number, values: Float32Array | number[]): void"
-                            ]
-                        },
-                        "getExtension": {
-                            "name": "getExtension",
-                            "override-signatures": [
-                                "getExtension(extensionName: \"EXT_blend_minmax\"): EXT_blend_minmax | null",
-                                "getExtension(extensionName: \"EXT_texture_filter_anisotropic\"): EXT_texture_filter_anisotropic | null",
-                                "getExtension(extensionName: \"EXT_frag_depth\"): EXT_frag_depth | null",
-                                "getExtension(extensionName: \"EXT_shader_texture_lod\"): EXT_shader_texture_lod | null",
-                                "getExtension(extensionName: \"EXT_sRGB\"): EXT_sRGB | null",
-                                "getExtension(extensionName: \"OES_vertex_array_object\"): OES_vertex_array_object | null",
-                                "getExtension(extensionName: \"WEBGL_color_buffer_float\"): WEBGL_color_buffer_float | null",
-                                "getExtension(extensionName: \"WEBGL_compressed_texture_astc\"): WEBGL_compressed_texture_astc | null",
-                                "getExtension(extensionName: \"WEBGL_compressed_texture_s3tc_srgb\"): WEBGL_compressed_texture_s3tc_srgb | null",
-                                "getExtension(extensionName: \"WEBGL_debug_shaders\"): WEBGL_debug_shaders | null",
-                                "getExtension(extensionName: \"WEBGL_draw_buffers\"): WEBGL_draw_buffers | null",
-                                "getExtension(extensionName: \"WEBGL_lose_context\"): WEBGL_lose_context | null",
-                                "getExtension(extensionName: \"WEBGL_depth_texture\"): WEBGL_depth_texture | null",
-                                "getExtension(extensionName: \"WEBGL_debug_renderer_info\"): WEBGL_debug_renderer_info | null",
-                                "getExtension(extensionName: \"WEBGL_compressed_texture_s3tc\"): WEBGL_compressed_texture_s3tc | null",
-                                "getExtension(extensionName: \"OES_texture_half_float_linear\"): OES_texture_half_float_linear | null",
-                                "getExtension(extensionName: \"OES_texture_half_float\"): OES_texture_half_float | null",
-                                "getExtension(extensionName: \"OES_texture_float_linear\"): OES_texture_float_linear | null",
-                                "getExtension(extensionName: \"OES_texture_float\"): OES_texture_float | null",
-                                "getExtension(extensionName: \"OES_standard_derivatives\"): OES_standard_derivatives | null",
-                                "getExtension(extensionName: \"OES_element_index_uint\"): OES_element_index_uint | null",
-                                "getExtension(extensionName: \"ANGLE_instanced_arrays\"): ANGLE_instanced_arrays | null",
-                                "getExtension(extensionName: string): any"
-                            ]
                         }
                     }
                 }

@@ -1,12 +1,122 @@
 {
     "mixins": {
         "mixin": {
+            "DocumentAndElementEventHandlers": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "copy",
+                            "type": "ClipboardEvent"
+                        },
+                        {
+                            "name": "cut",
+                            "type": "ClipboardEvent"
+                        },
+                        {
+                            "name": "paste",
+                            "type": "ClipboardEvent"
+                        }
+                    ]
+                }
+            },
             "GlobalEventHandlers": {
                 "events": {
                     "event": [
                         {
                             "name": "cancel",
                             "type": "Event"
+                        },
+                        {
+                            "name": "drag",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "dragend",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "dragenter",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "dragleave",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "dragover",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "dragstart",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "drop",
+                            "type": "DragEvent"
+                        },
+                        {
+                            "name": "keydown",
+                            "type": "KeyboardEvent"
+                        },
+                        {
+                            "name": "keypress",
+                            "type": "KeyboardEvent"
+                        },
+                        {
+                            "name": "keyup",
+                            "type": "KeyboardEvent"
+                        },
+                        {
+                            "name": "mousedown",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "mouseenter",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "mouseleave",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "mousemove",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "mouseout",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "mouseover",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "mouseup",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "scroll",
+                            "type": "UIEvent"
+                        },
+                        {
+                            "name": "select",
+                            "type": "UIEvent"
+                        },
+                        {
+                            "name": "wheel",
+                            "type": "WheelEvent"
+                        },
+                        {
+                            "name": "securitypolicyviolation",
+                            "type": "SecurityPolicyViolationEvent"
+                        },
+                        {
+                            "name": "dblclick",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "contextmenu",
+                            "type": "MouseEvent"
                         }
                     ]
                 }
@@ -73,6 +183,16 @@
     },
     "interfaces": {
         "interface": {
+            "AbortSignal": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "abort",
+                            "type": "ProgressEvent"
+                        }
+                    ]
+                }
+            },
             "ApplicationCache": {
                 "events": {
                     "event": [
@@ -1110,28 +1230,6 @@
                             "name": "assignedSlot",
                             "read-only": 1,
                             "override-type": "HTMLSlotElement | null"
-                        }
-                    }
-                }
-            },
-            "Event": {
-                "name": "Event",
-                "properties": {
-                    "property": {
-                        "composed": {
-                            "name": "composed",
-                            "read-only": 1,
-                            "override-type": "boolean"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "deepPath": {
-                            "name": "deepPath",
-                            "override-signatures": [
-                                "deepPath(): EventTarget[]"
-                            ]
                         }
                     }
                 }

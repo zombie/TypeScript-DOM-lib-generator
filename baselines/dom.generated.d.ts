@@ -2195,7 +2195,7 @@ interface BroadcastChannel extends EventTarget {
     /**
      * Sends the given message to other BroadcastChannel objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.
      */
-    postMessage(message: any): void;
+    postMessage(message: Messageable): void;
     addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -9914,7 +9914,7 @@ interface MessagePort extends EventTarget {
      * transfer contains duplicate objects or port, or if message
      * could not be cloned.
      */
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: Messageable, transferList?: Transferable[]): void;
     /**
      * Begins dispatching messages received on the port.
      */
@@ -13943,7 +13943,7 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: ((this: ServiceWorker, ev: Event) => any) | null;
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: Messageable, transfer?: Transferable[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -16376,7 +16376,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     moveTo(x: number, y: number): void;
     msWriteProfilerMark(profilerMarkName: string): void;
     open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
-    postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
+    postMessage(message: Messageable, targetOrigin: string, transfer?: Transferable[]): void;
     print(): void;
     prompt(message?: string, _default?: string): string | null;
     /** @deprecated */
@@ -16489,7 +16489,7 @@ interface WorkerEventMap extends AbstractWorkerEventMap {
 
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
-    postMessage(message: any, transfer?: any[]): void;
+    postMessage(message: Messageable, transferList?: Transferable[]): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -17230,7 +17230,7 @@ declare function moveBy(x: number, y: number): void;
 declare function moveTo(x: number, y: number): void;
 declare function msWriteProfilerMark(profilerMarkName: string): void;
 declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
-declare function postMessage(message: any, targetOrigin: string, transfer?: any[]): void;
+declare function postMessage(message: Messageable, targetOrigin: string, transfer?: Transferable[]): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */
@@ -17574,6 +17574,8 @@ type ConstrainDouble = number | ConstrainDoubleRange;
 type ConstrainLong = number | ConstrainLongRange;
 type CryptoOperationData = ArrayBufferView;
 type IDBKeyPath = string;
+type Messageable = number | string | boolean | null | undefined | Date | ImageData | Number | Boolean | String | Date | RegExp | Blob | File | FileList | ArrayBuffer | ArrayBufferView | Map<any, any> | Set<any>;
+type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
 type WindowProxy = Window;

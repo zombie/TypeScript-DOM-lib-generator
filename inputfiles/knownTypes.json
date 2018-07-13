@@ -40,6 +40,7 @@
         "KeyType",
         "KeyUsage",
         "Keyframe",
+        "Messageable",
         "MutationRecordType",
         "Pbkdf2Params",
         "PropertyIndexedKeyframes",
@@ -77,11 +78,14 @@
         "RsaKeyGenParams",
         "RsaOaepParams",
         "RsaPssParams",
+        "Transferable",
         "VideoFacingModeEnum"
     ],
     "Worker": [
         "ClientTypes",
         "IDBArrayKey",
-        "IDBValidKey"
+        "IDBValidKey",
+        "Messageable",
+        "Transferable"
     ]
 }

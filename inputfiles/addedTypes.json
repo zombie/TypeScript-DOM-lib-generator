@@ -2529,6 +2529,14 @@
                 "override-type": "string"
             },
             {
+                "new-type": "Messageable",
+                "override-type": "number | string | boolean | null | undefined | Date | ImageData | Number | Boolean | String | Date | RegExp | Blob | File | FileList | ArrayBuffer | ArrayBufferView | Map<any, any> | Set<any>"
+            },
+            {
+                "new-type": "Transferable",
+                "override-type": "ArrayBuffer | MessagePort | ImageBitmap"
+            },
+            {
                 "new-type": "RTCIceGatherCandidate",
                 "override-type": "RTCIceCandidateDictionary | RTCIceCandidateComplete"
             },

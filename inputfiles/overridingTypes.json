@@ -274,7 +274,7 @@
                         "postMessage": {
                             "name": "postMessage",
                             "override-signatures": [
-                                "postMessage(message: Messageable, targetOrigin: string, transfer?: Transferable[]): void"
+                                "postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void"
                             ]
                         }
                     }
@@ -1909,7 +1909,7 @@
                         "postMessage": {
                             "name": "postMessage",
                             "override-signatures": [
-                                "postMessage(message: Messageable, transfer?: Transferable[]): void"
+                                "postMessage(message: any, transfer?: Transferable[]): void"
                             ]
                         }
                     }
@@ -2255,7 +2255,7 @@
                         "postMessage": {
                             "deprecated": 0,
                             "override-signatures": [
-                                "postMessage(message: Messageable, transferList?: Transferable[]): void"
+                                "postMessage(message: any, transfer?: Transferable[]): void"
                             ]
                         }
                     }
@@ -2345,7 +2345,7 @@
                         "postMessage": {
                             "name": "postMessage",
                             "override-signatures": [
-                                "postMessage(message: Messageable): void"
+                                "postMessage(message: any): void"
                             ]
                         }
                     }
@@ -2358,7 +2358,7 @@
                         "postMessage": {
                             "name": "postMessage",
                             "override-signatures": [
-                                "postMessage(message: Messageable, transferList?: Transferable[]): void"
+                                "postMessage(message: any, transfer?: Transferable[]): void"
                             ]
                         }
                     }
@@ -2371,7 +2371,7 @@
                         "postMessage": {
                             "name": "postMessage",
                             "override-signatures": [
-                                "postMessage(message: Messageable, transfer?: Transferable[]): void"
+                                "postMessage(message: any, transfer?: Transferable[]): void"
                             ]
                         }
                     }
@@ -2384,7 +2384,7 @@
                         "postMessage": {
                             "name": "postMessage",
                             "override-signatures": [
-                                "postMessage(message: Messageable, transfer?: Transferable[]): void"
+                                "postMessage(message: any, transfer?: Transferable[]): void"
                             ]
                         }
                     }

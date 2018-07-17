@@ -378,7 +378,7 @@ interface BroadcastChannel extends EventTarget {
     /**
      * Sends the given message to other BroadcastChannel objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.
      */
-    postMessage(message: Messageable): void;
+    postMessage(message: any): void;
     addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -468,7 +468,7 @@ interface Client {
     readonly id: string;
     readonly type: ClientTypes;
     readonly url: string;
-    postMessage(message: Messageable, transfer?: Transferable[]): void;
+    postMessage(message: any, transfer?: Transferable[]): void;
 }
 
 declare var Client: {
@@ -829,7 +829,7 @@ interface DedicatedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
 interface DedicatedWorkerGlobalScope extends WorkerGlobalScope {
     onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
     close(): void;
-    postMessage(message: Messageable, transfer?: Transferable[]): void;
+    postMessage(message: any, transfer?: Transferable[]): void;
     addEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(type: K, listener: (this: DedicatedWorkerGlobalScope, ev: DedicatedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -1744,7 +1744,7 @@ interface MessagePort extends EventTarget {
      * transfer contains duplicate objects or port, or if message
      * could not be cloned.
      */
-    postMessage(message: Messageable, transferList?: Transferable[]): void;
+    postMessage(message: any, transfer?: Transferable[]): void;
     /**
      * Begins dispatching messages received on the port.
      */
@@ -2188,7 +2188,7 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: ((this: ServiceWorker, ev: Event) => any) | null;
     readonly scriptURL: string;
     readonly state: ServiceWorkerState;
-    postMessage(message: Messageable, transfer?: Transferable[]): void;
+    postMessage(message: any, transfer?: Transferable[]): void;
     addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -2514,7 +2514,7 @@ interface WorkerEventMap extends AbstractWorkerEventMap {
 
 interface Worker extends EventTarget, AbstractWorker {
     onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
-    postMessage(message: Messageable, transferList?: Transferable[]): void;
+    postMessage(message: any, transfer?: Transferable[]): void;
     terminate(): void;
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -2747,7 +2747,7 @@ interface PerformanceObserverCallback {
 
 declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
 declare function close(): void;
-declare function postMessage(message: Messageable, transfer?: Transferable[]): void;
+declare function postMessage(message: any, transfer?: Transferable[]): void;
 /**
  * Dispatches a synthetic event event to target and returns true
  * if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
@@ -2805,7 +2805,6 @@ type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type Messageable = number | string | boolean | null | undefined | Date | ImageData | Number | Boolean | String | Date | RegExp | Blob | File | FileList | ArrayBuffer | ArrayBufferView | Map<any, any> | Set<any>;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type BinaryType = "blob" | "arraybuffer";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";

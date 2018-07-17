@@ -40,7 +40,6 @@
         "KeyType",
         "KeyUsage",
         "Keyframe",
-        "Messageable",
         "MutationRecordType",
         "Pbkdf2Params",
         "PropertyIndexedKeyframes",
@@ -85,7 +84,6 @@
         "ClientTypes",
         "IDBArrayKey",
         "IDBValidKey",
-        "Messageable",
         "Transferable"
     ]
 }

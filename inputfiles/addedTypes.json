@@ -2529,6 +2529,10 @@
                 "override-type": "string"
             },
             {
+                "new-type": "Transferable",
+                "override-type": "ArrayBuffer | MessagePort | ImageBitmap"
+            },
+            {
                 "new-type": "RTCIceGatherCandidate",
                 "override-type": "RTCIceCandidateDictionary | RTCIceCandidateComplete"
             },

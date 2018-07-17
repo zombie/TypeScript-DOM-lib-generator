@@ -270,6 +270,12 @@
                             "override-signatures": [
                                 "alert(message?: any): void"
                             ]
+                        },
+                        "postMessage": {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void"
+                            ]
                         }
                     }
                 },
@@ -1897,6 +1903,16 @@
                             "override-type": "ClientTypes"
                         }
                     }
+                },
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any, transfer?: Transferable[]): void"
+                            ]
+                        }
+                    }
                 }
             },
             "RTCDataChannel": {
@@ -2237,7 +2253,10 @@
                 "methods": {
                     "method": {
                         "postMessage": {
-                            "deprecated": 0
+                            "deprecated": 0,
+                            "override-signatures": [
+                                "postMessage(message: any, transfer?: Transferable[]): void"
+                            ]
                         }
                     }
                 }
@@ -2317,6 +2336,58 @@
                             "type": "AudioProcessingEvent"
                         }
                     ]
+                }
+            },
+            "BroadcastChannel": {
+                "name": "BroadcastChannel",
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any): void"
+                            ]
+                        }
+                    }
+                }
+            },
+            "MessagePort": {
+                "name": "MessagePort",
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any, transfer?: Transferable[]): void"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ServiceWorker": {
+                "name": "ServiceWorker",
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any, transfer?: Transferable[]): void"
+                            ]
+                        }
+                    }
+                }
+            },
+            "DedicatedWorkerGlobalScope": {
+                "name": "DedicatedWorkerGlobalScope",
+                "methods": {
+                    "method": {
+                        "postMessage": {
+                            "name": "postMessage",
+                            "override-signatures": [
+                                "postMessage(message: any, transfer?: Transferable[]): void"
+                            ]
+                        }
+                    }
                 }
             }
         }

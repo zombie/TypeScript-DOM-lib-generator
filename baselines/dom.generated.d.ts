@@ -16430,7 +16430,7 @@ interface WindowEventHandlersEventMap {
     "popstate": PopStateEvent;
     "rejectionhandled": Event;
     "storage": StorageEvent;
-    "unhandledrejection": Event;
+    "unhandledrejection": PromiseRejectionEvent;
     "unload": Event;
 }
 
@@ -16449,7 +16449,7 @@ interface WindowEventHandlers {
     onpopstate: ((this: WindowEventHandlers, ev: PopStateEvent) => any) | null;
     onrejectionhandled: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onstorage: ((this: WindowEventHandlers, ev: StorageEvent) => any) | null;
-    onunhandledrejection: ((this: WindowEventHandlers, ev: Event) => any) | null;
+    onunhandledrejection: ((this: WindowEventHandlers, ev: PromiseRejectionEvent) => any) | null;
     onunload: ((this: WindowEventHandlers, ev: Event) => any) | null;
     addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: WindowEventHandlers, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

@@ -7,6 +7,33 @@ interface AddEventListenerOptions extends EventListenerOptions {
     passive?: boolean;
 }
 
+interface AesCbcParams extends Algorithm {
+    iv: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+}
+
+interface AesCtrParams extends Algorithm {
+    counter: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+    length: number;
+}
+
+interface AesDerivedKeyParams extends Algorithm {
+    length: number;
+}
+
+interface AesGcmParams extends Algorithm {
+    additionalData?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+    iv: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+    tagLength?: number;
+}
+
+interface AesKeyAlgorithm extends KeyAlgorithm {
+    length: number;
+}
+
+interface AesKeyGenParams extends Algorithm {
+    length: number;
+}
+
 interface Algorithm {
     name: string;
 }
@@ -31,6 +58,11 @@ interface CloseEventInit extends EventInit {
     code?: number;
     reason?: string;
     wasClean?: boolean;
+}
+
+interface CryptoKeyPair {
+    privateKey?: CryptoKey;
+    publicKey?: CryptoKey;
 }
 
 interface CustomEventInit<T = any> extends EventInit {
@@ -87,6 +119,22 @@ interface DOMRectInit {
     y?: number;
 }
 
+interface EcKeyGenParams extends Algorithm {
+    namedCurve: NamedCurve;
+}
+
+interface EcKeyImportParams extends Algorithm {
+    namedCurve: NamedCurve;
+}
+
+interface EcdhKeyDeriveParams extends Algorithm {
+    public: CryptoKey;
+}
+
+interface EcdsaParams extends Algorithm {
+    hash: HashAlgorithmIdentifier;
+}
+
 interface ErrorEventInit extends EventInit {
     colno?: number;
     error?: any;
@@ -130,6 +178,16 @@ interface FilePropertyBag extends BlobPropertyBag {
 
 interface GetNotificationOptions {
     tag?: string;
+}
+
+interface HmacImportParams extends Algorithm {
+    hash: HashAlgorithmIdentifier;
+    length?: number;
+}
+
+interface HmacKeyGenParams extends Algorithm {
+    hash: HashAlgorithmIdentifier;
+    length?: number;
 }
 
 interface IDBIndexParameters {
@@ -213,6 +271,12 @@ interface NotificationOptions {
     vibrate?: VibratePattern;
 }
 
+interface Pbkdf2Params extends Algorithm {
+    hash: HashAlgorithmIdentifier;
+    iterations: number;
+    salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+}
+
 interface PerformanceObserverInit {
     buffered?: boolean;
     entryTypes: string[];
@@ -277,10 +341,31 @@ interface ResponseInit {
     statusText?: string;
 }
 
+interface RsaHashedImportParams extends Algorithm {
+    hash: HashAlgorithmIdentifier;
+}
+
+interface RsaHashedKeyGenParams extends RsaKeyGenParams {
+    hash: HashAlgorithmIdentifier;
+}
+
+interface RsaKeyGenParams extends Algorithm {
+    modulusLength: number;
+    publicExponent: BigInteger;
+}
+
+interface RsaOaepParams extends Algorithm {
+    label?: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
+}
+
 interface RsaOtherPrimesInfo {
     d?: string;
     r?: string;
     t?: string;
+}
+
+interface RsaPssParams extends Algorithm {
+    saltLength: number;
 }
 
 interface StorageEstimate {
@@ -2869,6 +2954,9 @@ type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
 type VibratePattern = number | number[];
 type AlgorithmIdentifier = string | Algorithm;
+type HashAlgorithmIdentifier = AlgorithmIdentifier;
+type BigInteger = Uint8Array;
+type NamedCurve = string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type FormDataEntryValue = File | string;

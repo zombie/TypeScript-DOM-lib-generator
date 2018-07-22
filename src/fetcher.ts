@@ -25,7 +25,7 @@ async function fetchIDLs() {
 async function fetchIDL(source: IDLSource) {
     const response = await fetch(source.url);
     const dom = JSDOM.fragment(await response.text());
-    const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract):not(.example)"))
+    const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract):not(.example),pre.code code.idl-code"))
         .filter(el => {
             if (el.parentElement && el.parentElement.classList.contains("example")) {
                 return false;

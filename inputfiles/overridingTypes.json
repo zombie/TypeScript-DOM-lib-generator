@@ -158,6 +158,21 @@
     },
     "interfaces": {
         "interface": {
+            "CryptoKey": {
+                "properties": {
+                    "property": {
+                        "algorithm": {
+                            "type": "KeyAlgorithm"
+                        },
+                        "usages": {
+                            "type": "sequence",
+                            "subtype": {
+                                "type": "KeyUsage"
+                            }
+                        }
+                    }
+                }
+            },
             "MediaQueryList": {
                 "name": "MediaQueryList",
                 "extends": "EventTarget"
@@ -2225,10 +2240,6 @@
             },
             "AbortSignal": {
                 "name": "AbortSignal",
-                "override-exposed": "Window Worker"
-            },
-            "CryptoKey": {
-                "name": "CryptoKey",
                 "override-exposed": "Window Worker"
             },
             "ErrorEvent": {

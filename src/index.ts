@@ -44,7 +44,7 @@ function emitDom() {
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
-    const idlSources = require(path.join(inputFolder, "idlSources.json"));
+    const idlSources: any[] = require(path.join(inputFolder, "idlSources.json"));
     const widlStandardTypes = idlSources.map(convertWidl);
 
     function convertWidl({ title, deprecated }: { title: string; deprecated?: boolean }) {
@@ -72,6 +72,15 @@ function emitDom() {
         for (const partial of w.partialInterfaces) {
             // Fallback to mixins before every spec migrates to `partial interface mixin`.
             const base = webidl.interfaces!.interface[partial.name] || webidl.mixins!.mixin[partial.name];
+            if (base) {
+                if (base.exposed) resolveExposure(partial, base.exposed);
+                merge(base.constants, partial.constants, true);
+                merge(base.methods, partial.methods, true);
+                merge(base.properties, partial.properties, true);
+            }
+        }
+        for (const partial of w.partialMixins) {
+            const base = webidl.mixins!.mixin[partial.name];
             if (base) {
                 if (base.exposed) resolveExposure(partial, base.exposed);
                 merge(base.constants, partial.constants, true);

@@ -449,7 +449,10 @@
                             "override-type": "CustomElementRegistry"
                         }
                     }
-                }
+                },
+                "implements": [
+                    "WindowEventHandlers"
+                ]
             },
             "URLSearchParams": {
                 "name": "URLSearchParams",

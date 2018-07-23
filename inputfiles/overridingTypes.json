@@ -196,6 +196,36 @@
                 "override-signatures": [
                     "(error: DOMException): void"
                 ]
+            },
+            "QueuingStrategySizeCallback": {
+                "name": "QueuingStrategySizeCallback<T = any>",
+                "override-signatures": [
+                    "(chunk: T): number"
+                ]
+            },
+            "ReadableStreamDefaultControllerCallback": {
+                "name": "ReadableStreamDefaultControllerCallback<R>",
+                "override-signatures": [
+                    "(controller: ReadableStreamDefaultController<R>): any"
+                ]
+            },
+            "WritableStreamDefaultControllerWriteCallback": {
+                "name": "WritableStreamDefaultControllerWriteCallback<W>",
+                "override-signatures": [
+                    "(chunk: W, controller: WritableStreamDefaultController): any"
+                ]
+            },
+            "TransformStreamDefaultControllerCallback": {
+                "name": "TransformStreamDefaultControllerCallback<R>",
+                "override-signatures": [
+                    "(controller: TransformStreamDefaultController<R>): any"
+                ]
+            },
+            "TransformStreamDefaultControllerTransformCallback": {
+                "name": "TransformStreamDefaultControllerTransformCallback<R, W>",
+                "override-signatures": [
+                    "(chunk: W, controller: TransformStreamDefaultController<R>): any"
+                ]
             }
         }
     },
@@ -2235,14 +2265,6 @@
                     }
                 }
             },
-            "ReadableStream": {
-                "name": "ReadableStream",
-                "override-exposed": "Window Worker"
-            },
-            "ReadableStreamReader": {
-                "name": "ReadableStreamReader",
-                "override-exposed": "Window Worker"
-            },
             "Worker": {
                 "name": "Worker",
                 "override-exposed": "Window Worker",
@@ -2412,6 +2434,258 @@
                                     ],
                                     "deprecated": 1
                                 }
+                            ]
+                        }
+                    }
+                }
+            },
+            "ReadableStream": {
+                "name": "ReadableStream",
+                "override-exposed": "Window Worker",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>",
+                        "new(underlyingSource?: UnderlyingByteSource, strategy?: { highWaterMark?: number }): ReadableStream<Uint8Array>"
+                    ]
+                },
+                "methods": {
+                    "method": {
+                        "getReader": {
+                            "name": "getReader",
+                            "override-signatures": [
+                                "getReader(): ReadableStreamDefaultReader<R>",
+                                "getReader(options: { mode: \"byob\" }): ReadableStreamDefaultReader"
+                            ]
+                        },
+                        "pipeThrough": {
+                            "name": "pipeThrough",
+                            "override-signatures": [
+                                "pipeThrough<T extends ReadableStream>(pair: ReadableWritableStreamPair<T, WritableStream<R>>, options?: PipeOptions): T"
+                            ]
+                        },
+                        "pipeTo": {
+                            "name": "pipeTo",
+                            "override-signatures": [
+                                "pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>"
+                            ]
+                        },
+                        "tee": {
+                            "name": "tee",
+                            "override-signatures": [
+                                "tee(): [ReadableStream<R>, ReadableStream<R>]"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ReadableStreamReader": {
+                "name": "ReadableStreamReader",
+                "override-exposed": "Window Worker"
+            },
+            "ReadableStreamReadResult": {
+                "name": "ReadableStreamReadResult",
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "properties": {
+                    "property": {
+                        "value": {
+                            "name": "value",
+                            "override-type": "T"
+                        }
+                    }
+                },
+                "no-interface-object": "1"
+            },
+            "ReadableStreamBYOBReader": {
+                "name": "ReadableStreamBYOBReader",
+                "override-exposed": "Window Worker",
+                "constructor": {
+                    "override-signatures": [
+                        "new(stream: ReadableStream<Uint8Array>): ReadableStreamBYOBReader"
+                    ]
+                },
+                "methods": {
+                    "method": {
+                        "read": {
+                            "name": "read",
+                            "override-signatures": [
+                                "read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ReadableStreamDefaultReader": {
+                "name": "ReadableStreamDefaultReader",
+                "override-exposed": "Window Worker",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>"
+                    ]
+                },
+                "methods": {
+                    "method": {
+                        "read": {
+                            "name": "read",
+                            "override-signatures": [
+                                "read(): Promise<ReadableStreamReadResult<R>>"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ReadableByteStreamController": {
+                "name": "ReadableByteStreamController",
+                "override-exposed": "Window Worker",
+                "properties": {
+                    "property": {
+                        "byobRequest": {
+                            "name": "byobRequest",
+                            "override-type": "ReadableStreamBYOBRequest | undefined"
+                        }
+                    }
+                }
+            },
+            "ReadableStreamDefaultController": {
+                "name": "ReadableStreamDefaultController",
+                "override-exposed": "Window Worker",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ],
+                "methods": {
+                    "method": {
+                        "enqueue": {
+                            "name": "enqueue",
+                            "override-signatures": [
+                                "enqueue(chunk: R): void"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ReadableWritableStreamPair": {
+                "name": "ReadableWritableStreamPair<R extends ReadableStream, W extends WritableStream>",
+                "override-exposed": "Window Worker",
+                "properties": {
+                    "property": {
+                        "readable": {
+                            "name": "readable",
+                            "override-type": "R"
+                        },
+                        "writable": {
+                            "name": "writable",
+                            "override-type": "W"
+                        }
+                    }
+                },
+                "no-interface-object": "1"
+            },
+            "WritableStream": {
+                "name": "WritableStream",
+                "override-exposed": "Window Worker",
+                "constructor": {
+                    "override-signatures": [
+                        "new<W>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>"
+                    ]
+                },
+                "type-parameters": [
+                    {
+                        "name": "W",
+                        "default": "any"
+                    }
+                ]
+            },
+            "WritableStreamDefaultController": {
+                "name": "WritableStreamDefaultController",
+                "override-exposed": "Window Worker"
+            },
+            "WritableStreamDefaultWriter": {
+                "name": "WritableStreamDefaultWriter",
+                "override-exposed": "Window Worker",
+                "type-parameters": [
+                    {
+                        "name": "W",
+                        "default": "any"
+                    }
+                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<W>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
+                    ]
+                }
+            },
+            "TransformStream": {
+                "name": "TransformStream",
+                "override-exposed": "Window Worker",
+                "extends": "ReadableWritableStreamPair<ReadableStream<R>, WritableStream<W>>",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    },
+                    {
+                        "name": "W",
+                        "default": "any"
+                    }
+                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<R = any, W = any>(transformer?: Transformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>): TransformStream<R, W>"
+                    ]
+                }
+            },
+            "TransformStreamDefaultController": {
+                "name": "TransformStreamDefaultController",
+                "override-exposed": "Window Worker",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ]
+            },
+            "ByteLengthQueuingStrategy": {
+                "name": "ByteLengthQueuingStrategy",
+                "override-exposed": "Window Worker",
+                "extends": "QueuingStrategy<ArrayBufferView>",
+                "constructor": {
+                    "override-signatures": [
+                        "new(options: { highWaterMark: number }): ByteLengthQueuingStrategy"
+                    ]
+                }
+            },
+            "CountQueuingStrategy": {
+                "name": "CountQueuingStrategy",
+                "override-exposed": "Window Worker",
+                "constructor": {
+                    "override-signatures": [
+                        "new(options: { highWaterMark: number }): CountQueuingStrategy"
+                    ]
+                },
+                "methods": {
+                    "method": {
+                        "size": {
+                            "name": "size",
+                            "override-signatures": [
+                                "size(chunk: any): 1"
                             ]
                         }
                     }
@@ -2616,6 +2890,102 @@
                 "override-index-signatures": [
                     "[property: string]: string | number | null | undefined"
                 ]
+            },
+            "QueuingStrategy": {
+                "name": "QueuingStrategy",
+                "type-parameters": [
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "size": {
+                            "name": "size",
+                            "override-type": "QueuingStrategySizeCallback<T> | null"
+                        }
+                    }
+                }
+            },
+            "UnderlyingByteSource": {
+                "name": "UnderlyingByteSource",
+                "members": {
+                    "member": {
+                        "type": {
+                            "name": "type",
+                            "override-type": "\"bytes\"",
+                            "required": 1
+                        }
+                    }
+                }
+            },
+            "UnderlyingSource": {
+                "name": "UnderlyingSource",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "start": {
+                            "name": "start",
+                            "override-type": "ReadableStreamDefaultControllerCallback<R> | null"
+                        },
+                        "pull": {
+                            "name": "pull",
+                            "override-type": "ReadableStreamDefaultControllerCallback<R> | null"
+                        }
+                    }
+                }
+            },
+            "UnderlyingSink": {
+                "name": "UnderlyingSink",
+                "type-parameters": [
+                    {
+                        "name": "W",
+                        "default": "any"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "write": {
+                            "name": "write",
+                            "override-type": "WritableStreamDefaultControllerWriteCallback<W> | null"
+                        }
+                    }
+                }
+            },
+            "Transformer": {
+                "name": "Transformer",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    },
+                    {
+                        "name": "W",
+                        "default": "any"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "start": {
+                            "name": "start",
+                            "override-type": "TransformStreamDefaultControllerCallback<R> | null"
+                        },
+                        "transform": {
+                            "name": "transform",
+                            "override-type": "TransformStreamDefaultControllerTransformCallback<R, W> | null"
+                        },
+                        "flush": {
+                            "name": "flush",
+                            "override-type": "TransformStreamDefaultControllerCallback<R> | null"
+                        }
+                    }
+                }
             }
         }
     },

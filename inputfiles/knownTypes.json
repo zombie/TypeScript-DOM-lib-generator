@@ -45,6 +45,8 @@
         "NamedCurve",
         "Pbkdf2Params",
         "PropertyIndexedKeyframes",
+        "QueuingStrategySizeCallback<T = any>",
+        "ReadableStreamDefaultControllerCallback<R>",
         "RTCAnswerOptions",
         "RTCCertificateExpiration",
         "RTCDtlsParameters",
@@ -80,6 +82,9 @@
         "RsaOaepParams",
         "RsaPssParams",
         "Transferable",
+        "TransformStreamDefaultControllerCallback<R>",
+        "TransformStreamDefaultControllerTransformCallback<R, W>",
+        "WritableStreamDefaultControllerWriteCallback<W>",
         "VideoFacingModeEnum",
         "MouseWheelEvent",
         "WorkerOptions"
@@ -105,12 +110,17 @@
         "IDBValidKey",
         "NamedCurve",
         "Pbkdf2Params",
+        "QueuingStrategySizeCallback<T = any>",
+        "ReadableStreamDefaultControllerCallback<R>",
         "RsaHashedImportParams",
         "RsaHashedKeyGenParams",
         "RsaKeyGenParams",
         "RsaPssParams",
         "RsaOaepParams",
         "Transferable",
+        "TransformStreamDefaultControllerCallback<R>",
+        "TransformStreamDefaultControllerTransformCallback<R, W>",
+        "WritableStreamDefaultControllerWriteCallback<W>",
         "WorkerOptions"
     ]
 }

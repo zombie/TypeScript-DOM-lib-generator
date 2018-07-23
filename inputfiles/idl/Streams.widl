@@ -140,9 +140,7 @@ interface WritableStreamDefaultController {
 
 [Constructor(optional Transformer transformer, optional QueuingStrategy writableStrategy, optional QueuingStrategy readableStrategy),
  Exposed=(Window,Worker)]
-interface TransformStream {
-    readonly attribute ReadableStream readable;
-    readonly attribute WritableStream writable;
+interface TransformStream: ReadableWritableStreamPair {
 };
 
 callback TransformStreamDefaultControllerCallback = any (TransformStreamDefaultController controller);

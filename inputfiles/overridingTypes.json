@@ -180,6 +180,17 @@
                         }
                     }
                 }
+            },
+            "Body": {
+                "name": "Body",
+                "properties": {
+                    "property": {
+                        "body": {
+                            "name": "body",
+                            "override-type": "ReadableStream<Uint8Array> | null"
+                        }
+                    }
+                }
             }
         }
     },
@@ -3006,6 +3017,11 @@
         }
     },
     "typedefs": {
-        "typedef": []
+        "typedef": [
+            {
+                "override-type": "Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string",
+                "new-type": "BodyInit"
+            }
+        ]
     }
 }

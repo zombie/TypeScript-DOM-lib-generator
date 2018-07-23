@@ -11537,7 +11537,7 @@ interface RTCRtpReceiver {
 declare var RTCRtpReceiver: {
     prototype: RTCRtpReceiver;
     new(): RTCRtpReceiver;
-    getCapabilities(kind: string): RTCRtpCapabilities;
+    getCapabilities(kind: string): RTCRtpCapabilities | null;
 };
 
 interface RTCRtpSender {
@@ -11555,7 +11555,7 @@ interface RTCRtpSender {
 declare var RTCRtpSender: {
     prototype: RTCRtpSender;
     new(): RTCRtpSender;
-    getCapabilities(kind: string): RTCRtpCapabilities;
+    getCapabilities(kind: string): RTCRtpCapabilities | null;
 };
 
 interface RTCRtpTransceiver {
@@ -17672,7 +17672,7 @@ type RTCPeerConnectionState = "new" | "connecting" | "connected" | "disconnected
 type RTCPriorityType = "very-low" | "low" | "medium" | "high";
 type RTCRtcpMuxPolicy = "negotiate" | "require";
 type RTCRtpTransceiverDirection = "sendrecv" | "sendonly" | "recvonly" | "inactive";
-type RTCSctpTransportState = "new" | "connecting" | "connected" | "closed";
+type RTCSctpTransportState = "connecting" | "connected" | "closed";
 type RTCSdpType = "offer" | "pranswer" | "answer" | "rollback";
 type RTCSignalingState = "stable" | "have-local-offer" | "have-remote-offer" | "have-local-pranswer" | "have-remote-pranswer" | "closed";
 type RTCStatsIceCandidatePairState = "frozen" | "waiting" | "inprogress" | "failed" | "succeeded" | "cancelled";

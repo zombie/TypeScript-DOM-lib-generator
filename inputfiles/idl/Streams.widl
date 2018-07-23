@@ -80,7 +80,7 @@ interface ReadableStreamDefaultController {
 
     void close();
     void enqueue(any chunk);
-    void error(optional any e);
+    void error(optional any error);
 };
 
 [Exposed=(Window,Worker)]
@@ -90,7 +90,7 @@ interface ReadableByteStreamController {
 
     void close();
     void enqueue(ArrayBufferView chunk);
-    void error(optional any e);
+    void error(optional any error);
 };
 
 [Exposed=(Window,Worker)]
@@ -135,7 +135,7 @@ interface WritableStreamDefaultWriter {
 
 [Exposed=(Window,Worker)]
 interface WritableStreamDefaultController {
-    void error(optional any e);
+    void error(optional any error);
 };
 
 [Constructor(optional Transformer transformer, optional QueuingStrategy writableStrategy, optional QueuingStrategy readableStrategy),

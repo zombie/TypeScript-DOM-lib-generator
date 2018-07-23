@@ -121,6 +121,16 @@
                     ]
                 }
             },
+            "WindowEventHandlers": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "unhandledrejection",
+                            "type": "PromiseRejectionEvent"
+                        }
+                    ]
+                }
+            },
             "HTMLHyperlinkElementUtils": {
                 "name": "HTMLHyperlinkElementUtils",
                 "properties": {

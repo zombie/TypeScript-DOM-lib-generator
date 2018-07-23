@@ -1,0 +1,178 @@
+[Constructor(optional UnderlyingSource underlyingSource, optional QueuingStrategy strategy),
+ Constructor(optional UnderlyingByteSource underlyingSource, optional QueuingStrategy strategy),
+ Exposed=(Window,Worker)]
+interface ReadableStream {
+    readonly attribute boolean locked;
+    Promise<void> cancel(any reason);
+    ReadableStreamDefaultReader getReader();
+    ReadableStreamBYOBReader getReader(any options);
+    any pipeThrough(any pair, optional PipeOptions options);
+    Promise<void> pipeTo(WritableStream dest, optional PipeOptions options);
+    [ReadableStream, ReadableStream] tee();
+};
+
+callback QueuingStrategySizeCallback = double (any chunk);
+
+dictionary QueuingStrategy {
+	unrestricted double? highWaterMark;
+	QueuingStrategySizeCallback? size;
+};
+
+callback ReadableByteStreamControllerCallback = any (ReadableByteStreamController controller);
+callback ReadableStreamDefaultControllerCallback = any (ReadableStreamDefaultController controller);
+callback ReadableStreamErrorCallback = any (any reason);
+
+dictionary UnderlyingSource {
+    ReadableStreamDefaultControllerCallback? start;
+    ReadableStreamDefaultControllerCallback? pull;
+    ReadableStreamErrorCallback? cancel;
+};
+
+dictionary UnderlyingByteSource {
+    ReadableByteStreamControllerCallback? start;
+    ReadableByteStreamControllerCallback? pull;
+    ReadableStreamErrorCallback? cancel;
+
+    DOMString type;
+    unsigned long? autoAllocateChunkSize;
+};
+
+dictionary ReadableWritableStreamPair {
+    ReadableStream readable;
+    WritableStream writable;
+};
+
+dictionary PipeOptions {
+    boolean? preventClose;
+    boolean? preventAbort;
+    boolean? preventCancel;
+};
+
+[Exposed=(Window,Worker)]
+interface ReadableStreamReadResult {
+    attribute boolean done;
+    attribute any value;
+};
+
+[Constructor(ReadableStream stream),
+ Exposed=(Window,Worker)]
+interface ReadableStreamDefaultReader {
+    readonly attribute Promise<void> closed;
+
+    Promise<void> cancel(any reason);
+    Promise<ReadableStreamReadResult> read();
+    void releaseLock();
+};
+
+[Constructor(ReadableStream stream),
+ Exposed=(Window,Worker)]
+interface ReadableStreamBYOBReader {
+    readonly attribute Promise<void> closed;
+
+    Promise<void> cancel(any reason);
+    Promise<ReadableStreamReadResult> read(ArrayBufferView view);
+    void releaseLock();
+};
+
+[Exposed=(Window,Worker)]
+interface ReadableStreamDefaultController {
+    readonly attribute unrestricted double? desiredSize;
+
+    void close();
+    void enqueue(any chunk);
+    void error(any e);
+};
+
+[Exposed=(Window,Worker)]
+interface ReadableByteStreamController {
+    readonly attribute ReadableStreamBYOBRequest byobRequest;
+    readonly attribute unrestricted double? desiredSize;
+
+    void close();
+    void enqueue(ArrayBufferView chunk);
+    void error(any e);
+};
+
+[Exposed=(Window,Worker)]
+interface ReadableStreamBYOBRequest {
+    readonly attribute Uint8Array view;
+
+    void respond(unsigned long bytesWritten);
+    void respondWithNewView(ArrayBufferView view);
+};
+
+[Constructor(optional UnderlyingSink underlyingSink, optional QueuingStrategy strategy),
+ Exposed=(Window,Worker)]
+interface WritableStream {
+    readonly attribute boolean locked;
+    Promise<void> abort(any reason);
+    WritableStreamDefaultWriter getWriter();
+};
+
+callback WritableStreamDefaultControllerCallback = any (WritableStreamDefaultController controller);
+callback WritableStreamDefaultControllerWriteCallback = any (any chunk, WritableStreamDefaultController controller);
+callback WritableStreamErrorCallback = any (any reason);
+
+dictionary UnderlyingSink {
+    WritableStreamDefaultControllerCallback? start;
+    WritableStreamDefaultControllerWriteCallback? write;
+    WritableStreamDefaultControllerCallback? close;
+    WritableStreamErrorCallback? abort;
+};
+
+[Constructor(ReadableStream stream),
+ Exposed=(Window,Worker)]
+interface WritableStreamDefaultWriter {
+    readonly attribute Promise<void> closed;
+    readonly attribute unrestricted double? desiredSize;
+    readonly attribute Promise<void> ready;
+
+    Promise<void> abort(any reason);
+    Promise<void> close();
+    void releaseLock();
+    Promise<void> write(any chunk);
+};
+
+[Exposed=(Window,Worker)]
+interface WritableStreamDefaultController {
+    void error(any e);
+};
+
+[Constructor(optional Transformer transformer, optional QueuingStrategy writableStrategy, optional QueuingStrategy readableStrategy),
+ Exposed=(Window,Worker)]
+interface TransformStream {
+    readonly attribute ReadableStream readable;
+    readonly attribute WritableStream writable;
+};
+
+callback TransformStreamDefaultControllerCallback = any (TransformStreamDefaultController controller);
+callback TransformStreamDefaultControllerTransformCallback = any (any chunk, TransformStreamDefaultController controller);
+
+dictionary Transformer {
+    TransformStreamDefaultControllerCallback? start;
+    TransformStreamDefaultControllerTransformCallback? transform;
+    TransformStreamDefaultControllerCallback? flush;
+};
+
+[Exposed=(Window,Worker)]
+interface TransformStreamDefaultController {
+    readonly attribute unrestricted double? desiredSize;
+
+    void enqueue(any chunk);
+    void error(any reason);
+    void terminate();
+};
+
+[Constructor(any options),
+ Exposed=(Window,Worker)]
+interface ByteLengthQueuingStrategy: QueuingStrategy {
+    attribute unrestricted double highWaterMark;
+    double size(any chunk);
+};
+
+[Constructor(any options),
+ Exposed=(Window,Worker)]
+interface CountQueuingStrategy: QueuingStrategy {
+    attribute unrestricted double highWaterMark;
+    double size(any chunk);
+};

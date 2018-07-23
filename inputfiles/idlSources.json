@@ -369,5 +369,9 @@
     {
         "url": "https://html.spec.whatwg.org/multipage/web-messaging.html",
         "title": "Web Messaging"
+    },
+    {
+        "url": "https://streams.spec.whatwg.org/",
+        "title": "Streams"
     }
 ]

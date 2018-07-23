@@ -16159,7 +16159,7 @@ declare var WheelEvent: {
     readonly DOM_DELTA_PIXEL: number;
 };
 
-interface WindowEventMap extends GlobalEventHandlersEventMap {
+interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandlersEventMap {
     "abort": UIEvent;
     "afterprint": Event;
     "beforeprint": Event;
@@ -16258,7 +16258,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap {
     "waiting": Event;
 }
 
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch, WindowOrWorkerGlobalScope {
+interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch, WindowOrWorkerGlobalScope, WindowEventHandlers {
     Blob: typeof Blob;
     URL: typeof URL;
     URLSearchParams: typeof URLSearchParams;
@@ -16289,15 +16289,10 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     name: string;
     readonly navigator: Navigator;
     offscreenBuffering: string | boolean;
-    onafterprint: ((this: Window, ev: Event) => any) | null;
-    onbeforeprint: ((this: Window, ev: Event) => any) | null;
-    onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
     oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
     ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
-    onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
-    onmessage: ((this: Window, ev: MessageEvent) => any) | null;
     onmousewheel: ((this: Window, ev: Event) => any) | null;
     onmsgesturechange: ((this: Window, ev: Event) => any) | null;
     onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -16314,16 +16309,9 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     onmspointerout: ((this: Window, ev: Event) => any) | null;
     onmspointerover: ((this: Window, ev: Event) => any) | null;
     onmspointerup: ((this: Window, ev: Event) => any) | null;
-    onoffline: ((this: Window, ev: Event) => any) | null;
-    ononline: ((this: Window, ev: Event) => any) | null;
     /** @deprecated */
     onorientationchange: ((this: Window, ev: Event) => any) | null;
-    onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
-    onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
-    onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
     onreadystatechange: ((this: Window, ev: ProgressEvent) => any) | null;
-    onstorage: ((this: Window, ev: StorageEvent) => any) | null;
-    onunload: ((this: Window, ev: Event) => any) | null;
     onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
     onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
     onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
@@ -17145,15 +17133,10 @@ declare var msContentScript: ExtensionScriptApis;
 declare const name: never;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
-declare var onafterprint: ((this: Window, ev: Event) => any) | null;
-declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
-declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
 declare var oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
 declare var ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
-declare var onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
-declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
 declare var onmousewheel: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
 declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
@@ -17170,16 +17153,9 @@ declare var onmspointermove: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerout: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerover: ((this: Window, ev: Event) => any) | null;
 declare var onmspointerup: ((this: Window, ev: Event) => any) | null;
-declare var onoffline: ((this: Window, ev: Event) => any) | null;
-declare var ononline: ((this: Window, ev: Event) => any) | null;
 /** @deprecated */
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
-declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
-declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
-declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
 declare var onreadystatechange: ((this: Window, ev: ProgressEvent) => any) | null;
-declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
-declare var onunload: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
@@ -17544,6 +17520,22 @@ declare function setInterval(handler: TimerHandler, timeout?: number, ...argumen
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare var sessionStorage: Storage;
 declare var localStorage: Storage;
+declare var onafterprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
+declare var onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
+declare var onlanguagechange: ((this: Window, ev: Event) => any) | null;
+declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
+declare var onmessageerror: ((this: Window, ev: MessageEvent) => any) | null;
+declare var onoffline: ((this: Window, ev: Event) => any) | null;
+declare var ononline: ((this: Window, ev: Event) => any) | null;
+declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
+declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
+declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
+declare var onrejectionhandled: ((this: Window, ev: Event) => any) | null;
+declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
+declare var onunhandledrejection: ((this: Window, ev: Event) => any) | null;
+declare var onunload: ((this: Window, ev: Event) => any) | null;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

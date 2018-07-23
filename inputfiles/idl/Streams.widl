@@ -3,7 +3,7 @@
  Exposed=(Window,Worker)]
 interface ReadableStream {
     readonly attribute boolean locked;
-    Promise<void> cancel(any reason);
+    Promise<void> cancel(optional any reason);
     ReadableStreamDefaultReader getReader();
     ReadableStreamBYOBReader getReader(any options);
     any pipeThrough(any pair, optional PipeOptions options);
@@ -59,7 +59,7 @@ interface ReadableStreamReadResult {
 interface ReadableStreamDefaultReader {
     readonly attribute Promise<void> closed;
 
-    Promise<void> cancel(any reason);
+    Promise<void> cancel(optional any reason);
     Promise<ReadableStreamReadResult> read();
     void releaseLock();
 };
@@ -69,7 +69,7 @@ interface ReadableStreamDefaultReader {
 interface ReadableStreamBYOBReader {
     readonly attribute Promise<void> closed;
 
-    Promise<void> cancel(any reason);
+    Promise<void> cancel(optional any reason);
     Promise<ReadableStreamReadResult> read(ArrayBufferView view);
     void releaseLock();
 };
@@ -80,7 +80,7 @@ interface ReadableStreamDefaultController {
 
     void close();
     void enqueue(any chunk);
-    void error(any e);
+    void error(optional any e);
 };
 
 [Exposed=(Window,Worker)]
@@ -90,7 +90,7 @@ interface ReadableByteStreamController {
 
     void close();
     void enqueue(ArrayBufferView chunk);
-    void error(any e);
+    void error(optional any e);
 };
 
 [Exposed=(Window,Worker)]
@@ -105,7 +105,7 @@ interface ReadableStreamBYOBRequest {
  Exposed=(Window,Worker)]
 interface WritableStream {
     readonly attribute boolean locked;
-    Promise<void> abort(any reason);
+    Promise<void> abort(optional any reason);
     WritableStreamDefaultWriter getWriter();
 };
 
@@ -127,7 +127,7 @@ interface WritableStreamDefaultWriter {
     readonly attribute unrestricted double? desiredSize;
     readonly attribute Promise<void> ready;
 
-    Promise<void> abort(any reason);
+    Promise<void> abort(optional any reason);
     Promise<void> close();
     void releaseLock();
     Promise<void> write(any chunk);
@@ -135,7 +135,7 @@ interface WritableStreamDefaultWriter {
 
 [Exposed=(Window,Worker)]
 interface WritableStreamDefaultController {
-    void error(any e);
+    void error(optional any e);
 };
 
 [Constructor(optional Transformer transformer, optional QueuingStrategy writableStrategy, optional QueuingStrategy readableStrategy),
@@ -157,7 +157,7 @@ interface TransformStreamDefaultController {
     readonly attribute unrestricted double? desiredSize;
 
     void enqueue(any chunk);
-    void error(any reason);
+    void error(optional any reason);
     void terminate();
 };
 

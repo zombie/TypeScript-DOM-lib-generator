@@ -356,15 +356,15 @@ interface DynamicsCompressorOptions extends AudioNodeOptions {
 }
 
 interface EcKeyAlgorithm extends KeyAlgorithm {
-    namedCurve: string;
+    namedCurve: NamedCurve;
 }
 
 interface EcKeyGenParams extends Algorithm {
-    namedCurve: string;
+    namedCurve: NamedCurve;
 }
 
 interface EcKeyImportParams extends Algorithm {
-    namedCurve: string;
+    namedCurve: NamedCurve;
 }
 
 interface EcdhKeyDeriveParams extends Algorithm {
@@ -372,7 +372,7 @@ interface EcdhKeyDeriveParams extends Algorithm {
 }
 
 interface EcdsaParams extends Algorithm {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
 }
 
 interface EffectTiming {
@@ -479,13 +479,13 @@ interface HashChangeEventInit extends EventInit {
 }
 
 interface HkdfParams extends Algorithm {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
     info: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
     salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
 interface HmacImportParams extends Algorithm {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
     length?: number;
 }
 
@@ -495,7 +495,7 @@ interface HmacKeyAlgorithm extends KeyAlgorithm {
 }
 
 interface HmacKeyGenParams extends Algorithm {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
     length?: number;
 }
 
@@ -868,7 +868,7 @@ interface PaymentShippingOption {
 }
 
 interface Pbkdf2Params extends Algorithm {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
     iterations: number;
     salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
@@ -1337,7 +1337,7 @@ interface ResponseInit {
 }
 
 interface RsaHashedImportParams extends Algorithm {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
 }
 
 interface RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
@@ -1345,17 +1345,17 @@ interface RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
 }
 
 interface RsaHashedKeyGenParams extends RsaKeyGenParams {
-    hash: string | Algorithm;
+    hash: HashAlgorithmIdentifier;
 }
 
 interface RsaKeyAlgorithm extends KeyAlgorithm {
     modulusLength: number;
-    publicExponent: Uint8Array;
+    publicExponent: BigInteger;
 }
 
 interface RsaKeyGenParams extends Algorithm {
     modulusLength: number;
-    publicExponent: Uint8Array;
+    publicExponent: BigInteger;
 }
 
 interface RsaOaepParams extends Algorithm {
@@ -3244,8 +3244,8 @@ declare var Crypto: {
 interface CryptoKey {
     readonly algorithm: KeyAlgorithm;
     readonly extractable: boolean;
-    readonly type: string;
-    readonly usages: string[];
+    readonly type: KeyType;
+    readonly usages: KeyUsage[];
 }
 
 declare var CryptoKey: {
@@ -16463,6 +16463,7 @@ interface WindowLocalStorage {
 
 interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
+    readonly crypto: Crypto;
     readonly indexedDB: IDBFactory;
     readonly origin: string;
     readonly performance: Performance;
@@ -16472,6 +16473,7 @@ interface WindowOrWorkerGlobalScope {
     clearTimeout(handle?: number): void;
     createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
     createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
     setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
     setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 }
@@ -17527,6 +17529,7 @@ declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 declare var caches: CacheStorage;
+declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
 declare var origin: string;
 declare var performance: Performance;
@@ -17536,6 +17539,7 @@ declare function clearInterval(handle?: number): void;
 declare function clearTimeout(handle?: number): void;
 declare function createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
 declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare var sessionStorage: Storage;
@@ -17560,19 +17564,21 @@ type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;
 type TimerHandler = string | Function;
 type PerformanceEntryList = PerformanceEntry[];
 type VibratePattern = number | number[];
+type AlgorithmIdentifier = string | Algorithm;
+type HashAlgorithmIdentifier = AlgorithmIdentifier;
+type BigInteger = Uint8Array;
+type NamedCurve = string;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMTimeStamp = number;
 type LineAndPositionSetting = number | AutoKeyword;
 type FormDataEntryValue = File | string;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
-type AlgorithmIdentifier = string | Algorithm;
 type MutationRecordType = "attributes" | "characterData" | "childList";
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type ConstrainDouble = number | ConstrainDoubleRange;
 type ConstrainLong = number | ConstrainLongRange;
-type CryptoOperationData = ArrayBufferView;
 type IDBKeyPath = string;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;

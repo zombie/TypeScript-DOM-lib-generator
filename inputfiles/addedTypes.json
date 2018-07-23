@@ -2521,10 +2521,6 @@
                 "override-type": "number | ConstrainLongRange"
             },
             {
-                "new-type": "CryptoOperationData",
-                "override-type": "ArrayBufferView"
-            },
-            {
                 "new-type": "IDBKeyPath",
                 "override-type": "string"
             },

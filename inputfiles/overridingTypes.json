@@ -2486,7 +2486,23 @@
             },
             "ReadableStreamReader": {
                 "name": "ReadableStreamReader",
-                "override-exposed": "Window Worker"
+                "override-exposed": "Window Worker",
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ],
+                "methods": {
+                    "method": {
+                        "read": {
+                            "name": "read",
+                            "override-signatures": [
+                                "read(): Promise<ReadableStreamReadResult<R>>"
+                            ]
+                        }
+                    }
+                }
             },
             "ReadableStreamReadResult": {
                 "name": "ReadableStreamReadResult",

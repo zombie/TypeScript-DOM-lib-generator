@@ -17534,7 +17534,7 @@ declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
 declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
 declare var onrejectionhandled: ((this: Window, ev: Event) => any) | null;
 declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
-declare var onunhandledrejection: ((this: Window, ev: Event) => any) | null;
+declare var onunhandledrejection: ((this: Window, ev: PromiseRejectionEvent) => any) | null;
 declare var onunload: ((this: Window, ev: Event) => any) | null;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

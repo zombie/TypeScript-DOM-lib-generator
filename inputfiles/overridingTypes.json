@@ -209,31 +209,60 @@
                 ]
             },
             "QueuingStrategySizeCallback": {
-                "name": "QueuingStrategySizeCallback<T = any>",
+                "name": "QueuingStrategySizeCallback",
+                "type-parameters": [
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
+                ],
                 "override-signatures": [
                     "(chunk: T): number"
                 ]
             },
             "ReadableStreamDefaultControllerCallback": {
-                "name": "ReadableStreamDefaultControllerCallback<R>",
+                "name": "ReadableStreamDefaultControllerCallback",
+                "type-parameters": [
+                    {
+                        "name": "R"
+                    }
+                ],
                 "override-signatures": [
                     "(controller: ReadableStreamDefaultController<R>): any"
                 ]
             },
             "WritableStreamDefaultControllerWriteCallback": {
-                "name": "WritableStreamDefaultControllerWriteCallback<W>",
+                "name": "WritableStreamDefaultControllerWriteCallback",
+                "type-parameters": [
+                    {
+                        "name": "W"
+                    }
+                ],
                 "override-signatures": [
                     "(chunk: W, controller: WritableStreamDefaultController): any"
                 ]
             },
             "TransformStreamDefaultControllerCallback": {
-                "name": "TransformStreamDefaultControllerCallback<R>",
+                "name": "TransformStreamDefaultControllerCallback",
+                "type-parameters": [
+                    {
+                        "name": "R"
+                    }
+                ],
                 "override-signatures": [
                     "(controller: TransformStreamDefaultController<R>): any"
                 ]
             },
             "TransformStreamDefaultControllerTransformCallback": {
-                "name": "TransformStreamDefaultControllerTransformCallback<R, W>",
+                "name": "TransformStreamDefaultControllerTransformCallback",
+                "type-parameters": [
+                    {
+                        "name": "R"
+                    },
+                    {
+                        "name": "W"
+                    }
+                ],
                 "override-signatures": [
                     "(chunk: W, controller: TransformStreamDefaultController<R>): any"
                 ]

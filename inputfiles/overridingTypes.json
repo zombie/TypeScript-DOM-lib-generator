@@ -2473,7 +2473,6 @@
                 }
             },
             "ReadableStream": {
-                "override-exposed": "Window Worker",
                 "type-parameters": [
                     {
                         "name": "R",
@@ -2546,7 +2545,6 @@
                 "no-interface-object": "1"
             },
             "ReadableStreamBYOBReader": {
-                "override-exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
                         "new(stream: ReadableStream<Uint8Array>): ReadableStreamBYOBReader"
@@ -2563,7 +2561,6 @@
                 }
             },
             "ReadableStreamDefaultReader": {
-                "override-exposed": "Window Worker",
                 "type-parameters": [
                     {
                         "name": "R",
@@ -2586,18 +2583,15 @@
                 }
             },
             "ReadableByteStreamController": {
-                "override-exposed": "Window Worker",
                 "properties": {
                     "property": {
                         "byobRequest": {
-                            "name": "byobRequest",
                             "override-type": "ReadableStreamBYOBRequest | undefined"
                         }
                     }
                 }
             },
             "ReadableStreamDefaultController": {
-                "override-exposed": "Window Worker",
                 "type-parameters": [
                     {
                         "name": "R",
@@ -2663,7 +2657,6 @@
                 }
             },
             "TransformStream": {
-                "override-exposed": "Window Worker",
                 "extends": "ReadableWritableStreamPair<ReadableStream<R>, WritableStream<W>>",
                 "type-parameters": [
                     {

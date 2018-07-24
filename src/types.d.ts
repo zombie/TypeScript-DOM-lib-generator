@@ -142,6 +142,7 @@ export interface Element {
 
 export interface TypeParameter {
     name: string;
+    extends?: string;
     default?: string;
 }
 

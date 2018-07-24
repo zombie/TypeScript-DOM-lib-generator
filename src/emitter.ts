@@ -390,7 +390,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary | Browser.CallbackFunction, name: string) {
         function typeParameterWithDefault (type: Browser.TypeParameter) {
-            return type.default ? type.name + " = " + type.default : type.name
+            return `${type.name}`
+                + (type.extends ? ` extends ${type.extends}` : ``)
+                + (type.default ? ` = ${type.default}` : ``)
         }
 
         return i["type-parameters"] ? name + "<" + i["type-parameters"]!.map(typeParameterWithDefault).join(", ") + ">" : name;

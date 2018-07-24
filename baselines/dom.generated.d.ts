@@ -2869,7 +2869,6 @@ interface CanvasDrawPath {
     isPointInPath(path: Path2D, x: number, y: number, fillRule?: CanvasFillRule): boolean;
     isPointInStroke(x: number, y: number): boolean;
     isPointInStroke(path: Path2D, x: number, y: number): boolean;
-    resetClip(): void;
     stroke(): void;
     stroke(path: Path2D): void;
 }

@@ -11,6 +11,12 @@ interface IDLSource {
     deprecated?: boolean;
 }
 
+const idlSelector = [
+    "pre.idl:not(.extract):not(.example)", // bikeshed and ReSpec
+    "pre.code code.idl-code", // Web Cryptography
+    "pre:not(.extract) code.idl" // HTML
+].join(",");
+
 async function fetchIDLs() {
     const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
     await Promise.all(idlSources.map(async source => {
@@ -25,7 +31,7 @@ async function fetchIDLs() {
 async function fetchIDL(source: IDLSource) {
     const response = await fetch(source.url);
     const dom = JSDOM.fragment(await response.text());
-    const elements = Array.from(dom.querySelectorAll("pre.idl:not(.extract):not(.example),pre.code code.idl-code"))
+    const elements = Array.from(dom.querySelectorAll(idlSelector))
         .filter(el => {
             if (el.parentElement && el.parentElement.classList.contains("example")) {
                 return false;
@@ -37,7 +43,7 @@ async function fetchIDL(source: IDLSource) {
             return !previous.classList.contains("atrisk") && !previous.textContent!.includes("IDL Index");
         });
     if (!elements.length) {
-        throw new Error("Found no IDL code");
+        throw new Error(`Found no IDL code from ${source.url}`);
     }
     const idl = elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
     const comments = processComments(dom);

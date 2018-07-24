@@ -388,7 +388,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             expectedParamType.every((pt, idx) => convertDomTypeToTsType(m.signature[0].param![idx]) === pt);
     }
 
-    function processInterfaceType(i: Browser.Interface | Browser.Dictionary, name: string) {
+    function processInterfaceType(i: Browser.Interface | Browser.Dictionary | Browser.CallbackFunction, name: string) {
         function typeParameterWithDefault (type: Browser.TypeParameter) {
             return type.default ? type.name + " = " + type.default : type.name
         }
@@ -527,7 +527,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
-        printer.printLine(`interface ${cb.name} {`);
+        printer.printLine(`interface ${processInterfaceType(cb, cb.name)} {`);
         printer.increaseIndent();
         emitSignatures(cb, "", "", s => printer.printLine(s));
         printer.decreaseIndent();

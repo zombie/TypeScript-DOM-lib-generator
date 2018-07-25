@@ -2938,8 +2938,7 @@
                 "members": {
                     "member": {
                         "type": {
-                            "override-type": "\"bytes\"",
-                            "required": 1
+                            "override-type": "\"bytes\""
                         }
                     }
                 }

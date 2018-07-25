@@ -33,13 +33,13 @@ dictionary UnderlyingByteSource {
     ReadableByteStreamControllerCallback? pull;
     ReadableStreamErrorCallback? cancel;
 
-    DOMString type;
+    required DOMString type;
     unsigned long? autoAllocateChunkSize;
 };
 
 dictionary ReadableWritableStreamPair {
-    ReadableStream readable;
-    WritableStream writable;
+    required ReadableStream readable;
+    required WritableStream writable;
 };
 
 dictionary PipeOptions {

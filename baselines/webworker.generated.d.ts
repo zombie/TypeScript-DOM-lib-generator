@@ -429,6 +429,7 @@ interface UnderlyingSource<R = any> {
     cancel?: ReadableStreamErrorCallback | null;
     pull?: ReadableStreamDefaultControllerCallback<R> | null;
     start?: ReadableStreamDefaultControllerCallback<R> | null;
+    type?: undefined;
 }
 
 interface WebGLContextAttributes {

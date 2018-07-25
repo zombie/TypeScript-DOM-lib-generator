@@ -26,6 +26,8 @@ dictionary UnderlyingSource {
     ReadableStreamDefaultControllerCallback? start;
     ReadableStreamDefaultControllerCallback? pull;
     ReadableStreamErrorCallback? cancel;
+
+    any type;
 };
 
 dictionary UnderlyingByteSource {

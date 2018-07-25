@@ -2970,6 +2970,9 @@
                         },
                         "pull": {
                             "override-type": "ReadableStreamDefaultControllerCallback<R> | null"
+                        },
+                        "type": {
+                            "override-type": "undefined"
                         }
                     }
                 }

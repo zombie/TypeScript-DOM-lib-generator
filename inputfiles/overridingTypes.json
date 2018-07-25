@@ -2620,7 +2620,16 @@
                         "name": "W",
                         "default": "any"
                     }
-                ]
+                ],
+                "methods": {
+                    "method": {
+                        "getWriter": {
+                            "override-signatures": [
+                                "getWriter(): WritableStreamDefaultWriter<W>"
+                            ]
+                        }
+                    }
+                }
             },
             "WritableStreamDefaultController": {
                 "override-exposed": "Window Worker"
@@ -2637,6 +2646,15 @@
                     "override-signatures": [
                         "new<W>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
                     ]
+                },
+                "methods": {
+                    "method": {
+                        "write": {
+                            "override-signatures": [
+                                "write(chunk: W): Promise<void>"
+                            ]
+                        }
+                    }
                 }
             },
             "TransformStream": {

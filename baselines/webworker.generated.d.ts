@@ -3966,7 +3966,7 @@ interface WorkerUtils extends WindowBase64 {
 interface WritableStream<W = any> {
     readonly locked: boolean;
     abort(reason?: any): Promise<void>;
-    getWriter(): WritableStreamDefaultWriter;
+    getWriter(): WritableStreamDefaultWriter<W>;
 }
 
 declare var WritableStream: {
@@ -3990,7 +3990,7 @@ interface WritableStreamDefaultWriter<W = any> {
     abort(reason?: any): Promise<void>;
     close(): Promise<void>;
     releaseLock(): void;
-    write(chunk: any): Promise<void>;
+    write(chunk: W): Promise<void>;
 }
 
 declare var WritableStreamDefaultWriter: {

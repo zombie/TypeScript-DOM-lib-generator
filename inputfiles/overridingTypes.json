@@ -2490,7 +2490,7 @@
                         "getReader": {
                             "override-signatures": [
                                 "getReader(): ReadableStreamDefaultReader<R>",
-                                "getReader(options: { mode: \"byob\" }): ReadableStreamDefaultReader"
+                                "getReader(options: { mode: \"byob\" }): ReadableStreamBYOBReader"
                             ]
                         },
                         "pipeThrough": {

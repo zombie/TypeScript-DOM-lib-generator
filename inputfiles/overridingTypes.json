@@ -2612,7 +2612,7 @@
                 "override-exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
-                        "new<W>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>"
+                        "new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>"
                     ]
                 },
                 "type-parameters": [

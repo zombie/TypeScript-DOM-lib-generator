@@ -3972,7 +3972,7 @@ interface WritableStream<W = any> {
 
 declare var WritableStream: {
     prototype: WritableStream;
-    new<W>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+    new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
 };
 
 interface WritableStreamDefaultController {

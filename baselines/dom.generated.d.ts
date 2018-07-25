@@ -1318,6 +1318,11 @@ interface RTCTransportStats extends RTCStats {
     selectedCandidatePairId?: string;
 }
 
+interface ReadableWritableStreamPair<R extends ReadableStream, W extends WritableStream> {
+    readable: R;
+    writable: W;
+}
+
 interface RegistrationOptions {
     scope?: string;
     type?: WorkerType;
@@ -11951,11 +11956,6 @@ declare var ReadableStreamReader: {
     prototype: ReadableStreamReader;
     new(): ReadableStreamReader;
 };
-
-interface ReadableWritableStreamPair<R extends ReadableStream, W extends WritableStream> {
-    readable: R;
-    writable: W;
-}
 
 interface Request extends Body {
     /**

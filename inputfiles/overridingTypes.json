@@ -2608,33 +2608,6 @@
                     }
                 }
             },
-            "ReadableWritableStreamPair": {
-                "name": "ReadableWritableStreamPair",
-                "type-parameters": [
-                    {
-                        "name": "R",
-                        "extends": "ReadableStream"
-                    },
-                    {
-                        "name": "W",
-                        "extends": "WritableStream"
-                    }
-                ],
-                "override-exposed": "Window Worker",
-                "properties": {
-                    "property": {
-                        "readable": {
-                            "name": "readable",
-                            "override-type": "R"
-                        },
-                        "writable": {
-                            "name": "writable",
-                            "override-type": "W"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "WritableStream": {
                 "override-exposed": "Window Worker",
                 "constructor": {
@@ -2930,6 +2903,28 @@
                     "member": {
                         "size": {
                             "override-type": "QueuingStrategySizeCallback<T> | null"
+                        }
+                    }
+                }
+            },
+            "ReadableWritableStreamPair": {
+                "type-parameters": [
+                    {
+                        "name": "R",
+                        "extends": "ReadableStream"
+                    },
+                    {
+                        "name": "W",
+                        "extends": "WritableStream"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "readable": {
+                            "override-type": "R"
+                        },
+                        "writable": {
+                            "override-type": "W"
                         }
                     }
                 }

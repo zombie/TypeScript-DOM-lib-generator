@@ -6,7 +6,7 @@ interface ReadableStream {
     Promise<void> cancel(optional any reason);
     ReadableStreamDefaultReader getReader();
     ReadableStreamBYOBReader getReader(any options);
-    any pipeThrough(any pair, optional PipeOptions options);
+    any pipeThrough(ReadableWritableStreamPair pair, optional PipeOptions options);
     Promise<void> pipeTo(WritableStream dest, optional PipeOptions options);
     [ReadableStream, ReadableStream] tee();
 };

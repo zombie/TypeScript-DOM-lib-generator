@@ -2489,8 +2489,8 @@
                     "method": {
                         "getReader": {
                             "override-signatures": [
-                                "getReader(): ReadableStreamDefaultReader<R>",
-                                "getReader(options: { mode: \"byob\" }): ReadableStreamBYOBReader"
+                                "getReader(options: { mode: \"byob\" }): ReadableStreamBYOBReader",
+                                "getReader(): ReadableStreamDefaultReader<R>"
                             ]
                         },
                         "pipeThrough": {

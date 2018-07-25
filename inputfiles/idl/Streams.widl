@@ -4,8 +4,8 @@
 interface ReadableStream {
     readonly attribute boolean locked;
     Promise<void> cancel(optional any reason);
-    ReadableStreamDefaultReader getReader();
     ReadableStreamBYOBReader getReader(any options);
+    ReadableStreamDefaultReader getReader();
     any pipeThrough(ReadableWritableStreamPair pair, optional PipeOptions options);
     Promise<void> pipeTo(WritableStream dest, optional PipeOptions options);
     [ReadableStream, ReadableStream] tee();

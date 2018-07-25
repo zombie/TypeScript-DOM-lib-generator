@@ -2251,7 +2251,7 @@ interface BroadcastChannelEventMap {
 
 interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
     highWaterMark: number;
-    size(chunk: any): number;
+    size(chunk: ArrayBufferView): number;
 }
 
 declare var ByteLengthQueuingStrategy: {

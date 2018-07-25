@@ -167,7 +167,7 @@ interface TransformStreamDefaultController {
  Exposed=(Window,Worker)]
 interface ByteLengthQueuingStrategy: QueuingStrategy {
     attribute unrestricted double highWaterMark;
-    double size(any chunk);
+    double size(ArrayBufferView chunk);
 };
 
 [Constructor(any options),

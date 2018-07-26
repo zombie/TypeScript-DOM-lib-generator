@@ -15016,7 +15016,7 @@ declare var TransformStream: {
 
 interface TransformStreamDefaultController<R = any> {
     readonly desiredSize: number | null;
-    enqueue(chunk: any): void;
+    enqueue(chunk: R): void;
     error(reason?: any): void;
     terminate(): void;
 }

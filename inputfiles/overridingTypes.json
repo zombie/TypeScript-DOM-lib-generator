@@ -2682,7 +2682,16 @@
                         "name": "R",
                         "default": "any"
                     }
-                ]
+                ],
+                "methods": {
+                    "method": {
+                        "enqueue": {
+                            "override-signatures": [
+                                "enqueue(chunk: R): void"
+                            ]
+                        }
+                    }
+                }
             },
             "ByteLengthQueuingStrategy": {
                 "override-exposed": "Window Worker",

@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import child_process from "child_process";
-import printDiff = require("print-diff");
+import printDiff from "print-diff";
 
 const __SOURCE_DIRECTORY__ = __dirname;
 const baselineFolder = path.join(__SOURCE_DIRECTORY__, "../", "baselines");

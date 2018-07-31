@@ -1291,7 +1291,10 @@
                             ]
                         }
                     }
-                }
+                },
+                "override-index-signatures": [
+                    "[name: string]: any"
+                ]
             },
             "HTMLOptionsCollection": {
                 "name": "HTMLOptionsCollection",

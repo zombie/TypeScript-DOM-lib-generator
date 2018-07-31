@@ -27,6 +27,10 @@
                     }
                 }
             },
+            "ChildNode": {
+                "name": "ChildNode",
+                "extends": "Node"
+            },
             "GlobalEventHandlers": {
                 "name": "GlobalEventHandlers",
                 "events": {
@@ -495,13 +499,13 @@
                             "override-type": "Element | null"
                         },
                         "childNodes": {
-                            "override-type": "NodeListOf<Node & ChildNode>"
+                            "override-type": "NodeListOf<ChildNode>"
                         },
                         "firstChild": {
-                            "override-type": "Node & ChildNode | null"
+                            "override-type": "ChildNode | null"
                         },
                         "lastChild": {
-                            "override-type": "Node & ChildNode | null"
+                            "override-type": "ChildNode | null"
                         }
                     }
                 }

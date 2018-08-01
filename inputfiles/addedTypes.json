@@ -2394,6 +2394,13 @@
                     }
                 ]
             },
+            "HTMLDialogElement": {
+                "element": [
+                    {
+                        "name": "dialog"
+                    }
+                ]
+            },
             "NodeSelector": {
                 "name": "NodeSelector",
                 "extends": "Object",

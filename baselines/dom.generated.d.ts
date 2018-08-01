@@ -16945,6 +16945,7 @@ interface HTMLElementTagNameMap {
     "del": HTMLModElement;
     "details": HTMLDetailsElement;
     "dfn": HTMLElement;
+    "dialog": HTMLDialogElement;
     "dir": HTMLDirectoryElement;
     "div": HTMLDivElement;
     "dl": HTMLDListElement;

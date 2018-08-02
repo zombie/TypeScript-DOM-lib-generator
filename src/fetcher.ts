@@ -54,7 +54,7 @@ async function fetchIDL(source: IDLSource) {
 }
 
 function processComments(dom: DocumentFragment) {
-    const elements = Array.from(dom.querySelectorAll("dl.domintro"));
+    const elements = dom.querySelectorAll("dl.domintro");
     if (!elements.length) {
         return undefined;
     }
@@ -71,6 +71,9 @@ function processComments(dom: DocumentFragment) {
                 child = child.nextElementSibling;
             }
         }
+    }
+    if (!Object.keys(result).length) {
+        return undefined;
     }
     return JSON.stringify(result, undefined, 4);
 }

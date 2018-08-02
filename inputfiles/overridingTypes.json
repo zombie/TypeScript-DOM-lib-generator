@@ -213,8 +213,27 @@
                 }
             },
             "MediaQueryList": {
-                "name": "MediaQueryList",
-                "extends": "EventTarget"
+                "methods": {
+                    "method": {
+                        "addListener": {
+                            "deprecated": 1,
+                            "override-signatures": [
+                                "addListener(listener: (this: MediaQueryList, ev: MediaQueryListEvent) => any): void"
+                            ]
+                        },
+                        "removeListener": {
+                            "deprecated": 1
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "change",
+                            "type": "MediaQueryListEvent"
+                        }
+                    ]
+                }
             },
             "HTMLAnchorElement": {
                 "name": "HTMLAnchorElement",

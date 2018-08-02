@@ -9667,14 +9667,16 @@ declare var MediaList: {
 };
 
 interface MediaQueryListEventMap {
-    "change": Event;
+    "change": MediaQueryListEvent;
 }
 
 interface MediaQueryList extends EventTarget {
     readonly matches: boolean;
     readonly media: string;
-    onchange: ((this: MediaQueryList, ev: Event) => any) | null;
-    addListener(listener: EventListenerOrEventListenerObject | null): void;
+    onchange: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null;
+    /** @deprecated */
+    addListener(listener: (this: MediaQueryList, ev: MediaQueryListEvent) => any): void;
+    /** @deprecated */
     removeListener(listener: EventListenerOrEventListenerObject | null): void;
     addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

@@ -420,6 +420,11 @@
                             "override-signatures": [
                                 "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
                             ]
+                        },
+                        "createTreeWalker": {
+                            "override-signatures": [
+                                "createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker"
+                            ]
                         }
                     }
                 },

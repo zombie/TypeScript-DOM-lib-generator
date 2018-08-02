@@ -213,8 +213,27 @@
                 }
             },
             "MediaQueryList": {
-                "name": "MediaQueryList",
-                "extends": "EventTarget"
+                "methods": {
+                    "method": {
+                        "addListener": {
+                            "deprecated": 1,
+                            "override-signatures": [
+                                "addListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void"
+                            ]
+                        },
+                        "removeListener": {
+                            "deprecated": 1
+                        }
+                    }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "change",
+                            "type": "MediaQueryListEvent"
+                        }
+                    ]
+                }
             },
             "HTMLAnchorElement": {
                 "name": "HTMLAnchorElement",
@@ -363,18 +382,6 @@
                                 "getElementById(elementId: string): HTMLElement | null"
                             ]
                         },
-                        "msElementsFromRect": {
-                            "name": "msElementsFromRect",
-                            "override-signatures": [
-                                "msElementsFromRect(left: number, top: number, width: number, height: number): NodeListOf<Element>"
-                            ]
-                        },
-                        "msElementsFromPoint": {
-                            "name": "msElementsFromPoint",
-                            "override-signatures": [
-                                "msElementsFromPoint(x: number, y: number): NodeListOf<Element>"
-                            ]
-                        },
                         "elementsFromPoint": {
                             "name": "elementsFromPoint",
                             "override-signatures": [
@@ -430,6 +437,9 @@
                         "forms": {
                             "name": "forms",
                             "override-type": "HTMLCollectionOf<HTMLFormElement>"
+                        },
+                        "fullscreen": {
+                            "deprecated": 1
                         },
                         "images": {
                             "name": "images",
@@ -2297,6 +2307,12 @@
                         }
                     }
                 }
+            },
+            "HTMLFormElement": {
+                "override-index-signatures": [
+                    "[index: number]: Element",
+                    "[name: string]: any"
+                ]
             }
         }
     },

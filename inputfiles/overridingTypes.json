@@ -2313,6 +2313,17 @@
                     "[index: number]: Element",
                     "[name: string]: any"
                 ]
+            },
+            "Location": {
+                "methods": {
+                    "method": {
+                        "reload": {
+                            "override-signatures": [
+                                "reload(forcedReload?: boolean): void"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },

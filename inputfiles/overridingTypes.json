@@ -2181,7 +2181,15 @@
             },
             "Event": {
                 "name": "Event",
-                "override-exposed": "Window Worker"
+                "override-exposed": "Window Worker",
+                "properties": {
+                    "property": {
+                        "srcElement": {
+                            "type": "Element",
+                            "nullable": 1
+                        }
+                    }
+                }
             },
             "ReadableStream": {
                 "name": "ReadableStream",

@@ -49,13 +49,6 @@
                     }
                 }
             },
-            "Event": {
-                "properties": {
-                    "property": {
-                        "srcElement": null
-                    }
-                }
-            },
             "FileReaderProgressEvent": null,
             "HTMLAreasCollection": null,
             "HTMLBodyElement": {

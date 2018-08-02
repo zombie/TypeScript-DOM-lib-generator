@@ -33,6 +33,10 @@
         "title": "Fetch"
     },
     {
+        "url": "https://fullscreen.spec.whatwg.org/",
+        "title": "Fullscreen"
+    },
+    {
         "url": "https://www.w3.org/TR/geolocation-API/",
         "title": "Geolocation"
     },

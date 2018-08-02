@@ -2571,6 +2571,10 @@
                 "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
             },
             {
+                "new-type": "MouseWheelEvent",
+                "type": "WheelEvent"
+            },
+            {
                 "new-type": "WindowProxy",
                 "type": "Window"
             }

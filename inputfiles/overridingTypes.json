@@ -513,7 +513,7 @@
                             "override-type": "Node & ParentNode | null"
                         },
                         "parentElement": {
-                            "override-type": "Element | null"
+                            "override-type": "HTMLElement | null"
                         },
                         "childNodes": {
                             "override-type": "NodeListOf<ChildNode>"

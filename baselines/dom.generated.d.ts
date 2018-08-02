@@ -10293,7 +10293,7 @@ interface Node extends EventTarget {
     /**
      * Returns the parent element.
      */
-    readonly parentElement: Element | null;
+    readonly parentElement: HTMLElement | null;
     /**
      * Returns the parent.
      */

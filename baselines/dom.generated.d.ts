@@ -3480,7 +3480,7 @@ declare var DOMMatrixReadOnly: {
 };
 
 interface DOMParser {
-    parseFromString(source: string, mimeType: string): Document;
+    parseFromString(str: string, type: SupportedType): Document;
 }
 
 declare var DOMParser: {
@@ -4648,6 +4648,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
      * change it.
      */
     id: string;
+    innerHTML: string;
     /**
      * Returns the local name.
      */
@@ -4656,6 +4657,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
      * Returns the namespace.
      */
     readonly namespaceURI: string | null;
+    outerHTML: string;
     /**
      * Returns the namespace prefix.
      */
@@ -4774,6 +4776,10 @@ declare var Element: {
     prototype: Element;
     new(): Element;
 };
+
+interface ElementCSSInlineStyle {
+    readonly style: CSSStyleDeclaration;
+}
 
 interface ElementContentEditable {
     contentEditable: string;
@@ -6016,7 +6022,7 @@ declare var HTMLDocument: {
 interface HTMLElementEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
 }
 
-interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement {
+interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle {
     accessKey: string;
     readonly accessKeyLabel: string;
     autocapitalize: string;
@@ -11707,6 +11713,7 @@ interface Range extends AbstractRange {
      * in the range, and 1 if the point is after the range.
      */
     comparePoint(node: Node, offset: number): number;
+    createContextualFragment(fragment: string): DocumentFragment;
     deleteContents(): void;
     detach(): void;
     extractContents(): DocumentFragment;
@@ -12116,7 +12123,7 @@ declare var SVGDescElement: {
 interface SVGElementEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
 }
 
-interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, SVGElementInstance, HTMLOrSVGElement {
+interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, SVGElementInstance, HTMLOrSVGElement, ElementCSSInlineStyle {
     /** @deprecated */
     readonly className: any;
     readonly ownerSVGElement: SVGSVGElement | null;
@@ -16708,7 +16715,7 @@ declare var XMLHttpRequestUpload: {
 };
 
 interface XMLSerializer {
-    serializeToString(target: Node): string;
+    serializeToString(root: Node): string;
 }
 
 declare var XMLSerializer: {
@@ -17705,6 +17712,7 @@ type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
 type ShadowRootMode = "open" | "closed";
 type SpeechRecognitionErrorCode = "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
 type SpeechSynthesisErrorCode = "canceled" | "interrupted" | "audio-busy" | "audio-hardware" | "network" | "synthesis-unavailable" | "synthesis-failed" | "language-unavailable" | "voice-unavailable" | "text-too-long" | "invalid-argument";
+type SupportedType = "text/html" | "text/xml" | "application/xml" | "application/xhtml+xml" | "image/svg+xml";
 type TextTrackKind = "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";

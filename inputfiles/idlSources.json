@@ -21,6 +21,10 @@
         "title": "DOM"
     },
     {
+        "url": "https://w3c.github.io/DOM-Parsing/",
+        "title": "DOM Parsing and Serialization"
+    },
+    {
         "url": "https://encoding.spec.whatwg.org/",
         "title": "Encoding"
     },

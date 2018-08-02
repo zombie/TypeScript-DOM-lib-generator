@@ -538,7 +538,7 @@
                         "namespaceURI": {
                             "name":"namespaceURI",
                             "read-only": 1,
-                            "override-type": "string | null;"
+                            "override-type": "string | null"
                         }
                     }
                 }

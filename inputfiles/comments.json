@@ -785,9 +785,6 @@
                         "elementFromPoint": {
                             "comment": "/**\r\n * Returns the element for the specified x coordinate and the specified y coordinate.\r\n * @param x The x-offset\r\n * @param y The y-offset\r\n */"
                         },
-                        "queryCommandText": {
-                            "comment": "/**\r\n * Retrieves the string associated with a command.\r\n * @param commandId String that contains the identifier of a command. This can be any command identifier given in the list of Command Identifiers.\r\n */"
-                        },
                         "write": {
                             "comment": "/**\r\n * Writes one or more HTML expressions to a document in the specified window.\r\n * @param content Specifies the text and HTML tags to write.\r\n */"
                         },
@@ -808,9 +805,6 @@
                         },
                         "queryCommandEnabled": {
                             "comment": "/**\r\n * Returns a Boolean value that indicates whether a specified command can be successfully executed using execCommand, given the current state of the document.\r\n * @param commandId Specifies a command identifier.\r\n */"
-                        },
-                        "focus": {
-                            "comment": "/**\r\n * Causes the element to receive the focus and executes the code specified by the onfocus event.\r\n */"
                         },
                         "close": {
                             "comment": "/**\r\n * Closes an output stream and forces the sent data to display.\r\n */"
@@ -835,9 +829,6 @@
                         },
                         "hasFocus": {
                             "comment": "/**\r\n * Gets a value indicating whether the object currently has focus.\r\n */"
-                        },
-                        "execCommandShowHelp": {
-                            "comment": "/**\r\n * Displays help information for the given command identifier.\r\n * @param commandId Displays help information for the given command identifier.\r\n */"
                         },
                         "createAttribute": {
                             "comment": "/**\r\n * Creates an attribute object with a specified name.\r\n * @param name String that sets the attribute object's name.\r\n */"

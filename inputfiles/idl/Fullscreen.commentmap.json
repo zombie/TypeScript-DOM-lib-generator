@@ -1,0 +1,6 @@
+{
+    "element-requestfullscreen": "Displays element fullscreen and resolves promise when done.",
+    "document-fullscreenenabled": "Returns true if document has the ability to display elements fullscreen\nand fullscreen is supported, or false otherwise.",
+    "document-exitfullscreen": "Stops document's fullscreen element from being displayed fullscreen and\nresolves promise when done.",
+    "document-fullscreenelement": "Returns shadowroot's fullscreen element."
+}

@@ -6250,6 +6250,7 @@ interface HTMLFormElement extends HTMLElement {
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     [index: number]: Element;
+    [name: string]: any;
 }
 
 declare var HTMLFormElement: {

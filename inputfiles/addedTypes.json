@@ -1851,6 +1851,16 @@
                             "override-type": "boolean"
                         }
                     }
+                },
+                "methods": {
+                    "method": {
+                        "reportValidity": {
+                            "name": "reportValidity",
+                            "override-signatures": [
+                                "reportValidity(): boolean"
+                            ]
+                        }
+                    }
                 }
             },
             "EventSource": {
@@ -2099,7 +2109,9 @@
                         "name": "wbr"
                     }
                 ],
-                "implements": ["ElementCSSInlineStyle"]
+                "implements": [
+                    "ElementCSSInlineStyle"
+                ]
             },
             "HTMLFormElement": {
                 "element": [

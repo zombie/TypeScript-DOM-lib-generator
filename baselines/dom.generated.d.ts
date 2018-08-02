@@ -10257,6 +10257,7 @@ interface Node extends EventTarget {
      * Returns the last child.
      */
     readonly lastChild: ChildNode | null;
+    readonly namespaceURI: string | null;;
     /**
      * Returns the next sibling.
      */

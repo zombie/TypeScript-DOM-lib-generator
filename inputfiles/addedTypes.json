@@ -610,7 +610,7 @@
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
                             "override-signatures": [
-                                "getElementsByClassName(classNames: string): NodeListOf<Element>"
+                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
                             ]
                         },
                         "closest": {

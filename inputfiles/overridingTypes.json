@@ -124,6 +124,13 @@
                             "type": "TransitionEvent"
                         }
                     ]
+                },
+                "properties": {
+                    "property": {
+                        "onerror": {
+                            "override-type": "ErrorEventHandler"
+                        }
+                    }
                 }
             },
             "RandomSource": {

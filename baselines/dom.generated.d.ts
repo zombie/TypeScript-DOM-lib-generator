@@ -5335,7 +5335,7 @@ interface GlobalEventHandlers {
      * Fires when an error occurs during object loading.
      * @param ev The event.
      */
-    onerror: ((this: GlobalEventHandlers, ev: ErrorEvent) => any) | null;
+    onerror: ErrorEventHandler;
     /**
      * Fires when the object receives focus.
      * @param ev The event.
@@ -17365,7 +17365,7 @@ declare var onended: ((this: Window, ev: Event) => any) | null;
  * Fires when an error occurs during object loading.
  * @param ev The event.
  */
-declare var onerror: ((this: Window, ev: ErrorEvent) => any) | null;
+declare var onerror: ErrorEventHandler;
 /**
  * Fires when the object receives focus.
  * @param ev The event.

@@ -9675,7 +9675,7 @@ interface MediaQueryList extends EventTarget {
     readonly media: string;
     onchange: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null;
     /** @deprecated */
-    addListener(listener: (this: MediaQueryList, ev: MediaQueryListEvent) => any): void;
+    addListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
     /** @deprecated */
     removeListener(listener: EventListenerOrEventListenerObject | null): void;
     addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;

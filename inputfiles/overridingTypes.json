@@ -218,7 +218,7 @@
                         "addListener": {
                             "deprecated": 1,
                             "override-signatures": [
-                                "addListener(listener: (this: MediaQueryList, ev: MediaQueryListEvent) => any): void"
+                                "addListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void"
                             ]
                         },
                         "removeListener": {

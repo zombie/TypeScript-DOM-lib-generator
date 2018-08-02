@@ -2297,6 +2297,12 @@
                         }
                     }
                 }
+            },
+            "HTMLFormElement": {
+                "override-index-signatures": [
+                    "[index: number]: Element",
+                    "[name: string]: any"
+                ]
             }
         }
     },

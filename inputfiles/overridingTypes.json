@@ -124,6 +124,13 @@
                             "type": "TransitionEvent"
                         }
                     ]
+                },
+                "properties": {
+                    "property": {
+                        "onerror": {
+                            "override-type": "ErrorEventHandler"
+                        }
+                    }
                 }
             },
             "RandomSource": {
@@ -413,6 +420,17 @@
                             "override-signatures": [
                                 "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
                             ]
+                        },
+                        "createTreeWalker": {
+                            "override-signatures": [
+                                "createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker"
+                            ]
+                        },
+                        "caretRangeFromPoint": {
+                            "name": "caretRangeFromPoint",
+                            "override-signatures" :[
+                                "caretRangeFromPoint(x: number, y: number): Range"
+                            ]
                         }
                     }
                 },
@@ -459,7 +477,10 @@
                         },
                         "location": {
                             "read-only": 0
-                        }
+                        },
+                        "body": {
+                            "nullable": false
+                       }
                     }
                 }
             },
@@ -506,7 +527,7 @@
                             "override-type": "Node & ParentNode | null"
                         },
                         "parentElement": {
-                            "override-type": "Element | null"
+                            "override-type": "HTMLElement | null"
                         },
                         "childNodes": {
                             "override-type": "NodeListOf<ChildNode>"
@@ -516,6 +537,11 @@
                         },
                         "lastChild": {
                             "override-type": "ChildNode | null"
+                        },
+                        "namespaceURI": {
+                            "name":"namespaceURI",
+                            "read-only": 1,
+                            "override-type": "string | null"
                         }
                     }
                 }
@@ -2155,7 +2181,15 @@
             },
             "Event": {
                 "name": "Event",
-                "override-exposed": "Window Worker"
+                "override-exposed": "Window Worker",
+                "properties": {
+                    "property": {
+                        "srcElement": {
+                            "type": "Element",
+                            "nullable": 1
+                        }
+                    }
+                }
             },
             "ReadableStream": {
                 "name": "ReadableStream",
@@ -2313,6 +2347,17 @@
                     "[index: number]: Element",
                     "[name: string]: any"
                 ]
+            },
+            "Location": {
+                "methods": {
+                    "method": {
+                        "reload": {
+                            "override-signatures": [
+                                "reload(forcedReload?: boolean): void"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },

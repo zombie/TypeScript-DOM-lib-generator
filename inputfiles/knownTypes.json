@@ -79,7 +79,8 @@
         "RsaOaepParams",
         "RsaPssParams",
         "Transferable",
-        "VideoFacingModeEnum"
+        "VideoFacingModeEnum",
+        "MouseWheelEvent"
     ],
     "Worker": [
         "AesCbcParams",

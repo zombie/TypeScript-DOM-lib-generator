@@ -168,7 +168,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             const eventType = eType === "Event" || dependsOn(eType, "Event") ? eType : defaultEventType;
             return { name: p.name, eventName, eventType };
         }));
-    
+
     const iNameToConstList = arrayToMap(allInterfaces, i => i.name, i =>
         !i.constants ? [] : mapToArray(i.constants.constant));
 
@@ -328,6 +328,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "EventListener": return "EventListenerOrEventListenerObject";
         }
         if (flavor === Flavor.Web && objDomType === "Client") return "object";
+        if (flavor === Flavor.Worker && objDomType === "Element") return "object";
         // Name of an interface / enum / dict. Just return itself
         if (allInterfacesMap[objDomType] ||
             allLegacyWindowAliases.includes(objDomType) ||

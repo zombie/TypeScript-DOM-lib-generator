@@ -425,6 +425,12 @@
                             "override-signatures": [
                                 "createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker"
                             ]
+                        },
+                        "caretRangeFromPoint": {
+                            "name": "caretRangeFromPoint",
+                            "override-signatures" :[
+                                "caretRangeFromPoint(x: number, y: number): Range"
+                            ]
                         }
                     }
                 },

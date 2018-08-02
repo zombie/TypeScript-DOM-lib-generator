@@ -1231,6 +1231,7 @@
             },
             "SVGElement": {
                 "implements": [
+                    "ElementCSSInlineStyle",
                     "GlobalEventHandlers",
                     "DocumentAndElementEventHandlers"
                 ]
@@ -2097,7 +2098,8 @@
                     {
                         "name": "wbr"
                     }
-                ]
+                ],
+                "implements": ["ElementCSSInlineStyle"]
             },
             "HTMLFormElement": {
                 "element": [

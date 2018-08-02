@@ -4777,6 +4777,10 @@ declare var Element: {
     new(): Element;
 };
 
+interface ElementCSSInlineStyle {
+    readonly style: CSSStyleDeclaration;
+}
+
 interface ElementContentEditable {
     contentEditable: string;
     inputMode: string;
@@ -6018,7 +6022,7 @@ declare var HTMLDocument: {
 interface HTMLElementEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
 }
 
-interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement {
+interface HTMLElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle {
     accessKey: string;
     readonly accessKeyLabel: string;
     autocapitalize: string;
@@ -12119,7 +12123,7 @@ declare var SVGDescElement: {
 interface SVGElementEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
 }
 
-interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, SVGElementInstance, HTMLOrSVGElement {
+interface SVGElement extends Element, GlobalEventHandlers, DocumentAndElementEventHandlers, SVGElementInstance, HTMLOrSVGElement, ElementCSSInlineStyle {
     /** @deprecated */
     readonly className: any;
     readonly ownerSVGElement: SVGSVGElement | null;

@@ -142,6 +142,7 @@ interface BiquadFilterOptions extends AudioNodeOptions {
 }
 
 interface BlobPropertyBag {
+    endings?: EndingType;
     type?: string;
 }
 
@@ -5013,7 +5014,7 @@ interface FileReader extends EventTarget {
     readAsArrayBuffer(blob: Blob): void;
     readAsBinaryString(blob: Blob): void;
     readAsDataURL(blob: Blob): void;
-    readAsText(blob: Blob, label?: string): void;
+    readAsText(blob: Blob, encoding?: string): void;
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
@@ -17653,6 +17654,7 @@ type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
+type EndingType = "transparent" | "native";
 type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";

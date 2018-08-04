@@ -4096,6 +4096,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /** @deprecated */
     captureEvents(): void;
     caretPositionFromPoint(x: number, y: number): CaretPosition | null;
+    /** @deprecated */
     caretRangeFromPoint(x: number, y: number): Range;
     /** @deprecated */
     clear(): void;
@@ -4321,7 +4322,9 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * @param filter A custom NodeFilter function to use.
      * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.
      */
-    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker;
+    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null): TreeWalker;
+    /** @deprecated */
+    createTreeWalker(root: Node, whatToShow: number, filter: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker;
     /**
      * Returns the element for the specified x coordinate and the specified y coordinate.
      * @param x The x-offset
@@ -4847,6 +4850,7 @@ interface Event {
      */
     readonly isTrusted: boolean;
     returnValue: boolean;
+    /** @deprecated */
     readonly srcElement: Element | null;
     /**
      * Returns the object to which event is dispatched (its target).
@@ -9284,7 +9288,9 @@ interface Location {
     /**
      * Reloads the current page.
      */
-    reload(forcedReload?: boolean): void;
+    reload(): void;
+    /** @deprecated */
+    reload(forcedReload: boolean): void;
     /**
      * Removes the current page from the session history and navigates to the given URL.
      */
@@ -10258,6 +10264,7 @@ interface Node extends EventTarget {
      * Returns the last child.
      */
     readonly lastChild: ChildNode | null;
+    /** @deprecated */
     readonly namespaceURI: string | null;
     /**
      * Returns the next sibling.
@@ -17626,6 +17633,7 @@ type IDBKeyPath = string;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
+/** @deprecated */
 type MouseWheelEvent = WheelEvent;
 type WindowProxy = Window;
 type AlignSetting = "start" | "center" | "end" | "left" | "right";

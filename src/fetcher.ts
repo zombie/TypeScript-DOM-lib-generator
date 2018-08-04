@@ -34,6 +34,19 @@ async function fetchIDL(source: IDLSource) {
         return { idl: await response.text() };
     }
     const dom = JSDOM.fragment(await response.text());
+    let idl = extractIDL(dom);
+    const css = extractCSSDefinitions(dom);
+    if (css) {
+        idl = idl ? idl + `\n\n${css}` : css;
+    }
+    if (!idl) {
+        throw new Error(`Found no IDL or CSS from ${source.url}`);
+    }
+    const comments = processComments(dom);
+    return { idl, comments };
+}
+
+function extractIDL(dom: DocumentFragment) {
     const elements = Array.from(dom.querySelectorAll(idlSelector))
         .filter(el => {
             if (el.parentElement && el.parentElement.classList.contains("example")) {
@@ -45,12 +58,29 @@ async function fetchIDL(source: IDLSource) {
             }
             return !previous.classList.contains("atrisk") && !previous.textContent!.includes("IDL Index");
         });
-    if (!elements.length) {
-        throw new Error(`Found no IDL code from ${source.url}`);
+    return elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
+}
+
+function extractCSSDefinitions(dom: DocumentFragment) {
+    const properties =  Array.from(dom.querySelectorAll("dfn.css[data-dfn-type=property],.propdef dfn"))
+        .map(element => element.textContent!.trim());
+
+    if (!properties.length) {
+        return "";
     }
-    const idl = elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
-    const comments = processComments(dom);
-    return { idl, comments };
+
+    return `partial interface CSSStyleDeclaration {${
+        properties.map(property => `\n  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString ${
+            hyphenToCamelCase(property)
+        };`).join("")
+    }\n};`
+}
+
+function hyphenToCamelCase(name: string) {
+    const camel = name
+        .replace(/^-(\w)/, (_, c) => c)
+        .replace(/-(\w)/g, (_, c) => c.toUpperCase());
+    return camel === "float" ? "_float" : camel;
 }
 
 function processComments(dom: DocumentFragment) {

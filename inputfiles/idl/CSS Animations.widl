@@ -38,3 +38,15 @@ partial interface GlobalEventHandlers {
   attribute EventHandler onanimationend;
   attribute EventHandler onanimationcancel;
 };
+
+partial interface CSSStyleDeclaration {
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationName;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationDuration;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationTimingFunction;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationIterationCount;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationDirection;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationPlayState;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationDelay;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animationFillMode;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString animation;
+};

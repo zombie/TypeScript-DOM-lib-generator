@@ -150,3 +150,7 @@ partial dictionary MouseEventInit {
   double clientX = 0.0;
   double clientY = 0.0;
 };
+
+partial interface CSSStyleDeclaration {
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString scrollBehavior;
+};

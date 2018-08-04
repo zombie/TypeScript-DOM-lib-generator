@@ -2383,15 +2383,15 @@ interface CSSStyleDeclaration {
     alignItems: string | null;
     alignSelf: string | null;
     alignmentBaseline: string | null;
-    animation: string | null;
-    animationDelay: string | null;
-    animationDirection: string | null;
-    animationDuration: string | null;
-    animationFillMode: string | null;
-    animationIterationCount: string | null;
-    animationName: string | null;
-    animationPlayState: string | null;
-    animationTimingFunction: string | null;
+    animation: string;
+    animationDelay: string;
+    animationDirection: string;
+    animationDuration: string;
+    animationFillMode: string;
+    animationIterationCount: string;
+    animationName: string;
+    animationPlayState: string;
+    animationTimingFunction: string;
     backfaceVisibility: string | null;
     background: string | null;
     backgroundAttachment: string | null;
@@ -2634,6 +2634,7 @@ interface CSSStyleDeclaration {
     rubyOverhang: string | null;
     rubyPosition: string | null;
     scale: string | null;
+    scrollBehavior: string;
     stopColor: string | null;
     stopOpacity: string | null;
     stroke: string | null;
@@ -2659,50 +2660,78 @@ interface CSSStyleDeclaration {
     textTransform: string | null;
     textUnderlinePosition: string | null;
     top: string | null;
-    touchAction: string | null;
+    touchAction: string;
     transform: string | null;
     transformOrigin: string | null;
     transformStyle: string | null;
-    transition: string | null;
-    transitionDelay: string | null;
-    transitionDuration: string | null;
-    transitionProperty: string | null;
-    transitionTimingFunction: string | null;
+    transition: string;
+    transitionDelay: string;
+    transitionDuration: string;
+    transitionProperty: string;
+    transitionTimingFunction: string;
     translate: string | null;
     unicodeBidi: string | null;
     userSelect: string | null;
     verticalAlign: string | null;
     visibility: string | null;
-    webkitAlignContent: string | null;
-    webkitAlignItems: string | null;
-    webkitAlignSelf: string | null;
-    webkitAnimation: string | null;
-    webkitAnimationDelay: string | null;
-    webkitAnimationDirection: string | null;
-    webkitAnimationDuration: string | null;
-    webkitAnimationFillMode: string | null;
-    webkitAnimationIterationCount: string | null;
-    webkitAnimationName: string | null;
-    webkitAnimationPlayState: string | null;
-    webkitAnimationTimingFunction: string | null;
+    /** @deprecated */
+    webkitAlignContent: string;
+    /** @deprecated */
+    webkitAlignItems: string;
+    /** @deprecated */
+    webkitAlignSelf: string;
+    /** @deprecated */
+    webkitAnimation: string;
+    /** @deprecated */
+    webkitAnimationDelay: string;
+    /** @deprecated */
+    webkitAnimationDirection: string;
+    /** @deprecated */
+    webkitAnimationDuration: string;
+    /** @deprecated */
+    webkitAnimationFillMode: string;
+    /** @deprecated */
+    webkitAnimationIterationCount: string;
+    /** @deprecated */
+    webkitAnimationName: string;
+    /** @deprecated */
+    webkitAnimationPlayState: string;
+    /** @deprecated */
+    webkitAnimationTimingFunction: string;
     webkitAppearance: string | null;
-    webkitBackfaceVisibility: string | null;
-    webkitBackgroundClip: string | null;
-    webkitBackgroundOrigin: string | null;
-    webkitBackgroundSize: string | null;
-    webkitBorderBottomLeftRadius: string | null;
-    webkitBorderBottomRightRadius: string | null;
+    /** @deprecated */
+    webkitBackfaceVisibility: string;
+    /** @deprecated */
+    webkitBackgroundClip: string;
+    /** @deprecated */
+    webkitBackgroundOrigin: string;
+    /** @deprecated */
+    webkitBackgroundSize: string;
+    /** @deprecated */
+    webkitBorderBottomLeftRadius: string;
+    /** @deprecated */
+    webkitBorderBottomRightRadius: string;
     webkitBorderImage: string | null;
-    webkitBorderRadius: string | null;
-    webkitBorderTopLeftRadius: string | null;
-    webkitBorderTopRightRadius: string | null;
-    webkitBoxAlign: string | null;
+    /** @deprecated */
+    webkitBorderRadius: string;
+    /** @deprecated */
+    webkitBorderTopLeftRadius: string;
+    /** @deprecated */
+    webkitBorderTopRightRadius: string;
+    /** @deprecated */
+    webkitBoxAlign: string;
     webkitBoxDirection: string | null;
-    webkitBoxFlex: string | null;
-    webkitBoxOrdinalGroup: string | null;
+    /** @deprecated */
+    webkitBoxFlex: string;
+    /** @deprecated */
+    webkitBoxOrdinalGroup: string;
     webkitBoxOrient: string | null;
-    webkitBoxPack: string | null;
-    webkitBoxSizing: string | null;
+    /** @deprecated */
+    webkitBoxPack: string;
+    /** @deprecated */
+    webkitBoxShadow: string;
+    /** @deprecated */
+    webkitBoxSizing: string;
     webkitColumnBreakAfter: string | null;
     webkitColumnBreakBefore: string | null;
     webkitColumnBreakInside: string | null;
@@ -2715,32 +2744,85 @@ interface CSSStyleDeclaration {
     webkitColumnSpan: string | null;
     webkitColumnWidth: any;
     webkitColumns: string | null;
-    webkitFilter: string | null;
-    webkitFlex: string | null;
-    webkitFlexBasis: string | null;
-    webkitFlexDirection: string | null;
-    webkitFlexFlow: string | null;
-    webkitFlexGrow: string | null;
-    webkitFlexShrink: string | null;
-    webkitFlexWrap: string | null;
-    webkitJustifyContent: string | null;
-    webkitOrder: string | null;
-    webkitPerspective: string | null;
-    webkitPerspectiveOrigin: string | null;
+    /** @deprecated */
+    webkitFilter: string;
+    /** @deprecated */
+    webkitFlex: string;
+    /** @deprecated */
+    webkitFlexBasis: string;
+    /** @deprecated */
+    webkitFlexDirection: string;
+    /** @deprecated */
+    webkitFlexFlow: string;
+    /** @deprecated */
+    webkitFlexGrow: string;
+    /** @deprecated */
+    webkitFlexShrink: string;
+    /** @deprecated */
+    webkitFlexWrap: string;
+    /** @deprecated */
+    webkitJustifyContent: string;
+    /** @deprecated */
+    webkitMask: string;
+    /** @deprecated */
+    webkitMaskBoxImage: string;
+    /** @deprecated */
+    webkitMaskBoxImageOutset: string;
+    /** @deprecated */
+    webkitMaskBoxImageRepeat: string;
+    /** @deprecated */
+    webkitMaskBoxImageSlice: string;
+    /** @deprecated */
+    webkitMaskBoxImageSource: string;
+    /** @deprecated */
+    webkitMaskBoxImageWidth: string;
+    /** @deprecated */
+    webkitMaskClip: string;
+    /** @deprecated */
+    webkitMaskComposite: string;
+    /** @deprecated */
+    webkitMaskImage: string;
+    /** @deprecated */
+    webkitMaskOrigin: string;
+    /** @deprecated */
+    webkitMaskPosition: string;
+    /** @deprecated */
+    webkitMaskRepeat: string;
+    /** @deprecated */
+    webkitMaskSize: string;
+    /** @deprecated */
+    webkitOrder: string;
+    /** @deprecated */
+    webkitPerspective: string;
+    /** @deprecated */
+    webkitPerspectiveOrigin: string;
     webkitTapHighlightColor: string | null;
-    webkitTextFillColor: string | null;
-    webkitTextSizeAdjust: any;
-    webkitTextStroke: string | null;
-    webkitTextStrokeColor: string | null;
-    webkitTextStrokeWidth: string | null;
-    webkitTransform: string | null;
-    webkitTransformOrigin: string | null;
-    webkitTransformStyle: string | null;
-    webkitTransition: string | null;
-    webkitTransitionDelay: string | null;
-    webkitTransitionDuration: string | null;
-    webkitTransitionProperty: string | null;
-    webkitTransitionTimingFunction: string | null;
+    /** @deprecated */
+    webkitTextFillColor: string;
+    /** @deprecated */
+    webkitTextSizeAdjust: string;
+    /** @deprecated */
+    webkitTextStroke: string;
+    /** @deprecated */
+    webkitTextStrokeColor: string;
+    /** @deprecated */
+    webkitTextStrokeWidth: string;
+    /** @deprecated */
+    webkitTransform: string;
+    /** @deprecated */
+    webkitTransformOrigin: string;
+    /** @deprecated */
+    webkitTransformStyle: string;
+    /** @deprecated */
+    webkitTransition: string;
+    /** @deprecated */
+    webkitTransitionDelay: string;
+    /** @deprecated */
+    webkitTransitionDuration: string;
+    /** @deprecated */
+    webkitTransitionProperty: string;
+    /** @deprecated */
+    webkitTransitionTimingFunction: string;
     webkitUserModify: string | null;
     webkitUserSelect: string | null;
     webkitWritingMode: string | null;

@@ -17,3 +17,11 @@ partial interface GlobalEventHandlers {
   attribute EventHandler ontransitionend;
   attribute EventHandler ontransitioncancel;
 };
+
+partial interface CSSStyleDeclaration {
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString transitionProperty;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString transitionDuration;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString transitionTimingFunction;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString transitionDelay;
+  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString transition;
+};

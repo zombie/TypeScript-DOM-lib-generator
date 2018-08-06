@@ -3984,7 +3984,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Gets a reference to the root node of the document.
      */
-    readonly documentElement: HTMLElement | null;
+    readonly documentElement: HTMLElement;
     /**
      * Returns document's URL.
      */

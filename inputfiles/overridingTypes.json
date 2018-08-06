@@ -438,7 +438,8 @@
                     "property": {
                         "documentElement": {
                             "name": "documentElement",
-                            "override-type": "HTMLElement"
+                            "override-type": "HTMLElement",
+                            "nullable": false
                         },
                         "anchors": {
                             "name": "anchors",

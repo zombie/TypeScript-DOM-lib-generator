@@ -1570,17 +1570,11 @@ interface EventListener {
 }
 
 interface ANGLE_instanced_arrays {
-    drawArraysInstancedANGLE(mode: number, first: number, count: number, primcount: number): void;
-    drawElementsInstancedANGLE(mode: number, count: number, type: number, offset: number, primcount: number): void;
-    vertexAttribDivisorANGLE(index: number, divisor: number): void;
-    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: number;
+    drawArraysInstancedANGLE(mode: GLenum, first: GLint, count: GLsizei, primcount: GLsizei): void;
+    drawElementsInstancedANGLE(mode: GLenum, count: GLsizei, type: GLenum, offset: GLintptr, primcount: GLsizei): void;
+    vertexAttribDivisorANGLE(index: GLuint, divisor: GLuint): void;
+    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: GLenum;
 }
-
-declare var ANGLE_instanced_arrays: {
-    prototype: ANGLE_instanced_arrays;
-    new(): ANGLE_instanced_arrays;
-    readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: number;
-};
 
 interface AbortController {
     /**
@@ -4601,34 +4595,27 @@ declare var DynamicsCompressorNode: {
 };
 
 interface EXT_blend_minmax {
-    readonly MAX_EXT: number;
-    readonly MIN_EXT: number;
+    readonly MAX_EXT: GLenum;
+    readonly MIN_EXT: GLenum;
 }
 
 interface EXT_frag_depth {
 }
 
 interface EXT_sRGB {
-    readonly FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT: number;
-    readonly SRGB8_ALPHA8_EXT: number;
-    readonly SRGB_ALPHA_EXT: number;
-    readonly SRGB_EXT: number;
+    readonly FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT: GLenum;
+    readonly SRGB8_ALPHA8_EXT: GLenum;
+    readonly SRGB_ALPHA_EXT: GLenum;
+    readonly SRGB_EXT: GLenum;
 }
 
 interface EXT_shader_texture_lod {
 }
 
 interface EXT_texture_filter_anisotropic {
-    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: number;
-    readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
+    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: GLenum;
+    readonly TEXTURE_MAX_ANISOTROPY_EXT: GLenum;
 }
-
-declare var EXT_texture_filter_anisotropic: {
-    prototype: EXT_texture_filter_anisotropic;
-    new(): EXT_texture_filter_anisotropic;
-    readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: number;
-    readonly TEXTURE_MAX_ANISOTROPY_EXT: number;
-};
 
 interface ElementEventMap {
     "fullscreenchange": Event;
@@ -10530,61 +10517,29 @@ declare var Notification: {
 interface OES_element_index_uint {
 }
 
-declare var OES_element_index_uint: {
-    prototype: OES_element_index_uint;
-    new(): OES_element_index_uint;
-};
-
 interface OES_standard_derivatives {
-    readonly FRAGMENT_SHADER_DERIVATIVE_HINT_OES: number;
+    readonly FRAGMENT_SHADER_DERIVATIVE_HINT_OES: GLenum;
 }
-
-declare var OES_standard_derivatives: {
-    prototype: OES_standard_derivatives;
-    new(): OES_standard_derivatives;
-    readonly FRAGMENT_SHADER_DERIVATIVE_HINT_OES: number;
-};
 
 interface OES_texture_float {
 }
 
-declare var OES_texture_float: {
-    prototype: OES_texture_float;
-    new(): OES_texture_float;
-};
-
 interface OES_texture_float_linear {
 }
 
-declare var OES_texture_float_linear: {
-    prototype: OES_texture_float_linear;
-    new(): OES_texture_float_linear;
-};
-
 interface OES_texture_half_float {
-    readonly HALF_FLOAT_OES: number;
+    readonly HALF_FLOAT_OES: GLenum;
 }
-
-declare var OES_texture_half_float: {
-    prototype: OES_texture_half_float;
-    new(): OES_texture_half_float;
-    readonly HALF_FLOAT_OES: number;
-};
 
 interface OES_texture_half_float_linear {
 }
 
-declare var OES_texture_half_float_linear: {
-    prototype: OES_texture_half_float_linear;
-    new(): OES_texture_half_float_linear;
-};
-
 interface OES_vertex_array_object {
-    readonly VERTEX_ARRAY_BINDING_OES: number;
-    bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
-    createVertexArrayOES(): WebGLVertexArrayObjectOES;
-    deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
-    isVertexArrayOES(value: any): value is WebGLVertexArrayObjectOES;
+    bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES | null): void;
+    createVertexArrayOES(): WebGLVertexArrayObjectOES | null;
+    deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES | null): void;
+    isVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES | null): GLboolean;
+    readonly VERTEX_ARRAY_BINDING_OES: GLenum;
 }
 
 interface OfflineAudioCompletionEvent extends Event {
@@ -15095,129 +15050,106 @@ declare var VideoTrackList: {
 };
 
 interface WEBGL_color_buffer_float {
-    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: number;
-    readonly RGB32F_EXT: number;
-    readonly RGBA32F_EXT: number;
-    readonly UNSIGNED_NORMALIZED_EXT: number;
+    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: GLenum;
+    readonly RGBA32F_EXT: GLenum;
+    readonly UNSIGNED_NORMALIZED_EXT: GLenum;
 }
 
 interface WEBGL_compressed_texture_astc {
-    readonly COMPRESSED_RGBA_ASTC_10x10_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_10x5_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_10x6_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_10x8_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_12x10_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_12x12_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_4x4_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_5x4_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_5x5_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_6x5_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_6x6_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_8x5_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_8x6_KHR: number;
-    readonly COMPRESSED_RGBA_ASTC_8x8_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR: number;
-    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR: number;
     getSupportedProfiles(): string[];
+    readonly COMPRESSED_RGBA_ASTC_10x10_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_10x5_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_10x6_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_10x8_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_12x10_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_12x12_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_4x4_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_5x4_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_5x5_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_6x5_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_6x6_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_8x5_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_8x6_KHR: GLenum;
+    readonly COMPRESSED_RGBA_ASTC_8x8_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x5_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x6_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_10x8_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_5x4_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_5x5_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_6x5_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_6x6_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR: GLenum;
+    readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR: GLenum;
 }
 
 interface WEBGL_compressed_texture_s3tc {
-    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: number;
-    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: GLenum;
+    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: GLenum;
+    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: GLenum;
+    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: GLenum;
 }
 
-declare var WEBGL_compressed_texture_s3tc: {
-    prototype: WEBGL_compressed_texture_s3tc;
-    new(): WEBGL_compressed_texture_s3tc;
-    readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT3_EXT: number;
-    readonly COMPRESSED_RGBA_S3TC_DXT5_EXT: number;
-    readonly COMPRESSED_RGB_S3TC_DXT1_EXT: number;
-};
-
 interface WEBGL_compressed_texture_s3tc_srgb {
-    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT: number;
-    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT: number;
-    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT: number;
-    readonly COMPRESSED_SRGB_S3TC_DXT1_EXT: number;
+    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT: GLenum;
+    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT: GLenum;
+    readonly COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT: GLenum;
+    readonly COMPRESSED_SRGB_S3TC_DXT1_EXT: GLenum;
 }
 
 interface WEBGL_debug_renderer_info {
-    readonly UNMASKED_RENDERER_WEBGL: number;
-    readonly UNMASKED_VENDOR_WEBGL: number;
+    readonly UNMASKED_RENDERER_WEBGL: GLenum;
+    readonly UNMASKED_VENDOR_WEBGL: GLenum;
 }
-
-declare var WEBGL_debug_renderer_info: {
-    prototype: WEBGL_debug_renderer_info;
-    new(): WEBGL_debug_renderer_info;
-    readonly UNMASKED_RENDERER_WEBGL: number;
-    readonly UNMASKED_VENDOR_WEBGL: number;
-};
 
 interface WEBGL_debug_shaders {
     getTranslatedShaderSource(shader: WebGLShader): string;
 }
 
 interface WEBGL_depth_texture {
-    readonly UNSIGNED_INT_24_8_WEBGL: number;
+    readonly UNSIGNED_INT_24_8_WEBGL: GLenum;
 }
 
-declare var WEBGL_depth_texture: {
-    prototype: WEBGL_depth_texture;
-    new(): WEBGL_depth_texture;
-    readonly UNSIGNED_INT_24_8_WEBGL: number;
-};
-
 interface WEBGL_draw_buffers {
-    readonly COLOR_ATTACHMENT0_WEBGL: number;
-    readonly COLOR_ATTACHMENT10_WEBGL: number;
-    readonly COLOR_ATTACHMENT11_WEBGL: number;
-    readonly COLOR_ATTACHMENT12_WEBGL: number;
-    readonly COLOR_ATTACHMENT13_WEBGL: number;
-    readonly COLOR_ATTACHMENT14_WEBGL: number;
-    readonly COLOR_ATTACHMENT15_WEBGL: number;
-    readonly COLOR_ATTACHMENT1_WEBGL: number;
-    readonly COLOR_ATTACHMENT2_WEBGL: number;
-    readonly COLOR_ATTACHMENT3_WEBGL: number;
-    readonly COLOR_ATTACHMENT4_WEBGL: number;
-    readonly COLOR_ATTACHMENT5_WEBGL: number;
-    readonly COLOR_ATTACHMENT6_WEBGL: number;
-    readonly COLOR_ATTACHMENT7_WEBGL: number;
-    readonly COLOR_ATTACHMENT8_WEBGL: number;
-    readonly COLOR_ATTACHMENT9_WEBGL: number;
-    readonly DRAW_BUFFER0_WEBGL: number;
-    readonly DRAW_BUFFER10_WEBGL: number;
-    readonly DRAW_BUFFER11_WEBGL: number;
-    readonly DRAW_BUFFER12_WEBGL: number;
-    readonly DRAW_BUFFER13_WEBGL: number;
-    readonly DRAW_BUFFER14_WEBGL: number;
-    readonly DRAW_BUFFER15_WEBGL: number;
-    readonly DRAW_BUFFER1_WEBGL: number;
-    readonly DRAW_BUFFER2_WEBGL: number;
-    readonly DRAW_BUFFER3_WEBGL: number;
-    readonly DRAW_BUFFER4_WEBGL: number;
-    readonly DRAW_BUFFER5_WEBGL: number;
-    readonly DRAW_BUFFER6_WEBGL: number;
-    readonly DRAW_BUFFER7_WEBGL: number;
-    readonly DRAW_BUFFER8_WEBGL: number;
-    readonly DRAW_BUFFER9_WEBGL: number;
-    readonly MAX_COLOR_ATTACHMENTS_WEBGL: number;
-    readonly MAX_DRAW_BUFFERS_WEBGL: number;
-    drawBuffersWEBGL(buffers: number[]): void;
+    drawBuffersWEBGL(buffers: GLenum[]): void;
+    readonly COLOR_ATTACHMENT0_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT10_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT11_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT12_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT13_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT14_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT15_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT1_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT2_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT3_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT4_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT5_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT6_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT7_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT8_WEBGL: GLenum;
+    readonly COLOR_ATTACHMENT9_WEBGL: GLenum;
+    readonly DRAW_BUFFER0_WEBGL: GLenum;
+    readonly DRAW_BUFFER10_WEBGL: GLenum;
+    readonly DRAW_BUFFER11_WEBGL: GLenum;
+    readonly DRAW_BUFFER12_WEBGL: GLenum;
+    readonly DRAW_BUFFER13_WEBGL: GLenum;
+    readonly DRAW_BUFFER14_WEBGL: GLenum;
+    readonly DRAW_BUFFER15_WEBGL: GLenum;
+    readonly DRAW_BUFFER1_WEBGL: GLenum;
+    readonly DRAW_BUFFER2_WEBGL: GLenum;
+    readonly DRAW_BUFFER3_WEBGL: GLenum;
+    readonly DRAW_BUFFER4_WEBGL: GLenum;
+    readonly DRAW_BUFFER5_WEBGL: GLenum;
+    readonly DRAW_BUFFER6_WEBGL: GLenum;
+    readonly DRAW_BUFFER7_WEBGL: GLenum;
+    readonly DRAW_BUFFER8_WEBGL: GLenum;
+    readonly DRAW_BUFFER9_WEBGL: GLenum;
+    readonly MAX_COLOR_ATTACHMENTS_WEBGL: GLenum;
+    readonly MAX_DRAW_BUFFERS_WEBGL: GLenum;
 }
 
 interface WEBGL_lose_context {
@@ -16119,7 +16051,7 @@ declare var WebGLUniformLocation: {
     new(): WebGLUniformLocation;
 };
 
-interface WebGLVertexArrayObjectOES {
+interface WebGLVertexArrayObjectOES extends WebGLObject {
 }
 
 interface WebKitPoint {

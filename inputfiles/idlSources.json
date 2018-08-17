@@ -255,6 +255,94 @@
         "title": "WebGL 1"
     },
     {
+        "url": "https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/",
+        "title": "WebGL ANGLE_instanced_arrays"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_blend_minmax/",
+        "title": "WebGL EXT_blend_minmax"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_frag_depth/",
+        "title": "WebGL EXT_frag_depth"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_shader_texture_lod/",
+        "title": "WebGL EXT_shader_texture_lod"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_texture_filter_anisotropic/",
+        "title": "WebGL EXT_texture_filter_anisotropic"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_sRGB/",
+        "title": "WebGL EXT_sRGB"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_element_index_uint/",
+        "title": "WebGL OES_element_index_uint"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_standard_derivatives/",
+        "title": "WebGL OES_standard_derivatives"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_texture_half_float/",
+        "title": "WebGL OES_texture_half_float"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_texture_half_float_linear/",
+        "title": "WebGL OES_texture_half_float_linear"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_texture_float/",
+        "title": "WebGL OES_texture_float"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_texture_float_linear/",
+        "title": "WebGL OES_texture_float_linear"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/",
+        "title": "WebGL OES_vertex_array_object"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_color_buffer_float/",
+        "title": "WebGL WEBGL_color_buffer_float"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/",
+        "title": "WebGL WEBGL_compressed_texture_astc"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/",
+        "title": "WebGL WEBGL_compressed_texture_s3tc"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc_srgb/",
+        "title": "WebGL WEBGL_compressed_texture_s3tc_srgb"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_debug_renderer_info/",
+        "title": "WebGL WEBGL_debug_renderer_info"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_debug_shaders/",
+        "title": "WebGL WEBGL_debug_shaders"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/",
+        "title": "WebGL WEBGL_depth_texture"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_draw_buffers/",
+        "title": "WebGL WEBGL_draw_buffers"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_lose_context/",
+        "title": "WebGL WEBGL_lose_context"
+    },
+    {
         "url": "https://heycam.github.io/webidl/",
         "title": "Web IDL"
     },

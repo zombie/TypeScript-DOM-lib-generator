@@ -2524,6 +2524,29 @@ declare var TextEncoder: {
     new(): TextEncoder;
 };
 
+interface TextMetrics {
+    readonly actualBoundingBoxAscent: number;
+    readonly actualBoundingBoxDescent: number;
+    readonly actualBoundingBoxLeft: number;
+    readonly actualBoundingBoxRight: number;
+    readonly alphabeticBaseline: number;
+    readonly emHeightAscent: number;
+    readonly emHeightDescent: number;
+    readonly fontBoundingBoxAscent: number;
+    readonly fontBoundingBoxDescent: number;
+    readonly hangingBaseline: number;
+    /**
+     * Returns the measurement described below.
+     */
+    readonly ideographicBaseline: number;
+    readonly width: number;
+}
+
+declare var TextMetrics: {
+    prototype: TextMetrics;
+    new(): TextMetrics;
+};
+
 interface URL {
     hash: string;
     host: string;

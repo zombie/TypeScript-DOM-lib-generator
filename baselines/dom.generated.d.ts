@@ -201,7 +201,7 @@ interface ComputedEffectTiming extends EffectTiming {
 }
 
 interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
+    composite?: CompositeOperationOrAuto;
     computedOffset?: number;
     easing?: string;
     offset?: number | null;
@@ -567,7 +567,7 @@ interface KeyboardEventInit extends EventModifierInit {
 }
 
 interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
+    composite?: CompositeOperationOrAuto;
     easing?: string;
     offset?: number | null;
 }
@@ -922,7 +922,7 @@ interface PromiseRejectionEventInit extends EventInit {
 }
 
 interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
-    composite?: CompositeOperation | (CompositeOperation | null)[];
+    composite?: CompositeOperationOrAuto | CompositeOperationOrAuto[];
     easing?: string | string[];
     offset?: number | (number | null)[];
 }
@@ -17648,6 +17648,7 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
+type CompositeOperationOrAuto = "replace" | "add" | "accumulate" | "auto";
 type DirectionSetting = "" | "rl" | "lr";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";

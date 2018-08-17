@@ -200,11 +200,12 @@ interface ComputedEffectTiming extends EffectTiming {
     progress?: number | null;
 }
 
-interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperationOrAuto;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number | null;
+interface ComputedKeyframe {
+    composite: CompositeOperationOrAuto;
+    computedOffset: number;
+    easing: string;
+    offset: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -566,10 +567,11 @@ interface KeyboardEventInit extends EventModifierInit {
     repeat?: boolean;
 }
 
-interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
+interface Keyframe {
     composite?: CompositeOperationOrAuto;
     easing?: string;
     offset?: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface KeyframeAnimationOptions extends KeyframeEffectOptions {
@@ -921,10 +923,11 @@ interface PromiseRejectionEventInit extends EventInit {
     reason?: any;
 }
 
-interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
+interface PropertyIndexedKeyframes {
     composite?: CompositeOperationOrAuto | CompositeOperationOrAuto[];
     easing?: string | string[];
     offset?: number | (number | null)[];
+    [property: string]: string | string[] | number | null | (number | null)[] | undefined;
 }
 
 interface PushSubscriptionJSON {

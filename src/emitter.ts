@@ -1028,6 +1028,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 .sort(compareName)
                 .forEach(m => printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`));
         }
+        if (dict["override-index-signatures"]) {
+            dict["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        }
         printer.decreaseIndent();
         printer.printLine("}");
         printer.printLine("");

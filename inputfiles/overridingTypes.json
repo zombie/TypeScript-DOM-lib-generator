@@ -2527,15 +2527,37 @@
             },
             "BaseKeyframe": {
                 "name": "Keyframe",
-                "extends": "Record<keyof CSSStyleDeclaration, string>"
+                "override-index-signatures": [
+                    "[property: string]: string | number | null | undefined"
+                ]
             },
             "BasePropertyIndexedKeyframe": {
                 "name": "PropertyIndexedKeyframes",
-                "extends": "Record<keyof CSSStyleDeclaration, string | string[]>"
+                "override-index-signatures": [
+                    "[property: string]: string | string[] | number | null | (number | null)[] | undefined"
+                ]
             },
             "BaseComputedKeyframe": {
                 "name": "ComputedKeyframe",
-                "extends": "Record<keyof CSSStyleDeclaration, string>"
+                "members": {
+                    "member": {
+                        "offset": {
+                            "required": 1
+                        },
+                        "computedOffset": {
+                            "required": 1
+                        },
+                        "easing": {
+                            "required": 1
+                        },
+                        "composite": {
+                            "required": 1
+                        }
+                    }
+                },
+                "override-index-signatures": [
+                    "[property: string]: string | number | null | undefined"
+                ]
             }
         }
     },

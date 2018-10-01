@@ -4016,7 +4016,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Returns the head element.
      */
-    readonly head: HTMLHeadElement | null;
+    readonly head: HTMLHeadElement;
     readonly hidden: boolean;
     /**
      * Retrieves a collection, in source order, of img objects in the document.
@@ -4046,7 +4046,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Contains information about the current URL.
      */
-    location: Location | null;
+    location: Location;
     onfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onfullscreenerror: ((this: Document, ev: Event) => any) | null;
     /**

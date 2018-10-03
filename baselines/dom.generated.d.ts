@@ -7135,7 +7135,7 @@ interface HTMLMediaElement extends HTMLElement {
      */
     readonly seekable: TimeRanges;
     /**
-     * Gets a flag that indicates whether the the client is currently moving to a new playback position in the media resource.
+     * Gets a flag that indicates whether the client is currently moving to a new playback position in the media resource.
      */
     readonly seeking: boolean;
     /**
@@ -11799,7 +11799,7 @@ declare var ReadableStreamReader: {
 interface Request extends Body {
     /**
      * Returns the cache mode associated with request, which is a string indicating
-     * how the the request will interact with the browser's cache when fetching.
+     * how the request will interact with the browser's cache when fetching.
      */
     readonly cache: RequestCache;
     /**

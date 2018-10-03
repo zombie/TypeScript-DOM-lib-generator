@@ -1593,7 +1593,7 @@
                             "comment": "/**\r\n * Gets a flag that specifies whether playback is paused.\r\n */"
                         },
                         "seeking": {
-                            "comment": "/**\r\n * Gets a flag that indicates whether the the client is currently moving to a new playback position in the media resource.\r\n */"
+                            "comment": "/**\r\n * Gets a flag that indicates whether the client is currently moving to a new playback position in the media resource.\r\n */"
                         },
                         "currentTime": {
                             "comment": "/**\r\n * Gets or sets the current playback position, in seconds.\r\n */"

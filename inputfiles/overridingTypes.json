@@ -204,6 +204,17 @@
     },
     "interfaces": {
         "interface": {
+            "XPathNSResolver": {
+                "methods": {
+                    "method": {
+                        "lookupNamespaceURI": {
+                            "override-signatures": [
+                                "lookupNamespaceURI(prefix: string): string | null"
+                            ]
+                        }
+                    }
+                }
+            },
             "CryptoKey": {
                 "properties": {
                     "property": {

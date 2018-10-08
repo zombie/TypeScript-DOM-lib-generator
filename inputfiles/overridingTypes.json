@@ -409,7 +409,7 @@
                         "evaluate": {
                             "name": "evaluate",
                             "override-signatures": [
-                                "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"
+                                "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult"
                             ]
                         },
                         "getElementsByTagNameNS": {
@@ -1373,7 +1373,7 @@
                         "evaluate": {
                             "name": "evaluate",
                             "override-signatures": [
-                                "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult"
+                                "evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult"
                             ]
                         }
                     }

@@ -677,6 +677,7 @@
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"circle\"): SVGCircleElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"clipPath\"): SVGClipPathElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"componentTransferFunction\"): SVGComponentTransferFunctionElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"cursor\"): SVGCursorElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"defs\"): SVGDefsElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"desc\"): SVGDescElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"ellipse\"): SVGEllipseElement",
@@ -2470,6 +2471,24 @@
                                 "escape(value: string): string"
                             ],
                             "static": 1
+                        }
+                    }
+                }
+            },
+            "SVGCursorElement": {
+                "name": "SVGCursorElement",
+                "extends": "SVGElement",
+                "properties": {
+                    "property": {
+                        "x": {
+                            "name": "x",
+                            "read-only": 1,
+                            "override-type": "SVGAnimatedLength"
+                        },
+                        "y": {
+                            "name": "y",
+                            "read-only": 1,
+                            "override-type": "SVGAnimatedLength"
                         }
                     }
                 }

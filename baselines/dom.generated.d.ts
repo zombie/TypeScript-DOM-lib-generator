@@ -12062,6 +12062,22 @@ declare var SVGAnimatedTransformList: {
     new(): SVGAnimatedTransformList;
 };
 
+interface SVGAnimationElement extends SVGElement {
+    readonly targetElement: SVGElement;
+    getCurrentTime(): number;
+    getSimpleDuration(): number;
+    getStartTime(): number;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGAnimationElement: {
+    prototype: SVGAnimationElement;
+    new(): SVGAnimationElement;
+};
+
 interface SVGCircleElement extends SVGGraphicsElement {
     readonly cx: SVGAnimatedLength;
     readonly cy: SVGAnimatedLength;

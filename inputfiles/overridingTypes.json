@@ -449,7 +449,11 @@
                     "property": {
                         "documentElement": {
                             "name": "documentElement",
-                            "override-type": "HTMLElement"
+                            "override-type": "HTMLElement",
+                            "nullable": false
+                        },
+                        "head": {
+                            "nullable": false
                         },
                         "anchors": {
                             "name": "anchors",
@@ -487,7 +491,8 @@
                             "override-type": "HTMLCollectionOf<HTMLScriptElement>"
                         },
                         "location": {
-                            "read-only": 0
+                            "read-only": 0,
+                            "nullable": false
                         },
                         "body": {
                             "nullable": false

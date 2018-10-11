@@ -14,6 +14,7 @@
         "ClientData",
         "ClientQueryOptions",
         "ClientTypes",
+        "CompositeOperationOrAuto",
         "ComputedKeyframe",
         "ConstrainBoolean",
         "ConstrainDOMString",

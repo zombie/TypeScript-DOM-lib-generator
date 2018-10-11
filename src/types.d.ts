@@ -211,6 +211,7 @@ export interface Dictionary {
     members: {
         member: Record<string, Member>;
     }
+    "override-index-signatures"?: string[];
     specs?: string;
     "type-parameters"?: TypeParameter[];
 }

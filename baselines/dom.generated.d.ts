@@ -200,11 +200,12 @@ interface ComputedEffectTiming extends EffectTiming {
     progress?: number | null;
 }
 
-interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number | null;
+interface ComputedKeyframe {
+    composite: CompositeOperationOrAuto;
+    computedOffset: number;
+    easing: string;
+    offset: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -566,10 +567,11 @@ interface KeyboardEventInit extends EventModifierInit {
     repeat?: boolean;
 }
 
-interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
+interface Keyframe {
+    composite?: CompositeOperationOrAuto;
     easing?: string;
     offset?: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface KeyframeAnimationOptions extends KeyframeEffectOptions {
@@ -921,10 +923,11 @@ interface PromiseRejectionEventInit extends EventInit {
     reason?: any;
 }
 
-interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
-    composite?: CompositeOperation | (CompositeOperation | null)[];
+interface PropertyIndexedKeyframes {
+    composite?: CompositeOperationOrAuto | CompositeOperationOrAuto[];
     easing?: string | string[];
     offset?: number | (number | null)[];
+    [property: string]: string | string[] | number | null | (number | null)[] | undefined;
 }
 
 interface PushSubscriptionJSON {
@@ -17648,6 +17651,7 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
+type CompositeOperationOrAuto = "replace" | "add" | "accumulate" | "auto";
 type DirectionSetting = "" | "rl" | "lr";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";

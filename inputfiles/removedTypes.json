@@ -193,6 +193,15 @@
                         "ontouchstart": null
                     }
                 }
+            },
+			"WheelEvent": {
+                "properties": {
+                    "property": {
+                        "wheelDelta": null,
+                        "wheelDeltaX": null,
+                        "wheelDeltaY": null
+                    }
+                }
             }
         }
     },

@@ -194,7 +194,7 @@
                     }
                 }
             },
-			"WheelEvent": {
+            "WheelEvent": {
                 "properties": {
                     "property": {
                         "wheelDelta": null,

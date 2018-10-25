@@ -240,7 +240,10 @@
                             ]
                         },
                         "removeListener": {
-                            "deprecated": 1
+                            "deprecated": 1,
+                            "override-signatures": [
+                                "removeListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void"
+                            ]
                         }
                     }
                 },

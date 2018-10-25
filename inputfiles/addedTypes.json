@@ -2493,6 +2493,52 @@
                         }
                     }
                 }
+            },
+            "SVGAnimationElement": {
+                "name": "SVGAnimationElement",
+                "extends": "SVGElement",
+                "exposed": "Window",
+                "properties": {
+                    "property": {
+                        "x": {
+                            "name": "x",
+                            "read-only": 1,
+                            "override-type": "SVGAnimatedLength"
+                        },
+                        "y": {
+                            "name": "y",
+                            "read-only": 1,
+                            "override-type": "SVGAnimatedLength"
+                        },
+                        "targetElement": {
+                            "name": "targetElement",
+                            "read-only": 1,
+                            "override-type": "SVGElement"
+                        }
+                    }
+                },
+                "methods": {
+                    "method":  {
+                        "getStartTime": {
+                            "name": "getStartTime",
+                            "override-signatures": [
+                                "getStartTime(): number"
+                            ]
+                        },
+                        "getCurrentTime": {
+                            "name": "getCurrentTime",
+                            "override-signatures": [
+                                "getCurrentTime(): number"
+                            ]
+                        },
+                        "getSimpleDuration": {
+                            "name": "getSimpleDuration",
+                            "override-signatures": [
+                                "getSimpleDuration(): number"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },

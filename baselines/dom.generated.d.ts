@@ -142,6 +142,7 @@ interface BiquadFilterOptions extends AudioNodeOptions {
 }
 
 interface BlobPropertyBag {
+    endings?: EndingType;
     type?: string;
 }
 
@@ -200,11 +201,12 @@ interface ComputedEffectTiming extends EffectTiming {
     progress?: number | null;
 }
 
-interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number | null;
+interface ComputedKeyframe {
+    composite: CompositeOperationOrAuto;
+    computedOffset: number;
+    easing: string;
+    offset: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -566,10 +568,11 @@ interface KeyboardEventInit extends EventModifierInit {
     repeat?: boolean;
 }
 
-interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
+interface Keyframe {
+    composite?: CompositeOperationOrAuto;
     easing?: string;
     offset?: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface KeyframeAnimationOptions extends KeyframeEffectOptions {
@@ -921,10 +924,11 @@ interface PromiseRejectionEventInit extends EventInit {
     reason?: any;
 }
 
-interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
-    composite?: CompositeOperation | (CompositeOperation | null)[];
+interface PropertyIndexedKeyframes {
+    composite?: CompositeOperationOrAuto | CompositeOperationOrAuto[];
     easing?: string | string[];
     offset?: number | (number | null)[];
+    [property: string]: string | string[] | number | null | (number | null)[] | undefined;
 }
 
 interface PushSubscriptionJSON {
@@ -3984,7 +3988,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Gets a reference to the root node of the document.
      */
-    readonly documentElement: HTMLElement | null;
+    readonly documentElement: HTMLElement;
     /**
      * Returns document's URL.
      */
@@ -4016,7 +4020,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Returns the head element.
      */
-    readonly head: HTMLHeadElement | null;
+    readonly head: HTMLHeadElement;
     readonly hidden: boolean;
     /**
      * Retrieves a collection, in source order, of img objects in the document.
@@ -4046,7 +4050,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Contains information about the current URL.
      */
-    location: Location | null;
+    location: Location;
     onfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onfullscreenerror: ((this: Document, ev: Event) => any) | null;
     /**
@@ -4330,7 +4334,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
-    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
+    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult;
     /**
      * Executes a command on the current document, current selection, or the given range.
      * @param commandId String that specifies the command to execute. This command can be any of the command identifiers that can be executed in script.
@@ -5014,7 +5018,7 @@ interface FileReader extends EventTarget {
     readAsArrayBuffer(blob: Blob): void;
     readAsBinaryString(blob: Blob): void;
     readAsDataURL(blob: Blob): void;
-    readAsText(blob: Blob, label?: string): void;
+    readAsText(blob: Blob, encoding?: string): void;
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
@@ -12063,6 +12067,22 @@ declare var SVGAnimatedTransformList: {
     new(): SVGAnimatedTransformList;
 };
 
+interface SVGAnimationElement extends SVGElement {
+    readonly targetElement: SVGElement;
+    getCurrentTime(): number;
+    getSimpleDuration(): number;
+    getStartTime(): number;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGAnimationElement: {
+    prototype: SVGAnimationElement;
+    new(): SVGAnimationElement;
+};
+
 interface SVGCircleElement extends SVGGraphicsElement {
     readonly cx: SVGAnimatedLength;
     readonly cy: SVGAnimatedLength;
@@ -16191,9 +16211,6 @@ interface WheelEvent extends MouseEvent {
     readonly deltaX: number;
     readonly deltaY: number;
     readonly deltaZ: number;
-    readonly wheelDelta: number;
-    readonly wheelDeltaX: number;
-    readonly wheelDeltaY: number;
     getCurrentPoint(element: Element): void;
     initWheelEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: EventTarget, modifiersListArg: string, deltaXArg: number, deltaYArg: number, deltaZArg: number, deltaMode: number): void;
     readonly DOM_DELTA_LINE: number;
@@ -16767,7 +16784,7 @@ declare var XMLSerializer: {
 interface XPathEvaluator {
     createExpression(expression: string, resolver: XPathNSResolver): XPathExpression;
     createNSResolver(nodeResolver?: Node): XPathNSResolver;
-    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
+    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult;
 }
 
 declare var XPathEvaluator: {
@@ -16785,7 +16802,7 @@ declare var XPathExpression: {
 };
 
 interface XPathNSResolver {
-    lookupNamespaceURI(prefix: string): string;
+    lookupNamespaceURI(prefix: string): string | null;
 }
 
 declare var XPathNSResolver: {
@@ -17663,11 +17680,13 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
+type CompositeOperationOrAuto = "replace" | "add" | "accumulate" | "auto";
 type DirectionSetting = "" | "rl" | "lr";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
+type EndingType = "transparent" | "native";
 type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";

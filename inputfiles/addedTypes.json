@@ -2500,16 +2500,6 @@
                 "exposed": "Window",
                 "properties": {
                     "property": {
-                        "x": {
-                            "name": "x",
-                            "read-only": 1,
-                            "override-type": "SVGAnimatedLength"
-                        },
-                        "y": {
-                            "name": "y",
-                            "read-only": 1,
-                            "override-type": "SVGAnimatedLength"
-                        },
                         "targetElement": {
                             "name": "targetElement",
                             "read-only": 1,

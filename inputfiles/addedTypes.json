@@ -2529,6 +2529,21 @@
                         }
                     }
                 }
+            },
+            "SVGAnimateElement": {
+                "name": "SVGAnimateElement",
+                "extends": "SVGAnimationElement",
+                "exposed": "Window"
+            },
+            "SVGAnimateTransformElement": {
+                "name": "SVGAnimateTransformElement",
+                "extends": "SVGAnimationElement",
+                "exposed": "Window"
+            },
+            "SVGAnimateMotionElement": {
+                "name": "SVGAnimateMotionElement",
+                "extends": "SVGAnimationElement",
+                "exposed": "Window"
             }
         }
     },

@@ -436,12 +436,36 @@
                             ]
                         },
                         "createTreeWalker": {
-                            "override-signatures": [
-                                "createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker"
+                            "signature": [
+                                {
+                                    "type": "TreeWalker",
+                                    "param": [
+                                        {
+                                            "name": "root",
+                                            "type": "Node"
+                                        },
+                                        {
+                                            "name": "whatToShow",
+                                            "type": "unsigned long"
+                                        },
+                                        {
+                                            "name": "filter",
+                                            "type": "NodeFilter",
+                                            "nullable": 1
+                                        },
+                                        {
+                                            "name": "entityReferenceExpansion",
+                                            "type": "boolean",
+                                            "optional": 1
+                                        }
+                                    ],
+                                    "deprecated": 1
+                                }
                             ]
                         },
                         "caretRangeFromPoint": {
                             "name": "caretRangeFromPoint",
+                            "deprecated": 1,
                             "override-signatures" :[
                                 "caretRangeFromPoint(x: number, y: number): Range"
                             ]
@@ -560,7 +584,8 @@
                         "namespaceURI": {
                             "name":"namespaceURI",
                             "read-only": 1,
-                            "override-type": "string | null"
+                            "override-type": "string | null",
+                            "deprecated": 1
                         }
                     }
                 }
@@ -2199,13 +2224,13 @@
                 "override-exposed": "Window Worker"
             },
             "Event": {
-                "name": "Event",
-                "override-exposed": "Window Worker",
                 "properties": {
                     "property": {
                         "srcElement": {
+                            "exposed": "Window",
                             "type": "Element",
-                            "nullable": 1
+                            "nullable": 1,
+                            "deprecated": 1
                         }
                     }
                 }
@@ -2371,8 +2396,17 @@
                 "methods": {
                     "method": {
                         "reload": {
-                            "override-signatures": [
-                                "reload(forcedReload?: boolean): void"
+                            "signature": [
+                                {
+                                    "type": "void",
+                                    "param": [
+                                        {
+                                            "name": "forcedReload",
+                                            "type": "boolean"
+                                        }
+                                    ],
+                                    "deprecated": 1
+                                }
                             ]
                         }
                     }

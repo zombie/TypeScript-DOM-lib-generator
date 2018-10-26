@@ -2628,7 +2628,8 @@
             },
             {
                 "new-type": "MouseWheelEvent",
-                "type": "WheelEvent"
+                "type": "WheelEvent",
+                "deprecated": 1
             },
             {
                 "new-type": "WindowProxy",

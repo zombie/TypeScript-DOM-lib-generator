@@ -1318,11 +1318,6 @@ interface RTCTransportStats extends RTCStats {
     selectedCandidatePairId?: string;
 }
 
-interface ReadableWritableStreamPair<R extends ReadableStream, W extends WritableStream> {
-    readable: R;
-    writable: W;
-}
-
 interface RegistrationOptions {
     scope?: string;
     type?: WorkerType;
@@ -1605,6 +1600,11 @@ interface WorkerOptions {
 
 interface WorkletOptions {
     credentials?: RequestCredentials;
+}
+
+interface WritableReadableStreamPair<W extends WritableStream, R extends ReadableStream> {
+    readable: R;
+    writable: W;
 }
 
 interface EventListener {
@@ -11884,7 +11884,7 @@ interface ReadableStream<R = any> {
     cancel(reason?: any): Promise<void>;
     getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
     getReader(): ReadableStreamDefaultReader<R>;
-    pipeThrough<T extends ReadableStream>(pair: ReadableWritableStreamPair<T, WritableStream<R>>, options?: PipeOptions): T;
+    pipeThrough<T extends ReadableStream>(pair: WritableReadableStreamPair<WritableStream<R>, T>, options?: PipeOptions): T;
     pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
 }
@@ -15006,7 +15006,7 @@ declare var TrackEvent: {
     new(typeArg: string, eventInitDict?: TrackEventInit): TrackEvent;
 };
 
-interface TransformStream<R = any, W = any> extends ReadableWritableStreamPair<ReadableStream<R>, WritableStream<W>> {
+interface TransformStream<R = any, W = any> extends WritableReadableStreamPair<WritableStream<W>, ReadableStream<R>> {
 }
 
 declare var TransformStream: {

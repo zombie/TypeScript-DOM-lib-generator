@@ -2495,7 +2495,7 @@
                         },
                         "pipeThrough": {
                             "override-signatures": [
-                                "pipeThrough<T extends ReadableStream>(pair: ReadableWritableStreamPair<T, WritableStream<R>>, options?: PipeOptions): T"
+                                "pipeThrough<T extends ReadableStream>(pair: WritableReadableStreamPair<WritableStream<R>, T>, options?: PipeOptions): T"
                             ]
                         },
                         "pipeTo": {
@@ -2658,7 +2658,7 @@
                 }
             },
             "TransformStream": {
-                "extends": "ReadableWritableStreamPair<ReadableStream<R>, WritableStream<W>>",
+                "extends": "WritableReadableStreamPair<WritableStream<W>, ReadableStream<R>>",
                 "type-parameters": [
                     {
                         "name": "R",
@@ -2934,15 +2934,15 @@
                     }
                 }
             },
-            "ReadableWritableStreamPair": {
+            "WritableReadableStreamPair": {
                 "type-parameters": [
-                    {
-                        "name": "R",
-                        "extends": "ReadableStream"
-                    },
                     {
                         "name": "W",
                         "extends": "WritableStream"
+                    },
+                    {
+                        "name": "R",
+                        "extends": "ReadableStream"
                     }
                 ],
                 "members": {

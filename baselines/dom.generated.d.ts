@@ -1506,10 +1506,10 @@ interface TrackEventInit extends EventInit {
     track?: VideoTrack | AudioTrack | TextTrack | null;
 }
 
-interface Transformer<R = any, W = any> {
-    flush?: TransformStreamDefaultControllerCallback<R> | null;
-    start?: TransformStreamDefaultControllerCallback<R> | null;
-    transform?: TransformStreamDefaultControllerTransformCallback<R, W> | null;
+interface Transformer<I = any, O = any> {
+    flush?: TransformStreamDefaultControllerCallback<O> | null;
+    start?: TransformStreamDefaultControllerCallback<O> | null;
+    transform?: TransformStreamDefaultControllerTransformCallback<I, O> | null;
 }
 
 interface TransitionEventInit extends EventInit {
@@ -15006,17 +15006,17 @@ declare var TrackEvent: {
     new(typeArg: string, eventInitDict?: TrackEventInit): TrackEvent;
 };
 
-interface TransformStream<R = any, W = any> extends WritableReadableStreamPair<WritableStream<W>, ReadableStream<R>> {
+interface TransformStream<I = any, O = any> extends WritableReadableStreamPair<WritableStream<I>, ReadableStream<O>> {
 }
 
 declare var TransformStream: {
     prototype: TransformStream;
-    new<R = any, W = any>(transformer?: Transformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>): TransformStream<R, W>;
+    new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
 };
 
-interface TransformStreamDefaultController<R = any> {
+interface TransformStreamDefaultController<O = any> {
     readonly desiredSize: number | null;
-    enqueue(chunk: R): void;
+    enqueue(chunk: O): void;
     error(reason?: any): void;
     terminate(): void;
 }
@@ -17171,12 +17171,12 @@ interface ReadableStreamErrorCallback {
     (reason: any): any;
 }
 
-interface TransformStreamDefaultControllerCallback<R> {
-    (controller: TransformStreamDefaultController<R>): any;
+interface TransformStreamDefaultControllerCallback<O> {
+    (controller: TransformStreamDefaultController<O>): any;
 }
 
-interface TransformStreamDefaultControllerTransformCallback<R, W> {
-    (chunk: W, controller: TransformStreamDefaultController<R>): any;
+interface TransformStreamDefaultControllerTransformCallback<I, O> {
+    (chunk: I, controller: TransformStreamDefaultController<O>): any;
 }
 
 interface VoidFunction {

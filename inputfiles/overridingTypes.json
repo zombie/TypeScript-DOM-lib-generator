@@ -240,24 +240,24 @@
             "TransformStreamDefaultControllerCallback": {
                 "type-parameters": [
                     {
-                        "name": "R"
+                        "name": "O"
                     }
                 ],
                 "override-signatures": [
-                    "(controller: TransformStreamDefaultController<R>): any"
+                    "(controller: TransformStreamDefaultController<O>): any"
                 ]
             },
             "TransformStreamDefaultControllerTransformCallback": {
                 "type-parameters": [
                     {
-                        "name": "R"
+                        "name": "I"
                     },
                     {
-                        "name": "W"
+                        "name": "O"
                     }
                 ],
                 "override-signatures": [
-                    "(chunk: W, controller: TransformStreamDefaultController<R>): any"
+                    "(chunk: I, controller: TransformStreamDefaultController<O>): any"
                 ]
             }
         }
@@ -2658,20 +2658,20 @@
                 }
             },
             "TransformStream": {
-                "extends": "WritableReadableStreamPair<WritableStream<W>, ReadableStream<R>>",
+                "extends": "WritableReadableStreamPair<WritableStream<I>, ReadableStream<O>>",
                 "type-parameters": [
                     {
-                        "name": "R",
+                        "name": "I",
                         "default": "any"
                     },
                     {
-                        "name": "W",
+                        "name": "O",
                         "default": "any"
                     }
                 ],
                 "constructor": {
                     "override-signatures": [
-                        "new<R = any, W = any>(transformer?: Transformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>): TransformStream<R, W>"
+                        "new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>"
                     ]
                 }
             },
@@ -2679,7 +2679,7 @@
                 "override-exposed": "Window Worker",
                 "type-parameters": [
                     {
-                        "name": "R",
+                        "name": "O",
                         "default": "any"
                     }
                 ],
@@ -2687,7 +2687,7 @@
                     "method": {
                         "enqueue": {
                             "override-signatures": [
-                                "enqueue(chunk: R): void"
+                                "enqueue(chunk: O): void"
                             ]
                         }
                     }
@@ -3004,24 +3004,24 @@
             "Transformer": {
                 "type-parameters": [
                     {
-                        "name": "R",
+                        "name": "I",
                         "default": "any"
                     },
                     {
-                        "name": "W",
+                        "name": "O",
                         "default": "any"
                     }
                 ],
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "TransformStreamDefaultControllerCallback<R> | null"
+                            "override-type": "TransformStreamDefaultControllerCallback<O> | null"
                         },
                         "transform": {
-                            "override-type": "TransformStreamDefaultControllerTransformCallback<R, W> | null"
+                            "override-type": "TransformStreamDefaultControllerTransformCallback<I, O> | null"
                         },
                         "flush": {
-                            "override-type": "TransformStreamDefaultControllerCallback<R> | null"
+                            "override-type": "TransformStreamDefaultControllerCallback<O> | null"
                         }
                     }
                 }

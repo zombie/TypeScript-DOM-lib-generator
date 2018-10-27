@@ -17,6 +17,8 @@ const idlSelector = [
     "pre:not(.extract) code.idl" // HTML
 ].join(",");
 
+const cssPropSelector = "dfn.css[data-dfn-type=property]";
+
 async function fetchIDLs() {
     const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
     await Promise.all(idlSources.map(async source => {
@@ -62,7 +64,7 @@ function extractIDL(dom: DocumentFragment) {
 }
 
 function extractCSSDefinitions(dom: DocumentFragment) {
-    const properties =  Array.from(dom.querySelectorAll("dfn.css[data-dfn-type=property],.propdef dfn"))
+    const properties = Array.from(dom.querySelectorAll(cssPropSelector))
         .map(element => element.textContent!.trim());
 
     if (!properties.length) {

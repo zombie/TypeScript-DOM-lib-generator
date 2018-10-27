@@ -403,6 +403,12 @@ interface WebGLContextEventInit extends EventInit {
     statusMessage?: string;
 }
 
+interface WorkerOptions {
+    credentials?: RequestCredentials;
+    name?: string;
+    type?: WorkerType;
+}
+
 interface EventListener {
     (evt: Event): void;
 }
@@ -3744,7 +3750,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new(stringUrl: string): Worker;
+    new(stringUrl: string, options?: WorkerOptions): Worker;
 };
 
 interface WorkerGlobalScopeEventMap {

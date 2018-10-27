@@ -2118,6 +2118,28 @@
                         }
                     }
                 }
+            },
+            "WorkerOptions": {
+                "name": "WorkerOptions",
+                "members": {
+                    "member": {
+                        "type": {
+                            "name": "type",
+                            "override-type": "WorkerType",
+                            "required": 0
+                        },
+                        "credentials": {
+                            "name": "credentials",
+                            "override-type": "RequestCredentials",
+                            "required": 0
+                        },
+                        "name": {
+                            "name": "name",
+                            "override-type": "string",
+                            "required": 0
+                        }
+                    }
+                }
             }
         }
     },

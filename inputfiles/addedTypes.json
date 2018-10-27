@@ -1118,6 +1118,19 @@
                             "override-signatures": [
                                 "elementsFromPoint(x: number, y: number): Element[]"
                             ]
+                        },
+                        "caretRangeFromPoint": {
+                            "name": "caretRangeFromPoint",
+                            "deprecated": 1,
+                            "override-signatures": [
+                                "caretRangeFromPoint(x: number, y: number): Range"
+                            ]
+                        },
+                        "caretPositionFromPoint": {
+                            "name": "caretPositionFromPoint",
+                            "override-signatures": [
+                                "caretPositionFromPoint(x: number, y: number): CaretPosition | null"
+                            ]
                         }
                     }
                 },

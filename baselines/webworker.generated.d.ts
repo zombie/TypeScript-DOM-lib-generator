@@ -3996,7 +3996,7 @@ interface WritableStreamDefaultWriter<W = any> {
 
 declare var WritableStreamDefaultWriter: {
     prototype: WritableStreamDefaultWriter;
-    new<W>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
+    new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
 };
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {

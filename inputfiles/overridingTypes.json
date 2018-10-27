@@ -2644,7 +2644,7 @@
                 ],
                 "constructor": {
                     "override-signatures": [
-                        "new<W>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
+                        "new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
                     ]
                 },
                 "methods": {

@@ -2698,7 +2698,8 @@ interface CSSStyleDeclaration {
     webkitAnimationPlayState: string;
     /** @deprecated */
     webkitAnimationTimingFunction: string;
-    webkitAppearance: string | null;
+    /** @deprecated */
+    webkitAppearance: string;
     /** @deprecated */
     webkitBackfaceVisibility: string;
     /** @deprecated */
@@ -17813,7 +17814,7 @@ type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
-type ScrollBehavior = "auto" | "instant" | "smooth";
+type ScrollBehavior = "auto" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type ScrollRestoration = "auto" | "manual";
 type ScrollSetting = "" | "up";

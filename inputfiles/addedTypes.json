@@ -812,6 +812,11 @@
                         "srcdoc": {
                             "name": "srcdoc",
                             "override-type": "string"
+                        },
+                        "referrerPolicy": {
+                            "name": "referrerPolicy",
+                            "read-only": 1,
+                            "override-type": "ReferrerPolicy"
                         }
                     }
                 }

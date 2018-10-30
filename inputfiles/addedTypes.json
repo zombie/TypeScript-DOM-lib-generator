@@ -2125,17 +2125,17 @@
                     "member": {
                         "type": {
                             "name": "type",
-                            "override-type": "WorkerType",
+                            "type": "WorkerType",
                             "required": 0
                         },
                         "credentials": {
                             "name": "credentials",
-                            "override-type": "RequestCredentials",
+                            "type": "RequestCredentials",
                             "required": 0
                         },
                         "name": {
                             "name": "name",
-                            "override-type": "string",
+                            "type": "DOMString",
                             "required": 0
                         }
                     }

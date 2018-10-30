@@ -2125,18 +2125,15 @@
                     "member": {
                         "type": {
                             "name": "type",
-                            "type": "WorkerType",
-                            "required": 0
+                            "type": "WorkerType"
                         },
                         "credentials": {
                             "name": "credentials",
-                            "type": "RequestCredentials",
-                            "required": 0
+                            "type": "RequestCredentials"
                         },
                         "name": {
                             "name": "name",
-                            "type": "DOMString",
-                            "required": 0
+                            "type": "DOMString"
                         }
                     }
                 }

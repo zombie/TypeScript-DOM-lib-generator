@@ -142,6 +142,7 @@ interface BiquadFilterOptions extends AudioNodeOptions {
 }
 
 interface BlobPropertyBag {
+    endings?: EndingType;
     type?: string;
 }
 
@@ -200,11 +201,12 @@ interface ComputedEffectTiming extends EffectTiming {
     progress?: number | null;
 }
 
-interface ComputedKeyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
-    computedOffset?: number;
-    easing?: string;
-    offset?: number | null;
+interface ComputedKeyframe {
+    composite: CompositeOperationOrAuto;
+    computedOffset: number;
+    easing: string;
+    offset: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface ConfirmSiteSpecificExceptionsInformation extends ExceptionInformation {
@@ -566,10 +568,11 @@ interface KeyboardEventInit extends EventModifierInit {
     repeat?: boolean;
 }
 
-interface Keyframe extends Record<keyof CSSStyleDeclaration, string> {
-    composite?: CompositeOperation | null;
+interface Keyframe {
+    composite?: CompositeOperationOrAuto;
     easing?: string;
     offset?: number | null;
+    [property: string]: string | number | null | undefined;
 }
 
 interface KeyframeAnimationOptions extends KeyframeEffectOptions {
@@ -921,10 +924,11 @@ interface PromiseRejectionEventInit extends EventInit {
     reason?: any;
 }
 
-interface PropertyIndexedKeyframes extends Record<keyof CSSStyleDeclaration, string | string[]> {
-    composite?: CompositeOperation | (CompositeOperation | null)[];
+interface PropertyIndexedKeyframes {
+    composite?: CompositeOperationOrAuto | CompositeOperationOrAuto[];
     easing?: string | string[];
     offset?: number | (number | null)[];
+    [property: string]: string | string[] | number | null | (number | null)[] | undefined;
 }
 
 interface PushSubscriptionJSON {
@@ -2377,15 +2381,15 @@ interface CSSStyleDeclaration {
     alignItems: string | null;
     alignSelf: string | null;
     alignmentBaseline: string | null;
-    animation: string | null;
-    animationDelay: string | null;
-    animationDirection: string | null;
-    animationDuration: string | null;
-    animationFillMode: string | null;
-    animationIterationCount: string | null;
-    animationName: string | null;
-    animationPlayState: string | null;
-    animationTimingFunction: string | null;
+    animation: string;
+    animationDelay: string;
+    animationDirection: string;
+    animationDuration: string;
+    animationFillMode: string;
+    animationIterationCount: string;
+    animationName: string;
+    animationPlayState: string;
+    animationTimingFunction: string;
     backfaceVisibility: string | null;
     background: string | null;
     backgroundAttachment: string | null;
@@ -2628,6 +2632,7 @@ interface CSSStyleDeclaration {
     rubyOverhang: string | null;
     rubyPosition: string | null;
     scale: string | null;
+    scrollBehavior: string;
     stopColor: string | null;
     stopOpacity: string | null;
     stroke: string | null;
@@ -2653,50 +2658,79 @@ interface CSSStyleDeclaration {
     textTransform: string | null;
     textUnderlinePosition: string | null;
     top: string | null;
-    touchAction: string | null;
+    touchAction: string;
     transform: string | null;
     transformOrigin: string | null;
     transformStyle: string | null;
-    transition: string | null;
-    transitionDelay: string | null;
-    transitionDuration: string | null;
-    transitionProperty: string | null;
-    transitionTimingFunction: string | null;
+    transition: string;
+    transitionDelay: string;
+    transitionDuration: string;
+    transitionProperty: string;
+    transitionTimingFunction: string;
     translate: string | null;
     unicodeBidi: string | null;
     userSelect: string | null;
     verticalAlign: string | null;
     visibility: string | null;
-    webkitAlignContent: string | null;
-    webkitAlignItems: string | null;
-    webkitAlignSelf: string | null;
-    webkitAnimation: string | null;
-    webkitAnimationDelay: string | null;
-    webkitAnimationDirection: string | null;
-    webkitAnimationDuration: string | null;
-    webkitAnimationFillMode: string | null;
-    webkitAnimationIterationCount: string | null;
-    webkitAnimationName: string | null;
-    webkitAnimationPlayState: string | null;
-    webkitAnimationTimingFunction: string | null;
-    webkitAppearance: string | null;
-    webkitBackfaceVisibility: string | null;
-    webkitBackgroundClip: string | null;
-    webkitBackgroundOrigin: string | null;
-    webkitBackgroundSize: string | null;
-    webkitBorderBottomLeftRadius: string | null;
-    webkitBorderBottomRightRadius: string | null;
+    /** @deprecated */
+    webkitAlignContent: string;
+    /** @deprecated */
+    webkitAlignItems: string;
+    /** @deprecated */
+    webkitAlignSelf: string;
+    /** @deprecated */
+    webkitAnimation: string;
+    /** @deprecated */
+    webkitAnimationDelay: string;
+    /** @deprecated */
+    webkitAnimationDirection: string;
+    /** @deprecated */
+    webkitAnimationDuration: string;
+    /** @deprecated */
+    webkitAnimationFillMode: string;
+    /** @deprecated */
+    webkitAnimationIterationCount: string;
+    /** @deprecated */
+    webkitAnimationName: string;
+    /** @deprecated */
+    webkitAnimationPlayState: string;
+    /** @deprecated */
+    webkitAnimationTimingFunction: string;
+    /** @deprecated */
+    webkitAppearance: string;
+    /** @deprecated */
+    webkitBackfaceVisibility: string;
+    /** @deprecated */
+    webkitBackgroundClip: string;
+    /** @deprecated */
+    webkitBackgroundOrigin: string;
+    /** @deprecated */
+    webkitBackgroundSize: string;
+    /** @deprecated */
+    webkitBorderBottomLeftRadius: string;
+    /** @deprecated */
+    webkitBorderBottomRightRadius: string;
     webkitBorderImage: string | null;
-    webkitBorderRadius: string | null;
-    webkitBorderTopLeftRadius: string | null;
-    webkitBorderTopRightRadius: string | null;
-    webkitBoxAlign: string | null;
+    /** @deprecated */
+    webkitBorderRadius: string;
+    /** @deprecated */
+    webkitBorderTopLeftRadius: string;
+    /** @deprecated */
+    webkitBorderTopRightRadius: string;
+    /** @deprecated */
+    webkitBoxAlign: string;
     webkitBoxDirection: string | null;
-    webkitBoxFlex: string | null;
-    webkitBoxOrdinalGroup: string | null;
+    /** @deprecated */
+    webkitBoxFlex: string;
+    /** @deprecated */
+    webkitBoxOrdinalGroup: string;
     webkitBoxOrient: string | null;
-    webkitBoxPack: string | null;
-    webkitBoxSizing: string | null;
+    /** @deprecated */
+    webkitBoxPack: string;
+    /** @deprecated */
+    webkitBoxShadow: string;
+    /** @deprecated */
+    webkitBoxSizing: string;
     webkitColumnBreakAfter: string | null;
     webkitColumnBreakBefore: string | null;
     webkitColumnBreakInside: string | null;
@@ -2709,32 +2743,85 @@ interface CSSStyleDeclaration {
     webkitColumnSpan: string | null;
     webkitColumnWidth: any;
     webkitColumns: string | null;
-    webkitFilter: string | null;
-    webkitFlex: string | null;
-    webkitFlexBasis: string | null;
-    webkitFlexDirection: string | null;
-    webkitFlexFlow: string | null;
-    webkitFlexGrow: string | null;
-    webkitFlexShrink: string | null;
-    webkitFlexWrap: string | null;
-    webkitJustifyContent: string | null;
-    webkitOrder: string | null;
-    webkitPerspective: string | null;
-    webkitPerspectiveOrigin: string | null;
+    /** @deprecated */
+    webkitFilter: string;
+    /** @deprecated */
+    webkitFlex: string;
+    /** @deprecated */
+    webkitFlexBasis: string;
+    /** @deprecated */
+    webkitFlexDirection: string;
+    /** @deprecated */
+    webkitFlexFlow: string;
+    /** @deprecated */
+    webkitFlexGrow: string;
+    /** @deprecated */
+    webkitFlexShrink: string;
+    /** @deprecated */
+    webkitFlexWrap: string;
+    /** @deprecated */
+    webkitJustifyContent: string;
+    /** @deprecated */
+    webkitMask: string;
+    /** @deprecated */
+    webkitMaskBoxImage: string;
+    /** @deprecated */
+    webkitMaskBoxImageOutset: string;
+    /** @deprecated */
+    webkitMaskBoxImageRepeat: string;
+    /** @deprecated */
+    webkitMaskBoxImageSlice: string;
+    /** @deprecated */
+    webkitMaskBoxImageSource: string;
+    /** @deprecated */
+    webkitMaskBoxImageWidth: string;
+    /** @deprecated */
+    webkitMaskClip: string;
+    /** @deprecated */
+    webkitMaskComposite: string;
+    /** @deprecated */
+    webkitMaskImage: string;
+    /** @deprecated */
+    webkitMaskOrigin: string;
+    /** @deprecated */
+    webkitMaskPosition: string;
+    /** @deprecated */
+    webkitMaskRepeat: string;
+    /** @deprecated */
+    webkitMaskSize: string;
+    /** @deprecated */
+    webkitOrder: string;
+    /** @deprecated */
+    webkitPerspective: string;
+    /** @deprecated */
+    webkitPerspectiveOrigin: string;
     webkitTapHighlightColor: string | null;
-    webkitTextFillColor: string | null;
-    webkitTextSizeAdjust: any;
-    webkitTextStroke: string | null;
-    webkitTextStrokeColor: string | null;
-    webkitTextStrokeWidth: string | null;
-    webkitTransform: string | null;
-    webkitTransformOrigin: string | null;
-    webkitTransformStyle: string | null;
-    webkitTransition: string | null;
-    webkitTransitionDelay: string | null;
-    webkitTransitionDuration: string | null;
-    webkitTransitionProperty: string | null;
-    webkitTransitionTimingFunction: string | null;
+    /** @deprecated */
+    webkitTextFillColor: string;
+    /** @deprecated */
+    webkitTextSizeAdjust: string;
+    /** @deprecated */
+    webkitTextStroke: string;
+    /** @deprecated */
+    webkitTextStrokeColor: string;
+    /** @deprecated */
+    webkitTextStrokeWidth: string;
+    /** @deprecated */
+    webkitTransform: string;
+    /** @deprecated */
+    webkitTransformOrigin: string;
+    /** @deprecated */
+    webkitTransformStyle: string;
+    /** @deprecated */
+    webkitTransition: string;
+    /** @deprecated */
+    webkitTransitionDelay: string;
+    /** @deprecated */
+    webkitTransitionDuration: string;
+    /** @deprecated */
+    webkitTransitionProperty: string;
+    /** @deprecated */
+    webkitTransitionTimingFunction: string;
     webkitUserModify: string | null;
     webkitUserSelect: string | null;
     webkitWritingMode: string | null;
@@ -3978,7 +4065,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Gets a reference to the root node of the document.
      */
-    readonly documentElement: HTMLElement | null;
+    readonly documentElement: HTMLElement;
     /**
      * Returns document's URL.
      */
@@ -4010,7 +4097,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Returns the head element.
      */
-    readonly head: HTMLHeadElement | null;
+    readonly head: HTMLHeadElement;
     readonly hidden: boolean;
     /**
      * Retrieves a collection, in source order, of img objects in the document.
@@ -4040,7 +4127,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Contains information about the current URL.
      */
-    location: Location | null;
+    location: Location;
     onfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onfullscreenerror: ((this: Document, ev: Event) => any) | null;
     /**
@@ -4090,6 +4177,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /** @deprecated */
     captureEvents(): void;
     caretPositionFromPoint(x: number, y: number): CaretPosition | null;
+    /** @deprecated */
     caretRangeFromPoint(x: number, y: number): Range;
     /** @deprecated */
     clear(): void;
@@ -4143,6 +4231,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "circle"): SVGCircleElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "clipPath"): SVGClipPathElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "componentTransferFunction"): SVGComponentTransferFunctionElement;
+    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "cursor"): SVGCursorElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "defs"): SVGDefsElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "desc"): SVGDescElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "ellipse"): SVGEllipseElement;
@@ -4315,7 +4404,9 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * @param filter A custom NodeFilter function to use.
      * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.
      */
-    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker;
+    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null): TreeWalker;
+    /** @deprecated */
+    createTreeWalker(root: Node, whatToShow: number, filter: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker;
     /**
      * Returns the element for the specified x coordinate and the specified y coordinate.
      * @param x The x-offset
@@ -4323,7 +4414,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
-    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
+    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult;
     /**
      * Executes a command on the current document, current selection, or the given range.
      * @param commandId String that specifies the command to execute. This command can be any of the command identifiers that can be executed in script.
@@ -4544,6 +4635,9 @@ interface DocumentOrShadowRoot {
      * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
      */
     readonly styleSheets: StyleSheetList;
+    caretPositionFromPoint(x: number, y: number): CaretPosition | null;
+    /** @deprecated */
+    caretRangeFromPoint(x: number, y: number): Range;
     elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
     getSelection(): Selection | null;
@@ -4834,6 +4928,7 @@ interface Event {
      */
     readonly isTrusted: boolean;
     returnValue: boolean;
+    /** @deprecated */
     readonly srcElement: Element | null;
     /**
      * Returns the object to which event is dispatched (its target).
@@ -5000,7 +5095,7 @@ interface FileReader extends EventTarget {
     readAsArrayBuffer(blob: Blob): void;
     readAsBinaryString(blob: Blob): void;
     readAsDataURL(blob: Blob): void;
-    readAsText(blob: Blob, label?: string): void;
+    readAsText(blob: Blob, encoding?: string): void;
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
@@ -6487,6 +6582,7 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves the frame name.
      */
     name: string;
+    readonly referrerPolicy: ReferrerPolicy;
     readonly sandbox: DOMTokenList;
     /**
      * Sets or retrieves whether the frame can be scrolled.
@@ -7122,7 +7218,7 @@ interface HTMLMediaElement extends HTMLElement {
      */
     readonly seekable: TimeRanges;
     /**
-     * Gets a flag that indicates whether the the client is currently moving to a new playback position in the media resource.
+     * Gets a flag that indicates whether the client is currently moving to a new playback position in the media resource.
      */
     readonly seeking: boolean;
     /**
@@ -9271,7 +9367,9 @@ interface Location {
     /**
      * Reloads the current page.
      */
-    reload(forcedReload?: boolean): void;
+    reload(): void;
+    /** @deprecated */
+    reload(forcedReload: boolean): void;
     /**
      * Removes the current page from the session history and navigates to the given URL.
      */
@@ -9692,7 +9790,7 @@ interface MediaQueryList extends EventTarget {
     /** @deprecated */
     addListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
     /** @deprecated */
-    removeListener(listener: EventListenerOrEventListenerObject | null): void;
+    removeListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
     addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -10245,6 +10343,7 @@ interface Node extends EventTarget {
      * Returns the last child.
      */
     readonly lastChild: ChildNode | null;
+    /** @deprecated */
     readonly namespaceURI: string | null;
     /**
      * Returns the next sibling.
@@ -11754,7 +11853,7 @@ declare var ReadableStreamReader: {
 interface Request extends Body {
     /**
      * Returns the cache mode associated with request, which is a string indicating
-     * how the the request will interact with the browser's cache when fetching.
+     * how the request will interact with the browser's cache when fetching.
      */
     readonly cache: RequestCache;
     /**
@@ -11892,6 +11991,42 @@ declare var SVGAngle: {
     readonly SVG_ANGLETYPE_UNSPECIFIED: number;
 };
 
+interface SVGAnimateElement extends SVGAnimationElement {
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimateElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimateElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGAnimateElement: {
+    prototype: SVGAnimateElement;
+    new(): SVGAnimateElement;
+};
+
+interface SVGAnimateMotionElement extends SVGAnimationElement {
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimateMotionElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimateMotionElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGAnimateMotionElement: {
+    prototype: SVGAnimateMotionElement;
+    new(): SVGAnimateMotionElement;
+};
+
+interface SVGAnimateTransformElement extends SVGAnimationElement {
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimateTransformElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimateTransformElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGAnimateTransformElement: {
+    prototype: SVGAnimateTransformElement;
+    new(): SVGAnimateTransformElement;
+};
+
 interface SVGAnimatedAngle {
     readonly animVal: SVGAngle;
     readonly baseVal: SVGAngle;
@@ -12017,6 +12152,22 @@ declare var SVGAnimatedTransformList: {
     new(): SVGAnimatedTransformList;
 };
 
+interface SVGAnimationElement extends SVGElement {
+    readonly targetElement: SVGElement;
+    getCurrentTime(): number;
+    getSimpleDuration(): number;
+    getStartTime(): number;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGAnimationElement: {
+    prototype: SVGAnimationElement;
+    new(): SVGAnimationElement;
+};
+
 interface SVGCircleElement extends SVGGraphicsElement {
     readonly cx: SVGAnimatedLength;
     readonly cy: SVGAnimatedLength;
@@ -12074,6 +12225,20 @@ declare var SVGComponentTransferFunctionElement: {
     readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
+};
+
+interface SVGCursorElement extends SVGElement {
+    readonly x: SVGAnimatedLength;
+    readonly y: SVGAnimatedLength;
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGCursorElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGCursorElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGCursorElement: {
+    prototype: SVGCursorElement;
+    new(): SVGCursorElement;
 };
 
 interface SVGDefsElement extends SVGGraphicsElement {
@@ -16108,9 +16273,6 @@ interface WheelEvent extends MouseEvent {
     readonly deltaX: number;
     readonly deltaY: number;
     readonly deltaZ: number;
-    readonly wheelDelta: number;
-    readonly wheelDeltaX: number;
-    readonly wheelDeltaY: number;
     getCurrentPoint(element: Element): void;
     initWheelEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: EventTarget, modifiersListArg: string, deltaXArg: number, deltaYArg: number, deltaZArg: number, deltaMode: number): void;
     readonly DOM_DELTA_LINE: number;
@@ -16684,7 +16846,7 @@ declare var XMLSerializer: {
 interface XPathEvaluator {
     createExpression(expression: string, resolver: XPathNSResolver): XPathExpression;
     createNSResolver(nodeResolver?: Node): XPathNSResolver;
-    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult;
+    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | ((prefix: string) => string | null) | null, type: number, result: XPathResult | null): XPathResult;
 }
 
 declare var XPathEvaluator: {
@@ -16702,7 +16864,7 @@ declare var XPathExpression: {
 };
 
 interface XPathNSResolver {
-    lookupNamespaceURI(prefix: string): string;
+    lookupNamespaceURI(prefix: string): string | null;
 }
 
 declare var XPathNSResolver: {
@@ -17558,6 +17720,7 @@ type IDBKeyPath = string;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
 type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
+/** @deprecated */
 type MouseWheelEvent = WheelEvent;
 type WindowProxy = Window;
 type AlignSetting = "start" | "center" | "end" | "left" | "right";
@@ -17580,11 +17743,13 @@ type ChannelCountMode = "max" | "clamped-max" | "explicit";
 type ChannelInterpretation = "speakers" | "discrete";
 type ClientTypes = "window" | "worker" | "sharedworker" | "all";
 type CompositeOperation = "replace" | "add" | "accumulate";
+type CompositeOperationOrAuto = "replace" | "add" | "accumulate" | "auto";
 type DirectionSetting = "" | "rl" | "lr";
 type DisplayCaptureSurfaceType = "monitor" | "window" | "application" | "browser";
 type DistanceModelType = "linear" | "inverse" | "exponential";
 type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
+type EndingType = "transparent" | "native";
 type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";
@@ -17663,7 +17828,7 @@ type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
-type ScrollBehavior = "auto" | "instant" | "smooth";
+type ScrollBehavior = "auto" | "smooth";
 type ScrollLogicalPosition = "start" | "center" | "end" | "nearest";
 type ScrollRestoration = "auto" | "manual";
 type ScrollSetting = "" | "up";

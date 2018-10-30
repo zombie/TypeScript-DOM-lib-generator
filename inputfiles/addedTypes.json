@@ -389,6 +389,9 @@
                             "name": "resize",
                             "override-type": "string | null"
                         },
+                        "touchAction": {
+                            "deprecated": 0
+                        },
                         "userSelect": {
                             "name": "userSelect",
                             "override-type": "string | null"
@@ -677,6 +680,7 @@
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"circle\"): SVGCircleElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"clipPath\"): SVGClipPathElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"componentTransferFunction\"): SVGComponentTransferFunctionElement",
+                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"cursor\"): SVGCursorElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"defs\"): SVGDefsElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"desc\"): SVGDescElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"ellipse\"): SVGEllipseElement",
@@ -808,6 +812,11 @@
                         "srcdoc": {
                             "name": "srcdoc",
                             "override-type": "string"
+                        },
+                        "referrerPolicy": {
+                            "name": "referrerPolicy",
+                            "read-only": 1,
+                            "override-type": "ReferrerPolicy"
                         }
                     }
                 }
@@ -1116,6 +1125,19 @@
                             "name": "elementsFromPoint",
                             "override-signatures": [
                                 "elementsFromPoint(x: number, y: number): Element[]"
+                            ]
+                        },
+                        "caretRangeFromPoint": {
+                            "name": "caretRangeFromPoint",
+                            "deprecated": 1,
+                            "override-signatures": [
+                                "caretRangeFromPoint(x: number, y: number): Range"
+                            ]
+                        },
+                        "caretPositionFromPoint": {
+                            "name": "caretPositionFromPoint",
+                            "override-signatures": [
+                                "caretPositionFromPoint(x: number, y: number): CaretPosition | null"
                             ]
                         }
                     }
@@ -1986,6 +2008,76 @@
             },
             "WebGLVertexArrayObjectOES": {
                 "override-exposed": "Window Worker"
+            },
+            "SVGCursorElement": {
+                "name": "SVGCursorElement",
+                "extends": "SVGElement",
+                "exposed": "Window",
+                "properties": {
+                    "property": {
+                        "x": {
+                            "name": "x",
+                            "read-only": 1,
+                            "override-type": "SVGAnimatedLength"
+                        },
+                        "y": {
+                            "name": "y",
+                            "read-only": 1,
+                            "override-type": "SVGAnimatedLength"
+                        }
+                    }
+                }
+            },
+            "SVGAnimationElement": {
+                "name": "SVGAnimationElement",
+                "extends": "SVGElement",
+                "exposed": "Window",
+                "properties": {
+                    "property": {
+                        "targetElement": {
+                            "name": "targetElement",
+                            "read-only": 1,
+                            "override-type": "SVGElement"
+                        }
+                    }
+                },
+                "methods": {
+                    "method":  {
+                        "getStartTime": {
+                            "name": "getStartTime",
+                            "override-signatures": [
+                                "getStartTime(): number"
+                            ]
+                        },
+                        "getCurrentTime": {
+                            "name": "getCurrentTime",
+                            "override-signatures": [
+                                "getCurrentTime(): number"
+                            ]
+                        },
+                        "getSimpleDuration": {
+                            "name": "getSimpleDuration",
+                            "override-signatures": [
+                                "getSimpleDuration(): number"
+                            ]
+                        }
+                    }
+                }
+            },
+            "SVGAnimateElement": {
+                "name": "SVGAnimateElement",
+                "extends": "SVGAnimationElement",
+                "exposed": "Window"
+            },
+            "SVGAnimateTransformElement": {
+                "name": "SVGAnimateTransformElement",
+                "extends": "SVGAnimationElement",
+                "exposed": "Window"
+            },
+            "SVGAnimateMotionElement": {
+                "name": "SVGAnimateMotionElement",
+                "extends": "SVGAnimationElement",
+                "exposed": "Window"
             }
         }
     },
@@ -2085,7 +2177,8 @@
             },
             {
                 "new-type": "MouseWheelEvent",
-                "type": "WheelEvent"
+                "type": "WheelEvent",
+                "deprecated": 1
             },
             {
                 "new-type": "WindowProxy",

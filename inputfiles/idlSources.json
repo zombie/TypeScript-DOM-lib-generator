@@ -29,7 +29,7 @@
         "title": "Encoding"
     },
     {
-        "url": "https://www.w3.org/TR/FileAPI/",
+        "url": "https://w3c.github.io/FileAPI/",
         "title": "File"
     },
     {
@@ -163,7 +163,7 @@
         "title": "HTML - User interaction"
     },
     {
-        "url": "https://w3c.github.io/webrtc-pc/identity.html",
+        "url": "https://w3c.github.io/webrtc-identity/",
         "title": "Identity for WebRTC"
     },
     {

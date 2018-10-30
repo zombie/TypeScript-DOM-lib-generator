@@ -327,8 +327,6 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
         }
-        if (flavor === Flavor.Web && objDomType === "Client") return "object";
-        if (flavor === Flavor.Worker && objDomType === "Element") return "object";
         // Name of an interface / enum / dict. Just return itself
         if (allInterfacesMap[objDomType] ||
             allLegacyWindowAliases.includes(objDomType) ||
@@ -659,6 +657,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         const paramsString = s.param ? paramsToString(s.param) : "";
         let returnType = convertDomTypeToTsType(s);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
+        emitComments(s, printLine);
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
     }
 
@@ -1028,6 +1027,9 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 .sort(compareName)
                 .forEach(m => printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`));
         }
+        if (dict["override-index-signatures"]) {
+            dict["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        }
         printer.decreaseIndent();
         printer.printLine("}");
         printer.printLine("");
@@ -1040,13 +1042,13 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
+        emitComments(typeDef, printer.printLine);
         printer.printLine(`type ${typeDef["new-type"]} = ${convertDomTypeToTsType(typeDef)};`);
     }
 
     function emitTypeDefs() {
         if (webidl.typedefs) {
-            webidl.typedefs.typedef
-                .forEach(emitTypeDef);
+            webidl.typedefs.typedef.forEach(emitTypeDef);
         }
     }
 

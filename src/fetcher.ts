@@ -3,7 +3,7 @@ import * as path from "path";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 
-fetchIDLs();
+fetchIDLs(process.argv.slice(2));
 
 interface IDLSource {
     url: string;
@@ -19,8 +19,9 @@ const idlSelector = [
 
 const cssPropSelector = "dfn.css[data-dfn-type=property]";
 
-async function fetchIDLs() {
-    const idlSources = require("../inputfiles/idlSources.json") as IDLSource[];
+async function fetchIDLs(filter: string[]) {
+    const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[])
+        .filter(source => !filter.length || filter.includes(source.title));
     await Promise.all(idlSources.map(async source => {
         const { idl, comments } = await fetchIDL(source);
         fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');

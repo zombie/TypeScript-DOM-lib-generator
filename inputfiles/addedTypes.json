@@ -2118,6 +2118,25 @@
                         }
                     }
                 }
+            },
+            "WorkerOptions": {
+                "name": "WorkerOptions",
+                "members": {
+                    "member": {
+                        "type": {
+                            "name": "type",
+                            "type": "WorkerType"
+                        },
+                        "credentials": {
+                            "name": "credentials",
+                            "type": "RequestCredentials"
+                        },
+                        "name": {
+                            "name": "name",
+                            "type": "DOMString"
+                        }
+                    }
+                }
             }
         }
     },

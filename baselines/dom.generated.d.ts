@@ -1565,6 +1565,12 @@ interface WheelEventInit extends MouseEventInit {
     deltaZ?: number;
 }
 
+interface WorkerOptions {
+    credentials?: RequestCredentials;
+    name?: string;
+    type?: WorkerType;
+}
+
 interface WorkletOptions {
     credentials?: RequestCredentials;
 }
@@ -16619,7 +16625,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new(stringUrl: string): Worker;
+    new(stringUrl: string, options?: WorkerOptions): Worker;
 };
 
 interface Worklet {

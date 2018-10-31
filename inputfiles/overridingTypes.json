@@ -2246,6 +2246,11 @@
             "Worker": {
                 "name": "Worker",
                 "override-exposed": "Window Worker",
+                "constructor": {
+                    "override-signatures": [
+                        "new(stringUrl: string, options?: WorkerOptions): Worker"
+                    ]
+                },
                 "methods": {
                     "method": {
                         "postMessage": {

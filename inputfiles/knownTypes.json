@@ -81,7 +81,8 @@
         "RsaPssParams",
         "Transferable",
         "VideoFacingModeEnum",
-        "MouseWheelEvent"
+        "MouseWheelEvent",
+        "WorkerOptions"
     ],
     "Worker": [
         "AesCbcParams",
@@ -109,6 +110,7 @@
         "RsaKeyGenParams",
         "RsaPssParams",
         "RsaOaepParams",
-        "Transferable"
+        "Transferable",
+        "WorkerOptions"
     ]
 }

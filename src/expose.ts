@@ -26,7 +26,10 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
     if (webidl["callback-interfaces"]) filtered["callback-interfaces"]!.interface = filterProperties(webidl["callback-interfaces"]!.interface, isKnownName);
     if (webidl.dictionaries) filtered.dictionaries!.dictionary = filterProperties(webidl.dictionaries.dictionary, isKnownName);
     if (webidl.enums) filtered.enums!.enum = filterProperties(webidl.enums.enum, isKnownName);
-    if (webidl.mixins) filtered.mixins!.mixin = filterProperties(webidl.mixins.mixin, isKnownName);
+    if (webidl.mixins) {
+        const mixins = filter(webidl.mixins.mixin, o => exposesTo(o, target));
+        filtered.mixins!.mixin = filterProperties(mixins, isKnownName);
+    }
 
     return deepFilterUnexposedTypes(filtered, unexposedTypes);
 }

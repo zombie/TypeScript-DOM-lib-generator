@@ -4942,7 +4942,7 @@ interface Event {
     readonly isTrusted: boolean;
     returnValue: boolean;
     /** @deprecated */
-    readonly srcElement: Element | null;
+    readonly srcElement: EventTarget | null;
     /**
      * Returns the object to which event is dispatched (its target).
      */

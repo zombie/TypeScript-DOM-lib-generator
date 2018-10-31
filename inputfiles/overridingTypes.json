@@ -2227,8 +2227,7 @@
                 "properties": {
                     "property": {
                         "srcElement": {
-                            "exposed": "Window",
-                            "type": "Element",
+                            "exposed": "Window Worker",
                             "nullable": 1,
                             "deprecated": 1
                         }

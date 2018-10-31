@@ -3888,7 +3888,8 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      */
     overrideMimeType(mime: string): void;
     /**
-     * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
+     * Initiates the request. The body argument provides the request body, if any,
+     * and is ignored if the request method is GET or HEAD.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
     send(body?: BodyInit | null): void;

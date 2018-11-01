@@ -4637,6 +4637,7 @@ declare var DocumentFragment: {
 
 interface DocumentOrShadowRoot {
     readonly activeElement: Element | null;
+    readonly fullscreenElement: Element | null;
     /**
      * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
      */
@@ -14182,7 +14183,7 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
-interface ShadowRoot extends DocumentOrShadowRoot, DocumentFragment, DocumentOrShadowRoot {
+interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot {
     readonly host: Element;
     innerHTML: string;
     readonly mode: ShadowRootMode;

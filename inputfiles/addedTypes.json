@@ -19,6 +19,58 @@
                     ]
                 }
             },
+            "DocumentOrShadowRoot": {
+                "name": "DocumentOrShadowRoot",
+                "methods": {
+                    "method": {
+                        "getSelection": {
+                            "name": "getSelection",
+                            "override-signatures": [
+                                "getSelection(): Selection | null"
+                            ]
+                        },
+                        "elementFromPoint": {
+                            "name": "elementFromPoint",
+                            "override-signatures": [
+                                "elementFromPoint(x: number, y: number): Element | null"
+                            ]
+                        },
+                        "elementsFromPoint": {
+                            "name": "elementsFromPoint",
+                            "override-signatures": [
+                                "elementsFromPoint(x: number, y: number): Element[]"
+                            ]
+                        },
+                        "caretRangeFromPoint": {
+                            "name": "caretRangeFromPoint",
+                            "deprecated": 1,
+                            "override-signatures": [
+                                "caretRangeFromPoint(x: number, y: number): Range"
+                            ]
+                        },
+                        "caretPositionFromPoint": {
+                            "name": "caretPositionFromPoint",
+                            "override-signatures": [
+                                "caretPositionFromPoint(x: number, y: number): CaretPosition | null"
+                            ]
+                        }
+                    }
+                },
+                "properties": {
+                    "property": {
+                        "activeElement": {
+                            "name": "activeElement",
+                            "read-only": 1,
+                            "override-type": "Element | null"
+                        },
+                        "styleSheets": {
+                            "name": "styleSheets",
+                            "read-only": 1,
+                            "override-type": "StyleSheetList"
+                        }
+                    }
+                }
+            },
             "GlobalEventHandlers": {
                 "events": {
                     "event": [
@@ -1104,63 +1156,9 @@
                     }
                 }
             },
-            "DocumentOrShadowRoot": {
-                "name": "DocumentOrShadowRoot",
-                "exposed": "Window",
-                "methods": {
-                    "method": {
-                        "getSelection": {
-                            "name": "getSelection",
-                            "override-signatures": [
-                                "getSelection(): Selection | null"
-                            ]
-                        },
-                        "elementFromPoint": {
-                            "name": "elementFromPoint",
-                            "override-signatures": [
-                                "elementFromPoint(x: number, y: number): Element | null"
-                            ]
-                        },
-                        "elementsFromPoint": {
-                            "name": "elementsFromPoint",
-                            "override-signatures": [
-                                "elementsFromPoint(x: number, y: number): Element[]"
-                            ]
-                        },
-                        "caretRangeFromPoint": {
-                            "name": "caretRangeFromPoint",
-                            "deprecated": 1,
-                            "override-signatures": [
-                                "caretRangeFromPoint(x: number, y: number): Range"
-                            ]
-                        },
-                        "caretPositionFromPoint": {
-                            "name": "caretPositionFromPoint",
-                            "override-signatures": [
-                                "caretPositionFromPoint(x: number, y: number): CaretPosition | null"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "activeElement": {
-                            "name": "activeElement",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        },
-                        "styleSheets": {
-                            "name": "styleSheets",
-                            "read-only": 1,
-                            "override-type": "StyleSheetList"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ShadowRoot": {
                 "name": "ShadowRoot",
-                "extends": "DocumentOrShadowRoot, DocumentFragment",
+                "extends": "DocumentFragment",
                 "exposed": "Window",
                 "properties": {
                     "property": {

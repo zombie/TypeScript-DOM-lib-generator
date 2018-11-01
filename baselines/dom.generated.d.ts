@@ -891,9 +891,9 @@ interface PeriodicWaveOptions extends PeriodicWaveConstraints {
 }
 
 interface PipeOptions {
-    preventAbort?: boolean | null;
-    preventCancel?: boolean | null;
-    preventClose?: boolean | null;
+    preventAbort?: boolean;
+    preventCancel?: boolean;
+    preventClose?: boolean;
 }
 
 interface PointerEventInit extends MouseEventInit {
@@ -949,8 +949,8 @@ interface PushSubscriptionOptionsInit {
 }
 
 interface QueuingStrategy<T = any> {
-    highWaterMark?: number | null;
-    size?: QueuingStrategySizeCallback<T> | null;
+    highWaterMark?: number;
+    size?: QueuingStrategySizeCallback<T>;
 }
 
 interface RTCAnswerOptions extends RTCOfferAnswerOptions {
@@ -1507,9 +1507,9 @@ interface TrackEventInit extends EventInit {
 }
 
 interface Transformer<I = any, O = any> {
-    flush?: TransformStreamDefaultControllerCallback<O> | null;
-    start?: TransformStreamDefaultControllerCallback<O> | null;
-    transform?: TransformStreamDefaultControllerTransformCallback<I, O> | null;
+    flush?: TransformStreamDefaultControllerCallback<O>;
+    start?: TransformStreamDefaultControllerCallback<O>;
+    transform?: TransformStreamDefaultControllerTransformCallback<I, O>;
 }
 
 interface TransitionEventInit extends EventInit {
@@ -1524,24 +1524,24 @@ interface UIEventInit extends EventInit {
 }
 
 interface UnderlyingByteSource {
-    autoAllocateChunkSize?: number | null;
-    cancel?: ReadableStreamErrorCallback | null;
-    pull?: ReadableByteStreamControllerCallback | null;
-    start?: ReadableByteStreamControllerCallback | null;
+    autoAllocateChunkSize?: number;
+    cancel?: ReadableStreamErrorCallback;
+    pull?: ReadableByteStreamControllerCallback;
+    start?: ReadableByteStreamControllerCallback;
     type: "bytes";
 }
 
 interface UnderlyingSink<W = any> {
-    abort?: WritableStreamErrorCallback | null;
-    close?: WritableStreamDefaultControllerCallback | null;
-    start?: WritableStreamDefaultControllerCallback | null;
-    write?: WritableStreamDefaultControllerWriteCallback<W> | null;
+    abort?: WritableStreamErrorCallback;
+    close?: WritableStreamDefaultControllerCallback;
+    start?: WritableStreamDefaultControllerCallback;
+    write?: WritableStreamDefaultControllerWriteCallback<W>;
 }
 
 interface UnderlyingSource<R = any> {
-    cancel?: ReadableStreamErrorCallback | null;
-    pull?: ReadableStreamDefaultControllerCallback<R> | null;
-    start?: ReadableStreamDefaultControllerCallback<R> | null;
+    cancel?: ReadableStreamErrorCallback;
+    pull?: ReadableStreamDefaultControllerCallback<R>;
+    start?: ReadableStreamDefaultControllerCallback<R>;
     type?: undefined;
 }
 

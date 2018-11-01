@@ -2918,6 +2918,21 @@
                     "[property: string]: string | number | null | undefined"
                 ]
             },
+            "PipeOptions": {
+                "members": {
+                    "member": {
+                        "preventClose": {
+                            "nullable": 0
+                        },
+                        "preventAbort": {
+                            "nullable": 0
+                        },
+                        "preventCancel": {
+                            "nullable": 0
+                        }
+                    }
+                }
+            },
             "QueuingStrategy": {
                 "type-parameters": [
                     {
@@ -2927,8 +2942,12 @@
                 ],
                 "members": {
                     "member": {
+                        "highWaterMark": {
+                            "nullable": 0
+                        },
                         "size": {
-                            "override-type": "QueuingStrategySizeCallback<T> | null"
+                            "override-type": "QueuingStrategySizeCallback<T>",
+                            "nullable": 0
                         }
                     }
                 }
@@ -2958,6 +2977,18 @@
             "UnderlyingByteSource": {
                 "members": {
                     "member": {
+                        "start": {
+                            "nullable": 0
+                        },
+                        "pull": {
+                            "nullable": 0
+                        },
+                        "cancel": {
+                            "nullable": 0
+                        },
+                        "autoAllocateChunkSize": {
+                            "nullable": 0
+                        },
                         "type": {
                             "override-type": "\"bytes\""
                         }
@@ -2974,10 +3005,15 @@
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "ReadableStreamDefaultControllerCallback<R> | null"
+                            "override-type": "ReadableStreamDefaultControllerCallback<R>",
+                            "nullable": 0
                         },
                         "pull": {
-                            "override-type": "ReadableStreamDefaultControllerCallback<R> | null"
+                            "override-type": "ReadableStreamDefaultControllerCallback<R>",
+                            "nullable": 0
+                        },
+                        "cancel": {
+                            "nullable": 0
                         },
                         "type": {
                             "override-type": "undefined"
@@ -2994,8 +3030,18 @@
                 ],
                 "members": {
                     "member": {
+                        "start": {
+                            "nullable": 0
+                        },
                         "write": {
-                            "override-type": "WritableStreamDefaultControllerWriteCallback<W> | null"
+                            "override-type": "WritableStreamDefaultControllerWriteCallback<W>",
+                            "nullable": 0
+                        },
+                        "close": {
+                            "nullable": 0
+                        },
+                        "abort": {
+                            "nullable": 0
                         }
                     }
                 }
@@ -3014,13 +3060,16 @@
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "TransformStreamDefaultControllerCallback<O> | null"
+                            "override-type": "TransformStreamDefaultControllerCallback<O>",
+                            "nullable": 0
                         },
                         "transform": {
-                            "override-type": "TransformStreamDefaultControllerTransformCallback<I, O> | null"
+                            "override-type": "TransformStreamDefaultControllerTransformCallback<I, O>",
+                            "nullable": 0
                         },
                         "flush": {
-                            "override-type": "TransformStreamDefaultControllerCallback<O> | null"
+                            "override-type": "TransformStreamDefaultControllerCallback<O>",
+                            "nullable": 0
                         }
                     }
                 }

@@ -4130,39 +4130,39 @@ interface QueuingStrategySizeCallback<T = any> {
 }
 
 interface ReadableByteStreamControllerCallback {
-    (controller: ReadableByteStreamController): any;
+    (controller: ReadableByteStreamController): void | PromiseLike<void>;
 }
 
 interface ReadableStreamDefaultControllerCallback<R> {
-    (controller: ReadableStreamDefaultController<R>): any;
+    (controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>;
 }
 
 interface ReadableStreamErrorCallback {
-    (reason: any): any;
+    (reason: any): void | PromiseLike<void>;
 }
 
 interface TransformStreamDefaultControllerCallback<O> {
-    (controller: TransformStreamDefaultController<O>): any;
+    (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
 }
 
 interface TransformStreamDefaultControllerTransformCallback<I, O> {
-    (chunk: I, controller: TransformStreamDefaultController<O>): any;
+    (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
 }
 
 interface WritableStreamDefaultControllerCloseCallback {
-    (): any;
+    (): void | PromiseLike<void>;
 }
 
 interface WritableStreamDefaultControllerStartCallback {
-    (controller: WritableStreamDefaultController): any;
+    (controller: WritableStreamDefaultController): void | PromiseLike<void>;
 }
 
 interface WritableStreamDefaultControllerWriteCallback<W> {
-    (chunk: W, controller: WritableStreamDefaultController): any;
+    (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
 }
 
 interface WritableStreamErrorCallback {
-    (reason: any): any;
+    (reason: any): void | PromiseLike<void>;
 }
 
 declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;

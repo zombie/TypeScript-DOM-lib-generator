@@ -217,6 +217,11 @@
                     "(chunk: T): number"
                 ]
             },
+            "ReadableByteStreamControllerCallback": {
+                "override-signatures": [
+                    "(controller: ReadableByteStreamController): void | PromiseLike<void>"
+                ]
+            },
             "ReadableStreamDefaultControllerCallback": {
                 "type-parameters": [
                     {
@@ -224,7 +229,17 @@
                     }
                 ],
                 "override-signatures": [
-                    "(controller: ReadableStreamDefaultController<R>): any"
+                    "(controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>"
+                ]
+            },
+            "ReadableStreamErrorCallback": {
+                "override-signatures": [
+                    "(reason: any): void | PromiseLike<void>"
+                ]
+            },
+            "WritableStreamDefaultControllerStartCallback": {
+                "override-signatures": [
+                    "(controller: WritableStreamDefaultController): void | PromiseLike<void>"
                 ]
             },
             "WritableStreamDefaultControllerWriteCallback": {
@@ -234,7 +249,17 @@
                     }
                 ],
                 "override-signatures": [
-                    "(chunk: W, controller: WritableStreamDefaultController): any"
+                    "(chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>"
+                ]
+            },
+            "WritableStreamDefaultControllerCloseCallback": {
+                "override-signatures": [
+                    "(): void | PromiseLike<void>"
+                ]
+            },
+            "WritableStreamErrorCallback": {
+                "override-signatures": [
+                    "(reason: any): void | PromiseLike<void>"
                 ]
             },
             "TransformStreamDefaultControllerCallback": {
@@ -244,7 +269,7 @@
                     }
                 ],
                 "override-signatures": [
-                    "(controller: TransformStreamDefaultController<O>): any"
+                    "(controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
                 ]
             },
             "TransformStreamDefaultControllerTransformCallback": {
@@ -257,7 +282,7 @@
                     }
                 ],
                 "override-signatures": [
-                    "(chunk: I, controller: TransformStreamDefaultController<O>): any"
+                    "(chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
                 ]
             }
         }

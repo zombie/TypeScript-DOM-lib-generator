@@ -111,14 +111,15 @@ interface WritableStream {
     WritableStreamDefaultWriter getWriter();
 };
 
-callback WritableStreamDefaultControllerCallback = any (WritableStreamDefaultController controller);
+callback WritableStreamDefaultControllerStartCallback = any (WritableStreamDefaultController controller);
 callback WritableStreamDefaultControllerWriteCallback = any (any chunk, WritableStreamDefaultController controller);
+callback WritableStreamDefaultControllerCloseCallback = any ();
 callback WritableStreamErrorCallback = any (any reason);
 
 dictionary UnderlyingSink {
-    WritableStreamDefaultControllerCallback? start;
+    WritableStreamDefaultControllerStartCallback? start;
     WritableStreamDefaultControllerWriteCallback? write;
-    WritableStreamDefaultControllerCallback? close;
+    WritableStreamDefaultControllerCloseCallback? close;
     WritableStreamErrorCallback? abort;
 };
 

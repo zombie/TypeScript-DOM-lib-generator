@@ -415,8 +415,8 @@ interface UnderlyingByteSource {
 
 interface UnderlyingSink<W = any> {
     abort?: WritableStreamErrorCallback;
-    close?: WritableStreamDefaultControllerCallback;
-    start?: WritableStreamDefaultControllerCallback;
+    close?: WritableStreamDefaultControllerCloseCallback;
+    start?: WritableStreamDefaultControllerStartCallback;
     write?: WritableStreamDefaultControllerWriteCallback<W>;
 }
 
@@ -4149,7 +4149,11 @@ interface TransformStreamDefaultControllerTransformCallback<I, O> {
     (chunk: I, controller: TransformStreamDefaultController<O>): any;
 }
 
-interface WritableStreamDefaultControllerCallback {
+interface WritableStreamDefaultControllerCloseCallback {
+    (): any;
+}
+
+interface WritableStreamDefaultControllerStartCallback {
     (controller: WritableStreamDefaultController): any;
 }
 

@@ -1533,8 +1533,8 @@ interface UnderlyingByteSource {
 
 interface UnderlyingSink<W = any> {
     abort?: WritableStreamErrorCallback;
-    close?: WritableStreamDefaultControllerCallback;
-    start?: WritableStreamDefaultControllerCallback;
+    close?: WritableStreamDefaultControllerCloseCallback;
+    start?: WritableStreamDefaultControllerStartCallback;
     write?: WritableStreamDefaultControllerWriteCallback<W>;
 }
 
@@ -17148,7 +17148,11 @@ interface VoidFunction {
     (): void;
 }
 
-interface WritableStreamDefaultControllerCallback {
+interface WritableStreamDefaultControllerCloseCallback {
+    (): any;
+}
+
+interface WritableStreamDefaultControllerStartCallback {
     (controller: WritableStreamDefaultController): any;
 }
 

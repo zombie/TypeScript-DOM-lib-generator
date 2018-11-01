@@ -6,7 +6,7 @@ interface ReadableStream {
     Promise<void> cancel(optional any reason);
     ReadableStreamBYOBReader getReader(any options);
     ReadableStreamDefaultReader getReader();
-    any pipeThrough(WritableReadableStreamPair pair, optional PipeOptions options);
+    any pipeThrough(any pair, optional PipeOptions options);
     Promise<void> pipeTo(WritableStream dest, optional PipeOptions options);
     [ReadableStream, ReadableStream] tee();
 };
@@ -37,11 +37,6 @@ dictionary UnderlyingByteSource {
 
     required DOMString type;
     unsigned long? autoAllocateChunkSize;
-};
-
-dictionary WritableReadableStreamPair {
-    required ReadableStream readable;
-    required WritableStream writable;
 };
 
 dictionary PipeOptions {
@@ -143,7 +138,9 @@ interface WritableStreamDefaultController {
 
 [Constructor(optional Transformer transformer, optional QueuingStrategy writableStrategy, optional QueuingStrategy readableStrategy),
  Exposed=(Window,Worker)]
-interface TransformStream: WritableReadableStreamPair {
+interface TransformStream {
+    readonly attribute ReadableStream readable;
+    readonly attribute WritableStream writable;
 };
 
 callback TransformStreamDefaultControllerCallback = any (TransformStreamDefaultController controller);

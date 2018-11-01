@@ -1602,11 +1602,6 @@ interface WorkletOptions {
     credentials?: RequestCredentials;
 }
 
-interface WritableReadableStreamPair<W extends WritableStream, R extends ReadableStream> {
-    readable: R;
-    writable: W;
-}
-
 interface EventListener {
     (evt: Event): void;
 }
@@ -11879,7 +11874,7 @@ interface ReadableStream<R = any> {
     cancel(reason?: any): Promise<void>;
     getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
     getReader(): ReadableStreamDefaultReader<R>;
-    pipeThrough<T extends ReadableStream>(pair: WritableReadableStreamPair<WritableStream<R>, T>, options?: PipeOptions): T;
+    pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream<R>, readable: T }, options?: PipeOptions): T;
     pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
 }
@@ -14986,7 +14981,9 @@ declare var TrackEvent: {
     new(typeArg: string, eventInitDict?: TrackEventInit): TrackEvent;
 };
 
-interface TransformStream<I = any, O = any> extends WritableReadableStreamPair<WritableStream<I>, ReadableStream<O>> {
+interface TransformStream<I = any, O = any> {
+    readonly readable: ReadableStream<O>;
+    readonly writable: WritableStream<I>;
 }
 
 declare var TransformStream: {

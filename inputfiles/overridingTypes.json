@@ -2520,7 +2520,7 @@
                         },
                         "pipeThrough": {
                             "override-signatures": [
-                                "pipeThrough<T extends ReadableStream>(pair: WritableReadableStreamPair<WritableStream<R>, T>, options?: PipeOptions): T"
+                                "pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream<R>, readable: T }, options?: PipeOptions): T"
                             ]
                         },
                         "pipeTo": {
@@ -2681,7 +2681,6 @@
                 "no-interface-object": 1
             },
             "TransformStream": {
-                "extends": "WritableReadableStreamPair<WritableStream<I>, ReadableStream<O>>",
                 "type-parameters": [
                     {
                         "name": "I",
@@ -2692,6 +2691,16 @@
                         "default": "any"
                     }
                 ],
+                "properties": {
+                    "property": {
+                        "readable": {
+                            "override-type": "ReadableStream<O>"
+                        },
+                        "writable": {
+                            "override-type": "WritableStream<I>"
+                        }
+                    }
+                },
                 "constructor": {
                     "override-signatures": [
                         "new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>"
@@ -2973,28 +2982,6 @@
                         "size": {
                             "override-type": "QueuingStrategySizeCallback<T>",
                             "nullable": 0
-                        }
-                    }
-                }
-            },
-            "WritableReadableStreamPair": {
-                "type-parameters": [
-                    {
-                        "name": "W",
-                        "extends": "WritableStream"
-                    },
-                    {
-                        "name": "R",
-                        "extends": "ReadableStream"
-                    }
-                ],
-                "members": {
-                    "member": {
-                        "readable": {
-                            "override-type": "R"
-                        },
-                        "writable": {
-                            "override-type": "W"
                         }
                     }
                 }

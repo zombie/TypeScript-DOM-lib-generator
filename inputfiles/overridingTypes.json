@@ -2560,6 +2560,9 @@
                     }
                 }
             },
+            "ReadableStreamBYOBRequest": {
+                "no-interface-object": 1
+            },
             "ReadableStreamDefaultReader": {
                 "type-parameters": [
                     {
@@ -2567,11 +2570,6 @@
                         "default": "any"
                     }
                 ],
-                "constructor": {
-                    "override-signatures": [
-                        "new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>"
-                    ]
-                },
                 "methods": {
                     "method": {
                         "read": {
@@ -2580,7 +2578,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "no-interface-object": 1
             },
             "ReadableByteStreamController": {
                 "properties": {
@@ -2589,7 +2588,8 @@
                             "override-type": "ReadableStreamBYOBRequest | undefined"
                         }
                     }
-                }
+                },
+                "no-interface-object": 1
             },
             "ReadableStreamDefaultController": {
                 "type-parameters": [
@@ -2606,7 +2606,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "no-interface-object": 1
             },
             "WritableStream": {
                 "override-exposed": "Window Worker",
@@ -2632,7 +2633,8 @@
                 }
             },
             "WritableStreamDefaultController": {
-                "override-exposed": "Window Worker"
+                "override-exposed": "Window Worker",
+                "no-interface-object": 1
             },
             "WritableStreamDefaultWriter": {
                 "override-exposed": "Window Worker",
@@ -2642,11 +2644,6 @@
                         "default": "any"
                     }
                 ],
-                "constructor": {
-                    "override-signatures": [
-                        "new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
-                    ]
-                },
                 "methods": {
                     "method": {
                         "write": {
@@ -2655,7 +2652,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "no-interface-object": 1
             },
             "TransformStream": {
                 "extends": "WritableReadableStreamPair<WritableStream<I>, ReadableStream<O>>",
@@ -2691,7 +2689,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "no-interface-object": 1
             },
             "ByteLengthQueuingStrategy": {
                 "override-exposed": "Window Worker",

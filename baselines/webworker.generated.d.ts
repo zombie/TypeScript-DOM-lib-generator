@@ -2328,11 +2328,6 @@ interface ReadableByteStreamController {
     error(error?: any): void;
 }
 
-declare var ReadableByteStreamController: {
-    prototype: ReadableByteStreamController;
-    new(): ReadableByteStreamController;
-};
-
 interface ReadableStream<R = any> {
     readonly locked: boolean;
     cancel(reason?: any): Promise<void>;
@@ -2367,11 +2362,6 @@ interface ReadableStreamBYOBRequest {
     respondWithNewView(view: ArrayBufferView): void;
 }
 
-declare var ReadableStreamBYOBRequest: {
-    prototype: ReadableStreamBYOBRequest;
-    new(): ReadableStreamBYOBRequest;
-};
-
 interface ReadableStreamDefaultController<R = any> {
     readonly desiredSize: number | null;
     close(): void;
@@ -2379,22 +2369,12 @@ interface ReadableStreamDefaultController<R = any> {
     error(error?: any): void;
 }
 
-declare var ReadableStreamDefaultController: {
-    prototype: ReadableStreamDefaultController;
-    new(): ReadableStreamDefaultController;
-};
-
 interface ReadableStreamDefaultReader<R = any> {
     readonly closed: Promise<void>;
     cancel(reason?: any): Promise<void>;
     read(): Promise<ReadableStreamReadResult<R>>;
     releaseLock(): void;
 }
-
-declare var ReadableStreamDefaultReader: {
-    prototype: ReadableStreamDefaultReader;
-    new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
-};
 
 interface ReadableStreamReadResult<T> {
     done: boolean;
@@ -2774,11 +2754,6 @@ interface TransformStreamDefaultController<O = any> {
     error(reason?: any): void;
     terminate(): void;
 }
-
-declare var TransformStreamDefaultController: {
-    prototype: TransformStreamDefaultController;
-    new(): TransformStreamDefaultController;
-};
 
 interface URL {
     hash: string;
@@ -3979,11 +3954,6 @@ interface WritableStreamDefaultController {
     error(error?: any): void;
 }
 
-declare var WritableStreamDefaultController: {
-    prototype: WritableStreamDefaultController;
-    new(): WritableStreamDefaultController;
-};
-
 interface WritableStreamDefaultWriter<W = any> {
     readonly closed: Promise<void>;
     readonly desiredSize: number | null;
@@ -3993,11 +3963,6 @@ interface WritableStreamDefaultWriter<W = any> {
     releaseLock(): void;
     write(chunk: W): Promise<void>;
 }
-
-declare var WritableStreamDefaultWriter: {
-    prototype: WritableStreamDefaultWriter;
-    new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
-};
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     "readystatechange": Event;

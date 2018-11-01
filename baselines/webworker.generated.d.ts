@@ -2357,7 +2357,7 @@ declare var ReadableStreamBYOBReader: {
 };
 
 interface ReadableStreamBYOBRequest {
-    readonly view: Uint8Array;
+    readonly view: ArrayBufferView;
     respond(bytesWritten: number): void;
     respondWithNewView(view: ArrayBufferView): void;
 }

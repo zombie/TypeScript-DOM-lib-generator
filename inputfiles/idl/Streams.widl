@@ -97,7 +97,7 @@ interface ReadableByteStreamController {
 
 [Exposed=(Window,Worker)]
 interface ReadableStreamBYOBRequest {
-    readonly attribute Uint8Array view;
+    readonly attribute ArrayBufferView view;
 
     void respond(unsigned long bytesWritten);
     void respondWithNewView(ArrayBufferView view);

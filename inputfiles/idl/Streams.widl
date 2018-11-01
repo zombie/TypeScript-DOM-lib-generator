@@ -116,6 +116,8 @@ dictionary UnderlyingSink {
     WritableStreamDefaultControllerWriteCallback? write;
     WritableStreamDefaultControllerCloseCallback? close;
     WritableStreamErrorCallback? abort;
+
+    any type;
 };
 
 [Constructor(ReadableStream stream),
@@ -150,6 +152,9 @@ dictionary Transformer {
     TransformStreamDefaultControllerCallback? start;
     TransformStreamDefaultControllerTransformCallback? transform;
     TransformStreamDefaultControllerCallback? flush;
+
+    any readableType;
+    any writableType;
 };
 
 [Exposed=(Window,Worker)]

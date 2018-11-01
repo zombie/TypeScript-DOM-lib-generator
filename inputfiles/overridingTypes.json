@@ -3054,6 +3054,9 @@
                         },
                         "abort": {
                             "nullable": 0
+                        },
+                        "type": {
+                            "override-type": "undefined"
                         }
                     }
                 }
@@ -3082,6 +3085,12 @@
                         "flush": {
                             "override-type": "TransformStreamDefaultControllerCallback<O>",
                             "nullable": 0
+                        },
+                        "readableType": {
+                            "override-type": "undefined"
+                        },
+                        "writableType": {
+                            "override-type": "undefined"
                         }
                     }
                 }

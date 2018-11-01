@@ -1508,8 +1508,10 @@ interface TrackEventInit extends EventInit {
 
 interface Transformer<I = any, O = any> {
     flush?: TransformStreamDefaultControllerCallback<O>;
+    readableType?: undefined;
     start?: TransformStreamDefaultControllerCallback<O>;
     transform?: TransformStreamDefaultControllerTransformCallback<I, O>;
+    writableType?: undefined;
 }
 
 interface TransitionEventInit extends EventInit {
@@ -1535,6 +1537,7 @@ interface UnderlyingSink<W = any> {
     abort?: WritableStreamErrorCallback;
     close?: WritableStreamDefaultControllerCloseCallback;
     start?: WritableStreamDefaultControllerStartCallback;
+    type?: undefined;
     write?: WritableStreamDefaultControllerWriteCallback<W>;
 }
 

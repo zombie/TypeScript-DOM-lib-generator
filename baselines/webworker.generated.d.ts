@@ -401,8 +401,10 @@ interface TextDecoderOptions {
 
 interface Transformer<I = any, O = any> {
     flush?: TransformStreamDefaultControllerCallback<O>;
+    readableType?: undefined;
     start?: TransformStreamDefaultControllerCallback<O>;
     transform?: TransformStreamDefaultControllerTransformCallback<I, O>;
+    writableType?: undefined;
 }
 
 interface UnderlyingByteSource {
@@ -417,6 +419,7 @@ interface UnderlyingSink<W = any> {
     abort?: WritableStreamErrorCallback;
     close?: WritableStreamDefaultControllerCloseCallback;
     start?: WritableStreamDefaultControllerStartCallback;
+    type?: undefined;
     write?: WritableStreamDefaultControllerWriteCallback<W>;
 }
 

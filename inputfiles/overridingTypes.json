@@ -2520,7 +2520,7 @@
                         },
                         "pipeThrough": {
                             "override-signatures": [
-                                "pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream<R>, readable: T }, options?: PipeOptions): T"
+                                "pipeThrough<T>({ writable, readable }: { writable: WritableStream<R>, readable: ReadableStream<T> }, options?: PipeOptions): ReadableStream<T>"
                             ]
                         },
                         "pipeTo": {

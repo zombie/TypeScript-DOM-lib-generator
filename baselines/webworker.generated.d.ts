@@ -283,6 +283,12 @@ interface PerformanceObserverInit {
     entryTypes: string[];
 }
 
+interface PipeOptions {
+    preventAbort?: boolean;
+    preventCancel?: boolean;
+    preventClose?: boolean;
+}
+
 interface ProgressEventInit extends EventInit {
     lengthComputable?: boolean;
     loaded?: number;
@@ -312,6 +318,11 @@ interface PushSubscriptionJSON {
 interface PushSubscriptionOptionsInit {
     applicationServerKey?: BufferSource | string | null;
     userVisibleOnly?: boolean;
+}
+
+interface QueuingStrategy<T = any> {
+    highWaterMark?: number;
+    size?: QueuingStrategySizeCallback<T>;
 }
 
 interface RegistrationOptions {
@@ -386,6 +397,37 @@ interface TextDecodeOptions {
 interface TextDecoderOptions {
     fatal?: boolean;
     ignoreBOM?: boolean;
+}
+
+interface Transformer<I = any, O = any> {
+    flush?: TransformStreamDefaultControllerCallback<O>;
+    readableType?: undefined;
+    start?: TransformStreamDefaultControllerCallback<O>;
+    transform?: TransformStreamDefaultControllerTransformCallback<I, O>;
+    writableType?: undefined;
+}
+
+interface UnderlyingByteSource {
+    autoAllocateChunkSize?: number;
+    cancel?: ReadableStreamErrorCallback;
+    pull?: ReadableByteStreamControllerCallback;
+    start?: ReadableByteStreamControllerCallback;
+    type: "bytes";
+}
+
+interface UnderlyingSink<W = any> {
+    abort?: WritableStreamErrorCallback;
+    close?: WritableStreamDefaultControllerCloseCallback;
+    start?: WritableStreamDefaultControllerStartCallback;
+    type?: undefined;
+    write?: WritableStreamDefaultControllerWriteCallback<W>;
+}
+
+interface UnderlyingSource<R = any> {
+    cancel?: ReadableStreamErrorCallback;
+    pull?: ReadableStreamDefaultControllerCallback<R>;
+    start?: ReadableStreamDefaultControllerCallback<R>;
+    type?: undefined;
 }
 
 interface WebGLContextAttributes {
@@ -491,7 +533,7 @@ declare var Blob: {
 };
 
 interface Body {
-    readonly body: ReadableStream | null;
+    readonly body: ReadableStream<Uint8Array> | null;
     readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -535,6 +577,16 @@ interface BroadcastChannelEventMap {
     message: MessageEvent;
     messageerror: MessageEvent;
 }
+
+interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
+    highWaterMark: number;
+    size(chunk: ArrayBufferView): number;
+}
+
+declare var ByteLengthQueuingStrategy: {
+    prototype: ByteLengthQueuingStrategy;
+    new(options: { highWaterMark: number }): ByteLengthQueuingStrategy;
+};
 
 interface Cache {
     add(request: RequestInfo): Promise<void>;
@@ -682,6 +734,16 @@ interface Console {
 declare var Console: {
     prototype: Console;
     new(): Console;
+};
+
+interface CountQueuingStrategy extends QueuingStrategy {
+    highWaterMark: number;
+    size(chunk: any): 1;
+}
+
+declare var CountQueuingStrategy: {
+    prototype: CountQueuingStrategy;
+    new(options: { highWaterMark: number }): CountQueuingStrategy;
 };
 
 interface Crypto {
@@ -2256,20 +2318,70 @@ declare var PushSubscriptionOptions: {
     new(): PushSubscriptionOptions;
 };
 
-interface ReadableStream {
+interface ReadableByteStreamController {
+    readonly byobRequest: ReadableStreamBYOBRequest | undefined;
+    readonly desiredSize: number | null;
+    close(): void;
+    enqueue(chunk: ArrayBufferView): void;
+    error(error?: any): void;
+}
+
+interface ReadableStream<R = any> {
     readonly locked: boolean;
-    cancel(): Promise<void>;
-    getReader(): ReadableStreamReader;
+    cancel(reason?: any): Promise<void>;
+    getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+    getReader(): ReadableStreamDefaultReader<R>;
+    pipeThrough<T>({ writable, readable }: { writable: WritableStream<R>, readable: ReadableStream<T> }, options?: PipeOptions): ReadableStream<T>;
+    pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
+    tee(): [ReadableStream<R>, ReadableStream<R>];
 }
 
 declare var ReadableStream: {
     prototype: ReadableStream;
-    new(): ReadableStream;
+    new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
+    new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
 };
 
-interface ReadableStreamReader {
+interface ReadableStreamBYOBReader {
+    readonly closed: Promise<void>;
+    cancel(reason?: any): Promise<void>;
+    read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+    releaseLock(): void;
+}
+
+declare var ReadableStreamBYOBReader: {
+    prototype: ReadableStreamBYOBReader;
+    new(stream: ReadableStream<Uint8Array>): ReadableStreamBYOBReader;
+};
+
+interface ReadableStreamBYOBRequest {
+    readonly view: ArrayBufferView;
+    respond(bytesWritten: number): void;
+    respondWithNewView(view: ArrayBufferView): void;
+}
+
+interface ReadableStreamDefaultController<R = any> {
+    readonly desiredSize: number | null;
+    close(): void;
+    enqueue(chunk: R): void;
+    error(error?: any): void;
+}
+
+interface ReadableStreamDefaultReader<R = any> {
+    readonly closed: Promise<void>;
+    cancel(reason?: any): Promise<void>;
+    read(): Promise<ReadableStreamReadResult<R>>;
+    releaseLock(): void;
+}
+
+interface ReadableStreamReadResult<T> {
+    done: boolean;
+    value: T;
+}
+
+interface ReadableStreamReader<R = any> {
     cancel(): Promise<void>;
-    read(): Promise<any>;
+    read(): Promise<ReadableStreamReadResult<R>>;
     releaseLock(): void;
 }
 
@@ -2625,6 +2737,23 @@ declare var TextMetrics: {
     prototype: TextMetrics;
     new(): TextMetrics;
 };
+
+interface TransformStream<I = any, O = any> {
+    readonly readable: ReadableStream<O>;
+    readonly writable: WritableStream<I>;
+}
+
+declare var TransformStream: {
+    prototype: TransformStream;
+    new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+};
+
+interface TransformStreamDefaultController<O = any> {
+    readonly desiredSize: number | null;
+    enqueue(chunk: O): void;
+    error(reason?: any): void;
+    terminate(): void;
+}
 
 interface URL {
     hash: string;
@@ -3810,6 +3939,31 @@ interface WorkerUtils extends WindowBase64 {
     importScripts(...urls: string[]): void;
 }
 
+interface WritableStream<W = any> {
+    readonly locked: boolean;
+    abort(reason?: any): Promise<void>;
+    getWriter(): WritableStreamDefaultWriter<W>;
+}
+
+declare var WritableStream: {
+    prototype: WritableStream;
+    new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+};
+
+interface WritableStreamDefaultController {
+    error(error?: any): void;
+}
+
+interface WritableStreamDefaultWriter<W = any> {
+    readonly closed: Promise<void>;
+    readonly desiredSize: number | null;
+    readonly ready: Promise<void>;
+    abort(reason?: any): Promise<void>;
+    close(): Promise<void>;
+    releaseLock(): void;
+    write(chunk: W): Promise<void>;
+}
+
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     "readystatechange": Event;
 }
@@ -3971,6 +4125,46 @@ interface PerformanceObserverCallback {
     (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
 }
 
+interface QueuingStrategySizeCallback<T = any> {
+    (chunk: T): number;
+}
+
+interface ReadableByteStreamControllerCallback {
+    (controller: ReadableByteStreamController): void | PromiseLike<void>;
+}
+
+interface ReadableStreamDefaultControllerCallback<R> {
+    (controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>;
+}
+
+interface ReadableStreamErrorCallback {
+    (reason: any): void | PromiseLike<void>;
+}
+
+interface TransformStreamDefaultControllerCallback<O> {
+    (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
+}
+
+interface TransformStreamDefaultControllerTransformCallback<I, O> {
+    (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
+}
+
+interface WritableStreamDefaultControllerCloseCallback {
+    (): void | PromiseLike<void>;
+}
+
+interface WritableStreamDefaultControllerStartCallback {
+    (controller: WritableStreamDefaultController): void | PromiseLike<void>;
+}
+
+interface WritableStreamDefaultControllerWriteCallback<W> {
+    (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
+}
+
+interface WritableStreamErrorCallback {
+    (reason: any): void | PromiseLike<void>;
+}
+
 declare var onmessage: ((this: DedicatedWorkerGlobalScope, ev: MessageEvent) => any) | null;
 declare function close(): void;
 declare function postMessage(message: any, transfer?: Transferable[]): void;
@@ -4020,7 +4214,7 @@ declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeE
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 type BlobPart = BufferSource | Blob | string;
 type HeadersInit = Headers | string[][] | Record<string, string>;
-type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
+type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string;
 type RequestInfo = Request | string;
 type DOMHighResTimeStamp = number;
 type CanvasImageSource = ImageBitmap;

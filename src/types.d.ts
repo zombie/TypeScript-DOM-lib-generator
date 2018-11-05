@@ -103,6 +103,7 @@ export interface CallbackFunction {
     tags?: string;
     "override-signatures"?: string[];
     specs?: string;
+    "type-parameters"?: TypeParameter[];
 }
 
 export interface Constructor {
@@ -141,6 +142,7 @@ export interface Element {
 
 export interface TypeParameter {
     name: string;
+    extends?: string;
     default?: string;
 }
 

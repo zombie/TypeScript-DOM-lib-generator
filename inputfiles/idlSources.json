@@ -211,6 +211,11 @@
         "title": "Storage"
     },
     {
+        "url": "https://streams.spec.whatwg.org/",
+        "title": "Streams",
+        "local": true
+    },
+    {
         "url": "https://svgwg.org/svg2-draft/types.html",
         "title": "SVG - Basic Data Types and Interfaces"
     },

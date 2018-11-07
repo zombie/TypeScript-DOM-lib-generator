@@ -633,7 +633,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function emitMethod(prefix: string, _i: Browser.Interface, m: Browser.Method, conflictedMembers: Set<string>) {
+    function emitMethod(prefix: string, m: Browser.Method, conflictedMembers: Set<string>) {
         function printLine(content: string) {
             if (m.name && conflictedMembers.has(m.name)) {
                 printer.printLineToStack(content);
@@ -682,7 +682,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             mapToArray(i.methods.method)
                 .filter(m => matchScope(emitScope, m) && !(prefix !== "" && (m.name === "addEventListener" || m.name === "removeEventListener")))
                 .sort(compareName)
-                .forEach(m => emitMethod(prefix, i, m, conflictedMembers));
+                .forEach(m => emitMethod(prefix, m, conflictedMembers));
         }
 
         // The window interface inherited some methods from "Object",

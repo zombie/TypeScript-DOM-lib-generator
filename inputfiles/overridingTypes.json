@@ -2328,7 +2328,7 @@
                 "override-exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
-                        "new(stringUrl: string, options?: WorkerOptions): Worker"
+                        "new(stringUrl: string | URL, options?: WorkerOptions): Worker"
                     ]
                 },
                 "methods": {

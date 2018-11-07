@@ -573,21 +573,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
                     !!iNameToEhList[i.name].find(e => e.name === p.name));
     }
 
-    function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property, conflictedMembers: Set<string>) {
-        function printLine(content: string) {
-            if (conflictedMembers.has(p.name)) {
-                printer.printLineToStack(content);
-            }
-            else {
-                printer.printLine(content);
-            }
-        }
-
-        emitComments(p, printLine);
+    function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property) {
+        emitComments(p, printer.printLine);
 
         // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
         if (p.name === "name" && i.name === "Window" && emitScope === EmitScope.All) {
-            printLine("declare const name: never;");
+            printer.printLine("declare const name: never;");
         }
         else {
             let pType: string;
@@ -610,7 +601,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             const requiredModifier = p.required === undefined || p.required === 1 ? "" : "?";
             pType = p.nullable ? makeNullable(pType) : pType;
             const readOnlyModifier = p["read-only"] === 1 && prefix === "" ? "readonly " : "";
-            printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
+            printer.printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
         }
     }
 
@@ -623,13 +614,13 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function emitProperties(prefix: string, emitScope: EmitScope, i: Browser.Interface, conflictedMembers: Set<string>) {
+    function emitProperties(prefix: string, emitScope: EmitScope, i: Browser.Interface) {
         if (i.properties) {
             mapToArray(i.properties.property)
                 .filter(m => matchScope(emitScope, m))
                 .filter(p => !isCovariantEventHandler(i, p))
                 .sort(compareName)
-                .forEach(p => emitProperty(prefix, i, emitScope, p, conflictedMembers));
+                .forEach(p => emitProperty(prefix, i, emitScope, p));
         }
     }
 
@@ -708,7 +699,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Emit the properties and methods of a given interface
     function emitMembers(prefix: string, emitScope: EmitScope, i: Browser.Interface) {
         const conflictedMembers = extendConflictsBaseTypes[i.name] ? extendConflictsBaseTypes[i.name].memberNames : new Set();
-        emitProperties(prefix, emitScope, i, conflictedMembers);
+        emitProperties(prefix, emitScope, i);
         const methodPrefix = prefix.startsWith("declare var") ? "declare function " : "";
         emitMethods(methodPrefix, emitScope, i, conflictedMembers);
         if (emitScope === EmitScope.InstanceOnly) {

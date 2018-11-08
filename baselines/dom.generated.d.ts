@@ -4496,6 +4496,10 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
     getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
     /**
+     * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.
+     */
+    getSelection(): Selection | null;
+    /**
      * Gets a value indicating whether the object currently has focus.
      */
     hasFocus(): boolean;
@@ -4545,9 +4549,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * @param content The text and HTML tags to write.
      */
     writeln(...text: string[]): void;
-    /**
-     * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.
-     */
     addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -5341,6 +5342,8 @@ interface GlobalEventHandlersEventMap {
     "seeked": Event;
     "seeking": Event;
     "select": UIEvent;
+    "selectionchange": Event;
+    "selectstart": Event;
     "stalled": Event;
     "submit": Event;
     "suspend": Event;
@@ -5588,6 +5591,8 @@ interface GlobalEventHandlers {
      * @param ev The event.
      */
     onselect: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    onselectionchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onselectstart: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Occurs when the download has stopped.
      * @param ev The event.
@@ -14134,32 +14139,27 @@ declare var SecurityPolicyViolationEvent: {
 };
 
 interface Selection {
-    readonly anchorNode: Node;
+    readonly anchorNode: Node | null;
     readonly anchorOffset: number;
-    readonly baseNode: Node;
-    readonly baseOffset: number;
-    readonly extentNode: Node;
-    readonly extentOffset: number;
-    readonly focusNode: Node;
+    readonly focusNode: Node | null;
     readonly focusOffset: number;
     readonly isCollapsed: boolean;
     readonly rangeCount: number;
     readonly type: string;
     addRange(range: Range): void;
-    collapse(parentNode: Node, offset: number): void;
+    collapse(node: Node | null, offset?: number): void;
     collapseToEnd(): void;
     collapseToStart(): void;
-    containsNode(node: Node, partlyContained: boolean): boolean;
+    containsNode(node: Node, allowPartialContainment?: boolean): boolean;
     deleteFromDocument(): void;
     empty(): void;
-    extend(newNode: Node, offset: number): void;
+    extend(node: Node, offset?: number): void;
     getRangeAt(index: number): Range;
     removeAllRanges(): void;
     removeRange(range: Range): void;
-    selectAllChildren(parentNode: Node): void;
-    setBaseAndExtent(baseNode: Node, baseOffset: number, extentNode: Node, extentOffset: number): void;
-    setPosition(parentNode: Node, offset: number): void;
-    toString(): string;
+    selectAllChildren(node: Node): void;
+    setBaseAndExtent(anchorNode: Node, anchorOffset: number, focusNode: Node, focusOffset: number): void;
+    setPosition(node: Node | null, offset?: number): void;
 }
 
 declare var Selection: {
@@ -16590,7 +16590,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     focus(): void;
     getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
     getMatchedCSSRules(elt: Element, pseudoElt?: string | null): CSSRuleList;
-    getSelection(): Selection;
+    getSelection(): Selection | null;
     matchMedia(query: string): MediaQueryList;
     moveBy(x: number, y: number): void;
     moveTo(x: number, y: number): void;
@@ -17454,7 +17454,7 @@ declare function departFocus(navigationReason: NavigationReason, origin: FocusNa
 declare function focus(): void;
 declare function getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
 declare function getMatchedCSSRules(elt: Element, pseudoElt?: string | null): CSSRuleList;
-declare function getSelection(): Selection;
+declare function getSelection(): Selection | null;
 declare function matchMedia(query: string): MediaQueryList;
 declare function moveBy(x: number, y: number): void;
 declare function moveTo(x: number, y: number): void;
@@ -17716,6 +17716,8 @@ declare var onseeking: ((this: Window, ev: Event) => any) | null;
  * @param ev The event.
  */
 declare var onselect: ((this: Window, ev: UIEvent) => any) | null;
+declare var onselectionchange: ((this: Window, ev: Event) => any) | null;
+declare var onselectstart: ((this: Window, ev: Event) => any) | null;
 /**
  * Occurs when the download has stopped.
  * @param ev The event.

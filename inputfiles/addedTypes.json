@@ -1488,6 +1488,9 @@
                         "name": "b"
                     },
                     {
+                        "name": "bdi"
+                    },
+                    {
                         "name": "bdo"
                     },
                     {
@@ -1530,6 +1533,9 @@
                         "name": "kbd"
                     },
                     {
+                        "name": "main"
+                    },
+                    {
                         "name": "mark"
                     },
                     {
@@ -1537,6 +1543,9 @@
                     },
                     {
                         "name": "noscript"
+                    },
+                    {
+                        "name": "rp"
                     },
                     {
                         "name": "rt"
@@ -1561,6 +1570,9 @@
                     },
                     {
                         "name": "sub"
+                    },
+                    {
+                        "name": "summary"
                     },
                     {
                         "name": "sup"

@@ -17176,6 +17176,7 @@ interface HTMLElementTagNameMap {
     "b": HTMLElement;
     "base": HTMLBaseElement;
     "basefont": HTMLBaseFontElement;
+    "bdi": HTMLElement;
     "bdo": HTMLElement;
     "blockquote": HTMLQuoteElement;
     "body": HTMLBodyElement;
@@ -17229,6 +17230,7 @@ interface HTMLElementTagNameMap {
     "legend": HTMLLegendElement;
     "li": HTMLLIElement;
     "link": HTMLLinkElement;
+    "main": HTMLElement;
     "map": HTMLMapElement;
     "mark": HTMLElement;
     "marquee": HTMLMarqueeElement;
@@ -17248,6 +17250,7 @@ interface HTMLElementTagNameMap {
     "pre": HTMLPreElement;
     "progress": HTMLProgressElement;
     "q": HTMLQuoteElement;
+    "rp": HTMLElement;
     "rt": HTMLElement;
     "ruby": HTMLElement;
     "s": HTMLElement;
@@ -17262,6 +17265,7 @@ interface HTMLElementTagNameMap {
     "strong": HTMLElement;
     "style": HTMLStyleElement;
     "sub": HTMLElement;
+    "summary": HTMLElement;
     "sup": HTMLElement;
     "table": HTMLTableElement;
     "tbody": HTMLTableSectionElement;

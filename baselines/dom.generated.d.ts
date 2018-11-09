@@ -464,7 +464,7 @@ interface GainOptions extends AudioNodeOptions {
 }
 
 interface GamepadEventInit extends EventInit {
-    gamepad?: Gamepad;
+    gamepad: Gamepad;
 }
 
 interface GetNotificationOptions {
@@ -5198,12 +5198,11 @@ declare var GainNode: {
 };
 
 interface Gamepad {
-    readonly axes: number[];
-    readonly buttons: GamepadButton[];
+    readonly axes: ReadonlyArray<number>;
+    readonly buttons: ReadonlyArray<GamepadButton>;
     readonly connected: boolean;
-    readonly displayId: number;
     readonly hand: GamepadHand;
-    readonly hapticActuators: GamepadHapticActuator[];
+    readonly hapticActuators: ReadonlyArray<GamepadHapticActuator>;
     readonly id: string;
     readonly index: number;
     readonly mapping: GamepadMappingType;
@@ -5233,7 +5232,7 @@ interface GamepadEvent extends Event {
 
 declare var GamepadEvent: {
     prototype: GamepadEvent;
-    new(typeArg: string, eventInitDict?: GamepadEventInit): GamepadEvent;
+    new(type: string, eventInitDict: GamepadEventInit): GamepadEvent;
 };
 
 interface GamepadHapticActuator {

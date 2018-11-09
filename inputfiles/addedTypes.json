@@ -1153,8 +1153,7 @@
                     "property": {
                         "innerHTML": {
                             "name": "innerHTML",
-                            "type": "DOMString",
-                            "deprecated": 1
+                            "type": "DOMString"
                         }
                     }
                 }

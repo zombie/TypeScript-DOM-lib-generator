@@ -135,6 +135,10 @@
         "title": "HTML - Semantics"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/server-sent-events.html",
+        "title": "HTML - Server-sent events"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/history.html",
         "title": "HTML - Session history and navigation"
     },

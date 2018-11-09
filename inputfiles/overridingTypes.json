@@ -892,17 +892,6 @@
                     }
                 }
             },
-            "HTMLEmbedElement": {
-                "name": "HTMLEmbedElement",
-                "properties": {
-                    "property": {
-                        "hidden": {
-                            "name": "hidden",
-                            "override-type": "any"
-                        }
-                    }
-                }
-            },
             "SVGElement": {
                 "name": "SVGElement",
                 "properties": {

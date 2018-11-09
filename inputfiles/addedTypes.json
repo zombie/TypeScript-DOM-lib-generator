@@ -809,17 +809,16 @@
                 "name": "HTMLIFrameElement",
                 "properties": {
                     "property": {
-                        "srcdoc": {
-                            "name": "srcdoc",
-                            "override-type": "string"
-                        },
                         "referrerPolicy": {
-                            "name": "referrerPolicy",
-                            "read-only": 1,
-                            "override-type": "ReferrerPolicy"
+                            "type": "ReferrerPolicy"
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "name": "iframe"
+                    }
+                ]
             },
             "HTMLTextAreaElement": {
                 "name": "HTMLTextAreaElement",
@@ -1308,27 +1307,6 @@
                     }
                 }
             },
-            "HTMLObjectElement": {
-                "name": "HTMLObjectElement",
-                "properties": {
-                    "property": {
-                        "typemustmatch": {
-                            "name": "typemustmatch",
-                            "override-type": "boolean"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "reportValidity": {
-                            "name": "reportValidity",
-                            "override-signatures": [
-                                "reportValidity(): boolean"
-                            ]
-                        }
-                    }
-                }
-            },
             "EventSource": {
                 "name": "EventSource",
                 "extends": "EventTarget",
@@ -1579,6 +1557,13 @@
                     "ElementCSSInlineStyle"
                 ]
             },
+            "HTMLEmbedElement": {
+                "element": [
+                    {
+                        "name": "embed"
+                    }
+                ]
+            },
             "HTMLFormElement": {
                 "element": [
                     {
@@ -1681,6 +1666,13 @@
                     }
                 ]
             },
+            "HTMLObjectElement": {
+                "element": [
+                    {
+                        "name": "object"
+                    }
+                ]
+            },
             "HTMLOListElement": {
                 "element": [
                     {
@@ -1692,6 +1684,13 @@
                 "element": [
                     {
                         "name": "p"
+                    }
+                ]
+            },
+            "HTMLParamElement": {
+                "element": [
+                    {
+                        "name": "param"
                     }
                 ]
             },

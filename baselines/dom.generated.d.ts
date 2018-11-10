@@ -2033,7 +2033,7 @@ interface AudioTrack {
     kind: string;
     readonly label: string;
     language: string;
-    readonly sourceBuffer: SourceBuffer;
+    readonly sourceBuffer: SourceBuffer | null;
 }
 
 declare var AudioTrack: {
@@ -9848,14 +9848,29 @@ declare var MediaQueryListEvent: {
     new(type: string, eventInitDict?: MediaQueryListEventInit): MediaQueryListEvent;
 };
 
+interface MediaSourceEventMap {
+    "sourceclose": Event;
+    "sourceended": Event;
+    "sourceopen": Event;
+}
+
 interface MediaSource extends EventTarget {
     readonly activeSourceBuffers: SourceBufferList;
     duration: number;
+    onsourceclose: ((this: MediaSource, ev: Event) => any) | null;
+    onsourceended: ((this: MediaSource, ev: Event) => any) | null;
+    onsourceopen: ((this: MediaSource, ev: Event) => any) | null;
     readonly readyState: ReadyState;
     readonly sourceBuffers: SourceBufferList;
     addSourceBuffer(type: string): SourceBuffer;
+    clearLiveSeekableRange(): void;
     endOfStream(error?: EndOfStreamError): void;
     removeSourceBuffer(sourceBuffer: SourceBuffer): void;
+    setLiveSeekableRange(start: number, end: number): void;
+    addEventListener<K extends keyof MediaSourceEventMap>(type: K, listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaSourceEventMap>(type: K, listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MediaSource: {
@@ -14277,20 +14292,36 @@ interface Slotable {
     readonly assignedSlot: HTMLSlotElement | null;
 }
 
+interface SourceBufferEventMap {
+    "abort": Event;
+    "error": Event;
+    "update": Event;
+    "updateend": Event;
+    "updatestart": Event;
+}
+
 interface SourceBuffer extends EventTarget {
     appendWindowEnd: number;
     appendWindowStart: number;
     readonly audioTracks: AudioTrackList;
     readonly buffered: TimeRanges;
     mode: AppendMode;
+    onabort: ((this: SourceBuffer, ev: Event) => any) | null;
+    onerror: ((this: SourceBuffer, ev: Event) => any) | null;
+    onupdate: ((this: SourceBuffer, ev: Event) => any) | null;
+    onupdateend: ((this: SourceBuffer, ev: Event) => any) | null;
+    onupdatestart: ((this: SourceBuffer, ev: Event) => any) | null;
     readonly textTracks: TextTrackList;
     timestampOffset: number;
     readonly updating: boolean;
     readonly videoTracks: VideoTrackList;
     abort(): void;
-    appendBuffer(data: ArrayBuffer | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null): void;
-    appendStream(stream: MSStream, maxSize?: number): void;
+    appendBuffer(data: BufferSource): void;
     remove(start: number, end: number): void;
+    addEventListener<K extends keyof SourceBufferEventMap>(type: K, listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SourceBufferEventMap>(type: K, listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var SourceBuffer: {
@@ -14298,9 +14329,19 @@ declare var SourceBuffer: {
     new(): SourceBuffer;
 };
 
+interface SourceBufferListEventMap {
+    "addsourcebuffer": Event;
+    "removesourcebuffer": Event;
+}
+
 interface SourceBufferList extends EventTarget {
     readonly length: number;
-    item(index: number): SourceBuffer;
+    onaddsourcebuffer: ((this: SourceBufferList, ev: Event) => any) | null;
+    onremovesourcebuffer: ((this: SourceBufferList, ev: Event) => any) | null;
+    addEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SourceBufferListEventMap>(type: K, listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     [index: number]: SourceBuffer;
 }
 
@@ -14830,6 +14871,7 @@ interface TextTrack extends EventTarget {
     onerror: ((this: TextTrack, ev: Event) => any) | null;
     onload: ((this: TextTrack, ev: Event) => any) | null;
     readonly readyState: number;
+    readonly sourceBuffer: SourceBuffer | null;
     addCue(cue: TextTrackCue): void;
     removeCue(cue: TextTrackCue): void;
     readonly DISABLED: number;
@@ -15283,7 +15325,7 @@ interface VideoTrack {
     readonly label: string;
     language: string;
     selected: boolean;
-    readonly sourceBuffer: SourceBuffer;
+    readonly sourceBuffer: SourceBuffer | null;
 }
 
 declare var VideoTrack: {

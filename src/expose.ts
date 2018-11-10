@@ -86,7 +86,7 @@ function deepFilterUnexposedTypes(webidl: Browser.WebIdl, unexposedTypes: Set<st
         if (Array.isArray(o.type)) {
             return { ...o, type: filterUnexposedTypeFromUnion(o.type, unexposedTypes) }
         }
-        if (Array.isArray(o.signature)) {
+        if (!o["override-signatures"] && Array.isArray(o.signature)) {
             return { ...o, signature: o.signature.map(filterUnknownTypeFromSignature) };
         }
     });

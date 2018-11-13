@@ -724,6 +724,8 @@ interface MouseEventInit extends EventModifierInit {
     buttons?: number;
     clientX?: number;
     clientY?: number;
+    movementX?: number;
+    movementY?: number;
     relatedTarget?: EventTarget | null;
     screenX?: number;
     screenY?: number;
@@ -4006,6 +4008,8 @@ interface DhKeyGenParams extends Algorithm {
 interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
     "fullscreenchange": Event;
     "fullscreenerror": Event;
+    "pointerlockchange": Event;
+    "pointerlockerror": Event;
     "readystatechange": ProgressEvent;
     "visibilitychange": Event;
 }
@@ -4166,6 +4170,8 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     location: Location;
     onfullscreenchange: ((this: Document, ev: Event) => any) | null;
     onfullscreenerror: ((this: Document, ev: Event) => any) | null;
+    onpointerlockchange: ((this: Document, ev: Event) => any) | null;
+    onpointerlockerror: ((this: Document, ev: Event) => any) | null;
     /**
      * Fires when the state of the object has changed.
      * @param ev The event
@@ -4463,6 +4469,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * resolves promise when done.
      */
     exitFullscreen(): Promise<void>;
+    exitPointerLock(): void;
     getAnimations(): Animation[];
     /**
      * Returns a reference to the first object with the specified value of the ID or NAME attribute.
@@ -4877,6 +4884,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
      * Displays element fullscreen and resolves promise when done.
      */
     requestFullscreen(): Promise<void>;
+    requestPointerLock(): void;
     scroll(options?: ScrollToOptions): void;
     scroll(x: number, y: number): void;
     scrollBy(options?: ScrollToOptions): void;

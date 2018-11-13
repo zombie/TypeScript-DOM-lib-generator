@@ -1294,6 +1294,15 @@
                     ]
                 }
             },
+            "DOMMatrixReadOnly": {
+                "methods": {
+                    "method": {
+                        "scaleNonUniform": {
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
             "DOMTokenList": {
                 "name": "DOMTokenList",
                 "exposed": "Window",

@@ -10875,7 +10875,7 @@ declare var PaymentRequest: {
 };
 
 interface PaymentRequestUpdateEvent extends Event {
-    updateWith(detailsPromise: Promise<PaymentDetailsUpdate>): void;
+    updateWith(detailsPromise: PaymentDetailsUpdate | Promise<PaymentDetailsUpdate>): void;
 }
 
 declare var PaymentRequestUpdateEvent: {

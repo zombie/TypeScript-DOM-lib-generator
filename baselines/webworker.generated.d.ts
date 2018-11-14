@@ -1231,7 +1231,7 @@ declare var EventTarget: {
 };
 
 interface ExtendableEvent extends Event {
-    waitUntil(f: Promise<any>): void;
+    waitUntil(f: any): void;
 }
 
 declare var ExtendableEvent: {
@@ -1258,7 +1258,7 @@ interface FetchEvent extends ExtendableEvent {
     readonly request: Request;
     readonly resultingClientId: string;
     readonly targetClientId: string;
-    respondWith(r: Promise<Response>): void;
+    respondWith(r: Response | Promise<Response>): void;
 }
 
 declare var FetchEvent: {

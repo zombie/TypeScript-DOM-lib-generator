@@ -2315,9 +2315,6 @@
                 "properties": {
                     "property": {
                         "srcElement": {
-                            "exposed": "Window",
-                            "type": "Element",
-                            "nullable": 1,
                             "deprecated": 1
                         }
                     }

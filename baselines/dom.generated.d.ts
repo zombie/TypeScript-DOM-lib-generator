@@ -10384,7 +10384,7 @@ interface Node extends EventTarget {
     /**
      * Returns the next sibling.
      */
-    readonly nextSibling: Node | null;
+    readonly nextSibling: ChildNode | null;
     /**
      * Returns a string appropriate for the type of node, as
      * follows:

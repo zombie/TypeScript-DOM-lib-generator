@@ -423,7 +423,8 @@
                     "property": {
                         "event": {
                             "name": "event",
-                            "override-type": "Event | undefined"
+                            "override-type": "Event | undefined",
+                            "deprecated": 1
                         },
                         "orientation": {
                             "name": "orientation",

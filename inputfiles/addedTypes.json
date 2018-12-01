@@ -198,7 +198,7 @@
                     "event": [
                         {
                             "name": "abort",
-                            "type": "ProgressEvent"
+                            "type": "Event"
                         }
                     ]
                 }

@@ -67,7 +67,7 @@ A "Living Standard" ([example](https://xhr.spec.whatwg.org/)) should be added he
 ## Code Structure
 
 - `src/index.ts`: handles the emitting of the `.d.ts` files.
-- `src/test.ts`: verifies the otuput by comparing the `generated/` and `baseline/` contents.
+- `src/test.ts`: verifies the output by comparing the `generated/` and `baseline/` contents.
 
 
 ## Input Files

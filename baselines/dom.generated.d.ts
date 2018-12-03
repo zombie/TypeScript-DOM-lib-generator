@@ -7652,7 +7652,7 @@ declare var HTMLOptionsCollection: {
 
 interface HTMLOrSVGElement {
     readonly dataset: DOMStringMap;
-    nonce: string;
+    nonce?: string;
     tabIndex: number;
     blur(): void;
     focus(options?: FocusOptions): void;

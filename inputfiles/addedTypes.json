@@ -780,26 +780,6 @@
                     }
                 }
             },
-            "ClipboardEventInit": {
-                "exposed": "Window",
-                "name": "ClipboardEventInit",
-                "extends": "EventInit",
-                "properties": {
-                    "property": {
-                        "data": {
-                            "name": "data",
-                            "override-type": "string",
-                            "required": 0
-                        },
-                        "dataType": {
-                            "name": "dataType",
-                            "override-type": "string",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "IDBArrayKey": {
                 "name": "IDBArrayKey",
                 "extends": "Array<IDBValidKey>",

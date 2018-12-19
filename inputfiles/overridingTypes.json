@@ -697,7 +697,7 @@
                         "add": {
                             "name": "add",
                             "override-signatures": [
-                                "add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>"
+                                "add(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
                             ]
                         },
                         "clear": {
@@ -721,7 +721,7 @@
                         "put": {
                             "name": "put",
                             "override-signatures": [
-                                "put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>"
+                                "put(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
                             ]
                         },
                         "get": {
@@ -1254,11 +1254,11 @@
                     "property": {
                         "key": {
                             "name": "key",
-                            "override-type": "IDBValidKey | IDBKeyRange"
+                            "override-type": "IDBValidKey"
                         },
                         "primaryKey": {
                             "name": "primaryKey",
-                            "override-type": "IDBValidKey | IDBKeyRange"
+                            "override-type": "IDBValidKey"
                         }
                     }
                 },
@@ -1267,13 +1267,13 @@
                         "continue": {
                             "name": "continue",
                             "override-signatures": [
-                                "continue(key?: IDBValidKey | IDBKeyRange): void"
+                                "continue(key?: IDBValidKey): void"
                             ]
                         },
                         "continuePrimaryKey": {
                             "name": "continuePrimaryKey",
                             "override-signatures": [
-                                "continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void"
+                                "continuePrimaryKey(key: IDBValidKey, primaryKey: IDBValidKey): void"
                             ]
                         },
                         "delete": {

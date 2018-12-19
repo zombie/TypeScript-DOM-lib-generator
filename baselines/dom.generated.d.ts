@@ -8691,12 +8691,12 @@ interface IDBCursor {
      * Returns the key of the cursor.
      * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
-    readonly key: IDBValidKey | IDBKeyRange;
+    readonly key: IDBValidKey;
     /**
      * Returns the effective key of the cursor.
      * Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
-    readonly primaryKey: IDBValidKey | IDBKeyRange;
+    readonly primaryKey: IDBValidKey;
     /**
      * Returns the IDBObjectStore or IDBIndex the cursor was opened from.
      */
@@ -8710,12 +8710,12 @@ interface IDBCursor {
      * Advances the cursor to the next record in range matching or
      * after key.
      */
-    continue(key?: IDBValidKey | IDBKeyRange): void;
+    continue(key?: IDBValidKey): void;
     /**
      * Advances the cursor to the next record in range matching
      * or after key and primaryKey. Throws an "InvalidAccessError" DOMException if the source is not an index.
      */
-    continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void;
+    continuePrimaryKey(key: IDBValidKey, primaryKey: IDBValidKey): void;
     /**
      * Delete the record pointed at by the cursor with a new value.
      * If successful, request's result will be undefined.
@@ -8964,7 +8964,7 @@ interface IDBObjectStore {
      * Returns the associated transaction.
      */
     readonly transaction: IDBTransaction;
-    add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>;
+    add(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>;
     /**
      * Deletes all records in store.
      * If successful, request's result will
@@ -9037,7 +9037,7 @@ interface IDBObjectStore {
      * null if there were no matching records.
      */
     openKeyCursor(query?: IDBValidKey | IDBKeyRange, direction?: IDBCursorDirection): IDBRequest<IDBCursor | null>;
-    put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>;
+    put(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>;
 }
 
 declare var IDBObjectStore: {

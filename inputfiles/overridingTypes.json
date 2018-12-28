@@ -128,7 +128,7 @@
                 "properties": {
                     "property": {
                         "onerror": {
-                            "override-type": "ErrorEventHandler"
+                            "override-type": "OnErrorEventHandler"
                         }
                     }
                 }
@@ -194,10 +194,9 @@
     },
     "callback-functions": {
         "callback-function": {
-            "ErrorEventHandler": {
-                "name": "ErrorEventHandler",
+            "OnErrorEventHandlerNonNull": {
                 "override-signatures": [
-                    "(event: Event | string, source?: string, fileno?: number, columnNumber?: number, error?: Error): void"
+                    "(event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any"
                 ]
             },
             "DecodeErrorCallback": {

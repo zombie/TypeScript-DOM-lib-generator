@@ -2,6 +2,7 @@
     "callback-functions": {
         "callback-function": {
             "CustomElementConstructor": null,
+            "ErrorEventHandler": null,
             "Function": null
         }
     },

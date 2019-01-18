@@ -183,6 +183,10 @@ interface ClientQueryOptions {
     type?: ClientTypes;
 }
 
+interface ClipboardEventInit extends EventInit {
+    clipboardData?: DataTransfer | null;
+}
+
 interface CloseEventInit extends EventInit {
     code?: number;
     reason?: string;
@@ -3260,9 +3264,19 @@ declare var ClientRectList: {
     new(): ClientRectList;
 };
 
+interface Clipboard extends EventTarget {
+    readText(): Promise<string>;
+    writeText(data: string): Promise<void>;
+}
+
+declare var Clipboard: {
+    prototype: Clipboard;
+    new(): Clipboard;
+};
+
 /** The ClipboardEvent interface represents events providing information related to modification of the clipboard, that is cut, copy, and paste events. */
 interface ClipboardEvent extends Event {
-    readonly clipboardData: DataTransfer;
+    readonly clipboardData: DataTransfer | null;
 }
 
 declare var ClipboardEvent: {
@@ -3270,10 +3284,6 @@ declare var ClipboardEvent: {
     new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent;
 };
 
-interface ClipboardEventInit extends EventInit {
-    data?: string;
-    dataType?: string;
-}
 
 /** A CloseEvent is sent to clients using WebSockets when the connection is closed. This is delivered to the listener indicated by the WebSocket object's onclose attribute. */
 interface CloseEvent extends Event {
@@ -10494,6 +10504,7 @@ declare var NavigationPreloadManager: {
 interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage, NavigatorAutomationInformation {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
     readonly authentication: WebAuthentication;
+    readonly clipboard: Clipboard;
     readonly cookieEnabled: boolean;
     readonly doNotTrack: string | null;
     gamepadInputEmulation: GamepadInputEmulationType;

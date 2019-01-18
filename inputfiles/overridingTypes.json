@@ -133,6 +133,16 @@
                     }
                 }
             },
+            "HTMLOrSVGElement": {
+              "name": "HTMLOrSVGElement",
+              "properties": {
+                "property": {
+                  "nonce": {
+                    "name": "nonce?"
+                  }
+                }
+              }
+            },
             "RandomSource": {
                 "name": "RandomSource",
                 "methods": {

@@ -674,6 +674,9 @@
                             "read-only": 1,
                             "override-type": "string | null",
                             "deprecated": 1
+                        },
+                        "nextSibling": {
+                            "override-type": "ChildNode | null"
                         }
                     }
                 }

@@ -16505,6 +16505,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly devicePixelRatio: number;
     readonly doNotTrack: string;
     readonly document: Document;
+    /** @deprecated */
     readonly event: Event | undefined;
     /** @deprecated */
     readonly external: External;
@@ -17369,6 +17370,7 @@ declare var defaultStatus: string;
 declare var devicePixelRatio: number;
 declare var doNotTrack: string;
 declare var document: Document;
+/** @deprecated */
 declare var event: Event | undefined;
 /** @deprecated */
 declare var external: External;

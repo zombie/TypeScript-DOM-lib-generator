@@ -831,6 +831,10 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
             printer.printLineToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
         }
 
+        if (i.comment) {
+            printer.printLine(`/** ${i.comment} */`);
+        }
+
         printer.print(`interface ${processInterfaceType(i, processedIName)}`);
 
         const finalExtends = distinct([i.extends || "Object"].concat(i.implements || [])

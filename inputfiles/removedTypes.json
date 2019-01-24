@@ -42,6 +42,14 @@
     },
     "interfaces": {
         "interface": {
+            "Clipboard": {
+                "methods": {
+                    "method": {
+                        "read": null,
+                        "write": null
+                    }
+                }
+            },
             "Console": {
                 "methods": {
                     "method": {

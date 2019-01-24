@@ -133,6 +133,16 @@
                     }
                 }
             },
+            "HTMLOrSVGElement": {
+              "name": "HTMLOrSVGElement",
+              "properties": {
+                "property": {
+                  "nonce": {
+                    "name": "nonce?"
+                  }
+                }
+              }
+            },
             "RandomSource": {
                 "name": "RandomSource",
                 "methods": {
@@ -422,7 +432,8 @@
                     "property": {
                         "event": {
                             "name": "event",
-                            "override-type": "Event | undefined"
+                            "override-type": "Event | undefined",
+                            "deprecated": 1
                         },
                         "orientation": {
                             "name": "orientation",
@@ -673,6 +684,9 @@
                             "read-only": 1,
                             "override-type": "string | null",
                             "deprecated": 1
+                        },
+                        "nextSibling": {
+                            "override-type": "ChildNode | null"
                         }
                     }
                 }
@@ -696,7 +710,7 @@
                         "add": {
                             "name": "add",
                             "override-signatures": [
-                                "add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>"
+                                "add(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
                             ]
                         },
                         "clear": {
@@ -720,7 +734,7 @@
                         "put": {
                             "name": "put",
                             "override-signatures": [
-                                "put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>"
+                                "put(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
                             ]
                         },
                         "get": {
@@ -1253,11 +1267,11 @@
                     "property": {
                         "key": {
                             "name": "key",
-                            "override-type": "IDBValidKey | IDBKeyRange"
+                            "override-type": "IDBValidKey"
                         },
                         "primaryKey": {
                             "name": "primaryKey",
-                            "override-type": "IDBValidKey | IDBKeyRange"
+                            "override-type": "IDBValidKey"
                         }
                     }
                 },
@@ -1266,13 +1280,13 @@
                         "continue": {
                             "name": "continue",
                             "override-signatures": [
-                                "continue(key?: IDBValidKey | IDBKeyRange): void"
+                                "continue(key?: IDBValidKey): void"
                             ]
                         },
                         "continuePrimaryKey": {
                             "name": "continuePrimaryKey",
                             "override-signatures": [
-                                "continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void"
+                                "continuePrimaryKey(key: IDBValidKey, primaryKey: IDBValidKey): void"
                             ]
                         },
                         "delete": {
@@ -1325,14 +1339,6 @@
                             "override-type": "DOMException"
                         }
                     }
-                }
-            },
-            "ClipboardEvent": {
-                "name": "ClipboardEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent"
-                    ]
                 }
             },
             "Storage": {

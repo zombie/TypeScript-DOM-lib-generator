@@ -1,5 +1,9 @@
 [
     {
+        "url": "https://www.w3.org/TR/clipboard-apis/",
+        "title": "Clipboard"
+    },
+    {
         "url": "https://compat.spec.whatwg.org/",
         "title": "Compatibility",
         "deprecated": true
@@ -189,6 +193,10 @@
     {
         "url": "https://www.w3.org/TR/pointerevents2/",
         "title": "Pointer Events"
+    },
+    {
+        "url": "https://www.w3.org/TR/pointerlock-2/",
+        "title": "Pointer Lock"
     },
     {
         "url": "https://www.w3.org/TR/push-api/",

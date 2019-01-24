@@ -43,6 +43,7 @@ function emitDom() {
     const overriddenItems = require(path.join(inputFolder, "overridingTypes.json"));
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
+    const documentationFromMDN = apiDescriptionsToIdl(require(path.join(inputFolder, 'mdn', 'apiDescriptions.json')));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
     const idlSources: any[] = require(path.join(inputFolder, "idlSources.json"));
     const widlStandardTypes = idlSources.map(convertWidl);
@@ -58,6 +59,22 @@ function emitDom() {
             result.partialInterfaces.forEach(markAsDeprecated);
         }
         return result;
+    }
+
+    function apiDescriptionsToIdl(descriptions: Record<string, string>) {
+        const idl: Browser.WebIdl = {
+            interfaces: {
+                interface: {}
+            }
+        };
+
+        Object.keys(descriptions).forEach(name => {
+            idl.interfaces!.interface[name] = {
+                comment: descriptions[name],
+            } as Browser.Interface;
+        });
+
+        return idl;
     }
 
     /// Load the input file
@@ -106,6 +123,8 @@ function emitDom() {
             }
         }
     }
+
+    webidl = merge(webidl, documentationFromMDN);
     webidl = prune(webidl, removedItems);
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);

@@ -1342,14 +1342,6 @@
                     }
                 }
             },
-            "ClipboardEvent": {
-                "name": "ClipboardEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent"
-                    ]
-                }
-            },
             "Storage": {
                 "name": "Storage",
                 "methods": {

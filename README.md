@@ -1,6 +1,5 @@
 # TypeScript and JavaScript lib generator
 
-AppVeyor Status: [![Build status](https://ci.appveyor.com/api/projects/status/8oj3j7u6nvag1xvu/branch/master?svg=true)](https://ci.appveyor.com/project/zhengbli/tsjs-lib-generator/branch/master)
 Travis CI Status: [![Build Status](https://travis-ci.org/Microsoft/TSJS-lib-generator.svg?branch=master)](https://travis-ci.org/Microsoft/TSJS-lib-generator)
 
 This tool is used to generate `dom.generated.d.ts`, `webworker.generated.d.ts` and `dom.iterable.generated.d.ts` for TypeScript.

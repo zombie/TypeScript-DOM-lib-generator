@@ -187,6 +187,12 @@
                                 "getExtension(extensionName: \"ANGLE_instanced_arrays\"): ANGLE_instanced_arrays | null",
                                 "getExtension(extensionName: string): any"
                             ]
+                        },
+                        "pixelStorei": {
+                            "name": "pixelStorei",
+                            "override-signatures": [
+                                "pixelStorei(pname: GLenum, param: GLint | GLboolean): void"
+                            ]
                         }
                     }
                 }

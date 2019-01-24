@@ -463,6 +463,10 @@ interface FocusOptions {
     preventScroll?: boolean;
 }
 
+interface FullscreenOptions {
+    navigationUI?: FullscreenNavigationUI;
+}
+
 interface GainOptions extends AudioNodeOptions {
     gain?: number;
 }
@@ -4528,6 +4532,11 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      * Gets a value indicating whether the object currently has focus.
      */
     hasFocus(): boolean;
+    /**
+     * Returns a copy of node. If deep is true, the copy also includes the node's descendants.
+     * If node is a document or a shadow root, throws a
+     * "NotSupportedError" DOMException.
+     */
     importNode<T extends Node>(importedNode: T, deep: boolean): T;
     /**
      * Opens a new window and loads a document specified by a given URL. Also, opens a new window that uses the url parameter and the name parameter to collect the output of the write method and the writeln method.
@@ -4913,8 +4922,13 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     removeAttributeNode(attr: Attr): Attr;
     /**
      * Displays element fullscreen and resolves promise when done.
+     * When supplied, options's navigationUI member indicates whether showing
+     * navigation UI while in fullscreen is preferred or not. If set to "show", navigation
+     * simplicity is preferred over screen space, and if set to "hide", more screen space
+     * is preferred. User agents are always free to honor user preference over the application's. The
+     * default value "auto" indicates no application preference.
      */
-    requestFullscreen(): Promise<void>;
+    requestFullscreen(options?: FullscreenOptions): Promise<void>;
     requestPointerLock(): void;
     scroll(options?: ScrollToOptions): void;
     scroll(x: number, y: number): void;
@@ -17235,7 +17249,8 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      */
     overrideMimeType(mime: string): void;
     /**
-     * Initiates the request. The optional argument provides the request body. The argument is ignored if request method is GET or HEAD.
+     * Initiates the request. The body argument provides the request body, if any,
+     * and is ignored if the request method is GET or HEAD.
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
     send(body?: Document | BodyInit | null): void;
@@ -18258,6 +18273,7 @@ type DocumentReadyState = "loading" | "interactive" | "complete";
 type EndOfStreamError = "network" | "decode";
 type EndingType = "transparent" | "native";
 type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
+type FullscreenNavigationUI = "auto" | "show" | "hide";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";
 type GamepadInputEmulationType = "mouse" | "keyboard" | "gamepad";

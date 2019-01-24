@@ -4698,6 +4698,7 @@ declare var DocumentFragment: {
 interface DocumentOrShadowRoot {
     readonly activeElement: Element | null;
     readonly fullscreenElement: Element | null;
+    readonly pointerLockElement: Element | null;
     /**
      * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
      */

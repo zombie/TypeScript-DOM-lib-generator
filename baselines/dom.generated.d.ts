@@ -5381,11 +5381,11 @@ interface GlobalEventHandlersEventMap {
     "ratechange": Event;
     "reset": Event;
     "resize": UIEvent;
-    "scroll": UIEvent;
+    "scroll": Event;
     "securitypolicyviolation": SecurityPolicyViolationEvent;
     "seeked": Event;
     "seeking": Event;
-    "select": UIEvent;
+    "select": Event;
     "stalled": Event;
     "submit": Event;
     "suspend": Event;
@@ -5616,7 +5616,7 @@ interface GlobalEventHandlers {
      * Fires when the user repositions the scroll box in the scroll bar on the object.
      * @param ev The event.
      */
-    onscroll: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    onscroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onsecuritypolicyviolation: ((this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) | null;
     /**
      * Occurs when the seek operation ends.
@@ -5632,7 +5632,7 @@ interface GlobalEventHandlers {
      * Fires when the current selection changes.
      * @param ev The event.
      */
-    onselect: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
+    onselect: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Occurs when the download has stopped.
      * @param ev The event.
@@ -16832,10 +16832,10 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "readystatechange": ProgressEvent;
     "reset": Event;
     "resize": UIEvent;
-    "scroll": UIEvent;
+    "scroll": Event;
     "seeked": Event;
     "seeking": Event;
-    "select": UIEvent;
+    "select": Event;
     "stalled": Event;
     "storage": StorageEvent;
     "submit": Event;
@@ -18077,7 +18077,7 @@ declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
  * Fires when the user repositions the scroll box in the scroll bar on the object.
  * @param ev The event.
  */
-declare var onscroll: ((this: Window, ev: UIEvent) => any) | null;
+declare var onscroll: ((this: Window, ev: Event) => any) | null;
 declare var onsecuritypolicyviolation: ((this: Window, ev: SecurityPolicyViolationEvent) => any) | null;
 /**
  * Occurs when the seek operation ends.
@@ -18093,7 +18093,7 @@ declare var onseeking: ((this: Window, ev: Event) => any) | null;
  * Fires when the current selection changes.
  * @param ev The event.
  */
-declare var onselect: ((this: Window, ev: UIEvent) => any) | null;
+declare var onselect: ((this: Window, ev: Event) => any) | null;
 /**
  * Occurs when the download has stopped.
  * @param ev The event.

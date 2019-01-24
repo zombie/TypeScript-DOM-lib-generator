@@ -148,11 +148,11 @@
                         },
                         {
                             "name": "scroll",
-                            "type": "UIEvent"
+                            "type": "Event"
                         },
                         {
                             "name": "select",
-                            "type": "UIEvent"
+                            "type": "Event"
                         },
                         {
                             "name": "wheel",

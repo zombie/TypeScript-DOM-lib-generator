@@ -5557,7 +5557,7 @@ interface GlobalEventHandlers {
      * Fires when an error occurs during object loading.
      * @param ev The event.
      */
-    onerror: ErrorEventHandler;
+    onerror: OnErrorEventHandler;
     /**
      * Fires when the object receives focus.
      * @param ev The event.
@@ -17478,10 +17478,6 @@ interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
 }
 
-interface ErrorEventHandler {
-    (event: Event | string, source?: string, fileno?: number, columnNumber?: number, error?: any): void;
-}
-
 interface EventHandlerNonNull {
     (event: Event): any;
 }
@@ -17527,7 +17523,7 @@ interface OnBeforeUnloadEventHandlerNonNull {
 }
 
 interface OnErrorEventHandlerNonNull {
-    (event: Event | string, source?: string, lineno?: number, colno?: number, error?: any): any;
+    (event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any;
 }
 
 interface PerformanceObserverCallback {
@@ -18018,7 +18014,7 @@ declare var onended: ((this: Window, ev: Event) => any) | null;
  * Fires when an error occurs during object loading.
  * @param ev The event.
  */
-declare var onerror: ErrorEventHandler;
+declare var onerror: OnErrorEventHandler;
 /**
  * Fires when the object receives focus.
  * @param ev The event.

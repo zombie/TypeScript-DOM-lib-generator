@@ -1,5 +1,9 @@
 [
     {
+        "url": "https://www.w3.org/TR/clipboard-apis/",
+        "title": "Clipboard"
+    },
+    {
         "url": "https://compat.spec.whatwg.org/",
         "title": "Compatibility",
         "deprecated": true
@@ -39,6 +43,14 @@
     {
         "url": "https://fullscreen.spec.whatwg.org/",
         "title": "Fullscreen"
+    },
+    {
+        "url": "https://www.w3.org/TR/gamepad/",
+        "title": "Gamepad"
+    },
+    {
+        "url": "https://w3c.github.io/gamepad/extensions.html",
+        "title": "Gamepad Extensions"
     },
     {
         "url": "https://www.w3.org/TR/geolocation-API/",
@@ -191,6 +203,10 @@
         "title": "Pointer Events"
     },
     {
+        "url": "https://www.w3.org/TR/pointerlock-2/",
+        "title": "Pointer Lock"
+    },
+    {
         "url": "https://www.w3.org/TR/push-api/",
         "title": "Push"
     },
@@ -209,6 +225,11 @@
     {
         "url": "https://storage.spec.whatwg.org/",
         "title": "Storage"
+    },
+    {
+        "url": "https://streams.spec.whatwg.org/",
+        "title": "Streams",
+        "local": true
     },
     {
         "url": "https://svgwg.org/svg2-draft/types.html",

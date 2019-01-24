@@ -9,6 +9,7 @@ interface IDLSource {
     url: string;
     title: string;
     deprecated?: boolean;
+    local?: boolean;
 }
 
 const idlSelector = [
@@ -23,6 +24,9 @@ async function fetchIDLs(filter: string[]) {
     const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[])
         .filter(source => !filter.length || filter.includes(source.title));
     await Promise.all(idlSources.map(async source => {
+        if (source.local) {
+            return;
+        }
         const { idl, comments } = await fetchIDL(source);
         fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');
         if (comments) {

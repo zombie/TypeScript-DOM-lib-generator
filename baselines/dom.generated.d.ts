@@ -1452,6 +1452,11 @@ interface ServiceWorkerMessageEventInit extends EventInit {
     source?: ServiceWorker | MessagePort | null;
 }
 
+interface ShadowRootInit {
+    delegatesFocus?: boolean;
+    mode: ShadowRootMode;
+}
+
 interface StereoPannerOptions extends AudioNodeOptions {
     pan?: number;
 }
@@ -4858,7 +4863,7 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
     /**
      * Creates a shadow root for element and returns it.
      */
-    attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
+    attachShadow(init: ShadowRootInit): ShadowRoot;
     /**
      * Returns the first (starting at element) inclusive ancestor that matches selectors, and null otherwise.
      */
@@ -14599,10 +14604,10 @@ interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot {
     readonly mode: ShadowRootMode;
 }
 
-interface ShadowRootInit {
-    delegatesFocus?: boolean;
-    mode: "open" | "closed";
-}
+declare var ShadowRoot: {
+    prototype: ShadowRoot;
+    new(): ShadowRoot;
+};
 
 interface Slotable {
     readonly assignedSlot: HTMLSlotElement | null;

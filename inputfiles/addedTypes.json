@@ -693,12 +693,6 @@
                             "override-signatures": [
                                 "insertAdjacentText(where: InsertPosition, text: string): void"
                             ]
-                        },
-                        "attachShadow": {
-                            "name": "attachShadow",
-                            "override-signatures": [
-                                "attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot"
-                            ]
                         }
                     }
                 },
@@ -712,11 +706,6 @@
                         "slot": {
                             "name": "slot",
                             "override-type": "string"
-                        },
-                        "shadowRoot": {
-                            "name": "shadowRoot",
-                            "read-only": 1,
-                            "override-type": "ShadowRoot | null"
                         }
                     }
                 }
@@ -1081,40 +1070,14 @@
             },
             "ShadowRoot": {
                 "name": "ShadowRoot",
-                "extends": "DocumentFragment",
-                "exposed": "Window",
                 "properties": {
                     "property": {
-                        "host": {
-                            "name": "host",
-                            "read-only": 1,
-                            "override-type": "Element"
-                        },
                         "innerHTML": {
                             "name": "innerHTML",
-                            "override-type": "string"
+                            "type": "DOMString"
                         }
                     }
-                },
-                "no-interface-object": "1"
-            },
-            "ShadowRootInit": {
-                "name": "ShadowRootInit",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "mode": {
-                            "name": "mode",
-                            "override-type": "\"open\" | \"closed\""
-                        },
-                        "delegatesFocus": {
-                            "name": "delegatesFocus",
-                            "override-type": "boolean",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
+                }
             },
             "SpeechRecognition": {
                 "events": {
@@ -2048,6 +2011,16 @@
                             "name": "composed",
                             "override-type": "boolean",
                             "required": 0
+                        }
+                    }
+                }
+            },
+            "ShadowRootInit": {
+                "members": {
+                    "member": {
+                        "delegatesFocus": {
+                            "name": "delegatesFocus",
+                            "type": "boolean"
                         }
                     }
                 }

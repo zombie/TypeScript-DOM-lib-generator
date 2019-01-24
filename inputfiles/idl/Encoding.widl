@@ -1,9 +1,3 @@
-interface mixin TextDecoderCommon {
-  readonly attribute DOMString encoding;
-  readonly attribute boolean fatal;
-  readonly attribute boolean ignoreBOM;
-};
-
 dictionary TextDecoderOptions {
   boolean fatal = false;
   boolean ignoreBOM = false;
@@ -16,42 +10,15 @@ dictionary TextDecodeOptions {
 [Constructor(optional DOMString label = "utf-8", optional TextDecoderOptions options),
  Exposed=(Window,Worker)]
 interface TextDecoder {
-  USVString decode(optional BufferSource input, optional TextDecodeOptions options);
-};
-TextDecoder includes TextDecoderCommon;
-
-interface mixin TextEncoderCommon {
   readonly attribute DOMString encoding;
-};
-
-dictionary TextEncoderEncodeIntoResult {
-  unsigned long long read;
-  unsigned long long written;
+  readonly attribute boolean fatal;
+  readonly attribute boolean ignoreBOM;
+  USVString decode(optional BufferSource input, optional TextDecodeOptions options);
 };
 
 [Constructor,
  Exposed=(Window,Worker)]
 interface TextEncoder {
+  readonly attribute DOMString encoding;
   [NewObject] Uint8Array encode(optional USVString input = "");
-  TextEncoderEncodeIntoResult encodeInto(USVString source, Uint8Array destination);
 };
-TextEncoder includes TextEncoderCommon;
-
-interface mixin GenericTransformStream {
-  readonly attribute ReadableStream readable;
-  readonly attribute WritableStream writable;
-};
-
-[Constructor(optional DOMString label = "utf-8", optional TextDecoderOptions options),
- Exposed=(Window,Worker)]
-interface TextDecoderStream {
-};
-TextDecoderStream includes TextDecoderCommon;
-TextDecoderStream includes GenericTransformStream;
-
-[Constructor,
- Exposed=(Window,Worker)]
-interface TextEncoderStream {
-};
-TextEncoderStream includes TextEncoderCommon;
-TextEncoderStream includes GenericTransformStream;

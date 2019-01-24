@@ -1,5 +1,4 @@
-[SecureContext,
- Exposed=Window]
+[Exposed=Window]
 interface ApplicationCache : EventTarget {
 
   // update status

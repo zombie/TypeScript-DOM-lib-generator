@@ -21,13 +21,11 @@ interface PerformanceObserver {
   void observe (PerformanceObserverInit options);
   void disconnect ();
   PerformanceEntryList takeRecords();
-  static readonly attribute FrozenArray<DOMString> supportedEntryTypes;
 };
 
 dictionary PerformanceObserverInit {
-  sequence<DOMString> entryTypes;
-  DOMString type;
-  boolean buffered;
+  required sequence<DOMString> entryTypes;
+  boolean buffered = false;
 };
 
 [Exposed=(Window,Worker)]

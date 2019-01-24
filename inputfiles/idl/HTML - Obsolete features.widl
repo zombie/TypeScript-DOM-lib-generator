@@ -286,7 +286,8 @@ partial interface Window {
   [Replaceable, SameObject] readonly attribute External external;
 };
 
-[Exposed=Window]
+[Exposed=Window,
+ NoInterfaceObject]
 interface External {
   void AddSearchProvider();
   void IsSearchProviderInstalled();

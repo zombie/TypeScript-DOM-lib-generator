@@ -43,6 +43,7 @@ interface BaseAudioContext : EventTarget {
   Promise<AudioBuffer> decodeAudioData (ArrayBuffer audioData,
                                         optional DecodeSuccessCallback? successCallback,
                                         optional DecodeErrorCallback? errorCallback);
+  Promise<void> resume ();
 };
 
 enum AudioContextLatencyCategory {
@@ -57,7 +58,6 @@ interface AudioContext : BaseAudioContext {
     readonly attribute double baseLatency;
     readonly attribute double outputLatency;
     AudioTimestamp getOutputTimestamp ();
-    Promise<void> resume ();
     Promise<void> suspend ();
     Promise<void> close ();
     MediaElementAudioSourceNode createMediaElementSource (HTMLMediaElement mediaElement);
@@ -81,7 +81,6 @@ dictionary AudioTimestamp {
  Constructor (unsigned long numberOfChannels, unsigned long length, float sampleRate)]
 interface OfflineAudioContext : BaseAudioContext {
   Promise<AudioBuffer> startRendering();
-  Promise<void> resume();
   Promise<void> suspend(double suspendTime);
   readonly attribute unsigned long length;
   attribute EventHandler oncomplete;

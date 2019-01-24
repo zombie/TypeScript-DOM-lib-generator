@@ -17098,7 +17098,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new(stringUrl: string, options?: WorkerOptions): Worker;
+    new(stringUrl: string | URL, options?: WorkerOptions): Worker;
 };
 
 interface Worklet {

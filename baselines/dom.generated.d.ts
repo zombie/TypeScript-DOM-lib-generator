@@ -468,7 +468,7 @@ interface GainOptions extends AudioNodeOptions {
 }
 
 interface GamepadEventInit extends EventInit {
-    gamepad?: Gamepad;
+    gamepad: Gamepad;
 }
 
 interface GetNotificationOptions {
@@ -5247,12 +5247,11 @@ declare var GainNode: {
 
 /** The Gamepad interface of the Gamepad API defines an individual gamepad or other controller, allowing access to information such as button presses, axis positions, and id. */
 interface Gamepad {
-    readonly axes: number[];
-    readonly buttons: GamepadButton[];
+    readonly axes: ReadonlyArray<number>;
+    readonly buttons: ReadonlyArray<GamepadButton>;
     readonly connected: boolean;
-    readonly displayId: number;
     readonly hand: GamepadHand;
-    readonly hapticActuators: GamepadHapticActuator[];
+    readonly hapticActuators: ReadonlyArray<GamepadHapticActuator>;
     readonly id: string;
     readonly index: number;
     readonly mapping: GamepadMappingType;
@@ -5284,7 +5283,7 @@ interface GamepadEvent extends Event {
 
 declare var GamepadEvent: {
     prototype: GamepadEvent;
-    new(typeArg: string, eventInitDict?: GamepadEventInit): GamepadEvent;
+    new(type: string, eventInitDict: GamepadEventInit): GamepadEvent;
 };
 
 /** The GamepadHapticActuator interface of the Gamepad API represents hardware in the controller designed to provide haptic feedback to the user (if available), most commonly vibration hardware. */

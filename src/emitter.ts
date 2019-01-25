@@ -493,7 +493,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function paramsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
             const isOptional = !p.variadic && p.optional;
-            const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToTsType(p);
+            const pType = convertDomTypeToTsType(p);
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
             return (p.variadic ? "..." : "") +
                 adjustParamName(p.name) +

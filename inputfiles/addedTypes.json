@@ -1214,82 +1214,14 @@
                 }
             },
             "EventSource": {
-                "name": "EventSource",
-                "extends": "EventTarget",
-                "properties": {
-                    "property": {
-                        "url": {
-                            "name": "url",
-                            "read-only": 1,
-                            "override-type": "string"
-                        },
-                        "withCredentials": {
-                            "name": "withCredentials",
-                            "read-only": 1,
-                            "override-type": "boolean"
-                        },
-                        "CONNECTING": {
-                            "name": "CONNECTING",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "OPEN": {
-                            "name": "OPEN",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "CLOSED": {
-                            "name": "CLOSED",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "readyState": {
-                            "name": "readyState",
-                            "read-only": 1,
-                            "override-type": "number"
-                        },
-                        "onopen": {
-                            "name": "onopen",
-                            "override-type": "(evt: MessageEvent) => any"
-                        },
-                        "onmessage": {
-                            "name": "onmessage",
-                            "override-type": "(evt: MessageEvent) => any"
-                        },
-                        "onerror": {
-                            "name": "onerror",
-                            "override-type": "(evt: MessageEvent) => any"
+                "events": {
+                    "event": [
+                        {
+                            "name": "error",
+                            "type": "Event"
                         }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "close": {
-                            "name": "close",
-                            "override-signatures": [
-                                "close(): void"
-                            ]
-                        }
-                    }
-                },
-                "constructor": {
-                    "override-signatures": [
-                        "new(url: string, eventSourceInitDict?: EventSourceInit): EventSource"
                     ]
                 }
-            },
-            "EventSourceInit": {
-                "name": "EventSourceInit",
-                "properties": {
-                    "property": {
-                        "withCredentials": {
-                            "name": "withCredentials",
-                            "read-only": 1,
-                            "override-type": "boolean"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
             },
             "HTMLAnchorElement": {
                 "element": [

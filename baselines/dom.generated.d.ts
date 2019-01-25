@@ -5370,10 +5370,6 @@ interface Geolocation {
     watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): number;
 }
 
-interface GetSVGDocument {
-    getSVGDocument(): Document;
-}
-
 interface GlobalEventHandlersEventMap {
     "abort": UIEvent;
     "animationcancel": AnimationEvent;
@@ -6312,56 +6308,28 @@ declare var HTMLElement: {
 };
 
 /** The HTMLEmbedElement interface, which provides special properties (beyond the regular HTMLElement interface it also has available to it by inheritance) for manipulating <embed> elements. */
-interface HTMLEmbedElement extends HTMLElement, GetSVGDocument {
+interface HTMLEmbedElement extends HTMLElement {
     /** @deprecated */
     align: string;
     /**
      * Sets or retrieves the height of the object.
      */
     height: string;
-    hidden: any;
-    /**
-     * Gets or sets whether the DLNA PlayTo device is available.
-     */
-    msPlayToDisabled: boolean;
-    /**
-     * Gets or sets the path to the preferred media source. This enables the Play To target device to stream the media content, which can be DRM protected, from a different location, such as a cloud media server.
-     */
-    msPlayToPreferredSourceUri: string;
-    /**
-     * Gets or sets the primary DLNA PlayTo device.
-     */
-    msPlayToPrimary: boolean;
-    /**
-     * Gets the source associated with the media element for use by the PlayToManager.
-     */
-    readonly msPlayToSource: any;
     /**
      * Sets or retrieves the name of the object.
      */
     /** @deprecated */
     name: string;
     /**
-     * Retrieves the palette used for the embedded document.
-     */
-    readonly palette: string;
-    /**
-     * Retrieves the URL of the plug-in used to view an embedded document.
-     */
-    readonly pluginspage: string;
-    readonly readyState: string;
-    /**
      * Sets or retrieves a URL to be loaded by the object.
      */
     src: string;
-    /**
-     * Sets or retrieves the height and width units of the embed object.
-     */
-    units: string;
+    type: string;
     /**
      * Sets or retrieves the width of the object.
      */
     width: string;
+    getSVGDocument(): Document | null;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLEmbedElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLEmbedElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -6707,12 +6675,13 @@ interface HTMLHyperlinkElementUtils {
 }
 
 /** The HTMLIFrameElement interface provides special properties and methods (beyond those of the HTMLElement interface it also has available to it by inheritance) for manipulating the layout and presentation of inline frame elements. */
-interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
+interface HTMLIFrameElement extends HTMLElement {
     /**
      * Sets or retrieves how the object is aligned with adjacent text.
      */
     /** @deprecated */
     align: string;
+    allow: string;
     allowFullscreen: boolean;
     allowPaymentRequest: boolean;
     /**
@@ -6722,7 +6691,7 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
     /**
      * Retrieves the object of the specified.
      */
-    readonly contentWindow: Window | null;
+    readonly contentWindow: WindowProxy | null;
     /**
      * Sets or retrieves whether to display a border for the frame.
      */
@@ -6751,7 +6720,7 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves the frame name.
      */
     name: string;
-    readonly referrerPolicy: ReferrerPolicy;
+    referrerPolicy: ReferrerPolicy;
     readonly sandbox: DOMTokenList;
     /**
      * Sets or retrieves whether the frame can be scrolled.
@@ -6770,6 +6739,7 @@ interface HTMLIFrameElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves the width of the object.
      */
     width: string;
+    getSVGDocument(): Document | null;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLIFrameElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -7581,11 +7551,7 @@ declare var HTMLOListElement: {
 };
 
 /** The HTMLObjectElement interface provides special properties and methods (beyond those on the HTMLElement interface it also has available to it by inheritance) for manipulating the layout and presentation of <object> element, representing external resources. */
-interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
-    /**
-     * Retrieves a string of the URL where the object tag can be found. This is often the href of the document that the object is in, or the value set by a base element.
-     */
-    readonly BaseHref: string;
+interface HTMLObjectElement extends HTMLElement {
     /** @deprecated */
     align: string;
     /**
@@ -7614,6 +7580,7 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
      * Retrieves the document object of the page or frame.
      */
     readonly contentDocument: Document | null;
+    readonly contentWindow: WindowProxy | null;
     /**
      * Sets or retrieves the URL that references the data of the object.
      */
@@ -7631,26 +7598,9 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
     /** @deprecated */
     hspace: number;
     /**
-     * Gets or sets whether the DLNA PlayTo device is available.
-     */
-    msPlayToDisabled: boolean;
-    /**
-     * Gets or sets the path to the preferred media source. This enables the Play To target device to stream the media content, which can be DRM protected, from a different location, such as a cloud media server.
-     */
-    msPlayToPreferredSourceUri: string;
-    /**
-     * Gets or sets the primary DLNA PlayTo device.
-     */
-    msPlayToPrimary: boolean;
-    /**
-     * Gets the source associated with the media element for use by the PlayToManager.
-     */
-    readonly msPlayToSource: any;
-    /**
      * Sets or retrieves the name of the object.
      */
     name: string;
-    readonly readyState: number;
     /**
      * Sets or retrieves a message to be displayed while an object is loading.
      */
@@ -7660,7 +7610,7 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
      * Sets or retrieves the MIME type of the object.
      */
     type: string;
-    typemustmatch: boolean;
+    typeMustMatch: boolean;
     /**
      * Sets or retrieves the URL, often with a bookmark extension (#name), to use as a client-side image map.
      */
@@ -7687,6 +7637,7 @@ interface HTMLObjectElement extends HTMLElement, GetSVGDocument {
      * Returns whether a form will validate when it is submitted, without having to submit it.
      */
     checkValidity(): boolean;
+    getSVGDocument(): Document | null;
     reportValidity(): boolean;
     /**
      * Sets a custom error message that is displayed when a form is submitted.

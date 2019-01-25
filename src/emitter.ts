@@ -355,7 +355,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         return obj.nullable ? makeNullable(resolvedType) : resolvedType;
     }
 
-    function nameWithForwardedTypes (i: Browser.Interface) {
+    function nameWithForwardedTypes(i: Browser.Interface) {
         const typeParameters = i["type-parameters"];
 
         if (!typeParameters) return i.name;
@@ -389,7 +389,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary | Browser.CallbackFunction, name: string) {
-        function typeParameterWithDefault (type: Browser.TypeParameter) {
+        function typeParameterWithDefault(type: Browser.TypeParameter) {
             return `${type.name}`
                 + (type.extends ? ` extends ${type.extends}` : ``)
                 + (type.default ? ` = ${type.default}` : ``)
@@ -497,6 +497,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Generate the parameters string for function signatures
     function paramsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
+            if (p.type === "Promise" && !Array.isArray(p.subtype)) {
+                p = { name: p.name, type: [p.subtype!, p] }
+            }
             const isOptional = !p.variadic && p.optional;
             const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
@@ -1070,9 +1073,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             .sort(compareName)
             .forEach(i => emitCallBackInterface(i));
         emitNonCallbackInterfaces();
-
-        // // Add missed interface definition from the spec
-        // InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
 
         printer.printLine("declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;");
         printer.printLine("");

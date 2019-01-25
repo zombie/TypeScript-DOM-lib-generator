@@ -11099,7 +11099,7 @@ declare var PaymentRequest: {
 
 /** The PaymentRequestUpdateEvent interface of the the Payment Request API enables a web page to update the details of a PaymentRequest in response to a user action. */
 interface PaymentRequestUpdateEvent extends Event {
-    updateWith(detailsPromise: Promise<PaymentDetailsUpdate>): void;
+    updateWith(detailsPromise: PaymentDetailsUpdate | Promise<PaymentDetailsUpdate>): void;
 }
 
 declare var PaymentRequestUpdateEvent: {

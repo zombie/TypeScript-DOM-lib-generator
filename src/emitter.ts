@@ -350,11 +350,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function convertDomTypeToNullableTsType(obj: Browser.Typed) {
-        const resolvedType = convertDomTypeToTsType(obj);
-        return obj.nullable ? makeNullable(resolvedType) : resolvedType;
-    }
-
     function nameWithForwardedTypes(i: Browser.Interface) {
         const typeParameters = i["type-parameters"];
 
@@ -383,7 +378,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         return expectedMName === m.name &&
             m.signature && m.signature.length === 1 &&
-            convertDomTypeToNullableTsType(m.signature[0]) === expectedMType &&
+            convertDomTypeToTsType(m.signature[0]) === expectedMType &&
             m.signature[0].param && m.signature[0].param!.length === expectedParamType.length &&
             expectedParamType.every((pt, idx) => convertDomTypeToTsType(m.signature[0].param![idx]) === pt);
     }
@@ -501,7 +496,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
                 p = { name: p.name, type: [p.subtype!, p] }
             }
             const isOptional = !p.variadic && p.optional;
-            const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
+            const pType = convertDomTypeToTsType(p);
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
             return (p.variadic ? "..." : "") +
                 adjustParamName(p.name) +
@@ -534,7 +529,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
         printer.printLine(`interface ${processInterfaceType(cb, cb.name)} {`);
         printer.increaseIndent();
-        emitSignatures(cb, "", "", s => printer.printLine(s));
+        emitSignatures(cb, "", "", printer.printLine);
         printer.decreaseIndent();
         printer.printLine("}");
         printer.printLine("");
@@ -761,8 +756,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         // Emit constructor signature
         if (constructor) {
-            emitComments(constructor, s => printer.print(s));
-            emitSignatures(constructor, "", "new", s => printer.printLine(s));
+            emitComments(constructor, printer.print);
+            emitSignatures(constructor, "", "new", printer.printLine);
         }
         else {
             printer.printLine(`new(): ${i.name};`);

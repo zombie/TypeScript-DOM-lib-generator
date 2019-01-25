@@ -384,19 +384,18 @@
                 }
             },
             "SourceBuffer": {
-                "specs": "media-source",
                 "name": "SourceBuffer",
-                "properties": {
-                    "property": {
-                        "textTracks": {
-                            "specs": "media-source",
-                            "exposed": "Window",
-                            "name": "textTracks",
-                            "type": "TextTrackList",
-                            "type-original": "TextTrackList",
-                            "read-only": 1
+                "events": {
+                    "event": [
+                        {
+                            "name": "abort",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "error",
+                            "type": "Event"
                         }
-                    }
+                    ]
                 }
             },
             "CustomEvent": {

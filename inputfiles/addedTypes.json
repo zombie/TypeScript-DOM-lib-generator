@@ -532,7 +532,7 @@
                 "methods": {
                     "method": {
                         "createObjectURL": {
-                            "name": "createObjectURL",
+                            "exposed": "Window Worker",
                             "override-signatures": [
                                 "createObjectURL(object: any): string"
                             ]

@@ -350,7 +350,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
  
-    function nameWithForwardedTypes (i: Browser.Interface) {
+    function nameWithForwardedTypes(i: Browser.Interface) {
         const typeParameters = i["type-parameters"];
 
         if (!typeParameters) return i.name;

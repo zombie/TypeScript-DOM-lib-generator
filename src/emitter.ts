@@ -501,7 +501,7 @@ export function emitWebIDl(webidl: Browser.WebIdl, flavor: Flavor) {
                 p = { name: p.name, type: [p.subtype!, p] }
             }
             const isOptional = !p.variadic && p.optional;
-            const pType = convertDomTypeToNullableTsType(p);
+            const pType = isOptional ? convertDomTypeToTsType(p) : convertDomTypeToNullableTsType(p);
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
             return (p.variadic ? "..." : "") +
                 adjustParamName(p.name) +

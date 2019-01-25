@@ -349,7 +349,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
                 else return originalType + " | null";
         }
     }
-
+ 
     function nameWithForwardedTypes (i: Browser.Interface) {
         const typeParameters = i["type-parameters"];
 
@@ -384,7 +384,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function processInterfaceType(i: Browser.Interface | Browser.Dictionary | Browser.CallbackFunction, name: string) {
-        function typeParameterWithDefault (type: Browser.TypeParameter) {
+        function typeParameterWithDefault(type: Browser.TypeParameter) {
             return `${type.name}`
                 + (type.extends ? ` extends ${type.extends}` : ``)
                 + (type.default ? ` = ${type.default}` : ``)
@@ -492,6 +492,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     /// Generate the parameters string for function signatures
     function paramsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
+            if (p.type === "Promise" && !Array.isArray(p.subtype)) {
+                p = { name: p.name, type: [p.subtype!, p] }
+            }
             const isOptional = !p.variadic && p.optional;
             const pType = convertDomTypeToTsType(p);
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
@@ -1065,9 +1068,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             .sort(compareName)
             .forEach(i => emitCallBackInterface(i));
         emitNonCallbackInterfaces();
-
-        // // Add missed interface definition from the spec
-        // InputJson.getAddedItems InputJson.Interface flavor |> Array.iter EmitAddedInterface
 
         printer.printLine("declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;");
         printer.printLine("");

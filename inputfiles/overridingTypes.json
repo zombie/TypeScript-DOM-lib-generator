@@ -128,10 +128,20 @@
                 "properties": {
                     "property": {
                         "onerror": {
-                            "override-type": "ErrorEventHandler"
+                            "override-type": "OnErrorEventHandler"
                         }
                     }
                 }
+            },
+            "HTMLOrSVGElement": {
+              "name": "HTMLOrSVGElement",
+              "properties": {
+                "property": {
+                  "nonce": {
+                    "name": "nonce?"
+                  }
+                }
+              }
             },
             "RandomSource": {
                 "name": "RandomSource",
@@ -177,6 +187,12 @@
                                 "getExtension(extensionName: \"ANGLE_instanced_arrays\"): ANGLE_instanced_arrays | null",
                                 "getExtension(extensionName: string): any"
                             ]
+                        },
+                        "pixelStorei": {
+                            "name": "pixelStorei",
+                            "override-signatures": [
+                                "pixelStorei(pname: GLenum, param: GLint | GLboolean): void"
+                            ]
                         }
                     }
                 }
@@ -194,10 +210,9 @@
     },
     "callback-functions": {
         "callback-function": {
-            "ErrorEventHandler": {
-                "name": "ErrorEventHandler",
+            "OnErrorEventHandlerNonNull": {
                 "override-signatures": [
-                    "(event: Event | string, source?: string, fileno?: number, columnNumber?: number, error?: Error): void"
+                    "(event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any"
                 ]
             },
             "DecodeErrorCallback": {
@@ -423,7 +438,8 @@
                     "property": {
                         "event": {
                             "name": "event",
-                            "override-type": "Event | undefined"
+                            "override-type": "Event | undefined",
+                            "deprecated": 1
                         },
                         "orientation": {
                             "name": "orientation",
@@ -674,6 +690,9 @@
                             "read-only": 1,
                             "override-type": "string | null",
                             "deprecated": 1
+                        },
+                        "nextSibling": {
+                            "override-type": "ChildNode | null"
                         }
                     }
                 }
@@ -697,7 +716,7 @@
                         "add": {
                             "name": "add",
                             "override-signatures": [
-                                "add(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>"
+                                "add(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
                             ]
                         },
                         "clear": {
@@ -721,7 +740,7 @@
                         "put": {
                             "name": "put",
                             "override-signatures": [
-                                "put(value: any, key?: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey>"
+                                "put(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
                             ]
                         },
                         "get": {
@@ -1254,11 +1273,11 @@
                     "property": {
                         "key": {
                             "name": "key",
-                            "override-type": "IDBValidKey | IDBKeyRange"
+                            "override-type": "IDBValidKey"
                         },
                         "primaryKey": {
                             "name": "primaryKey",
-                            "override-type": "IDBValidKey | IDBKeyRange"
+                            "override-type": "IDBValidKey"
                         }
                     }
                 },
@@ -1267,13 +1286,13 @@
                         "continue": {
                             "name": "continue",
                             "override-signatures": [
-                                "continue(key?: IDBValidKey | IDBKeyRange): void"
+                                "continue(key?: IDBValidKey): void"
                             ]
                         },
                         "continuePrimaryKey": {
                             "name": "continuePrimaryKey",
                             "override-signatures": [
-                                "continuePrimaryKey(key: IDBValidKey | IDBKeyRange, primaryKey: IDBValidKey | IDBKeyRange): void"
+                                "continuePrimaryKey(key: IDBValidKey, primaryKey: IDBValidKey): void"
                             ]
                         },
                         "delete": {
@@ -1326,14 +1345,6 @@
                             "override-type": "DOMException"
                         }
                     }
-                }
-            },
-            "ClipboardEvent": {
-                "name": "ClipboardEvent",
-                "constructor": {
-                    "override-signatures": [
-                        "new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent"
-                    ]
                 }
             },
             "Storage": {
@@ -2315,9 +2326,6 @@
                 "properties": {
                     "property": {
                         "srcElement": {
-                            "exposed": "Window",
-                            "type": "Element",
-                            "nullable": 1,
                             "deprecated": 1
                         }
                     }
@@ -2328,7 +2336,7 @@
                 "override-exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
-                        "new(stringUrl: string, options?: WorkerOptions): Worker"
+                        "new(stringUrl: string | URL, options?: WorkerOptions): Worker"
                     ]
                 },
                 "methods": {

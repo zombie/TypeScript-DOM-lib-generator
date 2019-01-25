@@ -149,6 +149,7 @@ export interface TypeParameter {
 export interface Interface {
     name: string;
     extends: string;
+    comment?: string;
     constants?: {
         constant: Record<string, Constant>;
     }

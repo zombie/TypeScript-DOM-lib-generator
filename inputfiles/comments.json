@@ -1,6 +1,15 @@
 {
     "mixins": {
         "mixin": {
+            "DocumentOrShadowRoot": {
+                "properties": {
+                    "property": {
+                        "styleSheets": {
+                            "comment": "/**\r\n * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.\r\n */"
+                        }
+                    }
+                }
+            },
             "GlobalEventHandlers": {
                 "properties": {
                     "property": {
@@ -660,15 +669,6 @@
                         },
                         "type": {
                             "comment": "/**\r\n * Gets or sets the MIME type of a media resource.\r\n */"
-                        }
-                    }
-                }
-            },
-            "DocumentOrShadowRoot": {
-                "properties": {
-                    "property": {
-                        "styleSheets": {
-                            "comment": "/**\r\n * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.\r\n */"
                         }
                     }
                 }

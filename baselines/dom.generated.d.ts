@@ -4366,10 +4366,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
     createElementNS<K extends keyof SVGElementTagNameMap>(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: K): SVGElementTagNameMap[K];
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement;
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "script"): SVGScriptElement;
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "style"): SVGStyleElement;
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "title"): SVGTitleElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: string): SVGElement;
     createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): Element;
     createElementNS(namespace: string | null, qualifiedName: string, options?: string | ElementCreationOptions): Element;
@@ -17728,6 +17724,7 @@ interface HTMLElementDeprecatedTagNameMap {
 }
 
 interface SVGElementTagNameMap {
+    "a": SVGAElement;
     "circle": SVGCircleElement;
     "clipPath": SVGClipPathElement;
     "defs": SVGDefsElement;
@@ -17772,19 +17769,22 @@ interface SVGElementTagNameMap {
     "polyline": SVGPolylineElement;
     "radialGradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
+    "script": SVGScriptElement;
     "stop": SVGStopElement;
+    "style": SVGStyleElement;
     "svg": SVGSVGElement;
     "switch": SVGSwitchElement;
     "symbol": SVGSymbolElement;
     "text": SVGTextElement;
     "textPath": SVGTextPathElement;
+    "title": SVGTitleElement;
     "tspan": SVGTSpanElement;
     "use": SVGUseElement;
     "view": SVGViewElement;
 }
 
 /** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */
-interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }
+type ElementTagNameMap = HTMLElementTagNameMap & Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, keyof HTMLElementTagNameMap>>;
 
 declare var Audio: {
     new(src?: string): HTMLAudioElement;

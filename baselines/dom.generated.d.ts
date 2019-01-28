@@ -6989,7 +6989,10 @@ interface HTMLInputElement extends HTMLElement {
      * Returns the value of the data at the cursor's current position.
      */
     value: string;
-    valueAsDate: any;
+    /**
+     * Returns a Date object representing the form control's value, if applicable; otherwise, returns null. Can be set, to change the value. Throws an "InvalidStateError" DOMException if the control isn't date- or time-based.
+     */
+    valueAsDate: Date | null;
     /**
      * Returns the input field value as a number.
      */

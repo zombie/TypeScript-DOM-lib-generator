@@ -392,6 +392,10 @@ interface EffectTiming {
     iterations?: number;
 }
 
+interface ElementCreationOptions {
+    is?: string;
+}
+
 interface ElementDefinitionOptions {
     extends?: string;
 }
@@ -2281,11 +2285,6 @@ declare var BroadcastChannel: {
     prototype: BroadcastChannel;
     new(name: string): BroadcastChannel;
 };
-
-interface BroadcastChannelEventMap {
-    message: MessageEvent;
-    messageerror: MessageEvent;
-}
 
 /** The ByteLengthQueuingStrategy interface of the the Streams API provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
@@ -4988,10 +4987,6 @@ interface ElementContentEditable {
     contentEditable: string;
     inputMode: string;
     readonly isContentEditable: boolean;
-}
-
-interface ElementCreationOptions {
-    is?: string;
 }
 
 /** The ErrorEvent interface represents events providing information related to errors in scripts or in files. */
@@ -10784,15 +10779,6 @@ interface NodeListOf<TNode extends Node> extends NodeList {
      */
     forEach(callbackfn: (value: TNode, key: number, parent: NodeListOf<TNode>) => void, thisArg?: any): void;
     [index: number]: TNode;
-}
-
-interface NodeSelector {
-    querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
-    querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
-    querySelector<E extends Element = Element>(selectors: string): E | null;
-    querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
-    querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
-    querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
 }
 
 interface NonDocumentTypeChildNode {

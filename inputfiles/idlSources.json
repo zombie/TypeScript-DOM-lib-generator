@@ -13,6 +13,10 @@
         "title": "CSS Animations"
     },
     {
+        "url": "https://www.w3.org/TR/css-multicol-1/",
+        "title": "CSS Multi-column Layout"
+    },
+    {
         "url": "https://drafts.csswg.org/cssom-view/",
         "title": "CSSOM View"
     },

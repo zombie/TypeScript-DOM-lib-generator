@@ -1499,6 +1499,11 @@ interface TextDecoderOptions {
     ignoreBOM?: boolean;
 }
 
+interface TextEncoderEncodeIntoResult {
+    read?: number;
+    written?: number;
+}
+
 interface TouchEventInit extends EventModifierInit {
     changedTouches?: Touch[];
     targetTouches?: Touch[];
@@ -5362,6 +5367,18 @@ declare var GamepadPose: {
     prototype: GamepadPose;
     new(): GamepadPose;
 };
+
+interface GenericTransformStream {
+    readonly readable: ReadableStream;
+    /**
+     * Returns a writable stream which accepts string chunks and runs them through UTF-8's encoder before making them available to readable.
+     * Typically this will be used via the pipeThrough() method on a ReadableStream source.
+     * textReadable
+     * .pipeThrough(new TextEncoderStream())
+     * .pipeTo(byteWritable);
+     */
+    readonly writable: WritableStream;
+}
 
 /** The Geolocation interface represents an object able to programmatically obtain the position of the device. It gives Web content access to the location of the device. This allows a Web site or app to offer customized results based on the user's location. */
 interface Geolocation {
@@ -15093,23 +15110,10 @@ declare var Text: {
 };
 
 /** The TextDecoder interface represents a decoder for a specific method, that is a specific character encoding, like utf-8, iso-8859-2, koi8, cp1261, gbk, etc. A decoder takes a stream of bytes as input and emits a stream of code points. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
-interface TextDecoder {
+interface TextDecoder extends TextDecoderCommon {
     /**
-     * Returns encoding's name, lowercased.
-     */
-    readonly encoding: string;
-    /**
-     * Returns true if error mode is "fatal", and false
-     * otherwise.
-     */
-    readonly fatal: boolean;
-    /**
-     * Returns true if ignore BOM flag is set, and false otherwise.
-     */
-    readonly ignoreBOM: boolean;
-    /**
-     * Returns the result of running encoding's decoder. The
-     * method can be invoked zero or more times with options's stream set to
+     * Returns the result of running encoding's decoder.
+     * The method can be invoked zero or more times with options's stream set to
      * true, and then once without options's stream (or set to false), to process
      * a fragmented stream. If the invocation without options's stream (or set to
      * false) has no input, it's clearest to omit both arguments.
@@ -15128,21 +15132,47 @@ declare var TextDecoder: {
     new(label?: string, options?: TextDecoderOptions): TextDecoder;
 };
 
-/** TextEncoder takes a stream of code points as input and emits a stream of bytes. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
-interface TextEncoder {
-    /**
-     * Returns "utf-8".
-     */
+interface TextDecoderCommon {
     readonly encoding: string;
+    readonly fatal: boolean;
+    readonly ignoreBOM: boolean;
+}
+
+interface TextDecoderStream extends TextDecoderCommon, GenericTransformStream {
+}
+
+declare var TextDecoderStream: {
+    prototype: TextDecoderStream;
+    new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
+};
+
+/** TextEncoder takes a stream of code points as input and emits a stream of bytes. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
+interface TextEncoder extends TextEncoderCommon {
     /**
      * Returns the result of running UTF-8's encoder.
      */
     encode(input?: string): Uint8Array;
+    /**
+     * Runs the UTF-8 encoder on source, stores the result of that operation into destination, and returns the progress made as a dictionary whereby read is the number of converted code units of source and written is the number of bytes modified in destination.
+     */
+    encodeInto(source: string, destination: Uint8Array): TextEncoderEncodeIntoResult;
 }
 
 declare var TextEncoder: {
     prototype: TextEncoder;
     new(): TextEncoder;
+};
+
+interface TextEncoderCommon {
+    readonly encoding: string;
+}
+
+interface TextEncoderStream extends TextEncoderCommon, GenericTransformStream {
+}
+
+declare var TextEncoderStream: {
+    prototype: TextEncoderStream;
+    new(): TextEncoderStream;
 };
 
 interface TextEvent extends UIEvent {

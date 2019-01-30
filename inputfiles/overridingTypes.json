@@ -305,6 +305,16 @@
     "callback-interfaces": {
         "interface": {}
     },
+    "enums": {
+        "enum": {
+            "ImportExportKind": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "TableKind": {
+                "legacy-namespace": "WebAssembly"
+            }
+        }
+    },
     "interfaces": {
         "interface": {
             "XPathNSResolver": {
@@ -3090,6 +3100,24 @@
                         }
                     }
                 }
+            },
+            "ModuleExportDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "ModuleImportDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "MemoryDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "TableDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "GlobalDescriptor": {
+                "legacy-namespace": "WebAssembly"
+            },
+            "WebAssemblyInstantiatedSource": {
+                "legacy-namespace": "WebAssembly"
             }
         }
     },

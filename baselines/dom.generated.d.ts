@@ -4147,7 +4147,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Specifies the beginning and end of the document body.
      */
-    body: HTMLElement;
+    body: HTMLBodyElement | HTMLFrameSetElement;
     /**
      * Returns document's encoding.
      */

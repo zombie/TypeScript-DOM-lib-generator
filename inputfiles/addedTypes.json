@@ -1167,16 +1167,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "HTMLMainElement": {
-                "name": "HTMLMainElement",
-                "extends": "HTMLElement",
-                "exposed": "Window",
-                "constructor": {
-                    "override-signatures": [
-                        "new(): HTMLMainElement"
-                    ]
-                }
-            },
             "DOMMatrixReadOnly": {
                 "methods": {
                     "method": {

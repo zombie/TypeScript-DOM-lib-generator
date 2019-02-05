@@ -195,6 +195,10 @@
         "title": "Indexed Database"
     },
     {
+        "url": "https://www.w3.org/TR/intersection-observer/",
+        "title": "Intersection Observer"
+    },
+    {
         "url": "https://www.w3.org/TR/media-source/",
         "title": "Media Source Extensions"
     },

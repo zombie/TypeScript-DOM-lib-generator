@@ -2527,11 +2527,12 @@ interface CSSStyleDeclaration {
     borderWidth: string | null;
     bottom: string | null;
     boxShadow: string | null;
-    boxSizing: string | null;
+    boxSizing: string;
     breakAfter: string | null;
     breakBefore: string | null;
     breakInside: string | null;
     captionSide: string | null;
+    caretColor: string;
     clear: string | null;
     clip: string | null;
     clipPath: string | null;
@@ -2553,7 +2554,7 @@ interface CSSStyleDeclaration {
     counterReset: string | null;
     cssFloat: string | null;
     cssText: string;
-    cursor: string | null;
+    cursor: string;
     direction: string | null;
     display: string | null;
     dominantBaseline: string | null;
@@ -2692,11 +2693,11 @@ interface CSSStyleDeclaration {
     opacity: string | null;
     order: string | null;
     orphans: string | null;
-    outline: string | null;
-    outlineColor: string | null;
-    outlineOffset: string | null;
-    outlineStyle: string | null;
-    outlineWidth: string | null;
+    outline: string;
+    outlineColor: string;
+    outlineOffset: string;
+    outlineStyle: string;
+    outlineWidth: string;
     overflow: string | null;
     overflowX: string | null;
     overflowY: string | null;
@@ -2744,7 +2745,7 @@ interface CSSStyleDeclaration {
     textJustify: string | null;
     textKashida: string | null;
     textKashidaSpace: string | null;
-    textOverflow: string | null;
+    textOverflow: string;
     textShadow: string | null;
     textTransform: string | null;
     textUnderlinePosition: string | null;

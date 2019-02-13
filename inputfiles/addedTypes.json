@@ -718,10 +718,6 @@
                             "additional-signatures": [
                                 "createElementNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", qualifiedName: string): HTMLElement",
                                 "createElementNS<K extends keyof SVGElementTagNameMap>(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: K): SVGElementTagNameMap[K]",
-                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"a\"): SVGAElement",
-                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"script\"): SVGScriptElement",
-                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"style\"): SVGStyleElement",
-                                "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: \"title\"): SVGTitleElement",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement",
                                 "createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): Element"
                             ]

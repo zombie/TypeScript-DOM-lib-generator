@@ -456,11 +456,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine("interface SVGElementTagNameMap {");
         printer.increaseIndent();
         for (const [e, value] of Object.entries(tagNameToEleName.svgResult).sort()) {
-            if (e in tagNameToEleName.htmlResult) {
-                // Skip conflicting fields with HTMLElementTagNameMap
-                // to be compatible with deprecated ElementTagNameMap
-                continue;
-            }
             printer.printLine(`"${e}": ${value};`);
         }
         printer.decreaseIndent();
@@ -470,7 +465,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitElementTagNameMap() {
         printer.printLine("/** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */");
-        printer.printLine("interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }");
+        printer.printLine("type ElementTagNameMap = HTMLElementTagNameMap & Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, keyof HTMLElementTagNameMap>>;");
         printer.printLine("");
     }
 

@@ -13,6 +13,10 @@
         "title": "CSS Animations"
     },
     {
+        "url": "https://drafts.csswg.org/css-images-3/",
+        "title": "CSS Images"
+    },
+    {
         "url": "https://drafts.csswg.org/cssom-view/",
         "title": "CSSOM View"
     },

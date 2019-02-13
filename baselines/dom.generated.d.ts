@@ -2603,6 +2603,8 @@ interface CSSStyleDeclaration {
     gridTemplateColumns: string | null;
     gridTemplateRows: string | null;
     height: string | null;
+    imageOrientation: string;
+    imageRendering: string;
     imeMode: string | null;
     justifyContent: string | null;
     justifyItems: string | null;
@@ -2685,8 +2687,8 @@ interface CSSStyleDeclaration {
     msWrapFlow: string;
     msWrapMargin: any;
     msWrapThrough: string;
-    objectFit: string | null;
-    objectPosition: string | null;
+    objectFit: string;
+    objectPosition: string;
     opacity: string | null;
     order: string | null;
     orphans: string | null;

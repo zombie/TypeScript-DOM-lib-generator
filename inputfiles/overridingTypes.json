@@ -1459,6 +1459,10 @@
                             "name": "form",
                             "read-only": 1,
                             "override-type": "HTMLFormElement | null"
+                        },
+                        "valueAsDate": {
+                            "name": "valueAsDate",
+                            "override-type": "Date | null"
                         }
                     }
                 },

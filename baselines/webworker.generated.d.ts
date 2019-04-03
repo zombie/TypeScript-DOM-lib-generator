@@ -305,6 +305,7 @@ interface PipeOptions {
     preventAbort?: boolean;
     preventCancel?: boolean;
     preventClose?: boolean;
+    signal?: AbortSignal;
 }
 
 interface ProgressEventInit extends EventInit {
@@ -2502,11 +2503,6 @@ interface ReadableStreamBYOBReader {
     read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
     releaseLock(): void;
 }
-
-declare var ReadableStreamBYOBReader: {
-    prototype: ReadableStreamBYOBReader;
-    new(stream: ReadableStream<Uint8Array>): ReadableStreamBYOBReader;
-};
 
 interface ReadableStreamBYOBRequest {
     readonly view: ArrayBufferView;

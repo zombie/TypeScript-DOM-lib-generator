@@ -517,6 +517,9 @@
                 },
                 "implements": [
                     "WindowEventHandlers"
+                ],
+                "override-index-signatures": [
+                    "[index: number]: Window"
                 ]
             },
             "URLSearchParams": {

@@ -17,6 +17,14 @@
         "title": "CSS Multi-column Layout"
     },
     {
+        "url": "https://www.w3.org/TR/css-ui-3/",
+        "title": "CSS Basic User Interface"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-images-3/",
+        "title": "CSS Images"
+    },
+    {
         "url": "https://drafts.csswg.org/cssom-view/",
         "title": "CSSOM View"
     },

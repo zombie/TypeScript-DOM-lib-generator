@@ -292,6 +292,10 @@
         "title": "Web Animations"
     },
     {
+        "url": "https://www.w3.org/TR/wasm-js-api-1/",
+        "title": "WebAssembly JavaScript Interface"
+    },
+    {
         "url": "https://webaudio.github.io/web-audio-api/",
         "title": "Web Audio"
     },

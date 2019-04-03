@@ -1,5 +1,6 @@
 import * as Browser from "./types";
 import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
+import { collectLegacyNamespaceTypes } from "./legacy-namespace";
 
 export const enum Flavor {
     Web,
@@ -538,6 +539,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitEnums() {
         getElements(webidl.enums, "enum")
             .sort(compareName)
+            .filter(i => !i["legacy-namespace"])
             .forEach(emitEnum);
     }
 
@@ -754,8 +756,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
     }
 
-    function emitConstructor(i: Browser.Interface) {
-        printer.printLine(`declare var ${i.name}: {`);
+    function emitConstructor(i: Browser.Interface, prefix = "") {
+        printer.printLine(`${prefix}var ${i.name}: {`);
         printer.increaseIndent();
 
         printer.printLine(`prototype: ${i.name};`);
@@ -982,6 +984,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitNonCallbackInterfaces() {
         for (const i of allNonCallbackInterfaces.sort(compareName)) {
+            if (i["legacy-namespace"]) {
+                continue;
+            }
             // If the static attribute has a value, it means the type doesn't have a constructor
             if (i.static) {
                 emitStaticInterface(i);
@@ -991,9 +996,36 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             }
             else {
                 emitInterface(i);
-                emitConstructor(i);
+                emitConstructor(i, "declare ");
             }
         }
+    }
+
+    function emitNamespace(namespace: Browser.Interface) {
+        printer.printLine(`declare namespace ${namespace.name} {`);
+        printer.increaseIndent();
+        
+        if (namespace.nested) {
+            namespace.nested.interfaces
+                .sort(compareName)
+                .forEach(i => {
+                    emitInterface(i);
+                    emitConstructor(i);
+                });
+            namespace.nested.dictionaries
+                .sort(compareName)
+                .forEach(emitDictionary);
+            namespace.nested.enums
+                .sort(compareName)
+                .forEach(emitEnum);
+        }
+
+        emitProperties("var ", EmitScope.InstanceOnly, namespace);
+        emitMethods("function ", EmitScope.InstanceOnly, namespace, new Set());
+
+        printer.decreaseIndent();
+        printer.printLine("}");
+        printer.printLine("");
     }
 
     function emitDictionary(dict: Browser.Dictionary) {
@@ -1020,6 +1052,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitDictionaries() {
         getElements(webidl.dictionaries, "dictionary")
             .sort(compareName)
+            .filter(i => !i["legacy-namespace"])
             .forEach(emitDictionary);
     }
 
@@ -1058,6 +1091,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         printer.printLine("declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;");
         printer.printLine("");
+
+        collectLegacyNamespaceTypes(webidl).forEach(emitNamespace);
 
         emitCallBackFunctions();
 

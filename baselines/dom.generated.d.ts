@@ -2924,6 +2924,7 @@ interface CSSStyleDeclaration {
     whiteSpace: string | null;
     widows: string | null;
     width: string | null;
+    willChange: string;
     wordBreak: string | null;
     wordSpacing: string | null;
     wordWrap: string | null;

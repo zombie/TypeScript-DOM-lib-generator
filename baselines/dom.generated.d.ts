@@ -17423,7 +17423,7 @@ interface XPathResult {
     readonly invalidIteratorState: boolean;
     readonly numberValue: number;
     readonly resultType: number;
-    readonly singleNodeValue: Node;
+    readonly singleNodeValue: Node | null;
     readonly snapshotLength: number;
     readonly stringValue: string;
     iterateNext(): Node;

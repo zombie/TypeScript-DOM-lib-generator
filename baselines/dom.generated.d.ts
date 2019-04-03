@@ -4819,7 +4819,7 @@ interface ElementEventMap {
 }
 
 /** Element is the most general base class from which all objects in a Document inherit. It only has methods and properties common to all kinds of elements. More specific classes inherit from Element. */
-interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode, Slotable, Animatable {
+interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode, Slotable, InnerHTML, Animatable {
     readonly assignedSlot: HTMLSlotElement | null;
     readonly attributes: NamedNodeMap;
     /**
@@ -4841,7 +4841,6 @@ interface Element extends Node, ParentNode, NonDocumentTypeChildNode, ChildNode,
      * change it.
      */
     id: string;
-    innerHTML: string;
     /**
      * Returns the local name.
      */
@@ -9396,6 +9395,10 @@ declare var ImageData: {
     new(width: number, height: number): ImageData;
     new(array: Uint8ClampedArray, width: number, height: number): ImageData;
 };
+
+interface InnerHTML {
+    innerHTML: string;
+}
 
 /** provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport. */
 interface IntersectionObserver {
@@ -14602,9 +14605,8 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
-interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot {
+interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot, InnerHTML {
     readonly host: Element;
-    innerHTML: string;
     readonly mode: ShadowRootMode;
 }
 

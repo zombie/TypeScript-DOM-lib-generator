@@ -635,7 +635,8 @@
                             "nullable": false
                         },
                         "body": {
-                            "nullable": false
+                            "nullable": false,
+                            "override-type": "HTMLBodyElement | HTMLFrameSetElement"
                        }
                     }
                 }

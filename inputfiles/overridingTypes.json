@@ -2419,19 +2419,6 @@
                     ]
                 }
             },
-            "BroadcastChannel": {
-                "name": "BroadcastChannel",
-                "methods": {
-                    "method": {
-                        "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "MessagePort": {
                 "name": "MessagePort",
                 "methods": {

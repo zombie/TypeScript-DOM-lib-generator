@@ -59,12 +59,8 @@ function createTextWriter(newLine: string) {
     /** print declarations conflicting with base interface to a side list to write them under a diffrent name later */
     let stack: { content: string, indent: number }[] = [];
 
-    const indentStrings: string[] = ["", "    "];
     function getIndentString(level: number) {
-        if (indentStrings[level] === undefined) {
-            indentStrings[level] = getIndentString(level - 1) + indentStrings[1];
-        }
-        return indentStrings[level];
+        return "    ".repeat(level);
     }
 
     function write(s: string) {
@@ -90,13 +86,12 @@ function createTextWriter(newLine: string) {
     reset();
 
     return {
-        reset: reset,
+        reset,
 
-        resetIndent() { indent = 0; },
         increaseIndent() { indent++; },
         decreaseIndent() { indent--; },
 
-        endLine: endLine,
+        endLine,
         print: write,
         printLine(c: string) { write(c); endLine(); },
 
@@ -825,7 +820,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             .filter(i => i !== "Object")
             .map(processIName));
 
-        if (finalExtends && finalExtends.length) {
+        if (finalExtends.length) {
             printer.print(` extends ${finalExtends.join(", ")}`);
         }
         printer.print(" {");
@@ -911,7 +906,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.clearStack();
         emitInterfaceEventMap(i);
 
-        printer.resetIndent();
         emitInterfaceDeclaration(i);
         printer.increaseIndent();
 
@@ -945,7 +939,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         // Because in the two cases the interface contains different things, it might be easier to
         // read to separate them into two functions.
         function emitStaticInterfaceWithNonStaticMembers() {
-            printer.resetIndent();
             emitInterfaceDeclaration(i);
             printer.increaseIndent();
 
@@ -966,7 +959,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
 
         function emitPureStaticInterface() {
-            printer.resetIndent();
             emitInterfaceDeclaration(i);
             printer.increaseIndent();
 

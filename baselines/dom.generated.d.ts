@@ -539,9 +539,10 @@ interface IIRFilterOptions extends AudioNodeOptions {
 
 interface IntersectionObserverEntryInit {
     boundingClientRect: DOMRectInit;
+    intersectionRatio: number;
     intersectionRect: DOMRectInit;
     isIntersecting: boolean;
-    rootBounds: DOMRectInit;
+    rootBounds: DOMRectInit | null;
     target: Element;
     time: number;
 }
@@ -9399,7 +9400,7 @@ declare var ImageData: {
 interface IntersectionObserver {
     readonly root: Element | null;
     readonly rootMargin: string;
-    readonly thresholds: number[];
+    readonly thresholds: ReadonlyArray<number>;
     disconnect(): void;
     observe(target: Element): void;
     takeRecords(): IntersectionObserverEntry[];
@@ -9417,7 +9418,7 @@ interface IntersectionObserverEntry {
     readonly intersectionRatio: number;
     readonly intersectionRect: ClientRect | DOMRect;
     readonly isIntersecting: boolean;
-    readonly rootBounds: ClientRect | DOMRect;
+    readonly rootBounds: ClientRect | DOMRect | null;
     readonly target: Element;
     readonly time: number;
 }

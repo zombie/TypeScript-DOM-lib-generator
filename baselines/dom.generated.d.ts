@@ -392,6 +392,10 @@ interface EffectTiming {
     iterations?: number;
 }
 
+interface ElementCreationOptions {
+    is?: string;
+}
+
 interface ElementDefinitionOptions {
     extends?: string;
 }
@@ -1499,6 +1503,11 @@ interface TextDecoderOptions {
     ignoreBOM?: boolean;
 }
 
+interface TextEncoderEncodeIntoResult {
+    read?: number;
+    written?: number;
+}
+
 interface TouchEventInit extends EventModifierInit {
     changedTouches?: Touch[];
     targetTouches?: Touch[];
@@ -2282,11 +2291,6 @@ declare var BroadcastChannel: {
     new(name: string): BroadcastChannel;
 };
 
-interface BroadcastChannelEventMap {
-    message: MessageEvent;
-    messageerror: MessageEvent;
-}
-
 /** The ByteLengthQueuingStrategy interface of the the Streams API provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
     highWaterMark: number;
@@ -2527,33 +2531,34 @@ interface CSSStyleDeclaration {
     borderWidth: string | null;
     bottom: string | null;
     boxShadow: string | null;
-    boxSizing: string | null;
+    boxSizing: string;
     breakAfter: string | null;
     breakBefore: string | null;
     breakInside: string | null;
     captionSide: string | null;
+    caretColor: string;
     clear: string | null;
     clip: string | null;
     clipPath: string | null;
     clipRule: string | null;
     color: string | null;
     colorInterpolationFilters: string | null;
-    columnCount: any;
-    columnFill: string | null;
-    columnGap: any;
-    columnRule: string | null;
-    columnRuleColor: any;
-    columnRuleStyle: string | null;
-    columnRuleWidth: any;
-    columnSpan: string | null;
-    columnWidth: any;
-    columns: string | null;
+    columnCount: string;
+    columnFill: string;
+    columnGap: string;
+    columnRule: string;
+    columnRuleColor: string;
+    columnRuleStyle: string;
+    columnRuleWidth: string;
+    columnSpan: string;
+    columnWidth: string;
+    columns: string;
     content: string | null;
     counterIncrement: string | null;
     counterReset: string | null;
     cssFloat: string | null;
     cssText: string;
-    cursor: string | null;
+    cursor: string;
     direction: string | null;
     display: string | null;
     dominantBaseline: string | null;
@@ -2603,6 +2608,8 @@ interface CSSStyleDeclaration {
     gridTemplateColumns: string | null;
     gridTemplateRows: string | null;
     height: string | null;
+    imageOrientation: string;
+    imageRendering: string;
     imeMode: string | null;
     justifyContent: string | null;
     justifyItems: string | null;
@@ -2685,16 +2692,16 @@ interface CSSStyleDeclaration {
     msWrapFlow: string;
     msWrapMargin: any;
     msWrapThrough: string;
-    objectFit: string | null;
-    objectPosition: string | null;
+    objectFit: string;
+    objectPosition: string;
     opacity: string | null;
     order: string | null;
     orphans: string | null;
-    outline: string | null;
-    outlineColor: string | null;
-    outlineOffset: string | null;
-    outlineStyle: string | null;
-    outlineWidth: string | null;
+    outline: string;
+    outlineColor: string;
+    outlineOffset: string;
+    outlineStyle: string;
+    outlineWidth: string;
     overflow: string | null;
     overflowX: string | null;
     overflowY: string | null;
@@ -2742,7 +2749,7 @@ interface CSSStyleDeclaration {
     textJustify: string | null;
     textKashida: string | null;
     textKashidaSpace: string | null;
-    textOverflow: string | null;
+    textOverflow: string;
     textShadow: string | null;
     textTransform: string | null;
     textUnderlinePosition: string | null;
@@ -4147,7 +4154,7 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
     /**
      * Specifies the beginning and end of the document body.
      */
-    body: HTMLElement;
+    body: HTMLBodyElement | HTMLFrameSetElement;
     /**
      * Returns document's encoding.
      */
@@ -4366,10 +4373,6 @@ interface Document extends Node, NonElementParentNode, DocumentOrShadowRoot, Par
      */
     createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml", qualifiedName: string): HTMLElement;
     createElementNS<K extends keyof SVGElementTagNameMap>(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: K): SVGElementTagNameMap[K];
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "a"): SVGAElement;
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "script"): SVGScriptElement;
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "style"): SVGStyleElement;
-    createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: "title"): SVGTitleElement;
     createElementNS(namespaceURI: "http://www.w3.org/2000/svg", qualifiedName: string): SVGElement;
     createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): Element;
     createElementNS(namespace: string | null, qualifiedName: string, options?: string | ElementCreationOptions): Element;
@@ -4990,10 +4993,6 @@ interface ElementContentEditable {
     readonly isContentEditable: boolean;
 }
 
-interface ElementCreationOptions {
-    is?: string;
-}
-
 /** The ErrorEvent interface represents events providing information related to errors in scripts or in files. */
 interface ErrorEvent extends Event {
     readonly colno: number;
@@ -5362,6 +5361,18 @@ declare var GamepadPose: {
     prototype: GamepadPose;
     new(): GamepadPose;
 };
+
+interface GenericTransformStream {
+    readonly readable: ReadableStream;
+    /**
+     * Returns a writable stream which accepts string chunks and runs them through UTF-8's encoder before making them available to readable.
+     * Typically this will be used via the pipeThrough() method on a ReadableStream source.
+     * textReadable
+     * .pipeThrough(new TextEncoderStream())
+     * .pipeTo(byteWritable);
+     */
+    readonly writable: WritableStream;
+}
 
 /** The Geolocation interface represents an object able to programmatically obtain the position of the device. It gives Web content access to the location of the device. This allows a Web site or app to offer customized results based on the user's location. */
 interface Geolocation {
@@ -6989,7 +7000,10 @@ interface HTMLInputElement extends HTMLElement {
      * Returns the value of the data at the cursor's current position.
      */
     value: string;
-    valueAsDate: any;
+    /**
+     * Returns a Date object representing the form control's value, if applicable; otherwise, returns null. Can be set, to change the value. Throws an "InvalidStateError" DOMException if the control isn't date- or time-based.
+     */
+    valueAsDate: Date | null;
     /**
      * Returns the input field value as a number.
      */
@@ -10772,15 +10786,6 @@ interface NodeListOf<TNode extends Node> extends NodeList {
      */
     forEach(callbackfn: (value: TNode, key: number, parent: NodeListOf<TNode>) => void, thisArg?: any): void;
     [index: number]: TNode;
-}
-
-interface NodeSelector {
-    querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
-    querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
-    querySelector<E extends Element = Element>(selectors: string): E | null;
-    querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
-    querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
-    querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
 }
 
 interface NonDocumentTypeChildNode {
@@ -15081,23 +15086,10 @@ declare var Text: {
 };
 
 /** The TextDecoder interface represents a decoder for a specific method, that is a specific character encoding, like utf-8, iso-8859-2, koi8, cp1261, gbk, etc. A decoder takes a stream of bytes as input and emits a stream of code points. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
-interface TextDecoder {
+interface TextDecoder extends TextDecoderCommon {
     /**
-     * Returns encoding's name, lowercased.
-     */
-    readonly encoding: string;
-    /**
-     * Returns true if error mode is "fatal", and false
-     * otherwise.
-     */
-    readonly fatal: boolean;
-    /**
-     * Returns true if ignore BOM flag is set, and false otherwise.
-     */
-    readonly ignoreBOM: boolean;
-    /**
-     * Returns the result of running encoding's decoder. The
-     * method can be invoked zero or more times with options's stream set to
+     * Returns the result of running encoding's decoder.
+     * The method can be invoked zero or more times with options's stream set to
      * true, and then once without options's stream (or set to false), to process
      * a fragmented stream. If the invocation without options's stream (or set to
      * false) has no input, it's clearest to omit both arguments.
@@ -15116,21 +15108,47 @@ declare var TextDecoder: {
     new(label?: string, options?: TextDecoderOptions): TextDecoder;
 };
 
-/** TextEncoder takes a stream of code points as input and emits a stream of bytes. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
-interface TextEncoder {
-    /**
-     * Returns "utf-8".
-     */
+interface TextDecoderCommon {
     readonly encoding: string;
+    readonly fatal: boolean;
+    readonly ignoreBOM: boolean;
+}
+
+interface TextDecoderStream extends TextDecoderCommon, GenericTransformStream {
+}
+
+declare var TextDecoderStream: {
+    prototype: TextDecoderStream;
+    new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
+};
+
+/** TextEncoder takes a stream of code points as input and emits a stream of bytes. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
+interface TextEncoder extends TextEncoderCommon {
     /**
      * Returns the result of running UTF-8's encoder.
      */
     encode(input?: string): Uint8Array;
+    /**
+     * Runs the UTF-8 encoder on source, stores the result of that operation into destination, and returns the progress made as a dictionary whereby read is the number of converted code units of source and written is the number of bytes modified in destination.
+     */
+    encodeInto(source: string, destination: Uint8Array): TextEncoderEncodeIntoResult;
 }
 
 declare var TextEncoder: {
     prototype: TextEncoder;
     new(): TextEncoder;
+};
+
+interface TextEncoderCommon {
+    readonly encoding: string;
+}
+
+interface TextEncoderStream extends TextEncoderCommon, GenericTransformStream {
+}
+
+declare var TextEncoderStream: {
+    prototype: TextEncoderStream;
+    new(): TextEncoderStream;
 };
 
 interface TextEvent extends UIEvent {
@@ -17036,6 +17054,7 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    [index: number]: Window;
 }
 
 declare var Window: {
@@ -17460,6 +17479,123 @@ declare var webkitRTCPeerConnection: {
 
 declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 
+declare namespace WebAssembly {
+    interface CompileError {
+    }
+    
+    var CompileError: {
+        prototype: CompileError;
+        new(): CompileError;
+    };
+    
+    interface Global {
+        value: any;
+        valueOf(): any;
+    }
+    
+    var Global: {
+        prototype: Global;
+        new(descriptor: GlobalDescriptor, value?: any): Global;
+    };
+    
+    interface Instance {
+        readonly exports: any;
+    }
+    
+    var Instance: {
+        prototype: Instance;
+        new(module: Module, importObject?: any): Instance;
+    };
+    
+    interface LinkError {
+    }
+    
+    var LinkError: {
+        prototype: LinkError;
+        new(): LinkError;
+    };
+    
+    interface Memory {
+        readonly buffer: ArrayBuffer;
+        grow(delta: number): number;
+    }
+    
+    var Memory: {
+        prototype: Memory;
+        new(descriptor: MemoryDescriptor): Memory;
+    };
+    
+    interface Module {
+    }
+    
+    var Module: {
+        prototype: Module;
+        new(bytes: BufferSource): Module;
+        customSections(module: Module, sectionName: string): ArrayBuffer[];
+        exports(module: Module): ModuleExportDescriptor[];
+        imports(module: Module): ModuleImportDescriptor[];
+    };
+    
+    interface RuntimeError {
+    }
+    
+    var RuntimeError: {
+        prototype: RuntimeError;
+        new(): RuntimeError;
+    };
+    
+    interface Table {
+        readonly length: number;
+        get(index: number): Function | null;
+        grow(delta: number): number;
+        set(index: number, value: Function | null): void;
+    }
+    
+    var Table: {
+        prototype: Table;
+        new(descriptor: TableDescriptor): Table;
+    };
+    
+    interface GlobalDescriptor {
+        mutable?: boolean;
+        value: string;
+    }
+    
+    interface MemoryDescriptor {
+        initial: number;
+        maximum?: number;
+    }
+    
+    interface ModuleExportDescriptor {
+        kind: ImportExportKind;
+        name: string;
+    }
+    
+    interface ModuleImportDescriptor {
+        kind: ImportExportKind;
+        module: string;
+        name: string;
+    }
+    
+    interface TableDescriptor {
+        element: TableKind;
+        initial: number;
+        maximum?: number;
+    }
+    
+    interface WebAssemblyInstantiatedSource {
+        instance: Instance;
+        module: Module;
+    }
+    
+    type ImportExportKind = "function" | "table" | "memory" | "global";
+    type TableKind = "anyfunc";
+    function compile(bytes: BufferSource): Promise<Module>;
+    function instantiate(bytes: BufferSource, importObject?: any): Promise<WebAssemblyInstantiatedSource>;
+    function instantiate(moduleObject: Module, importObject?: any): Promise<Instance>;
+    function validate(bytes: BufferSource): boolean;
+}
+
 interface BlobCallback {
     (blob: Blob | null): void;
 }
@@ -17716,6 +17852,7 @@ interface HTMLElementDeprecatedTagNameMap {
 }
 
 interface SVGElementTagNameMap {
+    "a": SVGAElement;
     "circle": SVGCircleElement;
     "clipPath": SVGClipPathElement;
     "defs": SVGDefsElement;
@@ -17760,19 +17897,22 @@ interface SVGElementTagNameMap {
     "polyline": SVGPolylineElement;
     "radialGradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
+    "script": SVGScriptElement;
     "stop": SVGStopElement;
+    "style": SVGStyleElement;
     "svg": SVGSVGElement;
     "switch": SVGSwitchElement;
     "symbol": SVGSymbolElement;
     "text": SVGTextElement;
     "textPath": SVGTextPathElement;
+    "title": SVGTitleElement;
     "tspan": SVGTSpanElement;
     "use": SVGUseElement;
     "view": SVGViewElement;
 }
 
 /** @deprecated Directly use HTMLElementTagNameMap or SVGElementTagNameMap as appropriate, instead. */
-interface ElementTagNameMap extends HTMLElementTagNameMap, SVGElementTagNameMap { }
+type ElementTagNameMap = HTMLElementTagNameMap & Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, keyof HTMLElementTagNameMap>>;
 
 declare var Audio: {
     new(src?: string): HTMLAudioElement;

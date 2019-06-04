@@ -2684,7 +2684,7 @@ interface CSSStyleDeclaration {
     cssFloat: string | null;
     cssText: string;
     cursor: string;
-    direction: string | null;
+    direction: string;
     display: string | null;
     dominantBaseline: string | null;
     emptyCells: string | null;
@@ -2720,7 +2720,7 @@ interface CSSStyleDeclaration {
     fontWeight: string;
     gap: string;
     glyphOrientationHorizontal: string | null;
-    glyphOrientationVertical: string | null;
+    glyphOrientationVertical: string;
     grid: string | null;
     gridArea: string | null;
     gridAutoColumns: string | null;
@@ -2878,7 +2878,7 @@ interface CSSStyleDeclaration {
     textAlign: string | null;
     textAlignLast: string | null;
     textAnchor: string | null;
-    textCombineUpright: string | null;
+    textCombineUpright: string;
     textDecoration: string;
     textDecorationColor: string;
     textDecorationLine: string;
@@ -2891,6 +2891,7 @@ interface CSSStyleDeclaration {
     textJustify: string | null;
     textKashida: string | null;
     textKashidaSpace: string | null;
+    textOrientation: string;
     textOverflow: string;
     textShadow: string;
     textTransform: string | null;
@@ -2907,7 +2908,7 @@ interface CSSStyleDeclaration {
     transitionProperty: string;
     transitionTimingFunction: string;
     translate: string | null;
-    unicodeBidi: string | null;
+    unicodeBidi: string;
     userSelect: string | null;
     verticalAlign: string | null;
     visibility: string | null;
@@ -3071,7 +3072,7 @@ interface CSSStyleDeclaration {
     wordBreak: string | null;
     wordSpacing: string | null;
     wordWrap: string | null;
-    writingMode: string | null;
+    writingMode: string;
     zIndex: string | null;
     zoom: string | null;
     getPropertyPriority(propertyName: string): string;

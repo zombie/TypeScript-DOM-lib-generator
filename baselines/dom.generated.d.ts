@@ -2836,6 +2836,7 @@ interface CSSStyleDeclaration {
     outlineStyle: string;
     outlineWidth: string;
     overflow: string | null;
+    overflowAnchor: string;
     overflowWrap: string;
     overflowX: string | null;
     overflowY: string | null;
@@ -2857,7 +2858,7 @@ interface CSSStyleDeclaration {
     pointerEvents: string | null;
     position: string | null;
     quotes: string | null;
-    resize: string | null;
+    resize: string;
     right: string | null;
     rotate: string | null;
     rowGap: string;
@@ -2912,7 +2913,7 @@ interface CSSStyleDeclaration {
     transitionTimingFunction: string;
     translate: string | null;
     unicodeBidi: string;
-    userSelect: string | null;
+    userSelect: string;
     verticalAlign: string | null;
     visibility: string | null;
     /** @deprecated */

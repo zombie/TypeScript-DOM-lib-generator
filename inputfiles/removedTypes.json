@@ -238,7 +238,10 @@
                         "ontouchmove": null,
                         "ontouchstart": null
                     }
-                }
+                },
+                "implements": [
+                    "GlobalFetch"
+                ]
             },
             "WheelEvent": {
                 "properties": {
@@ -248,6 +251,11 @@
                         "wheelDeltaY": null
                     }
                 }
+            },
+            "WorkerGlobalScope": {
+                "implements": [
+                    "GlobalFetch"
+                ]
             },
             "XPathEvaluator": {
                 "methods": {

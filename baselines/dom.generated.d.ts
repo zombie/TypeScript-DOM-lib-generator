@@ -2595,9 +2595,9 @@ declare var CSSRuleList: {
 
 /** An object that is a CSS declaration block, and exposes style information and various style-related methods and properties. */
 interface CSSStyleDeclaration {
-    alignContent: string | null;
-    alignItems: string | null;
-    alignSelf: string | null;
+    alignContent: string;
+    alignItems: string;
+    alignSelf: string;
     alignmentBaseline: string | null;
     animation: string;
     animationDelay: string;
@@ -2718,7 +2718,7 @@ interface CSSStyleDeclaration {
     fontVariantNumeric: string;
     fontVariantPosition: string;
     fontWeight: string;
-    gap: string | null;
+    gap: string;
     glyphOrientationHorizontal: string | null;
     glyphOrientationVertical: string | null;
     grid: string | null;
@@ -2728,12 +2728,12 @@ interface CSSStyleDeclaration {
     gridAutoRows: string | null;
     gridColumn: string | null;
     gridColumnEnd: string | null;
-    gridColumnGap: string | null;
+    gridColumnGap: string;
     gridColumnStart: string | null;
-    gridGap: string | null;
+    gridGap: string;
     gridRow: string | null;
     gridRowEnd: string | null;
-    gridRowGap: string | null;
+    gridRowGap: string;
     gridRowStart: string | null;
     gridTemplate: string | null;
     gridTemplateAreas: string | null;
@@ -2743,9 +2743,9 @@ interface CSSStyleDeclaration {
     imageOrientation: string;
     imageRendering: string;
     imeMode: string | null;
-    justifyContent: string | null;
-    justifyItems: string | null;
-    justifySelf: string | null;
+    justifyContent: string;
+    justifyItems: string;
+    justifySelf: string;
     kerning: string | null;
     layoutGrid: string | null;
     layoutGridChar: string | null;
@@ -2849,13 +2849,16 @@ interface CSSStyleDeclaration {
     penAction: string | null;
     perspective: string | null;
     perspectiveOrigin: string | null;
+    placeContent: string;
+    placeItems: string;
+    placeSelf: string;
     pointerEvents: string | null;
     position: string | null;
     quotes: string | null;
     resize: string | null;
     right: string | null;
     rotate: string | null;
-    rowGap: string | null;
+    rowGap: string;
     rubyAlign: string | null;
     rubyOverhang: string | null;
     rubyPosition: string | null;

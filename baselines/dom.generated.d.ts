@@ -1714,14 +1714,15 @@ interface WebAuthnExtensions {
 }
 
 interface WebGLContextAttributes {
-    alpha?: GLboolean;
-    antialias?: GLboolean;
-    depth?: GLboolean;
+    alpha?: boolean;
+    antialias?: boolean;
+    depth?: boolean;
+    desynchronized?: boolean;
     failIfMajorPerformanceCaveat?: boolean;
     powerPreference?: WebGLPowerPreference;
-    premultipliedAlpha?: GLboolean;
-    preserveDrawingBuffer?: GLboolean;
-    stencil?: GLboolean;
+    premultipliedAlpha?: boolean;
+    preserveDrawingBuffer?: boolean;
+    stencil?: boolean;
 }
 
 interface WebGLContextEventInit extends EventInit {
@@ -1926,6 +1927,11 @@ declare var AnimationEvent: {
     prototype: AnimationEvent;
     new(type: string, animationEventInitDict?: AnimationEventInit): AnimationEvent;
 };
+
+interface AnimationFrameProvider {
+    cancelAnimationFrame(handle: number): void;
+    requestAnimationFrame(callback: FrameRequestCallback): number;
+}
 
 interface AnimationPlaybackEvent extends Event {
     readonly currentTime: number | null;
@@ -5345,6 +5351,11 @@ interface External {
     /** @deprecated */
     IsSearchProviderInstalled(): void;
 }
+
+declare var External: {
+    prototype: External;
+    new(): External;
+};
 
 /** Provides information about files and allows JavaScript in a web page to access their content. */
 interface File extends Blob {
@@ -16599,7 +16610,7 @@ declare var WebGLRenderingContext: {
 };
 
 interface WebGLRenderingContextBase {
-    readonly canvas: HTMLCanvasElement;
+    readonly canvas: HTMLCanvasElement | OffscreenCanvas;
     readonly drawingBufferHeight: GLsizei;
     readonly drawingBufferWidth: GLsizei;
     activeTexture(texture: GLenum): void;
@@ -17275,7 +17286,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
 }
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, WindowOrWorkerGlobalScope, WindowEventHandlers {
+interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64, AnimationFrameProvider, WindowOrWorkerGlobalScope, WindowEventHandlers {
     Blob: typeof Blob;
     TextDecoder: typeof TextDecoder;
     TextEncoder: typeof TextEncoder;
@@ -17370,7 +17381,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     readonly window: Window;
     alert(message?: any): void;
     blur(): void;
-    cancelAnimationFrame(handle: number): void;
     /** @deprecated */
     captureEvents(): void;
     close(): void;
@@ -17390,7 +17400,6 @@ interface Window extends EventTarget, WindowTimers, WindowSessionStorage, Window
     prompt(message?: string, _default?: string): string | null;
     /** @deprecated */
     releaseEvents(): void;
-    requestAnimationFrame(callback: FrameRequestCallback): number;
     resizeBy(x: number, y: number): void;
     resizeTo(x: number, y: number): void;
     scroll(options?: ScrollToOptions): void;
@@ -18366,7 +18375,6 @@ declare var top: Window;
 declare var window: Window;
 declare function alert(message?: any): void;
 declare function blur(): void;
-declare function cancelAnimationFrame(handle: number): void;
 /** @deprecated */
 declare function captureEvents(): void;
 declare function close(): void;
@@ -18386,7 +18394,6 @@ declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */
 declare function releaseEvents(): void;
-declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare function resizeBy(x: number, y: number): void;
 declare function resizeTo(x: number, y: number): void;
 declare function scroll(options?: ScrollToOptions): void;
@@ -18677,6 +18684,8 @@ declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var indexedDB: IDBFactory;
 declare function atob(encodedString: string): string;
 declare function btoa(rawString: string): string;
+declare function cancelAnimationFrame(handle: number): void;
+declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare var caches: CacheStorage;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
@@ -18749,7 +18758,7 @@ type GLsizeiptr = number;
 type GLuint = number;
 type GLfloat = number;
 type GLclampf = number;
-type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
+type TexImageSource = ImageBitmap | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | OffscreenCanvas;
 type Float32List = Float32Array | GLfloat[];
 type Int32List = Int32Array | GLint[];
 type BufferSource = ArrayBufferView | ArrayBuffer;

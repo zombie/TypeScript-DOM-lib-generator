@@ -1083,19 +1083,6 @@
                     }
                 }
             },
-            "Performance": {
-                "name": "Performance",
-                "properties": {
-                    "events": {
-                        "event": [
-                            {
-                                "name": "resourcetimingbufferfull",
-                                "type": "Event"
-                            }
-                        ]
-                    }
-                }
-            },
             "KeyboardEvent": {
                 "name": "KeyboardEvent",
                 "properties": {

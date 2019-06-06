@@ -246,6 +246,12 @@
                         "ontouchstart": null
                     }
                 },
+                "methods": {
+                    "method": {
+                        "cancelAnimationFrame": null,
+                        "requestAnimationFrame": null
+                    }
+                },
                 "implements": [
                     "GlobalFetch"
                 ]

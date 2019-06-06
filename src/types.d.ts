@@ -166,6 +166,7 @@ export interface Interface {
     }
     properties?: {
         property: Record<string, Property>;
+        namesakes?: Record<string, Property[]>;
     }
     constructor?: Constructor;
     "secure-context"?: 1;

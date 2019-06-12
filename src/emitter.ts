@@ -226,6 +226,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             return ehParents;
         }
 
+        if (!i.name) {
+            throw new Error("Unexpected nameless object: " + JSON.stringify(i));
+        }
+
         const iExtends = i.extends && i.extends.replace(/<.*>$/, '');
         const parentWithEventHandler = allInterfacesMap[iExtends] && getParentEventHandler(allInterfacesMap[iExtends]) || [];
         const mixinsWithEventHandler = flatMap(i.implements || [], i => getParentEventHandler(allInterfacesMap[i]));
@@ -245,19 +249,26 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function getEventTypeInInterface(eName: string, i: Browser.Interface) {
+        function getGenericEventType(baseName: string) {
+            if (baseName === "ProgressEvent" && !i.mixin) {
+                return `${baseName}<${i.name}>`;
+            }
+            return baseName;
+        }
+
         if (i.events) {
             const event = i.events.event.find(e => e.name === eName);
             if (event && event.type) {
-                return event.type;
+                return getGenericEventType(event.type);
             }
         }
         if (i["attributeless-events"]) {
             const event = i["attributeless-events"].event.find(e => e.name === eName);
             if (event && event.type) {
-                return event.type;
+                return getGenericEventType(event.type);
             }
         }
-        return eNameToEType[eName] || "Event";
+        return getGenericEventType(eNameToEType[eName]) || "Event";
     }
 
     /// Determine if interface1 depends on interface2
@@ -394,14 +405,17 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             expectedParamType.every((pt, idx) => convertDomTypeToTsType(m.signature[0].param![idx]) === pt);
     }
 
-    function processInterfaceType(i: Browser.Interface | Browser.Dictionary | Browser.CallbackFunction, name: string) {
+    function getNameWithTypeParameter(i: Browser.Interface | Browser.Dictionary | Browser.CallbackFunction, name: string) {
         function typeParameterWithDefault(type: Browser.TypeParameter) {
-            return `${type.name}`
-                + (type.extends ? ` extends ${type.extends}` : ``)
-                + (type.default ? ` = ${type.default}` : ``)
+            return type.name
+                + (type.extends ? ` extends ${type.extends}` : "")
+                + (type.default ? ` = ${type.default}` : "");
         }
 
-        return i["type-parameters"] ? name + "<" + i["type-parameters"]!.map(typeParameterWithDefault).join(", ") + ">" : name;
+        if (!i["type-parameters"]) {
+            return name;
+        }
+        return `${name}<${i["type-parameters"]!.map(typeParameterWithDefault).join(", ")}>`;
     }
 
     /// Emit overloads for the createElement method
@@ -533,7 +547,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
-        printer.printLine(`interface ${processInterfaceType(cb, cb.name)} {`);
+        printer.printLine(`interface ${getNameWithTypeParameter(cb, cb.name)} {`);
         printer.increaseIndent();
         emitSignatures(cb, "", "", printer.printLine);
         printer.decreaseIndent();
@@ -697,7 +711,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         const value = subtype[subtype.length - 1];
         const key = subtype.length > 1 ? subtype[0] :
             i.iterator.kind === "iterable" ? "number" : value;
-        const name = i.name.replace(/ extends \w+/, "");
+        const name = i["type-parameters"] ? `${i.name}<${i["type-parameters"]!.map(p => p.name).join(", ")}>` : i.name;
         printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`);
     }
 
@@ -824,14 +838,14 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         const processedIName = processIName(i.name);
 
         if (processedIName !== i.name) {
-            printer.printLineToStack(`interface ${processInterfaceType(i, i.name)} extends ${processedIName} {`);
+            printer.printLineToStack(`interface ${getNameWithTypeParameter(i, i.name)} extends ${processedIName} {`);
         }
 
         if (i.comment) {
             printer.printLine(`/** ${i.comment} */`);
         }
 
-        printer.print(`interface ${processInterfaceType(i, processedIName)}`);
+        printer.print(`interface ${getNameWithTypeParameter(i, processedIName)}`);
 
         const finalExtends = distinct([i.extends || "Object"].concat(i.implements || [])
             .filter(i => i !== "Object")
@@ -1047,10 +1061,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitDictionary(dict: Browser.Dictionary) {
         if (!dict.extends || dict.extends === "Object") {
-            printer.printLine(`interface ${processInterfaceType(dict, dict.name)} {`);
+            printer.printLine(`interface ${getNameWithTypeParameter(dict, dict.name)} {`);
         }
         else {
-            printer.printLine(`interface ${processInterfaceType(dict, dict.name)} extends ${dict.extends} {`);
+            printer.printLine(`interface ${getNameWithTypeParameter(dict, dict.name)} extends ${dict.extends} {`);
         }
         printer.increaseIndent();
         if (dict.members) {
@@ -1266,7 +1280,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         if (subtypes || methodsWithSequence.length) {
             const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
-            const name = extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name;
+            const name = getNameWithTypeParameter(i, extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name);
             printer.printLine("");
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();

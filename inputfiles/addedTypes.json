@@ -599,8 +599,14 @@
                     }
                 }
             },
-            "NodeListOf<TNode extends Node>": {
-                "name": "NodeListOf<TNode extends Node>",
+            "NodeListOf": {
+                "name": "NodeListOf",
+                "type-parameters": [
+                    {
+                        "name": "TNode",
+                        "extends": "Node"
+                    }
+                ],
                 "exposed": "Window",
                 "extends": "NodeList",
                 "properties": {
@@ -634,8 +640,14 @@
                     ]
                 }
             },
-            "HTMLCollectionOf<T extends Element>": {
-                "name": "HTMLCollectionOf<T extends Element>",
+            "HTMLCollectionOf": {
+                "name": "HTMLCollectionOf",
+                "type-parameters": [
+                    {
+                        "name": "T",
+                        "extends": "Element"
+                    }
+                ],
                 "exposed": "Window",
                 "extends": "HTMLCollection",
                 "methods": {
@@ -2177,17 +2189,21 @@
                     }
                 }
             },
-            "FileReaderProgressEvent": {
-                "name": "FileReaderProgressEvent",
-                "extends": "ProgressEvent",
-                "no-interface-object": 1,
+            "ProgressEvent": {
+                "type-parameters": [
+                    {
+                        "name": "T",
+                        "extends": "EventTarget",
+                        "default": "EventTarget"
+                    }
+                ],
                 "properties": {
                     "property": {
                         "target": {
                             "name": "target",
                             "read-only": 1,
                             "nullable": 1,
-                            "type": "FileReader"
+                            "override-type": "T"
                         }
                     }
                 }

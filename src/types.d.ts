@@ -150,6 +150,7 @@ export interface TypeParameter {
 
 export interface Interface {
     name: string;
+    mixin?: boolean;
     extends: string;
     comment?: string;
     constants?: {

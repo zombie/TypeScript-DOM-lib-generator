@@ -1262,7 +1262,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
                     signature: replaceTypedefsInSignatures(m.signature.filter(hasSequenceArgument))
                 }))
                 .filter(m => m.signature.length)
-                .sort();
+                .sort(compareName);
 
         if (subtypes || methodsWithSequence.length) {
             const iteratorExtends = getIteratorExtends(i.iterator, subtypes);

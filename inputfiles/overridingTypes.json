@@ -2740,6 +2740,53 @@
                         }
                     }
                 }
+            },
+            "Navigator": {
+                "implements": [
+                    "MSFileSaver",
+                    "MSNavigatorDoNotTrack",
+                    "NavigatorBeacon"
+                ],
+                "methods": {
+                    "method": {
+                        "getVRDisplays": {
+                            "name": "getVRDisplays",
+                            "override-signatures": [
+                                "getVRDisplays(): Promise<VRDisplay[]>"
+                            ]
+                        },
+                        "msLaunchUri": {
+                            "name": "msLaunchUri",
+                            "override-signatures": [
+                                "msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void"
+                            ]
+                        }
+                    }
+                },
+                "properties": {
+                    "property": {
+                        "activeVRDisplays": {
+                            "name": "activeVRDisplays",
+                            "override-type": "ReadonlyArray<VRDisplay>",
+                            "read-only": 1
+                        },
+                        "msManipulationViewsEnabled": {
+                            "name": "msManipulationViewsEnabled",
+                            "override-type": "boolean",
+                            "read-only": 1
+                        },
+                        "msMaxTouchPoints": {
+                            "name": "msMaxTouchPoints",
+                            "override-type": "number",
+                            "read-only": 1
+                        },
+                        "msPointerEnabled": {
+                            "name": "msPointerEnabled",
+                            "override-type": "boolean",
+                            "read-only": 1
+                        }
+                    }
+                }
             }
         }
     },

@@ -10631,9 +10631,21 @@ declare var MessagePort: {
 
 /** Provides contains information about a MIME type associated with a particular plugin. NavigatorPlugins.mimeTypes returns an array of this object. */
 interface MimeType {
+    /**
+     * Returns the MIME type's description.
+     */
     readonly description: string;
+    /**
+     * Returns the Plugin object that implements this MIME type.
+     */
     readonly enabledPlugin: Plugin;
+    /**
+     * Returns the MIME type's typical file extensions, in a comma-separated list.
+     */
     readonly suffixes: string;
+    /**
+     * Returns the MIME type.
+     */
     readonly type: string;
 }
 
@@ -10645,9 +10657,9 @@ declare var MimeType: {
 /** Returns an array of MimeType instances, each of which contains information about a supported browser plugins. This object is returned by NavigatorPlugins.mimeTypes. */
 interface MimeTypeArray {
     readonly length: number;
-    item(index: number): Plugin;
-    namedItem(type: string): Plugin;
-    [index: number]: Plugin;
+    item(index: number): MimeType | null;
+    namedItem(name: string): MimeType | null;
+    [index: number]: MimeType;
 }
 
 declare var MimeTypeArray: {
@@ -10805,30 +10817,23 @@ declare var NavigationPreloadManager: {
 };
 
 /** The state and the identity of the user agent. It allows scripts to query it and to register themselves to carry on some activities. */
-interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils, NavigatorStorageUtils, MSNavigatorDoNotTrack, MSFileSaver, NavigatorBeacon, NavigatorConcurrentHardware, NavigatorUserMedia, NavigatorLanguage, NavigatorStorage, NavigatorAutomationInformation {
+interface Navigator extends NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorContentUtils, NavigatorCookies, NavigatorPlugins, NavigatorConcurrentHardware, NavigatorStorage, NavigatorAutomationInformation, MSFileSaver, MSNavigatorDoNotTrack, NavigatorBeacon {
     readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
-    readonly authentication: WebAuthentication;
     readonly clipboard: Clipboard;
-    readonly cookieEnabled: boolean;
     readonly credentials: CredentialsContainer;
     readonly doNotTrack: string | null;
-    gamepadInputEmulation: GamepadInputEmulationType;
     readonly geolocation: Geolocation;
     readonly maxTouchPoints: number;
     readonly mediaDevices: MediaDevices;
-    readonly mimeTypes: MimeTypeArray;
     readonly msManipulationViewsEnabled: boolean;
     readonly msMaxTouchPoints: number;
     readonly msPointerEnabled: boolean;
     readonly permissions: Permissions;
-    readonly plugins: PluginArray;
     readonly pointerEnabled: boolean;
     readonly serviceWorker: ServiceWorkerContainer;
-    readonly webdriver: boolean;
     getGamepads(): (Gamepad | null)[];
     getUserMedia(constraints: MediaStreamConstraints, successCallback: NavigatorUserMediaSuccessCallback, errorCallback: NavigatorUserMediaErrorCallback): void;
     getVRDisplays(): Promise<VRDisplay[]>;
-    javaEnabled(): boolean;
     msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void;
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: MediaKeySystemConfiguration[]): Promise<MediaKeySystemAccess>;
     vibrate(pattern: number | number[]): boolean;
@@ -10852,18 +10857,26 @@ interface NavigatorConcurrentHardware {
 }
 
 interface NavigatorContentUtils {
+    registerProtocolHandler(scheme: string, url: string, title: string): void;
+    unregisterProtocolHandler(scheme: string, url: string): void;
+}
+
+interface NavigatorCookies {
+    readonly cookieEnabled: boolean;
 }
 
 interface NavigatorID {
     readonly appCodeName: string;
     readonly appName: string;
     readonly appVersion: string;
+    readonly oscpu: string;
     readonly platform: string;
     readonly product: string;
     readonly productSub: string;
     readonly userAgent: string;
     readonly vendor: string;
     readonly vendorSub: string;
+    taintEnabled(): boolean;
 }
 
 interface NavigatorLanguage {
@@ -10875,17 +10888,14 @@ interface NavigatorOnLine {
     readonly onLine: boolean;
 }
 
+interface NavigatorPlugins {
+    readonly mimeTypes: MimeTypeArray;
+    readonly plugins: PluginArray;
+    javaEnabled(): boolean;
+}
+
 interface NavigatorStorage {
     readonly storage: StorageManager;
-}
-
-interface NavigatorStorageUtils {
-}
-
-interface NavigatorUserMedia {
-    readonly mediaDevices: MediaDevices;
-    getDisplayMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
-    getUserMedia(constraints: MediaStreamConstraints, successCallback: NavigatorUserMediaSuccessCallback, errorCallback: NavigatorUserMediaErrorCallback): void;
 }
 
 /** Node is an interface from which a number of DOM API object types inherit. It allows those types to be treated similarly; for example, inheriting the same set of methods, or being tested in the same way. */
@@ -11839,13 +11849,27 @@ declare var Permissions: {
 
 /** Provides information about a browser plugin. */
 interface Plugin {
+    /**
+     * Returns the plugin's description.
+     */
     readonly description: string;
+    /**
+     * Returns the plugin library's filename, if applicable on the current platform.
+     */
     readonly filename: string;
+    /**
+     * Returns the number of MIME types, represented by MimeType objects, supported by the plugin.
+     */
     readonly length: number;
+    /**
+     * Returns the plugin's name.
+     */
     readonly name: string;
-    readonly version: string;
-    item(index: number): MimeType;
-    namedItem(type: string): MimeType;
+    /**
+     * Returns the specified MimeType object.
+     */
+    item(index: number): MimeType | null;
+    namedItem(name: string): MimeType | null;
     [index: number]: MimeType;
 }
 
@@ -11857,8 +11881,8 @@ declare var Plugin: {
 /** Used to store a list of Plugin objects describing the available plugins; it's returned by the window.navigator.plugins property. The PluginArray is not a JavaScript array, but has the length property and supports accessing individual items using bracket notation (plugins[2]), as well as via item(index) and namedItem("name") methods. */
 interface PluginArray {
     readonly length: number;
-    item(index: number): Plugin;
-    namedItem(name: string): Plugin;
+    item(index: number): Plugin | null;
+    namedItem(name: string): Plugin | null;
     refresh(reload?: boolean): void;
     [index: number]: Plugin;
 }
@@ -19986,7 +20010,6 @@ type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type FullscreenNavigationUI = "auto" | "show" | "hide";
 type GamepadHand = "" | "left" | "right";
 type GamepadHapticActuatorType = "vibration";
-type GamepadInputEmulationType = "mouse" | "keyboard" | "gamepad";
 type GamepadMappingType = "" | "standard";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "pending" | "done";

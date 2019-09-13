@@ -2264,6 +2264,55 @@
             {
                 "new-type": "WindowProxy",
                 "type": "Window"
+            },
+            {
+                "new-type": "ExportValue",
+                "legacy-namespace": "WebAssembly",
+                "override-type": "Function | Global | Memory | Table"
+            },
+            {
+                "new-type": "Exports",
+                "legacy-namespace": "WebAssembly",
+                "type": "record",
+                "subtype": [
+                    {
+                        "type": "DOMString"
+                    },
+                    {
+                        "type": "ExportValue"
+                    }
+                ]
+            },
+            {
+                "new-type": "ImportValue",
+                "legacy-namespace": "WebAssembly",
+                "override-type": "ExportValue | number"
+            },
+            {
+                "new-type": "ModuleImports",
+                "legacy-namespace": "WebAssembly",
+                "type": "record",
+                "subtype": [
+                    {
+                        "type": "DOMString"
+                    },
+                    {
+                        "type": "ImportValue"
+                    }
+                ]
+            },
+            {
+                "new-type": "Imports",
+                "legacy-namespace": "WebAssembly",
+                "type": "record",
+                "subtype": [
+                    {
+                        "type": "DOMString"
+                    },
+                    {
+                        "type": "ModuleImports"
+                    }
+                ]
             }
         ]
     }

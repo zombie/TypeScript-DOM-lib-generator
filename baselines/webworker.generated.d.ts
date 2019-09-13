@@ -5604,7 +5604,7 @@ declare namespace WebAssembly {
     };
     
     interface Instance {
-        readonly exports: any;
+        readonly exports: Exports;
     }
     
     var Instance: {
@@ -5679,10 +5679,16 @@ declare namespace WebAssembly {
     
     type ImportExportKind = "function" | "table" | "memory" | "global";
     type TableKind = "anyfunc";
+    type ValueType = "i32" | "i64" | "f32" | "f64";
+    type ExportValue = Function | Global | Memory | Table;
+    type Exports = Record<string, ExportValue>;
+    type ImportValue = ExportValue | number;
+    type ModuleImports = Record<string, ImportValue>;
+    type Imports = Record<string, ModuleImports>;
     function compile(bytes: BufferSource): Promise<Module>;
     function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
-    function instantiate(bytes: BufferSource, importObject?: any): Promise<WebAssemblyInstantiatedSource>;
-    function instantiate(moduleObject: Module, importObject?: any): Promise<Instance>;
+    function instantiate(bytes: BufferSource, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
+    function instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>;
     function instantiateStreaming(source: Response | Promise<Response>, importObject?: any): Promise<WebAssemblyInstantiatedSource>;
     function validate(bytes: BufferSource): boolean;
 }
@@ -5857,7 +5863,6 @@ type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
 type ServiceWorkerUpdateViaCache = "imports" | "all" | "none";
-type ValueType = "i32" | "i64" | "f32" | "f64";
 type VisibilityState = "hidden" | "visible" | "prerender";
 type WebGLPowerPreference = "default" | "low-power" | "high-performance";
 type WorkerType = "classic" | "module";

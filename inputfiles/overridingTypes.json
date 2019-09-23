@@ -312,6 +312,9 @@
             },
             "TableKind": {
                 "legacy-namespace": "WebAssembly"
+            },
+            "ValueType": {
+                "legacy-namespace": "WebAssembly"
             }
         }
     },
@@ -2802,6 +2805,15 @@
                         }
                     }
                 }
+            },
+            "Instance": {
+                "properties": {
+                    "property": {
+                        "exports": {
+                            "type": "Exports"
+                        }
+                    }
+                }
             }
         }
     },
@@ -3190,5 +3202,25 @@
                 "new-type": "BodyInit"
             }
         ]
-    }
+    },
+    "namespaces": [
+        {
+            "name": "WebAssembly",
+            "methods": {
+                "method": {
+                    "instantiate": {
+                        "override-signatures": [
+                            "instantiate(bytes: BufferSource, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>",
+                            "instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>"
+                        ],
+                        "force-references": [
+                            {
+                                "type": "Imports"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
 }

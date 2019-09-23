@@ -3218,6 +3218,16 @@
                                 "type": "Imports"
                             }
                         ]
+                    },
+                    "instantiateStreaming": {
+                        "override-signatures": [
+                            "instantiateStreaming(response: Response | PromiseLike<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>"
+                        ],
+                        "force-references": [
+                            {
+                                "type": "Imports"
+                            }
+                        ]
                     }
                 }
             }

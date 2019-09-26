@@ -89,7 +89,7 @@
                         "borderLimit": null,
                         "borderStartEndRadius": null,
                         "borderStartStartRadius": null,
-                        "blockOverflow": null,
+                        "boxDecorationBreak": null,
                         "continue": null,
                         "cornerShape": null,
                         "corners": null,

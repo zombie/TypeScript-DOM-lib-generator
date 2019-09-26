@@ -2806,9 +2806,9 @@ interface CSSStyleDeclaration {
     bottom: string;
     boxShadow: string;
     boxSizing: string;
-    breakAfter: string | null;
-    breakBefore: string | null;
-    breakInside: string | null;
+    breakAfter: string;
+    breakBefore: string;
+    breakInside: string;
     captionSide: string;
     caretColor: string;
     clear: string;

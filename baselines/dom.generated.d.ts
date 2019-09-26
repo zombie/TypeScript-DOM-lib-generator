@@ -5249,8 +5249,8 @@ interface Element extends Node, Animatable, ChildNode, InnerHTML, NonDocumentTyp
     getAttributeNames(): string[];
     getAttributeNode(name: string): Attr | null;
     getAttributeNodeNS(namespaceURI: string, localName: string): Attr | null;
-    getBoundingClientRect(): ClientRect | DOMRect;
-    getClientRects(): ClientRectList | DOMRectList;
+    getBoundingClientRect(): DOMRect;
+    getClientRects(): DOMRectList;
     /**
      * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
      */
@@ -9807,11 +9807,11 @@ declare var IntersectionObserver: {
 
 /** This Intersection Observer API interface describes the intersection between the target element and its root container at a specific moment of transition. */
 interface IntersectionObserverEntry {
-    readonly boundingClientRect: ClientRect | DOMRect;
+    readonly boundingClientRect: DOMRectReadOnly;
     readonly intersectionRatio: number;
-    readonly intersectionRect: ClientRect | DOMRect;
+    readonly intersectionRect: DOMRectReadOnly;
     readonly isIntersecting: boolean;
-    readonly rootBounds: ClientRect | DOMRect | null;
+    readonly rootBounds: DOMRectReadOnly | null;
     readonly target: Element;
     readonly time: number;
 }
@@ -12623,8 +12623,8 @@ interface Range extends AbstractRange {
     deleteContents(): void;
     detach(): void;
     extractContents(): DocumentFragment;
-    getBoundingClientRect(): ClientRect | DOMRect;
-    getClientRects(): ClientRectList | DOMRectList;
+    getBoundingClientRect(): DOMRect;
+    getClientRects(): DOMRectList;
     insertNode(node: Node): void;
     /**
      * Returns whether range intersects node.

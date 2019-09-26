@@ -2816,6 +2816,7 @@ interface CSSStyleDeclaration {
     clipPath: string;
     clipRule: string;
     color: string | null;
+    colorInterpolation: string;
     colorInterpolationFilters: string;
     columnCount: string;
     columnFill: string;
@@ -2923,10 +2924,10 @@ interface CSSStyleDeclaration {
     marginLeft: string;
     marginRight: string;
     marginTop: string;
-    marker: string | null;
-    markerEnd: string | null;
-    markerMid: string | null;
-    markerStart: string | null;
+    marker: string;
+    markerEnd: string;
+    markerMid: string;
+    markerStart: string;
     mask: string;
     maskComposite: string;
     maskImage: string;
@@ -3016,6 +3017,7 @@ interface CSSStyleDeclaration {
     pageBreakAfter: string;
     pageBreakBefore: string;
     pageBreakInside: string;
+    paintOrder: string;
     readonly parentRule: CSSRule;
     penAction: string | null;
     perspective: string;
@@ -3035,6 +3037,7 @@ interface CSSStyleDeclaration {
     rubyPosition: string | null;
     scale: string;
     scrollBehavior: string;
+    shapeRendering: string;
     stopColor: string | null;
     stopOpacity: string | null;
     stroke: string;
@@ -3065,6 +3068,7 @@ interface CSSStyleDeclaration {
     textKashidaSpace: string | null;
     textOrientation: string;
     textOverflow: string;
+    textRendering: string;
     textShadow: string;
     textTransform: string;
     textUnderlinePosition: string;

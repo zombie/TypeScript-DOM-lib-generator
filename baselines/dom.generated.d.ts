@@ -4026,6 +4026,7 @@ interface DOMMatrixReadOnly {
     toJSON(): any;
     transformPoint(point?: DOMPointInit): DOMPoint;
     translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
+    toString(): string;
 }
 
 declare var DOMMatrixReadOnly: {
@@ -4034,6 +4035,7 @@ declare var DOMMatrixReadOnly: {
     fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
     fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
     fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
+    toString(): string;
 };
 
 /** Provides the ability to parse XML or HTML source code from a string into a DOM Document. */
@@ -4191,6 +4193,7 @@ interface DOMTokenList {
      * Can be set, to change the associated attribute.
      */
     value: string;
+    toString(): string;
     /**
      * Adds all arguments passed, except those already present.
      * 
@@ -7071,6 +7074,7 @@ interface HTMLHyperlinkElementUtils {
     host: string;
     hostname: string;
     href: string;
+    toString(): string;
     readonly origin: string;
     password: string;
     pathname: string;
@@ -9924,6 +9928,7 @@ interface Location {
      * Can be set, to navigate to the given URL.
      */
     href: string;
+    toString(): string;
     /**
      * Returns the Location object's URL's origin.
      */
@@ -10382,10 +10387,10 @@ declare var MediaKeys: {
 interface MediaList {
     readonly length: number;
     mediaText: string;
+    toString(): string;
     appendMedium(medium: string): void;
     deleteMedium(medium: string): void;
     item(index: number): string | null;
-    toString(): number;
     [index: number]: string;
 }
 
@@ -12652,6 +12657,7 @@ interface Range extends AbstractRange {
     setStartAfter(node: Node): void;
     setStartBefore(node: Node): void;
     surroundContents(newParent: Node): void;
+    toString(): string;
     readonly END_TO_END: number;
     readonly END_TO_START: number;
     readonly START_TO_END: number;
@@ -12665,6 +12671,7 @@ declare var Range: {
     readonly END_TO_START: number;
     readonly START_TO_END: number;
     readonly START_TO_START: number;
+    toString(): string;
 };
 
 interface ReadableByteStreamController {
@@ -15036,11 +15043,13 @@ interface Selection {
     selectAllChildren(node: Node): void;
     setBaseAndExtent(anchorNode: Node, anchorOffset: number, focusNode: Node, focusOffset: number): void;
     setPosition(node: Node | null, offset?: number): void;
+    toString(): string;
 }
 
 declare var Selection: {
     prototype: Selection;
     new(): Selection;
+    toString(): string;
 };
 
 interface ServiceUIFrameContext {
@@ -16045,6 +16054,7 @@ interface URL {
     host: string;
     hostname: string;
     href: string;
+    toString(): string;
     readonly origin: string;
     password: string;
     pathname: string;
@@ -16092,12 +16102,14 @@ interface URLSearchParams {
      */
     set(name: string, value: string): void;
     sort(): void;
+    toString(): string;
     forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
 }
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
     new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+    toString(): string;
 };
 
 /** This WebVR API interface represents any VR device supported by this API. It includes generic information such as device IDs and descriptions, as well as methods for starting to present a VR scene, retrieving eye parameters and display capabilities, and other important functionality. */

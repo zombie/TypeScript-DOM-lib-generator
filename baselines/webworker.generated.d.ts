@@ -3211,6 +3211,7 @@ interface URL {
     host: string;
     hostname: string;
     href: string;
+    toString(): string;
     readonly origin: string;
     password: string;
     pathname: string;
@@ -3255,12 +3256,14 @@ interface URLSearchParams {
      */
     set(name: string, value: string): void;
     sort(): void;
+    toString(): string;
     forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
 }
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
     new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+    toString(): string;
 };
 
 interface WEBGL_color_buffer_float {
@@ -5389,12 +5392,12 @@ interface WorkerLocation {
     readonly host: string;
     readonly hostname: string;
     readonly href: string;
+    toString(): string;
     readonly origin: string;
     readonly pathname: string;
     readonly port: string;
     readonly protocol: string;
     readonly search: string;
-    toString(): string;
 }
 
 declare var WorkerLocation: {

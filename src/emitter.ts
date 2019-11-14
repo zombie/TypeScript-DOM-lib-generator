@@ -626,6 +626,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             const readOnlyModifier = p["read-only"] === 1 && prefix === "" ? "readonly " : "";
             printer.printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
         }
+
+        if (p.stringifier) {
+            printer.printLine("toString(): string;")
+        }
     }
 
     function emitComments(entity: { comment?: string; deprecated?: 1 }, print: (s: string) => void) {
@@ -666,7 +670,16 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             case "querySelector": return emitQuerySelectorOverloads(m);
             case "querySelectorAll": return emitQuerySelectorAllOverloads(m);
         }
-        emitSignatures(m, prefix, m.name, printLine);
+
+        // ignore toString() provided from browser.webidl.preprocessed.json
+        // to prevent duplication
+        if (m.name !== "toString") {
+            emitSignatures(m, prefix, m.name, printLine);
+
+            if (m.stringifier) {
+                printLine("toString(): string;")
+            }
+        }
     }
 
     function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
@@ -697,6 +710,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
                 .filter(m => matchScope(emitScope, m) && !(prefix !== "" && (m.name === "addEventListener" || m.name === "removeEventListener")))
                 .sort(compareName)
                 .forEach(m => emitMethod(prefix, m, conflictedMembers));
+        }
+        if (i["anonymous-methods"]) {
+            const stringifier = i["anonymous-methods"].method.find(m => m.stringifier);
+            if (stringifier) {
+                printer.printLine("toString(): string;");
+            }
         }
 
         // The window interface inherited some methods from "Object",

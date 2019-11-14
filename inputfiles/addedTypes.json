@@ -2109,6 +2109,14 @@
                     }
                 ]
             },
+            "SVGLinearGradientElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "linearGradient"
+                    }
+                ]
+            },
             "SVGLineElement": {
                 "element": [
                     {
@@ -2133,6 +2141,14 @@
                     }
                 ]
             },
+            "SVGPatternElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "pattern"
+                    }
+                ]
+            },
             "SVGPolygonElement": {
                 "element": [
                     {
@@ -2146,6 +2162,22 @@
                     {
                         "namespace": "SVG",
                         "name": "polyline"
+                    }
+                ]
+            },
+            "SVGRadialGradientElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "radialGradient"
+                    }
+                ]
+            },
+            "SVGStopElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "stop"
                     }
                 ]
             },

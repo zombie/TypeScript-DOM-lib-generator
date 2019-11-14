@@ -6098,10 +6098,10 @@ interface GlobalEventHandlers {
      */
     ontimeupdate: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     ontoggle: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    ontouchcancel: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
-    ontouchend: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
-    ontouchmove: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
-    ontouchstart: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchcancel?: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchend?: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchmove?: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
+    ontouchstart?: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null;
     ontransitioncancel: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     ontransitionend: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
     ontransitionrun: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null;
@@ -19888,10 +19888,10 @@ declare var onsuspend: ((this: Window, ev: Event) => any) | null;
  */
 declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
 declare var ontoggle: ((this: Window, ev: Event) => any) | null;
-declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null;
-declare var ontouchend: ((this: Window, ev: TouchEvent) => any) | null;
-declare var ontouchmove: ((this: Window, ev: TouchEvent) => any) | null;
-declare var ontouchstart: ((this: Window, ev: TouchEvent) => any) | null;
+declare var ontouchcancel: ((this: Window, ev: TouchEvent) => any) | null | undefined;
+declare var ontouchend: ((this: Window, ev: TouchEvent) => any) | null | undefined;
+declare var ontouchmove: ((this: Window, ev: TouchEvent) => any) | null | undefined;
+declare var ontouchstart: ((this: Window, ev: TouchEvent) => any) | null | undefined;
 declare var ontransitioncancel: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionend: ((this: Window, ev: TransitionEvent) => any) | null;
 declare var ontransitionrun: ((this: Window, ev: TransitionEvent) => any) | null;

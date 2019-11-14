@@ -694,6 +694,9 @@
                         },
                         "nextSibling": {
                             "override-type": "ChildNode | null"
+                        },
+                        "previousSibling": {
+                            "override-type": "ChildNode | null"
                         }
                     }
                 }

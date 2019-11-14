@@ -2515,21 +2515,6 @@
                     }
                 }
             },
-            "ReadableStreamReadResult": {
-                "type-parameters": [
-                    {
-                        "name": "T"
-                    }
-                ],
-                "properties": {
-                    "property": {
-                        "value": {
-                            "override-type": "T"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "ReadableStreamBYOBReader": {
                 "methods": {
                     "method": {
@@ -2539,11 +2524,7 @@
                             ]
                         }
                     }
-                },
-                "no-interface-object": 1
-            },
-            "ReadableStreamBYOBRequest": {
-                "no-interface-object": 1
+                }
             },
             "ReadableStreamDefaultReader": {
                 "type-parameters": [
@@ -2560,8 +2541,7 @@
                             ]
                         }
                     }
-                },
-                "no-interface-object": 1
+                }
             },
             "ReadableByteStreamController": {
                 "properties": {
@@ -2570,8 +2550,7 @@
                             "override-type": "ReadableStreamBYOBRequest | undefined"
                         }
                     }
-                },
-                "no-interface-object": 1
+                }
             },
             "ReadableStreamDefaultController": {
                 "type-parameters": [
@@ -2588,11 +2567,9 @@
                             ]
                         }
                     }
-                },
-                "no-interface-object": 1
+                }
             },
             "WritableStream": {
-                "override-exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
                         "new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>"
@@ -2614,12 +2591,7 @@
                     }
                 }
             },
-            "WritableStreamDefaultController": {
-                "override-exposed": "Window Worker",
-                "no-interface-object": 1
-            },
             "WritableStreamDefaultWriter": {
-                "override-exposed": "Window Worker",
                 "type-parameters": [
                     {
                         "name": "W",
@@ -2634,8 +2606,7 @@
                             ]
                         }
                     }
-                },
-                "no-interface-object": 1
+                }
             },
             "TransformStream": {
                 "type-parameters": [
@@ -2665,7 +2636,6 @@
                 }
             },
             "TransformStreamDefaultController": {
-                "override-exposed": "Window Worker",
                 "type-parameters": [
                     {
                         "name": "O",
@@ -2680,11 +2650,9 @@
                             ]
                         }
                     }
-                },
-                "no-interface-object": 1
+                }
             },
             "ByteLengthQueuingStrategy": {
-                "override-exposed": "Window Worker",
                 "extends": "QueuingStrategy<ArrayBufferView>",
                 "constructor": {
                     "override-signatures": [
@@ -2693,7 +2661,6 @@
                 }
             },
             "CountQueuingStrategy": {
-                "override-exposed": "Window Worker",
                 "constructor": {
                     "override-signatures": [
                         "new(options: { highWaterMark: number }): CountQueuingStrategy"
@@ -3013,6 +2980,40 @@
                     }
                 }
             },
+            "ReadableStreamReadDoneResult": {
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "done": {
+                            "override-type": "true"
+                        },
+                        "value": {
+                            "override-type": "T"
+                        }
+                    }
+                }
+            },
+            "ReadableStreamReadValueResult": {
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "done": {
+                            "override-type": "false"
+                        },
+                        "value": {
+                            "override-type": "T"
+                        }
+                    }
+                }
+            },
             "UnderlyingByteSource": {
                 "members": {
                     "member": {
@@ -3180,6 +3181,15 @@
             {
                 "override-type": "Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string",
                 "new-type": "BodyInit"
+            },
+            {
+                "override-type": "ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>",
+                "new-type": "ReadableStreamReadResult",
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ]
             }
         ]
     },

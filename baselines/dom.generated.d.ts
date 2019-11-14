@@ -1496,6 +1496,16 @@ interface RTCTransportStats extends RTCStats {
     selectedCandidatePairId?: string;
 }
 
+interface ReadableStreamReadDoneResult<T> {
+    done: true;
+    value?: T;
+}
+
+interface ReadableStreamReadValueResult<T> {
+    done: false;
+    value: T;
+}
+
 interface RegistrationOptions {
     scope?: string;
     type?: WorkerType;
@@ -12709,11 +12719,6 @@ interface ReadableStreamDefaultReader<R = any> {
     releaseLock(): void;
 }
 
-interface ReadableStreamReadResult<T> {
-    done: boolean;
-    value: T;
-}
-
 interface ReadableStreamReader<R = any> {
     cancel(): Promise<void>;
     read(): Promise<ReadableStreamReadResult<R>>;
@@ -15662,6 +15667,8 @@ interface TextDecoderCommon {
 }
 
 interface TextDecoderStream extends GenericTransformStream, TextDecoderCommon {
+    readonly readable: ReadableStream<string>;
+    readonly writable: WritableStream<BufferSource>;
 }
 
 declare var TextDecoderStream: {
@@ -15694,6 +15701,8 @@ interface TextEncoderCommon {
 }
 
 interface TextEncoderStream extends GenericTransformStream, TextEncoderCommon {
+    readonly readable: ReadableStream<Uint8Array>;
+    readonly writable: WritableStream<string>;
 }
 
 declare var TextEncoderStream: {
@@ -19969,6 +19978,7 @@ type ConstrainDouble = number | ConstrainDoubleRange;
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type PerformanceEntryList = PerformanceEntry[];
+type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>;
 type VibratePattern = number | number[];
 type COSEAlgorithmIdentifier = number;
 type AuthenticatorSelectionList = AAGUID[];

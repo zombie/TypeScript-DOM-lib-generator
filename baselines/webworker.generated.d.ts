@@ -371,6 +371,16 @@ interface QueuingStrategy<T = any> {
     size?: QueuingStrategySizeCallback<T>;
 }
 
+interface ReadableStreamReadDoneResult<T> {
+    done: true;
+    value?: T;
+}
+
+interface ReadableStreamReadValueResult<T> {
+    done: false;
+    value: T;
+}
+
 interface RegistrationOptions {
     scope?: string;
     type?: WorkerType;
@@ -2760,11 +2770,6 @@ interface ReadableStreamDefaultReader<R = any> {
     releaseLock(): void;
 }
 
-interface ReadableStreamReadResult<T> {
-    done: boolean;
-    value: T;
-}
-
 interface ReadableStreamReader<R = any> {
     cancel(): Promise<void>;
     read(): Promise<ReadableStreamReadResult<R>>;
@@ -3083,6 +3088,8 @@ interface TextDecoderCommon {
 }
 
 interface TextDecoderStream extends GenericTransformStream, TextDecoderCommon {
+    readonly readable: ReadableStream<string>;
+    readonly writable: WritableStream<BufferSource>;
 }
 
 declare var TextDecoderStream: {
@@ -3115,6 +3122,8 @@ interface TextEncoderCommon {
 }
 
 interface TextEncoderStream extends GenericTransformStream, TextEncoderCommon {
+    readonly readable: ReadableStream<Uint8Array>;
+    readonly writable: WritableStream<string>;
 }
 
 declare var TextEncoderStream: {
@@ -5804,6 +5813,7 @@ type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type TimerHandler = string | Function;
 type PerformanceEntryList = PerformanceEntry[];
 type PushMessageDataInit = BufferSource | string;
+type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>;
 type VibratePattern = number | number[];
 type AlgorithmIdentifier = string | Algorithm;
 type HashAlgorithmIdentifier = AlgorithmIdentifier;

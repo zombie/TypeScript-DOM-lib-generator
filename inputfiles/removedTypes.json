@@ -145,20 +145,6 @@
                     }
                 }
             },
-            "DeviceMotionEvent": {
-                "methods": {
-                    "method": {
-                        "requestPermission": null
-                    }
-                }
-            },
-            "DeviceOrientationEvent": {
-                "methods": {
-                    "method": {
-                        "requestPermission": null
-                    }
-                }
-            },
             "FederatedCredential": null,
             "HTMLAreasCollection": null,
             "HTMLBodyElement": {

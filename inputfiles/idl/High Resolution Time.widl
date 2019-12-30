@@ -4,10 +4,9 @@ typedef double DOMHighResTimeStamp;
 interface Performance : EventTarget {
     DOMHighResTimeStamp now ();
     readonly attribute DOMHighResTimeStamp timeOrigin;
-    [Default] object              toJSON();
+    [Default] object toJSON();
 };
 
-partial interface WindowOrWorkerGlobalScope {
-    [Replaceable]
-    readonly attribute Performance performance;
+partial interface mixin WindowOrWorkerGlobalScope {
+  [Replaceable] readonly attribute Performance performance;
 };

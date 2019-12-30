@@ -15,6 +15,13 @@
                     }
                 }
             },
+            "ElementContentEditable": {
+                "properties": {
+                    "property": {
+                        "enterKeyHint": null
+                    }
+                }
+            },
             "XMLHttpRequestEventTarget": null,
             "WorkerUtils": {
                 "methods": {
@@ -60,6 +67,7 @@
                     }
                 }
             },
+            "ClipboardItem": null,
             "Console": {
                 "methods": {
                     "method": {
@@ -154,6 +162,7 @@
                     }
                 }
             },
+            "ElementInternals": null,
             "FederatedCredential": null,
             "FormDataEvent": null,
             "HTMLAreasCollection": null,
@@ -166,6 +175,19 @@
                         "onload": null,
                         "onresize": null,
                         "onscroll": null
+                    }
+                }
+            },
+            "HTMLFormElement": {
+                "properties": {
+                    "property": {
+                        "rel": null,
+                        "relList": null
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "requestSubmit": null
                     }
                 }
             },

@@ -1018,7 +1018,7 @@
                         },
                         {
                             "name": "error",
-                            "type": "SpeechRecognitionError"
+                            "type": "Event"
                         },
                         {
                             "name": "end",

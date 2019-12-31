@@ -313,11 +313,14 @@
                 "properties": {
                     "property": {
                         "browser": null,
+                        "caches": null,
+                        "crypto": null,
                         "msCredentials": null,
                         "ontouchcancel": null,
                         "ontouchend": null,
                         "ontouchmove": null,
-                        "ontouchstart": null
+                        "ontouchstart": null,
+                        "performance": null
                     }
                 },
                 "methods": {
@@ -328,6 +331,8 @@
                 },
                 "implements": [
                     "GlobalFetch",
+                    "IDBEnvironment",
+                    "WindowBase64",
                     "WindowTimers"
                 ]
             },

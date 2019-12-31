@@ -2272,7 +2272,7 @@
             },
             {
                 "new-type": "Transferable",
-                "override-type": "ArrayBuffer | MessagePort | ImageBitmap"
+                "override-type": "ArrayBuffer | MessagePort | ImageBitmap | OffscreenCanvas"
             },
             {
                 "new-type": "RTCIceGatherCandidate",

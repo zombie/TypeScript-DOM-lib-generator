@@ -4527,7 +4527,7 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndEleme
     "fullscreenerror": Event;
     "pointerlockchange": Event;
     "pointerlockerror": Event;
-    "readystatechange": ProgressEvent<Document>;
+    "readystatechange": Event;
     "visibilitychange": Event;
 }
 
@@ -4682,7 +4682,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Fires when the state of the object has changed.
      * @param ev The event
      */
-    onreadystatechange: ((this: Document, ev: ProgressEvent<Document>) => any) | null;
+    onreadystatechange: ((this: Document, ev: Event) => any) | null;
     onvisibilitychange: ((this: Document, ev: Event) => any) | null;
     /**
      * Returns document's origin.
@@ -7667,7 +7667,7 @@ declare var HTMLMarqueeElement: {
 
 interface HTMLMediaElementEventMap extends HTMLElementEventMap {
     "encrypted": MediaEncryptedEvent;
-    "msneedkey": Event;
+    "msneedkey": MSMediaKeyNeededEvent;
     "waitingforkey": Event;
 }
 
@@ -7764,7 +7764,7 @@ interface HTMLMediaElement extends HTMLElement {
     readonly networkState: number;
     onencrypted: ((this: HTMLMediaElement, ev: MediaEncryptedEvent) => any) | null;
     /** @deprecated */
-    onmsneedkey: ((this: HTMLMediaElement, ev: Event) => any) | null;
+    onmsneedkey: ((this: HTMLMediaElement, ev: MSMediaKeyNeededEvent) => any) | null;
     onwaitingforkey: ((this: HTMLMediaElement, ev: Event) => any) | null;
     /**
      * Gets a flag that specifies whether playback is paused.
@@ -10331,7 +10331,7 @@ declare var MediaKeyMessageEvent: {
 
 interface MediaKeySessionEventMap {
     "keystatuseschange": Event;
-    "message": MessageEvent;
+    "message": MediaKeyMessageEvent;
 }
 
 /** This EncryptedMediaExtensions API interface represents a context for message exchange with a content decryption module (CDM). */
@@ -10340,7 +10340,7 @@ interface MediaKeySession extends EventTarget {
     readonly expiration: number;
     readonly keyStatuses: MediaKeyStatusMap;
     onkeystatuseschange: ((this: MediaKeySession, ev: Event) => any) | null;
-    onmessage: ((this: MediaKeySession, ev: MessageEvent) => any) | null;
+    onmessage: ((this: MediaKeySession, ev: MediaKeyMessageEvent) => any) | null;
     readonly sessionId: string;
     close(): Promise<void>;
     generateRequest(initDataType: string, initData: BufferSource): Promise<void>;
@@ -10361,7 +10361,7 @@ declare var MediaKeySession: {
 /** This EncryptedMediaExtensions API interface is a read-only map of media key statuses by key IDs. */
 interface MediaKeyStatusMap {
     readonly size: number;
-    get(keyId: BufferSource): any;
+    get(keyId: BufferSource): MediaKeyStatus | undefined;
     has(keyId: BufferSource): boolean;
     forEach(callbackfn: (value: MediaKeyStatus, key: BufferSource, parent: MediaKeyStatusMap) => void, thisArg?: any): void;
 }
@@ -15888,11 +15888,15 @@ declare var TextTrackCueList: {
 
 interface TextTrackListEventMap {
     "addtrack": TrackEvent;
+    "change": Event;
+    "removetrack": TrackEvent;
 }
 
 interface TextTrackList extends EventTarget {
     readonly length: number;
     onaddtrack: ((this: TextTrackList, ev: TrackEvent) => any) | null;
+    onchange: ((this: TextTrackList, ev: Event) => any) | null;
+    onremovetrack: ((this: TextTrackList, ev: TrackEvent) => any) | null;
     item(index: number): TextTrack;
     addEventListener<K extends keyof TextTrackListEventMap>(type: K, listener: (this: TextTrackList, ev: TextTrackListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

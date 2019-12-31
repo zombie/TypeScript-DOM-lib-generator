@@ -6428,11 +6428,8 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     background: string;
     /** @deprecated */
     bgColor: string;
-    bgProperties: string;
     /** @deprecated */
     link: string;
-    /** @deprecated */
-    noWrap: boolean;
     /** @deprecated */
     onorientationchange: ((this: HTMLBodyElement, ev: Event) => any) | null;
     /** @deprecated */

@@ -1177,7 +1177,16 @@ interface RTCDtlsParameters {
 }
 
 interface RTCErrorEventInit extends EventInit {
-    error?: RTCError | null;
+    error: RTCError;
+}
+
+interface RTCErrorInit {
+    errorDetail: RTCErrorDetailType;
+    httpRequestStatusCode?: number;
+    receivedAlert?: number;
+    sctpCauseCode?: number;
+    sdpLineNumber?: number;
+    sentAlert?: number;
 }
 
 interface RTCIceCandidateAttributes extends RTCStats {
@@ -1209,7 +1218,7 @@ interface RTCIceCandidateInit {
     candidate?: string;
     sdpMLineIndex?: number | null;
     sdpMid?: string | null;
-    usernameFragment?: string;
+    usernameFragment?: string | null;
 }
 
 interface RTCIceCandidatePair {
@@ -1365,6 +1374,7 @@ interface RTCRtpCodingParameters {
 
 interface RTCRtpContributingSource {
     audioLevel?: number;
+    rtpTimestamp: number;
     source: number;
     timestamp: number;
 }
@@ -1378,7 +1388,6 @@ interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     dtx?: RTCDtxStatus;
     maxBitrate?: number;
     maxFramerate?: number;
-    priority?: RTCPriorityType;
     ptime?: number;
     scaleResolutionDownBy?: number;
 }
@@ -1422,6 +1431,7 @@ interface RTCRtpRtxParameters {
 interface RTCRtpSendParameters extends RTCRtpParameters {
     degradationPreference?: RTCDegradationPreference;
     encodings: RTCRtpEncodingParameters[];
+    priority?: RTCPriorityType;
     transactionId: string;
 }
 
@@ -1443,7 +1453,7 @@ interface RTCRtpUnhandled {
 
 interface RTCSessionDescriptionInit {
     sdp?: string;
-    type: RTCSdpType;
+    type?: RTCSdpType;
 }
 
 interface RTCSrtpKeyParam {
@@ -12159,10 +12169,10 @@ interface RTCDtlsTransportEventMap {
 }
 
 interface RTCDtlsTransport extends EventTarget {
+    readonly iceTransport: RTCIceTransport;
     onerror: ((this: RTCDtlsTransport, ev: RTCErrorEvent) => any) | null;
     onstatechange: ((this: RTCDtlsTransport, ev: Event) => any) | null;
     readonly state: RTCDtlsTransportState;
-    readonly transport: RTCIceTransport;
     getRemoteCertificates(): ArrayBuffer[];
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -12207,24 +12217,22 @@ declare var RTCDtmfSender: {
     new(sender: RTCRtpSender): RTCDtmfSender;
 };
 
-interface RTCError extends Error {
-    errorDetail: string;
-    httpRequestStatusCode: number;
-    message: string;
-    name: string;
-    receivedAlert: number | null;
-    sctpCauseCode: number;
-    sdpLineNumber: number;
-    sentAlert: number | null;
+interface RTCError extends DOMException {
+    readonly errorDetail: RTCErrorDetailType;
+    readonly httpRequestStatusCode: number | null;
+    readonly receivedAlert: number | null;
+    readonly sctpCauseCode: number | null;
+    readonly sdpLineNumber: number | null;
+    readonly sentAlert: number | null;
 }
 
 declare var RTCError: {
     prototype: RTCError;
-    new(errorDetail?: string, message?: string): RTCError;
+    new(init: RTCErrorInit, message?: string): RTCError;
 };
 
 interface RTCErrorEvent extends Event {
-    readonly error: RTCError | null;
+    readonly error: RTCError;
 }
 
 declare var RTCErrorEvent: {
@@ -12237,7 +12245,6 @@ interface RTCIceCandidate {
     readonly candidate: string;
     readonly component: RTCIceComponent | null;
     readonly foundation: string | null;
-    readonly ip: string | null;
     readonly port: number | null;
     readonly priority: number | null;
     readonly protocol: RTCIceProtocol | null;
@@ -12483,7 +12490,6 @@ interface RTCRtpTransceiver {
     readonly mid: string | null;
     readonly receiver: RTCRtpReceiver;
     readonly sender: RTCRtpSender;
-    readonly stopped: boolean;
     setCodecPreferences(codecs: RTCRtpCodecCapability[]): void;
     stop(): void;
 }
@@ -12497,7 +12503,7 @@ interface RTCSctpTransportEventMap {
     "statechange": Event;
 }
 
-interface RTCSctpTransport {
+interface RTCSctpTransport extends EventTarget {
     readonly maxChannels: number | null;
     readonly maxMessageSize: number;
     onstatechange: ((this: RTCSctpTransport, ev: Event) => any) | null;
@@ -12523,7 +12529,7 @@ interface RTCSessionDescription {
 
 declare var RTCSessionDescription: {
     prototype: RTCSessionDescription;
-    new(descriptionInitDict: RTCSessionDescriptionInit): RTCSessionDescription;
+    new(descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
 };
 
 interface RTCSrtpSdesTransportEventMap {
@@ -20113,14 +20119,14 @@ type RTCIceGatherPolicy = "all" | "nohost" | "relay";
 type RTCIceGathererState = "complete" | "gathering" | "new";
 type RTCIceGatheringState = "complete" | "gathering" | "new";
 type RTCIceProtocol = "tcp" | "udp";
-type RTCIceRole = "controlled" | "controlling";
+type RTCIceRole = "controlled" | "controlling" | "unknown";
 type RTCIceTcpCandidateType = "active" | "passive" | "so";
 type RTCIceTransportPolicy = "all" | "relay";
 type RTCIceTransportState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCPeerConnectionState = "closed" | "connected" | "connecting" | "disconnected" | "failed" | "new";
 type RTCPriorityType = "high" | "low" | "medium" | "very-low";
 type RTCRtcpMuxPolicy = "negotiate" | "require";
-type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendrecv";
+type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendrecv" | "stopped";
 type RTCSctpTransportState = "closed" | "connected" | "connecting";
 type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
 type RTCSignalingState = "closed" | "have-local-offer" | "have-local-pranswer" | "have-remote-offer" | "have-remote-pranswer" | "stable";

@@ -210,6 +210,27 @@
             "MSDSHEvent": null,
             "MSStreamReader": null,
             "PasswordCredential": null,
+            "RTCDataChannel": {
+                "properties": {
+                    "property": {
+                        "onclosing": null
+                    }
+                }
+            },
+            "RTCIceCandidate": {
+                "properties": {
+                    "property": {
+                        "address": null
+                    }
+                }
+            },
+            "RTCPeerConnection": {
+                "methods": {
+                    "method": {
+                        "restartIce": null
+                    }
+                }
+            },
             "ShadowRoot": {
                 "properties": {
                     "property": {

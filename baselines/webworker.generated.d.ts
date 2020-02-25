@@ -219,6 +219,15 @@ interface IDBVersionChangeEventInit extends EventInit {
     oldVersion?: number;
 }
 
+interface ImageBitmapOptions {
+    colorSpaceConversion?: ColorSpaceConversion;
+    imageOrientation?: ImageOrientation;
+    premultiplyAlpha?: PremultiplyAlpha;
+    resizeHeight?: number;
+    resizeQuality?: ResizeQuality;
+    resizeWidth?: number;
+}
+
 interface ImageBitmapRenderingContextSettings {
     alpha?: boolean;
 }
@@ -2177,15 +2186,6 @@ declare var ImageBitmap: {
     prototype: ImageBitmap;
     new(): ImageBitmap;
 };
-
-interface ImageBitmapOptions {
-    colorSpaceConversion?: "none" | "default";
-    imageOrientation?: "none" | "flipY";
-    premultiplyAlpha?: "none" | "premultiply" | "default";
-    resizeHeight?: number;
-    resizeQuality?: "pixelated" | "low" | "medium" | "high";
-    resizeWidth?: number;
-}
 
 interface ImageBitmapRenderingContext {
     /**
@@ -5375,8 +5375,8 @@ interface WindowOrWorkerGlobalScope {
     btoa(data: string): string;
     clearInterval(handle?: number): void;
     clearTimeout(handle?: number): void;
-    createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
-    createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+    createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+    createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
     queueMicrotask(callback: VoidFunction): void;
     setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
@@ -5838,8 +5838,8 @@ declare function atob(data: string): string;
 declare function btoa(data: string): string;
 declare function clearInterval(handle?: number): void;
 declare function clearTimeout(handle?: number): void;
-declare function createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
-declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+declare function createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 declare function queueMicrotask(callback: VoidFunction): void;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
@@ -5897,11 +5897,13 @@ type CanvasLineJoin = "bevel" | "miter" | "round";
 type CanvasTextAlign = "center" | "end" | "left" | "right" | "start";
 type CanvasTextBaseline = "alphabetic" | "bottom" | "hanging" | "ideographic" | "middle" | "top";
 type ClientTypes = "all" | "sharedworker" | "window" | "worker";
+type ColorSpaceConversion = "default" | "none";
 type EndingType = "native" | "transparent";
 type FrameType = "auxiliary" | "nested" | "none" | "top-level";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
+type ImageOrientation = "flipY" | "none";
 type ImageSmoothingQuality = "high" | "low" | "medium";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
@@ -5911,6 +5913,7 @@ type NotificationPermission = "default" | "denied" | "granted";
 type OffscreenRenderingContextId = "2d" | "bitmaprenderer" | "webgl" | "webgl2";
 type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-sync" | "bluetooth" | "camera" | "clipboard" | "device-info" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "notifications" | "persistent-storage" | "push" | "speaker";
 type PermissionState = "denied" | "granted" | "prompt";
+type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PushEncryptionKeyName = "auth" | "p256dh";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
@@ -5919,6 +5922,7 @@ type RequestCredentials = "include" | "omit" | "same-origin";
 type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
 type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
 type RequestRedirect = "error" | "follow" | "manual";
+type ResizeQuality = "high" | "low" | "medium" | "pixelated";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";

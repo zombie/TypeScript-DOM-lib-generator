@@ -580,6 +580,15 @@ interface IIRFilterOptions extends AudioNodeOptions {
     feedforward: number[];
 }
 
+interface ImageBitmapOptions {
+    colorSpaceConversion?: ColorSpaceConversion;
+    imageOrientation?: ImageOrientation;
+    premultiplyAlpha?: PremultiplyAlpha;
+    resizeHeight?: number;
+    resizeQuality?: ResizeQuality;
+    resizeWidth?: number;
+}
+
 interface ImageBitmapRenderingContextSettings {
     alpha?: boolean;
 }
@@ -9754,15 +9763,6 @@ declare var ImageBitmap: {
     new(): ImageBitmap;
 };
 
-interface ImageBitmapOptions {
-    colorSpaceConversion?: "none" | "default";
-    imageOrientation?: "none" | "flipY";
-    premultiplyAlpha?: "none" | "premultiply" | "default";
-    resizeHeight?: number;
-    resizeQuality?: "pixelated" | "low" | "medium" | "high";
-    resizeWidth?: number;
-}
-
 interface ImageBitmapRenderingContext {
     /**
      * Returns the canvas element that the context is bound to.
@@ -18781,8 +18781,8 @@ interface WindowOrWorkerGlobalScope {
     btoa(data: string): string;
     clearInterval(handle?: number): void;
     clearTimeout(handle?: number): void;
-    createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
-    createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+    createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+    createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
     queueMicrotask(callback: VoidFunction): void;
     setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
@@ -19983,8 +19983,8 @@ declare function atob(data: string): string;
 declare function btoa(data: string): string;
 declare function clearInterval(handle?: number): void;
 declare function clearTimeout(handle?: number): void;
-declare function createImageBitmap(image: ImageBitmapSource): Promise<ImageBitmap>;
-declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number): Promise<ImageBitmap>;
+declare function createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
+declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 declare function queueMicrotask(callback: VoidFunction): void;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
@@ -20093,6 +20093,7 @@ type CanvasTextBaseline = "alphabetic" | "bottom" | "hanging" | "ideographic" | 
 type ChannelCountMode = "clamped-max" | "explicit" | "max";
 type ChannelInterpretation = "discrete" | "speakers";
 type ClientTypes = "all" | "sharedworker" | "window" | "worker";
+type ColorSpaceConversion = "default" | "none";
 type CompositeOperation = "accumulate" | "add" | "replace";
 type CompositeOperationOrAuto = "accumulate" | "add" | "auto" | "replace";
 type CredentialMediationRequirement = "optional" | "required" | "silent";
@@ -20110,6 +20111,7 @@ type GamepadMappingType = "" | "standard";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
+type ImageOrientation = "flipY" | "none";
 type ImageSmoothingQuality = "high" | "low" | "medium";
 type IterationCompositeOperation = "accumulate" | "replace";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
@@ -20143,6 +20145,7 @@ type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-syn
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";
+type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PublicKeyCredentialType = "public-key";
 type PushEncryptionKeyName = "auth" | "p256dh";
 type PushPermissionState = "denied" | "granted" | "prompt";
@@ -20182,6 +20185,7 @@ type RequestCredentials = "include" | "omit" | "same-origin";
 type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
 type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
 type RequestRedirect = "error" | "follow" | "manual";
+type ResizeQuality = "high" | "low" | "medium" | "pixelated";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "smooth";

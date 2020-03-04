@@ -64,16 +64,20 @@ To give you a sense of whether we will accept changes, you can use these heurist
 - Does the PR show examples of the changes being used in spec examples or reputable websites like MDN?
 - Did this change come from an IDL update?
 - Does the change appear to be high-impact on a well-used API?
+- Would the changes introduce a lot of breaking changes to existing code in DT?
 
 #### Additions
 
 > For example, adding a new spec or subsection via a new or updated IDL file
 
 - Does the new objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If not, it's likely too soon.
-- What stage of the [W3C process](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium#Specification_maturation) is the proposal for these changes: We aim for Proposed recommendation, but can accept Candidate recommendation for stable looking proposals.
-- Are the additions available in at least two of Firefox, Safari and Chromium?
+- Is the IDL source from WHATWG? 
+    - Are the additions available in at least two of Firefox, Safari and Chromium?
+- Is the IDL source from W3C? 
+    - What stage of the [W3C process](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium#Specification_maturation) is the proposal for these changes: We aim for Proposed recommendation, but can accept Candidate recommendation for stable looking proposals.
+    - If it's at Working draft the additions available in all three of Firefox, Safari and Chromium
 - Could any types added at the global scope have naming conflicts?
-- Are the features going to be used by a lot of people?
+- Are the new features going to be used by a lot of people?
 
 #### Removals
 

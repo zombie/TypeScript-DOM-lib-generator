@@ -229,13 +229,6 @@
                     "sharedworker",
                     "all"
                 ]
-            },
-            "WorkerType": {
-                "name": "WorkerType",
-                "value": [
-                    "classic",
-                    "module"
-                ]
             }
         }
     },
@@ -342,6 +335,20 @@
                         {
                             "name": "error",
                             "type": "Event"
+                        }
+                    ]
+                }
+            },
+            "BroadcastChannel": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
                         }
                     ]
                 }
@@ -2132,6 +2139,16 @@
                     }
                 }
             },
+            "SharedWorker": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "connect",
+                            "type": "MessageEvent"
+                        }
+                    ]
+                }
+            },
             "TextDecoderStream": {
                 "properties": {
                     "property": {
@@ -2207,6 +2224,23 @@
                         }
                     ]
                 }
+            },
+            "WorkerGlobalScope": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "rejectionhandled",
+                            "type": "PromiseRejectionEvent"
+                        },
+                        {
+                            "name": "unhandledrejection",
+                            "type": "PromiseRejectionEvent"
+                        }
+                    ]
+                },
+                "implements": [
+                    "WindowConsole"
+                ]
             }
         }
     },

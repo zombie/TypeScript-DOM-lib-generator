@@ -303,6 +303,7 @@
                         "browser": null,
                         "caches": null,
                         "crypto": null,
+                        "isSecureContext": null,
                         "msCredentials": null,
                         "ontouchcancel": null,
                         "ontouchend": null,
@@ -322,11 +323,6 @@
                     "IDBEnvironment",
                     "WindowBase64",
                     "WindowTimers"
-                ]
-            },
-            "WorkerGlobalScope": {
-                "implements": [
-                    "GlobalFetch"
                 ]
             },
             "XPathNSResolver": null

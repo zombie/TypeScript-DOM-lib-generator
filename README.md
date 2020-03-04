@@ -69,7 +69,7 @@ To give you a sense of whether we will accept changes, you can use these heurist
 
 > For example, adding a new spec or subsection via a new or updated IDL file
 
-- Does the new objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If not, it's likely too soon
+- Does the new objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If not, it's likely too soon.
 - What stage of the [W3C process](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium#Specification_maturation) is the proposal for these changes: We aim for Proposed recommendation, but can accept Candidate recommendation for stable looking proposals.
 - Are the additions available in at least two of Firefox, Safari and Chromium?
 - Could any types added at the global scope have naming conflicts?
@@ -79,7 +79,7 @@ To give you a sense of whether we will accept changes, you can use these heurist
 
 > For example, removing a browser-specific section of code
 
-- Do the remove objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If so, are they marked as deprecated?
+- Do the removed objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If so, are they marked as deprecated?
 - Does an internet search for the fields show results in blogs/recommendations?
 - When was the deprecation (this can be hard to find) but was it at least 2 years ago if so?
 

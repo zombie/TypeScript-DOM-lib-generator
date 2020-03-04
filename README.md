@@ -64,7 +64,7 @@ To give you a sense of whether we will accept changes, you can use these heurist
 - Does the PR show examples of the changes being used in spec examples or reputable websites like MDN?
 - Did this change come from an IDL update?
 - Does the change appear to be high-impact on a well-used API?
-- Would the changes introduce a lot of breaking changes to existing code in DT?
+- Would the changes introduce a lot of breaking changes to existing code? For example the large corpus of typed code in DefinitelyTyped.
 
 #### Additions
 

@@ -22,6 +22,18 @@
                     }
                 }
             },
+            "NavigatorID": {
+                "methods": {
+                    "method": {
+                        "taintEnabled": null
+                    }
+                },
+                "properties": {
+                    "property": {
+                        "oscpu": null
+                    }
+                }
+            },
             "XMLHttpRequestEventTarget": null,
             "WorkerUtils": {
                 "methods": {

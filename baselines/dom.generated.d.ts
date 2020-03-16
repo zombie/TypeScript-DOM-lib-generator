@@ -10942,14 +10942,12 @@ interface NavigatorID {
     readonly appCodeName: string;
     readonly appName: string;
     readonly appVersion: string;
-    readonly oscpu: string;
     readonly platform: string;
     readonly product: string;
     readonly productSub: string;
     readonly userAgent: string;
     readonly vendor: string;
     readonly vendorSub: string;
-    taintEnabled(): boolean;
 }
 
 interface NavigatorLanguage {

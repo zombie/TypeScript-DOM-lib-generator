@@ -2786,6 +2786,7 @@ interface CSSStyleDeclaration {
     alignItems: string;
     alignSelf: string;
     alignmentBaseline: string;
+    all: string;
     animation: string;
     animationDelay: string;
     animationDirection: string;

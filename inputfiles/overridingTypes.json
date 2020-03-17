@@ -1922,17 +1922,6 @@
                     }
                 }
             },
-            "CSSStyleSheet": {
-                "name": "CSSStyleSheet",
-                "properties": {
-                    "property": {
-                        "pages": {
-                            "name": "pages",
-                            "override-type": "any"
-                        }
-                    }
-                }
-            },
             "KeyboardEvent": {
                 "name": "KeyboardEvent",
                 "properties": {

@@ -76,6 +76,15 @@
                     }
                 }
             },
+            "CSS": null,
+            "CSSMarginRule": null,
+            "CSSRule": {
+                "constants": {
+                    "constant": {
+                        "MARGIN_RULE": null
+                    }
+                }
+            },
             "CSSStyleDeclaration": {
                 "properties": {
                     "property": {

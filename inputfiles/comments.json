@@ -1820,6 +1820,15 @@
                         }
                     }
                 }
+            },
+            "ShadowRoot": {
+                "methods": {
+                    "method": {
+                        "cloneNode": {
+                            "comment": "/**\n * Throws a \"NotSupportedError\" DOMException if context object is a shadow root.\n */"
+                        }
+                    }
+                }
             }
         }
     }

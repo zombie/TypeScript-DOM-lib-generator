@@ -95,6 +95,10 @@
                             "type": "Event"
                         },
                         {
+                            "name": "change",
+                            "type": "Event"
+                        },
+                        {
                             "name": "drag",
                             "type": "DragEvent"
                         },
@@ -161,6 +165,10 @@
                         {
                             "name": "mouseup",
                             "type": "MouseEvent"
+                        },
+                        {
+                            "name": "pause",
+                            "type": "Event"
                         },
                         {
                             "name": "scroll",
@@ -234,6 +242,9 @@
     },
     "interfaces": {
         "interface": {
+            "AudioTrack": {
+                "exposed": ""
+            },
             "SVGSVGElement": {
                 "name": "SVGSVGElement",
                 "methods": {
@@ -374,6 +385,16 @@
                         "name": "img"
                     }
                 ]
+            },
+            "HTMLMediaElement": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "encrypted",
+                            "type": "MediaEncryptedEvent"
+                        }
+                    ]
+                }
             },
             "CSSStyleDeclaration": {
                 "name": "CSSStyleDeclaration",
@@ -1067,6 +1088,20 @@
                     }
                 }
             },
+            "TextTrackList": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "addtrack",
+                            "type": "TrackEvent"
+                        },
+                        {
+                            "name": "removetrack",
+                            "type": "TrackEvent"
+                        }
+                    ]
+                }
+            },
             "DOMMatrixReadOnly": {
                 "methods": {
                     "method": {
@@ -1111,6 +1146,13 @@
                 "element": [
                     {
                         "name": "area"
+                    }
+                ]
+            },
+            "HTMLAudioElement": {
+                "element": [
+                    {
+                        "name": "audio"
                     }
                 ]
             },
@@ -1619,10 +1661,24 @@
                     }
                 ]
             },
+            "HTMLTrackElement": {
+                "element": [
+                    {
+                        "name": "track"
+                    }
+                ]
+            },
             "HTMLUListElement": {
                 "element": [
                     {
                         "name": "ul"
+                    }
+                ]
+            },
+            "HTMLVideoElement": {
+                "element": [
+                    {
+                        "name": "video"
                     }
                 ]
             },
@@ -2188,35 +2244,8 @@
                     }
                 }
             },
-            "TextTrackList": {
-                "properties": {
-                    "property": {
-                        "onchange": {
-                            "name": "onchange",
-                            "type": "EventHandler",
-                            "event-handler": "change",
-                            "nullable": 1
-                        },
-                        "onremovetrack": {
-                            "name": "onremovetrack",
-                            "type": "EventHandler",
-                            "event-handler": "removetrack",
-                            "nullable": 1
-                        }
-                    }
-                },
-                "events": {
-                    "event": [
-                        {
-                            "name": "change",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "removetrack",
-                            "type": "TrackEvent"
-                        }
-                    ]
-                }
+            "VideoTrack": {
+                "exposed": ""
             },
             "WebSocket": {
                 "events": {

@@ -52,6 +52,7 @@
     },
     "interfaces": {
         "interface": {
+            "AudioTrackList": null,
             "CanvasRenderingContext2D": {
                 "methods": {
                     "method": {
@@ -175,6 +176,26 @@
             "FederatedCredential": null,
             "FormDataEvent": null,
             "HTMLAreasCollection": null,
+            "HTMLMediaElement": {
+                "properties": {
+                    "property": {
+                        "audioTracks": null,
+                        "videoTracks": null
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "getStartDate": null
+                    }
+                }
+            },
+            "HTMLVideoElement": {
+                "properties": {
+                    "property": {
+                        "playsInline": null
+                    }
+                }
+            },
             "HTMLFormElement": {
                 "properties": {
                     "property": {
@@ -232,6 +253,15 @@
                 "properties": {
                     "property": {
                         "onslotchange": null
+                    }
+                }
+            },
+            "SourceBuffer": {
+                "properties": {
+                    "property": {
+                        "audioTracks": null,
+                        "textTracks": null,
+                        "videoTracks": null
                     }
                 }
             },
@@ -300,6 +330,7 @@
                     }
                 }
             },
+            "VideoTrackList": null,
             "WebKitCSSMatrix": null,
             "WebKitDirectoryEntry": null,
             "WebKitDirectoryReader": null,

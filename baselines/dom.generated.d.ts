@@ -1782,7 +1782,7 @@ interface TouchInit {
 }
 
 interface TrackEventInit extends EventInit {
-    track?: VideoTrack | AudioTrack | TextTrack | null;
+    track?: TextTrack | null;
 }
 
 interface Transformer<I = any, O = any> {
@@ -2350,47 +2350,6 @@ interface AudioScheduledSourceNode extends AudioNode {
 declare var AudioScheduledSourceNode: {
     prototype: AudioScheduledSourceNode;
     new(): AudioScheduledSourceNode;
-};
-
-/** A single audio track from one of the HTML media elements, <audio> or <video>.  */
-interface AudioTrack {
-    enabled: boolean;
-    readonly id: string;
-    kind: string;
-    readonly label: string;
-    language: string;
-    readonly sourceBuffer: SourceBuffer | null;
-}
-
-declare var AudioTrack: {
-    prototype: AudioTrack;
-    new(): AudioTrack;
-};
-
-interface AudioTrackListEventMap {
-    "addtrack": TrackEvent;
-    "change": Event;
-    "removetrack": TrackEvent;
-}
-
-/** Used to represent a list of the audio tracks contained within a given HTML media element, with each track represented by a separate AudioTrack object in the list. */
-interface AudioTrackList extends EventTarget {
-    readonly length: number;
-    onaddtrack: ((this: AudioTrackList, ev: TrackEvent) => any) | null;
-    onchange: ((this: AudioTrackList, ev: Event) => any) | null;
-    onremovetrack: ((this: AudioTrackList, ev: TrackEvent) => any) | null;
-    getTrackById(id: string): AudioTrack | null;
-    item(index: number): AudioTrack;
-    addEventListener<K extends keyof AudioTrackListEventMap>(type: K, listener: (this: AudioTrackList, ev: AudioTrackListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioTrackListEventMap>(type: K, listener: (this: AudioTrackList, ev: AudioTrackListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    [index: number]: AudioTrack;
-}
-
-declare var AudioTrackList: {
-    prototype: AudioTrackList;
-    new(): AudioTrackList;
 };
 
 interface AudioWorklet extends Worklet {
@@ -7575,16 +7534,11 @@ declare var HTMLMarqueeElement: {
 
 interface HTMLMediaElementEventMap extends HTMLElementEventMap {
     "encrypted": MediaEncryptedEvent;
-    "msneedkey": MSMediaKeyNeededEvent;
     "waitingforkey": Event;
 }
 
 /** Adds to HTMLElement the properties and methods needed to support basic media-related capabilities that are common to audio and video. */
 interface HTMLMediaElement extends HTMLElement {
-    /**
-     * Returns an AudioTrackList object with the audio tracks for a given video element.
-     */
-    readonly audioTracks: AudioTrackList;
     /**
      * Gets or sets a value that indicates whether to start playing the media automatically.
      */
@@ -7629,40 +7583,6 @@ interface HTMLMediaElement extends HTMLElement {
     loop: boolean;
     readonly mediaKeys: MediaKeys | null;
     /**
-     * Specifies the purpose of the audio or video media, such as background audio or alerts.
-     */
-    msAudioCategory: string;
-    /**
-     * Specifies the output device id that the audio will be sent to.
-     */
-    msAudioDeviceType: string;
-    readonly msGraphicsTrustStatus: MSGraphicsTrust;
-    /**
-     * Gets the MSMediaKeys object, which is used for decrypting media data, that is associated with this media element.
-     */
-    /** @deprecated */
-    readonly msKeys: MSMediaKeys;
-    /**
-     * Gets or sets whether the DLNA PlayTo device is available.
-     */
-    msPlayToDisabled: boolean;
-    /**
-     * Gets or sets the path to the preferred media source. This enables the Play To target device to stream the media content, which can be DRM protected, from a different location, such as a cloud media server.
-     */
-    msPlayToPreferredSourceUri: string;
-    /**
-     * Gets or sets the primary DLNA PlayTo device.
-     */
-    msPlayToPrimary: boolean;
-    /**
-     * Gets the source associated with the media element for use by the PlayToManager.
-     */
-    readonly msPlayToSource: any;
-    /**
-     * Specifies whether or not to enable low-latency playback on the media element.
-     */
-    msRealTime: boolean;
-    /**
      * Gets or sets a flag that indicates whether the audio (either audio or the audio track on video media) is muted.
      */
     muted: boolean;
@@ -7671,8 +7591,6 @@ interface HTMLMediaElement extends HTMLElement {
      */
     readonly networkState: number;
     onencrypted: ((this: HTMLMediaElement, ev: MediaEncryptedEvent) => any) | null;
-    /** @deprecated */
-    onmsneedkey: ((this: HTMLMediaElement, ev: MSMediaKeyNeededEvent) => any) | null;
     onwaitingforkey: ((this: HTMLMediaElement, ev: Event) => any) | null;
     /**
      * Gets a flag that specifies whether playback is paused.
@@ -7703,9 +7621,8 @@ interface HTMLMediaElement extends HTMLElement {
      * The address or URL of the a media resource that is to be considered.
      */
     src: string;
-    srcObject: MediaStream | MediaSource | Blob | null;
+    srcObject: MediaProvider | null;
     readonly textTracks: TextTrackList;
-    readonly videoTracks: VideoTrackList;
     /**
      * Gets or sets the volume level for audio portions of the media element.
      */
@@ -7715,25 +7632,11 @@ interface HTMLMediaElement extends HTMLElement {
      * Returns a string that specifies whether the client can play a given media resource type.
      */
     canPlayType(type: string): CanPlayTypeResult;
+    fastSeek(time: number): void;
     /**
      * Resets the audio or video object and loads a new media resource.
      */
     load(): void;
-    /**
-     * Clears all effects from the media pipeline.
-     */
-    msClearEffects(): void;
-    msGetAsCastingSource(): any;
-    /**
-     * Inserts the specified audio effect into media pipeline.
-     */
-    msInsertAudioEffect(activatableClassId: string, effectRequired: boolean, config?: any): void;
-    /** @deprecated */
-    msSetMediaKeys(mediaKeys: MSMediaKeys): void;
-    /**
-     * Specifies the media protection manager for a given media pipeline.
-     */
-    msSetMediaProtectionManager(mediaProtectionManager?: any): void;
     /**
      * Pauses the current playback and sets paused to TRUE. This can be used to test whether the media is playing or paused. You can also use the pause or play events to tell whether the media is playing or not.
      */
@@ -9026,27 +8929,12 @@ declare var HTMLUnknownElement: {
     new(): HTMLUnknownElement;
 };
 
-interface HTMLVideoElementEventMap extends HTMLMediaElementEventMap {
-    "MSVideoFormatChanged": Event;
-    "MSVideoFrameStepCompleted": Event;
-    "MSVideoOptimalLayoutChanged": Event;
-}
-
 /** Provides special properties and methods for manipulating video objects. It also inherits properties and methods of HTMLMediaElement and HTMLElement. */
 interface HTMLVideoElement extends HTMLMediaElement {
     /**
      * Gets or sets the height of the video element.
      */
     height: number;
-    msHorizontalMirror: boolean;
-    readonly msIsLayoutOptimalForPlayback: boolean;
-    readonly msIsStereo3D: boolean;
-    msStereo3DPackingMode: string;
-    msStereo3DRenderMode: string;
-    msZoom: boolean;
-    onMSVideoFormatChanged: ((this: HTMLVideoElement, ev: Event) => any) | null;
-    onMSVideoFrameStepCompleted: ((this: HTMLVideoElement, ev: Event) => any) | null;
-    onMSVideoOptimalLayoutChanged: ((this: HTMLVideoElement, ev: Event) => any) | null;
     /**
      * Gets or sets a URL of an image to display, for example, like a movie poster. This can be a still frame from the video, or another image if no video data is available.
      */
@@ -9059,23 +8947,14 @@ interface HTMLVideoElement extends HTMLMediaElement {
      * Gets the intrinsic width of a video in CSS pixels, or zero if the dimensions are not known.
      */
     readonly videoWidth: number;
-    readonly webkitDisplayingFullscreen: boolean;
-    readonly webkitSupportsFullscreen: boolean;
     /**
      * Gets or sets the width of the video element.
      */
     width: number;
     getVideoPlaybackQuality(): VideoPlaybackQuality;
-    msFrameStep(forward: boolean): void;
-    msInsertVideoEffect(activatableClassId: string, effectRequired: boolean, config?: any): void;
-    msSetVideoRectangle(left: number, top: number, right: number, bottom: number): void;
-    webkitEnterFullScreen(): void;
-    webkitEnterFullscreen(): void;
-    webkitExitFullScreen(): void;
-    webkitExitFullscreen(): void;
-    addEventListener<K extends keyof HTMLVideoElementEventMap>(type: K, listener: (this: HTMLVideoElement, ev: HTMLVideoElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLMediaElementEventMap>(type: K, listener: (this: HTMLVideoElement, ev: HTMLMediaElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLVideoElementEventMap>(type: K, listener: (this: HTMLVideoElement, ev: HTMLVideoElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLMediaElementEventMap>(type: K, listener: (this: HTMLVideoElement, ev: HTMLMediaElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -10201,12 +10080,10 @@ declare var MediaEncryptedEvent: {
 interface MediaError {
     readonly code: number;
     readonly message: string;
-    readonly msExtendedCode: number;
     readonly MEDIA_ERR_ABORTED: number;
     readonly MEDIA_ERR_DECODE: number;
     readonly MEDIA_ERR_NETWORK: number;
     readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
-    readonly MS_MEDIA_ERR_ENCRYPTED: number;
 }
 
 declare var MediaError: {
@@ -10216,7 +10093,6 @@ declare var MediaError: {
     readonly MEDIA_ERR_DECODE: number;
     readonly MEDIA_ERR_NETWORK: number;
     readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
-    readonly MS_MEDIA_ERR_ENCRYPTED: number;
 };
 
 /** This EncryptedMediaExtensions API interface contains the content and related data when the content decryption module generates a message for the session. */
@@ -15119,7 +14995,6 @@ interface SourceBufferEventMap {
 interface SourceBuffer extends EventTarget {
     appendWindowEnd: number;
     appendWindowStart: number;
-    readonly audioTracks: AudioTrackList;
     readonly buffered: TimeRanges;
     mode: AppendMode;
     onabort: ((this: SourceBuffer, ev: Event) => any) | null;
@@ -15127,10 +15002,8 @@ interface SourceBuffer extends EventTarget {
     onupdate: ((this: SourceBuffer, ev: Event) => any) | null;
     onupdateend: ((this: SourceBuffer, ev: Event) => any) | null;
     onupdatestart: ((this: SourceBuffer, ev: Event) => any) | null;
-    readonly textTracks: TextTrackList;
     timestampOffset: number;
     readonly updating: boolean;
-    readonly videoTracks: VideoTrackList;
     abort(): void;
     appendBuffer(data: BufferSource): void;
     remove(start: number, end: number): void;
@@ -15736,33 +15609,58 @@ declare var TextMetrics: {
 
 interface TextTrackEventMap {
     "cuechange": Event;
-    "error": Event;
-    "load": Event;
 }
 
 /** This interface also inherits properties from EventTarget. */
 interface TextTrack extends EventTarget {
-    readonly activeCues: TextTrackCueList;
-    readonly cues: TextTrackCueList;
+    /**
+     * Returns the text track cues from the text track list of cues that are currently active (i.e. that start before the current playback position and end after it), as a TextTrackCueList object.
+     */
+    readonly activeCues: TextTrackCueList | null;
+    /**
+     * Returns the text track list of cues, as a TextTrackCueList object.
+     */
+    readonly cues: TextTrackCueList | null;
+    /**
+     * Returns the ID of the given track.
+     * 
+     * For in-band tracks, this is the ID that can be used with a fragment if the format supports media fragment syntax, and that can be used with the getTrackById() method.
+     * 
+     * For TextTrack objects corresponding to track elements, this is the ID of the track element.
+     */
+    readonly id: string;
+    /**
+     * Returns the text track in-band metadata track dispatch type string.
+     */
     readonly inBandMetadataTrackDispatchType: string;
-    readonly kind: string;
+    /**
+     * Returns the text track kind string.
+     */
+    readonly kind: TextTrackKind;
+    /**
+     * Returns the text track label, if there is one, or the empty string otherwise (indicating that a custom label probably needs to be generated from the other attributes of the object if the object is exposed to the user).
+     */
     readonly label: string;
+    /**
+     * Returns the text track language string.
+     */
     readonly language: string;
-    mode: TextTrackMode | number;
+    /**
+     * Returns the text track mode, represented by a string from the following list:
+     * 
+     * Can be set, to change the mode.
+     */
+    mode: TextTrackMode;
     oncuechange: ((this: TextTrack, ev: Event) => any) | null;
-    onerror: ((this: TextTrack, ev: Event) => any) | null;
-    onload: ((this: TextTrack, ev: Event) => any) | null;
-    readonly readyState: number;
     readonly sourceBuffer: SourceBuffer | null;
+    /**
+     * Adds the given cue to textTrack's text track list of cues.
+     */
     addCue(cue: TextTrackCue): void;
+    /**
+     * Removes the given cue from textTrack's text track list of cues.
+     */
     removeCue(cue: TextTrackCue): void;
-    readonly DISABLED: number;
-    readonly ERROR: number;
-    readonly HIDDEN: number;
-    readonly LOADED: number;
-    readonly LOADING: number;
-    readonly NONE: number;
-    readonly SHOWING: number;
     addEventListener<K extends keyof TextTrackEventMap>(type: K, listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof TextTrackEventMap>(type: K, listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -15772,13 +15670,6 @@ interface TextTrack extends EventTarget {
 declare var TextTrack: {
     prototype: TextTrack;
     new(): TextTrack;
-    readonly DISABLED: number;
-    readonly ERROR: number;
-    readonly HIDDEN: number;
-    readonly LOADED: number;
-    readonly LOADING: number;
-    readonly NONE: number;
-    readonly SHOWING: number;
 };
 
 interface TextTrackCueEventMap {
@@ -15788,15 +15679,36 @@ interface TextTrackCueEventMap {
 
 /** TextTrackCues represent a string of text that will be displayed for some duration of time on a TextTrack. This includes the start and end times that the cue will be displayed. A TextTrackCue cannot be used directly, instead one of the derived types (e.g. VTTCue) must be used. */
 interface TextTrackCue extends EventTarget {
+    /**
+     * Returns the text track cue end time, in seconds.
+     * 
+     * Can be set.
+     */
     endTime: number;
+    /**
+     * Returns the text track cue identifier.
+     * 
+     * Can be set.
+     */
     id: string;
     onenter: ((this: TextTrackCue, ev: Event) => any) | null;
     onexit: ((this: TextTrackCue, ev: Event) => any) | null;
+    /**
+     * Returns true if the text track cue pause-on-exit flag is set, false otherwise.
+     * 
+     * Can be set.
+     */
     pauseOnExit: boolean;
+    /**
+     * Returns the text track cue start time, in seconds.
+     * 
+     * Can be set.
+     */
     startTime: number;
-    text: string;
-    readonly track: TextTrack;
-    getCueAsHTML(): DocumentFragment;
+    /**
+     * Returns the TextTrack object to which this text track cue belongs, if any, or null otherwise.
+     */
+    readonly track: TextTrack | null;
     addEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof TextTrackCueEventMap>(type: K, listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -15805,13 +15717,20 @@ interface TextTrackCue extends EventTarget {
 
 declare var TextTrackCue: {
     prototype: TextTrackCue;
-    new(startTime: number, endTime: number, text: string): TextTrackCue;
+    new(): TextTrackCue;
 };
 
 interface TextTrackCueList {
+    /**
+     * Returns the number of cues in the list.
+     */
     readonly length: number;
-    getCueById(id: string): TextTrackCue;
-    item(index: number): TextTrackCue;
+    /**
+     * Returns the first text track cue (in text track cue order) with text track cue identifier id.
+     * 
+     * Returns null if none of the cues have the given identifier or if the argument is the empty string.
+     */
+    getCueById(id: string): TextTrackCue | null;
     [index: number]: TextTrackCue;
 }
 
@@ -15831,7 +15750,7 @@ interface TextTrackList extends EventTarget {
     onaddtrack: ((this: TextTrackList, ev: TrackEvent) => any) | null;
     onchange: ((this: TextTrackList, ev: Event) => any) | null;
     onremovetrack: ((this: TextTrackList, ev: TrackEvent) => any) | null;
-    item(index: number): TextTrack;
+    getTrackById(id: string): TextTrack | null;
     addEventListener<K extends keyof TextTrackListEventMap>(type: K, listener: (this: TextTrackList, ev: TextTrackListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof TextTrackListEventMap>(type: K, listener: (this: TextTrackList, ev: TextTrackListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -15846,8 +15765,21 @@ declare var TextTrackList: {
 
 /** Used to represent a set of time ranges, primarily for the purpose of tracking which portions of media have been buffered when loading it for use by the <audio> and <video> elements. */
 interface TimeRanges {
+    /**
+     * Returns the number of ranges in the object.
+     */
     readonly length: number;
+    /**
+     * Returns the time for the end of the range with the given index.
+     * 
+     * Throws an "IndexSizeError" DOMException if the index is out of range.
+     */
     end(index: number): number;
+    /**
+     * Returns the time for the start of the range with the given index.
+     * 
+     * Throws an "IndexSizeError" DOMException if the index is out of range.
+     */
     start(index: number): number;
 }
 
@@ -15910,12 +15842,15 @@ declare var TouchList: {
 
 /** The TrackEvent interface, part of the HTML DOM specification, is used for events which represent changes to the set of available tracks on an HTML media element; these events are addtrack and removetrack. */
 interface TrackEvent extends Event {
-    readonly track: VideoTrack | AudioTrack | TextTrack | null;
+    /**
+     * Returns the track object (TextTrack, AudioTrack, or VideoTrack) to which the event relates.
+     */
+    readonly track: TextTrack | null;
 }
 
 declare var TrackEvent: {
     prototype: TrackEvent;
-    new(typeArg: string, eventInitDict?: TrackEventInit): TrackEvent;
+    new(type: string, eventInitDict?: TrackEventInit): TrackEvent;
 };
 
 interface TransformStream<I = any, O = any> {
@@ -16219,58 +16154,14 @@ declare var ValidityState: {
 
 /** Returned by the HTMLVideoElement.getVideoPlaybackQuality() method and contains metrics that can be used to determine the playback quality of a video. */
 interface VideoPlaybackQuality {
-    readonly corruptedVideoFrames: number;
     readonly creationTime: number;
     readonly droppedVideoFrames: number;
-    readonly totalFrameDelay: number;
     readonly totalVideoFrames: number;
 }
 
 declare var VideoPlaybackQuality: {
     prototype: VideoPlaybackQuality;
     new(): VideoPlaybackQuality;
-};
-
-/** A single video track from a <video> element. */
-interface VideoTrack {
-    readonly id: string;
-    kind: string;
-    readonly label: string;
-    language: string;
-    selected: boolean;
-    readonly sourceBuffer: SourceBuffer | null;
-}
-
-declare var VideoTrack: {
-    prototype: VideoTrack;
-    new(): VideoTrack;
-};
-
-interface VideoTrackListEventMap {
-    "addtrack": TrackEvent;
-    "change": Event;
-    "removetrack": TrackEvent;
-}
-
-/** Used to represent a list of the video tracks contained within a <video> element, with each track represented by a separate VideoTrack object in the list. */
-interface VideoTrackList extends EventTarget {
-    readonly length: number;
-    onaddtrack: ((this: VideoTrackList, ev: TrackEvent) => any) | null;
-    onchange: ((this: VideoTrackList, ev: Event) => any) | null;
-    onremovetrack: ((this: VideoTrackList, ev: TrackEvent) => any) | null;
-    readonly selectedIndex: number;
-    getTrackById(id: string): VideoTrack | null;
-    item(index: number): VideoTrack;
-    addEventListener<K extends keyof VideoTrackListEventMap>(type: K, listener: (this: VideoTrackList, ev: VideoTrackListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof VideoTrackListEventMap>(type: K, listener: (this: VideoTrackList, ev: VideoTrackListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    [index: number]: VideoTrack;
-}
-
-declare var VideoTrackList: {
-    prototype: VideoTrackList;
-    new(): VideoTrackList;
 };
 
 interface WEBGL_color_buffer_float {
@@ -19944,6 +19835,7 @@ type OffscreenRenderingContext = OffscreenCanvasRenderingContext2D | ImageBitmap
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
+type MediaProvider = MediaStream | MediaSource | Blob;
 type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;
 type TimerHandler = string | Function;

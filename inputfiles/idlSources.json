@@ -636,6 +636,10 @@
         "title": "WebRTC"
     },
     {
+        "url": "https://www.w3.org/TR/web-share/",
+        "title": "Web Share"
+    },
+    {
         "url": "https://w3c.github.io/speech-api/",
         "title": "Web Speech API"
     },

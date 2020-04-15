@@ -1033,10 +1033,12 @@ interface PipeOptions {
 }
 
 interface PointerEventInit extends MouseEventInit {
+    coalescedEvents?: PointerEvent[];
     height?: number;
     isPrimary?: boolean;
     pointerId?: number;
     pointerType?: string;
+    predictedEvents?: PointerEvent[];
     pressure?: number;
     tangentialPressure?: number;
     tiltX?: number;
@@ -11747,6 +11749,8 @@ interface PointerEvent extends MouseEvent {
     readonly tiltY: number;
     readonly twist: number;
     readonly width: number;
+    getCoalescedEvents(): PointerEvent[];
+    getPredictedEvents(): PointerEvent[];
 }
 
 declare var PointerEvent: {

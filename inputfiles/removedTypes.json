@@ -15,13 +15,6 @@
                     }
                 }
             },
-            "ElementContentEditable": {
-                "properties": {
-                    "property": {
-                        "enterKeyHint": null
-                    }
-                }
-            },
             "NavigatorID": {
                 "methods": {
                     "method": {

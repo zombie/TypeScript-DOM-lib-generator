@@ -5232,6 +5232,7 @@ interface ElementCSSInlineStyle {
 
 interface ElementContentEditable {
     contentEditable: string;
+    enterKeyHint: string;
     inputMode: string;
     readonly isContentEditable: boolean;
 }

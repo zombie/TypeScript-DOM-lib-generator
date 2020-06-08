@@ -1,0 +1,27 @@
+name: Runs with TypeScript Tests
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+
+      - run:|
+        # Get local dependencies
+        npm install
+        # Make our new dom APIs
+        npm build
+
+        # Clone TypeScript, set it up
+        git clone https://github.com/microsoft/TypeScript -–depth 1
+        cd TypeScript
+        npm i
+        
+        # Move in the generated dom APIs into a new version of TSC
+        cp -rf ../generated/* src/lib
+
+        # Run TypeScript's tests with the new DOM libs
+        npm test

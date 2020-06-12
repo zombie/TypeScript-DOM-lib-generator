@@ -2696,6 +2696,29 @@
                     }
                 }
             },
+            "MessageEvent": {
+                "name": "MessageEvent",
+                "properties": {
+                    "property": {
+                        "data": {
+                            "name": "data",
+                            "read-only": 1,
+                            "override-type": "T"
+                        }
+                    }
+                },
+                "type-parameters": [
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
+                ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>"
+                    ]
+                }
+            },
             "Clients": {
                 "methods": {
                     "method": {
@@ -2711,6 +2734,24 @@
     },
     "dictionaries": {
         "dictionary": {
+            "MessageEventInit": {
+                "name": "MessageEventInit",
+                "members": {
+                    "member": {
+                        "data": {
+                            "name": "data",
+                            "override-type": "T",
+                            "required": 0
+                        }
+                    }
+                },
+                "type-parameters": [
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
+                ]
+            },
             "CustomEventInit": {
                 "name": "CustomEventInit",
                 "members": {

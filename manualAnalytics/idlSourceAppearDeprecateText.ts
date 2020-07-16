@@ -18,17 +18,15 @@ async function fetchIDLs() {
         }
         await fetchIDL(source);
     })).then(
-        ()=>{
-            console.log();
-            console.log(deprecatedSet);
+        () => {
+            fs.writeFileSync(path.join(__dirname, 'idlSourcePossiable.json'), JSON.stringify(Array.from(deprecatedSet)));
         }
     );
 }
+// ['https://www.w3.org/TR/css-color-3/', 'https://www.w3.org/TR/credential-management-1/', 'https://www.w3.org/TR/css-text-decor-3/', 'https://w3c.github.io/media-playback-quality/', 'https://www.w3.org/TR/css-text-3/', 'https://drafts.csswg.org/css-images-3/', 'https://www.w3.org/TR/secure-contexts/', 'https://www.w3.org/TR/SVG2/types.html', 'https://html.spec.whatwg.org/multipage/obsolete.html', 'https://notifications.spec.whatwg.org/', 'https://www.w3.org/TR/SVG2/text.html', 'https://fetch.spec.whatwg.org/', 'https://html.spec.whatwg.org/multipage/webappapis.html', 'https://dom.spec.whatwg.org/', 'https://drafts.fxtf.org/css-masking-1/', 'https://www.w3.org/TR/filter-effects-1/', 'https://drafts.csswg.org/cssom/', 'https://w3c.github.io/webrtc-pc/', 'https://webaudio.github.io/web-audio-api/', 'https://heycam.github.io/webidl/', 'https://www.w3.org/TR/SVG2/pservers.html', 'https://www.w3.org/TR/uievents/']
 
 const tmpLocalFolder = path.join(__dirname, "localIdlSource");
 const deprecatedSet = new Set<string>();
-
-// ['https://www.w3.org/TR/css-color-3/', 'https://www.w3.org/TR/credential-management-1/', 'https://www.w3.org/TR/css-text-decor-3/', 'https://w3c.github.io/media-playback-quality/', 'https://www.w3.org/TR/css-text-3/', 'https://drafts.csswg.org/css-images-3/', 'https://www.w3.org/TR/secure-contexts/', 'https://www.w3.org/TR/SVG2/types.html', 'https://html.spec.whatwg.org/multipage/obsolete.html', 'https://notifications.spec.whatwg.org/', 'https://www.w3.org/TR/SVG2/text.html', 'https://fetch.spec.whatwg.org/', 'https://html.spec.whatwg.org/multipage/webappapis.html', 'https://dom.spec.whatwg.org/', 'https://drafts.fxtf.org/css-masking-1/', 'https://www.w3.org/TR/filter-effects-1/', 'https://drafts.csswg.org/cssom/', 'https://w3c.github.io/webrtc-pc/', 'https://webaudio.github.io/web-audio-api/', 'https://heycam.github.io/webidl/', 'https://www.w3.org/TR/SVG2/pservers.html', 'https://www.w3.org/TR/uievents/']
 
 async function fetchIDL(source: IDLSource) {
 
@@ -50,7 +48,7 @@ async function fetchIDL(source: IDLSource) {
         webPageContent = await response.text();
         fs.writeFileSync(localFile, webPageContent);
     }
-    if(webPageContent.toLowerCase().includes("deprecated")){
+    if (webPageContent.toLowerCase().includes("deprecated")) {
         deprecatedSet.add(source.url);
     }
     // const dom = JSDOM.fragment(

@@ -10,7 +10,7 @@ const mdnDeprecatedObsoleteApisReasonFile = path.join(outputFolder, "mdnDeprecat
 
 const mdnApiWeb = "https://developer.mozilla.org/en-US/docs/Web/API"
 
-async function fetchInterfaceDescriptions() {
+async function getDeprecatedObsoleteApiNames() {
     const fragment = await fetchDom(mdnApiWeb);
     const InterfacesSelector = '#wikiArticle > div:nth-child(8)';
 
@@ -47,8 +47,8 @@ async function fetchInterfaceDescriptions() {
     fs.writeFileSync(mdnDeprecatedObsoleteApisFile, JSON.stringify({ deprecatedAPIs, obsoleteAPIs }));
 }
 
-async function fetchDeprecatedApiReasons() {
-    await fetchInterfaceDescriptions();
+async function getDeprecatedObsoleteApiReasons() {
+    await getDeprecatedObsoleteApiNames();
     const data = require(mdnDeprecatedObsoleteApisFile);
     const deprecatedAPIArray: string[] = data.deprecatedAPIs;
     const obsoleteAPIArray: string[] = data.obsoleteAPIs;
@@ -103,4 +103,4 @@ async function fetchDom(url: string) {
     return JSDOM.fragment(responseString);
 }
 
-fetchDeprecatedApiReasons();
+getDeprecatedObsoleteApiReasons();

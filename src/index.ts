@@ -72,6 +72,7 @@ function emitDom() {
     const overriddenItems = require(path.join(inputFolder, "overridingTypes.json"));
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
+    const deprecatedInfo = require(path.join(inputFolder, "deprecatedMessage.json"));
     const documentationFromMDN = require(path.join(inputFolder, 'mdn', 'apiDescriptions.json'));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
     const idlSources: any[] = require(path.join(inputFolder, "idlSources.json"));
@@ -105,6 +106,19 @@ function emitDom() {
             const target = idl.interfaces!.interface[key] || namespaces[key];
             if (target) {
                 target.comment = transformVerbosity(key, value);
+            }
+        }
+        return idl;
+    }
+
+    function mergeDeprecatedMessage(idl: Browser.WebIdl, descriptions: Record<string, string>) {
+        const namespaces = arrayToMap(idl.namespaces!, i => i.name, i => i);
+        for (const [key, value] of Object.entries(descriptions)) {
+            const target = idl.interfaces!.interface[key] || namespaces[key];
+            if (target) {
+                const tmp = target.comment ?? "";
+                const tmp2 = "\n * @deprecated " + transformVerbosity(key, value);
+                target.comment = tmp + tmp2;
             }
         }
         return idl;
@@ -177,6 +191,7 @@ function emitDom() {
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);
     webidl = merge(webidl, comments);
+    webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);
     for (const name in webidl.interfaces!.interface) {
         const i = webidl.interfaces!.interface[name];
         if (i["override-exposed"]) {

@@ -640,7 +640,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (entity.comment) {
             entity.comment.split('\n').forEach(print);
         }
-        if (entity.deprecated) {
+        if (entity.deprecated && !entity.comment?.includes('@deprecated')) {
             print(`/** @deprecated */`);
         }
     }

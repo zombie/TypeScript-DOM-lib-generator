@@ -5,10 +5,8 @@ import path from "path";
 
 const outputFolder = __dirname
 
-const mdnDeprecatedApisFile = path.join(outputFolder, "mdnDeprecatedApis.json");
-const mdnObsoleteApisFile = path.join(outputFolder, "mdnObsoleteApis.json");
-const mdnDeprecatedApisReasonFile = path.join(outputFolder, "mdnDeprecatedApisReason.json");
-const mdnObsoleteApisReasonFile = path.join(outputFolder, "mdnObsoleteApisReason.json");
+const mdnDeprecatedObsoleteApisFile = path.join(outputFolder, "mdnDeprecatedObsoleteApis.json");
+const mdnDeprecatedObsoleteApisReasonFile = path.join(outputFolder, "mdnDeprecatedObsoleteApisReason.json");
 
 const mdnApiWeb = "https://developer.mozilla.org/en-US/docs/Web/API"
 
@@ -46,57 +44,28 @@ async function fetchInterfaceDescriptions() {
         obsoleteAPIs.push(obsoleteAPI);
     }
 
-    fs.writeFileSync(mdnDeprecatedApisFile, JSON.stringify(deprecatedAPIs));
-    fs.writeFileSync(mdnObsoleteApisFile, JSON.stringify(obsoleteAPIs));
+    fs.writeFileSync(mdnDeprecatedObsoleteApisFile, JSON.stringify({ deprecatedAPIs, obsoleteAPIs }));
 }
 
 async function fetchDeprecatedApiReasons() {
     await fetchInterfaceDescriptions();
+    const data = require(mdnDeprecatedObsoleteApisFile);
+    const deprecatedAPIArray: string[] = data.deprecatedAPIs;
+    const obsoleteAPIArray: string[] = data.obsoleteAPIs;
 
-    const deprecatedAPIArray: string[] = require(mdnDeprecatedApisFile);
-    const obsoleteAPIArray: string[] = require(mdnObsoleteApisFile);
-
-    // const maekDeprecatedJsdocApiArray = [...deprecatedAPIArray, ...obsoleteAPIArray];
-
-    // const deprecatedAPIArray: string[] = JSON.parse(s);
-    // use Promise.all to acclete.
     const mdnDeprecatedApisReason: Record<string, string> = {};
     const mdnObsoleteApisReason: Record<string, string> = {};
 
-    Promise.all(deprecatedAPIArray.map(async apiName => {
+    const dPromise = getReasonPromise(deprecatedAPIArray, (apiname, reason) => { mdnDeprecatedApisReason[apiname] = reason; });
+    const oPromise = getReasonPromise(obsoleteAPIArray, (apiname, reason) => { mdnObsoleteApisReason[apiname] = reason; });
+    Promise.all([dPromise, oPromise]).then(() => {
+        fs.writeFileSync(mdnDeprecatedObsoleteApisReasonFile, JSON.stringify({ mdnDeprecatedApisReason, mdnObsoleteApisReason }));
+    });
+}
+
+async function getReasonPromise(apiNameArray: string[], cb: (apiName: string, reason: string) => void) {
+    return Promise.all(apiNameArray.map(async apiName => {
         const fragment = await fetchDom(`${mdnApiWeb}/${apiName}`);
-
-        let isSearchedArea = true;
-        const searchArea = Array.from(fragment.querySelector("#wikiArticle")?.children!).filter(item => {
-            if (item.tagName === "H2") {
-                isSearchedArea = false;
-            }
-            return isSearchedArea;
-        });
-        const reason1 = searchArea.find(e => e.className.split(' ').includes("warning"))?.textContent;
-        const reason2 = searchArea.find(e => e.className.split(' ').includes("note"))?.textContent;
-
-        // const reason1 = fragment.querySelector("#wikiArticle > .warning")?.textContent;
-        // const reason2 = fragment.querySelector("#wikiArticle > .note")?.textContent;
-
-        if (reason1 && reason2) {
-            throw new Error("not consider situation! api name is " + apiName);
-        }
-        if (!reason1 && !reason2) {
-            return Promise.resolve();
-        }
-        const reason = reason1 ?? reason2;
-        if (!reason) {
-            throw new Error("impossiable");
-        }
-        mdnDeprecatedApisReason[apiName] = reason.substring(reason.indexOf(':') + 1).replace("\n", "");
-    })).then(() => {
-        fs.writeFileSync(mdnDeprecatedApisReasonFile, JSON.stringify(mdnDeprecatedApisReason));
-    })
-
-    Promise.all(obsoleteAPIArray.map(async apiName => {
-        const fragment = await fetchDom(`${mdnApiWeb}/${apiName}`);
-
         let isSearchedArea = true;
         const searchArea = Array.from(fragment.querySelector("#wikiArticle")?.children!).filter(item => {
             if (item.tagName === "H2") {
@@ -120,10 +89,8 @@ async function fetchDeprecatedApiReasons() {
         if (!reason) {
             throw new Error("impossiable");
         }
-        mdnObsoleteApisReason[apiName] = reason.substring(reason.indexOf(':') + 1).replace("\n", "");
-    })).then(() => {
-        fs.writeFileSync(mdnObsoleteApisReasonFile, JSON.stringify(mdnObsoleteApisReason));
-    })
+        cb(apiName, reason.substring(reason.indexOf(':') + 1).replace(/\n/g, "").trim() + '\n')
+    }))
 }
 
 async function fetchDom(url: string) {

@@ -1,6 +1,19 @@
 {
     "mixins": {
         "mixin": {
+            "NonElementParentNode": {
+                "name": "NonElementParentNode",
+                "methods": {
+                    "method": {
+                        "getElementById": {
+                            "name": "getElementById",
+                            "override-signatures": [
+                                "getElementById<E extends Element = Element>(elementId: string): E | null"
+                            ]
+                        }
+                    }
+                }
+            },
             "GlobalFetch": {
                 "name": "GlobalFetch",
                 "methods": {
@@ -528,7 +541,7 @@
                         "getElementById": {
                             "name": "getElementById",
                             "override-signatures": [
-                                "getElementById(elementId: string): HTMLElement | null"
+                                "getElementById<E extends Element = Element>(elementId: string): E | null"
                             ]
                         },
                         "elementsFromPoint": {
@@ -548,13 +561,13 @@
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
                             "override-signatures": [
-                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
+                                "getElementsByClassName<E extends Element = Element>(classNames: string): HTMLCollectionOf<E>"
                             ]
                         },
                         "getElementsByName": {
                             "name": "getElementsByName",
                             "override-signatures": [
-                                "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
+                                "getElementsByName<E extends Element = Element>(elementName: string): NodeListOf<E>"
                             ]
                         },
                         "createTreeWalker": {
@@ -704,7 +717,7 @@
                             "override-type": "Node & ParentNode | null"
                         },
                         "parentElement": {
-                            "override-type": "HTMLElement | null"
+                            "override-type": "Element | null"
                         },
                         "childNodes": {
                             "override-type": "NodeListOf<ChildNode>"
@@ -967,6 +980,12 @@
                 "name": "SVGSVGElement",
                 "methods": {
                     "method": {
+                        "getElementById": {
+                            "name": "getElementById",
+                            "override-signatures": [
+                                "getElementById<E extends Element = Element>(elementId: string): E | null"
+                            ]
+                        },
                         "getEnclosureList": {
                             "name": "getEnclosureList",
                             "override-signatures": [

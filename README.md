@@ -103,4 +103,4 @@ To give you a sense of whether we will accept changes, you can use these heurist
 - `overridingTypes.json`: types that are defined in the spec file but has a better or more up-to-date definitions in the json files.
 - `removedTypes.json`: types that are defined in the spec file but should be removed.
 - `comments.json`: comment strings to be embedded in the generated .js files.
-- `deprecatedMessage.json`: the reason why one type is deprecated. The reason why it is a sprecate file rather than merge in comment.json is mdn/apiDescriptions.json would also possiably be deprecated.
+- `deprecatedMessage.json`: the reason why one type is deprecated. The reason why it is a sprecated file rather than merge in comment.json is mdn/apiDescriptions.json would also possiably be deprecated.

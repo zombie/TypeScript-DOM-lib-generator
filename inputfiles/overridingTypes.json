@@ -2895,6 +2895,21 @@
                     }
                 }
             },
+            "AuthenticatorSelectionCriteria": {
+                "members": {
+                    "member": {
+                        "authenticatorAttachment": {
+                            "type": "AuthenticatorAttachment"
+                        },
+                        "residentKey": {
+                            "type": "ResidentKeyRequirement"
+                        },
+                        "userVerification": {
+                            "type": "UserVerificationRequirement"
+                        }
+                    }
+                }
+            },
             "BaseKeyframe": {
                 "name": "Keyframe",
                 "override-index-signatures": [
@@ -2943,6 +2958,47 @@
                         },
                         "signal": {
                             "nullable": 0
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialCreationOptions": {
+                "members": {
+                    "member": {
+                        "attestation": {
+                            "type": "AttestationConveyancePreference"
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialDescriptor": {
+                "members": {
+                    "member": {
+                        "type": {
+                            "type": "PublicKeyCredentialType"
+                        },
+                        "transports": {
+                            "subtype": {
+                                "type": "AuthenticatorTransport"
+                            }
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialParameters": {
+                "members": {
+                    "member": {
+                        "type": {
+                            "type": "PublicKeyCredentialType"
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialRequestOptions": {
+                "members": {
+                    "member": {
+                        "userVerification": {
+                            "type": "UserVerificationRequirement"
                         }
                     }
                 }
@@ -3071,6 +3127,15 @@
                         },
                         "type": {
                             "override-type": "undefined"
+                        }
+                    }
+                }
+            },
+            "TokenBinding": {
+                "members": {
+                    "member": {
+                        "status": {
+                            "type": "TokenBindingStatus"
                         }
                     }
                 }

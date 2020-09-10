@@ -116,9 +116,9 @@ function emitDom() {
         for (const [key, value] of Object.entries(descriptions)) {
             const target = idl.interfaces!.interface[key] || namespaces[key];
             if (target) {
-                const tmp = target.comment ?? "";
-                const tmp2 = "\n * @deprecated " + transformVerbosity(key, value);
-                target.comment = tmp + tmp2;
+                const comment = target.comment ?? "";
+                const deprecated = "\n * @deprecated " + transformVerbosity(key, value);
+                target.comment = comment + deprecated;
             }
         }
         return idl;

@@ -701,9 +701,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
         }
         else if (method.signature) {
-            if (method["additional-signatures"]) {
-                method["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
-            }
+            method["additional-signatures"]?.forEach(s => printLine(`${prefix}${s};`));
             method.signature.forEach(sig => emitSignature(sig, prefix, name, printLine));
         }
     }

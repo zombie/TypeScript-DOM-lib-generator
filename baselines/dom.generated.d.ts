@@ -4146,7 +4146,7 @@ interface DataTransfer {
      * 
      * The possible values are "none", "copy", "link", and "move".
      */
-    dropEffect: string;
+    dropEffect: "none" | "copy" | "link" | "move";
     /**
      * Returns the kinds of operations that are to be allowed.
      * 
@@ -4154,7 +4154,7 @@ interface DataTransfer {
      * 
      * The possible values are "none", "copy", "copyLink", "copyMove", "link", "linkMove", "move", "all", and "uninitialized",
      */
-    effectAllowed: string;
+    effectAllowed: "none" | "copy" | "copyLink" | "copyMove" | "link" | "linkMove" | "move" | "all" | "uninitialized";
     /**
      * Returns a FileList of the files being dragged, if any.
      */

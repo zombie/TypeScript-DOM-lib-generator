@@ -645,6 +645,8 @@ interface KeyboardEventInit extends EventModifierInit {
     code?: string;
     isComposing?: boolean;
     key?: string;
+    /** @deprecated */
+    keyCode?: number;
     location?: number;
     repeat?: boolean;
 }

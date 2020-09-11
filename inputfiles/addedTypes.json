@@ -2360,6 +2360,17 @@
                         }
                     }
                 }
+            },
+            "KeyboardEventInit": {
+                "members": {
+                    "member": {
+                        "keyCode": {
+                            "name": "keyCode",
+                            "deprecated": 1,
+                            "type": "unsigned long"
+                        }
+                    }
+                }
             }
         }
     },

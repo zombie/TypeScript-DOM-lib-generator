@@ -8952,6 +8952,10 @@ interface HTMLVideoElement extends HTMLMediaElement {
      */
     height: number;
     /**
+     * Gets or sets the playsinline of the video element. for example, On iPhone, video elements will now be allowed to play inline, and will not automatically enter fullscreen mode when playback begins.
+     */
+    playsInline: boolean;
+    /**
      * Gets or sets a URL of an image to display, for example, like a movie poster. This can be a still frame from the video, or another image if no video data is available.
      */
     poster: string;

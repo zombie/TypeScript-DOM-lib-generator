@@ -642,6 +642,8 @@ interface KeyAlgorithm {
 }
 
 interface KeyboardEventInit extends EventModifierInit {
+    /** @deprecated */
+    charCode?: number;
     code?: string;
     isComposing?: boolean;
     key?: string;

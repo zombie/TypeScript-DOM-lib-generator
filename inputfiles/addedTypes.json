@@ -2364,10 +2364,11 @@
             "KeyboardEventInit": {
                 "members": {
                     "member": {
+                        "charCode": {
+                            "deprecated": 1
+                        },
                         "keyCode": {
-                            "name": "keyCode",
-                            "deprecated": 1,
-                            "type": "unsigned long"
+                            "deprecated": 1
                         }
                     }
                 }

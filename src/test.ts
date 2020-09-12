@@ -14,7 +14,7 @@ function normalizeLineEndings(text: string): string {
 
 function compareToBaselines() {
     for (const file of fs.readdirSync(baselineFolder)) {
-        if (file.startsWith(".")) return true
+        if (file.startsWith(".")) continue
 
         const baseline = normalizeLineEndings(fs.readFileSync(path.join(baselineFolder, file)).toString());
         const generated = normalizeLineEndings(fs.readFileSync(path.join(outputFolder, file)).toString());

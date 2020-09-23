@@ -1239,17 +1239,36 @@ interface RTCIceCandidatePair {
 interface RTCIceCandidatePairStats extends RTCStats {
     availableIncomingBitrate?: number;
     availableOutgoingBitrate?: number;
+    bytesDiscardedOnSend?: number;
     bytesReceived?: number;
     bytesSent?: number;
+    circuitBreakerTriggerCount?: number;
+    consentExpiredTimestamp?: number;
+    consentRequestsSent?: number;
+    currentRoundTripTime?: number;
+    currentRtt?: number;
+    firstRequestTimestamp?: number;
+    lastPacketReceivedTimestamp?: number;
+    lastPacketSentTimestamp?: number;
+    lastRequestTimestamp?: number;
+    lastResponseTimestamp?: number;
     localCandidateId?: string;
     nominated?: boolean;
+    packetsDiscardedOnSend?: number;
+    packetsReceived?: number;
+    packetsSent?: number;
     priority?: number;
-    readable?: boolean;
     remoteCandidateId?: string;
-    roundTripTime?: number;
+    requestsReceived?: number;
+    requestsSent?: number;
+    responsesReceived?: number;
+    responsesSent?: number;
+    retransmissionsReceived?: number;
+    retransmissionsSent?: number;
     state?: RTCStatsIceCandidatePairState;
+    totalRoundTripTime?: number;
+    totalRtt?: number;
     transportId?: string;
-    writable?: boolean;
 }
 
 interface RTCIceGatherOptions {
@@ -1487,9 +1506,9 @@ interface RTCSsrcRange {
 }
 
 interface RTCStats {
-    id: string;
-    timestamp: number;
-    type: RTCStatsType;
+    id?: string;
+    timestamp?: number;
+    type?: RTCStatsType;
 }
 
 interface RTCStatsEventInit extends EventInit {
@@ -1507,13 +1526,21 @@ interface RTCTrackEventInit extends EventInit {
 }
 
 interface RTCTransportStats extends RTCStats {
-    activeConnection?: boolean;
     bytesReceived?: number;
     bytesSent?: number;
+    dtlsCipher?: string;
+    dtlsState?: RTCDtlsTransportState;
+    iceRole?: RTCIceRole;
     localCertificateId?: string;
+    packetsReceived?: number;
+    packetsSent?: number;
     remoteCertificateId?: string;
     rtcpTransportStatsId?: string;
+    selectedCandidatePairChanges?: number;
     selectedCandidatePairId?: string;
+    srtpCipher?: string;
+    tlsGroup?: string;
+    tlsVersion?: string;
 }
 
 interface ReadableStreamReadDoneResult<T> {
@@ -20080,9 +20107,9 @@ type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendre
 type RTCSctpTransportState = "closed" | "connected" | "connecting";
 type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
 type RTCSignalingState = "closed" | "have-local-offer" | "have-local-pranswer" | "have-remote-offer" | "have-remote-pranswer" | "stable";
-type RTCStatsIceCandidatePairState = "cancelled" | "failed" | "frozen" | "inprogress" | "succeeded" | "waiting";
+type RTCStatsIceCandidatePairState = "failed" | "frozen" | "in-progress" | "succeeded" | "waiting";
 type RTCStatsIceCandidateType = "host" | "peerreflexive" | "relayed" | "serverreflexive";
-type RTCStatsType = "candidatepair" | "datachannel" | "inboundrtp" | "localcandidate" | "outboundrtp" | "remotecandidate" | "session" | "track" | "transport";
+type RTCStatsType = "candidate-pair" | "certificate" | "codec" | "csrc" | "data-channel" | "ice-server" | "inbound-rtp" | "local-candidate" | "media-source" | "outbound-rtp" | "peer-connection" | "receiver" | "remote-candidate" | "remote-inbound-rtp" | "remote-outbound-rtp" | "sctp-transport" | "sender" | "stream" | "track" | "transceiver" | "transport";
 type ReadyState = "closed" | "ended" | "open";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";

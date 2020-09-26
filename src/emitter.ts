@@ -296,7 +296,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
         else {
             const types = obj.type.map(convertDomTypeToTsTypeWorker);
-            const isAny = types.find(t => t.name === "any");
+            const isAny = types.some(t => t.name === "any");
             if (isAny) {
                 type = {
                     name: "any",
@@ -306,7 +306,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             else {
                 type = {
                     name: types.map(t => t.name).join(" | "),
-                    nullable: !!types.find(t => t.nullable) || !!obj.nullable
+                    nullable: types.some(t => t.nullable) || !!obj.nullable
                 };
             }
         }
@@ -590,9 +590,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
         return isEventHandler(p) &&
             iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
-            !!iNameToEhParents[i.name].find(
+            iNameToEhParents[i.name].some(
                 i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
-                    !!iNameToEhList[i.name].find(e => e.name === p.name));
+                    iNameToEhList[i.name].some(e => e.name === p.name));
     }
 
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property) {
@@ -990,8 +990,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         // Some types are static types with non-static members. For example,
         // NodeFilter is a static method itself, however it has an "acceptNode" method
         // that expects the user to implement.
-        const hasNonStaticMethod = i.methods && !!mapToArray(i.methods.method).find(m => !m.static);
-        const hasProperty = i.properties && mapToArray(i.properties.property).find(p => !p.static);
+        const hasNonStaticMethod = i.methods && mapToArray(i.methods.method).some(m => !m.static);
+        const hasProperty = i.properties && mapToArray(i.properties.property).some(p => !p.static);
         const hasNonStaticMember = hasNonStaticMethod || hasProperty;
 
         // For static types with non-static members, we put the non-static members into an

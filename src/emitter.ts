@@ -289,6 +289,17 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         return type.nullable ? makeNullable(type.name) : type.name;
     }
 
+    function convertDomTypeToTsReturnType(obj: Browser.Typed): string {
+        const type = convertDomTypeToTsType(obj);
+        if (type === "undefined") {
+            return "void";
+        }
+        if (type === "Promise<undefined>") {
+            return "Promise<void>";
+        }
+        return type;
+    }
+
     function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
         let type;
         if (typeof obj.type === "string") {
@@ -542,7 +553,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             const m = methods[0];
             const overload = m.signature[0];
             const paramsString = overload.param ? paramsToString(overload.param) : "";
-            const returnType = overload.type ? convertDomTypeToTsType(overload) : "void";
+            const returnType = overload.type ? convertDomTypeToTsReturnType(overload) : "void";
             printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
         }
         printer.printLine("");
@@ -690,7 +701,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
         const paramsString = s.param ? paramsToString(s.param) : "";
-        let returnType = convertDomTypeToTsType(s);
+        let returnType = convertDomTypeToTsReturnType(s);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
         emitComments(s, printLine);
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);

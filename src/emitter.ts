@@ -289,6 +289,17 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         return type.nullable ? makeNullable(type.name) : type.name;
     }
 
+    function convertDomTypeToTsReturnType(obj: Browser.Typed): string {
+        const type = convertDomTypeToTsType(obj);
+        if (type === "undefined") {
+            return "void";
+        }
+        if (type === "Promise<undefined>") {
+            return "Promise<void>";
+        }
+        return type;
+    }
+
     function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
         let type;
         if (typeof obj.type === "string") {
@@ -296,7 +307,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
         else {
             const types = obj.type.map(convertDomTypeToTsTypeWorker);
-            const isAny = types.find(t => t.name === "any");
+            const isAny = types.some(t => t.name === "any");
             if (isAny) {
                 type = {
                     name: "any",
@@ -306,7 +317,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             else {
                 type = {
                     name: types.map(t => t.name).join(" | "),
-                    nullable: !!types.find(t => t.nullable) || !!obj.nullable
+                    nullable: types.some(t => t.nullable) || !!obj.nullable
                 };
             }
         }
@@ -542,7 +553,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             const m = methods[0];
             const overload = m.signature[0];
             const paramsString = overload.param ? paramsToString(overload.param) : "";
-            const returnType = overload.type ? convertDomTypeToTsType(overload) : "void";
+            const returnType = overload.type ? convertDomTypeToTsReturnType(overload) : "void";
             printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
         }
         printer.printLine("");
@@ -590,9 +601,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
         return isEventHandler(p) &&
             iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
-            !!iNameToEhParents[i.name].find(
+            iNameToEhParents[i.name].some(
                 i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
-                    !!iNameToEhList[i.name].find(e => e.name === p.name));
+                    iNameToEhList[i.name].some(e => e.name === p.name));
     }
 
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property) {
@@ -690,7 +701,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
         const paramsString = s.param ? paramsToString(s.param) : "";
-        let returnType = convertDomTypeToTsType(s);
+        let returnType = convertDomTypeToTsReturnType(s);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
         emitComments(s, printLine);
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
@@ -990,8 +1001,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         // Some types are static types with non-static members. For example,
         // NodeFilter is a static method itself, however it has an "acceptNode" method
         // that expects the user to implement.
-        const hasNonStaticMethod = i.methods && !!mapToArray(i.methods.method).find(m => !m.static);
-        const hasProperty = i.properties && mapToArray(i.properties.property).find(p => !p.static);
+        const hasNonStaticMethod = i.methods && mapToArray(i.methods.method).some(m => !m.static);
+        const hasProperty = i.properties && mapToArray(i.properties.property).some(p => !p.static);
         const hasNonStaticMember = hasNonStaticMethod || hasProperty;
 
         // For static types with non-static members, we put the non-static members into an

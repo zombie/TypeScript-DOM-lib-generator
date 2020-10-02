@@ -14454,7 +14454,7 @@ declare var SVGStringList: {
 };
 
 /** Corresponds to the SVG <style> element. */
-interface SVGStyleElement extends SVGElement {
+interface SVGStyleElement extends SVGElement, LinkStyle {
     disabled: boolean;
     media: string;
     title: string;

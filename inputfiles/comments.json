@@ -834,7 +834,7 @@
                             "comment": "/**\n * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.\n */"
                         },
                         "getElementById": {
-                            "comment": "/**\n * Returns a reference to the first object with the specified value of the ID or NAME attribute.\n * @param elementId String that specifies the ID value. Case-insensitive.\n */"
+                            "comment": "/**\n * Returns a reference to the first object with the specified value of the ID attribute.\n * @param elementId String that specifies the ID value.\n */"
                         }
                     }
                 }

@@ -4747,8 +4747,8 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     exitPointerLock(): void;
     getAnimations(): Animation[];
     /**
-     * Returns a reference to the first object with the specified value of the ID or NAME attribute.
-     * @param elementId String that specifies the ID value. Case-insensitive.
+     * Returns a reference to the first object with the specified value of the ID attribute.
+     * @param elementId String that specifies the ID value.
      */
     getElementById(elementId: string): HTMLElement | null;
     /**

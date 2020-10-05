@@ -283,10 +283,6 @@
                     }
                 }
             },
-            "SpeechRecognitionEvent": {
-                "constructor": null
-            },
-            "SpeechRecognitionErrorEvent": null,
             "StorageEvent": {
                 "methods": {
                     "method": {

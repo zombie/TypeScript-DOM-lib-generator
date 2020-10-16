@@ -60,7 +60,7 @@ function createTextWriter(newLine: string) {
     let output: string;
     let indent: number;
     let lineStart: boolean;
-    /** print declarations conflicting with base interface to a side list to write them under a diffrent name later */
+    /** print declarations conflicting with base interface to a side list to write them under a different name later */
     let stack: { content: string, indent: number }[] = [];
 
     function getIndentString(level: number) {
@@ -123,7 +123,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     // Global print target
     const printer = createTextWriter("\n");
 
-    const pollutor = getElements(webidl.interfaces, "interface").find(i => flavor === Flavor.Window ? !!i["primary-global"] : !!i.global);
+    const polluter = getElements(webidl.interfaces, "interface").find(i => flavor === Flavor.Window ? !!i["primary-global"] : !!i.global);
 
     const allNonCallbackInterfaces = getElements(webidl.interfaces, "interface").concat(getElements(webidl.mixins, "mixin"));
     const allInterfaces = getElements(webidl.interfaces, "interface").concat(
@@ -591,7 +591,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             return `this: ${nameWithForwardedTypes(i)}, `;
         }
         else {
-            return pollutor ? `this: ${pollutor.name}, ` : "";
+            return polluter ? `this: ${polluter.name}, ` : "";
         }
     }
 
@@ -783,7 +783,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         for (const addOrRemove of ["add", "remove"]) {
             const optionsType = addOrRemove === "add" ? "AddEventListenerOptions" : "EventListenerOptions";
             if (tryEmitTypedEventHandlerForInterface(addOrRemove, optionsType)) {
-                // only emit the string event handler if we just emited a typed handler
+                // only emit the string event handler if we just emitted a typed handler
                 printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${optionsType}): void;`);
             }
         }
@@ -897,7 +897,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         printer.endLine();
     }
 
-    /// To decide if a given method is an indexer and should be emited
+    /// To decide if a given method is an indexer and should be emitted
     function shouldEmitIndexerSignature(i: Browser.Interface, m: Browser.AnonymousMethod) {
         if (m.getter && m.signature && m.signature[0].param && m.signature[0].param!.length === 1) {
             // TypeScript array indexer can only be number or string
@@ -1193,9 +1193,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             emitNamedConstructors();
         }
 
-        if (pollutor) {
-            emitAllMembers(pollutor);
-            emitEventHandlers("declare var ", pollutor);
+        if (polluter) {
+            emitAllMembers(polluter);
+            emitEventHandlers("declare var ", polluter);
         }
 
         emitTypeDefs();

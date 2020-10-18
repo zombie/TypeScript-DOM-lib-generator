@@ -6615,7 +6615,7 @@ interface HTMLElement extends Element, DocumentAndElementEventHandlers, ElementC
     readonly offsetParent: Element | null;
     readonly offsetTop: number;
     readonly offsetWidth: number;
-    readonly parentElement: HTMLElement | undefined;
+    readonly parentElement: HTMLElement | null;
     spellcheck: boolean;
     title: string;
     translate: boolean;

@@ -517,7 +517,7 @@
                         "parentElement": {
                             "name": "parentElement",
                             "read-only": 1,
-                            "override-type": "HTMLElement | undefined"
+                            "override-type": "HTMLElement | null"
                         }
                     }
                 }

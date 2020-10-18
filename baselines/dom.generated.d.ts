@@ -4769,11 +4769,11 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Returns a reference to the first object with the specified value of the ID or NAME attribute.
      * @param elementId String that specifies the ID value. Case-insensitive.
      */
-    getElementById<E extends Element = Element>(elementId: string): E | null;
+    getElementById<E extends Element = HTMLElement>(elementId: string): E | null;
     /**
      * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
      */
-    getElementsByClassName<E extends Element = Element>(classNames: string): HTMLCollectionOf<E>;
+    getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>;
     /**
      * Gets a collection of objects based on the value of the NAME or ID attribute.
      * @param elementName Gets a collection of objects based on the value of the NAME or ID attribute.
@@ -4968,7 +4968,7 @@ interface DocumentEvent {
 /** A minimal document object that has no parent. It is used as a lightweight version of Document that stores a segment of a document structure comprised of nodes just like a standard document. The key difference is that because the document fragment isn't part of the active document tree structure, changes made to the fragment don't affect the document, cause reflow, or incur any performance impact that can occur when changes are made. */
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
     readonly ownerDocument: Document;
-    getElementById<E extends Element = Element>(elementId: string): E | null;
+    getElementById<E extends Element = HTMLElement>(elementId: string): E | null;
 }
 
 declare var DocumentFragment: {
@@ -5155,7 +5155,7 @@ interface Element extends Node, Animatable, ChildNode, InnerHTML, NonDocumentTyp
     /**
      * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
      */
-    getElementsByClassName<E extends Element = Element>(classNames: string): HTMLCollectionOf<E>;
+    getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>;
     getElementsByTagName<K extends keyof HTMLElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<HTMLElementTagNameMap[K]>;
     getElementsByTagName<K extends keyof SVGElementTagNameMap>(qualifiedName: K): HTMLCollectionOf<SVGElementTagNameMap[K]>;
     getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
@@ -11031,7 +11031,7 @@ interface NonElementParentNode {
     /**
      * Returns the first element within node's descendants whose ID is elementId.
      */
-    getElementById<E extends Element = Element>(elementId: string): E | null;
+    getElementById<E extends Element = HTMLElement>(elementId: string): E | null;
 }
 
 interface NotificationEventMap {
@@ -14348,7 +14348,7 @@ interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewB
     forceRedraw(): void;
     getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
     getCurrentTime(): number;
-    getElementById<E extends Element = Element>(elementId: string): E | null;
+    getElementById<E extends Element = HTMLElement>(elementId: string): E | null;
     getEnclosureList(rect: SVGRect, referenceElement: SVGElement | null): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>;
     getIntersectionList(rect: SVGRect, referenceElement: SVGElement | null): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>;
     pauseAnimations(): void;

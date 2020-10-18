@@ -8,7 +8,7 @@
                         "getElementById": {
                             "name": "getElementById",
                             "override-signatures": [
-                                "getElementById<E extends Element = Element>(elementId: string): E | null"
+                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
                             ]
                         }
                     }
@@ -541,7 +541,7 @@
                         "getElementById": {
                             "name": "getElementById",
                             "override-signatures": [
-                                "getElementById<E extends Element = Element>(elementId: string): E | null"
+                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
                             ]
                         },
                         "elementsFromPoint": {
@@ -561,7 +561,7 @@
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
                             "override-signatures": [
-                                "getElementsByClassName<E extends Element = Element>(classNames: string): HTMLCollectionOf<E>"
+                                "getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>"
                             ]
                         },
                         "getElementsByName": {
@@ -983,7 +983,7 @@
                         "getElementById": {
                             "name": "getElementById",
                             "override-signatures": [
-                                "getElementById<E extends Element = Element>(elementId: string): E | null"
+                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
                             ]
                         },
                         "getEnclosureList": {

@@ -214,7 +214,7 @@ interface Node : EventTarget {
   readonly attribute Document? ownerDocument;
   Node getRootNode(optional GetRootNodeOptions options = {});
   readonly attribute Node? parentNode;
-  readonly attribute Element? parentElement;
+  readonly attribute HTMLElement? parentElement;
   boolean hasChildNodes();
   [SameObject] readonly attribute NodeList childNodes;
   readonly attribute Node? firstChild;

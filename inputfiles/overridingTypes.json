@@ -510,6 +510,18 @@
                 },
                 "override-index-signatures": []
             },
+            "HTMLElement": {
+                "name": "HTMLElement",
+                "properties": {
+                    "property": {
+                        "parentElement": {
+                            "name": "parentElement",
+                            "read-only": 1,
+                            "override-type": "HTMLElement | undefined"
+                        }
+                    }
+                }
+            },
             "Document": {
                 "name": "Document",
                 "methods": {
@@ -909,6 +921,21 @@
                             "deprecated": 1,
                             "name": "className",
                             "type": "any"
+                        },
+                        "parentElement": {
+                            "name": "parentElement",
+                            "read-only": 1,
+                            "override-type": "SVGElement | null"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "getElementsByClassName": {
+                            "name": "getElementsByClassName",
+                            "override-signatures": [
+                                "getElementsByClassName<E extends Element = SVGElement>(classNames: string): HTMLCollectionOf<E>"
+                            ]
                         }
                     }
                 }
@@ -950,6 +977,19 @@
                         "getCurrentTime": {
                             "name": "getCurrentTime",
                             "deprecated": 0
+                        }
+                    }
+                }
+            },
+            "SVGForeignObjectElement": {
+                "name": "SVGForeignObjectElement",
+                "methods": {
+                    "method": {
+                        "getElementsByClassName": {
+                            "name": "getElementsByClassName",
+                            "override-signatures": [
+                                "getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>"
+                            ]
                         }
                     }
                 }

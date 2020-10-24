@@ -298,6 +298,8 @@
                     }
                 }
             },
+            "ScopedCredential": null,
+            "ScopedCredentialInfo": null,
             "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
@@ -420,6 +422,8 @@
                     }
                 }
             },
+            "WebAuthentication": null,
+            "WebAuthnAssertion": null,
             "WebGLBuffer": {
                 "extends": null
             },

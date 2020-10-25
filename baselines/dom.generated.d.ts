@@ -10398,7 +10398,6 @@ declare var MediaStreamEvent: {
 
 interface MediaStreamTrackEventMap {
     "ended": Event;
-    "isolationchange": Event;
     "mute": Event;
     "unmute": Event;
 }
@@ -10407,12 +10406,10 @@ interface MediaStreamTrackEventMap {
 interface MediaStreamTrack extends EventTarget {
     enabled: boolean;
     readonly id: string;
-    readonly isolated: boolean;
     readonly kind: string;
     readonly label: string;
     readonly muted: boolean;
     onended: ((this: MediaStreamTrack, ev: Event) => any) | null;
-    onisolationchange: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onunmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     readonly readyState: MediaStreamTrackState;

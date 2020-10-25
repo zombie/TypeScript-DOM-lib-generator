@@ -134,9 +134,9 @@ function addComments(
     container.toLowerCase() + (member ? "-" + member.toLowerCase() : "");
   if (commentMap[key]) {
     const comments = commentMap[key].split("\n");
-    obj["comment"] = "/**\n * ";
-    obj["comment"] += comments.join("\n * ");
-    obj["comment"] += "\n */";
+    obj.comment = "/**\n";
+    obj.comment += comments.map(c => ` * ${c}`.trimEnd() + "\n").join("");
+    obj.comment += " */";
   }
 }
 

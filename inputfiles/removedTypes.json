@@ -389,6 +389,13 @@
                     "WindowConsole"
                 ]
             },
+            "WindowClient": {
+                "properties": {
+                    "property": {
+                        "ancestorOrigins": null
+                    }
+                }
+            },
             "WritableStream": {
                 "methods": {
                     "method": {

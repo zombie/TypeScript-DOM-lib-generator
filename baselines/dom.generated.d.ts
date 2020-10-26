@@ -1587,6 +1587,10 @@ interface RequestInit {
     window?: any;
 }
 
+interface ResizeObserverOptions {
+    box?: ResizeObserverBoxOptions;
+}
+
 interface ResponseInit {
     headers?: HeadersInit;
     status?: number;
@@ -12642,6 +12646,51 @@ declare var Request: {
     new(input: RequestInfo, init?: RequestInit): Request;
 };
 
+interface ResizeObservation {
+    readonly lastReportedSizes: ReadonlyArray<ResizeObserverSize>;
+    readonly observedBox: ResizeObserverBoxOptions;
+    readonly target: Element;
+}
+
+declare var ResizeObservation: {
+    prototype: ResizeObservation;
+    new(target: Element): ResizeObservation;
+};
+
+interface ResizeObserver {
+    disconnect(): void;
+    observe(target: Element, options?: ResizeObserverOptions): void;
+    unobserve(target: Element): void;
+}
+
+declare var ResizeObserver: {
+    prototype: ResizeObserver;
+    new(callback: ResizeObserverCallback): ResizeObserver;
+};
+
+interface ResizeObserverEntry {
+    readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly contentRect: DOMRectReadOnly;
+    readonly devicePixelContentBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly target: Element;
+}
+
+declare var ResizeObserverEntry: {
+    prototype: ResizeObserverEntry;
+    new(): ResizeObserverEntry;
+};
+
+interface ResizeObserverSize {
+    readonly blockSize: number;
+    readonly inlineSize: number;
+}
+
+declare var ResizeObserverSize: {
+    prototype: ResizeObserverSize;
+    new(): ResizeObserverSize;
+};
+
 /** This Fetch API interface represents the response to a request. */
 interface Response extends Body {
     readonly headers: Headers;
@@ -19281,6 +19330,10 @@ interface ReadableStreamErrorCallback {
     (reason: any): void | PromiseLike<void>;
 }
 
+interface ResizeObserverCallback {
+    (entries: ReadonlyArray<ResizeObserverEntry>, observer: ResizeObserver): void;
+}
+
 interface TransformStreamDefaultControllerCallback<O> {
     (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
 }
@@ -20113,6 +20166,7 @@ type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" |
 type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
 type RequestRedirect = "error" | "follow" | "manual";
 type ResidentKeyRequirement = "discouraged" | "preferred" | "required";
+type ResizeObserverBoxOptions = "border-box" | "content-box" | "device-pixel-content-box";
 type ResizeQuality = "high" | "low" | "medium" | "pixelated";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 type ScopedCredentialType = "ScopedCred";

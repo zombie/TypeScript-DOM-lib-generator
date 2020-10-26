@@ -246,6 +246,7 @@
             "PasswordCredential": null,
             "Position": null,
             "PositionError": null,
+            "ResizeObservation": null,
             "RTCDataChannel": {
                 "properties": {
                     "property": {

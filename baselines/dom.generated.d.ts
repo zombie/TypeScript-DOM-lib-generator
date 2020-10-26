@@ -12646,17 +12646,6 @@ declare var Request: {
     new(input: RequestInfo, init?: RequestInit): Request;
 };
 
-interface ResizeObservation {
-    readonly lastReportedSizes: ReadonlyArray<ResizeObserverSize>;
-    readonly observedBox: ResizeObserverBoxOptions;
-    readonly target: Element;
-}
-
-declare var ResizeObservation: {
-    prototype: ResizeObservation;
-    new(target: Element): ResizeObservation;
-};
-
 interface ResizeObserver {
     disconnect(): void;
     observe(target: Element, options?: ResizeObserverOptions): void;

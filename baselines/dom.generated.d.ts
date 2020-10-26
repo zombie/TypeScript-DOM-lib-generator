@@ -12661,7 +12661,6 @@ interface ResizeObserverEntry {
     readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
     readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
     readonly contentRect: DOMRectReadOnly;
-    readonly devicePixelContentBoxSize: ReadonlyArray<ResizeObserverSize>;
     readonly target: Element;
 }
 

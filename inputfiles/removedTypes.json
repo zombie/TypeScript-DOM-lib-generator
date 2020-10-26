@@ -247,6 +247,13 @@
             "Position": null,
             "PositionError": null,
             "ResizeObservation": null,
+            "ResizeObserverEntry": {
+                "properties": {
+                    "property": {
+                        "devicePixelContentBoxSize": null
+                    }
+                }
+            },
             "RTCDataChannel": {
                 "properties": {
                     "property": {

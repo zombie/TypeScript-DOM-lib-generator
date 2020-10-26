@@ -71,6 +71,9 @@ function extractIDL(dom: DocumentFragment) {
             }
             return !previous.classList.contains("atrisk") && !previous.textContent!.includes("IDL Index");
         });
+    elements.forEach(el => {
+        el.querySelector("span.idlHeader")?.remove();
+    });
     return elements.map(element => trimCommonIndentation(element.textContent!).trim()).join('\n\n');
 }
 
@@ -83,7 +86,7 @@ function extractCSSDefinitions(dom: DocumentFragment) {
     }
 
     return `partial interface CSSStyleDeclaration {${
-        properties.map(property => `\n  [CEReactions] attribute [TreatNullAs=EmptyString] CSSOMString ${
+        properties.map(property => `\n  [CEReactions] attribute [LegacyNullToEmptyString] CSSOMString ${
             hyphenToCamelCase(property)
         };`).join("")
     }\n};`;

@@ -19331,7 +19331,7 @@ interface ReadableStreamErrorCallback {
 }
 
 interface ResizeObserverCallback {
-    (entries: ReadonlyArray<ResizeObserverEntry>, observer: ResizeObserver): void;
+    (entries: ResizeObserverEntry[], observer: ResizeObserver): void;
 }
 
 interface TransformStreamDefaultControllerCallback<O> {

@@ -70,6 +70,18 @@
                 "attributeless-events": {
                     "event": [
                         {
+                            "name": "compositionstart",
+                            "type": "CompositionEvent"
+                        },
+                        {
+                            "name": "compositionupdate",
+                            "type": "CompositionEvent"
+                        },
+                        {
+                            "name": "compositionend",
+                            "type": "CompositionEvent"
+                        },
+                        {
                             "name": "focusin",
                             "type": "FocusEvent"
                         },

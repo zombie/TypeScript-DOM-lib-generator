@@ -441,8 +441,7 @@
                             "deprecated": 1
                         },
                         "frameElement": {
-                            "name": "frameElement",
-                            "override-type": "Element | null"
+                            "nullable": 1
                         },
                         "location": {
                             "read-only": 0

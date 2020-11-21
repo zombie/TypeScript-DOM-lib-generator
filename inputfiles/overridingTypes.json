@@ -440,6 +440,10 @@
                             "override-type": "Event | undefined",
                             "deprecated": 1
                         },
+                        "frameElement": {
+                            "name": "frameElement",
+                            "override-type": "Element | null"
+                        },
                         "location": {
                             "read-only": 0
                         },

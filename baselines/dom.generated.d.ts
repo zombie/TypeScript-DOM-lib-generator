@@ -18481,7 +18481,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly event: Event | undefined;
     /** @deprecated */
     readonly external: External;
-    readonly frameElement: Element;
+    readonly frameElement: Element | null;
     readonly frames: Window;
     readonly history: History;
     readonly innerHeight: number;
@@ -19520,7 +19520,7 @@ declare var document: Document;
 declare var event: Event | undefined;
 /** @deprecated */
 declare var external: External;
-declare var frameElement: Element;
+declare var frameElement: Element | null;
 declare var frames: Window;
 declare var history: History;
 declare var innerHeight: number;

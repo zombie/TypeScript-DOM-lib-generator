@@ -594,6 +594,10 @@ interface ImageEncodeOptions {
     type?: string;
 }
 
+interface ImportMeta {
+    url?: string;
+}
+
 interface InputEventInit extends UIEventInit {
     data?: string | null;
     inputType?: string;

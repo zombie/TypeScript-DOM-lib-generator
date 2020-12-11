@@ -567,7 +567,7 @@
                         "getElementsByName": {
                             "name": "getElementsByName",
                             "override-signatures": [
-                                "getElementsByName<E extends Element = Element>(elementName: string): NodeListOf<E>"
+                                "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
                             ]
                         },
                         "createTreeWalker": {

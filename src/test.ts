@@ -1,12 +1,11 @@
 import * as fs from "fs";
-import * as path from "path";
 import child_process from "child_process";
 import printDiff from "print-diff";
+import { fileURLToPath } from "url";
 
-const __SOURCE_DIRECTORY__ = __dirname;
-const baselineFolder = path.join(__SOURCE_DIRECTORY__, "../", "baselines");
-const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
-const tscPath = path.join(__SOURCE_DIRECTORY__, "../", "node_modules", "typescript", "lib", "tsc.js");
+const baselineFolder = new URL("../baselines/", import.meta.url);
+const outputFolder = new URL("../generated/", import.meta.url);
+const tscPath = new URL("../node_modules/typescript/lib/tsc.js", import.meta.url);
 
 function normalizeLineEndings(text: string): string {
     return text.replace(/\r\n?/g, "\n");
@@ -16,8 +15,8 @@ function compareToBaselines() {
     for (const file of fs.readdirSync(baselineFolder)) {
         if (file.startsWith(".")) continue
 
-        const baseline = normalizeLineEndings(fs.readFileSync(path.join(baselineFolder, file)).toString());
-        const generated = normalizeLineEndings(fs.readFileSync(path.join(outputFolder, file)).toString());
+        const baseline = normalizeLineEndings(fs.readFileSync(new URL(file, baselineFolder)).toString());
+        const generated = normalizeLineEndings(fs.readFileSync(new URL(file, outputFolder)).toString());
         if (baseline !== generated) {
             console.error(`Test failed: '${file}' is different from baseline file.`);
             printDiff(generated, baseline);
@@ -30,7 +29,7 @@ function compareToBaselines() {
 
 function compileGeneratedFiles(lib: string, ...files: string[]) {
     try {
-        child_process.execSync(`node ${tscPath} --strict --lib ${lib} --types --noEmit ${files.map(file => path.join(outputFolder, file)).join(" ")}`);
+        child_process.execSync(`node ${fileURLToPath(tscPath)} --strict --lib ${lib} --types --noEmit ${files.map(file => fileURLToPath(new URL(file, outputFolder))).join(" ")}`);
     } catch (e) {
         console.error(`Test failed: could not compile '${files.join(",")}':`);
         console.error(e.stdout.toString());

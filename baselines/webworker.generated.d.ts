@@ -932,7 +932,7 @@ declare var Client: {
 interface Clients {
     claim(): Promise<void>;
     get(id: string): Promise<Client | undefined>;
-    matchAll(options?: ClientQueryOptions): Promise<ReadonlyArray<Client>>;
+    matchAll<T extends ClientQueryOptions>(options?: T): Promise<ReadonlyArray<T["type"] extends "window" ? WindowClient : Client>>;
     openWindow(url: string): Promise<WindowClient | null>;
 }
 

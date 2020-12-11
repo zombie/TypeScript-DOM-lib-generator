@@ -1,5 +1,5 @@
-import * as Browser from "./types";
-import { getEmptyWebIDL, filter, exposesTo, followTypeReferences, filterProperties, mapToArray, arrayToMap } from "./helpers";
+import * as Browser from "./types.js";
+import { getEmptyWebIDL, filter, exposesTo, followTypeReferences, filterProperties, mapToArray, arrayToMap } from "./helpers.js";
 
 export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKnownTypes: Set<string>) {
     const unexposedTypes = new Set<string>();

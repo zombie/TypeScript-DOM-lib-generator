@@ -1,6 +1,6 @@
-import * as Browser from "./types";
-import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
-import { collectLegacyNamespaceTypes } from "./legacy-namespace";
+import * as Browser from "./types.js";
+import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers.js";
+import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
 
 export const enum Flavor {
     Window,

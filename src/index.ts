@@ -1,10 +1,13 @@
-import * as Browser from "./types";
+import * as Browser from "./types.js";
 import * as fs from "fs";
-import * as path from "path";
-import { merge, resolveExposure, markAsDeprecated, mapToArray, arrayToMap } from "./helpers";
-import { Flavor, emitWebIdl } from "./emitter";
-import { convert } from "./widlprocess";
-import { getExposedTypes } from "./expose";
+import { createRequire } from "module";
+import { fileURLToPath } from "url";
+import { merge, resolveExposure, markAsDeprecated, mapToArray, arrayToMap } from "./helpers.js";
+import { Flavor, emitWebIdl } from "./emitter.js";
+import { convert } from "./widlprocess.js";
+import { getExposedTypes } from "./expose.js";
+
+const require = createRequire(import.meta.url);
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
     const targets = [
@@ -29,7 +32,7 @@ interface EmitOptions {
     flavor: Flavor;
     global: string;
     name: string;
-    outputFolder: string;
+    outputFolder: URL;
 }
 
 function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, options: EmitOptions) {
@@ -37,16 +40,15 @@ function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, option
     mergeNamesakes(exposed);
 
     const result = emitWebIdl(exposed, options.flavor, false);
-    fs.writeFileSync(`${options.outputFolder}/${options.name}.generated.d.ts`, result);
+    fs.writeFileSync(new URL(`${options.name}.generated.d.ts`, options.outputFolder), result);
 
     const iterators = emitWebIdl(exposed, options.flavor, true);
-    fs.writeFileSync(`${options.outputFolder}/${options.name}.iterable.generated.d.ts`, iterators);
+    fs.writeFileSync(new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder), iterators);
 }
 
 function emitDom() {
-    const __SOURCE_DIRECTORY__ = __dirname;
-    const inputFolder = path.join(__SOURCE_DIRECTORY__, "../", "inputfiles");
-    const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
+    const inputFolder = new URL("../inputfiles/", import.meta.url);
+    const outputFolder = new URL("../generated/", import.meta.url);
 
     // ${name} will be substituted with the name of an interface
     const removeVerboseIntroductions: [RegExp, string][] = [
@@ -63,20 +65,19 @@ function emitDom() {
         fs.mkdirSync(outputFolder);
     }
 
-    const overriddenItems = require(path.join(inputFolder, "overridingTypes.json"));
-    const addedItems = require(path.join(inputFolder, "addedTypes.json"));
-    const comments = require(path.join(inputFolder, "comments.json"));
-    const deprecatedInfo = require(path.join(inputFolder, "deprecatedMessage.json"));
-    const documentationFromMDN = require(path.join(inputFolder, 'mdn', 'apiDescriptions.json'));
-    const removedItems = require(path.join(inputFolder, "removedTypes.json"));
-    const idlSources: any[] = require(path.join(inputFolder, "idlSources.json"));
+    const overriddenItems = require(fileURLToPath(new URL("overridingTypes.json", inputFolder)));
+    const addedItems = require(fileURLToPath(new URL("addedTypes.json", inputFolder)));
+    const comments = require(fileURLToPath(new URL("comments.json", inputFolder)));
+    const deprecatedInfo = require(fileURLToPath(new URL("deprecatedMessage.json", inputFolder)));
+    const documentationFromMDN = require(fileURLToPath(new URL('mdn/apiDescriptions.json', inputFolder)));
+    const removedItems = require(fileURLToPath(new URL("removedTypes.json", inputFolder)));
+    const idlSources: any[] = require(fileURLToPath(new URL("idlSources.json", inputFolder)));
     const widlStandardTypes = idlSources.map(convertWidl);
 
     function convertWidl({ title, deprecated }: { title: string; deprecated?: boolean }) {
-        const filename = title + ".widl";
-        const idl: string = fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" });
-        const commentsMapFilePath = path.join(inputFolder, "idl", title + ".commentmap.json");
-        const commentsMap: Record<string, string> = fs.existsSync(commentsMapFilePath) ? require(commentsMapFilePath) : {};
+        const idl: string = fs.readFileSync(new URL(`idl/${title}.widl`, inputFolder), { encoding: "utf-8" });
+        const commentsMapFilePath = new URL(`idl/${title}.commentmap.json`, inputFolder);
+        const commentsMap: Record<string, string> = fs.existsSync(commentsMapFilePath) ? require(fileURLToPath(commentsMapFilePath)) : {};
         commentCleanup(commentsMap);
         const result = convert(idl, commentsMap);
         if (deprecated) {
@@ -140,9 +141,9 @@ function emitDom() {
     }
 
     /// Load the input file
-    let webidl: Browser.WebIdl = require(path.join(inputFolder, "browser.webidl.preprocessed.json"));
+    let webidl: Browser.WebIdl = require(fileURLToPath(new URL("browser.webidl.preprocessed.json", inputFolder)));
 
-    const knownTypes = require(path.join(inputFolder, "knownTypes.json"));
+    const knownTypes = require(fileURLToPath(new URL("knownTypes.json", inputFolder)));
 
     for (const w of widlStandardTypes) {
         webidl = merge(webidl, w.browser, true);

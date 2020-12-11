@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { filter } from "./helpers";
+import { filter } from "./helpers.js";
 
 const __SOURCE_DIRECTORY__ = __dirname;
 const inputFolder = path.join(__SOURCE_DIRECTORY__, "../", "inputfiles");

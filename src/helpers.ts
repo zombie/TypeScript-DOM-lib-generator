@@ -1,4 +1,4 @@
-import * as Browser from "./types";
+import * as Browser from "./types.js";
 
 // Extended types used but not defined in the spec
 export const bufferSourceTypes = new Set(["ArrayBuffer", "ArrayBufferView", "DataView", "Int8Array", "Uint8Array", "Int16Array", "Uint16Array", "Uint8ClampedArray", "Int32Array", "Uint32Array", "Float32Array", "Float64Array"]);

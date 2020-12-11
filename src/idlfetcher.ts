@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import * as path from "path";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 import innerText from "styleless-innertext";
@@ -30,9 +29,9 @@ async function fetchIDLs(filter: string[]) {
         .filter(source => !filter.length || filter.includes(source.title));
     await Promise.all(idlSources.map(async source => {
         const { idl, comments } = await fetchIDL(source);
-        fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.widl`), idl + '\n');
+        fs.writeFileSync(new URL(`../inputfiles/idl/${source.title}.widl`, import.meta.url), idl + '\n');
         if (comments) {
-            fs.writeFileSync(path.join(__dirname, `../inputfiles/idl/${source.title}.commentmap.json`), comments + '\n');
+            fs.writeFileSync(new URL(`../inputfiles/idl/${source.title}.commentmap.json`, import.meta.url), comments + '\n');
         }
     }));
 }

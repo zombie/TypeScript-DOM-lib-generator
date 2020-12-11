@@ -2265,6 +2265,17 @@
     },
     "dictionaries": {
         "dictionary": {
+            "ImportMeta": {
+                "name": "ImportMeta",
+                "members": {
+                    "member": {
+                        "url": {
+                            "name": "url",
+                            "type": "DOMString"
+                        }
+                    }
+                }
+            },
             "ShadowRootInit": {
                 "members": {
                     "member": {

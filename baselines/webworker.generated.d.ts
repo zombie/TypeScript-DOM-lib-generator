@@ -243,6 +243,10 @@ interface ImageEncodeOptions {
     type?: string;
 }
 
+interface ImportMeta {
+    url?: string;
+}
+
 interface JsonWebKey {
     alg?: string;
     crv?: string;

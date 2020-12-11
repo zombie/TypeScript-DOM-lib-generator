@@ -1,6 +1,6 @@
 {
-  "name": "tsjs-lib-generator",
-  "private": true,
+  "name": "types-web",
+  "version": "0.1.0",
   "scripts": {
     "build": "tsc -p ./tsconfig.json && node ./lib/index.js",
     "fetch-idl": "tsc -p ./tsconfig.json && node ./lib/idlfetcher.js",

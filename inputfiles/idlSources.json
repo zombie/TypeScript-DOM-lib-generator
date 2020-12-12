@@ -651,6 +651,10 @@
         "title": "WebRTC"
     },
     {
+        "url": "https://www.w3.org/TR/webrtc-stats",
+        "title": "WebRTC Stats"
+    },
+    {
         "url": "https://www.w3.org/TR/web-share/",
         "title": "Web Share"
     },

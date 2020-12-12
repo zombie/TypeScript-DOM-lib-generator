@@ -7,7 +7,6 @@
         "AesKeyAlgorithm",
         "AesKeyGenParams",
         "AudioContextInfo",
-        "AudioParamDescriptor",
         "BigInteger",
         "ByteLengthChunk",
         "CanvasRenderingContext2DSettings",

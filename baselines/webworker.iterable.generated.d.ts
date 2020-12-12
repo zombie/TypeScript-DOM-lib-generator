@@ -6,10 +6,6 @@ interface Cache {
     addAll(requests: Iterable<RequestInfo>): Promise<void>;
 }
 
-interface CanvasPathDrawingStyles {
-    setLineDash(segments: Iterable<number>): void;
-}
-
 interface DOMStringList {
     [Symbol.iterator](): IterableIterator<string>;
 }

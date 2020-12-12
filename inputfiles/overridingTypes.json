@@ -865,20 +865,6 @@
                     }
                 }
             },
-            "OffscreenCanvas": {
-                "methods": {
-                    "method": {
-                        "getContext": {
-                            "additional-signatures": [
-                                "getContext(contextId: \"2d\", options?: CanvasRenderingContext2DSettings): OffscreenCanvasRenderingContext2D | null",
-                                "getContext(contextId: \"bitmaprenderer\", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null",
-                                "getContext(contextId: \"webgl\", options?: WebGLContextAttributes): WebGLRenderingContext | null",
-                                "getContext(contextId: \"webgl2\", options?: WebGLContextAttributes): WebGL2RenderingContext | null"
-                            ]
-                        }
-                    }
-                }
-            },
             "BeforeUnloadEvent": {
                 "name": "BeforeUnloadEvent",
                 "properties": {
@@ -1066,12 +1052,6 @@
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
                                 "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
                             ]
-                        },
-                        "msGetRegionContent": {
-                            "name": "msGetRegionContent",
-                            "override-signatures": [
-                                "msGetRegionContent(): any"
-                            ]
                         }
                     }
                 }
@@ -1181,6 +1161,15 @@
                         "default": "any"
                     }
                 ]
+            },
+            "ImageBitmapRenderingContext": {
+                "properties": {
+                    "property": {
+                        "canvas": {
+                            "exposed": "Window"
+                        }
+                    }
+                }
             },
             "Storage": {
                 "override-index-signatures": [
@@ -1749,7 +1738,7 @@
                         },
                         {
                             "name": "error",
-                            "type": "RTCErrorEvent"
+                            "type": "Event"
                         },
                         {
                             "name": "close",
@@ -1765,10 +1754,6 @@
                         {
                             "name": "statechange",
                             "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "RTCErrorEvent"
                         }
                     ]
                 }
@@ -1838,10 +1823,6 @@
                         {
                             "name": "connectionstatechange",
                             "type": "Event"
-                        },
-                        {
-                            "name": "icecandidateerror",
-                            "type": "RTCPeerConnectionIceErrorEvent"
                         },
                         {
                             "name": "datachannel",
@@ -2467,53 +2448,6 @@
                             "override-signatures": [
                                 "query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>"
                             ]
-                        }
-                    }
-                }
-            },
-            "Navigator": {
-                "implements": [
-                    "MSFileSaver",
-                    "MSNavigatorDoNotTrack",
-                    "NavigatorBeacon"
-                ],
-                "methods": {
-                    "method": {
-                        "getVRDisplays": {
-                            "name": "getVRDisplays",
-                            "override-signatures": [
-                                "getVRDisplays(): Promise<VRDisplay[]>"
-                            ]
-                        },
-                        "msLaunchUri": {
-                            "name": "msLaunchUri",
-                            "override-signatures": [
-                                "msLaunchUri(uri: string, successCallback?: MSLaunchUriCallback, noHandlerCallback?: MSLaunchUriCallback): void"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "activeVRDisplays": {
-                            "name": "activeVRDisplays",
-                            "override-type": "ReadonlyArray<VRDisplay>",
-                            "read-only": 1
-                        },
-                        "msManipulationViewsEnabled": {
-                            "name": "msManipulationViewsEnabled",
-                            "override-type": "boolean",
-                            "read-only": 1
-                        },
-                        "msMaxTouchPoints": {
-                            "name": "msMaxTouchPoints",
-                            "override-type": "number",
-                            "read-only": 1
-                        },
-                        "msPointerEnabled": {
-                            "name": "msPointerEnabled",
-                            "override-type": "boolean",
-                            "read-only": 1
                         }
                     }
                 }

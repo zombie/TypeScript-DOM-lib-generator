@@ -125,6 +125,10 @@ interface IDBObjectStore {
     createIndex(name: string, keyPath: string | Iterable<string>, options?: IDBIndexParameters): IDBIndex;
 }
 
+interface MSCredentials {
+    makeCredential(accountInfo: MSAccountInfo, params: Iterable<MSCredentialParameters>, challenge?: string): Promise<MSAssertion>;
+}
+
 interface MediaKeyStatusMap {
     [Symbol.iterator](): IterableIterator<[BufferSource, MediaKeyStatus]>;
     entries(): IterableIterator<[BufferSource, MediaKeyStatus]>;
@@ -188,10 +192,6 @@ interface PluginArray {
     [Symbol.iterator](): IterableIterator<Plugin>;
 }
 
-interface RTCRtpTransceiver {
-    setCodecPreferences(codecs: Iterable<RTCRtpCodecCapability>): void;
-}
-
 interface RTCStatsReport extends ReadonlyMap<string, any> {
 }
 
@@ -220,18 +220,6 @@ interface SVGStringList {
 
 interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>;
-}
-
-interface SpeechGrammarList {
-    [Symbol.iterator](): IterableIterator<SpeechGrammar>;
-}
-
-interface SpeechRecognitionResult {
-    [Symbol.iterator](): IterableIterator<SpeechRecognitionAlternative>;
-}
-
-interface SpeechRecognitionResultList {
-    [Symbol.iterator](): IterableIterator<SpeechRecognitionResult>;
 }
 
 interface StyleSheetList {
@@ -264,10 +252,6 @@ interface URLSearchParams {
      * Returns a list of values in the search params.
      */
     values(): IterableIterator<string>;
-}
-
-interface VRDisplay {
-    requestPresent(layers: Iterable<VRLayer>): Promise<void>;
 }
 
 interface WEBGL_draw_buffers {

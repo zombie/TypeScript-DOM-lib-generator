@@ -34,6 +34,13 @@
                     }
                 }
             },
+            "WebGLRenderingContextBase": {
+                "properties": {
+                    "namesakes": {
+                        "canvas": null
+                    }
+                }
+            },
             "XMLHttpRequestEventTarget": null
         }
     },
@@ -78,7 +85,6 @@
                     }
                 }
             },
-            "ClipboardItem": null,
             "Console": null,
             "Coordinates": null,
             "CSS": null,
@@ -183,8 +189,14 @@
                     }
                 }
             },
+            "Document": {
+                "methods": {
+                    "method": {
+                        "caretPositionFromPoint": null
+                    }
+                }
+            },
             "ElementInternals": null,
-            "FederatedCredential": null,
             "FormDataEvent": null,
             "HTMLAreasCollection": null,
             "HTMLMediaElement": {
@@ -221,20 +233,23 @@
                     }
                 }
             },
-            "MSCredentials": null,
-            "MSDCCEvent": null,
-            "MSDSHEvent": null,
-            "MSMediaKeyMessageEvent": null,
-            "MSMediaKeyNeededEvent": null,
-            "MSPointerEvent": null,
             "MSStreamReader": null,
-            "PasswordCredential": null,
+            "OffscreenCanvasRenderingContext2D": null,
             "Position": null,
             "PositionError": null,
+            "RTCSrtpSdesTransport": null,
             "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
-                        "onpushsubscriptionchange": null
+                        "onpushsubscriptionchange": null,
+                        "onsync": null
+                    }
+                }
+            },
+            "ServiceWorkerRegistration": {
+                "properties": {
+                    "property": {
+                        "navigationPreload": null
                     }
                 }
             },
@@ -377,7 +392,9 @@
                         "ontouchend": null,
                         "ontouchmove": null,
                         "ontouchstart": null,
-                        "performance": null
+                        "performance": null,
+                        "onvrdisplayconnect": null,
+                        "onvrdisplaydisconnect": null
                     }
                 },
                 "methods": {
@@ -388,7 +405,10 @@
                 },
                 "events": {
                     "event": [
-                        "devicelight"
+                        "devicelight",
+                        "onvrdisplayconnected",
+                        "onvrdisplaydisconnected",
+                        "onvrdisplaypresentchange"
                     ]
                 },
                 "implements": [

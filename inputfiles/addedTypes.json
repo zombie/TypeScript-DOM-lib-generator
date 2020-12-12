@@ -47,12 +47,6 @@
                             "override-signatures": [
                                 "caretRangeFromPoint(x: number, y: number): Range"
                             ]
-                        },
-                        "caretPositionFromPoint": {
-                            "name": "caretPositionFromPoint",
-                            "override-signatures": [
-                                "caretPositionFromPoint(x: number, y: number): CaretPosition | null"
-                            ]
                         }
                     }
                 },
@@ -408,10 +402,6 @@
                             "name": "webkitUserSelect",
                             "type": "CSSOMString",
                             "deprecated": 1
-                        },
-                        "webkitTapHighlightColor": {
-                            "name": "webkitTapHighlightColor",
-                            "type": "CSSOMString"
                         },
                         "zoom": {
                             "name": "zoom",
@@ -2399,15 +2389,11 @@
             },
             {
                 "new-type": "Transferable",
-                "override-type": "ArrayBuffer | MessagePort | ImageBitmap | OffscreenCanvas"
+                "override-type": "ArrayBuffer | MessagePort | ImageBitmap"
             },
             {
                 "new-type": "RTCIceGatherCandidate",
                 "override-type": "RTCIceCandidateDictionary | RTCIceCandidateComplete"
-            },
-            {
-                "new-type": "RTCTransport",
-                "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
             },
             {
                 "new-type": "MouseWheelEvent",

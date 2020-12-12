@@ -72,7 +72,7 @@ To give you a sense of whether we will accept changes, you can use these heurist
 
 - Does the new objects or fields show up in [mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)? If not, it's likely too soon.
 - Is the IDL source from WHATWG?
-    - Are the additions available in at least two of Firefox, Safari and Chromium?
+    - Are the additions available in at least two of [Firefox](https://searchfox.org/mozilla-central/search?q=&path=), [Safari](https://webkit-search.igalia.com/webkit/search?q=&path=) and Chromium?
 - Is the IDL source from W3C?
     - What stage of the [W3C process](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium#Specification_maturation) is the proposal for these changes: We aim for Proposed recommendation, but can accept Candidate recommendation for stable looking proposals.
     - If it's at Working draft the additions available in all three of Firefox, Safari and Chromium

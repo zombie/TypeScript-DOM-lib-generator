@@ -255,6 +255,14 @@
             "ReadableStreamBYOBReader": null,
             "ReadableStreamBYOBRequest": null,
             "ReadableStreamReader": null,
+            "ResizeObservation": null,
+            "ResizeObserverEntry": {
+                "properties": {
+                    "property": {
+                        "devicePixelContentBoxSize": null
+                    }
+                }
+            },
             "RTCDataChannel": {
                 "properties": {
                     "property": {

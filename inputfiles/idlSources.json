@@ -363,6 +363,10 @@
         "title": "HTML - Web application APIs"
     },
     {
+        "url": "https://html.spec.whatwg.org/multipage/web-messaging.html",
+        "title": "HTML - Web messaging"
+    },
+    {
         "url": "https://html.spec.whatwg.org/multipage/web-sockets.html",
         "title": "HTML - Web sockets"
     },
@@ -673,9 +677,5 @@
     {
         "url": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest"
-    },
-    {
-        "url": "https://html.spec.whatwg.org/multipage/web-messaging.html",
-        "title": "Web Messaging"
     }
 ]

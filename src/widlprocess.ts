@@ -33,7 +33,7 @@ export function convert(text: string, commentMap: Record<string, string>) {
             browser.namespaces!.push(convertNamespace(rootType, commentMap));
         }
         else if (rootType.type === "callback interface") {
-            browser["callback-interfaces"]!.interface[rootType.name] = convertInterface(rootType, commentMap);
+            browser["callback-interfaces"]!.interface[rootType.name] = convertInterfaceCommon(rootType, commentMap);
         }
         else if (rootType.type === "callback") {
             browser["callback-functions"]!["callback-function"][rootType.name]
@@ -109,7 +109,7 @@ function addComments(obj: any, commentMap: Record<string, string>, container: st
     }
 }
 
-function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixinType, commentMap: Record<string, string>) {
+function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixinType | webidl2.CallbackInterfaceType, commentMap: Record<string, string>) {
     const result: Browser.Interface = {
         name: i.name,
         extends: "Object",
@@ -118,10 +118,10 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         "anonymous-methods": { method: [] },
         properties: { property: {}, namesakes: {} },
         constructor: getConstructor(i.members, i.name) || getOldStyleConstructor(i.extAttrs, i.name),
-        "named-constructor": getNamedConstructor(i.extAttrs, i.name),
+        "named-constructor": getLegacyFactoryFunction(i.extAttrs, i.name),
         exposed: getExtAttrConcatenated(i.extAttrs, "Exposed"),
         global: getExtAttrConcatenated(i.extAttrs, "Global"),
-        "no-interface-object": hasExtAttr(i.extAttrs, "NoInterfaceObject") ? 1 : undefined,
+        "no-interface-object": hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject") ? 1 : undefined,
         "legacy-window-alias": getExtAttr(i.extAttrs, "LegacyWindowAlias"),
         "legacy-namespace": getExtAttr(i.extAttrs, "LegacyNamespace")[0]
     };
@@ -210,9 +210,9 @@ function getOldStyleConstructor(extAttrs: webidl2.ExtendedAttribute[], parent: s
     }
 }
 
-function getNamedConstructor(extAttrs: webidl2.ExtendedAttribute[], parent: string): Browser.NamedConstructor | undefined {
+function getLegacyFactoryFunction(extAttrs: webidl2.ExtendedAttribute[], parent: string): Browser.NamedConstructor | undefined {
     for (const extAttr of extAttrs) {
-        if (extAttr.name === "NamedConstructor" && extAttr.rhs && typeof extAttr.rhs.value === "string") {
+        if (extAttr.name === "LegacyFactoryFunction" && extAttr.rhs && typeof extAttr.rhs.value === "string") {
             return {
                 name: extAttr.rhs.value,
                 signature: [{
@@ -258,7 +258,7 @@ function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunc
 }
 
 function convertArgument(arg: webidl2.Argument): Browser.Param {
-    const allowNull = hasExtAttr(arg.extAttrs, "TreatNullAs");
+    const allowNull = hasExtAttr(arg.extAttrs, "LegacyNullToEmptyString");
     const idlType = convertIdlType(arg.idlType);
     if (allowNull) {
         idlType.nullable = 1;

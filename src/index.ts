@@ -6,7 +6,7 @@ import { merge, resolveExposure, markAsDeprecated, mapToArray, arrayToMap } from
 import { Flavor, emitWebIdl } from "./emitter.js";
 import { convert } from "./widlprocess.js";
 import { getExposedTypes } from "./expose.js";
-import { getRemovalDataFromBcd } from "./bcd.js";
+import { getDeprecationData, getRemovalData } from "./bcd.js";
 
 const require = createRequire(import.meta.url);
 
@@ -189,7 +189,8 @@ function emitDom() {
         }
     }
 
-    webidl = merge(webidl, getRemovalDataFromBcd(webidl) as any);
+    webidl = merge(webidl, getDeprecationData(webidl));
+    webidl = merge(webidl, getRemovalData(webidl) as any);
     webidl = prune(webidl, removedItems);
     webidl = mergeApiDescriptions(webidl, documentationFromMDN);
     webidl = merge(webidl, addedItems);

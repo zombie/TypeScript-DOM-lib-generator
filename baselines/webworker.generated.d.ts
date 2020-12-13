@@ -887,6 +887,7 @@ interface CustomEvent<T = any> extends Event {
      * Returns any custom data event was created with. Typically used for synthetic events.
      */
     readonly detail: T;
+    /** @deprecated */
     initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
 }
 
@@ -1046,6 +1047,7 @@ interface DOMPointReadOnly {
     readonly x: number;
     readonly y: number;
     readonly z: number;
+    /** @deprecated */
     matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
     toJSON(): any;
 }
@@ -1243,6 +1245,7 @@ interface Event {
      * Returns true if event was dispatched by the user agent, and false otherwise.
      */
     readonly isTrusted: boolean;
+    /** @deprecated */
     returnValue: boolean;
     /** @deprecated */
     readonly srcElement: EventTarget | null;
@@ -1262,6 +1265,7 @@ interface Event {
      * Returns the invocation target objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
      */
     composedPath(): EventTarget[];
+    /** @deprecated */
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
     /**
      * If invoked when the cancelable attribute value is true, and while executing a listener for the event with passive set to false, signals to the operation that caused event to be dispatched that it needs to be canceled.
@@ -2144,10 +2148,15 @@ interface NavigatorConcurrentHardware {
 }
 
 interface NavigatorID {
+    /** @deprecated */
     readonly appCodeName: string;
+    /** @deprecated */
     readonly appName: string;
+    /** @deprecated */
     readonly appVersion: string;
+    /** @deprecated */
     readonly platform: string;
+    /** @deprecated */
     readonly product: string;
     readonly userAgent: string;
 }

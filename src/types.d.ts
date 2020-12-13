@@ -201,7 +201,8 @@ export interface Interface {
         enums: Enum[];
         dictionaries: Dictionary[];
         typedefs: TypeDef[];
-    }
+    },
+    deprecated?: 1
 }
 
 export interface Iterator {

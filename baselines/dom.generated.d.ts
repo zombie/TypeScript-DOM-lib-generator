@@ -2984,10 +2984,13 @@ declare var CSSStyleRule: {
 interface CSSStyleSheet extends StyleSheet {
     readonly cssRules: CSSRuleList;
     readonly ownerRule: CSSRule | null;
+    /** @deprecated */
     readonly rules: CSSRuleList;
+    /** @deprecated */
     addRule(selector?: string, style?: string, index?: number): number;
     deleteRule(index: number): void;
     insertRule(rule: string, index?: number): number;
+    /** @deprecated */
     removeRule(index?: number): void;
 }
 
@@ -3420,6 +3423,7 @@ interface CustomEvent<T = any> extends Event {
      * Returns any custom data event was created with. Typically used for synthetic events.
      */
     readonly detail: T;
+    /** @deprecated */
     initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
 }
 
@@ -3624,6 +3628,7 @@ interface DOMPointReadOnly {
     readonly x: number;
     readonly y: number;
     readonly z: number;
+    /** @deprecated */
     matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
     toJSON(): any;
 }
@@ -4321,6 +4326,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * @param showUI Display the user interface, defaults to false.
      * @param value Value to assign.
      */
+    /** @deprecated */
     execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
     /**
      * Stops document's fullscreen element from being displayed fullscreen and resolves promise when done.
@@ -4387,6 +4393,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Returns a Boolean value that indicates whether a specified command can be successfully executed using execCommand, given the current state of the document.
      * @param commandId Specifies a command identifier.
      */
+    /** @deprecated */
     queryCommandEnabled(commandId: string): boolean;
     /**
      * Returns a Boolean value that indicates whether the specified command is in the indeterminate state.
@@ -4397,11 +4404,13 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Returns a Boolean value that indicates the current state of the command.
      * @param commandId String that specifies a command identifier.
      */
+    /** @deprecated */
     queryCommandState(commandId: string): boolean;
     /**
      * Returns a Boolean value that indicates whether the current command is supported on the current range.
      * @param commandId Specifies a command identifier.
      */
+    /** @deprecated */
     queryCommandSupported(commandId: string): boolean;
     /**
      * Returns the current value of the document, range, or current selection for the given command.
@@ -4828,6 +4837,7 @@ interface Event {
      * Returns true if event was dispatched by the user agent, and false otherwise.
      */
     readonly isTrusted: boolean;
+    /** @deprecated */
     returnValue: boolean;
     /** @deprecated */
     readonly srcElement: EventTarget | null;
@@ -4847,6 +4857,7 @@ interface Event {
      * Returns the invocation target objects of event's path (objects on which listeners will be invoked), except for any nodes in shadow trees of which the shadow root's mode is "closed" that are not reachable from event's currentTarget.
      */
     composedPath(): EventTarget[];
+    /** @deprecated */
     initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
     /**
      * If invoked when the cancelable attribute value is true, and while executing a listener for the event with passive set to false, signals to the operation that caused event to be dispatched that it needs to be canceled.
@@ -5321,6 +5332,7 @@ interface GlobalEventHandlers {
      * @param ev The drag event.
      */
     ondragenter: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
+    /** @deprecated */
     ondragexit: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
@@ -6389,6 +6401,7 @@ interface HTMLIFrameElement extends HTMLElement {
     align: string;
     allow: string;
     allowFullscreen: boolean;
+    /** @deprecated */
     allowPaymentRequest: boolean;
     /**
      * Retrieves the document object of the page or frame.
@@ -6524,6 +6537,7 @@ interface HTMLImageElement extends HTMLElement {
     /**
      * Sets or retrieves the URL, often with a bookmark extension (#name), to use as a client-side image map.
      */
+    /** @deprecated */
     useMap: string;
     /**
      * Sets or retrieves the vertical margin for the object.
@@ -6874,10 +6888,12 @@ interface HTMLMapElement extends HTMLElement {
     /**
      * Retrieves a collection of the area objects defined for the given map object.
      */
+    /** @deprecated */
     readonly areas: HTMLCollection;
     /**
      * Sets or retrieves the name of the object.
      */
+    /** @deprecated */
     name: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMapElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -7578,6 +7594,7 @@ interface HTMLScriptElement extends HTMLElement {
     /**
      * Sets or retrieves the MIME type for the associated scripting engine.
      */
+    /** @deprecated */
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLScriptElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -9776,10 +9793,15 @@ interface NavigatorCookies {
 }
 
 interface NavigatorID {
+    /** @deprecated */
     readonly appCodeName: string;
+    /** @deprecated */
     readonly appName: string;
+    /** @deprecated */
     readonly appVersion: string;
+    /** @deprecated */
     readonly platform: string;
+    /** @deprecated */
     readonly product: string;
     readonly productSub: string;
     readonly userAgent: string;
@@ -10048,6 +10070,7 @@ interface NodeIterator {
     readonly referenceNode: Node;
     readonly root: Node;
     readonly whatToShow: number;
+    /** @deprecated */
     detach(): void;
     nextNode(): Node | null;
     previousNode(): Node | null;
@@ -12495,7 +12518,9 @@ declare var SVGNumberList: {
 interface SVGPathElement extends SVGGraphicsElement {
     /** @deprecated */
     getPathSegAtLength(distance: number): number;
+    /** @deprecated */
     getPointAtLength(distance: number): SVGPoint;
+    /** @deprecated */
     getTotalLength(): number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -12818,6 +12843,7 @@ interface SVGTextContentElement extends SVGGraphicsElement {
     getRotationOfChar(charnum: number): number;
     getStartPositionOfChar(charnum: number): DOMPoint;
     getSubStringLength(charnum: number, nchars: number): number;
+    /** @deprecated */
     selectSubString(charnum: number, nchars: number): void;
     readonly LENGTHADJUST_SPACING: number;
     readonly LENGTHADJUST_SPACINGANDGLYPHS: number;
@@ -16278,6 +16304,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly scrollbars: BarProp;
     readonly self: Window & typeof globalThis;
     readonly speechSynthesis: SpeechSynthesis;
+    /** @deprecated */
     status: string;
     readonly statusbar: BarProp;
     readonly toolbar: BarProp;
@@ -17257,6 +17284,7 @@ declare var scrollY: number;
 declare var scrollbars: BarProp;
 declare var self: Window & typeof globalThis;
 declare var speechSynthesis: SpeechSynthesis;
+/** @deprecated */
 declare var status: string;
 declare var statusbar: BarProp;
 declare var toolbar: BarProp;
@@ -17355,6 +17383,7 @@ declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
  * @param ev The drag event.
  */
 declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
+/** @deprecated */
 declare var ondragexit: ((this: Window, ev: Event) => any) | null;
 /**
  * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.

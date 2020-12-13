@@ -1,7 +1,9 @@
 import * as Browser from "./types";
 import bcd from "@mdn/browser-compat-data";
-import { Identifier, SimpleSupportStatement, SupportBlock } from "@mdn/browser-compat-data/types";
+import { CompatStatement, Identifier, SimpleSupportStatement, SupportBlock } from "@mdn/browser-compat-data/types";
 import { camelToHyphenCase } from "./utils/css.js";
+import { filterMapRecord, isEmptyRecord } from "./utils/record.js";
+import { mapDefined } from "./helpers.js";
 
 // TODO: Block every types that are not in BCD, with an allowlist
 
@@ -582,10 +584,6 @@ function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
   return count >= 2;
 }
 
-function isEmpty(o: object) {
-  return !Object.keys(o).length;
-}
-
 function isSuitable(key: string, value: Identifier, parentKey?: string, prefix?: string) {
   const forceAlive = parentKey ? forceKeepAlive[parentKey]?.includes(key) : !!forceKeepAlive[key];
   if (value.__compat && hasMultipleImplementations(value.__compat.support, prefix)) {
@@ -658,19 +656,19 @@ function getEachRemovalData(type: Browser.Interface, strict: boolean) {
     }
   }
   const removalItem: Record<string, object> = {};
-  if (!isEmpty(methods)) {
+  if (!isEmptyRecord(methods)) {
     removalItem.methods = { method: methods };
   }
-  if (!isEmpty(properties)) {
+  if (!isEmptyRecord(properties)) {
     removalItem.properties = { property: properties };
   }
-  if (!isEmpty(removalItem)) {
+  if (!isEmptyRecord(removalItem)) {
     return removalItem;
   }
   return;
 }
 
-export function getRemovalDataFromBcd(webidl: Browser.WebIdl) {
+export function getRemovalData(webidl: Browser.WebIdl) {
   const interfaces: Record<string, object> = {};
   const mixins: Record<string, object> = {};
   const namespaces: object[] = [];
@@ -693,4 +691,54 @@ export function getRemovalDataFromBcd(webidl: Browser.WebIdl) {
     }
   }
   return { interfaces: { interface: interfaces }, mixins: { mixin: mixins }, namespaces };
+}
+
+function mapToBcdCompat(webidl: Browser.WebIdl, mapper: (compat: CompatStatement) => any) {
+  function mapInterfaceLike(name: string, i: Browser.Interface) {
+    const result = {} as Browser.Interface;
+    if (!bcd.api[name]?.__compat) {
+      return;
+    }
+    Object.assign(result, mapper(bcd.api[name].__compat!));
+    if (result.deprecated) {
+      // Probably no need to mark recursively
+      return result;
+    }
+
+    const recordMapper = (key: string) => {
+      const compat = bcd.api[name][key]?.__compat;
+      if (compat) {
+        return mapper(compat);
+      }
+    };
+    const methods = filterMapRecord(i.methods.method, recordMapper);
+    const properties = filterMapRecord(i.properties?.property, recordMapper);
+    if (!isEmptyRecord(methods)) {
+      result.methods = { method: methods! };
+    }
+    if (!isEmptyRecord(properties)) {
+      result.properties = { property: properties! };
+    }
+    if (!isEmptyRecord(result)) {
+      return result;
+    }
+  }
+  const interfaces = filterMapRecord(webidl.interfaces?.interface, mapInterfaceLike);
+  const mixins = filterMapRecord(webidl.mixins?.mixin, mapInterfaceLike);
+  const namespaces = mapDefined(webidl.namespaces, n => mapInterfaceLike(n.name, n));
+  if (!isEmptyRecord(interfaces) || !isEmptyRecord(mixins) || !isEmptyRecord(namespaces)) {
+    return {
+      interfaces: { interface: interfaces },
+      mixins: { mixin: mixins },
+      namespaces
+    }
+  }
+}
+
+export function getDeprecationData(webidl: Browser.WebIdl) {
+  return mapToBcdCompat(webidl, compat => {
+    if (compat.status?.deprecated) {
+      return { deprecated: 1 };
+    }
+  }) as Browser.WebIdl;
 }

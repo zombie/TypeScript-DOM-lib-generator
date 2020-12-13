@@ -6390,6 +6390,7 @@ interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventM
 interface HTMLElement extends Element, DocumentAndElementEventHandlers, ElementCSSInlineStyle, ElementCSSInlineStyle, ElementContentEditable, GlobalEventHandlers, HTMLOrSVGElement {
     accessKey: string;
     readonly accessKeyLabel: string;
+    autocapitalize: string;
     dir: string;
     draggable: boolean;
     hidden: boolean;
@@ -7295,12 +7296,6 @@ declare var HTMLMapElement: {
     new(): HTMLMapElement;
 };
 
-interface HTMLMarqueeElementEventMap extends HTMLElementEventMap {
-    "bounce": Event;
-    "finish": Event;
-    "start": Event;
-}
-
 /** Provides methods to manipulate <marquee> elements. */
 interface HTMLMarqueeElement extends HTMLElement {
     /** @deprecated */
@@ -7316,12 +7311,6 @@ interface HTMLMarqueeElement extends HTMLElement {
     /** @deprecated */
     loop: number;
     /** @deprecated */
-    onbounce: ((this: HTMLMarqueeElement, ev: Event) => any) | null;
-    /** @deprecated */
-    onfinish: ((this: HTMLMarqueeElement, ev: Event) => any) | null;
-    /** @deprecated */
-    onstart: ((this: HTMLMarqueeElement, ev: Event) => any) | null;
-    /** @deprecated */
     scrollAmount: number;
     /** @deprecated */
     scrollDelay: number;
@@ -7335,9 +7324,9 @@ interface HTMLMarqueeElement extends HTMLElement {
     start(): void;
     /** @deprecated */
     stop(): void;
-    addEventListener<K extends keyof HTMLMarqueeElementEventMap>(type: K, listener: (this: HTMLMarqueeElement, ev: HTMLMarqueeElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMarqueeElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLMarqueeElementEventMap>(type: K, listener: (this: HTMLMarqueeElement, ev: HTMLMarqueeElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMarqueeElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
@@ -13390,6 +13379,8 @@ declare var SVGNumberList: {
 interface SVGPathElement extends SVGGraphicsElement {
     /** @deprecated */
     readonly pathSegList: SVGPathSegList;
+    /** @deprecated */
+    getPathSegAtLength(distance: number): number;
     getPointAtLength(distance: number): SVGPoint;
     getTotalLength(): number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;

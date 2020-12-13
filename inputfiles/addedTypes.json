@@ -2402,10 +2402,6 @@
                 "override-type": "ArrayBuffer | MessagePort | ImageBitmap"
             },
             {
-                "new-type": "RTCIceGatherCandidate",
-                "override-type": "RTCIceCandidateDictionary | RTCIceCandidateComplete"
-            },
-            {
                 "new-type": "MouseWheelEvent",
                 "type": "WheelEvent",
                 "deprecated": 1

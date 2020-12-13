@@ -602,10 +602,6 @@
                             "name": "anchors",
                             "override-type": "HTMLCollectionOf<HTMLAnchorElement>"
                         },
-                        "applets": {
-                            "name": "applets",
-                            "override-type": "HTMLCollectionOf<HTMLAppletElement>"
-                        },
                         "embeds": {
                             "name": "embeds",
                             "override-type": "HTMLCollectionOf<HTMLEmbedElement>"
@@ -1319,18 +1315,6 @@
                                 "hasFeature(...args: any[]): true"
                             ],
                             "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "HTMLAppletElement": {
-                "name": "HTMLAppletElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
                         }
                     }
                 }

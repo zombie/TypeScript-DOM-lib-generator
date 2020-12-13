@@ -19,6 +19,7 @@
         "ConstrainDouble",
         "ConstrainLong",
         "ConstrainVideoFacingModeParameters",
+        "CryptoKeyPair",
         "DevicePermissionDescriptor",
         "DisplayCaptureSurfaceType",
         "EcKeyAlgorithm",

@@ -263,6 +263,11 @@ interface CredentialRequestOptions {
     signal?: AbortSignal;
 }
 
+interface CryptoKeyPair {
+    privateKey?: CryptoKey;
+    publicKey?: CryptoKey;
+}
+
 interface CustomEventInit<T = any> extends EventInit {
     detail?: T;
 }
@@ -3998,7 +4003,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Retrieves a collection of all applet objects in the document.
      */
     /** @deprecated */
-    readonly applets: HTMLCollectionOf<HTMLAppletElement>;
+    readonly applets: HTMLCollection;
     /**
      * Deprecated. Sets or retrieves a value that indicates the background color behind the object.
      */
@@ -4233,7 +4238,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
-    createEvent(eventInterface: "FocusNavigationEvent"): FocusNavigationEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
@@ -4261,8 +4265,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
-    createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
-    createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
     createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
@@ -4461,7 +4463,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
-    createEvent(eventInterface: "FocusNavigationEvent"): FocusNavigationEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
@@ -4489,8 +4490,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
-    createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
-    createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
     createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
@@ -17655,7 +17654,6 @@ type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
 type MutationRecordType = "attributes" | "characterData" | "childList";
 type IDBKeyPath = string;
 type Transferable = ArrayBuffer | MessagePort | ImageBitmap;
-type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
 /** @deprecated */
 type MouseWheelEvent = WheelEvent;
 type WindowProxy = Window;

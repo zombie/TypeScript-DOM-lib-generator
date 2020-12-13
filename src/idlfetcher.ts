@@ -2,6 +2,7 @@ import * as fs from "fs";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 import innerText from "styleless-innertext";
+import { hyphenToCamelCase } from "./utils/css.js";
 
 fetchIDLs(process.argv.slice(2));
 
@@ -85,13 +86,6 @@ function extractCSSDefinitions(dom: DocumentFragment) {
             hyphenToCamelCase(property)
         };`).join("")
     }\n};`;
-}
-
-function hyphenToCamelCase(name: string) {
-    const camel = name
-        .replace(/^-(\w)/, (_, c) => c)
-        .replace(/-(\w)/g, (_, c) => c.toUpperCase());
-    return camel === "float" ? "_float" : camel;
 }
 
 function processComments(dom: DocumentFragment) {

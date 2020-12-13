@@ -30,10 +30,6 @@ interface CanvasPathDrawingStyles {
     setLineDash(segments: Iterable<number>): void;
 }
 
-interface ClientRectList {
-    [Symbol.iterator](): IterableIterator<ClientRect>;
-}
-
 interface DOMRectList {
     [Symbol.iterator](): IterableIterator<DOMRect>;
 }
@@ -123,10 +119,6 @@ interface IDBObjectStore {
      * Throws an "InvalidStateError" DOMException if not called within an upgrade transaction.
      */
     createIndex(name: string, keyPath: string | Iterable<string>, options?: IDBIndexParameters): IDBIndex;
-}
-
-interface MSCredentials {
-    makeCredential(accountInfo: MSAccountInfo, params: Iterable<MSCredentialParameters>, challenge?: string): Promise<MSAssertion>;
 }
 
 interface MediaKeyStatusMap {

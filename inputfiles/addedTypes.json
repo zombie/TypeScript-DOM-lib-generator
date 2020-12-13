@@ -1716,6 +1716,16 @@
             "WebGLVertexArrayObjectOES": {
                 "override-exposed": "Window Worker"
             },
+            "RTCDTMFSender": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "tonechange",
+                            "type": "RTCDTMFToneChangeEvent"
+                        }
+                    ]
+                }
+            },
             "SVGCursorElement": {
                 "name": "SVGCursorElement",
                 "extends": "SVGElement",

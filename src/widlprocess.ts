@@ -134,6 +134,9 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
             addComments(result.constants!.constant[member.name], commentMap, i.name, member.name);
         }
         else if (member.type === "attribute") {
+            if (member.inherit) {
+                continue; // no need to redeclare
+            }
             const { properties } = result;
             const prop = convertAttribute(member, result.exposed);
             addComments(prop, commentMap, i.name, member.name);

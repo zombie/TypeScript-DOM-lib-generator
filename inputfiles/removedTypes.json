@@ -56,22 +56,6 @@
     },
     "interfaces": {
         "interface": {
-            "AuthenticatorAttestationResponse": {
-                "methods": {
-                    "method": {
-                        "getAuthenticatorData": null,
-                        "getPublicKey": null,
-                        "getPublicKeyAlgorithm": null
-                    }
-                }
-            },
-            "CanvasRenderingContext2D": {
-                "methods": {
-                    "method": {
-                        "getContextAttributes": null
-                    }
-                }
-            },
             "Clipboard": {
                 "methods": {
                     "method": {
@@ -81,9 +65,8 @@
                 }
             },
             "Console": null,
-            "Coordinates": null,
+            "CryptoKeyPair": null,
             "CSS": null,
-            "CSSMarginRule": null,
             "CSSRule": {
                 "constants": {
                     "constant": {
@@ -91,129 +74,15 @@
                     }
                 }
             },
-            "CSSStyleDeclaration": {
-                "properties": {
-                    "property": {
-                        "backgroundPositionBlock": null,
-                        "backgroundPositionInline": null,
-                        "baselineSource": null,
-                        "blockEllipsis": null,
-                        "borderBlock": null,
-                        "borderBlockColor": null,
-                        "borderBlockStyle": null,
-                        "borderBlockWidth": null,
-                        "borderClip": null,
-                        "borderClipBottom": null,
-                        "borderClipLeft": null,
-                        "borderClipRight": null,
-                        "borderClipTop": null,
-                        "borderEndEndRadius": null,
-                        "borderEndStartRadius": null,
-                        "borderInline": null,
-                        "borderInlineColor": null,
-                        "borderInlineStyle": null,
-                        "borderInlineWidth": null,
-                        "borderLimit": null,
-                        "borderStartEndRadius": null,
-                        "borderStartStartRadius": null,
-                        "boxDecorationBreak": null,
-                        "colorRendering": null,
-                        "continue": null,
-                        "cornerShape": null,
-                        "corners": null,
-                        "fillBreak": null,
-                        "fillColor": null,
-                        "fillImage": null,
-                        "fillOrigin": null,
-                        "fillPosition": null,
-                        "fillRepeat": null,
-                        "fillSize": null,
-                        "hangingPunctuation": null,
-                        "initialLetter": null,
-                        "initialLetterAlign": null,
-                        "initialLetterWrap": null,
-                        "inlineSizing": null,
-                        "inset": null,
-                        "insetBlock": null,
-                        "insetBlockEnd": null,
-                        "insetBlockStart": null,
-                        "insetInline": null,
-                        "insetInlineEnd": null,
-                        "insetInlineStart": null,
-                        "leadingTrim": null,
-                        "leadingTrimOver": null,
-                        "leadingTrimUnder": null,
-                        "lineClamp": null,
-                        "lineSizing": null,
-                        "marginBlock": null,
-                        "marginInline": null,
-                        "maskBorder": null,
-                        "maskBorderMode": null,
-                        "maskBorderOutset": null,
-                        "maskBorderRepeat": null,
-                        "maskBorderSlice": null,
-                        "maskBorderSource": null,
-                        "maskBorderWidth": null,
-                        "maskClip": null,
-                        "maskMode": null,
-                        "maskOrigin": null,
-                        "maxLines": null,
-                        "overflowBlock": null,
-                        "overflowClipMargin": null,
-                        "overflowInline": null,
-                        "paddingBlock": null,
-                        "paddingInline": null,
-                        "rubyMerge": null,
-                        "rubyOverhang": null,
-                        "shapeInside": null,
-                        "shapeMargin": null,
-                        "shapeSubtract": null,
-                        "strokeAlign": null,
-                        "strokeBreak": null,
-                        "strokeColor": null,
-                        "strokeDashCorner": null,
-                        "strokeDashJustify": null,
-                        "strokeImage": null,
-                        "strokeOrigin": null,
-                        "strokePosition": null,
-                        "strokeRepeat": null,
-                        "strokeSize": null,
-                        "textAlignAll": null,
-                        "textDecorationFill": null,
-                        "textDecorationStroke": null
-                    }
-                }
-            },
-            "Document": {
-                "methods": {
-                    "method": {
-                        "caretPositionFromPoint": null
-                    }
-                }
-            },
-            "ElementInternals": null,
             "FormDataEvent": null,
-            "HTMLAreasCollection": null,
             "HTMLFormElement": {
-                "properties": {
-                    "property": {
-                        "rel": null,
-                        "relList": null
-                    }
-                },
                 "methods": {
                     "method": {
                         "requestSubmit": null
                     }
                 }
             },
-            "HTMLElement": {
-                "methods": {
-                    "method": {
-                        "attachInternals": null
-                    }
-                }
-            },
+            "MediaStreamError": null,
             "MessageEvent": {
                 "methods": {
                     "method": {
@@ -221,11 +90,6 @@
                     }
                 }
             },
-            "MSStreamReader": null,
-            "OffscreenCanvasRenderingContext2D": null,
-            "Position": null,
-            "PositionError": null,
-            "RTCSrtpSdesTransport": null,
             "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
@@ -238,13 +102,6 @@
                 "properties": {
                     "property": {
                         "navigationPreload": null
-                    }
-                }
-            },
-            "ShadowRoot": {
-                "properties": {
-                    "property": {
-                        "onslotchange": null
                     }
                 }
             },
@@ -268,24 +125,12 @@
                 }
             },
             "SVGFEGaussianBlurElement": {
-                "properties": {
-                    "property": {
-                        "edgeMode": null
-                    }
-                },
                 "constants": {
                     "constant": {
                         "SVG_EDGEMODE_DUPLICATE": null,
                         "SVG_EDGEMODE_NONE": null,
                         "SVG_EDGEMODE_UNKNOWN": null,
                         "SVG_EDGEMODE_WRAP": null
-                    }
-                }
-            },
-            "SVGFEImageElement": {
-                "properties": {
-                    "property": {
-                        "crossOrigin": null
                     }
                 }
             },
@@ -299,18 +144,6 @@
             },
             "SVGPoint": null,
             "SVGRect": null,
-            "SVGSVGElement": {
-                "properties": {
-                    "property": {
-                        "onabort": null,
-                        "onerror": null,
-                        "onresize": null,
-                        "onscroll": null
-                    }
-                }
-            },
-            "WebAuthentication": null,
-            "WebAuthnAssertion": null,
             "WebGLBuffer": {
                 "extends": null
             },
@@ -348,38 +181,11 @@
                 "extends": null
             },
             "WebKitCSSMatrix": null,
-            "WebKitDirectoryEntry": null,
-            "WebKitDirectoryReader": null,
-            "WebKitEntry": null,
-            "WebKitFileEntry": null,
-            "WebKitFileSystem": null,
             "Window": {
                 "properties": {
                     "property": {
-                        "browser": null,
-                        "caches": null,
                         "crypto": null,
                         "isSecureContext": null,
-                        "msCredentials": null,
-                        "onmsgesturechange": null,
-                        "onmsgesturedoubletap": null,
-                        "onmsgestureend": null,
-                        "onmsgesturehold": null,
-                        "onmsgesturestart": null,
-                        "onmsgesturetap": null,
-                        "onmsinertiastart": null,
-                        "onmspointercancel": null,
-                        "onmspointerdown": null,
-                        "onmspointerenter": null,
-                        "onmspointerleave": null,
-                        "onmspointermove": null,
-                        "onmspointerout": null,
-                        "onmspointerover": null,
-                        "onmspointerup": null,
-                        "ontouchcancel": null,
-                        "ontouchend": null,
-                        "ontouchmove": null,
-                        "ontouchstart": null,
                         "performance": null,
                         "onvrdisplayconnect": null,
                         "onvrdisplaydisconnect": null

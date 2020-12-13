@@ -213,7 +213,7 @@ function emitDom() {
             if (!template) return obj;
             const filtered = { ...obj };
             for (const k in template) {
-                if (!obj[k] || obj[k].exposed === "") {
+                if (!obj[k]) {
                     console.warn(`removedTypes.json has a redundant field ${k} in ${JSON.stringify(template)}`);
                 } else if (Array.isArray(template[k])) {
                     if (!Array.isArray(obj[k])) {
@@ -231,6 +231,9 @@ function emitDom() {
                 else if (template[k] !== null) {
                     filtered[k] = filterByNull(obj[k], template[k]);
                 } else {
+                    if (obj[k].exposed === "") {
+                        console.warn(`removedTypes.json removes ${k} that has already been disabled by BCD.`)
+                    }
                     delete filtered[k];
                 }
             }

@@ -713,7 +713,6 @@ declare var BroadcastChannel: {
 
 /** This Streams API interface provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
-    readonly highWaterMark: number;
     readonly size: QueuingStrategySize<ArrayBufferView>;
 }
 
@@ -851,7 +850,6 @@ interface ConcatParams extends Algorithm {
 
 /** This Streams API interface provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface CountQueuingStrategy extends QueuingStrategy {
-    readonly highWaterMark: number;
     readonly size: QueuingStrategySize;
 }
 
@@ -960,28 +958,6 @@ declare var DOMException: {
 };
 
 interface DOMMatrix extends DOMMatrixReadOnly {
-    a: number;
-    b: number;
-    c: number;
-    d: number;
-    e: number;
-    f: number;
-    m11: number;
-    m12: number;
-    m13: number;
-    m14: number;
-    m21: number;
-    m22: number;
-    m23: number;
-    m24: number;
-    m31: number;
-    m32: number;
-    m33: number;
-    m34: number;
-    m41: number;
-    m42: number;
-    m43: number;
-    m44: number;
     invertSelf(): DOMMatrix;
     multiplySelf(other?: DOMMatrixInit): DOMMatrix;
     preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
@@ -1057,10 +1033,6 @@ declare var DOMMatrixReadOnly: {
 };
 
 interface DOMPoint extends DOMPointReadOnly {
-    w: number;
-    x: number;
-    y: number;
-    z: number;
 }
 
 declare var DOMPoint: {
@@ -1101,10 +1073,6 @@ declare var DOMQuad: {
 };
 
 interface DOMRect extends DOMRectReadOnly {
-    height: number;
-    width: number;
-    x: number;
-    y: number;
 }
 
 declare var DOMRect: {
@@ -2575,14 +2543,6 @@ interface Request extends Body {
      */
     readonly integrity: string;
     /**
-     * Returns a boolean indicating whether or not request is for a history navigation (a.k.a. back-foward navigation).
-     */
-    readonly isHistoryNavigation: boolean;
-    /**
-     * Returns a boolean indicating whether or not request is for a reload navigation.
-     */
-    readonly isReloadNavigation: boolean;
-    /**
      * Returns a boolean indicating whether or not request can outlive the global in which it was created.
      */
     readonly keepalive: boolean;
@@ -2629,7 +2589,6 @@ interface Response extends Body {
     readonly redirected: boolean;
     readonly status: number;
     readonly statusText: string;
-    readonly trailer: Promise<Headers>;
     readonly type: ResponseType;
     readonly url: string;
     clone(): Response;
@@ -2715,7 +2674,6 @@ interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
     onnotificationclose: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
     onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
     readonly registration: ServiceWorkerRegistration;
-    readonly serviceWorker: ServiceWorker;
     skipWaiting(): Promise<void>;
     addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -5150,8 +5108,6 @@ interface WorkerGlobalScopeEventMap {
     "languagechange": Event;
     "offline": Event;
     "online": Event;
-    "rejectionhandled": PromiseRejectionEvent;
-    "unhandledrejection": PromiseRejectionEvent;
 }
 
 /** This Web Workers API interface is an interface representing the scope of any worker. Workers have no browsing context; this scope contains the information usually conveyed by Window objects — in this case event handlers, the console or the associated WorkerNavigator object. Each WorkerGlobalScope has its own event loop. */
@@ -5165,8 +5121,6 @@ interface WorkerGlobalScope extends EventTarget, WindowOrWorkerGlobalScope {
     onlanguagechange: ((this: WorkerGlobalScope, ev: Event) => any) | null;
     onoffline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
     ononline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
-    onrejectionhandled: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
-    onunhandledrejection: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
     /**
      * Returns workerGlobal.
      */
@@ -5188,16 +5142,6 @@ declare var WorkerGlobalScope: {
 
 /** The absolute location of the script executed by the Worker. Such an object is initialized for each worker and is available via the WorkerGlobalScope.location property obtained by calling self.location. */
 interface WorkerLocation {
-    readonly hash: string;
-    readonly host: string;
-    readonly hostname: string;
-    readonly href: string;
-    toString(): string;
-    readonly origin: string;
-    readonly pathname: string;
-    readonly port: string;
-    readonly protocol: string;
-    readonly search: string;
 }
 
 declare var WorkerLocation: {
@@ -5622,8 +5566,6 @@ declare var onerror: ((this: DedicatedWorkerGlobalScope, ev: ErrorEvent) => any)
 declare var onlanguagechange: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
 declare var onoffline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
 declare var ononline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
-declare var onrejectionhandled: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
-declare var onunhandledrejection: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
 /**
  * Returns workerGlobal.
  */

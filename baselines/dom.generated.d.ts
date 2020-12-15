@@ -5756,6 +5756,7 @@ interface GlobalEventHandlersEventMap {
     "animationiteration": AnimationEvent;
     "animationstart": AnimationEvent;
     "auxclick": MouseEvent;
+    "beforeinput": InputEvent;
     "blur": FocusEvent;
     "cancel": Event;
     "canplay": Event;

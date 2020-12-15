@@ -33,6 +33,10 @@
                 "attributeless-events": {
                     "event": [
                         {
+                            "name": "beforeinput",
+                            "type": "InputEvent"
+                        },
+                        {
                             "name": "focusin",
                             "type": "FocusEvent"
                         },

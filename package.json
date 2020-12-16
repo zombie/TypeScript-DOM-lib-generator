@@ -22,6 +22,7 @@
     "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.0-dev.20201211",
-    "webidl2": "^23.13.0"
+    "webidl2": "^23.13.0",
+    "webref": "github:w3c/webref#b419cfe4286470ae1d9c6cf3e4c154cf24edd58a"
   }
 }

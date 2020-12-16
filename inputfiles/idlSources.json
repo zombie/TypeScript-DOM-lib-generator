@@ -182,7 +182,8 @@
     },
     {
         "url": "https://dom.spec.whatwg.org/",
-        "title": "DOM"
+        "title": "DOM",
+        "shortName": "dom"
     },
     {
         "url": "https://w3c.github.io/DOM-Parsing/",

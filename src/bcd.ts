@@ -571,12 +571,9 @@ const forceKeepAlive: Record<string, string[]> = {
   // (WebAssembly namespace members)
   // TODO: Shouldn't these be inside "WebAssembly"?
   "Instance": ["exports"],
-  "CompileError": [],
   "Global": ["value", "valueOf"],
-  "LinkError": [],
   "Memory": ["buffer", "grow"],
   "Module": ["customSections", "exports", "imports"],
-  "RuntimeError": [],
   "Table": ["length", "get", "grow", "set"],
 
   // Widely supported but without being correctly exposed to global

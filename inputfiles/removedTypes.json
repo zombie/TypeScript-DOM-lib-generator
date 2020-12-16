@@ -253,6 +253,13 @@
                     }
                 }
             },
+            "KeyframeAnimationOptions": {
+                "members": {
+                    "member": {
+                        "timeline": null
+                    }
+                }
+            },
             "ObjectURLOptions": null,
             "PointerEventInit": {
                 "members": {

@@ -593,15 +593,18 @@
     },
     {
         "url": "https://www.w3.org/TR/web-animations-1/",
-        "title": "Web Animations"
+        "title": "Web Animations",
+        "shortName": "web-animations"
     },
     {
         "url": "https://www.w3.org/TR/wasm-js-api-1/",
-        "title": "WebAssembly JavaScript Interface"
+        "title": "WebAssembly JavaScript Interface",
+        "shortName": "wasm-js-api"
     },
     {
         "url": "https://www.w3.org/TR/wasm-web-api-1/",
-        "title": "WebAssembly Web API"
+        "title": "WebAssembly Web API",
+        "shortName": "wasm-web-api"
     },
     {
         "url": "https://webaudio.github.io/web-audio-api/",

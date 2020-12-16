@@ -482,6 +482,10 @@ interface GamepadEventInit extends EventInit {
     gamepad: Gamepad;
 }
 
+interface GetAnimationsOptions {
+    subtree?: boolean;
+}
+
 interface GetNotificationOptions {
     tag?: string;
 }
@@ -630,7 +634,7 @@ interface KeyframeAnimationOptions extends KeyframeEffectOptions {
 
 interface KeyframeEffectOptions extends EffectTiming {
     composite?: CompositeOperation;
-    iterationComposite?: IterationCompositeOperation;
+    pseudoElement?: string | null;
 }
 
 interface MediaElementAudioSourceOptions {
@@ -1886,12 +1890,13 @@ declare var AnalyserNode: {
 
 interface Animatable {
     animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation;
-    getAnimations(): Animation[];
+    getAnimations(options?: GetAnimationsOptions): Animation[];
 }
 
 interface AnimationEventMap {
     "cancel": AnimationPlaybackEvent;
     "finish": AnimationPlaybackEvent;
+    "remove": Event;
 }
 
 interface Animation extends EventTarget {
@@ -1901,15 +1906,19 @@ interface Animation extends EventTarget {
     id: string;
     oncancel: ((this: Animation, ev: AnimationPlaybackEvent) => any) | null;
     onfinish: ((this: Animation, ev: AnimationPlaybackEvent) => any) | null;
+    onremove: ((this: Animation, ev: Event) => any) | null;
     readonly pending: boolean;
     readonly playState: AnimationPlayState;
     playbackRate: number;
     readonly ready: Promise<Animation>;
+    readonly replaceState: AnimationReplaceState;
     startTime: number | null;
     timeline: AnimationTimeline | null;
     cancel(): void;
+    commitStyles(): void;
     finish(): void;
     pause(): void;
+    persist(): void;
     play(): void;
     reverse(): void;
     updatePlaybackRate(playbackRate: number): void;
@@ -4356,7 +4365,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      */
     exitFullscreen(): Promise<void>;
     exitPointerLock(): void;
-    getAnimations(): Animation[];
     /**
      * Returns a reference to the first object with the specified value of the ID attribute.
      * @param elementId String that specifies the ID value.
@@ -4562,6 +4570,7 @@ interface DocumentOrShadowRoot {
     caretRangeFromPoint(x: number, y: number): Range;
     elementFromPoint(x: number, y: number): Element | null;
     elementsFromPoint(x: number, y: number): Element[];
+    getAnimations(): Animation[];
     getSelection(): Selection | null;
 }
 
@@ -9090,7 +9099,6 @@ declare var KeyboardEvent: {
 
 interface KeyframeEffect extends AnimationEffect {
     composite: CompositeOperation;
-    iterationComposite: IterationCompositeOperation;
     target: Element | null;
     getKeyframes(): ComputedKeyframe[];
     setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void;
@@ -16817,14 +16825,6 @@ declare namespace CSS {
 }
 
 declare namespace WebAssembly {
-    interface CompileError {
-    }
-    
-    var CompileError: {
-        prototype: CompileError;
-        new(): CompileError;
-    };
-    
     interface Global {
         value: any;
         valueOf(): any;
@@ -16842,14 +16842,6 @@ declare namespace WebAssembly {
     var Instance: {
         prototype: Instance;
         new(module: Module, importObject?: Imports): Instance;
-    };
-    
-    interface LinkError {
-    }
-    
-    var LinkError: {
-        prototype: LinkError;
-        new(): LinkError;
     };
     
     interface Memory {
@@ -16871,14 +16863,6 @@ declare namespace WebAssembly {
         customSections(moduleObject: Module, sectionName: string): ArrayBuffer[];
         exports(moduleObject: Module): ModuleExportDescriptor[];
         imports(moduleObject: Module): ModuleImportDescriptor[];
-    };
-    
-    interface RuntimeError {
-    }
-    
-    var RuntimeError: {
-        prototype: RuntimeError;
-        new(): RuntimeError;
     };
     
     interface Table {
@@ -17714,6 +17698,7 @@ type WindowProxy = Window;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
 type AlignSetting = "center" | "end" | "left" | "right" | "start";
 type AnimationPlayState = "finished" | "idle" | "paused" | "running";
+type AnimationReplaceState = "active" | "persisted" | "removed";
 type AppendMode = "segments" | "sequence";
 type AttestationConveyancePreference = "direct" | "enterprise" | "indirect" | "none";
 type AudioContextLatencyCategory = "balanced" | "interactive" | "playback";
@@ -17753,7 +17738,6 @@ type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
 type ImageOrientation = "flipY" | "none";
 type ImageSmoothingQuality = "high" | "low" | "medium";
-type IterationCompositeOperation = "accumulate" | "replace";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";

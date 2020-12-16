@@ -204,32 +204,14 @@
         "shortName": "css-writing-modes"
     },
     {
-        "url": "https://www.w3.org/TR/CSS22/page.html",
-        "title": "CSS2 Paged media"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/tables.html",
-        "title": "CSS2 Tables"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/text.html",
-        "title": "CSS2 Text"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/visufx.html",
-        "title": "CSS2 Visual effect"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/visuren.html",
-        "title": "CSS2 Visual formatting"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/visudet.html",
-        "title": "CSS2 Visual formatting details"
+        "url": "https://drafts.csswg.org/css2/",
+        "title": "CSS2",
+        "shortName": "CSS"
     },
     {
         "url": "https://w3c.github.io/deviceorientation/",
-        "title": "DeviceOrientation Event"
+        "title": "DeviceOrientation Event",
+        "shortName": "orientation-event"
     },
     {
         "url": "https://dom.spec.whatwg.org/",
@@ -238,27 +220,33 @@
     },
     {
         "url": "https://w3c.github.io/DOM-Parsing/",
-        "title": "DOM Parsing and Serialization"
+        "title": "DOM Parsing and Serialization",
+        "shortName": "DOM-Parsing"
     },
     {
         "url": "https://encoding.spec.whatwg.org/",
-        "title": "Encoding"
+        "title": "Encoding",
+        "shortName": "encoding"
     },
     {
         "url": "https://www.w3.org/TR/encrypted-media/",
-        "title": "Encrypted Media Extensions"
+        "title": "Encrypted Media Extensions",
+        "shortName": "encrypted-media"
     },
     {
         "url": "https://fetch.spec.whatwg.org/",
-        "title": "Fetch"
+        "title": "Fetch",
+        "shortName": "fetch"
     },
     {
         "url": "https://w3c.github.io/FileAPI/",
-        "title": "File"
+        "title": "File",
+        "shortName": "FileAPI"
     },
     {
         "url": "https://www.w3.org/TR/filter-effects-1/",
-        "title": "Filter Effects"
+        "title": "Filter Effects",
+        "shortName": "filter-effects"
     },
     {
         "url": "https://fullscreen.spec.whatwg.org/",

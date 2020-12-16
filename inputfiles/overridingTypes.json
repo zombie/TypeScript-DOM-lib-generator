@@ -2952,10 +2952,6 @@
     "typedefs": {
         "typedef": [
             {
-                "override-type": "Blob | BufferSource | FormData | URLSearchParams | ReadableStream<Uint8Array> | string",
-                "new-type": "BodyInit"
-            },
-            {
                 "override-type": "ReadableStreamDefaultController<T>",
                 "new-type": "ReadableStreamController",
                 "type-parameters": [

@@ -2627,6 +2627,7 @@ interface CSSStyleDeclaration {
     fontFamily: string;
     fontFeatureSettings: string;
     fontKerning: string;
+    fontOpticalSizing: string;
     fontSize: string;
     fontSizeAdjust: string;
     fontStretch: string;
@@ -2638,6 +2639,7 @@ interface CSSStyleDeclaration {
     fontVariantLigatures: string;
     fontVariantNumeric: string;
     fontVariantPosition: string;
+    fontVariationSettings: string;
     fontWeight: string;
     gap: string;
     grid: string;

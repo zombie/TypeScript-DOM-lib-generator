@@ -70,6 +70,8 @@
             "CSSRule": {
                 "constants": {
                     "constant": {
+                        "FONT_FEATURE_VALUES_RULE": null,
+                        "FONT_PALETTE_VALUES_RULE": null,
                         "MARGIN_RULE": null
                     }
                 }

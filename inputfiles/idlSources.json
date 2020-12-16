@@ -57,27 +57,33 @@
     },
     {
         "url": "https://www.w3.org/TR/css-color-3/",
-        "title": "CSS Color"
+        "title": "CSS Color",
+        "shortName": "css-color"
     },
     {
         "url": "https://drafts.csswg.org/css-conditional-3/",
-        "title": "CSS Conditional Rules"
+        "title": "CSS Conditional Rules",
+        "shortName": "css-conditional"
     },
     {
         "url": "https://www.w3.org/TR/fill-stroke-3/",
-        "title": "CSS Fill and Stroke"
+        "title": "CSS Fill and Stroke",
+        "shortName": "fill-stroke"
     },
     {
         "url": "https://www.w3.org/TR/css-flexbox-1/",
-        "title": "CSS Flexible Box Layout"
+        "title": "CSS Flexible Box Layout",
+        "shortName": "css-flexbox"
     },
     {
         "url": "https://www.w3.org/TR/css-fonts-3/",
-        "title": "CSS Fonts"
+        "title": "CSS Fonts",
+        "shortName": "css-fonts"
     },
     {
         "url": "https://www.w3.org/TR/css-break-3/",
-        "title": "CSS Fragmentation"
+        "title": "CSS Fragmentation",
+        "shortName": "css-break"
     },
     {
         "url": "https://www.w3.org/TR/css-grid-1/",

@@ -250,4 +250,4 @@ async function emitDom() {
     }
 }
 
-emitDom();
+await emitDom();

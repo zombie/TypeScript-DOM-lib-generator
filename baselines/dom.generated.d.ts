@@ -16629,7 +16629,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      * 
      * Throws an "InvalidStateError" DOMException if either state is not opened or the send() flag is set.
      */
-    send(body?: Document | BodyInit | null): void;
+    send(body?: Document | XMLHttpRequestBodyInit | null): void;
     /**
      * Combines a header in author request headers.
      * 

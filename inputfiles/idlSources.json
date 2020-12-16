@@ -768,15 +768,18 @@
     },
     {
         "url": "https://wicg.github.io/speech-api/",
-        "title": "Web Speech API"
+        "title": "Web Speech API",
+        "shortName": "speech-api"
     },
     {
         "url": "https://wicg.github.io/visual-viewport/",
-        "title": "Web VisualViewport API"
+        "title": "Web VisualViewport API",
+        "shortName": "visual-viewport"
     },
     {
         "url": "https://www.w3.org/TR/webvtt1/",
-        "title": "WebVTT"
+        "title": "WebVTT",
+        "shortName": "webvtt"
     },
     {
         "url": "https://drafts.css-houdini.org/worklets/",
@@ -784,6 +787,7 @@
     },
     {
         "url": "https://xhr.spec.whatwg.org/",
-        "title": "XMLHttpRequest"
+        "title": "XMLHttpRequest",
+        "shortName": "xhr"
     }
 ]

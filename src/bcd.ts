@@ -23,6 +23,30 @@ const forceKeepAlive: Record<string, string[]> = {
   "BarProp": ["visible"],
   "BeforeUnloadEvent": ["returnValue"],
   "ByteLengthQueuingStrategy": ["size"],
+  "console": [
+    "assert",
+    "clear",
+    "count",
+    "countReset",
+    "debug",
+    "dir",
+    "dirxml",
+    "error",
+    "group",
+    "groupCollapsed",
+    "groupEnd",
+    "info",
+    "log",
+    "profile",
+    "profileEnd",
+    "table",
+    "time",
+    "timeEnd",
+    "timeLog",
+    "timeStamp",
+    "trace",
+    "warn",
+  ],
   "ConstantSourceNode": ["offset"],
   "CountQueuingStrategy": ["size"],
   "CSSConditionRule": ["conditionText"],
@@ -235,6 +259,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "MODIFICATION",
     "REMOVAL",
   ],
+  "NavigatorStorage": ["storage"],
   "NavigatorPlugins": ["javaEnabled", "mimeTypes", "plugins"],
   "OfflineAudioContext": ["resume"],
   "PaymentRequest": ["shippingAddress"],
@@ -546,12 +571,12 @@ const forceKeepAlive: Record<string, string[]> = {
   // TODO: Shouldn't these be inside "WebAssembly"?
   "Instance": ["exports"],
   "CompileError": [],
-  "Global": [],
+  "Global": ["value", "valueOf"],
   "LinkError": [],
-  "Memory": [],
+  "Memory": ["buffer", "grow"],
   "Module": ["customSections", "exports", "imports"],
   "RuntimeError": [],
-  "Table": [],
+  "Table": ["length", "get", "grow", "set"],
 
   // Widely supported but without being correctly exposed to global
   "ReadableStreamDefaultReader": ["closed", "cancel", "read", "releaseLock"],
@@ -615,7 +640,7 @@ function isSuitable(key: string, value: Identifier, parentKey?: string, prefix?:
 }
 function getEachRemovalData(type: Browser.Interface, strict: boolean) {
   function getMemberRemovalData(memberKey: string) {
-    const memberBcdData = bcdData[memberKey];
+    const memberBcdData = bcdData && bcdData[memberKey];
     if (!memberBcdData) {
       if (strict && !forceKeepAlive[type.name]?.includes(memberKey)) {
         return { exposed: "" };
@@ -636,7 +661,6 @@ function getEachRemovalData(type: Browser.Interface, strict: boolean) {
     if (strict && !forceKeepAlive[type.name]) {
       return { exposed: "" };
     }
-    return;
   }
 
   const methods: Record<string, object> = {};

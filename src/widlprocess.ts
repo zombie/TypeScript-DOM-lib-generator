@@ -310,8 +310,10 @@ function convertConstantValue(value: webidl2.ValueDescription): string {
             return value.type;
         case "Infinity":
             return (value.negative ? '-' : '') + value.type;
+        case "dictionary":
+            return "{}";
         default:
-            throw new Error("Not implemented");
+            throw new Error(`Not implemented: ${(value as any).type}`);
     }
 }
 

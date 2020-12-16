@@ -1,5 +1,5 @@
 import * as Browser from "./types.js";
-import * as fs from "fs";
+import { promises as fs } from "fs";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { merge, resolveExposure, markAsDeprecated, mapToArray, arrayToMap } from "./helpers.js";
@@ -7,8 +7,10 @@ import { Flavor, emitWebIdl } from "./emitter.js";
 import { convert } from "./widlprocess.js";
 import { getExposedTypes } from "./expose.js";
 import { getDeprecationData, getRemovalData } from "./bcd.js";
+import { createTryRequire } from "./utils/require.js";
 
 const require = createRequire(import.meta.url);
+const tryRequire = createTryRequire(import.meta.url);
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
     const targets = [
@@ -36,18 +38,18 @@ interface EmitOptions {
     outputFolder: URL;
 }
 
-function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, options: EmitOptions) {
+async function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, options: EmitOptions) {
     const exposed = getExposedTypes(webidl, options.global, forceKnownTypes);
     mergeNamesakes(exposed);
 
     const result = emitWebIdl(exposed, options.flavor, false);
-    fs.writeFileSync(new URL(`${options.name}.generated.d.ts`, options.outputFolder), result);
+    await fs.writeFile(new URL(`${options.name}.generated.d.ts`, options.outputFolder), result);
 
     const iterators = emitWebIdl(exposed, options.flavor, true);
-    fs.writeFileSync(new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder), iterators);
+    await fs.writeFile(new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder), iterators);
 }
 
-function emitDom() {
+async function emitDom() {
     const inputFolder = new URL("../inputfiles/", import.meta.url);
     const outputFolder = new URL("../generated/", import.meta.url);
 
@@ -62,9 +64,10 @@ function emitDom() {
     ];
 
     // Create output folder
-    if (!fs.existsSync(outputFolder)) {
-        fs.mkdirSync(outputFolder);
-    }
+    await fs.mkdir(outputFolder, {
+        // Doesn't need to be recursive, but this helpfully ignores EEXIST
+        recursive: true
+    });
 
     const overriddenItems = require(fileURLToPath(new URL("overridingTypes.json", inputFolder)));
     const addedItems = require(fileURLToPath(new URL("addedTypes.json", inputFolder)));
@@ -73,12 +76,12 @@ function emitDom() {
     const documentationFromMDN = require(fileURLToPath(new URL('mdn/apiDescriptions.json', inputFolder)));
     const removedItems = require(fileURLToPath(new URL("removedTypes.json", inputFolder)));
     const idlSources: any[] = require(fileURLToPath(new URL("idlSources.json", inputFolder)));
-    const widlStandardTypes = idlSources.map(convertWidl);
+    const widlStandardTypes = await Promise.all(idlSources.map(convertWidl));
 
-    function convertWidl({ title, deprecated }: { title: string; deprecated?: boolean }) {
-        const idl: string = fs.readFileSync(new URL(`idl/${title}.widl`, inputFolder), { encoding: "utf-8" });
+    async function convertWidl({ title, deprecated }: { title: string; deprecated?: boolean }) {
+        const idl: string = await fs.readFile(new URL(`idl/${title}.widl`, inputFolder), { encoding: "utf-8" });
         const commentsMapFilePath = new URL(`idl/${title}.commentmap.json`, inputFolder);
-        const commentsMap: Record<string, string> = fs.existsSync(commentsMapFilePath) ? require(fileURLToPath(commentsMapFilePath)) : {};
+        const commentsMap: Record<string, string> = await tryRequire(fileURLToPath(commentsMapFilePath)) ?? {};
         commentCleanup(commentsMap);
         const result = convert(idl, commentsMap);
         if (deprecated) {

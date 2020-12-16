@@ -378,6 +378,14 @@
                 "name": "CSSStyleDeclaration",
                 "properties": {
                     "property": {
+                        "imageOrientation": {
+                            "name": "imageOrientation",
+                            "type": "CSSOMString"
+                        },
+                        "objectPosition": {
+                            "name": "objectPosition",
+                            "type": "CSSOMString"
+                        },
                         "pointerEvents": {
                             "name": "pointerEvents",
                             "type": "CSSOMString"

@@ -87,15 +87,18 @@
     },
     {
         "url": "https://www.w3.org/TR/css-grid-1/",
-        "title": "CSS Grid Layout"
+        "title": "CSS Grid Layout",
+        "shortName": "css-grid"
     },
     {
         "url": "https://drafts.csswg.org/css-images-3/",
-        "title": "CSS Images"
+        "title": "CSS Images",
+        "shortName": "css-images"
     },
     {
         "url": "https://www.w3.org/TR/css-inline-3/",
-        "title": "CSS Inline Layout"
+        "title": "CSS Inline Layout",
+        "shortName": "css-inline"
     },
     {
         "url": "https://www.w3.org/TR/css-logical-1/",

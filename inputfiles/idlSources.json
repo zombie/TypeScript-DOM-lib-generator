@@ -763,7 +763,8 @@
     },
     {
         "url": "https://www.w3.org/TR/web-share/",
-        "title": "Web Share"
+        "title": "Web Share",
+        "shortName": "web-share"
     },
     {
         "url": "https://wicg.github.io/speech-api/",

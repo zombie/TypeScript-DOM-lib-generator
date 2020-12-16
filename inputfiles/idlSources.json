@@ -534,11 +534,13 @@
     },
     {
         "url": "https://storage.spec.whatwg.org/",
-        "title": "Storage"
+        "title": "Storage",
+        "shortName": "storage"
     },
     {
         "url": "https://streams.spec.whatwg.org/",
-        "title": "Streams"
+        "title": "Streams",
+        "shortName": "streams"
     },
     {
         "url": "https://www.w3.org/TR/SVG2/types.html",
@@ -566,23 +568,28 @@
     },
     {
         "url": "https://w3c.github.io/touch-events/",
-        "title": "Touch Events"
+        "title": "Touch Events",
+        "shortName": "touch-events"
     },
     {
         "url": "https://w3c.github.io/uievents/",
-        "title": "UI Events"
+        "title": "UI Events",
+        "shortName": "uievents"
     },
     {
         "url": "https://url.spec.whatwg.org/",
-        "title": "URL"
+        "title": "URL",
+        "shortName": "url"
     },
     {
         "url": "https://www.w3.org/TR/user-timing-2/",
-        "title": "User Timing"
+        "title": "User Timing",
+        "shortName": "user-timing"
     },
     {
         "url": "https://www.w3.org/TR/vibration/",
-        "title": "Vibration"
+        "title": "Vibration",
+        "shortName": "vibration"
     },
     {
         "url": "https://www.w3.org/TR/web-animations-1/",

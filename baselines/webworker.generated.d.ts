@@ -325,6 +325,18 @@ interface Pbkdf2Params extends Algorithm {
     salt: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer;
 }
 
+interface PerformanceMarkOptions {
+    detail?: any;
+    startTime?: number;
+}
+
+interface PerformanceMeasureOptions {
+    detail?: any;
+    duration?: number;
+    end?: string | number;
+    start?: string | number;
+}
+
 interface PerformanceObserverInit {
     buffered?: boolean;
     entryTypes?: string[];
@@ -2289,8 +2301,8 @@ interface Performance extends EventTarget {
     getEntries(): PerformanceEntryList;
     getEntriesByName(name: string, type?: string): PerformanceEntryList;
     getEntriesByType(type: string): PerformanceEntryList;
-    mark(markName: string): void;
-    measure(measureName: string, startMark?: string, endMark?: string): void;
+    mark(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
+    measure(measureName: string, startOrMeasureOptions?: string | PerformanceMeasureOptions, endMark?: string): PerformanceMeasure;
     now(): number;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
@@ -2325,7 +2337,7 @@ interface PerformanceMark extends PerformanceEntry {
 
 declare var PerformanceMark: {
     prototype: PerformanceMark;
-    new(): PerformanceMark;
+    new(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
 };
 
 /** PerformanceMeasure is an abstract interface for PerformanceEntry objects with an entryType of "measure". Entries of this type are created by calling performance.measure() to add a named DOMHighResTimeStamp (the measure) between two marks to the browser's performance timeline. */

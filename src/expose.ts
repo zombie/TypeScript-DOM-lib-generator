@@ -1,18 +1,18 @@
 import * as Browser from "./types.js";
-import { getEmptyWebIDL, filter, exposesTo, followTypeReferences, filterProperties, mapToArray, arrayToMap } from "./helpers.js";
+import { getEmptyWebIDL, deepFilter, exposesTo, followTypeReferences, filterProperties, mapToArray, arrayToMap } from "./helpers.js";
 
 export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKnownTypes: Set<string>) {
     const unexposedTypes = new Set<string>();
     const filtered = getEmptyWebIDL();
     if (webidl.interfaces) {
-        filtered.interfaces!.interface = filter(webidl.interfaces.interface, o => exposesTo(o, target));
+        filtered.interfaces!.interface = deepFilter(webidl.interfaces.interface, o => exposesTo(o, target));
         const unexposedInterfaces = mapToArray(webidl.interfaces.interface).filter(i => !i.exposed || !i.exposed.includes(target));
         for (const i of unexposedInterfaces) {
             unexposedTypes.add(i.name);
         }
     }
     if (webidl.namespaces) {
-        filtered.namespaces = filter(webidl.namespaces, o => exposesTo(o, target));
+        filtered.namespaces = deepFilter(webidl.namespaces, o => exposesTo(o, target));
     }
 
     const knownIDLTypes = new Set([
@@ -33,7 +33,7 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
     if (webidl.dictionaries) filtered.dictionaries!.dictionary = filterProperties(webidl.dictionaries.dictionary, isKnownName);
     if (webidl.enums) filtered.enums!.enum = filterProperties(webidl.enums.enum, isKnownName);
     if (webidl.mixins) {
-        const mixins = filter(webidl.mixins.mixin, o => exposesTo(o, target));
+        const mixins = deepFilter(webidl.mixins.mixin, o => exposesTo(o, target));
         filtered.mixins!.mixin = filterProperties(mixins, isKnownName);
     }
 
@@ -95,6 +95,7 @@ function deepFilterUnexposedTypes(webidl: Browser.WebIdl, unexposedTypes: Set<st
         if (!o["override-signatures"] && Array.isArray(o.signature)) {
             return { ...o, signature: o.signature.map(filterUnknownTypeFromSignature) };
         }
+        // TODO: Support filtering dictionary members
     });
 
     function filterUnknownTypeFromSignature(signature: Browser.Signature) {

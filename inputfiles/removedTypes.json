@@ -27,6 +27,13 @@
                     }
                 }
             },
+            "ParentNode": {
+                "methods": {
+                    "method": {
+                        "replaceChildren": null
+                    }
+                }
+            },
             "XMLHttpRequestEventTarget": null,
             "WorkerUtils": {
                 "methods": {
@@ -52,12 +59,24 @@
     "enums": {
         "enum": {
             "ClientType": null,
+            "ReadableStreamReaderMode": null,
+            "ReadableStreamType": null,
             "RequestType": null
         }
     },
     "interfaces": {
         "interface": {
             "AudioTrackList": null,
+            "AuthenticatorAttestationResponse": {
+                "methods": {
+                    "method": {
+                        "getAuthenticatorData": null,
+                        "getPublicKey": null,
+                        "getPublicKeyAlgorithm": null,
+                        "getTransports": null
+                    }
+                }
+            },
             "CanvasRenderingContext2D": {
                 "methods": {
                     "method": {
@@ -75,6 +94,7 @@
             },
             "ClipboardItem": null,
             "Console": null,
+            "Coordinates": null,
             "CSS": null,
             "CSSMarginRule": null,
             "CSSRule": {
@@ -89,7 +109,8 @@
                     "property": {
                         "backgroundPositionBlock": null,
                         "backgroundPositionInline": null,
-                        "blockOverflow": null,
+                        "baselineSource": null,
+                        "blockEllipsis": null,
                         "borderBlock": null,
                         "borderBlockColor": null,
                         "borderBlockStyle": null,
@@ -121,9 +142,9 @@
                         "fillRepeat": null,
                         "fillSize": null,
                         "hangingPunctuation": null,
-                        "initialLetters": null,
-                        "initialLettersAlign": null,
-                        "initialLettersWrap": null,
+                        "initialLetter": null,
+                        "initialLetterAlign": null,
+                        "initialLetterWrap": null,
                         "inlineSizing": null,
                         "inset": null,
                         "insetBlock": null,
@@ -132,7 +153,11 @@
                         "insetInline": null,
                         "insetInlineEnd": null,
                         "insetInlineStart": null,
+                        "leadingTrim": null,
+                        "leadingTrimOver": null,
+                        "leadingTrimUnder": null,
                         "lineClamp": null,
+                        "lineSizing": null,
                         "marginBlock": null,
                         "marginInline": null,
                         "maskBorder": null,
@@ -147,10 +172,12 @@
                         "maskOrigin": null,
                         "maxLines": null,
                         "overflowBlock": null,
+                        "overflowClipMargin": null,
                         "overflowInline": null,
                         "paddingBlock": null,
                         "paddingInline": null,
                         "rubyMerge": null,
+                        "rubyOverhang": null,
                         "shapeInside": null,
                         "shapeMargin": null,
                         "shapeSubtract": null,
@@ -187,13 +214,6 @@
                     }
                 }
             },
-            "HTMLVideoElement": {
-                "properties": {
-                    "property": {
-                        "playsInline": null
-                    }
-                }
-            },
             "HTMLFormElement": {
                 "properties": {
                     "property": {
@@ -226,6 +246,23 @@
             "MSDSHEvent": null,
             "MSStreamReader": null,
             "PasswordCredential": null,
+            "Position": null,
+            "PositionError": null,
+            "ReadableByteStreamController": null,
+            "ReadableStream": {
+                "iterator": null
+            },
+            "ReadableStreamBYOBReader": null,
+            "ReadableStreamBYOBRequest": null,
+            "ReadableStreamReader": null,
+            "ResizeObservation": null,
+            "ResizeObserverEntry": {
+                "properties": {
+                    "property": {
+                        "devicePixelContentBoxSize": null
+                    }
+                }
+            },
             "RTCDataChannel": {
                 "properties": {
                     "property": {
@@ -263,10 +300,6 @@
                     }
                 }
             },
-            "SpeechRecognitionEvent": {
-                "constructor": null
-            },
-            "SpeechRecognitionErrorEvent": null,
             "StorageEvent": {
                 "methods": {
                     "method": {
@@ -364,6 +397,13 @@
                     "WindowConsole"
                 ]
             },
+            "WritableStream": {
+                "methods": {
+                    "method": {
+                        "close": null
+                    }
+                }
+            },
             "XPathNSResolver": null
         }
     },
@@ -386,10 +426,20 @@
                 }
             },
             "ObjectURLOptions": null,
+            "ReadableStreamBYOBReadResult": null,
+            "ReadableStreamDefaultReadResult": null,
+            "ReadableStreamGetReaderOptions": null,
             "RTCIceGatherOptions": {
                 "members": {
                     "member": {
                         "portRange": null
+                    }
+                }
+            },
+            "UnderlyingSource": {
+                "members": {
+                    "member": {
+                        "autoAllocateChunkSize": null
                     }
                 }
             }

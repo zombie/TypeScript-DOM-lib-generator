@@ -62,11 +62,6 @@
                             "name": "activeElement",
                             "read-only": 1,
                             "override-type": "Element | null"
-                        },
-                        "styleSheets": {
-                            "name": "styleSheets",
-                            "read-only": 1,
-                            "override-type": "StyleSheetList"
                         }
                     }
                 }
@@ -210,17 +205,6 @@
                         }
                     ]
                 }
-            },
-            "HTMLHyperlinkElementUtils": {
-                "name": "HTMLHyperlinkElementUtils",
-                "properties": {
-                    "property": {
-                        "origin": {
-                            "name": "origin",
-                            "override-type": "string"
-                        }
-                    }
-                }
             }
         }
     },
@@ -266,27 +250,27 @@
                         "in1": {
                             "name": "in1",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedString"
+                            "type": "SVGAnimatedString"
                         },
                         "dx": {
                             "name": "dx",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedNumber"
+                            "type": "SVGAnimatedNumber"
                         },
                         "dy": {
                             "name": "dy",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedNumber"
+                            "type": "SVGAnimatedNumber"
                         },
                         "stdDeviationX": {
                             "name": "stdDeviationX",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedNumber"
+                            "type": "SVGAnimatedNumber"
                         },
                         "stdDeviationY": {
                             "name": "stdDeviationY",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedNumber"
+                            "type": "SVGAnimatedNumber"
                         }
                     }
                 },
@@ -444,6 +428,20 @@
                         "customElements": {
                             "name": "customElements",
                             "type": "CustomElementRegistry"
+                        },
+                        "ongamepadconnected": {
+                            "name": "ongamepadconnected",
+                            "type-original": "EventHandler",
+                            "nullable": 1,
+                            "type": "EventHandlerNonNull",
+                            "event-handler": "gamepadconnected"
+                        },
+                        "ongamepaddisconnected": {
+                            "name": "ongamepaddisconnected",
+                            "type-original": "EventHandler",
+                            "nullable": 1,
+                            "type": "EventHandlerNonNull",
+                            "event-handler": "gamepaddisconnected"
                         }
                     }
                 },
@@ -493,14 +491,6 @@
                 ],
                 "exposed": "Window",
                 "extends": "NodeList",
-                "properties": {
-                    "property": {
-                        "length": {
-                            "name": "length",
-                            "override-type": "number"
-                        }
-                    }
-                },
                 "methods": {
                     "method": {
                         "item": {
@@ -620,7 +610,7 @@
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
                             "override-signatures": [
-                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
+                                "getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>"
                             ]
                         },
                         "closest": {
@@ -653,19 +643,10 @@
                 },
                 "properties": {
                     "property": {
-                        "assignedSlot": {
-                            "name": "assignedSlot",
-                            "read-only": 1,
-                            "override-type": "HTMLSlotElement | null"
-                        },
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "Document"
-                        },
-                        "slot": {
-                            "name": "slot",
-                            "override-type": "string"
+                            "type": "Document"
                         }
                     }
                 }
@@ -719,12 +700,13 @@
                         "pointerEnabled": {
                             "name": "pointerEnabled",
                             "read-only": 1,
-                            "override-type": "boolean"
+                            "type": "boolean"
                         },
                         "doNotTrack": {
                             "name": "doNotTrack",
                             "read-only": 1,
-                            "override-type": "string | null"
+                            "nullable": 1,
+                            "type": "DOMString"
                         }
                     }
                 }
@@ -748,17 +730,6 @@
                         "name": "iframe"
                     }
                 ]
-            },
-            "HTMLTextAreaElement": {
-                "name": "HTMLTextAreaElement",
-                "properties": {
-                    "property": {
-                        "minLength": {
-                            "name": "minLength",
-                            "override-type": "number"
-                        }
-                    }
-                }
             },
             "IDBDatabase": {
                 "name": "IDBDatabase",
@@ -815,7 +786,7 @@
                 }
             },
             "IDBTransaction": {
-                "name": "IDBRequest",
+                "name": "IDBTransaction",
                 "events": {
                     "event": [
                         {
@@ -840,7 +811,7 @@
                     "property": {
                         "length": {
                             "name": "length",
-                            "override-type": "number"
+                            "type": "unsigned long"
                         }
                     }
                 },
@@ -866,11 +837,11 @@
                     "property": {
                         "prime": {
                             "name": "prime",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         },
                         "generator": {
                             "name": "generator",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         }
                     }
                 },
@@ -883,11 +854,11 @@
                     "property": {
                         "prime": {
                             "name": "prime",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         },
                         "generator": {
                             "name": "generator",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         }
                     }
                 },
@@ -900,7 +871,7 @@
                     "property": {
                         "prime": {
                             "name": "public",
-                            "override-type": "CryptoKey"
+                            "type": "CryptoKey"
                         }
                     }
                 },
@@ -913,11 +884,11 @@
                     "property": {
                         "prime": {
                             "name": "prime",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         },
                         "generator": {
                             "name": "generator",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         }
                     }
                 },
@@ -935,46 +906,25 @@
                         },
                         "algorithmId": {
                             "name": "algorithmId",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         },
                         "partyUInfo": {
                             "name": "partyUInfo",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         },
                         "partyVInfo": {
                             "name": "partyVInfo",
-                            "override-type": "Uint8Array"
+                            "type": "Uint8Array"
                         },
                         "publicInfo": {
                             "name": "publicInfo",
-                            "override-type": "Uint8Array",
+                            "type": "Uint8Array",
                             "required": 0
                         },
                         "privateInfo": {
                             "name": "privateInfo",
-                            "override-type": "Uint8Array",
+                            "type": "Uint8Array",
                             "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "HkdfCtrParams": {
-                "name": "HkdfCtrParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "hash": {
-                            "name": "hash",
-                            "override-type": "string | Algorithm"
-                        },
-                        "label": {
-                            "name": "label",
-                            "override-type": "Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer"
-                        },
-                        "context": {
-                            "name": "context",
-                            "override-type": "Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer"
                         }
                     }
                 },
@@ -1022,7 +972,7 @@
                             "name": "getElementById",
                             "exposed": "Window",
                             "override-signatures": [
-                                "getElementById(elementId: string): HTMLElement | null"
+                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
                             ]
                         }
                     }
@@ -1032,7 +982,7 @@
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "Document"
+                            "type": "Document"
                         }
                     }
                 }
@@ -1050,7 +1000,7 @@
                         },
                         {
                             "name": "error",
-                            "type": "Event"
+                            "type": "SpeechRecognitionErrorEvent"
                         },
                         {
                             "name": "end",
@@ -1632,14 +1582,6 @@
                 "name": "HTMLTableHeaderCellElement",
                 "extends": "HTMLTableCellElement",
                 "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "scope": {
-                            "name": "scope",
-                            "override-type": "string"
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "th"
@@ -1793,12 +1735,12 @@
                         "x": {
                             "name": "x",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedLength"
+                            "type": "SVGAnimatedLength"
                         },
                         "y": {
                             "name": "y",
                             "read-only": 1,
-                            "override-type": "SVGAnimatedLength"
+                            "type": "SVGAnimatedLength"
                         }
                     }
                 }
@@ -1812,7 +1754,7 @@
                         "targetElement": {
                             "name": "targetElement",
                             "read-only": 1,
-                            "override-type": "SVGElement"
+                            "type": "SVGElement"
                         }
                     }
                 },
@@ -2158,6 +2100,22 @@
                     }
                 ]
             },
+            "SVGStyleElement": {
+                "properties": {
+                    "property": {
+                        "disabled": {
+                            "name": "disabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "style"
+                    }
+                ]
+            },
             "SVGTextElement": {
                 "element": [
                     {
@@ -2238,38 +2196,6 @@
                     ]
                 }
             },
-            "TextDecoderStream": {
-                "properties": {
-                    "property": {
-                        "readable": {
-                            "name": "readable",
-                            "read-only": 1,
-                            "override-type": "ReadableStream<string>"
-                        },
-                        "writable": {
-                            "name": "writable",
-                            "read-only": 1,
-                            "override-type": "WritableStream<BufferSource>"
-                        }
-                    }
-                }
-            },
-            "TextEncoderStream": {
-                "properties": {
-                    "property": {
-                        "readable": {
-                            "name": "readable",
-                            "read-only": 1,
-                            "override-type": "ReadableStream<Uint8Array>"
-                        },
-                        "writable": {
-                            "name": "writable",
-                            "read-only": 1,
-                            "override-type": "WritableStream<string>"
-                        }
-                    }
-                }
-            },
             "Attr": {
                 "name": "Attr",
                 "properties": {
@@ -2277,7 +2203,7 @@
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "Document"
+                            "type": "Document"
                         }
                     }
                 }
@@ -2289,7 +2215,7 @@
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "Document"
+                            "type": "Document"
                         }
                     }
                 }
@@ -2301,7 +2227,7 @@
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "Document"
+                            "type": "Document"
                         }
                     }
                 }
@@ -2313,7 +2239,7 @@
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "Document"
+                            "type": "Document"
                         }
                     }
                 }
@@ -2353,6 +2279,17 @@
     },
     "dictionaries": {
         "dictionary": {
+            "ImportMeta": {
+                "name": "ImportMeta",
+                "members": {
+                    "member": {
+                        "url": {
+                            "name": "url",
+                            "type": "DOMString"
+                        }
+                    }
+                }
+            },
             "ShadowRootInit": {
                 "members": {
                     "member": {
@@ -2378,6 +2315,56 @@
                         "name": {
                             "name": "name",
                             "type": "DOMString"
+                        }
+                    }
+                }
+            },
+            "KeyboardEventInit": {
+                "members": {
+                    "member": {
+                        "charCode": {
+                            "deprecated": 1
+                        },
+                        "keyCode": {
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
+            "ReadableStreamDefaultReadDoneResult": {
+                "name": "ReadableStreamDefaultReadDoneResult",
+                "members": {
+                    "member": {
+                        "done": {
+                            "name": "done",
+                            "override-type": "true",
+                            "required": 1
+                        },
+                        "value": {
+                            "name": "value",
+                            "override-type": "undefined"
+                        }
+                    }
+                }
+            },
+            "ReadableStreamDefaultReadValueResult": {
+                "name": "ReadableStreamDefaultReadValueResult",
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "done": {
+                            "name": "done",
+                            "override-type": "false",
+                            "required": 1
+                        },
+                        "value": {
+                            "name": "value",
+                            "override-type": "T",
+                            "required": 1
                         }
                     }
                 }
@@ -2408,7 +2395,7 @@
             },
             {
                 "new-type": "IDBKeyPath",
-                "override-type": "string"
+                "type": "DOMString"
             },
             {
                 "new-type": "Transferable",
@@ -2479,6 +2466,37 @@
                         "type": "ModuleImports"
                     }
                 ]
+            },
+            {
+                "new-type": "ReadableStreamDefaultReadResult",
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "type": [
+                    {
+                        "type": "ReadableStreamDefaultReadValueResult"
+                    },
+                    {
+                        "type": "ReadableStreamDefaultReadDoneResult"
+                    }
+                ],
+                "override-type": "ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult"
+            },
+            {
+                "new-type": "ReadableStreamReader",
+                "type-parameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "type": [
+                    {
+                        "type": "ReadableStreamDefaultReader"
+                    }
+                ],
+                "override-type": "ReadableStreamDefaultReader<T>"
             }
         ]
     }

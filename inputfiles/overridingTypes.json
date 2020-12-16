@@ -919,6 +919,9 @@
                     }
                 }
             },
+            "SVGSymbolElement": {
+                "extends": "SVGElement"
+            },
             "FormData": {
                 "name": "FormData",
                 "methods": {

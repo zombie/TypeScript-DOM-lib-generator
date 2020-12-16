@@ -279,6 +279,7 @@ const forceKeepAlive: Record<string, string[]> = {
   "RTCRtpSender": ["transport"],
   "RTCStatsReport": [],
   "SharedWorkerGlobalScope": ["close"],
+  "ServiceWorker": ["postMessage"],
   "ServiceWorkerGlobalScope": ["onmessageerror"],
   "SVGAngle": [
     "unitType",
@@ -299,6 +300,7 @@ const forceKeepAlive: Record<string, string[]> = {
   "SVGAnimatedPreserveAspectRatio": ["animVal", "baseVal"],
   "SVGAnimatedRect": ["animVal", "baseVal"],
   "SVGAnimatedTransformList": ["animVal", "baseVal"],
+  "SVGAnimationElement": ["getCurrentTime", "getSimpleDuration", "getStartTime"],
   "SVGClipPathElement": ["transform"],
   "SVGComponentTransferFunctionElement": [
     "amplitude",
@@ -516,7 +518,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "removeItem",
     "replaceItem",
   ],
-  "ServiceWorker": ["postMessage"],
   "SpeechSynthesisEvent": ["charLength"],
   "TextDecoderStream": [],
   "TextEncoderStream": [],

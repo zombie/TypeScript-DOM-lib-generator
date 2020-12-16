@@ -141,6 +141,23 @@
                     }
                 }
             },
+            "SVGAElement": {
+                "properties": {
+                    "property": {
+                        "referrerPolicy": null
+                    }
+                },
+                "implements": ["HTMLHyperlinkElementUtils"]
+            },
+            "SVGAnimationElement": {
+                "properties": {
+                    "property": {
+                        "onbegin": null,
+                        "onend": null,
+                        "onrepeat": null
+                    }
+                }
+            },
             "SVGFEGaussianBlurElement": {
                 "constants": {
                     "constant": {
@@ -154,11 +171,6 @@
             "SVGMatrix": null,
             "SVGPoint": null,
             "SVGRect": null,
-            "SVGSVGElement": {
-                "events": {
-                    "event": ["SVGZoom"]
-                }
-            },
             "Text": {
                 "implements": ["GeometryUtils"]
             },

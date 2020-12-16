@@ -4487,63 +4487,6 @@ interface DocumentAndElementEventHandlers {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-interface DocumentEvent {
-    createEvent(eventInterface: "AnimationEvent"): AnimationEvent;
-    createEvent(eventInterface: "AnimationPlaybackEvent"): AnimationPlaybackEvent;
-    createEvent(eventInterface: "AudioProcessingEvent"): AudioProcessingEvent;
-    createEvent(eventInterface: "BeforeUnloadEvent"): BeforeUnloadEvent;
-    createEvent(eventInterface: "ClipboardEvent"): ClipboardEvent;
-    createEvent(eventInterface: "CloseEvent"): CloseEvent;
-    createEvent(eventInterface: "CompositionEvent"): CompositionEvent;
-    createEvent(eventInterface: "CustomEvent"): CustomEvent;
-    createEvent(eventInterface: "DeviceMotionEvent"): DeviceMotionEvent;
-    createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
-    createEvent(eventInterface: "DragEvent"): DragEvent;
-    createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
-    createEvent(eventInterface: "Event"): Event;
-    createEvent(eventInterface: "Events"): Event;
-    createEvent(eventInterface: "FocusEvent"): FocusEvent;
-    createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
-    createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
-    createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
-    createEvent(eventInterface: "InputEvent"): InputEvent;
-    createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
-    createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
-    createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
-    createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
-    createEvent(eventInterface: "MediaStreamEvent"): MediaStreamEvent;
-    createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
-    createEvent(eventInterface: "MessageEvent"): MessageEvent;
-    createEvent(eventInterface: "MouseEvent"): MouseEvent;
-    createEvent(eventInterface: "MouseEvents"): MouseEvent;
-    createEvent(eventInterface: "MutationEvent"): MutationEvent;
-    createEvent(eventInterface: "MutationEvents"): MutationEvent;
-    createEvent(eventInterface: "OfflineAudioCompletionEvent"): OfflineAudioCompletionEvent;
-    createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
-    createEvent(eventInterface: "PaymentMethodChangeEvent"): PaymentMethodChangeEvent;
-    createEvent(eventInterface: "PaymentRequestUpdateEvent"): PaymentRequestUpdateEvent;
-    createEvent(eventInterface: "PointerEvent"): PointerEvent;
-    createEvent(eventInterface: "PopStateEvent"): PopStateEvent;
-    createEvent(eventInterface: "ProgressEvent"): ProgressEvent;
-    createEvent(eventInterface: "PromiseRejectionEvent"): PromiseRejectionEvent;
-    createEvent(eventInterface: "RTCDTMFToneChangeEvent"): RTCDTMFToneChangeEvent;
-    createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
-    createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
-    createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
-    createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
-    createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
-    createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
-    createEvent(eventInterface: "StorageEvent"): StorageEvent;
-    createEvent(eventInterface: "TouchEvent"): TouchEvent;
-    createEvent(eventInterface: "TrackEvent"): TrackEvent;
-    createEvent(eventInterface: "TransitionEvent"): TransitionEvent;
-    createEvent(eventInterface: "UIEvent"): UIEvent;
-    createEvent(eventInterface: "UIEvents"): UIEvent;
-    createEvent(eventInterface: "WebGLContextEvent"): WebGLContextEvent;
-    createEvent(eventInterface: "WheelEvent"): WheelEvent;
-    createEvent(eventInterface: string): Event;
-}
-
 /** A minimal document object that has no parent. It is used as a lightweight version of Document that stores a segment of a document structure comprised of nodes just like a standard document. The key difference is that because the document fragment isn't part of the active document tree structure, changes made to the fragment don't affect the document, cause reflow, or incur any performance impact that can occur when changes are made. */
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
     readonly ownerDocument: Document;
@@ -11351,6 +11294,8 @@ declare var Response: {
 
 /** Provides access to the properties of <a> element, as well as methods to manipulate them. */
 interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
+    rel: string;
+    readonly relList: DOMTokenList;
     readonly target: SVGAnimatedString;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -11561,8 +11506,8 @@ declare var SVGAnimatedTransformList: {
     new(): SVGAnimatedTransformList;
 };
 
-interface SVGAnimationElement extends SVGElement {
-    readonly targetElement: SVGElement;
+interface SVGAnimationElement extends SVGElement, SVGTests {
+    readonly targetElement: SVGElement | null;
     getCurrentTime(): number;
     getSimpleDuration(): number;
     getStartTime(): number;
@@ -12452,6 +12397,18 @@ declare var SVGLinearGradientElement: {
     new(): SVGLinearGradientElement;
 };
 
+interface SVGMPathElement extends SVGElement, SVGURIReference {
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGMPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGMPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGMPathElement: {
+    prototype: SVGMPathElement;
+    new(): SVGMPathElement;
+};
+
 interface SVGMarkerElement extends SVGElement, SVGFitToViewBox {
     readonly markerHeight: SVGAnimatedLength;
     readonly markerUnits: SVGAnimatedEnumeration;
@@ -12547,13 +12504,7 @@ declare var SVGNumberList: {
 };
 
 /** Corresponds to the <path> element. */
-interface SVGPathElement extends SVGGraphicsElement {
-    /** @deprecated */
-    getPathSegAtLength(distance: number): number;
-    /** @deprecated */
-    getPointAtLength(distance: number): SVGPoint;
-    /** @deprecated */
-    getTotalLength(): number;
+interface SVGPathElement extends SVGGeometryElement {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -12706,25 +12657,28 @@ declare var SVGRectElement: {
     new(): SVGRectElement;
 };
 
+interface SVGSVGElementEventMap extends SVGElementEventMap, WindowEventHandlersEventMap {
+}
+
 /** Provides access to the properties of <svg> elements, as well as methods to manipulate them. This interface contains also various miscellaneous commonly-used utility methods, such as matrix operations and the ability to control the time of redraw on visual rendering devices. */
-interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewBox, SVGZoomAndPan {
+interface SVGSVGElement extends SVGGraphicsElement, SVGFitToViewBox, WindowEventHandlers {
     currentScale: number;
-    readonly currentTranslate: SVGPoint;
+    readonly currentTranslate: DOMPointReadOnly;
     readonly height: SVGAnimatedLength;
     readonly width: SVGAnimatedLength;
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
     animationsPaused(): boolean;
-    checkEnclosure(element: SVGElement, rect: SVGRect): boolean;
-    checkIntersection(element: SVGElement, rect: SVGRect): boolean;
+    checkEnclosure(element: SVGElement, rect: DOMRectReadOnly): boolean;
+    checkIntersection(element: SVGElement, rect: DOMRectReadOnly): boolean;
     createSVGAngle(): SVGAngle;
     createSVGLength(): SVGLength;
-    createSVGMatrix(): SVGMatrix;
+    createSVGMatrix(): DOMMatrix;
     createSVGNumber(): SVGNumber;
-    createSVGPoint(): SVGPoint;
-    createSVGRect(): SVGRect;
+    createSVGPoint(): DOMPoint;
+    createSVGRect(): DOMRect;
     createSVGTransform(): SVGTransform;
-    createSVGTransformFromMatrix(matrix: SVGMatrix): SVGTransform;
+    createSVGTransformFromMatrix(matrix?: DOMMatrix2DInit): SVGTransform;
     deselectAll(): void;
     /** @deprecated */
     forceRedraw(): void;
@@ -12741,18 +12695,15 @@ interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewB
     unsuspendRedraw(suspendHandleID: number): void;
     /** @deprecated */
     unsuspendRedrawAll(): void;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener<K extends keyof SVGSVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof SVGSVGElementEventMap>(type: K, listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var SVGSVGElement: {
     prototype: SVGSVGElement;
     new(): SVGSVGElement;
-    readonly SVG_ZOOMANDPAN_DISABLE: number;
-    readonly SVG_ZOOMANDPAN_MAGNIFY: number;
-    readonly SVG_ZOOMANDPAN_UNKNOWN: number;
 };
 
 /** Corresponds to the SVG <script> element. */
@@ -12767,6 +12718,18 @@ interface SVGScriptElement extends SVGElement, SVGURIReference {
 declare var SVGScriptElement: {
     prototype: SVGScriptElement;
     new(): SVGScriptElement;
+};
+
+interface SVGSetElement extends SVGAnimationElement {
+    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSetElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGSetElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SVGSetElement: {
+    prototype: SVGSetElement;
+    new(): SVGSetElement;
 };
 
 /** Corresponds to the <stop> element. */
@@ -12969,9 +12932,9 @@ declare var SVGTitleElement: {
 /** SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute. */
 interface SVGTransform {
     readonly angle: number;
-    readonly matrix: SVGMatrix;
+    readonly matrix: DOMMatrix;
     readonly type: number;
-    setMatrix(matrix: SVGMatrix): void;
+    setMatrix(matrix?: DOMMatrix2DInit): void;
     setRotate(angle: number, cx: number, cy: number): void;
     setScale(sx: number, sy: number): void;
     setSkewX(angle: number): void;
@@ -13000,16 +12963,18 @@ declare var SVGTransform: {
 
 /** The SVGTransformList defines a list of SVGTransform objects. */
 interface SVGTransformList {
+    readonly length: number;
     readonly numberOfItems: number;
     appendItem(newItem: SVGTransform): SVGTransform;
     clear(): void;
-    consolidate(): SVGTransform;
-    createSVGTransformFromMatrix(matrix: SVGMatrix): SVGTransform;
+    consolidate(): SVGTransform | null;
+    createSVGTransformFromMatrix(matrix?: DOMMatrix2DInit): SVGTransform;
     getItem(index: number): SVGTransform;
     initialize(newItem: SVGTransform): SVGTransform;
     insertItemBefore(newItem: SVGTransform, index: number): SVGTransform;
     removeItem(index: number): SVGTransform;
     replaceItem(newItem: SVGTransform, index: number): SVGTransform;
+    [index: number]: SVGTransform;
 }
 
 declare var SVGTransformList: {
@@ -13054,7 +13019,7 @@ declare var SVGUseElement: {
 };
 
 /** Provides access to the properties of <view> elements, as well as methods to manipulate them. */
-interface SVGViewElement extends SVGElement, SVGFitToViewBox, SVGZoomAndPan {
+interface SVGViewElement extends SVGElement, SVGFitToViewBox {
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGViewElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGViewElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -13064,17 +13029,7 @@ interface SVGViewElement extends SVGElement, SVGFitToViewBox, SVGZoomAndPan {
 declare var SVGViewElement: {
     prototype: SVGViewElement;
     new(): SVGViewElement;
-    readonly SVG_ZOOMANDPAN_DISABLE: number;
-    readonly SVG_ZOOMANDPAN_MAGNIFY: number;
-    readonly SVG_ZOOMANDPAN_UNKNOWN: number;
 };
-
-interface SVGZoomAndPan {
-    zoomAndPan: number;
-    readonly SVG_ZOOMANDPAN_DISABLE: number;
-    readonly SVG_ZOOMANDPAN_MAGNIFY: number;
-    readonly SVG_ZOOMANDPAN_UNKNOWN: number;
-}
 
 /** A screen, usually the one on which the current window is being rendered, and is obtained using window.screen. */
 interface Screen {

@@ -234,7 +234,13 @@
                             ]
                         }
                     }
-                }
+                },
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "svg"
+                    }
+                ]
             },
             "SVGFEDropShadowElement": {
                 "name": "SVGFEDropShadowElement",
@@ -1739,6 +1745,14 @@
                     ]
                 }
             },
+            "SVGAElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "a"
+                    }
+                ]
+            },
             "SVGCursorElement": {
                 "name": "SVGCursorElement",
                 "extends": "SVGElement",
@@ -1757,57 +1771,6 @@
                         }
                     }
                 }
-            },
-            "SVGAnimationElement": {
-                "name": "SVGAnimationElement",
-                "extends": "SVGElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "targetElement": {
-                            "name": "targetElement",
-                            "read-only": 1,
-                            "type": "SVGElement"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "getStartTime": {
-                            "name": "getStartTime",
-                            "override-signatures": [
-                                "getStartTime(): number"
-                            ]
-                        },
-                        "getCurrentTime": {
-                            "name": "getCurrentTime",
-                            "override-signatures": [
-                                "getCurrentTime(): number"
-                            ]
-                        },
-                        "getSimpleDuration": {
-                            "name": "getSimpleDuration",
-                            "override-signatures": [
-                                "getSimpleDuration(): number"
-                            ]
-                        }
-                    }
-                }
-            },
-            "SVGAnimateElement": {
-                "name": "SVGAnimateElement",
-                "extends": "SVGAnimationElement",
-                "exposed": "Window"
-            },
-            "SVGAnimateTransformElement": {
-                "name": "SVGAnimateTransformElement",
-                "extends": "SVGAnimationElement",
-                "exposed": "Window"
-            },
-            "SVGAnimateMotionElement": {
-                "name": "SVGAnimateMotionElement",
-                "extends": "SVGAnimationElement",
-                "exposed": "Window"
             },
             "SVGRectElement": {
                 "element": [
@@ -1830,6 +1793,22 @@
                     {
                         "namespace": "SVG",
                         "name": "clipPath"
+                    }
+                ]
+            },
+            "SVGDefsElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "defs"
+                    }
+                ]
+            },
+            "SVGDescElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "desc"
                     }
                 ]
             },
@@ -2041,6 +2020,30 @@
                     }
                 ]
             },
+            "SVGForeignObjectElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "foreignObject"
+                    }
+                ]
+            },
+            "SVGGElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "g"
+                    }
+                ]
+            },
+            "SVGImageElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "image"
+                    }
+                ]
+            },
             "SVGLinearGradientElement": {
                 "element": [
                     {
@@ -2070,6 +2073,22 @@
                     {
                         "namespace": "SVG",
                         "name": "mask"
+                    }
+                ]
+            },
+            "SVGMetadataElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "metadata"
+                    }
+                ]
+            },
+            "SVGPathElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "path"
                     }
                 ]
             },
@@ -2105,6 +2124,14 @@
                     }
                 ]
             },
+            "SVGScriptElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "script"
+                    }
+                ]
+            },
             "SVGStopElement": {
                 "element": [
                     {
@@ -2129,6 +2156,22 @@
                     }
                 ]
             },
+            "SVGSwitchElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "switch"
+                    }
+                ]
+            },
+            "SVGSymbolElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "symbol"
+                    }
+                ]
+            },
             "SVGTextElement": {
                 "element": [
                     {
@@ -2145,11 +2188,35 @@
                     }
                 ]
             },
+            "SVGTitleElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "title"
+                    }
+                ]
+            },
             "SVGTSpanElement": {
                 "element": [
                     {
                         "namespace": "SVG",
                         "name": "tspan"
+                    }
+                ]
+            },
+            "SVGUseElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "use"
+                    }
+                ]
+            },
+            "SVGViewElement": {
+                "element": [
+                    {
+                        "namespace": "SVG",
+                        "name": "view"
                     }
                 ]
             },

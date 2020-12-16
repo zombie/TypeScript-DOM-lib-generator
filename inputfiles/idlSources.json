@@ -543,28 +543,14 @@
         "shortName": "streams"
     },
     {
-        "url": "https://www.w3.org/TR/SVG2/types.html",
-        "title": "SVG - Basic Data Types and Interfaces"
+        "url": "https://svgwg.org/svg2-draft/",
+        "title": "SVG",
+        "shortName": "SVG"
     },
     {
-        "url": "https://www.w3.org/TR/SVG2/shapes.html",
-        "title": "SVG - Basic Shapes"
-    },
-    {
-        "url": "https://www.w3.org/TR/SVG2/painting.html",
-        "title": "SVG - Painting"
-    },
-    {
-        "url": "https://www.w3.org/TR/SVG2/pservers.html",
-        "title": "SVG - Paint Servers"
-    },
-    {
-        "url": "https://www.w3.org/TR/SVG2/text.html",
-        "title": "SVG - Text"
-    },
-    {
-        "url": "https://www.w3.org/TR/SVG2/styling.html",
-        "title": "SVG - Style Element"
+        "url": "https://svgwg.org/specs/animations/",
+        "title": "SVG Animations",
+        "shortName": "svg-animations"
     },
     {
         "url": "https://w3c.github.io/touch-events/",

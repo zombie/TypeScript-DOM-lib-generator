@@ -210,6 +210,10 @@ interface SVGStringList {
     [Symbol.iterator](): IterableIterator<string>;
 }
 
+interface SVGTransformList {
+    [Symbol.iterator](): IterableIterator<SVGTransform>;
+}
+
 interface SourceBufferList {
     [Symbol.iterator](): IterableIterator<SourceBuffer>;
 }

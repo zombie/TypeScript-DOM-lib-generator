@@ -1371,7 +1371,6 @@ interface RTCRtpSendParameters extends RTCRtpParameters {
 }
 
 interface RTCRtpSynchronizationSource extends RTCRtpContributingSource {
-    voiceActivityFlag?: boolean;
 }
 
 interface RTCRtpTransceiverInit {

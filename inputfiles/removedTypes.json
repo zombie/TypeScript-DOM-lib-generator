@@ -237,6 +237,21 @@
     },
     "dictionaries": {
         "dictionary": {
+            "AuthenticationExtensionsClientInputs": {
+                "members": {
+                    "member": {
+                        "largeBlob": null
+                    }
+                }
+            },
+            "AuthenticationExtensionsClientOutputs": {
+                "members": {
+                    "member": {
+                        "appidExclude": null,
+                        "largeBlob": null
+                    }
+                }
+            },
             "CredentialCreationOptions": {
                 "members": {
                     "member": {

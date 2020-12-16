@@ -2602,6 +2602,7 @@ interface CSSStyleDeclaration {
     content: string;
     counterIncrement: string;
     counterReset: string;
+    counterSet: string;
     cssFloat: string;
     cssText: string;
     cursor: string;

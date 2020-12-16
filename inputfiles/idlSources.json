@@ -86,6 +86,11 @@
         "shortName": "css-break"
     },
     {
+        "url": "https://drafts.csswg.org/css-content-3/",
+        "title": "CSS Generated Content",
+        "shortName": "css-content"
+    },
+    {
         "url": "https://www.w3.org/TR/css-grid-1/",
         "title": "CSS Grid Layout",
         "shortName": "css-grid"
@@ -99,6 +104,11 @@
         "url": "https://www.w3.org/TR/css-inline-3/",
         "title": "CSS Inline Layout",
         "shortName": "css-inline"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-lists-3/",
+        "title": "CSS Lists and Counters",
+        "shortName": "css-lists"
     },
     {
         "url": "https://www.w3.org/TR/css-logical-1/",
@@ -140,7 +150,13 @@
     },
     {
         "url": "https://www.w3.org/TR/css-ruby-1/",
-        "title": "CSS Ruby Layout"
+        "title": "CSS Ruby Layout",
+        "shortName": "css-ruby"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-box-4/",
+        "title": "CSS Box Model",
+        "shortName": "css-box"
     },
     {
         "url": "https://drafts.csswg.org/css-sizing-3/",
@@ -149,43 +165,43 @@
     },
     {
         "url": "https://drafts.csswg.org/css-scroll-anchoring/",
-        "title": "CSS Scroll Anchoring"
+        "title": "CSS Scroll Anchoring",
+        "shortName": "css-scroll-anchoring"
     },
     {
         "url": "https://www.w3.org/TR/css-text-3/",
-        "title": "CSS Text"
+        "title": "CSS Text",
+        "shortName": "css-text"
     },
     {
         "url": "https://www.w3.org/TR/css-text-decor-3/",
-        "title": "CSS Text Decoration"
+        "title": "CSS Text Decoration",
+        "shortName": "css-text-decor"
     },
     {
         "url": "https://www.w3.org/TR/css-transitions-1/",
-        "title": "CSS Transitions"
+        "title": "CSS Transitions",
+        "shortName": "css-transitions"
     },
     {
         "url": "https://www.w3.org/TR/css-transforms-1/",
-        "title": "CSS Transforms"
+        "title": "CSS Transforms",
+        "shortName": "css-transforms"
     },
     {
         "url": "https://drafts.csswg.org/css-transforms-2/",
-        "title": "CSS Transforms Level 2"
+        "title": "CSS Transforms Level 2",
+        "shortName": "css-transforms-2"
     },
     {
         "url": "https://www.w3.org/TR/css-will-change/",
-        "title": "CSS Will Change"
+        "title": "CSS Will Change",
+        "shortName": "css-will-change"
     },
     {
         "url": "https://www.w3.org/TR/css-writing-modes-3/",
-        "title": "CSS Writing Modes"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/box.html",
-        "title": "CSS2 Box"
-    },
-    {
-        "url": "https://www.w3.org/TR/CSS22/generate.html",
-        "title": "CSS2 Generated content"
+        "title": "CSS Writing Modes",
+        "shortName": "css-writing-modes"
     },
     {
         "url": "https://www.w3.org/TR/CSS22/page.html",

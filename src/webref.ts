@@ -36,8 +36,12 @@ function tryGetCss(title: string) {
 }
 
 export async function getIdl(specShortName: string) {
-  return [
+  const sources = [
     await tryReadFile(new URL(`${specShortName}.idl`, webrefDir)),
     tryGetCss(specShortName)
-  ].filter(t => t !== undefined).join("\n");
+  ].filter(t => t !== undefined);
+  if (!sources.length) {
+    throw new Error(`Invalid spec name: ${specShortName}`);
+  }
+  return sources.join("\n");
 }

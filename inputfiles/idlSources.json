@@ -1,15 +1,18 @@
 [
     {
         "url": "https://www.w3.org/TR/beacon/",
-        "title": "Beacon"
+        "title": "Beacon",
+        "shortName": "beacon"
     },
     {
         "url": "https://www.w3.org/TR/clipboard-apis/",
-        "title": "Clipboard"
+        "title": "Clipboard",
+        "shortName": "clipboard-apis"
     },
     {
         "url": "https://compat.spec.whatwg.org/",
         "title": "Compatibility",
+        "shortName": "compat",
         "deprecated": true
     },
     {

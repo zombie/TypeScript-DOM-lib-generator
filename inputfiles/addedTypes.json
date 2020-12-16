@@ -398,6 +398,11 @@
                             "type": "CSSOMString",
                             "deprecated": 1
                         },
+                        "webkitFlex": {
+                            "name": "webkitFlex",
+                            "type": "CSSOMString",
+                            "deprecated": 1
+                        },
                         "webkitUserSelect": {
                             "name": "webkitUserSelect",
                             "type": "CSSOMString",

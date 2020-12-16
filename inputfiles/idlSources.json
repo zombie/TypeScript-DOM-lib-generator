@@ -455,23 +455,28 @@
     },
     {
         "url": "https://www.w3.org/TR/media-source/",
-        "title": "Media Source Extensions"
+        "title": "Media Source Extensions",
+        "shortName": "media-source"
     },
     {
         "url": "https://w3c.github.io/navigation-timing/",
-        "title": "Navigation Timing"
+        "title": "Navigation Timing",
+        "shortName": "navigation-timing"
     },
     {
         "url": "https://notifications.spec.whatwg.org/",
-        "title": "Notifications"
+        "title": "Notifications",
+        "shortName": "notifications"
     },
     {
         "url": "https://w3c.github.io/page-visibility/",
-        "title": "Page Visibility"
+        "title": "Page Visibility",
+        "shortName": "page-visibility"
     },
     {
         "url": "https://w3c.github.io/performance-timeline/",
-        "title": "Performance Timeline"
+        "title": "Performance Timeline",
+        "shortName": "performance-timeline"
     },
     {
         "url": "https://www.w3.org/TR/permissions/",
@@ -479,15 +484,18 @@
     },
     {
         "url": "https://www.w3.org/TR/pointerevents3/",
-        "title": "Pointer Events"
+        "title": "Pointer Events",
+        "shortName": "pointerevents"
     },
     {
         "url": "https://www.w3.org/TR/pointerlock-2/",
-        "title": "Pointer Lock"
+        "title": "Pointer Lock",
+        "shortName": "pointerlock"
     },
     {
         "url": "https://www.w3.org/TR/push-api/",
-        "title": "Push"
+        "title": "Push",
+        "shortName": "push-api"
     },
     {
         "url": "https://w3c.github.io/payment-request/",

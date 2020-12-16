@@ -9,7 +9,7 @@ if (existsSync(diffPath)) {
   
   const uninterestingFiles = [".generated.d.ts", "globalThisBlockscopedProperties.types", "mappedTypeRecursiveInference.types"]
   const withoutKnownNormalFails = diffedFiles.filter(diff => {
-    return uninterestingFiles.filter(suffix => diff.to?.endsWith(suffix)).length > 0
+    return uninterestingFiles.filter(suffix => diff.to && diff.to.endsWith(suffix)).length > 0
   })
 
   const md = ["## Changed baselines from the TypeScript test suite"]

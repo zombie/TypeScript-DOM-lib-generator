@@ -90,6 +90,19 @@
                     }
                 }
             },
+            "IDBDatabase": {
+                "methods": {
+                    "method": {
+                        "transaction": {
+                            "signature": {
+                                "0": {
+                                    "param": ["options"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "MediaStreamError": null,
             "MessageEvent": {
                 "methods": {
@@ -236,6 +249,13 @@
             "ReadableStreamBYOBReadResult": null,
             "ReadableStreamDefaultReadResult": null,
             "ReadableStreamGetReaderOptions": null,
+            "RTCConfiguration": {
+                "members": {
+                    "member": {
+                        "peerIdentity": null
+                    }
+                }
+            },
             "RTCIceGatherOptions": {
                 "members": {
                     "member": {

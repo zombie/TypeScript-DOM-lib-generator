@@ -211,6 +211,11 @@ interface HmacKeyGenParams extends Algorithm {
     length?: number;
 }
 
+interface IDBDatabaseInfo {
+    name?: string;
+    version?: number;
+}
+
 interface IDBIndexParameters {
     multiEntry?: boolean;
     unique?: boolean;
@@ -1541,6 +1546,7 @@ interface IDBCursor {
      * Returns the effective key of the cursor. Throws a "InvalidStateError" DOMException if the cursor is advancing or is finished.
      */
     readonly primaryKey: IDBValidKey;
+    readonly request: IDBRequest;
     /**
      * Returns the IDBObjectStore or IDBIndex the cursor was opened from.
      */
@@ -1655,6 +1661,7 @@ interface IDBFactory {
      * Throws a "DataError" DOMException if either input is not a valid key.
      */
     cmp(first: any, second: any): number;
+    databases(): Promise<IDBDatabaseInfo[]>;
     /**
      * Attempts to delete the named database. If the database already exists and there are open connections that don't close in response to a versionchange event, the request will be blocked until all they close. If the request is successful request's result will be null.
      */
@@ -1967,7 +1974,7 @@ interface IDBTransaction extends EventTarget {
     /**
      * If the transaction was aborted, returns the error (a DOMException) providing the reason.
      */
-    readonly error: DOMException;
+    readonly error: DOMException | null;
     /**
      * Returns the mode the transaction was created with ("readonly" or "readwrite"), or "versionchange" for an upgrade transaction.
      */
@@ -1983,6 +1990,7 @@ interface IDBTransaction extends EventTarget {
      * Aborts the transaction. All pending requests will fail with a "AbortError" DOMException and all changes made to the database will be reverted.
      */
     abort(): void;
+    commit(): void;
     /**
      * Returns an IDBObjectStore in the transaction's scope.
      */

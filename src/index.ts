@@ -218,7 +218,7 @@ async function emitDom() {
 
         function filterByNull(obj: any, template: any) {
             if (!template) return obj;
-            const filtered = { ...obj };
+            const filtered = Array.isArray(obj) ? obj.slice(0) : { ...obj };
             for (const k in template) {
                 if (!obj[k]) {
                     console.warn(`removedTypes.json has a redundant field ${k} in ${JSON.stringify(template)}`);

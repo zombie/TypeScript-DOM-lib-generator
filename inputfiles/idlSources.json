@@ -250,27 +250,33 @@
     },
     {
         "url": "https://fullscreen.spec.whatwg.org/",
-        "title": "Fullscreen"
+        "title": "Fullscreen",
+        "shortName": "fullscreen"
     },
     {
         "url": "https://www.w3.org/TR/gamepad/",
-        "title": "Gamepad"
+        "title": "Gamepad",
+        "shortName": "gamepad"
     },
     {
         "url": "https://w3c.github.io/gamepad/extensions.html",
-        "title": "Gamepad Extensions"
+        "title": "Gamepad Extensions",
+        "shortName": "gamepad-extensions"
     },
     {
         "url": "https://w3c.github.io/geolocation-api/",
-        "title": "Geolocation"
+        "title": "Geolocation",
+        "shortName": "geolocation-API"
     },
     {
         "url": "https://www.w3.org/TR/geometry-1/",
-        "title": "Geometry Interfaces"
+        "title": "Geometry Interfaces",
+        "shortName": "geometry"
     },
     {
         "url": "https://www.w3.org/TR/hr-time-2/",
-        "title": "High Resolution Time"
+        "title": "High Resolution Time",
+        "shortName": "hr-time"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/browsing-the-web.html",
@@ -424,15 +430,18 @@
     },
     {
         "url": "https://w3c.github.io/webrtc-identity/",
-        "title": "Identity for WebRTC"
+        "title": "Identity for WebRTC",
+        "shortName": "webrtc-identity"
     },
     {
         "url": "https://www.w3.org/TR/IndexedDB-2/",
-        "title": "Indexed Database"
+        "title": "Indexed Database",
+        "shortName": "IndexedDB"
     },
     {
         "url": "https://w3c.github.io/IntersectionObserver/",
-        "title": "Intersection Observer"
+        "title": "Intersection Observer",
+        "shortName": "intersection-observer"
     },
     {
         "url": "https://w3c.github.io/mediacapture-main/",

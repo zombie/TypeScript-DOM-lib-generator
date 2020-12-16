@@ -238,8 +238,16 @@ const forceKeepAlive: Record<string, string[]> = {
   "NavigatorPlugins": ["javaEnabled", "mimeTypes", "plugins"],
   "OfflineAudioContext": ["resume"],
   "PaymentRequest": ["shippingAddress"],
+  "PictureInPictureWindow": [
+    "requestPictureInPicture",
+    "onenterpictureinpicture",
+    "onleavepictureinpicture",
+    "autoPictureInPicture",
+    "disablePictureInPicture",
+  ],
   "Plugin": ["length"],
   "Request": ["keepalive"],
+  "ResizeObserverSize": ["blockSize", "inlineSize"],
   "RTCDtlsTransport": ["onstatechange", "state"],
   "RTCPeerConnection": ["canTrickleIceCandidates", "getTransceivers"],
   "RTCRtpSender": ["transport"],
@@ -511,6 +519,13 @@ const forceKeepAlive: Record<string, string[]> = {
     "viewportAnchorY",
     "width",
   ],
+  "WebAssembly": [
+    "compile",
+    "compileStreaming",
+    "instantiate",
+    "instantiateStreaming",
+    "validate",
+  ],
   "WebKitCSSMatrix": [],
   "Window": [
     "closed",
@@ -687,7 +702,7 @@ export function getRemovalData(webidl: Browser.WebIdl) {
   for (const type of webidl.namespaces ?? []) {
     const removalData = getEachRemovalData(type, true);
     if (removalData) {
-      namespaces.push(removalData);
+      namespaces.push({ name: type.name, ...removalData });
     }
   }
   return { interfaces: { interface: interfaces }, mixins: { mixin: mixins }, namespaces };

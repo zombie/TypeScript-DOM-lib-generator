@@ -12,10 +12,10 @@ if (existsSync(diffPath)) {
     return !uninterestingFiles.filter(suffix => diff.to && diff.to.endsWith(suffix)).length > 0
   })
 
-  const md = ["## Changed baselines from the TypeScript test suite"]
+  const md = ["## Changed baselines from the TypeScript test suite", "\nThese are the test changes in the TypeScript codebase which showed a difference (excluding a few which will always change), it should give a small sense of what to expect on the TypeScript side if this PR is merged."]
 
   withoutKnownNormalFails.forEach(diff => {
-    md.push(`#### ${diff.to || diff.from}}`)
+    md.push(`#### [${diff.to || diff.from}](https://github.com/microsoft/TypeScript/blob/master/${diff.to || diff.from})`)
     
     md.push("```diff")
     diff.chunks.forEach(chunk => {

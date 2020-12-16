@@ -248,6 +248,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "getKeyframes",
     "setKeyframes",
   ],
+  "LinkStyle": ["sheet"],
   "MutationEvent": [
     "attrChange",
     "attrName",

@@ -112,18 +112,6 @@
                     }
                 }
             },
-            "SVGElementInstance": {
-                "properties": {
-                    "property": {
-                        "childNodes": null,
-                        "firstChild": null,
-                        "lastChild": null,
-                        "nextSibling": null,
-                        "parentNode": null,
-                        "previousSibling": null
-                    }
-                }
-            },
             "SVGFEGaussianBlurElement": {
                 "constants": {
                     "constant": {
@@ -135,13 +123,6 @@
                 }
             },
             "SVGMatrix": null,
-            "SVGMarkerElement": {
-                "properties": {
-                    "property": {
-                        "orient": null
-                    }
-                }
-            },
             "SVGPoint": null,
             "SVGRect": null,
             "SVGSVGElement": {

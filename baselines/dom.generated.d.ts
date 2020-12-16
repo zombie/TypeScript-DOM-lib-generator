@@ -2133,8 +2133,11 @@ declare var AudioParamMap: {
  * @deprecated As of the August 29 2014 Web Audio API spec publication, this feature has been marked as deprecated, and is soon to be replaced by AudioWorklet.
  */
 interface AudioProcessingEvent extends Event {
+    /** @deprecated */
     readonly inputBuffer: AudioBuffer;
+    /** @deprecated */
     readonly outputBuffer: AudioBuffer;
+    /** @deprecated */
     readonly playbackTime: number;
 }
 
@@ -9420,6 +9423,7 @@ declare var MediaStreamAudioSourceNode: {
 
 /** Events that occurs in relation to a MediaStream. Two events of this type can be thrown: addstream and removestream. */
 interface MediaStreamEvent extends Event {
+    /** @deprecated */
     readonly stream: MediaStream | null;
 }
 
@@ -10508,8 +10512,11 @@ declare var PerformanceMeasure: {
  * @deprecated This interface is deprecated in the Navigation Timing Level 2 specification. Please use the PerformanceNavigationTiming interface instead.
  */
 interface PerformanceNavigation {
+    /** @deprecated */
     readonly redirectCount: number;
+    /** @deprecated */
     readonly type: number;
+    /** @deprecated */
     toJSON(): any;
     readonly TYPE_BACK_FORWARD: number;
     readonly TYPE_NAVIGATE: number;
@@ -10600,27 +10607,49 @@ declare var PerformanceResourceTiming: {
  * @deprecated This interface is deprecated in the Navigation Timing Level 2 specification. Please use the PerformanceNavigationTiming interface instead.
  */
 interface PerformanceTiming {
+    /** @deprecated */
     readonly connectEnd: number;
+    /** @deprecated */
     readonly connectStart: number;
+    /** @deprecated */
     readonly domComplete: number;
+    /** @deprecated */
     readonly domContentLoadedEventEnd: number;
+    /** @deprecated */
     readonly domContentLoadedEventStart: number;
+    /** @deprecated */
     readonly domInteractive: number;
+    /** @deprecated */
     readonly domLoading: number;
+    /** @deprecated */
     readonly domainLookupEnd: number;
+    /** @deprecated */
     readonly domainLookupStart: number;
+    /** @deprecated */
     readonly fetchStart: number;
+    /** @deprecated */
     readonly loadEventEnd: number;
+    /** @deprecated */
     readonly loadEventStart: number;
+    /** @deprecated */
     readonly navigationStart: number;
+    /** @deprecated */
     readonly redirectEnd: number;
+    /** @deprecated */
     readonly redirectStart: number;
+    /** @deprecated */
     readonly requestStart: number;
+    /** @deprecated */
     readonly responseEnd: number;
+    /** @deprecated */
     readonly responseStart: number;
+    /** @deprecated */
     readonly secureConnectionStart: number;
+    /** @deprecated */
     readonly unloadEventEnd: number;
+    /** @deprecated */
     readonly unloadEventStart: number;
+    /** @deprecated */
     toJSON(): any;
 }
 

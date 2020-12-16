@@ -738,10 +738,6 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: (compat: CompatStatement
       return;
     }
     Object.assign(result, mapper(bcd.api[name].__compat!));
-    if (result.deprecated) {
-      // Probably no need to mark recursively
-      return result;
-    }
 
     const recordMapper = (key: string) => {
       const compat = bcd.api[name][key]?.__compat;

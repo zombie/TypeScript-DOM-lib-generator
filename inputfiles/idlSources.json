@@ -445,11 +445,13 @@
     },
     {
         "url": "https://w3c.github.io/mediacapture-main/",
-        "title": "Media Capture and Streams"
+        "title": "Media Capture and Streams",
+        "shortName": "mediacapture-streams"
     },
     {
         "url": "https://w3c.github.io/media-playback-quality/",
-        "title": "Media Playback Quality"
+        "title": "Media Playback Quality",
+        "shortName": "media-playback-quality"
     },
     {
         "url": "https://www.w3.org/TR/media-source/",

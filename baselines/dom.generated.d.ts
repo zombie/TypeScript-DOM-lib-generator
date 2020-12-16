@@ -10266,12 +10266,12 @@ declare var OscillatorNode: {
 };
 
 interface OverconstrainedError extends Error {
-    constraint: string;
+    readonly constraint: string;
 }
 
 declare var OverconstrainedError: {
     prototype: OverconstrainedError;
-    new(): OverconstrainedError;
+    new(constraint: string, message?: string): OverconstrainedError;
 };
 
 /** The PageTransitionEvent is fired when a document is being loaded or unloaded. */
@@ -14146,6 +14146,8 @@ declare var ValidityState: {
 
 /** Returned by the HTMLVideoElement.getVideoPlaybackQuality() method and contains metrics that can be used to determine the playback quality of a video. */
 interface VideoPlaybackQuality {
+    /** @deprecated */
+    readonly corruptedVideoFrames: number;
     readonly creationTime: number;
     readonly droppedVideoFrames: number;
     readonly totalVideoFrames: number;

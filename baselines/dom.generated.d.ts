@@ -2502,6 +2502,7 @@ interface CSSStyleDeclaration {
     animationName: string;
     animationPlayState: string;
     animationTimingFunction: string;
+    appearance: string;
     backfaceVisibility: string;
     background: string;
     backgroundAttachment: string;

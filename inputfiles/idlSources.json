@@ -499,31 +499,38 @@
     },
     {
         "url": "https://w3c.github.io/payment-request/",
-        "title": "Payment Request"
+        "title": "Payment Request",
+        "shortName": "payment-request"
     },
     {
         "url": "https://www.w3.org/TR/referrer-policy/",
-        "title": "Referrer Policy"
+        "title": "Referrer Policy",
+        "shortName": "referrer-policy"
     },
     {
         "url": "https://w3c.github.io/resource-timing/",
-        "title": "Resource Timing"
+        "title": "Resource Timing",
+        "shortName": "resource-timing"
     },
     {
         "url": "https://www.w3.org/TR/screen-orientation/",
-        "title": "Screen Orientation"
+        "title": "Screen Orientation",
+        "shortName": "screen-orientation"
     },
     {
         "url": "https://www.w3.org/TR/secure-contexts/",
-        "title": "Secure Contexts"
+        "title": "Secure Contexts",
+        "shortName": "secure-contexts"
     },
     {
         "url": "https://www.w3.org/TR/selection-api/",
-        "title": "Selection"
+        "title": "Selection",
+        "shortName": "selection-api"
     },
     {
         "url": "https://w3c.github.io/ServiceWorker/",
-        "title": "Service Workers"
+        "title": "Service Workers",
+        "shortName": "service-workers"
     },
     {
         "url": "https://storage.spec.whatwg.org/",

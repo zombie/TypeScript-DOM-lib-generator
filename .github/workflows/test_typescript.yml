@@ -23,5 +23,15 @@ jobs:
           # Move in the generated dom APIs into a new version of TSC
           cp -rf ../generated/* src/lib
 
-          # Run TypeScript's tests with the new DOM libs
-          npm test
+          # Run TypeScript's tests with the new DOM libs, but don't fail
+          npm test || true
+          gulp baseline-accept
+
+          # The git diff now is the difference between tests 
+          git diff > baseline-changes.diff
+
+      - name: Danger
+        run: npm run danger -- ci
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

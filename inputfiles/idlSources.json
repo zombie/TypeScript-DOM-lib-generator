@@ -102,23 +102,28 @@
     },
     {
         "url": "https://www.w3.org/TR/css-logical-1/",
-        "title": "CSS Logical Properties and Values"
+        "title": "CSS Logical Properties and Values",
+        "shortName": "css-logical"
     },
     {
         "url": "https://drafts.fxtf.org/css-masking-1/",
-        "title": "CSS Masking"
+        "title": "CSS Masking",
+        "shortName": "css-masking"
     },
     {
         "url": "https://www.w3.org/TR/css-multicol-1/",
-        "title": "CSS Multi-column Layout"
+        "title": "CSS Multi-column Layout",
+        "shortName": "css-multicol"
     },
     {
         "url": "https://drafts.csswg.org/cssom/",
-        "title": "CSS Object Model"
+        "title": "CSS Object Model",
+        "shortName": "cssom"
     },
     {
         "url": "https://drafts.csswg.org/cssom-view/",
-        "title": "CSSOM View"
+        "title": "CSSOM View",
+        "shortName": "cssom-view"
     },
     {
         "url": "https://www.w3.org/TR/css-overflow-3/",
@@ -127,6 +132,11 @@
     {
         "url": "https://www.w3.org/TR/css-overscroll-1/",
         "title": "CSS Overscroll Behavior"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-pseudo-4/",
+        "title": "CSS Pseudo-Elements",
+        "shortName": "css-pseudo"
     },
     {
         "url": "https://www.w3.org/TR/css-ruby-1/",

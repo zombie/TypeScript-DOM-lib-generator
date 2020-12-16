@@ -76,6 +76,12 @@
                     }
                 }
             },
+            "Document": {
+                "implements": ["GeometryUtils"]
+            },
+            "Element": {
+                "implements": ["GeometryUtils"]
+            },
             "FormDataEvent": null,
             "HTMLFormElement": {
                 "methods": {
@@ -131,6 +137,9 @@
                 "events": {
                     "event": ["SVGZoom"]
                 }
+            },
+            "Text": {
+                "implements": ["GeometryUtils"]
             },
             "WebGLBuffer": {
                 "extends": null

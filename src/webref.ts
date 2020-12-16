@@ -26,11 +26,11 @@ function tryGetCss(title: string) {
   let path = new URL(`${title}.json`, webrefCssDir);
   const data = tryRequire(fileURLToPath(path));
   if (!data) {
-    return "";
+    return;
   }
   const properties = Object.keys(data.properties);
   if (!properties.length) {
-    return "";
+    return;
   }
   return generateWebIdlFromCssProperties(properties);
 }

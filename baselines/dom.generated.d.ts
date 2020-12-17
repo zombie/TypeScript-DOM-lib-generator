@@ -1992,6 +1992,64 @@ declare var AnimationTimeline: {
     new(): AnimationTimeline;
 };
 
+interface ApplicationCacheEventMap {
+    "cached": Event;
+    "checking": Event;
+    "downloading": Event;
+    "error": Event;
+    "noupdate": Event;
+    "obsolete": Event;
+    "progress": ProgressEvent<ApplicationCache>;
+    "updateready": Event;
+}
+
+/** @deprecated */
+interface ApplicationCache extends EventTarget {
+    /** @deprecated */
+    oncached: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    onchecking: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    ondownloading: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    onerror: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    onnoupdate: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    onobsolete: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    onprogress: ((this: ApplicationCache, ev: ProgressEvent<ApplicationCache>) => any) | null;
+    /** @deprecated */
+    onupdateready: ((this: ApplicationCache, ev: Event) => any) | null;
+    /** @deprecated */
+    readonly status: number;
+    /** @deprecated */
+    swapCache(): void;
+    /** @deprecated */
+    update(): void;
+    readonly CHECKING: number;
+    readonly DOWNLOADING: number;
+    readonly IDLE: number;
+    readonly OBSOLETE: number;
+    readonly UNCACHED: number;
+    readonly UPDATEREADY: number;
+    addEventListener<K extends keyof ApplicationCacheEventMap>(type: K, listener: (this: ApplicationCache, ev: ApplicationCacheEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof ApplicationCacheEventMap>(type: K, listener: (this: ApplicationCache, ev: ApplicationCacheEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var ApplicationCache: {
+    prototype: ApplicationCache;
+    new(): ApplicationCache;
+    readonly CHECKING: number;
+    readonly DOWNLOADING: number;
+    readonly IDLE: number;
+    readonly OBSOLETE: number;
+    readonly UNCACHED: number;
+    readonly UPDATEREADY: number;
+};
+
 /** A DOM element's attribute as an object. In most DOM methods, you will probably directly retrieve the attribute as a string (e.g., Element.getAttribute(), but certain functions (e.g., Element.getAttributeNode()) or means of iterating give Attr types. */
 interface Attr extends Node {
     readonly localName: string;
@@ -3675,7 +3733,6 @@ interface DOMPointReadOnly {
     readonly x: number;
     readonly y: number;
     readonly z: number;
-    /** @deprecated */
     matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
     toJSON(): any;
 }
@@ -5731,6 +5788,7 @@ declare var HTMLBaseElement: {
 };
 
 interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
+    "orientationchange": Event;
 }
 
 /** Provides special properties (beyond those inherited from the regular HTMLElement interface) for manipulating <body> elements. */
@@ -5743,6 +5801,8 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
     bgColor: string;
     /** @deprecated */
     link: string;
+    /** @deprecated */
+    onorientationchange: ((this: HTMLBodyElement, ev: Event) => any) | null;
     /** @deprecated */
     text: string;
     /** @deprecated */
@@ -5954,6 +6014,7 @@ declare var HTMLDetailsElement: {
     new(): HTMLDetailsElement;
 };
 
+/** @deprecated */
 interface HTMLDirectoryElement extends HTMLElement {
     /** @deprecated */
     compact: boolean;
@@ -6549,7 +6610,6 @@ interface HTMLImageElement extends HTMLElement {
     /**
      * Sets or retrieves the URL, often with a bookmark extension (#name), to use as a client-side image map.
      */
-    /** @deprecated */
     useMap: string;
     /**
      * Sets or retrieves the vertical margin for the object.
@@ -6900,12 +6960,10 @@ interface HTMLMapElement extends HTMLElement {
     /**
      * Retrieves a collection of the area objects defined for the given map object.
      */
-    /** @deprecated */
     readonly areas: HTMLCollection;
     /**
      * Sets or retrieves the name of the object.
      */
-    /** @deprecated */
     name: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLMapElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -7607,7 +7665,6 @@ interface HTMLScriptElement extends HTMLElement {
     /**
      * Sets or retrieves the MIME type for the associated scripting engine.
      */
-    /** @deprecated */
     type: string;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLScriptElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -9080,6 +9137,7 @@ declare var KeyboardEvent: {
 
 interface KeyframeEffect extends AnimationEffect {
     composite: CompositeOperation;
+    pseudoElement: string | null;
     target: Element | null;
     getKeyframes(): ComputedKeyframe[];
     setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void;
@@ -13768,6 +13826,14 @@ interface TextMetrics {
     /**
      * Returns the measurement described below.
      */
+    readonly fontBoundingBoxAscent: number;
+    /**
+     * Returns the measurement described below.
+     */
+    readonly fontBoundingBoxDescent: number;
+    /**
+     * Returns the measurement described below.
+     */
     readonly width: number;
 }
 
@@ -16336,6 +16402,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "deviceorientation": DeviceOrientationEvent;
     "gamepadconnected": GamepadEvent;
     "gamepaddisconnected": GamepadEvent;
+    "orientationchange": Event;
 }
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
@@ -16364,6 +16431,8 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly navigator: Navigator;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
+    /** @deprecated */
+    onorientationchange: ((this: Window, ev: Event) => any) | null;
     opener: any;
     /** @deprecated */
     readonly orientation: string | number;
@@ -17001,6 +17070,10 @@ interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
 }
 
+interface EventHandlerNonNull {
+    (event: Event): any;
+}
+
 interface ForEachCallback {
     (keyId: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, status: MediaKeyStatus): void;
 }
@@ -17330,6 +17403,8 @@ declare const name: void;
 declare var navigator: Navigator;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
+/** @deprecated */
+declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
 declare var opener: any;
 /** @deprecated */
 declare var orientation: string | number;

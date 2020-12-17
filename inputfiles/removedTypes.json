@@ -112,11 +112,6 @@
                 }
             },
             "SVGAElement": {
-                "properties": {
-                    "property": {
-                        "referrerPolicy": null
-                    }
-                },
                 "implements": ["HTMLHyperlinkElementUtils"]
             },
             "SVGAnimationElement": {

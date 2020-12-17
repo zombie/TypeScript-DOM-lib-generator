@@ -1067,7 +1067,6 @@ interface DOMPointReadOnly {
     readonly x: number;
     readonly y: number;
     readonly z: number;
-    /** @deprecated */
     matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
     toJSON(): any;
 }
@@ -2908,6 +2907,14 @@ interface TextMetrics {
      * Returns the measurement described below.
      */
     readonly actualBoundingBoxRight: number;
+    /**
+     * Returns the measurement described below.
+     */
+    readonly fontBoundingBoxAscent: number;
+    /**
+     * Returns the measurement described below.
+     */
+    readonly fontBoundingBoxDescent: number;
     /**
      * Returns the measurement described below.
      */

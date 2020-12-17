@@ -356,13 +356,11 @@
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/obsolete.html",
-        "title": "HTML - Obsolete features",
-        "deprecated": true
+        "title": "HTML - Obsolete features"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/offline.html",
-        "title": "HTML - Offline Web applications",
-        "deprecated": true
+        "title": "HTML - Offline Web applications"
     },
     {
         "url": "https://html.spec.whatwg.org/multipage/scripting.html",

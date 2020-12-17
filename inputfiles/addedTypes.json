@@ -454,6 +454,13 @@
                         }
                     }
                 },
+                "methods": {
+                    "method": {
+                        "captureEvents": {
+                            "deprecated": 1
+                        }
+                    }
+                },
                 "implements": [
                     "WindowEventHandlers"
                 ],
@@ -1180,6 +1187,15 @@
                     }
                 ]
             },
+            "HTMLDirectoryElement": {
+                "properties": {
+                    "property": {
+                        "compact": {
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
             "HTMLDivElement": {
                 "element": [
                     {
@@ -1316,6 +1332,16 @@
                 ]
             },
             "HTMLEmbedElement": {
+                "properties": {
+                    "property": {
+                        "align": {
+                            "deprecated": 1
+                        },
+                        "name": {
+                            "deprecated": 1
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "embed"
@@ -1359,6 +1385,25 @@
                 ]
             },
             "HTMLHRElement": {
+                "properties": {
+                    "property": {
+                        "align": {
+                            "deprecated": 1
+                        },
+                        "color": {
+                            "deprecated": 1
+                        },
+                        "noShade": {
+                            "deprecated": 1
+                        },
+                        "size": {
+                            "deprecated": 1
+                        },
+                        "width": {
+                            "deprecated": 1
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "hr"
@@ -1366,6 +1411,13 @@
                 ]
             },
             "HTMLHtmlElement": {
+                "properties": {
+                    "property": {
+                        "version": {
+                            "deprecated": 1
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "html"
@@ -1375,8 +1427,14 @@
             "HTMLInputElement": {
                 "properties": {
                     "property": {
+                        "align": {
+                            "deprecated": 1
+                        },
                         "labels": {
                             "override-type": "NodeListOf<HTMLLabelElement> | null"
+                        },
+                        "useMap": {
+                            "deprecated": 1
                         }
                     }
                 },
@@ -1386,12 +1444,30 @@
                     }
                 ]
             },
+            "HTMLLegendElement": {
+                "properties": {
+                    "property": {
+                        "align": {
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
             "HTMLLinkElement": {
                 "properties": {
                     "property": {
+                        "charset": {
+                            "deprecated": 1
+                        },
                         "disabled": {
                             "name": "disabled",
                             "type": "boolean"
+                        },
+                        "rev": {
+                            "deprecated": 1
+                        },
+                        "target": {
+                            "deprecated": 1
                         }
                     }
                 },
@@ -1430,6 +1506,13 @@
                 ]
             },
             "HTMLMetaElement": {
+                "properties": {
+                    "property": {
+                        "scheme": {
+                            "deprecated": 1
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "meta"

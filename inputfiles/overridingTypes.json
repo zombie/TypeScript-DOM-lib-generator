@@ -785,69 +785,151 @@
                     "method": {
                         "openCursor": {
                             "name": "openCursor",
-                            "override-signatures": [
-                                "openCursor(query?: IDBValidKey | IDBKeyRange | null, direction?: IDBCursorDirection): IDBRequest<IDBCursorWithValue | null>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBCursorWithValue | null>"
+                                }
+                            }
                         },
                         "openKeyCursor": {
                             "name": "openKeyCursor",
-                            "override-signatures": [
-                                "openKeyCursor(query?: IDBValidKey | IDBKeyRange | null, direction?: IDBCursorDirection): IDBRequest<IDBCursor | null>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBCursor | null>"
+                                }
+                            }
                         },
                         "add": {
                             "name": "add",
-                            "override-signatures": [
-                                "add(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "key",
+                                            "override-type": "IDBValidKey"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBValidKey>"
+                                }
+                            }
                         },
                         "clear": {
                             "name": "clear",
-                            "override-signatures": [
-                                "clear(): IDBRequest<undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "IDBRequest<undefined>"
+                                }
+                            }
                         },
                         "count": {
                             "name": "count",
-                            "override-signatures": [
-                                "count(key?: IDBValidKey | IDBKeyRange): IDBRequest<number>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<number>"
+                                }
+                            }
                         },
                         "delete": {
                             "name": "delete",
-                            "override-signatures": [
-                                "delete(key: IDBValidKey | IDBKeyRange): IDBRequest<undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<undefined>"
+                                }
+                            }
                         },
                         "put": {
                             "name": "put",
-                            "override-signatures": [
-                                "put(value: any, key?: IDBValidKey): IDBRequest<IDBValidKey>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "key",
+                                            "override-type": "IDBValidKey"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBValidKey>"
+                                }
+                            }
                         },
                         "get": {
                             "name": "get",
-                            "override-signatures": [
-                                "get(query: IDBValidKey | IDBKeyRange): IDBRequest<any | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<any>"
+                                }
+                            }
                         },
                         "getAll": {
                             "name": "getAll",
-                            "override-signatures": [
-                                "getAll(query?: IDBValidKey | IDBKeyRange | null, count?: number): IDBRequest<any[]>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<any[]>"
+                                }
+                            }
                         },
                         "getAllKeys": {
                             "name": "getAllKeys",
-                            "override-signatures": [
-                                "getAllKeys(query?: IDBValidKey | IDBKeyRange | null, count?: number): IDBRequest<IDBValidKey[]>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBValidKey[]>"
+                                }
+                            }
                         },
                         "getKey": {
                             "name": "getKey",
-                            "override-signatures": [
-                                "getKey(query: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBValidKey | undefined>"
+                                }
+                            }
                         }
                     }
                 },
@@ -874,45 +956,101 @@
                     "method": {
                         "openCursor": {
                             "name": "openCursor",
-                            "override-signatures": [
-                                "openCursor(query?: IDBValidKey | IDBKeyRange | null, direction?: IDBCursorDirection): IDBRequest<IDBCursorWithValue | null>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBCursorWithValue | null>"
+                                }
+                            }
                         },
                         "openKeyCursor": {
                             "name": "openKeyCursor",
-                            "override-signatures": [
-                                "openKeyCursor(query?: IDBValidKey | IDBKeyRange | null, direction?: IDBCursorDirection): IDBRequest<IDBCursor | null>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBCursor | null>"
+                                }
+                            }
                         },
                         "count": {
                             "name": "count",
-                            "override-signatures": [
-                                "count(key?: IDBValidKey | IDBKeyRange): IDBRequest<number>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<number>"
+                                }
+                            }
                         },
                         "get": {
                             "name": "get",
-                            "override-signatures": [
-                                "get(key: IDBValidKey | IDBKeyRange): IDBRequest<any | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<any>"
+                                }
+                            }
                         },
                         "getAll": {
                             "name": "getAll",
-                            "override-signatures": [
-                                "getAll(query?: IDBValidKey | IDBKeyRange | null, count?: number): IDBRequest<any[]>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<any[]>"
+                                }
+                            }
                         },
                         "getAllKeys": {
                             "name": "getAllKeys",
-                            "override-signatures": [
-                                "getAllKeys(query?: IDBValidKey | IDBKeyRange | null, count?: number): IDBRequest<IDBValidKey[]>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBValidKey[]>"
+                                }
+                            }
                         },
                         "getKey": {
                             "name": "getKey",
-                            "override-signatures": [
-                                "getKey(key: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "query",
+                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                        }
+                                    ],
+                                    "override-type": "IDBRequest<IDBValidKey | undefined>"
+                                }
+                            }
                         }
                     }
                 }
@@ -1118,11 +1256,15 @@
                     "method": {
                         "getElementsByTagNameNS": {
                             "name": "getElementsByTagNameNS",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
-                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
-                                "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
-                            ]
+                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>"
+                            ],
+                            "signature": {
+                                "0": {
+                                    "override-type": "HTMLCollectionOf<Element>"
+                                }
+                            }
                         }
                     }
                 }
@@ -1141,22 +1283,6 @@
                         }
                     }
                 }
-            },
-            "DataTransferItemList": {
-                "name": "DataTransferItemList",
-                "methods": {
-                    "method": {
-                        "item": {
-                            "name": "item",
-                            "override-signatures": [
-                                "item(index: number): DataTransferItem"
-                            ]
-                        }
-                    }
-                },
-                "override-index-signatures": [
-                    "[name: number]: DataTransferItem"
-                ]
             },
             "DataTransferItem": {
                 "name": "DataTransferItem",
@@ -1188,26 +1314,46 @@
                 "methods": {
                     "method": {
                         "continue": {
-                            "name": "continue",
-                            "override-signatures": [
-                                "continue(key?: IDBValidKey): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "key",
+                                            "override-type": "IDBValidKey"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "continuePrimaryKey": {
-                            "name": "continuePrimaryKey",
-                            "override-signatures": [
-                                "continuePrimaryKey(key: IDBValidKey, primaryKey: IDBValidKey): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "key",
+                                            "override-type": "IDBValidKey"
+                                        },
+                                        {
+                                            "name": "primaryKey",
+                                            "override-type": "IDBValidKey"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "delete": {
-                            "override-signatures": [
-                                "delete(): IDBRequest<undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "IDBRequest<undefined>"
+                                }
+                            }
                         },
                         "update": {
-                            "override-signatures": [
-                                "update(value: any): IDBRequest<IDBValidKey>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "IDBRequest<IDBValidKey>"
+                                }
+                            }
                         }
                     }
                 }

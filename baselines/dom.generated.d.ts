@@ -3941,12 +3941,11 @@ interface DataTransferItemList {
      * Removes all the entries in the drag data store.
      */
     clear(): void;
-    item(index: number): DataTransferItem;
     /**
      * Removes the indexth entry in the drag data store.
      */
     remove(index: number): void;
-    [name: number]: DataTransferItem;
+    [index: number]: DataTransferItem;
 }
 
 declare var DataTransferItemList: {
@@ -4698,7 +4697,7 @@ interface Element extends Node, Animatable, ChildNode, InnerHTML, NonDocumentTyp
     getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
-    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
+    getElementsByTagNameNS(namespace: string | null, localName: string): HTMLCollectionOf<Element>;
     /**
      * Returns true if element has an attribute whose qualified name is qualifiedName, and false otherwise.
      */
@@ -8609,13 +8608,13 @@ interface IDBIndex {
      * 
      * If successful, request's result will be the count.
      */
-    count(key?: IDBValidKey | IDBKeyRange): IDBRequest<number>;
+    count(query?: IDBValidKey | IDBKeyRange): IDBRequest<number>;
     /**
      * Retrieves the value of the first record matching the given key or key range in query.
      * 
      * If successful, request's result will be the value, or undefined if there was no matching record.
      */
-    get(key: IDBValidKey | IDBKeyRange): IDBRequest<any | undefined>;
+    get(query: IDBValidKey | IDBKeyRange): IDBRequest<any>;
     /**
      * Retrieves the values of the records matching the given key or key range in query (up to count if given).
      * 
@@ -8633,7 +8632,7 @@ interface IDBIndex {
      * 
      * If successful, request's result will be the key, or undefined if there was no matching record.
      */
-    getKey(key: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey | undefined>;
+    getKey(query: IDBValidKey | IDBKeyRange): IDBRequest<IDBValidKey | undefined>;
     /**
      * Opens a cursor over the records matching query, ordered by direction. If query is null, all records in index are matched.
      * 
@@ -8741,7 +8740,7 @@ interface IDBObjectStore {
      * 
      * If successful, request's result will be the count.
      */
-    count(key?: IDBValidKey | IDBKeyRange): IDBRequest<number>;
+    count(query?: IDBValidKey | IDBKeyRange): IDBRequest<number>;
     /**
      * Creates a new index in store with the given name, keyPath and options and returns a new IDBIndex. If the keyPath and options define constraints that cannot be satisfied with the data already in store the upgrade transaction will abort with a "ConstraintError" DOMException.
      * 
@@ -8753,7 +8752,7 @@ interface IDBObjectStore {
      * 
      * If successful, request's result will be undefined.
      */
-    delete(key: IDBValidKey | IDBKeyRange): IDBRequest<undefined>;
+    delete(query: IDBValidKey | IDBKeyRange): IDBRequest<undefined>;
     /**
      * Deletes the index in store with the given name.
      * 
@@ -8765,7 +8764,7 @@ interface IDBObjectStore {
      * 
      * If successful, request's result will be the value, or undefined if there was no matching record.
      */
-    get(query: IDBValidKey | IDBKeyRange): IDBRequest<any | undefined>;
+    get(query: IDBValidKey | IDBKeyRange): IDBRequest<any>;
     /**
      * Retrieves the values of the records matching the given key or key range in query (up to count if given).
      * 

@@ -1402,82 +1402,177 @@
                 "methods": {
                     "method": {
                         "decrypt": {
-                            "name": "decrypt",
-                            "override-signatures": [
-                                "decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): Promise<ArrayBuffer>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "deriveBits": {
-                            "name": "deriveBits",
-                            "override-signatures": [
-                                "deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "deriveKey": {
-                            "name": "deriveKey",
-                            "override-signatures": [
-                                "deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params"
+                                        },
+                                        {
+                                            "name": "derivedKeyType",
+                                            "override-type": "string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params"
+                                        }
+                                    ],
+                                    "override-type": "Promise<CryptoKey>"
+                                }
+                            }
                         },
                         "digest": {
                             "name": "digest",
-                            "override-signatures": [
-                                "digest(algorithm: AlgorithmIdentifier, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): Promise<ArrayBuffer>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<ArrayBuffer>"
+                                }
+                            }
                         },
                         "encrypt": {
-                            "name": "encrypt",
-                            "override-signatures": [
-                                "encrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): Promise<ArrayBuffer>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "exportKey": {
-                            "name": "exportKey",
-                            "override-signatures": [
-                                "exportKey(format: \"jwk\", key: CryptoKey): Promise<JsonWebKey>",
-                                "exportKey(format: \"raw\" | \"pkcs8\" | \"spki\", key: CryptoKey): Promise<ArrayBuffer>",
-                                "exportKey(format: string, key: CryptoKey): Promise<JsonWebKey | ArrayBuffer>"
-                            ]
+                            "additional-signatures": [
+                                "exportKey(format: \"jwk\", key: CryptoKey): Promise<JsonWebKey>"
+                            ],
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "format",
+                                            "override-type": "Exclude<KeyFormat, \"jwk\">"
+                                        }
+                                    ],
+                                    "override-type": "Promise<ArrayBuffer>"
+                                }
+                            }
                         },
                         "generateKey": {
                             "name": "generateKey",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair>",
-                                "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>",
-                                "generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair | CryptoKey>"
-                            ]
+                                "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
+                            ],
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<CryptoKeyPair | CryptoKey>"
+                                }
+                            }
                         },
                         "importKey": {
                             "name": "importKey",
-                            "override-signatures": [
-                                "importKey(format: \"jwk\", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>",
-                                "importKey(format: \"raw\" | \"pkcs8\" | \"spki\", keyData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>",
-                                "importKey(format: string, keyData: JsonWebKey | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
+                            "additional-signatures": [
+                                "importKey(format: \"jwk\", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
+                            ],
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "format",
+                                            "override-type": "Exclude<KeyFormat, \"jwk\">"
+                                        },
+                                        {
+                                            "name": "keyData",
+                                            "type": "BufferSource"
+                                        },
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm"
+                                        }
+                                    ]
+                                }
+                            },
+                            "force-references": [
+                                {
+                                    "type": "JsonWebKey"
+                                }
                             ]
                         },
                         "sign": {
-                            "name": "sign",
-                            "override-signatures": [
-                                "sign(algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): Promise<ArrayBuffer>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaPssParams | EcdsaParams | AesCmacParams"
+                                        }
+                                    ],
+                                    "override-type": "Promise<ArrayBuffer>"
+                                }
+                            }
                         },
                         "unwrapKey": {
-                            "name": "unwrapKey",
-                            "override-signatures": [
-                                "unwrapKey(format: \"raw\" | \"pkcs8\" | \"spki\" | \"jwk\" | string, wrappedKey: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer, unwrappingKey: CryptoKey, unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, unwrappedKeyAlgorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "unwrapAlgorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                        },
+                                        {
+                                            "name": "unwrappedKeyAlgorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "verify": {
-                            "name": "verify",
-                            "override-signatures": [
-                                "verify(algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): Promise<boolean>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "algorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaPssParams | EcdsaParams | AesCmacParams"
+                                        }
+                                    ],
+                                    "override-type": "Promise<boolean>"
+                                }
+                            }
                         },
                         "wrapKey": {
-                            "name": "wrapKey",
-                            "override-signatures": [
-                                "wrapKey(format: \"raw\" | \"pkcs8\" | \"spki\" | \"jwk\" | string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams): Promise<ArrayBuffer>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "wrapAlgorithm",
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                        }
+                                    ],
+                                    "override-type": "Promise<ArrayBuffer>"
+                                }
+                            }
                         }
                     }
                 }

@@ -6,19 +6,8 @@ interface Cache {
     addAll(requests: Iterable<RequestInfo>): Promise<void>;
 }
 
-interface Client {
-    postMessage(message: any, transfer: Transferable[]): void;
-}
-
 interface DOMStringList {
     [Symbol.iterator](): IterableIterator<string>;
-}
-
-interface DedicatedWorkerGlobalScope {
-    /**
-     * Clones message and transmits it to the Worker object associated with dedicatedWorkerGlobal. transfer can be passed as a list of objects that are to be transferred rather than cloned.
-     */
-    postMessage(message: any, transfer: Transferable[]): void;
 }
 
 interface FileList {
@@ -78,24 +67,11 @@ interface MessageEvent<T = any> {
     initMessageEvent(type: string, bubbles?: boolean, cancelable?: boolean, data?: any, origin?: string, lastEventId?: string, source?: MessageEventSource | null, ports?: Iterable<MessagePort>): void;
 }
 
-interface MessagePort {
-    /**
-     * Posts a message through the channel. Objects listed in transfer are transferred, not just cloned, meaning that they are no longer usable on the sending side.
-     * 
-     * Throws a "DataCloneError" DOMException if transfer contains duplicate objects or port, or if message could not be cloned.
-     */
-    postMessage(message: any, transfer: Transferable[]): void;
-}
-
 interface ReadableStream<R = any> {
     [Symbol.iterator](): IterableIterator<any>;
     entries(): IterableIterator<[number, any]>;
     keys(): IterableIterator<number>;
     values(): IterableIterator<any>;
-}
-
-interface ServiceWorker {
-    postMessage(message: any, transfer: Transferable[]): void;
 }
 
 interface SubtleCrypto {
@@ -185,11 +161,4 @@ interface WebGLRenderingContextOverloads {
     uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
     uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
-}
-
-interface Worker {
-    /**
-     * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
-     */
-    postMessage(message: any, transfer: Transferable[]): void;
 }

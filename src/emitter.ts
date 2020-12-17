@@ -1314,7 +1314,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 }
                 return type === "sequence" || !!sequenceTypedefMap[type];
             }
-            return !!s.param && s.param.some(p => typeIncludesSequence(p.type));
+            return !!s.param && s.param.some(p => !p["override-type"] && typeIncludesSequence(p.type));
         }
 
         function replaceTypedefsInSignatures(signatures: Browser.Signature[]): Browser.Signature[] {

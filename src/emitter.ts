@@ -1103,6 +1103,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 .sort(compareName)
                 .forEach(emitEnum);
             namespace.nested.typedefs
+                .sort((x, y) => x["new-type"].localeCompare(y["new-type"]))
                 .forEach(emitTypeDef);
         }
 
@@ -1154,6 +1155,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         if (webidl.typedefs) {
             webidl.typedefs.typedef
             .filter(i => !i["legacy-namespace"])
+            .sort((x, y) => x["new-type"].localeCompare(y["new-type"]))
             .forEach(emitTypeDef);
         }
     }

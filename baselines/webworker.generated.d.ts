@@ -1420,7 +1420,7 @@ interface FetchEvent extends ExtendableEvent {
     readonly clientId: string;
     readonly request: Request;
     readonly resultingClientId: string;
-    respondWith(r: Response | Promise<Response>): void;
+    respondWith(r: Response | PromiseLike<Response>): void;
 }
 
 declare var FetchEvent: {
@@ -5486,10 +5486,10 @@ declare namespace WebAssembly {
     type ImportValue = ExportValue | number;
     type ModuleImports = Record<string, ImportValue>;
     function compile(bytes: BufferSource): Promise<Module>;
-    function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
+    function compileStreaming(source: Response | PromiseLike<Response>): Promise<Module>;
     function instantiate(bytes: BufferSource, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>;
-    function instantiateStreaming(source: Response | Promise<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
+    function instantiateStreaming(source: Response | PromiseLike<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function validate(bytes: BufferSource): boolean;
 }
 

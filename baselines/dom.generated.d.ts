@@ -10436,7 +10436,7 @@ interface PaymentRequest extends EventTarget {
     readonly shippingType: PaymentShippingType | null;
     abort(): Promise<void>;
     canMakePayment(): Promise<boolean>;
-    show(detailsPromise: PaymentDetailsUpdate | Promise<PaymentDetailsUpdate>): Promise<PaymentResponse>;
+    show(detailsPromise?: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>): Promise<PaymentResponse>;
     addEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -10450,7 +10450,7 @@ declare var PaymentRequest: {
 
 /** This Payment Request API interface enables a web page to update the details of a PaymentRequest in response to a user action. */
 interface PaymentRequestUpdateEvent extends Event {
-    updateWith(detailsPromise: PaymentDetailsUpdate | Promise<PaymentDetailsUpdate>): void;
+    updateWith(detailsPromise: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>): void;
 }
 
 declare var PaymentRequestUpdateEvent: {
@@ -16976,10 +16976,10 @@ declare namespace WebAssembly {
     type ImportValue = ExportValue | number;
     type ModuleImports = Record<string, ImportValue>;
     function compile(bytes: BufferSource): Promise<Module>;
-    function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
+    function compileStreaming(source: Response | PromiseLike<Response>): Promise<Module>;
     function instantiate(bytes: BufferSource, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>;
-    function instantiateStreaming(source: Response | Promise<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
+    function instantiateStreaming(source: Response | PromiseLike<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function validate(bytes: BufferSource): boolean;
 }
 

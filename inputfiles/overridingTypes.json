@@ -282,15 +282,7 @@
                                 "name": "controller",
                                 "override-type": "ReadableStreamController<R>"
                             }
-                        ],
-                        "override-type": "void | PromiseLike<void>"
-                    }
-                }
-            },
-            "UnderlyingSourceCancelCallback": {
-                "signature": {
-                    "0": {
-                        "override-type": "void | PromiseLike<void>"
+                        ]
                     }
                 }
             },
@@ -307,22 +299,7 @@
                                 "name": "chunk",
                                 "override-type": "W"
                             }
-                        ],
-                        "override-type": "void | PromiseLike<void>"
-                    }
-                }
-            },
-            "UnderlyingSinkCloseCallback": {
-                "signature": {
-                    "0": {
-                        "override-type": "void | PromiseLike<void>"
-                    }
-                }
-            },
-            "UnderlyingSinkAbortCallback": {
-                "signature": {
-                    "0": {
-                        "override-type": "void | PromiseLike<void>"
+                        ]
                     }
                 }
             },
@@ -339,8 +316,7 @@
                                 "name": "controller",
                                 "override-type": "TransformStreamDefaultController<O>"
                             }
-                        ],
-                        "override-type": "void | PromiseLike<void>"
+                        ]
                     }
                 }
             },
@@ -381,8 +357,7 @@
                                 "name": "controller",
                                 "override-type": "TransformStreamDefaultController<O>"
                             }
-                        ],
-                        "override-type": "void | PromiseLike<void>"
+                        ]
                     }
                 }
             },

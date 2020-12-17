@@ -297,6 +297,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         if (type === "Promise<undefined>") {
             return "Promise<void>";
         }
+        if (type === "undefined | PromiseLike<undefined>") {
+            return "void | PromiseLike<void>";
+        }
         return type;
     }
 
@@ -522,12 +525,19 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
     }
 
+    function resolvePromise<T extends Browser.Typed>(t: T): T {
+        if (t.type !== "Promise") {
+            return t;
+        }
+        const type = [t.subtype].flat() as Browser.Typed[];
+        type.push({ ...t, type: "PromiseLike" });
+        return { ...t, subtype: undefined, type };
+    }
+
     /// Generate the parameters string for function signatures
     function paramsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
-            if (p.type === "Promise" && !Array.isArray(p.subtype)) {
-                p = { name: p.name, type: [p.subtype!, p] }
-            }
+            p = resolvePromise(p);
             const isOptional = !p.variadic && p.optional;
             const pType = convertDomTypeToTsType(p);
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
@@ -562,7 +572,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
         printer.printLine(`interface ${getNameWithTypeParameter(cb, cb.name)} {`);
         printer.increaseIndent();
-        emitSignatures(cb, "", "", printer.printLine);
+        emitSignatures(cb, "", "", printer.printLine, true);
         printer.decreaseIndent();
         printer.printLine("}");
         printer.printLine("");
@@ -703,21 +713,22 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
     }
 
-    function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
+    function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
         const paramsString = s.param ? paramsToString(s.param) : "";
-        let returnType = convertDomTypeToTsReturnType(s);
+        const resolved = shouldResolvePromise ? resolvePromise(s) : s;
+        let returnType = convertDomTypeToTsReturnType(resolved);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
         emitComments(s, printLine);
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
     }
 
-    function emitSignatures(method: { signature?: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void) {
+    function emitSignatures(method: { signature?: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
         if (method["override-signatures"]) {
             method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
         }
         else if (method.signature) {
             method["additional-signatures"]?.forEach(s => printLine(`${prefix}${s};`));
-            method.signature.forEach(sig => emitSignature(sig, prefix, name, printLine));
+            method.signature.forEach(sig => emitSignature(sig, prefix, name, printLine, shouldResolvePromise));
         }
     }
 

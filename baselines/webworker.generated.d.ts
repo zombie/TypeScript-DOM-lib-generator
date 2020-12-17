@@ -5489,7 +5489,7 @@ declare namespace WebAssembly {
     function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
     function instantiate(bytes: BufferSource, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>;
-    function instantiateStreaming(response: Response | PromiseLike<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
+    function instantiateStreaming(source: Response | Promise<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>;
     function validate(bytes: BufferSource): boolean;
 }
 

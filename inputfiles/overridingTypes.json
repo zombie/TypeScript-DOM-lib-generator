@@ -984,16 +984,18 @@
                 "methods": {
                     "method": {
                         "getEnclosureList": {
-                            "name": "getEnclosureList",
-                            "override-signatures": [
-                                "getEnclosureList(rect: SVGRect, referenceElement: SVGElement | null): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
+                                }
+                            }
                         },
                         "getIntersectionList": {
-                            "name": "getIntersectionList",
-                            "override-signatures": [
-                                "getIntersectionList(rect: SVGRect, referenceElement: SVGElement | null): NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
+                                }
+                            }
                         },
                         "setCurrentTime": {
                             "name": "setCurrentTime",
@@ -2545,14 +2547,16 @@
             },
             "Instance": {
                 "constructor": {
-                    "override-signatures": [
-                        "new(module: Module, importObject?: Imports): Instance"
-                    ],
-                    "force-references": [
-                        {
-                            "type": "Imports"
+                    "signature": {
+                        "0": {
+                            "param": [
+                                {
+                                    "name": "importObject",
+                                    "type": "Imports"
+                                }
+                            ]
                         }
-                    ]
+                    }
                 },
                 "properties": {
                     "property": {
@@ -3053,14 +3057,16 @@
                         }
                     },
                     "instantiateStreaming": {
-                        "override-signatures": [
-                            "instantiateStreaming(response: Response | PromiseLike<Response>, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>"
-                        ],
-                        "force-references": [
-                            {
-                                "type": "Imports"
+                        "signature": {
+                            "0": {
+                                "param": [
+                                    {
+                                        "name": "importObject",
+                                        "type": "Imports"
+                                    }
+                                ]
                             }
-                        ]
+                        }
                     }
                 }
             }

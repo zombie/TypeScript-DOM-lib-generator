@@ -2123,6 +2123,8 @@ interface MessageEvent<T = any> extends Event {
      * Returns the WindowProxy of the source window, for cross-document messaging, and the MessagePort being attached, in the connect event fired at SharedWorkerGlobalScope objects.
      */
     readonly source: MessageEventSource | null;
+    /** @deprecated */
+    initMessageEvent(type: string, bubbles?: boolean, cancelable?: boolean, data?: any, origin?: string, lastEventId?: string, source?: MessageEventSource | null, ports?: MessagePort[]): void;
 }
 
 declare var MessageEvent: {

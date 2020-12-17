@@ -470,6 +470,10 @@ interface FocusOptions {
     preventScroll?: boolean;
 }
 
+interface FormDataEventInit extends EventInit {
+    formData: FormData;
+}
+
 interface FullscreenOptions {
     navigationUI?: FullscreenNavigationUI;
 }
@@ -4286,6 +4290,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
+    createEvent(eventInterface: "FormDataEvent"): FormDataEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
@@ -5062,6 +5067,18 @@ declare var FormData: {
     new(form?: HTMLFormElement): FormData;
 };
 
+interface FormDataEvent extends Event {
+    /**
+     * Returns a FormData object representing names and values of elements associated to the target form. Operations on the FormData object will affect form data to be submitted.
+     */
+    readonly formData: FormData;
+}
+
+declare var FormDataEvent: {
+    prototype: FormDataEvent;
+    new(type: string, eventInitDict: FormDataEventInit): FormDataEvent;
+};
+
 /** A change in volume. It is an AudioNode audio-processing module that causes a given gain to be applied to the input data before its propagation to the output. A GainNode always has exactly one input and one output, both with the same number of channels. */
 interface GainNode extends AudioNode {
     readonly gain: AudioParam;
@@ -5209,6 +5226,7 @@ interface GlobalEventHandlersEventMap {
     "focus": FocusEvent;
     "focusin": FocusEvent;
     "focusout": FocusEvent;
+    "formdata": FormDataEvent;
     "gotpointercapture": PointerEvent;
     "input": Event;
     "invalid": Event;
@@ -5371,6 +5389,7 @@ interface GlobalEventHandlers {
      * @param ev The event.
      */
     onfocus: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
+    onformdata: ((this: GlobalEventHandlers, ev: FormDataEvent) => any) | null;
     ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     oninput: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     oninvalid: ((this: GlobalEventHandlers, ev: Event) => any) | null;
@@ -6188,6 +6207,7 @@ interface HTMLFormElement extends HTMLElement {
      */
     checkValidity(): boolean;
     reportValidity(): boolean;
+    requestSubmit(submitter?: HTMLElement | null): void;
     /**
      * Fires when the user resets a form.
      */
@@ -9540,6 +9560,8 @@ interface MessageEvent<T = any> extends Event {
      * Returns the WindowProxy of the source window, for cross-document messaging, and the MessagePort being attached, in the connect event fired at SharedWorkerGlobalScope objects.
      */
     readonly source: MessageEventSource | null;
+    /** @deprecated */
+    initMessageEvent(type: string, bubbles?: boolean, cancelable?: boolean, data?: any, origin?: string, lastEventId?: string, source?: MessageEventSource | null, ports?: MessagePort[]): void;
 }
 
 declare var MessageEvent: {
@@ -10354,6 +10376,12 @@ interface ParentNode {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
+    /**
+     * Replace all children of node with nodes, while replacing strings in nodes with equivalent Text nodes.
+     * 
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
+     */
+    replaceChildren(...nodes: (Node | string)[]): void;
 }
 
 /** This Canvas 2D API interface is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
@@ -13539,6 +13567,7 @@ interface StorageEvent extends Event {
      * Returns the URL of the document whose storage item changed.
      */
     readonly url: string;
+    initStorageEvent(type: string, bubbles?: boolean, cancelable?: boolean, key?: string | null, oldValue?: string | null, newValue?: string | null, url?: string, storageArea?: Storage | null): void;
 }
 
 declare var StorageEvent: {
@@ -17477,6 +17506,7 @@ declare var onerror: OnErrorEventHandler;
  * @param ev The event.
  */
 declare var onfocus: ((this: Window, ev: FocusEvent) => any) | null;
+declare var onformdata: ((this: Window, ev: FormDataEvent) => any) | null;
 declare var ongotpointercapture: ((this: Window, ev: PointerEvent) => any) | null;
 declare var oninput: ((this: Window, ev: Event) => any) | null;
 declare var oninvalid: ((this: Window, ev: Event) => any) | null;

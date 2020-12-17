@@ -124,6 +124,10 @@
                             "type": "FocusEvent"
                         },
                         {
+                            "name": "formdata",
+                            "type": "FormDataEvent"
+                        },
+                        {
                             "name": "keydown",
                             "type": "KeyboardEvent"
                         },

@@ -17,7 +17,6 @@
             "GlobalEventHandlers": {
                 "properties": {
                     "property": {
-                        "onformdata": null,
                         "onpointerrawupdate": null,
                         "onslotchange": null
                     }
@@ -27,13 +26,6 @@
                 "properties": {
                     "property": {
                         "oscpu": null
-                    }
-                }
-            },
-            "ParentNode": {
-                "methods": {
-                    "method": {
-                        "replaceChildren": null
                     }
                 }
             },
@@ -90,14 +82,6 @@
             "Element": {
                 "implements": ["GeometryUtils"]
             },
-            "FormDataEvent": null,
-            "HTMLFormElement": {
-                "methods": {
-                    "method": {
-                        "requestSubmit": null
-                    }
-                }
-            },
             "IDBDatabase": {
                 "methods": {
                     "method": {
@@ -112,13 +96,6 @@
                 }
             },
             "MediaStreamError": null,
-            "MessageEvent": {
-                "methods": {
-                    "method": {
-                        "initMessageEvent": null
-                    }
-                }
-            },
             "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
@@ -131,13 +108,6 @@
                 "properties": {
                     "property": {
                         "navigationPreload": null
-                    }
-                }
-            },
-            "StorageEvent": {
-                "methods": {
-                    "method": {
-                        "initStorageEvent": null
                     }
                 }
             },

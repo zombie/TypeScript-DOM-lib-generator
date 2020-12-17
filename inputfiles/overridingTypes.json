@@ -2068,41 +2068,6 @@
                 }
             },
             "RTCPeerConnection": {
-                "name": "RTCPeerConnection",
-                "methods": {
-                    "method": {
-                        "createAnswer": {
-                            "name": "createAnswer",
-                            "override-signatures": [
-                                "createAnswer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>"
-                            ]
-                        },
-                        "createOffer": {
-                            "name": "createOffer",
-                            "override-signatures": [
-                                "createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>"
-                            ]
-                        },
-                        "setLocalDescription": {
-                            "name": "setLocalDescription",
-                            "override-signatures": [
-                                "setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>"
-                            ]
-                        },
-                        "setRemoteDescription": {
-                            "name": "setRemoteDescription",
-                            "override-signatures": [
-                                "setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>"
-                            ]
-                        },
-                        "addIceCandidate": {
-                            "name": "addIceCandidate",
-                            "override-signatures": [
-                                "addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate): Promise<void>"
-                            ]
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -2229,9 +2194,11 @@
                     "method": {
                         "match": {
                             "name": "match",
-                            "override-signatures": [
-                                "match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<Response | undefined>"
+                                }
+                            }
                         }
                     }
                 }
@@ -2242,9 +2209,11 @@
                     "method": {
                         "match": {
                             "name": "match",
-                            "override-signatures": [
-                                "match(request: RequestInfo, options?: MultiCacheQueryOptions): Promise<Response | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<Response | undefined>"
+                                }
+                            }
                         }
                     }
                 }
@@ -2267,10 +2236,16 @@
             "KeyframeEffect": {
                 "name": "KeyframeEffect",
                 "constructor": {
-                    "override-signatures": [
-                        "new(target: Element | null, keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeEffectOptions): KeyframeEffect",
-                        "new(source: KeyframeEffect): KeyframeEffect"
-                    ]
+                    "signature": {
+                        "0": {
+                            "param": [
+                                {
+                                    "name": "keyframes",
+                                    "override-type": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                }
+                            ]
+                        }
+                    }
                 },
                 "properties": {
                     "property": {
@@ -2283,16 +2258,23 @@
                 "methods": {
                     "method": {
                         "getKeyframes": {
-                            "name": "getKeyframes",
-                            "override-signatures": [
-                                "getKeyframes(): ComputedKeyframe[]"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "ComputedKeyframe[]"
+                                }
+                            }
                         },
                         "setKeyframes": {
-                            "name": "setKeyframes",
-                            "override-signatures": [
-                                "setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "keyframes",
+                                            "override-type": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2556,14 +2538,23 @@
                             ]
                         },
                         "pipeTo": {
-                            "override-signatures": [
-                                "pipeTo(dest: WritableStream<R>, options?: StreamPipeOptions): Promise<void>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "destination",
+                                            "override-type": "WritableStream<R>"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "tee": {
-                            "override-signatures": [
-                                "tee(): [ReadableStream<R>, ReadableStream<R>]"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "[ReadableStream<R>, ReadableStream<R>]"
+                                }
+                            }
                         }
                     }
                 }
@@ -2583,9 +2574,11 @@
                 "methods": {
                     "method": {
                         "read": {
-                            "override-signatures": [
-                                "read(): Promise<ReadableStreamDefaultReadResult<R>>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<ReadableStreamDefaultReadResult<R>>"
+                                }
+                            }
                         }
                     }
                 }
@@ -2630,9 +2623,11 @@
                 "methods": {
                     "method": {
                         "getWriter": {
-                            "override-signatures": [
-                                "getWriter(): WritableStreamDefaultWriter<W>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "WritableStreamDefaultWriter<W>"
+                                }
+                            }
                         }
                     }
                 }
@@ -2652,9 +2647,16 @@
                 "methods": {
                     "method": {
                         "write": {
-                            "override-signatures": [
-                                "write(chunk: W): Promise<void>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "chunk",
+                                            "override-type": "W"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2704,9 +2706,16 @@
                 "methods": {
                     "method": {
                         "enqueue": {
-                            "override-signatures": [
-                                "enqueue(chunk: O): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "chunk",
+                                            "override-type": "O"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2773,9 +2782,16 @@
                 "methods": {
                     "method": {
                         "query": {
-                            "override-signatures": [
-                                "query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "permissionDesc",
+                                            "override-type": "PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2825,9 +2841,11 @@
                     "method": {
                         "get": {
                             "name": "get",
-                            "override-signatures": [
-                                "get(keyId: BufferSource): MediaKeyStatus | undefined"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "MediaKeyStatus | undefined"
+                                }
+                            }
                         }
                     }
                 }
@@ -2859,9 +2877,11 @@
                 "methods": {
                     "method": {
                         "get": {
-                            "override-signatures": [
-                                "get(id: string): Promise<Client | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<Client | undefined>"
+                                }
+                            }
                         },
                         "matchAll": {
                             "override-signatures": [

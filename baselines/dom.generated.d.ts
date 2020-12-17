@@ -11052,13 +11052,16 @@ interface RTCPeerConnection extends EventTarget {
     readonly pendingRemoteDescription: RTCSessionDescription | null;
     readonly remoteDescription: RTCSessionDescription | null;
     readonly signalingState: RTCSignalingState;
-    addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate): Promise<void>;
+    addIceCandidate(candidate?: RTCIceCandidateInit): Promise<void>;
+    addIceCandidate(candidate: RTCIceCandidateInit, successCallback: VoidFunction, failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
     addTrack(track: MediaStreamTrack, ...streams: MediaStream[]): RTCRtpSender;
     addTransceiver(trackOrKind: MediaStreamTrack | string, init?: RTCRtpTransceiverInit): RTCRtpTransceiver;
     close(): void;
-    createAnswer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
+    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
+    createAnswer(successCallback: RTCSessionDescriptionCallback, failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
     createDataChannel(label: string, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
     createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
+    createOffer(successCallback: RTCSessionDescriptionCallback, failureCallback: RTCPeerConnectionErrorCallback, options?: RTCOfferOptions): Promise<void>;
     getConfiguration(): RTCConfiguration;
     getReceivers(): RTCRtpReceiver[];
     getSenders(): RTCRtpSender[];
@@ -11067,8 +11070,10 @@ interface RTCPeerConnection extends EventTarget {
     removeTrack(sender: RTCRtpSender): void;
     restartIce(): void;
     setConfiguration(configuration?: RTCConfiguration): void;
-    setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>;
+    setLocalDescription(description?: RTCLocalSessionDescriptionInit): Promise<void>;
+    setLocalDescription(description: RTCLocalSessionDescriptionInit, successCallback: VoidFunction, failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
     setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
+    setRemoteDescription(description: RTCSessionDescriptionInit, successCallback: VoidFunction, failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
     addEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof RTCPeerConnectionEventMap>(type: K, listener: (this: RTCPeerConnection, ev: RTCPeerConnectionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -11247,7 +11252,7 @@ interface ReadableStream<R = any> {
     cancel(reason?: any): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
     pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
-    pipeTo(dest: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
+    pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
     forEach(callbackfn: (value: any, key: number, parent: ReadableStream<R>) => void, thisArg?: any): void;
 }
@@ -14025,7 +14030,7 @@ declare var TransformStream: {
 
 interface TransformStreamDefaultController<O = any> {
     readonly desiredSize: number | null;
-    enqueue(chunk: O): void;
+    enqueue(chunk?: O): void;
     error(reason?: any): void;
     terminate(): void;
 }
@@ -16577,7 +16582,7 @@ interface WritableStreamDefaultWriter<W = any> {
     abort(reason?: any): Promise<void>;
     close(): Promise<void>;
     releaseLock(): void;
-    write(chunk: W): Promise<void>;
+    write(chunk?: W): Promise<void>;
 }
 
 declare var WritableStreamDefaultWriter: {

@@ -2517,7 +2517,7 @@ interface ReadableStream<R = any> {
     cancel(reason?: any): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
     pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
-    pipeTo(dest: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
+    pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
     forEach(callbackfn: (value: any, key: number, parent: ReadableStream<R>) => void, thisArg?: any): void;
 }
@@ -2931,7 +2931,7 @@ declare var TransformStream: {
 
 interface TransformStreamDefaultController<O = any> {
     readonly desiredSize: number | null;
-    enqueue(chunk: O): void;
+    enqueue(chunk?: O): void;
     error(reason?: any): void;
     terminate(): void;
 }
@@ -5205,7 +5205,7 @@ interface WritableStreamDefaultWriter<W = any> {
     abort(reason?: any): Promise<void>;
     close(): Promise<void>;
     releaseLock(): void;
-    write(chunk: W): Promise<void>;
+    write(chunk?: W): Promise<void>;
 }
 
 declare var WritableStreamDefaultWriter: {

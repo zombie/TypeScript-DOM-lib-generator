@@ -4533,12 +4533,7 @@ interface DocumentOrShadowRoot {
      * Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document.
      */
     readonly styleSheets: StyleSheetList;
-    /** @deprecated */
-    caretRangeFromPoint(x: number, y: number): Range;
-    elementFromPoint(x: number, y: number): Element | null;
-    elementsFromPoint(x: number, y: number): Element[];
     getAnimations(): Animation[];
-    getSelection(): Selection | null;
 }
 
 interface DocumentTimeline extends AnimationTimeline {

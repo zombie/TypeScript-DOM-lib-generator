@@ -19,47 +19,6 @@
                     ]
                 }
             },
-            "DocumentOrShadowRoot": {
-                "name": "DocumentOrShadowRoot",
-                "methods": {
-                    "method": {
-                        "getSelection": {
-                            "name": "getSelection",
-                            "override-signatures": [
-                                "getSelection(): Selection | null"
-                            ]
-                        },
-                        "elementFromPoint": {
-                            "name": "elementFromPoint",
-                            "override-signatures": [
-                                "elementFromPoint(x: number, y: number): Element | null"
-                            ]
-                        },
-                        "elementsFromPoint": {
-                            "name": "elementsFromPoint",
-                            "override-signatures": [
-                                "elementsFromPoint(x: number, y: number): Element[]"
-                            ]
-                        },
-                        "caretRangeFromPoint": {
-                            "name": "caretRangeFromPoint",
-                            "deprecated": 1,
-                            "override-signatures": [
-                                "caretRangeFromPoint(x: number, y: number): Range"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "activeElement": {
-                            "name": "activeElement",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        }
-                    }
-                }
-            },
             "GlobalEventHandlers": {
                 "attributeless-events": {
                     "event": [

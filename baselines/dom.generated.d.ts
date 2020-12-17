@@ -927,7 +927,7 @@ interface PaymentDetailsInit extends PaymentDetailsBase {
 interface PaymentDetailsModifier {
     additionalDisplayItems?: PaymentItem[];
     data?: any;
-    supportedMethods: string | string[];
+    supportedMethods: string;
     total?: PaymentItem;
 }
 
@@ -952,7 +952,7 @@ interface PaymentMethodChangeEventInit extends PaymentRequestUpdateEventInit {
 
 interface PaymentMethodData {
     data?: any;
-    supportedMethods: string | string[];
+    supportedMethods: string;
 }
 
 interface PaymentOptions {

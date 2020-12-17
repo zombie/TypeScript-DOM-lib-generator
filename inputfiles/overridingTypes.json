@@ -2636,52 +2636,6 @@
                     }
                 }
             },
-            "RequestInit": {
-                "name": "RequestInit",
-                "members": {
-                    "member": {
-                        "headers": {
-                            "name": "headers",
-                            "override-type": "HeadersInit",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "ResponseInit": {
-                "name": "ResponseInit",
-                "members": {
-                    "member": {
-                        "headers": {
-                            "name": "headers",
-                            "override-type": "HeadersInit",
-                            "required": 0
-                        }
-                    }
-                }
-            },
-            "PaymentMethodData": {
-                "name": "PaymentMethodData",
-                "members": {
-                    "member": {
-                        "supportedMethods": {
-                            "name": "supportedMethods",
-                            "override-type": "string | string[]"
-                        }
-                    }
-                }
-            },
-            "PaymentDetailsModifier": {
-                "name": "PaymentDetailsModifier",
-                "members": {
-                    "member": {
-                        "supportedMethods": {
-                            "name": "supportedMethods",
-                            "override-type": "string | string[]"
-                        }
-                    }
-                }
-            },
             "ClientQueryOptions": {
                 "name": "ClientQueryOptions",
                 "members": {

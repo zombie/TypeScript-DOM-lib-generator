@@ -552,13 +552,11 @@
                 "methods": {
                     "method": {
                         "alert": {
-                            "name": "alert",
                             "override-signatures": [
                                 "alert(message?: any): void"
                             ]
                         },
                         "postMessage": {
-                            "name": "postMessage",
                             "signature": {
                                 "0": {
                                     "param": [
@@ -1594,10 +1592,24 @@
                 "methods": {
                     "method": {
                         "setSelectionRange": {
-                            "name": "setSelectionRange",
-                            "override-signatures": [
-                                "setSelectionRange(start: number | null, end: number | null, direction?: \"forward\" | \"backward\" | \"none\"): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "start",
+                                            "nullable": 1
+                                        },
+                                        {
+                                            "name": "end",
+                                            "nullable": 1
+                                        },
+                                        {
+                                            "name": "direction",
+                                            "override-type": "\"forward\" | \"backward\" | \"none\""
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -1769,10 +1781,24 @@
                 "methods": {
                     "method": {
                         "setSelectionRange": {
-                            "name": "setSelectionRange",
-                            "override-signatures": [
-                                "setSelectionRange(start: number | null, end: number | null, direction?: \"forward\" | \"backward\" | \"none\"): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "start",
+                                            "nullable": 1
+                                        },
+                                        {
+                                            "name": "end",
+                                            "nullable": 1
+                                        },
+                                        {
+                                            "name": "direction",
+                                            "override-type": "\"forward\" | \"backward\" | \"none\""
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 },
@@ -1787,10 +1813,11 @@
                 "methods": {
                     "method": {
                         "getRegistration": {
-                            "name": "getRegistration",
-                            "override-signatures": [
-                                "getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "Promise<ServiceWorkerRegistration | undefined>"
+                                }
+                            }
                         }
                     }
                 },
@@ -1831,16 +1858,6 @@
                         "cells": {
                             "name": "cells",
                             "override-type": "HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "insertCell": {
-                            "name": "insertCell",
-                            "override-signatures": [
-                                "insertCell(index?: number): HTMLTableDataCellElement"
-                            ]
                         }
                     }
                 }
@@ -1985,20 +2002,6 @@
                     ]
                 }
             },
-            "EventTarget": {
-                "name": "EventTarget",
-                "override-exposed": "Window Worker",
-                "methods": {
-                    "method": {
-                        "addEventListener": {
-                            "name": "addEventListener",
-                            "override-signatures": [
-                                "addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "Client": {
                 "name": "Client",
                 "properties": {
@@ -2012,10 +2015,16 @@
                 "methods": {
                     "method": {
                         "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any, transfer?: Transferable[]): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "transfer",
+                                            "override-type": "Transferable[]"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2340,12 +2349,16 @@
                 "methods": {
                     "method": {
                         "postMessage": {
-                            "deprecated": 0,
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any, transfer: Transferable[]): void",
-                                "postMessage(message: any, options?: PostMessageOptions): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "transfer",
+                                            "override-type": "Transferable[]"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2432,11 +2445,16 @@
                 "methods": {
                     "method": {
                         "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any, transfer: Transferable[]): void",
-                                "postMessage(message: any, options?: PostMessageOptions): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "transfer",
+                                            "override-type": "Transferable[]"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2446,11 +2464,16 @@
                 "methods": {
                     "method": {
                         "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any, transfer: Transferable[]): void",
-                                "postMessage(message: any, options?: PostMessageOptions): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "transfer",
+                                            "override-type": "Transferable[]"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -2460,11 +2483,16 @@
                 "methods": {
                     "method": {
                         "postMessage": {
-                            "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any, transfer: Transferable[]): void",
-                                "postMessage(message: any, options?: PostMessageOptions): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "transfer",
+                                            "override-type": "Transferable[]"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }

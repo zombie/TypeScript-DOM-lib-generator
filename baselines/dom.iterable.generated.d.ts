@@ -137,6 +137,15 @@ interface MessageEvent<T = any> {
     initMessageEvent(type: string, bubbles?: boolean, cancelable?: boolean, data?: any, origin?: string, lastEventId?: string, source?: MessageEventSource | null, ports?: Iterable<MessagePort>): void;
 }
 
+interface MessagePort {
+    /**
+     * Posts a message through the channel. Objects listed in transfer are transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * 
+     * Throws a "DataCloneError" DOMException if transfer contains duplicate objects or port, or if message could not be cloned.
+     */
+    postMessage(message: any, transfer: Transferable[]): void;
+}
+
 interface MimeTypeArray {
     [Symbol.iterator](): IterableIterator<MimeType>;
 }
@@ -218,6 +227,10 @@ interface SVGStringList {
 
 interface SVGTransformList {
     [Symbol.iterator](): IterableIterator<SVGTransform>;
+}
+
+interface ServiceWorker {
+    postMessage(message: any, transfer: Transferable[]): void;
 }
 
 interface SourceBufferList {
@@ -342,4 +355,11 @@ interface Window {
      * Throws a "DataCloneError" DOMException if transfer array contains duplicate objects or if message could not be cloned.
      */
     postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
+}
+
+interface Worker {
+    /**
+     * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
+     */
+    postMessage(message: any, transfer: Transferable[]): void;
 }

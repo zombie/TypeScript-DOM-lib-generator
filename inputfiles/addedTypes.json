@@ -80,6 +80,10 @@
                             "type": "MouseEvent"
                         },
                         {
+                            "name": "blur",
+                            "type": "FocusEvent"
+                        },
+                        {
                             "name": "cancel",
                             "type": "Event"
                         },
@@ -114,6 +118,10 @@
                         {
                             "name": "drop",
                             "type": "DragEvent"
+                        },
+                        {
+                            "name": "focus",
+                            "type": "FocusEvent"
                         },
                         {
                             "name": "keydown",
@@ -158,6 +166,10 @@
                         {
                             "name": "pause",
                             "type": "Event"
+                        },
+                        {
+                            "name": "resize",
+                            "type": "UIEvent"
                         },
                         {
                             "name": "scroll",
@@ -437,20 +449,6 @@
                         "customElements": {
                             "name": "customElements",
                             "type": "CustomElementRegistry"
-                        },
-                        "ongamepadconnected": {
-                            "name": "ongamepadconnected",
-                            "type-original": "EventHandler",
-                            "nullable": 1,
-                            "type": "EventHandlerNonNull",
-                            "event-handler": "gamepadconnected"
-                        },
-                        "ongamepaddisconnected": {
-                            "name": "ongamepaddisconnected",
-                            "type-original": "EventHandler",
-                            "nullable": 1,
-                            "type": "EventHandlerNonNull",
-                            "event-handler": "gamepaddisconnected"
                         }
                     }
                 },
@@ -461,17 +459,50 @@
                         }
                     }
                 },
-                "implements": [
-                    "WindowEventHandlers"
-                ],
                 "override-index-signatures": [
                     "[index: number]: Window"
                 ],
+                "attributeless-events": {
+                    "event": [
+                        {
+                            "name": "gamepadconnected",
+                            "type": "GamepadEvent"
+                        },
+                        {
+                            "name": "gamepaddisconnected",
+                            "type": "GamepadEvent"
+                        }
+                    ]
+                },
                 "events": {
                     "event": [
                         {
-                            "name": "deviceorientationabsolute",
+                            "name": "beforeunload",
+                            "type": "BeforeUnloadEvent"
+                        },
+                        {
+                            "name": "devicemotion",
+                            "type": "DeviceMotionEvent"
+                        },
+                        {
+                            "name": "deviceorientation",
                             "type": "DeviceOrientationEvent"
+                        },
+                        {
+                            "name": "pagehide",
+                            "type": "PageTransitionEvent"
+                        },
+                        {
+                            "name": "pageshow",
+                            "type": "PageTransitionEvent"
+                        },
+                        {
+                            "name": "popstate",
+                            "type": "PopStateEvent"
+                        },
+                        {
+                            "name": "storage",
+                            "type": "StorageEvent"
                         }
                     ]
                 }
@@ -1458,10 +1489,6 @@
                     "property": {
                         "charset": {
                             "deprecated": 1
-                        },
-                        "disabled": {
-                            "name": "disabled",
-                            "type": "boolean"
                         },
                         "rev": {
                             "deprecated": 1

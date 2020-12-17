@@ -1650,6 +1650,10 @@ interface StreamPipeOptions {
     signal?: AbortSignal;
 }
 
+interface SubmitEventInit extends EventInit {
+    submitter?: HTMLElement | null;
+}
+
 interface TextDecodeOptions {
     stream?: boolean;
 }
@@ -1757,6 +1761,10 @@ interface WheelEventInit extends MouseEventInit {
     deltaX?: number;
     deltaY?: number;
     deltaZ?: number;
+}
+
+interface WindowPostMessageOptions extends PostMessageOptions {
+    targetOrigin?: string;
 }
 
 interface WorkerOptions {
@@ -3443,9 +3451,9 @@ declare var CryptoKey: {
 
 interface CustomElementRegistry {
     define(name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions): void;
-    get(name: string): any;
+    get(name: string): CustomElementConstructor | undefined;
     upgrade(root: Node): void;
-    whenDefined(name: string): Promise<void>;
+    whenDefined(name: string): Promise<CustomElementConstructor>;
 }
 
 declare var CustomElementRegistry: {
@@ -4309,6 +4317,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
+    createEvent(eventInterface: "SubmitEvent"): SubmitEvent;
     createEvent(eventInterface: "TouchEvent"): TouchEvent;
     createEvent(eventInterface: "TrackEvent"): TrackEvent;
     createEvent(eventInterface: "TransitionEvent"): TransitionEvent;
@@ -4502,6 +4511,13 @@ declare var DocumentFragment: {
 };
 
 interface DocumentOrShadowRoot {
+    /**
+     * Returns the deepest element in the document through which or to which key events are being routed. This is, roughly speaking, the focused element in the document.
+     * 
+     * For the purposes of this API, when a child browsing context is focused, its browsing context container is focused in the parent browsing context. For example, if the user moves the focus to a text control in an iframe, the iframe is the element returned by the activeElement API in the iframe's node document.
+     * 
+     * Similarly, when the focused element is in a different node tree than documentOrShadowRoot, the element returned will be the host that's located in the same node tree as documentOrShadowRoot if documentOrShadowRoot is a shadow-including inclusive ancestor of the focused element, and null if not.
+     */
     readonly activeElement: Element | null;
     /**
      * Returns document's fullscreen element.
@@ -5182,7 +5198,6 @@ interface GlobalEventHandlersEventMap {
     "drag": DragEvent;
     "dragend": DragEvent;
     "dragenter": DragEvent;
-    "dragexit": Event;
     "dragleave": DragEvent;
     "dragover": DragEvent;
     "dragstart": DragEvent;
@@ -5249,6 +5264,10 @@ interface GlobalEventHandlersEventMap {
     "transitionstart": TransitionEvent;
     "volumechange": Event;
     "waiting": Event;
+    "webkitanimationend": Event;
+    "webkitanimationiteration": Event;
+    "webkitanimationstart": Event;
+    "webkittransitionend": Event;
     "wheel": WheelEvent;
 }
 
@@ -5311,8 +5330,6 @@ interface GlobalEventHandlers {
      * @param ev The drag event.
      */
     ondragenter: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null;
-    /** @deprecated */
-    ondragexit: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
      * @param ev The drag event.
@@ -5517,6 +5534,10 @@ interface GlobalEventHandlers {
      * @param ev The event.
      */
     onwaiting: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onwebkitanimationend: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onwebkitanimationiteration: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onwebkitanimationstart: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    onwebkittransitionend: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
     addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -6383,8 +6404,6 @@ interface HTMLIFrameElement extends HTMLElement {
     align: string;
     allow: string;
     allowFullscreen: boolean;
-    /** @deprecated */
-    allowPaymentRequest: boolean;
     /**
      * Retrieves the document object of the page or frame.
      */
@@ -9771,7 +9790,7 @@ interface NavigatorConcurrentHardware {
 }
 
 interface NavigatorContentUtils {
-    registerProtocolHandler(scheme: string, url: string, title: string): void;
+    registerProtocolHandler(scheme: string, url: string): void;
     unregisterProtocolHandler(scheme: string, url: string): void;
 }
 
@@ -13566,6 +13585,18 @@ declare var StyleSheetList: {
     new(): StyleSheetList;
 };
 
+interface SubmitEvent extends Event {
+    /**
+     * Returns the element representing the submit button that triggered the form submission, or null if the submission was not triggered by a button.
+     */
+    readonly submitter: HTMLElement | null;
+}
+
+declare var SubmitEvent: {
+    prototype: SubmitEvent;
+    new(type: string, eventInitDict?: SubmitEventInit): SubmitEvent;
+};
+
 /** This Web Crypto API interface provides a number of low-level cryptographic functions. It is accessed via the Crypto.subtle properties available in a window context (via Window.crypto). */
 interface SubtleCrypto {
     decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer): Promise<ArrayBuffer>;
@@ -16287,15 +16318,18 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
 interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandlers, WindowEventHandlers, WindowLocalStorage, WindowOrWorkerGlobalScope, WindowSessionStorage {
     readonly closed: boolean;
-    customElements: CustomElementRegistry;
+    /**
+     * Defines a new custom element, mapping the given name to the given constructor as an autonomous custom element.
+     */
+    readonly customElements: CustomElementRegistry;
     readonly devicePixelRatio: number;
     readonly document: Document;
     /** @deprecated */
     readonly event: Event | undefined;
     /** @deprecated */
     readonly external: External;
-    readonly frameElement: Element;
-    readonly frames: Window;
+    readonly frameElement: Element | null;
+    readonly frames: WindowProxy;
     readonly history: History;
     readonly innerHeight: number;
     readonly innerWidth: number;
@@ -16307,8 +16341,6 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly navigator: Navigator;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
-    ongamepadconnected: ((this: Window, ev: GamepadEvent) => any) | null;
-    ongamepaddisconnected: ((this: Window, ev: GamepadEvent) => any) | null;
     opener: any;
     /** @deprecated */
     readonly orientation: string | number;
@@ -16316,7 +16348,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly outerWidth: number;
     readonly pageXOffset: number;
     readonly pageYOffset: number;
-    readonly parent: Window;
+    readonly parent: WindowProxy | null;
     readonly personalbar: BarProp;
     readonly screen: Screen;
     readonly screenLeft: number;
@@ -16332,7 +16364,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     status: string;
     readonly statusbar: BarProp;
     readonly toolbar: BarProp;
-    readonly top: Window;
+    readonly top: WindowProxy | null;
     readonly visualViewport: VisualViewport;
     readonly window: Window & typeof globalThis;
     alert(message?: any): void;
@@ -16341,6 +16373,9 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     captureEvents(): void;
     close(): void;
     confirm(message?: string): boolean;
+    /**
+     * Moves the focus to the window's browsing context, if any.
+     */
     focus(): void;
     getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
     getSelection(): Selection | null;
@@ -16348,6 +16383,17 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     moveBy(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
+    /**
+     * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
+     * 
+     * Objects listed in the transfer member of options are transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * 
+     * A target origin can be specified using the targetOrigin member of options. If not provided, it defaults to "/". This default restricts the message to same-origin targets only.
+     * 
+     * If the origin of the target window doesn't match the given target origin, the message is discarded, to avoid information leakage. To send the message to the target regardless of origin, set the target origin to "*".
+     * 
+     * Throws a "DataCloneError" DOMException if transfer array contains duplicate objects or if message could not be cloned.
+     */
     postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
     print(): void;
     prompt(message?: string, _default?: string): string | null;
@@ -16378,7 +16424,7 @@ interface WindowEventHandlersEventMap {
     "afterprint": Event;
     "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
-    "hashchange": HashChangeEvent;
+    "hashchange": Event;
     "languagechange": Event;
     "message": MessageEvent;
     "messageerror": MessageEvent;
@@ -16397,7 +16443,7 @@ interface WindowEventHandlers {
     onafterprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeunload: ((this: WindowEventHandlers, ev: BeforeUnloadEvent) => any) | null;
-    onhashchange: ((this: WindowEventHandlers, ev: HashChangeEvent) => any) | null;
+    onhashchange: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onlanguagechange: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onmessage: ((this: WindowEventHandlers, ev: MessageEvent) => any) | null;
     onmessageerror: ((this: WindowEventHandlers, ev: MessageEvent) => any) | null;
@@ -16931,10 +16977,6 @@ interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
 }
 
-interface EventHandlerNonNull {
-    (event: Event): any;
-}
-
 interface ForEachCallback {
     (keyId: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, status: MediaKeyStatus): void;
 }
@@ -17240,6 +17282,9 @@ declare var Option: {
     new(text?: string, value?: string, defaultSelected?: boolean, selected?: boolean): HTMLOptionElement;
 };
 declare var closed: boolean;
+/**
+ * Defines a new custom element, mapping the given name to the given constructor as an autonomous custom element.
+ */
 declare var customElements: CustomElementRegistry;
 declare var devicePixelRatio: number;
 declare var document: Document;
@@ -17247,8 +17292,8 @@ declare var document: Document;
 declare var event: Event | undefined;
 /** @deprecated */
 declare var external: External;
-declare var frameElement: Element;
-declare var frames: Window;
+declare var frameElement: Element | null;
+declare var frames: WindowProxy;
 declare var history: History;
 declare var innerHeight: number;
 declare var innerWidth: number;
@@ -17261,8 +17306,6 @@ declare const name: void;
 declare var navigator: Navigator;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
-declare var ongamepadconnected: ((this: Window, ev: GamepadEvent) => any) | null;
-declare var ongamepaddisconnected: ((this: Window, ev: GamepadEvent) => any) | null;
 declare var opener: any;
 /** @deprecated */
 declare var orientation: string | number;
@@ -17270,7 +17313,7 @@ declare var outerHeight: number;
 declare var outerWidth: number;
 declare var pageXOffset: number;
 declare var pageYOffset: number;
-declare var parent: Window;
+declare var parent: WindowProxy | null;
 declare var personalbar: BarProp;
 declare var screen: Screen;
 declare var screenLeft: number;
@@ -17286,7 +17329,7 @@ declare var speechSynthesis: SpeechSynthesis;
 declare var status: string;
 declare var statusbar: BarProp;
 declare var toolbar: BarProp;
-declare var top: Window;
+declare var top: WindowProxy | null;
 declare var visualViewport: VisualViewport;
 declare var window: Window & typeof globalThis;
 declare function alert(message?: any): void;
@@ -17295,6 +17338,9 @@ declare function blur(): void;
 declare function captureEvents(): void;
 declare function close(): void;
 declare function confirm(message?: string): boolean;
+/**
+ * Moves the focus to the window's browsing context, if any.
+ */
 declare function focus(): void;
 declare function getComputedStyle(elt: Element, pseudoElt?: string | null): CSSStyleDeclaration;
 declare function getSelection(): Selection | null;
@@ -17302,6 +17348,17 @@ declare function matchMedia(query: string): MediaQueryList;
 declare function moveBy(x: number, y: number): void;
 declare function moveTo(x: number, y: number): void;
 declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
+/**
+ * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
+ * 
+ * Objects listed in the transfer member of options are transferred, not just cloned, meaning that they are no longer usable on the sending side.
+ * 
+ * A target origin can be specified using the targetOrigin member of options. If not provided, it defaults to "/". This default restricts the message to same-origin targets only.
+ * 
+ * If the origin of the target window doesn't match the given target origin, the message is discarded, to avoid information leakage. To send the message to the target regardless of origin, set the target origin to "*".
+ * 
+ * Throws a "DataCloneError" DOMException if transfer array contains duplicate objects or if message could not be cloned.
+ */
 declare function postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
@@ -17321,8 +17378,6 @@ declare function toString(): string;
  * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
  */
 declare function dispatchEvent(event: Event): boolean;
-declare var sessionStorage: Storage;
-declare var localStorage: Storage;
 /**
  * Fires when the user aborts the download.
  * @param ev The event.
@@ -17381,8 +17436,6 @@ declare var ondragend: ((this: Window, ev: DragEvent) => any) | null;
  * @param ev The drag event.
  */
 declare var ondragenter: ((this: Window, ev: DragEvent) => any) | null;
-/** @deprecated */
-declare var ondragexit: ((this: Window, ev: Event) => any) | null;
 /**
  * Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
  * @param ev The drag event.
@@ -17587,9 +17640,27 @@ declare var onvolumechange: ((this: Window, ev: Event) => any) | null;
  * @param ev The event.
  */
 declare var onwaiting: ((this: Window, ev: Event) => any) | null;
+declare var onwebkitanimationend: ((this: Window, ev: Event) => any) | null;
+declare var onwebkitanimationiteration: ((this: Window, ev: Event) => any) | null;
+declare var onwebkitanimationstart: ((this: Window, ev: Event) => any) | null;
+declare var onwebkittransitionend: ((this: Window, ev: Event) => any) | null;
 declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
-declare function cancelAnimationFrame(handle: number): void;
-declare function requestAnimationFrame(callback: FrameRequestCallback): number;
+declare var onafterprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
+declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
+declare var onhashchange: ((this: Window, ev: Event) => any) | null;
+declare var onlanguagechange: ((this: Window, ev: Event) => any) | null;
+declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
+declare var onmessageerror: ((this: Window, ev: MessageEvent) => any) | null;
+declare var onoffline: ((this: Window, ev: Event) => any) | null;
+declare var ononline: ((this: Window, ev: Event) => any) | null;
+declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
+declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
+declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
+declare var onrejectionhandled: ((this: Window, ev: PromiseRejectionEvent) => any) | null;
+declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
+declare var onunhandledrejection: ((this: Window, ev: PromiseRejectionEvent) => any) | null;
+declare var onunload: ((this: Window, ev: Event) => any) | null;
 declare var caches: CacheStorage;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
@@ -17606,22 +17677,10 @@ declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response
 declare function queueMicrotask(callback: VoidFunction): void;
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
-declare var onafterprint: ((this: Window, ev: Event) => any) | null;
-declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
-declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
-declare var onhashchange: ((this: Window, ev: HashChangeEvent) => any) | null;
-declare var onlanguagechange: ((this: Window, ev: Event) => any) | null;
-declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
-declare var onmessageerror: ((this: Window, ev: MessageEvent) => any) | null;
-declare var onoffline: ((this: Window, ev: Event) => any) | null;
-declare var ononline: ((this: Window, ev: Event) => any) | null;
-declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
-declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
-declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
-declare var onrejectionhandled: ((this: Window, ev: PromiseRejectionEvent) => any) | null;
-declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
-declare var onunhandledrejection: ((this: Window, ev: PromiseRejectionEvent) => any) | null;
-declare var onunload: ((this: Window, ev: Event) => any) | null;
+declare function cancelAnimationFrame(handle: number): void;
+declare function requestAnimationFrame(callback: FrameRequestCallback): number;
+declare var sessionStorage: Storage;
+declare var localStorage: Storage;
 declare function addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
 declare function addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | EventListenerOptions): void;

@@ -211,39 +211,6 @@
                 "extends": null
             },
             "WebKitCSSMatrix": null,
-            "Window": {
-                "properties": {
-                    "property": {
-                        "crypto": null,
-                        "isSecureContext": null,
-                        "performance": null,
-                        "onvrdisplayconnect": null,
-                        "onvrdisplaydisconnect": null
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "cancelAnimationFrame": null,
-                        "requestAnimationFrame": null
-                    }
-                },
-                "events": {
-                    "event": [
-                        "devicelight",
-                        "navigatingfocus",
-                        "onvrdisplayconnected",
-                        "onvrdisplaydisconnected",
-                        "onvrdisplaypresentchange"
-                    ]
-                },
-                "implements": [
-                    "GlobalFetch",
-                    "IDBEnvironment",
-                    "WindowBase64",
-                    "WindowTimers",
-                    "WindowConsole"
-                ]
-            },
             "XPathNSResolver": null
         }
     },

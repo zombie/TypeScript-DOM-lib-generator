@@ -2745,24 +2745,8 @@ declare var ServiceWorkerRegistration: {
     new(): ServiceWorkerRegistration;
 };
 
-interface SharedWorker extends EventTarget, AbstractWorker {
-    /**
-     * Returns sharedWorker's MessagePort object which can be used to communicate with the global environment.
-     */
-    readonly port: MessagePort;
-    addEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AbstractWorkerEventMap>(type: K, listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var SharedWorker: {
-    prototype: SharedWorker;
-    new(scriptURL: string, options?: string | WorkerOptions): SharedWorker;
-};
-
 interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "connect": MessageEvent;
+    "connect": Event;
 }
 
 interface SharedWorkerGlobalScope extends WorkerGlobalScope {
@@ -2770,7 +2754,7 @@ interface SharedWorkerGlobalScope extends WorkerGlobalScope {
      * Returns sharedWorkerGlobal's name, i.e. the value given to the SharedWorker constructor. Multiple SharedWorker objects can correspond to the same shared worker (and SharedWorkerGlobalScope), by reusing the same name.
      */
     readonly name: string;
-    onconnect: ((this: SharedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    onconnect: ((this: SharedWorkerGlobalScope, ev: Event) => any) | null;
     /**
      * Aborts sharedWorkerGlobal.
      */

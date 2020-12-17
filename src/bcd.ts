@@ -201,6 +201,7 @@ const forceKeepAlive: Record<string, string[]> = {
   "HTMLLegendElement": ["align", "form"],
   "HTMLLinkElement": [
     "charset",
+    "disabled",
     "href",
     "hreflang",
     "imageSizes",

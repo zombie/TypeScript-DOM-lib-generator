@@ -4942,6 +4942,7 @@ declare var EventTarget: {
     new(): EventTarget;
 };
 
+/** @deprecated */
 interface External {
     /** @deprecated */
     AddSearchProvider(): void;
@@ -6078,6 +6079,7 @@ declare var HTMLFieldSetElement: {
 };
 
 /** Implements the document object model (DOM) representation of the font element. The HTML Font Element <font> defines the font size, font face and color of text. */
+/** @deprecated */
 interface HTMLFontElement extends HTMLElement {
     /** @deprecated */
     color: string;
@@ -6186,6 +6188,7 @@ declare var HTMLFormElement: {
     new(): HTMLFormElement;
 };
 
+/** @deprecated */
 interface HTMLFrameElement extends HTMLElement {
     /**
      * Retrieves the document object of the page or frame.
@@ -6252,6 +6255,7 @@ interface HTMLFrameSetElementEventMap extends HTMLElementEventMap, WindowEventHa
 }
 
 /** Provides special properties (beyond those of the regular HTMLElement interface they also inherit) for manipulating <frameset> elements. */
+/** @deprecated */
 interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
     /**
      * Sets or retrieves the frame widths of the object.
@@ -6885,6 +6889,7 @@ declare var HTMLMapElement: {
 };
 
 /** Provides methods to manipulate <marquee> elements. */
+/** @deprecated */
 interface HTMLMarqueeElement extends HTMLElement {
     /** @deprecated */
     behavior: string;
@@ -9422,6 +9427,7 @@ declare var MediaStreamAudioSourceNode: {
 };
 
 /** Events that occurs in relation to a MediaStream. Two events of this type can be thrown: addstream and removestream. */
+/** @deprecated */
 interface MediaStreamEvent extends Event {
     /** @deprecated */
     readonly stream: MediaStream | null;

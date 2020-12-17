@@ -651,7 +651,11 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitComments(entity: { comment?: string; deprecated?: 1 }, print: (s: string) => void) {
         if (entity.comment) {
-            entity.comment.split('\n').forEach(print);
+            if (entity.comment.startsWith("/*")) {
+                entity.comment.split('\n').forEach(print);
+            } else {
+                print(`/** ${entity.comment} */`);
+            }
         }
         if (entity.deprecated && !entity.comment?.includes('@deprecated')) {
             print(`/** @deprecated */`);
@@ -879,9 +883,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             printer.printLineToStack(`interface ${getNameWithTypeParameter(i, i.name)} extends ${processedIName} {`);
         }
 
-        if (i.comment) {
-            printer.printLine(`/** ${i.comment} */`);
-        }
+        emitComments(i, printer.printLine);
 
         printer.print(`interface ${getNameWithTypeParameter(i, processedIName)}`);
 

@@ -137,11 +137,13 @@
     },
     {
         "url": "https://www.w3.org/TR/css-overflow-3/",
-        "title": "CSS Overflow"
+        "title": "CSS Overflow",
+        "shortName": "css-overflow"
     },
     {
         "url": "https://www.w3.org/TR/css-overscroll-1/",
-        "title": "CSS Overscroll Behavior"
+        "title": "CSS Overscroll Behavior",
+        "shortName": "css-overscroll"
     },
     {
         "url": "https://drafts.csswg.org/css-pseudo-4/",
@@ -621,10 +623,6 @@
         "url": "https://www.w3.org/TR/webvtt1/",
         "title": "WebVTT",
         "shortName": "webvtt"
-    },
-    {
-        "url": "https://drafts.css-houdini.org/worklets/",
-        "title": "Worklets"
     },
     {
         "url": "https://xhr.spec.whatwg.org/",

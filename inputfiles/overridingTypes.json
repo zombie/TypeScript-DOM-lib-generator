@@ -7,9 +7,16 @@
                     "method": {
                         "animate": {
                             "name": "animate",
-                            "override-signatures": [
-                                "animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "keyframes",
+                                            "override-type": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -161,7 +168,7 @@
                     "method": {
                         "getExtension": {
                             "name": "getExtension",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "getExtension(extensionName: \"EXT_blend_minmax\"): EXT_blend_minmax | null",
                                 "getExtension(extensionName: \"EXT_texture_filter_anisotropic\"): EXT_texture_filter_anisotropic | null",
                                 "getExtension(extensionName: \"EXT_frag_depth\"): EXT_frag_depth | null",
@@ -183,15 +190,21 @@
                                 "getExtension(extensionName: \"OES_texture_float\"): OES_texture_float | null",
                                 "getExtension(extensionName: \"OES_standard_derivatives\"): OES_standard_derivatives | null",
                                 "getExtension(extensionName: \"OES_element_index_uint\"): OES_element_index_uint | null",
-                                "getExtension(extensionName: \"ANGLE_instanced_arrays\"): ANGLE_instanced_arrays | null",
-                                "getExtension(extensionName: string): any"
+                                "getExtension(extensionName: \"ANGLE_instanced_arrays\"): ANGLE_instanced_arrays | null"
                             ]
                         },
                         "pixelStorei": {
                             "name": "pixelStorei",
-                            "override-signatures": [
-                                "pixelStorei(pname: GLenum, param: GLint | GLboolean): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "param",
+                                            "override-type": "GLint | GLboolean"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
@@ -210,9 +223,16 @@
     "callback-functions": {
         "callback-function": {
             "OnErrorEventHandlerNonNull": {
-                "override-signatures": [
-                    "(event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "error",
+                                "override-type": "Error"
+                            }
+                        ]
+                    }
+                }
             },
             "QueuingStrategySize": {
                 "type-parameters": [
@@ -221,9 +241,16 @@
                         "default": "any"
                     }
                 ],
-                "override-signatures": [
-                    "(chunk: T): number"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "chunk",
+                                "override-type": "T"
+                            }
+                        ]
+                    }
+                }
             },
             "UnderlyingSourceStartCallback": {
                 "type-parameters": [
@@ -231,9 +258,16 @@
                         "name": "R"
                     }
                 ],
-                "override-signatures": [
-                    "(controller: ReadableStreamController<R>): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "controller",
+                                "override-type": "ReadableStreamController<R>"
+                            }
+                        ]
+                    }
+                }
             },
             "UnderlyingSourcePullCallback": {
                 "type-parameters": [
@@ -241,19 +275,24 @@
                         "name": "R"
                     }
                 ],
-                "override-signatures": [
-                    "(controller: ReadableStreamController<R>): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "controller",
+                                "override-type": "ReadableStreamController<R>"
+                            }
+                        ],
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "UnderlyingSourceCancelCallback": {
-                "override-signatures": [
-                    "(reason: any): void | PromiseLike<void>"
-                ]
-            },
-            "UnderlyingSinkStartCallback": {
-                "override-signatures": [
-                    "(controller: WritableStreamDefaultController): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "UnderlyingSinkWriteCallback": {
                 "type-parameters": [
@@ -261,19 +300,31 @@
                         "name": "W"
                     }
                 ],
-                "override-signatures": [
-                    "(chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "chunk",
+                                "override-type": "W"
+                            }
+                        ],
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "UnderlyingSinkCloseCallback": {
-                "override-signatures": [
-                    "(): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "UnderlyingSinkAbortCallback": {
-                "override-signatures": [
-                    "(reason: any): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "TransformerFlushCallback": {
                 "type-parameters": [
@@ -281,9 +332,17 @@
                         "name": "O"
                     }
                 ],
-                "override-signatures": [
-                    "(controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "controller",
+                                "override-type": "TransformStreamDefaultController<O>"
+                            }
+                        ],
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "TransformerStartCallback": {
                 "type-parameters": [
@@ -291,9 +350,16 @@
                         "name": "O"
                     }
                 ],
-                "override-signatures": [
-                    "(controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "controller",
+                                "override-type": "TransformStreamDefaultController<O>"
+                            }
+                        ]
+                    }
+                }
             },
             "TransformerTransformCallback": {
                 "type-parameters": [
@@ -304,9 +370,21 @@
                         "name": "O"
                     }
                 ],
-                "override-signatures": [
-                    "(chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
-                ]
+                "signature": {
+                    "0": {
+                        "param": [
+                            {
+                                "name": "chunk",
+                                "override-type": "I"
+                            },
+                            {
+                                "name": "controller",
+                                "override-type": "TransformStreamDefaultController<O>"
+                            }
+                        ],
+                        "override-type": "void | PromiseLike<void>"
+                    }
+                }
             },
             "CustomElementConstructor": {
                 "override-signatures": [
@@ -353,15 +431,29 @@
                     "method": {
                         "addListener": {
                             "deprecated": 1,
-                            "override-signatures": [
-                                "addListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "callback",
+                                            "override-type": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "removeListener": {
                             "deprecated": 1,
-                            "override-signatures": [
-                                "removeListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "callback",
+                                            "override-type": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 },
@@ -428,9 +520,16 @@
                     "method": {
                         "initCustomEvent": {
                             "name": "initCustomEvent",
-                            "override-signatures": [
-                                "initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "detail",
+                                            "override-type": "T"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 },
@@ -477,12 +576,6 @@
                 },
                 "methods": {
                     "method": {
-                        "open": {
-                            "name": "open",
-                            "override-signatures": [
-                                "open(url?: string, target?: string, features?: string, replace?: boolean): Window | null"
-                            ]
-                        },
                         "alert": {
                             "name": "alert",
                             "override-signatures": [
@@ -491,9 +584,16 @@
                         },
                         "postMessage": {
                             "name": "postMessage",
-                            "override-signatures": [
-                                "postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "transfer",
+                                            "override-type": "Transferable[]"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 },
@@ -515,12 +615,6 @@
                                 "importNode<T extends Node>(importedNode: T, deep: boolean): T"
                             ]
                         },
-                        "open": {
-                            "name": "open",
-                            "override-signatures": [
-                                "open(url?: string, name?: string, features?: string, replace?: boolean): Document"
-                            ]
-                        },
                         "getElementById": {
                             "name": "getElementById",
                             "override-signatures": [
@@ -529,23 +623,31 @@
                         },
                         "getElementsByTagNameNS": {
                             "name": "getElementsByTagNameNS",
-                            "override-signatures": [
+                            "additional-signatures": [
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
-                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>",
-                                "getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>"
-                            ]
+                                "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>"
+                            ],
+                            "signature": {
+                                "0": {
+                                    "override-type": "HTMLCollectionOf<Element>"
+                                }
+                            }
                         },
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
-                            "override-signatures": [
-                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "HTMLCollectionOf<Element>"
+                                }
+                            }
                         },
                         "getElementsByName": {
                             "name": "getElementsByName",
-                            "override-signatures": [
-                                "getElementsByName(elementName: string): NodeListOf<HTMLElement>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "NodeListOf<HTMLElement>"
+                                }
+                            }
                         },
                         "createTreeWalker": {
                             "signature": [
@@ -573,13 +675,6 @@
                                     ],
                                     "deprecated": 1
                                 }
-                            ]
-                        },
-                        "caretRangeFromPoint": {
-                            "name": "caretRangeFromPoint",
-                            "deprecated": 1,
-                            "override-signatures" :[
-                                "caretRangeFromPoint(x: number, y: number): Range"
                             ]
                         }
                     }
@@ -2938,15 +3033,24 @@
             "methods": {
                 "method": {
                     "instantiate": {
-                        "override-signatures": [
-                            "instantiate(bytes: BufferSource, importObject?: Imports): Promise<WebAssemblyInstantiatedSource>",
-                            "instantiate(moduleObject: Module, importObject?: Imports): Promise<Instance>"
-                        ],
-                        "force-references": [
-                            {
-                                "type": "Imports"
+                        "signature": {
+                            "0": {
+                                "param": [
+                                    {
+                                        "name": "importObject",
+                                        "type": "Imports"
+                                    }
+                                ]
+                            },
+                            "1": {
+                                "param": [
+                                    {
+                                        "name": "importObject",
+                                        "type": "Imports"
+                                    }
+                                ]
                             }
-                        ]
+                        }
                     },
                     "instantiateStreaming": {
                         "override-signatures": [

@@ -199,67 +199,12 @@
                 "exposed": ""
             },
             "SVGSVGElement": {
-                "name": "SVGSVGElement",
-                "methods": {
-                    "method": {
-                        "animationsPaused": {
-                            "name": "animationsPaused",
-                            "override-signatures": [
-                                "animationsPaused(): boolean"
-                            ]
-                        }
-                    }
-                },
                 "element": [
                     {
                         "namespace": "SVG",
                         "name": "svg"
                     }
                 ]
-            },
-            "SVGFEDropShadowElement": {
-                "name": "SVGFEDropShadowElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "in1": {
-                            "name": "in1",
-                            "read-only": 1,
-                            "type": "SVGAnimatedString"
-                        },
-                        "dx": {
-                            "name": "dx",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        },
-                        "dy": {
-                            "name": "dy",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        },
-                        "stdDeviationX": {
-                            "name": "stdDeviationX",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        },
-                        "stdDeviationY": {
-                            "name": "stdDeviationY",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "setStdDeviation": {
-                            "name": "setStdDeviation",
-                            "override-signatures": [
-                                "setStdDeviation(stdDeviationX: number, stdDeviationY: number): void"
-                            ]
-                        }
-                    }
-                },
-                "extends": "SVGElement"
             },
             "AbortSignal": {
                 "events": {
@@ -473,9 +418,16 @@
             "URLSearchParams": {
                 "name": "URLSearchParams",
                 "constructor": {
-                    "override-signatures": [
-                        "new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams"
-                    ]
+                    "signature": {
+                        "0": {
+                            "param": [
+                                {
+                                    "name": "init",
+                                    "override-type": "string[][] | Record<string, string> | string | URLSearchParams"
+                                }
+                            ]
+                        }
+                    }
                 }
             },
             "URL": {
@@ -619,9 +571,11 @@
                     "method": {
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
-                            "override-signatures": [
-                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "HTMLCollectionOf<Element>"
+                                }
+                            }
                         },
                         "closest": {
                             "name": "closest",
@@ -632,22 +586,40 @@
                             ]
                         },
                         "insertAdjacentElement": {
-                            "name": "insertAdjacentElement",
-                            "override-signatures": [
-                                "insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "where",
+                                            "type": "InsertPosition"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "insertAdjacentHTML": {
-                            "name": "insertAdjacentHTML",
-                            "override-signatures": [
-                                "insertAdjacentHTML(where: InsertPosition, html: string): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "position",
+                                            "type": "InsertPosition"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "insertAdjacentText": {
-                            "name": "insertAdjacentText",
-                            "override-signatures": [
-                                "insertAdjacentText(where: InsertPosition, text: string): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "where",
+                                            "type": "InsertPosition"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 },
@@ -695,16 +667,6 @@
             },
             "Navigator": {
                 "name": "Navigator",
-                "methods": {
-                    "method": {
-                        "vibrate": {
-                            "name": "vibrate",
-                            "override-signatures": [
-                                "vibrate(pattern: number | number[]): boolean"
-                            ]
-                        }
-                    }
-                },
                 "properties": {
                     "property": {
                         "pointerEnabled": {
@@ -940,19 +902,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "DataTransfer": {
-                "name": "DataTransfer",
-                "methods": {
-                    "method": {
-                        "setDragImage": {
-                            "name": "setDragImage",
-                            "override-signatures": [
-                                "setDragImage(image: Element, x: number, y: number): void"
-                            ]
-                        }
-                    }
-                }
-            },
             "KeyboardEvent": {
                 "properties": {
                     "property": {
@@ -970,29 +919,6 @@
                     "property": {
                         "which": {
                             "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "DocumentFragment": {
-                "name": "DocumentFragment",
-                "methods": {
-                    "method": {
-                        "getElementById": {
-                            "name": "getElementById",
-                            "exposed": "Window",
-                            "override-signatures": [
-                                "getElementById(elementId: string): HTMLElement | null"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "ownerDocument": {
-                            "name": "ownerDocument",
-                            "read-only": 1,
-                            "type": "Document"
                         }
                     }
                 }
@@ -1090,20 +1016,6 @@
                     "method": {
                         "scaleNonUniform": {
                             "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "DOMTokenList": {
-                "name": "DOMTokenList",
-                "exposed": "Window",
-                "methods": {
-                    "method": {
-                        "replace": {
-                            "name": "replace",
-                            "override-signatures": [
-                                "replace(oldToken: string, newToken: string): void"
-                            ]
                         }
                     }
                 }

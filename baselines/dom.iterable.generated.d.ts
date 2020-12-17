@@ -147,6 +147,7 @@ interface NamedNodeMap {
 
 interface Navigator {
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: Iterable<MediaKeySystemConfiguration>): Promise<MediaKeySystemAccess>;
+    vibrate(pattern: Iterable<number>): boolean;
 }
 
 interface NodeList {
@@ -316,4 +317,19 @@ interface WebGLRenderingContextOverloads {
     uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
     uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Iterable<GLfloat>): void;
+}
+
+interface Window {
+    /**
+     * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
+     * 
+     * Objects listed in the transfer member of options are transferred, not just cloned, meaning that they are no longer usable on the sending side.
+     * 
+     * A target origin can be specified using the targetOrigin member of options. If not provided, it defaults to "/". This default restricts the message to same-origin targets only.
+     * 
+     * If the origin of the target window doesn't match the given target origin, the message is discarded, to avoid information leakage. To send the message to the target regardless of origin, set the target origin to "*".
+     * 
+     * Throws a "DataCloneError" DOMException if transfer array contains duplicate objects or if message could not be cloned.
+     */
+    postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
 }

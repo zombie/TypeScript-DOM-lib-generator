@@ -3471,7 +3471,7 @@ interface CustomEvent<T = any> extends Event {
      */
     readonly detail: T;
     /** @deprecated */
-    initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
+    initCustomEvent(type: string, bubbles?: boolean, cancelable?: boolean, detail?: T): void;
 }
 
 declare var CustomEvent: {
@@ -3821,7 +3821,7 @@ interface DOMTokenList {
      * 
      * Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
      */
-    replace(oldToken: string, newToken: string): void;
+    replace(token: string, newToken: string): boolean;
     /**
      * Returns true if token is in the associated attribute's supported tokens. Returns false otherwise.
      * 
@@ -4221,8 +4221,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     /** @deprecated */
     captureEvents(): void;
     /** @deprecated */
-    caretRangeFromPoint(x: number, y: number): Range;
-    /** @deprecated */
     clear(): void;
     /**
      * Closes an output stream and forces the sent data to display.
@@ -4414,7 +4412,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      */
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/1999/xhtml", localName: string): HTMLCollectionOf<HTMLElement>;
     getElementsByTagNameNS(namespaceURI: "http://www.w3.org/2000/svg", localName: string): HTMLCollectionOf<SVGElement>;
-    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
+    getElementsByTagNameNS(namespace: string | null, localName: string): HTMLCollectionOf<Element>;
     /**
      * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.
      */
@@ -4436,7 +4434,8 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * @param features Contains a list of items separated by commas. Each item consists of an option and a value, separated by an equals sign (for example, "fullscreen=yes, toolbar=yes"). The following values are supported.
      * @param replace Specifies whether the existing entry for the document is replaced in the history list.
      */
-    open(url?: string, name?: string, features?: string, replace?: boolean): Document;
+    open(unused1?: string, unused2?: string): Document;
+    open(url: string, name: string, features: string): WindowProxy | null;
     /**
      * Returns a Boolean value that indicates whether a specified command can be successfully executed using execCommand, given the current state of the document.
      * @param commandId Specifies a command identifier.
@@ -4506,8 +4505,6 @@ interface DocumentAndElementEventHandlers {
 
 /** A minimal document object that has no parent. It is used as a lightweight version of Document that stores a segment of a document structure comprised of nodes just like a standard document. The key difference is that because the document fragment isn't part of the active document tree structure, changes made to the fragment don't affect the document, cause reflow, or incur any performance impact that can occur when changes are made. */
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
-    readonly ownerDocument: Document;
-    getElementById(elementId: string): HTMLElement | null;
 }
 
 declare var DocumentFragment: {
@@ -4715,9 +4712,9 @@ interface Element extends Node, Animatable, ChildNode, InnerHTML, NonDocumentTyp
      */
     hasAttributes(): boolean;
     hasPointerCapture(pointerId: number): boolean;
-    insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null;
-    insertAdjacentHTML(where: InsertPosition, html: string): void;
-    insertAdjacentText(where: InsertPosition, text: string): void;
+    insertAdjacentElement(where: InsertPosition, element: Element): Element | null;
+    insertAdjacentHTML(position: InsertPosition, text: string): void;
+    insertAdjacentText(where: InsertPosition, data: string): void;
     /**
      * Returns true if matching selectors against element's root yields element, and false otherwise.
      */
@@ -9354,9 +9351,9 @@ interface MediaQueryList extends EventTarget {
     readonly media: string;
     onchange: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null;
     /** @deprecated */
-    addListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
+    addListener(callback: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
     /** @deprecated */
-    removeListener(listener: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
+    removeListener(callback: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null): void;
     addEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof MediaQueryListEventMap>(type: K, listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -9790,7 +9787,7 @@ interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentH
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: MediaKeySystemConfiguration[]): Promise<MediaKeySystemAccess>;
     sendBeacon(url: string, data?: BodyInit | null): boolean;
     share(data?: ShareData): Promise<void>;
-    vibrate(pattern: number | number[]): boolean;
+    vibrate(pattern: VibratePattern): boolean;
 }
 
 declare var Navigator: {
@@ -15788,7 +15785,7 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
     getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
     getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
-    getExtension(extensionName: string): any;
+    getExtension(name: string): any;
     getFramebufferAttachmentParameter(target: GLenum, attachment: GLenum, pname: GLenum): any;
     getParameter(pname: GLenum): any;
     getProgramInfoLog(program: WebGLProgram): string | null;
@@ -16406,7 +16403,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     matchMedia(query: string): MediaQueryList;
     moveBy(x: number, y: number): void;
     moveTo(x: number, y: number): void;
-    open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
+    open(url?: string, target?: string, features?: string): WindowProxy | null;
     /**
      * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
      * 
@@ -16419,6 +16416,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
      * Throws a "DataCloneError" DOMException if transfer array contains duplicate objects or if message could not be cloned.
      */
     postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
+    postMessage(message: any, options?: WindowPostMessageOptions): void;
     print(): void;
     prompt(message?: string, _default?: string): string | null;
     /** @deprecated */
@@ -17050,7 +17048,7 @@ interface PositionErrorCallback {
 }
 
 interface QueuingStrategySize<T = any> {
-    (chunk: T): number;
+    (chunk?: T): number;
 }
 
 interface RTCPeerConnectionErrorCallback {
@@ -17070,7 +17068,7 @@ interface TransformerFlushCallback<O> {
 }
 
 interface TransformerStartCallback<O> {
-    (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
+    (controller: TransformStreamDefaultController<O>): any;
 }
 
 interface TransformerTransformCallback<I, O> {
@@ -17078,7 +17076,7 @@ interface TransformerTransformCallback<I, O> {
 }
 
 interface UnderlyingSinkAbortCallback {
-    (reason: any): void | PromiseLike<void>;
+    (reason?: any): void | PromiseLike<void>;
 }
 
 interface UnderlyingSinkCloseCallback {
@@ -17086,7 +17084,7 @@ interface UnderlyingSinkCloseCallback {
 }
 
 interface UnderlyingSinkStartCallback {
-    (controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    (controller: WritableStreamDefaultController): any;
 }
 
 interface UnderlyingSinkWriteCallback<W> {
@@ -17094,7 +17092,7 @@ interface UnderlyingSinkWriteCallback<W> {
 }
 
 interface UnderlyingSourceCancelCallback {
-    (reason: any): void | PromiseLike<void>;
+    (reason?: any): void | PromiseLike<void>;
 }
 
 interface UnderlyingSourcePullCallback<R> {
@@ -17102,7 +17100,7 @@ interface UnderlyingSourcePullCallback<R> {
 }
 
 interface UnderlyingSourceStartCallback<R> {
-    (controller: ReadableStreamController<R>): void | PromiseLike<void>;
+    (controller: ReadableStreamController<R>): any;
 }
 
 interface VoidFunction {
@@ -17371,7 +17369,7 @@ declare function getSelection(): Selection | null;
 declare function matchMedia(query: string): MediaQueryList;
 declare function moveBy(x: number, y: number): void;
 declare function moveTo(x: number, y: number): void;
-declare function open(url?: string, target?: string, features?: string, replace?: boolean): Window | null;
+declare function open(url?: string, target?: string, features?: string): WindowProxy | null;
 /**
  * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
  * 
@@ -17384,6 +17382,7 @@ declare function open(url?: string, target?: string, features?: string, replace?
  * Throws a "DataCloneError" DOMException if transfer array contains duplicate objects or if message could not be cloned.
  */
 declare function postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
+declare function postMessage(message: any, options?: WindowPostMessageOptions): void;
 declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */

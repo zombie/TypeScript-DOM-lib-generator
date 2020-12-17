@@ -907,7 +907,7 @@ interface CustomEvent<T = any> extends Event {
      */
     readonly detail: T;
     /** @deprecated */
-    initCustomEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, detailArg: T): void;
+    initCustomEvent(type: string, bubbles?: boolean, cancelable?: boolean, detail?: T): void;
 }
 
 declare var CustomEvent: {
@@ -4534,7 +4534,7 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
     getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
     getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
-    getExtension(extensionName: string): any;
+    getExtension(name: string): any;
     getFramebufferAttachmentParameter(target: GLenum, attachment: GLenum, pname: GLenum): any;
     getParameter(pname: GLenum): any;
     getProgramInfoLog(program: WebGLProgram): string | null;
@@ -5506,7 +5506,7 @@ interface PerformanceObserverCallback {
 }
 
 interface QueuingStrategySize<T = any> {
-    (chunk: T): number;
+    (chunk?: T): number;
 }
 
 interface TransformerFlushCallback<O> {
@@ -5514,7 +5514,7 @@ interface TransformerFlushCallback<O> {
 }
 
 interface TransformerStartCallback<O> {
-    (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
+    (controller: TransformStreamDefaultController<O>): any;
 }
 
 interface TransformerTransformCallback<I, O> {
@@ -5522,7 +5522,7 @@ interface TransformerTransformCallback<I, O> {
 }
 
 interface UnderlyingSinkAbortCallback {
-    (reason: any): void | PromiseLike<void>;
+    (reason?: any): void | PromiseLike<void>;
 }
 
 interface UnderlyingSinkCloseCallback {
@@ -5530,7 +5530,7 @@ interface UnderlyingSinkCloseCallback {
 }
 
 interface UnderlyingSinkStartCallback {
-    (controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    (controller: WritableStreamDefaultController): any;
 }
 
 interface UnderlyingSinkWriteCallback<W> {
@@ -5538,7 +5538,7 @@ interface UnderlyingSinkWriteCallback<W> {
 }
 
 interface UnderlyingSourceCancelCallback {
-    (reason: any): void | PromiseLike<void>;
+    (reason?: any): void | PromiseLike<void>;
 }
 
 interface UnderlyingSourcePullCallback<R> {
@@ -5546,7 +5546,7 @@ interface UnderlyingSourcePullCallback<R> {
 }
 
 interface UnderlyingSourceStartCallback<R> {
-    (controller: ReadableStreamController<R>): void | PromiseLike<void>;
+    (controller: ReadableStreamController<R>): any;
 }
 
 interface VoidFunction {

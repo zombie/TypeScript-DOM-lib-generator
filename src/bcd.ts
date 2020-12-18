@@ -638,18 +638,19 @@ export function getRemovalData(webidl: Browser.WebIdl) {
   return { interfaces: { interface: interfaces }, mixins: { mixin: mixins }, namespaces };
 }
 
-function mapToBcdCompat(webidl: Browser.WebIdl, mapper: (compat: CompatStatement) => any) {
+function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }: { key: string, compat?: CompatStatement, webkit?: boolean }) => any) {
   function mapInterfaceLike(name: string, i: Browser.Interface) {
-    const result = {} as Browser.Interface;
     if (!bcd.api[name]?.__compat) {
       return;
     }
-    Object.assign(result, mapper(bcd.api[name].__compat!));
+    const result = { ...mapper({ key: name, compat: bcd.api[name].__compat }) } as Browser.Interface;
 
     const recordMapper = (key: string) => {
       const compat = bcd.api[name][key]?.__compat;
       if (compat) {
-        return mapper(compat);
+        return mapper({ key, compat });
+      } else if (key.startsWith("webkit")) {
+        return mapper({ key, webkit: true });
       }
     };
     const methods = filterMapRecord(i.methods.method, recordMapper);
@@ -677,8 +678,9 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: (compat: CompatStatement
 }
 
 export function getDeprecationData(webidl: Browser.WebIdl) {
-  return mapToBcdCompat(webidl, compat => {
-    if (compat.status?.deprecated) {
+  const webkitExceptions = ["webkitLineClamp"];
+  return mapToBcdCompat(webidl, ({ key, compat, webkit }) => {
+    if (compat?.status?.deprecated || (webkit && !webkitExceptions.includes(key))) {
       return { deprecated: 1 };
     }
   }) as Browser.WebIdl;

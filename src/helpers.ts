@@ -274,12 +274,3 @@ export function followTypeReferences(webidl: Browser.WebIdl, filteredInterfaces:
         }
     }
 }
-
-export function markAsDeprecated(i: Browser.Interface) {
-    for (const method of mapToArray(i.methods.method)) {
-        method.deprecated = 1;
-    }
-    for (const property of mapToArray(i.properties!.property)) {
-        property.deprecated = 1;
-    }
-}

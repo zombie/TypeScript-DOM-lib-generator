@@ -504,6 +504,9 @@
                         "location": {
                             "read-only": 0
                         },
+                        "onorientationchange": {
+                            "deprecated": 1
+                        },
                         "orientation": {
                             "name": "orientation",
                             "override-type": "string | number"

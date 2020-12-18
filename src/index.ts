@@ -2,7 +2,7 @@ import * as Browser from "./types.js";
 import { promises as fs } from "fs";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
-import { merge, resolveExposure, markAsDeprecated, mapToArray, arrayToMap } from "./helpers.js";
+import { merge, resolveExposure, arrayToMap } from "./helpers.js";
 import { Flavor, emitWebIdl } from "./emitter.js";
 import { convert } from "./widlprocess.js";
 import { getExposedTypes } from "./expose.js";
@@ -79,7 +79,7 @@ async function emitDom() {
     const idlSources: any[] = require(fileURLToPath(new URL("idlSources.json", inputFolder)));
     const widlStandardTypes = await Promise.all(idlSources.map(convertWidl));
 
-    async function convertWidl({ shortName, local, deprecated }: { shortName: string, local?: boolean, deprecated?: boolean }) {
+    async function convertWidl({ shortName, local }: { shortName: string, local?: boolean }) {
         const idl = local ?
             await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), { encoding: "utf-8" }) :
             await getIdl(shortName);
@@ -87,10 +87,6 @@ async function emitDom() {
         const commentsMap: Record<string, string> = await tryRequire(fileURLToPath(commentsMapFilePath)) ?? {};
         commentCleanup(commentsMap);
         const result = convert(idl, commentsMap);
-        if (deprecated) {
-            mapToArray(result.browser.interfaces!.interface).forEach(markAsDeprecated);
-            result.partialInterfaces.forEach(markAsDeprecated);
-        }
         return result;
     }
 
@@ -106,15 +102,8 @@ async function emitDom() {
         const namespaces = arrayToMap(idl.namespaces!, i => i.name, i => i);
         for (const [key, value] of Object.entries(descriptions)) {
             const target = idl.interfaces!.interface[key] || namespaces[key];
-            if (target) {
-                if (value.startsWith("REDIRECT")) {
-                    // When an MDN article for an interface redirects to a different one,
-                    // it implies the interface was renamed in the specification and
-                    // its old name should be deprecated.
-                    markAsDeprecated(target);
-                } else {
-                    target.comment = transformVerbosity(key, value);
-                }
+            if (target && !value.startsWith("REDIRECT")) {
+                target.comment = transformVerbosity(key, value);
             }
         }
         return idl;

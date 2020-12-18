@@ -262,17 +262,9 @@
                         "touchAction": {
                             "deprecated": 0
                         },
-                        "webkitAppearance": {
-                            "name": "webkitAppearance",
-                            "deprecated": 1
-                        },
                         "webkitFlex": {
                             "name": "webkitFlex",
                             "type": "CSSOMString",
-                            "deprecated": 1
-                        },
-                        "webkitUserSelect": {
-                            "name": "webkitUserSelect",
                             "deprecated": 1
                         },
                         "zoom": {
@@ -958,6 +950,13 @@
                 ]
             },
             "HTMLBodyElement": {
+                "properties": {
+                    "property": {
+                        "onorientationchange": {
+                            "deprecated": 1
+                        }
+                    }
+                },
                 "element": [
                     {
                         "name": "body"

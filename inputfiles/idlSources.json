@@ -12,8 +12,7 @@
     {
         "url": "https://compat.spec.whatwg.org/",
         "title": "Compatibility",
-        "shortName": "compat",
-        "deprecated": true
+        "shortName": "compat"
     },
     {
         "url": "https://console.spec.whatwg.org/",

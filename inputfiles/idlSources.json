@@ -165,6 +165,11 @@
         "shortName": "css-pseudo"
     },
     {
+        "url": "https://drafts.csswg.org/css-regions/",
+        "title": "CSS Regions",
+        "shortName": "css-regions"
+    },
+    {
         "url": "https://www.w3.org/TR/css-ruby-1/",
         "title": "CSS Ruby Layout",
         "shortName": "css-ruby"

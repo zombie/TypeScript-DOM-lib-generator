@@ -112,7 +112,7 @@
                 "implements": ["GeometryUtils"]
             },
             "Element": {
-                "implements": ["GeometryUtils"]
+                "implements": ["GeometryUtils", "Region"]
             },
             "IDBDatabase": {
                 "methods": {

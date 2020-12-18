@@ -335,6 +335,11 @@
         "shortName": "notifications"
     },
     {
+        "url": "https://wicg.github.io/origin-policy/",
+        "title": "Origin Policy",
+        "shortName": "origin-policy"
+    },
+    {
         "url": "https://w3c.github.io/page-visibility/",
         "title": "Page Visibility",
         "shortName": "page-visibility"

@@ -36,6 +36,13 @@
                     }
                 }
             },
+            "WindowOrWorkerGlobalScope": {
+                "properties": {
+                    "property": {
+                        "originPolicyIds": null
+                    }
+                }
+            },
             "XMLHttpRequestEventTarget": null
         }
     },

@@ -2335,6 +2335,14 @@ interface OES_vertex_array_object {
     readonly VERTEX_ARRAY_BINDING_OES: GLenum;
 }
 
+interface OVR_multiview2 {
+    framebufferTextureMultiviewOVR(target: GLenum, attachment: GLenum, texture: WebGLTexture | null, level: GLint, baseViewIndex: GLint, numViews: GLsizei): void;
+    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: GLenum;
+    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: GLenum;
+    readonly FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: GLenum;
+    readonly MAX_VIEWS_OVR: GLenum;
+}
+
 /** This Canvas 2D API interface is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
 interface Path2D extends CanvasPath {
     /**
@@ -3107,6 +3115,17 @@ interface WEBGL_compressed_texture_astc {
     readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x5_KHR: GLenum;
     readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x6_KHR: GLenum;
     readonly COMPRESSED_SRGB8_ALPHA8_ASTC_8x8_KHR: GLenum;
+}
+
+interface WEBGL_compressed_texture_etc1 {
+    readonly COMPRESSED_RGB_ETC1_WEBGL: GLenum;
+}
+
+interface WEBGL_compressed_texture_pvrtc {
+    readonly COMPRESSED_RGBA_PVRTC_2BPPV1_IMG: GLenum;
+    readonly COMPRESSED_RGBA_PVRTC_4BPPV1_IMG: GLenum;
+    readonly COMPRESSED_RGB_PVRTC_2BPPV1_IMG: GLenum;
+    readonly COMPRESSED_RGB_PVRTC_4BPPV1_IMG: GLenum;
 }
 
 /** The WEBGL_compressed_texture_s3tc extension is part of the WebGL API and exposes four S3TC compressed texture formats. */
@@ -4583,8 +4602,11 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
     getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
     getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
+    getExtension(extensionName: "OVR_multiview2"): OVR_multiview2 | null;
     getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
     getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_etc1"): WEBGL_compressed_texture_etc1 | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_pvrtc"): WEBGL_compressed_texture_pvrtc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
     getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
     getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;

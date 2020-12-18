@@ -1478,10 +1478,19 @@
             "OES_vertex_array_object": {
                 "override-exposed": "Window Worker"
             },
+            "OVR_multiview2": {
+                "override-exposed": "Window Worker"
+            },
             "WEBGL_color_buffer_float": {
                 "override-exposed": "Window Worker"
             },
             "WEBGL_compressed_texture_astc": {
+                "override-exposed": "Window Worker"
+            },
+            "WEBGL_compressed_texture_etc1": {
+                "override-exposed": "Window Worker"
+            },
+            "WEBGL_compressed_texture_pvrtc": {
                 "override-exposed": "Window Worker"
             },
             "WEBGL_compressed_texture_s3tc_srgb": {

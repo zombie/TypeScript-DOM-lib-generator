@@ -436,6 +436,11 @@
         "shortName": "service-workers"
     },
     {
+        "url": "https://w3c.github.io/server-timing/",
+        "title": "Server Timing",
+        "shortName": "server-timing"
+    },
+    {
         "url": "https://storage.spec.whatwg.org/",
         "title": "Storage",
         "shortName": "storage"

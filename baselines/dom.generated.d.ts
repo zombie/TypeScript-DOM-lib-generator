@@ -10908,6 +10908,7 @@ interface PerformanceResourceTiming extends PerformanceEntry {
     readonly responseEnd: number;
     readonly responseStart: number;
     readonly secureConnectionStart: number;
+    readonly serverTiming: ReadonlyArray<PerformanceServerTiming>;
     readonly transferSize: number;
     readonly workerStart: number;
     toJSON(): any;
@@ -10916,6 +10917,18 @@ interface PerformanceResourceTiming extends PerformanceEntry {
 declare var PerformanceResourceTiming: {
     prototype: PerformanceResourceTiming;
     new(): PerformanceResourceTiming;
+};
+
+interface PerformanceServerTiming {
+    readonly description: string;
+    readonly duration: number;
+    readonly name: string;
+    toJSON(): any;
+}
+
+declare var PerformanceServerTiming: {
+    prototype: PerformanceServerTiming;
+    new(): PerformanceServerTiming;
 };
 
 /** A legacy interface kept for backwards compatibility and contains properties that offer performance timing information for various events which occur during the loading and use of the current page. You get a PerformanceTiming object describing your page using the window.performance.timing property.

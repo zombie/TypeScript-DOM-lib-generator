@@ -2,22 +2,26 @@ import * as fs from "fs";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 import innerText from "styleless-innertext";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 await fetchIDLs(process.argv.slice(2));
 
 interface IDLSource {
     url: string;
     title: string;
+    shortName: string
     deprecated?: boolean;
 }
 
 async function fetchIDLs(filter: string[]) {
     const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[])
-        .filter(source => !filter.length || filter.includes(source.title));
+        .filter(source => !filter.length || filter.includes(source.shortName));
     await Promise.all(idlSources.map(async source => {
         const { comments } = await fetchIDL(source);
         if (comments) {
-            fs.writeFileSync(new URL(`../inputfiles/idl/${source.title}.commentmap.json`, import.meta.url), comments + '\n');
+            fs.writeFileSync(new URL(`../inputfiles/idl/${source.shortName}.commentmap.json`, import.meta.url), comments + '\n');
         }
     }));
 }

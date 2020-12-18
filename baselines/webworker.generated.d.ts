@@ -1358,6 +1358,8 @@ interface EventTarget {
      * 
      * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will be removed.
      * 
+     * If an AbortSignal is passed for options's signal, then the event listener will be removed when signal is aborted.
+     * 
      * The event listener is appended to target's event listener list and is not appended if it has the same type, callback, and capture.
      */
     addEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: AddEventListenerOptions | boolean): void;
@@ -5124,6 +5126,9 @@ interface WorkerGlobalScope extends EventTarget, WindowOrWorkerGlobalScope {
      * Returns workerGlobal's WorkerLocation object.
      */
     readonly location: WorkerLocation;
+    /**
+     * Returns workerGlobal's WorkerNavigator object.
+     */
     readonly navigator: WorkerNavigator;
     onerror: ((this: WorkerGlobalScope, ev: ErrorEvent) => any) | null;
     onlanguagechange: ((this: WorkerGlobalScope, ev: Event) => any) | null;
@@ -5217,11 +5222,11 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      */
     readonly readyState: number;
     /**
-     * Returns the response's body.
+     * Returns the response body.
      */
     readonly response: any;
     /**
-     * Returns the text response.
+     * Returns response as text.
      * 
      * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
      */
@@ -5242,7 +5247,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     readonly status: number;
     readonly statusText: string;
     /**
-     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the request has not yet completed, and this's synchronous flag is unset, a timeout event will then be dispatched, or a "TimeoutError" DOMException will be thrown otherwise (for the send() method).
      * 
      * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
      */
@@ -5266,7 +5271,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     /**
      * Sets the request method, request URL, and synchronous flag.
      * 
-     * Throws a "SyntaxError" DOMException if either method is not a valid HTTP method or url cannot be parsed.
+     * Throws a "SyntaxError" DOMException if either method is not a valid method or url cannot be parsed.
      * 
      * Throws a "SecurityError" DOMException if method is a case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
      * 
@@ -5275,7 +5280,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     open(method: string, url: string): void;
     open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
     /**
-     * Acts as if the `Content-Type` header value for response is mime. (It does not actually change the header though.)
+     * Acts as if the `Content-Type` header value for a response is mime. (It does not change the header.)
      * 
      * Throws an "InvalidStateError" DOMException if state is loading or done.
      */
@@ -5567,6 +5572,9 @@ declare function dispatchEvent(event: Event): boolean;
  * Returns workerGlobal's WorkerLocation object.
  */
 declare var location: WorkerLocation;
+/**
+ * Returns workerGlobal's WorkerNavigator object.
+ */
 declare var navigator: WorkerNavigator;
 declare var onerror: ((this: DedicatedWorkerGlobalScope, ev: ErrorEvent) => any) | null;
 declare var onlanguagechange: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;

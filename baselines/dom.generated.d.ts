@@ -4136,6 +4136,9 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Returns null if the Document is not currently executing a script or SVG script element (e.g., because the running script is an event handler, or a timeout), or if the currently executing script or SVG script element represents a module script.
      */
     readonly currentScript: HTMLOrSVGScriptElement | null;
+    /**
+     * Returns the Window object of the active document.
+     */
     readonly defaultView: (WindowProxy & typeof globalThis) | null;
     /**
      * Sets or gets a value that indicates whether the document can be edited.
@@ -4557,7 +4560,7 @@ interface DocumentOrShadowRoot {
     /**
      * Returns the deepest element in the document through which or to which key events are being routed. This is, roughly speaking, the focused element in the document.
      * 
-     * For the purposes of this API, when a child browsing context is focused, its browsing context container is focused in the parent browsing context. For example, if the user moves the focus to a text control in an iframe, the iframe is the element returned by the activeElement API in the iframe's node document.
+     * For the purposes of this API, when a child browsing context is focused, its container is focused in the parent browsing context. For example, if the user moves the focus to a text control in an iframe, the iframe is the element returned by the activeElement API in the iframe's node document.
      * 
      * Similarly, when the focused element is in a different node tree than documentOrShadowRoot, the element returned will be the host that's located in the same node tree as documentOrShadowRoot if documentOrShadowRoot is a shadow-including inclusive ancestor of the focused element, and null if not.
      */
@@ -4977,6 +4980,8 @@ interface EventTarget {
      * When set to true, options's passive indicates that the callback will not cancel the event by invoking preventDefault(). This is used to enable performance optimizations described in § 2.8 Observing event listeners.
      * 
      * When set to true, options's once indicates that the callback will only be invoked once after which the event listener will be removed.
+     * 
+     * If an AbortSignal is passed for options's signal, then the event listener will be removed when signal is aborted.
      * 
      * The event listener is appended to target's event listener list and is not appended if it has the same type, callback, and capture.
      */
@@ -5974,6 +5979,9 @@ declare var HTMLDataElement: {
 
 /** Provides special properties (beyond the HTMLElement object interface it also has available to it by inheritance) to manipulate <datalist> elements and their content. */
 interface HTMLDataListElement extends HTMLElement {
+    /**
+     * Returns an HTMLCollection of the option elements of the datalist element.
+     */
     readonly options: HTMLCollectionOf<HTMLOptionElement>;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLDataListElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -6115,12 +6123,18 @@ declare var HTMLEmbedElement: {
 /** Provides special properties and methods (beyond the regular HTMLElement interface it also has available to it by inheritance) for manipulating the layout and presentation of <fieldset> elements. */
 interface HTMLFieldSetElement extends HTMLElement {
     disabled: boolean;
+    /**
+     * Returns an HTMLCollection of the form controls in the element.
+     */
     readonly elements: HTMLCollection;
     /**
      * Retrieves a reference to the form that the object is embedded in.
      */
     readonly form: HTMLFormElement | null;
     name: string;
+    /**
+     * Returns the string "fieldset".
+     */
     readonly type: string;
     /**
      * Returns the error message that would be displayed if the user submits the form, or an empty string if no error message. It also triggers the standard error message, such as "this is a required field". The result is that the user sees validation messages without actually submitting.
@@ -6438,17 +6452,70 @@ declare var HTMLHtmlElement: {
 };
 
 interface HTMLHyperlinkElementUtils {
+    /**
+     * Returns the hyperlink's URL's fragment (includes leading "#" if non-empty).
+     * 
+     * Can be set, to change the URL's fragment (ignores leading "#").
+     */
     hash: string;
+    /**
+     * Returns the hyperlink's URL's host and port (if different from the default port for the scheme).
+     * 
+     * Can be set, to change the URL's host and port.
+     */
     host: string;
+    /**
+     * Returns the hyperlink's URL's host.
+     * 
+     * Can be set, to change the URL's host.
+     */
     hostname: string;
+    /**
+     * Returns the hyperlink's URL.
+     * 
+     * Can be set, to change the URL.
+     */
     href: string;
     toString(): string;
+    /**
+     * Returns the hyperlink's URL's origin.
+     */
     readonly origin: string;
+    /**
+     * Returns the hyperlink's URL's password.
+     * 
+     * Can be set, to change the URL's password.
+     */
     password: string;
+    /**
+     * Returns the hyperlink's URL's path.
+     * 
+     * Can be set, to change the URL's path.
+     */
     pathname: string;
+    /**
+     * Returns the hyperlink's URL's port.
+     * 
+     * Can be set, to change the URL's port.
+     */
     port: string;
+    /**
+     * Returns the hyperlink's URL's scheme.
+     * 
+     * Can be set, to change the URL's scheme.
+     */
     protocol: string;
+    /**
+     * Returns the hyperlink's URL's query (includes leading "?" if non-empty).
+     * 
+     * Can be set, to change the URL's query (ignores leading "?").
+     */
     search: string;
+    /**
+     * Returns the hyperlink's URL's username.
+     * 
+     * Can be set, to change the URL's username.
+     */
     username: string;
 }
 
@@ -6684,6 +6751,9 @@ interface HTMLInputElement extends HTMLElement {
      * Sets or retrieves the height of the object.
      */
     height: number;
+    /**
+     * When set, overrides the rendering of checkbox controls so that the current value is not visible.
+     */
     indeterminate: boolean;
     readonly labels: NodeListOf<HTMLLabelElement> | null;
     /**
@@ -6844,6 +6914,9 @@ declare var HTMLLIElement: {
 
 /** Gives access to properties specific to <label> elements. It inherits methods and properties from the base HTMLElement interface. */
 interface HTMLLabelElement extends HTMLElement {
+    /**
+     * Returns the form control that is associated with this element.
+     */
     readonly control: HTMLElement | null;
     /**
      * Retrieves a reference to the form that the object is embedded in.
@@ -7467,9 +7540,17 @@ interface HTMLOutputElement extends HTMLElement {
     readonly htmlFor: DOMTokenList;
     readonly labels: NodeListOf<HTMLLabelElement>;
     name: string;
+    /**
+     * Returns the string "output".
+     */
     readonly type: string;
     readonly validationMessage: string;
     readonly validity: ValidityState;
+    /**
+     * Returns the element's current value.
+     * 
+     * Can be set, to change the value.
+     */
     value: string;
     readonly willValidate: boolean;
     checkValidity(): boolean;
@@ -7679,6 +7760,9 @@ interface HTMLSelectElement extends HTMLElement {
      * Sets or retrieves the name of the object.
      */
     name: string;
+    /**
+     * Returns an HTMLOptionsCollection of the list of options.
+     */
     readonly options: HTMLOptionsCollection;
     /**
      * When present, marks an element that can't be submitted without a value.
@@ -8157,6 +8241,9 @@ declare var HTMLTableSectionElement: {
 
 /** Enables access to the contents of an HTML <template> element. */
 interface HTMLTemplateElement extends HTMLElement {
+    /**
+     * Returns the template contents (a DocumentFragment).
+     */
     readonly content: DocumentFragment;
     addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTemplateElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -8319,6 +8406,9 @@ interface HTMLTrackElement extends HTMLElement {
     readonly readyState: number;
     src: string;
     srclang: string;
+    /**
+     * Returns the TextTrack object corresponding to the text track of the track element.
+     */
     readonly track: TextTrack;
     readonly ERROR: number;
     readonly LOADED: number;
@@ -10303,8 +10393,7 @@ interface PageTransitionEvent extends Event {
      * 
      * Things that can cause the page to be unsalvageable include:
      * 
-     * Listening for beforeunload events
-     * Listening for unload events
+     * The user agent decided to not keep the Document alive in a session history entry after unload
      * Having iframes that are not salvageable
      * Active WebSocket objects
      * Aborting a Document
@@ -13514,29 +13603,35 @@ declare var StereoPannerNode: {
 /** This Web Storage API interface provides access to a particular domain's session or local storage. It allows, for example, the addition, modification, or deletion of stored data items. */
 interface Storage {
     /**
-     * Returns the number of key/value pairs currently present in the list associated with the object.
+     * Returns the number of key/value pairs.
      */
     readonly length: number;
     /**
-     * Empties the list associated with the object of all key/value pairs, if there are any.
+     * Removes all key/value pairs, if there are any.
+     * 
+     * Dispatches a storage event on Window objects holding an equivalent Storage object.
      */
     clear(): void;
     /**
-     * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
+     * Returns the current value associated with the given key, or null if the given key does not exist.
      */
     getItem(key: string): string | null;
     /**
-     * Returns the name of the nth key in the list, or null if n is greater than or equal to the number of key/value pairs in the object.
+     * Returns the name of the nth key, or null if n is greater than or equal to the number of key/value pairs.
      */
     key(index: number): string | null;
     /**
-     * Removes the key/value pair with the given key from the list associated with the object, if a key/value pair with the given key exists.
+     * Removes the key/value pair with the given key, if a key/value pair with the given key exists.
+     * 
+     * Dispatches a storage event on Window objects holding an equivalent Storage object.
      */
     removeItem(key: string): void;
     /**
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      * 
      * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)
+     * 
+     * Dispatches a storage event on Window objects holding an equivalent Storage object.
      */
     setItem(key: string, value: string): void;
     [name: string]: any;
@@ -16355,6 +16450,9 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
 interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandlers, WindowEventHandlers, WindowLocalStorage, WindowOrWorkerGlobalScope, WindowSessionStorage {
+    /**
+     * Returns true if the window has been closed, false otherwise.
+     */
     readonly closed: boolean;
     /**
      * Defines a new custom element, mapping the given name to the given constructor as an autonomous custom element.
@@ -16373,7 +16471,13 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly innerWidth: number;
     readonly length: number;
     location: Location;
+    /**
+     * Returns true if the location bar is visible; otherwise, returns false.
+     */
     readonly locationbar: BarProp;
+    /**
+     * Returns true if the menu bar is visible; otherwise, returns false.
+     */
     readonly menubar: BarProp;
     name: string;
     readonly navigator: Navigator;
@@ -16389,6 +16493,9 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly pageXOffset: number;
     readonly pageYOffset: number;
     readonly parent: WindowProxy | null;
+    /**
+     * Returns true if the personal bar is visible; otherwise, returns false.
+     */
     readonly personalbar: BarProp;
     readonly screen: Screen;
     readonly screenLeft: number;
@@ -16397,12 +16504,21 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly screenY: number;
     readonly scrollX: number;
     readonly scrollY: number;
+    /**
+     * Returns true if the scrollbars are visible; otherwise, returns false.
+     */
     readonly scrollbars: BarProp;
     readonly self: Window & typeof globalThis;
     readonly speechSynthesis: SpeechSynthesis;
     /** @deprecated */
     status: string;
+    /**
+     * Returns true if the status bar is visible; otherwise, returns false.
+     */
     readonly statusbar: BarProp;
+    /**
+     * Returns true if the toolbar is visible; otherwise, returns false.
+     */
     readonly toolbar: BarProp;
     readonly top: WindowProxy | null;
     readonly visualViewport: VisualViewport;
@@ -16411,6 +16527,9 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     blur(): void;
     /** @deprecated */
     captureEvents(): void;
+    /**
+     * Closes the window.
+     */
     close(): void;
     confirm(message?: string): boolean;
     /**
@@ -16448,6 +16567,9 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     scrollBy(x: number, y: number): void;
     scrollTo(options?: ScrollToOptions): void;
     scrollTo(x: number, y: number): void;
+    /**
+     * Cancels the document load.
+     */
     stop(): void;
     addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -16560,6 +16682,13 @@ declare var Worker: {
 };
 
 interface Worklet {
+    /**
+     * Loads and executes the module script given by moduleURL into all of worklet's global scopes. It can also create additional global scopes as part of this process, depending on the worklet type. The returned promise will fulfill once the script has been successfully loaded and run in all global scopes.
+     * 
+     * The credentials option can be set to a credentials mode to modify the script-fetching process. It defaults to "same-origin".
+     * 
+     * Any failures in fetching the script or its dependencies will cause the returned promise to be rejected with an "AbortError" DOMException. Any errors in parsing the script or its dependencies will cause the returned promise to be rejected with the exception generated during parsing.
+     */
     addModule(moduleURL: string, options?: WorkletOptions): Promise<void>;
 }
 
@@ -16632,11 +16761,11 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
      */
     readonly readyState: number;
     /**
-     * Returns the response's body.
+     * Returns the response body.
      */
     readonly response: any;
     /**
-     * Returns the text response.
+     * Returns response as text.
      * 
      * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "text".
      */
@@ -16655,7 +16784,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     responseType: XMLHttpRequestResponseType;
     readonly responseURL: string;
     /**
-     * Returns the document response.
+     * Returns the response as document.
      * 
      * Throws an "InvalidStateError" DOMException if responseType is not the empty string or "document".
      */
@@ -16663,7 +16792,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     readonly status: number;
     readonly statusText: string;
     /**
-     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the request has not yet completed, and the synchronous flag is unset, a timeout event will then be dispatched, or a "TimeoutError" DOMException will be thrown otherwise (for the send() method).
+     * Can be set to a time in milliseconds. When set to a non-zero value will cause fetching to terminate after the given time has passed. When the time has passed, the request has not yet completed, and this's synchronous flag is unset, a timeout event will then be dispatched, or a "TimeoutError" DOMException will be thrown otherwise (for the send() method).
      * 
      * When set: throws an "InvalidAccessError" DOMException if the synchronous flag is set and current global object is a Window object.
      */
@@ -16687,7 +16816,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     /**
      * Sets the request method, request URL, and synchronous flag.
      * 
-     * Throws a "SyntaxError" DOMException if either method is not a valid HTTP method or url cannot be parsed.
+     * Throws a "SyntaxError" DOMException if either method is not a valid method or url cannot be parsed.
      * 
      * Throws a "SecurityError" DOMException if method is a case-insensitive match for `CONNECT`, `TRACE`, or `TRACK`.
      * 
@@ -16696,7 +16825,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     open(method: string, url: string): void;
     open(method: string, url: string, async: boolean, username?: string | null, password?: string | null): void;
     /**
-     * Acts as if the `Content-Type` header value for response is mime. (It does not actually change the header though.)
+     * Acts as if the `Content-Type` header value for a response is mime. (It does not change the header.)
      * 
      * Throws an "InvalidStateError" DOMException if state is loading or done.
      */
@@ -17326,6 +17455,9 @@ declare var Image: {
 declare var Option: {
     new(text?: string, value?: string, defaultSelected?: boolean, selected?: boolean): HTMLOptionElement;
 };
+/**
+ * Returns true if the window has been closed, false otherwise.
+ */
 declare var closed: boolean;
 /**
  * Defines a new custom element, mapping the given name to the given constructor as an autonomous custom element.
@@ -17344,7 +17476,13 @@ declare var innerHeight: number;
 declare var innerWidth: number;
 declare var length: number;
 declare var location: Location;
+/**
+ * Returns true if the location bar is visible; otherwise, returns false.
+ */
 declare var locationbar: BarProp;
+/**
+ * Returns true if the menu bar is visible; otherwise, returns false.
+ */
 declare var menubar: BarProp;
 /** @deprecated */
 declare const name: void;
@@ -17361,6 +17499,9 @@ declare var outerWidth: number;
 declare var pageXOffset: number;
 declare var pageYOffset: number;
 declare var parent: WindowProxy | null;
+/**
+ * Returns true if the personal bar is visible; otherwise, returns false.
+ */
 declare var personalbar: BarProp;
 declare var screen: Screen;
 declare var screenLeft: number;
@@ -17369,12 +17510,21 @@ declare var screenX: number;
 declare var screenY: number;
 declare var scrollX: number;
 declare var scrollY: number;
+/**
+ * Returns true if the scrollbars are visible; otherwise, returns false.
+ */
 declare var scrollbars: BarProp;
 declare var self: Window & typeof globalThis;
 declare var speechSynthesis: SpeechSynthesis;
 /** @deprecated */
 declare var status: string;
+/**
+ * Returns true if the status bar is visible; otherwise, returns false.
+ */
 declare var statusbar: BarProp;
+/**
+ * Returns true if the toolbar is visible; otherwise, returns false.
+ */
 declare var toolbar: BarProp;
 declare var top: WindowProxy | null;
 declare var visualViewport: VisualViewport;
@@ -17383,6 +17533,9 @@ declare function alert(message?: any): void;
 declare function blur(): void;
 /** @deprecated */
 declare function captureEvents(): void;
+/**
+ * Closes the window.
+ */
 declare function close(): void;
 declare function confirm(message?: string): boolean;
 /**
@@ -17420,6 +17573,9 @@ declare function scrollBy(options?: ScrollToOptions): void;
 declare function scrollBy(x: number, y: number): void;
 declare function scrollTo(options?: ScrollToOptions): void;
 declare function scrollTo(x: number, y: number): void;
+/**
+ * Cancels the document load.
+ */
 declare function stop(): void;
 declare function toString(): string;
 /**

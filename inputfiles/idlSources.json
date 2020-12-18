@@ -337,7 +337,9 @@
     },
     {
         "url": "https://www.w3.org/TR/permissions/",
-        "title": "Permissions"
+        "title": "Permissions",
+        "shortName": "permissions",
+        "local": true
     },
     {
         "url": "https://www.w3.org/TR/pointerevents3/",

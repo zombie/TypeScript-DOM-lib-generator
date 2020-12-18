@@ -79,10 +79,10 @@ async function emitDom() {
     const idlSources: any[] = require(fileURLToPath(new URL("idlSources.json", inputFolder)));
     const widlStandardTypes = await Promise.all(idlSources.map(convertWidl));
 
-    async function convertWidl({ title, deprecated, shortName }: { title: string; deprecated?: boolean, shortName?: string }) {
-        const idl = shortName ?
-            await getIdl(shortName) :
-            await fs.readFile(new URL(`idl/${title}.widl`, inputFolder), { encoding: "utf-8" });
+    async function convertWidl({ title, deprecated, shortName, local }: { title: string; deprecated?: boolean, shortName: string, local?: boolean }) {
+        const idl = local ?
+            await fs.readFile(new URL(`idl/${title}.webidl`, inputFolder), { encoding: "utf-8" }) :
+            await getIdl(shortName);
         const commentsMapFilePath = new URL(`idl/${title}.commentmap.json`, inputFolder);
         const commentsMap: Record<string, string> = await tryRequire(fileURLToPath(commentsMapFilePath)) ?? {};
         commentCleanup(commentsMap);

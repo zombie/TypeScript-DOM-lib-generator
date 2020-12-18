@@ -371,6 +371,11 @@
         "local": true
     },
     {
+        "url": "https://w3c.github.io/picture-in-picture/",
+        "title": "Picture-in-Picture",
+        "shortName": "picture-in-picture"
+    },
+    {
         "url": "https://www.w3.org/TR/pointerevents3/",
         "title": "Pointer Events",
         "shortName": "pointerevents"

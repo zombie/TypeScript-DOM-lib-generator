@@ -2051,6 +2051,16 @@
                 "name": "OverconstrainedError",
                 "extends": "Error"
             },
+            "PictureInPictureWindow": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "resize",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
             "ProgressEvent": {
                 "type-parameters": [
                     {

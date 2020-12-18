@@ -1706,9 +1706,6 @@
             "HTMLOptGroupElement": {
                 "properties": {
                     "property": {
-                        "form": {
-                            "comment": "/**\n * Retrieves a reference to the form that the object is embedded in.\n */"
-                        },
                         "label": {
                             "comment": "/**\n * Sets or retrieves a value that you can use to implement your own label functionality for the object.\n */"
                         }

@@ -140,7 +140,6 @@
                 }
             },
             "HTMLOrSVGElement": {
-              "name": "HTMLOrSVGElement",
               "properties": {
                 "property": {
                   "nonce": {
@@ -428,30 +427,6 @@
                     ]
                 }
             },
-            "HTMLAnchorElement": {
-                "name": "HTMLAnchorElement",
-                "properties": {
-                    "property": {
-                        "relList": {
-                            "read-only": 1,
-                            "name": "relList",
-                            "type": "DOMTokenList"
-                        }
-                    }
-                }
-            },
-            "HTMLAreaElement": {
-                "name": "HTMLAreaElement",
-                "properties": {
-                    "property": {
-                        "relList": {
-                            "read-only": 1,
-                            "name": "relList",
-                            "type": "DOMTokenList"
-                        }
-                    }
-                }
-            },
             "SourceBuffer": {
                 "name": "SourceBuffer",
                 "events": {
@@ -701,9 +676,6 @@
                             "name": "forms",
                             "override-type": "HTMLCollectionOf<HTMLFormElement>"
                         },
-                        "fullscreen": {
-                            "deprecated": 1
-                        },
                         "images": {
                             "name": "images",
                             "override-type": "HTMLCollectionOf<HTMLImageElement>"
@@ -728,14 +700,6 @@
                             "nullable": false
                        }
                     }
-                },
-                "events": {
-                    "event": [
-                        {
-                            "name": "readystatechange",
-                            "type": "Event"
-                        }
-                    ]
                 }
             },
             "Node": {
@@ -1227,7 +1191,6 @@
                 }
             },
             "HTMLSelectElement": {
-                "name": "HTMLSelectElement",
                 "properties": {
                     "property": {
                         "selectedOptions": {
@@ -1250,7 +1213,6 @@
                 ]
             },
             "HTMLDataListElement": {
-                "name": "HTMLDataListElement",
                 "properties": {
                     "property": {
                         "options": {
@@ -1266,7 +1228,6 @@
                 ]
             },
             "HTMLDirectoryElement": {
-                "name": "HTMLDirectoryElement",
                 "element": [
                     {
                         "name": "dir"
@@ -1274,7 +1235,6 @@
                 ]
             },
             "HTMLFontElement": {
-                "name": "HTMLFontElement",
                 "element": [
                     {
                         "name": "font"
@@ -1282,7 +1242,6 @@
                 ]
             },
             "HTMLFrameElement": {
-                "name": "HTMLFrameElement",
                 "element": [
                     {
                         "name": "frame"
@@ -1290,7 +1249,6 @@
                 ]
             },
             "HTMLFrameSetElement": {
-                "name": "HTMLFrameSetElement",
                 "element": [
                     {
                         "name": "frameset"
@@ -1298,7 +1256,6 @@
                 ]
             },
             "HTMLTableElement": {
-                "name": "HTMLTableElement",
                 "properties": {
                     "property": {
                         "rows": {
@@ -1313,7 +1270,6 @@
                 }
             },
             "HTMLTableSectionElement": {
-                "name": "HTMLTableSectionElement",
                 "properties": {
                     "property": {
                         "rows": {
@@ -1651,7 +1607,6 @@
                 }
             },
             "HTMLInputElement": {
-                "name": "HTMLInputElement",
                 "properties": {
                     "property": {
                         "selectionDirection": {
@@ -1713,17 +1668,14 @@
                 "methods": {
                     "method": {
                         "hasFeature": {
-                            "name": "hasFeature",
                             "override-signatures": [
                                 "hasFeature(...args: any[]): true"
-                            ],
-                            "deprecated": 1
+                            ]
                         }
                     }
                 }
             },
             "HTMLButtonElement": {
-                "name": "HTMLButtonElement",
                 "properties": {
                     "property": {
                         "labels": {
@@ -1739,7 +1691,6 @@
                 ]
             },
             "HTMLFieldSetElement": {
-                "name": "HTMLFieldSetElement",
                 "element": [
                     {
                         "name": "fieldset"
@@ -1747,19 +1698,16 @@
                 ]
             },
             "HTMLLabelElement": {
-                "name": "HTMLLabelElement",
                 "properties": {
                     "property": {
                         "form": {
                             "name": "form",
-                            "read-only": 1,
                             "override-type": "HTMLFormElement | null"
                         }
                     }
                 }
             },
             "HTMLLegendElement": {
-                "name": "HTMLLegendElement",
                 "element": [
                     {
                         "name": "legend"
@@ -1767,7 +1715,6 @@
                 ]
             },
             "HTMLMeterElement": {
-                "name": "HTMLMeterElement",
                 "properties": {
                     "property": {
                         "labels": {
@@ -1783,16 +1730,6 @@
                 ]
             },
             "HTMLOptGroupElement": {
-                "name": "HTMLOptGroupElement",
-                "properties": {
-                    "property": {
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "optgroup"
@@ -1800,7 +1737,6 @@
                 ]
             },
             "HTMLOptionElement": {
-                "name": "HTMLOptionElement",
                 "element": [
                     {
                         "name": "option"
@@ -1808,7 +1744,6 @@
                 ]
             },
             "HTMLOutputElement": {
-                "name": "HTMLOutputElement",
                 "properties": {
                     "property": {
                         "labels": {
@@ -1824,7 +1759,6 @@
                 ]
             },
             "HTMLProgressElement": {
-                "name": "HTMLProgressElement",
                 "properties": {
                     "property": {
                         "labels": {
@@ -1840,7 +1774,6 @@
                 ]
             },
             "HTMLTextAreaElement": {
-                "name": "HTMLTextAreaElement",
                 "properties": {
                     "property": {
                         "labels": {
@@ -1899,10 +1832,6 @@
                 "events": {
                     "event": [
                         {
-                            "name": "controllerchange",
-                            "type": "Event"
-                        },
-                        {
                             "name": "message",
                             "type": "MessageEvent"
                         },
@@ -1927,25 +1856,13 @@
                 }
             },
             "HTMLTableRowElement": {
-                "name": "HTMLTableRowElement",
                 "properties": {
                     "property": {
                         "cells": {
                             "name": "cells",
-                            "override-type": "HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>"
+                            "override-type": "HTMLCollectionOf<HTMLTableCellElement>"
                         }
                     }
-                }
-            },
-            "XMLHttpRequest": {
-                "name": "XMLHttpRequest",
-                "events": {
-                    "event": [
-                        {
-                            "name": "readystatechange",
-                            "type": "Event"
-                        }
-                    ]
                 }
             },
             "XMLHttpRequestEventTarget": {
@@ -2109,16 +2026,8 @@
                 "events": {
                     "event": [
                         {
-                            "name": "open",
-                            "type": "Event"
-                        },
-                        {
                             "name": "message",
                             "type": "MessageEvent"
-                        },
-                        {
-                            "name": "bufferedamountlow",
-                            "type": "Event"
                         },
                         {
                             "name": "error",
@@ -2126,17 +2035,6 @@
                         },
                         {
                             "name": "close",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
-            "RTCDtlsTransport": {
-                "name": "RTCDtlsTransport",
-                "events": {
-                    "event": [
-                        {
-                            "name": "statechange",
                             "type": "Event"
                         }
                     ]
@@ -2150,51 +2048,14 @@
                             "type": "RTCTrackEvent"
                         },
                         {
-                            "name": "negotiationneeded",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "signalingstatechange",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "iceconnectionstatechange",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "icegatheringstatechange",
-                            "type": "Event"
-                        },
-                        {
                             "name": "icecandidate",
                             "type": "RTCPeerConnectionIceEvent"
                         },
                         {
-                            "name": "connectionstatechange",
-                            "type": "Event"
-                        },
-                        {
                             "name": "datachannel",
                             "type": "RTCDataChannelEvent"
-                        },
-                        {
-                            "name": "isolationchange",
-                            "type": "Event"
                         }
                     ]
-                }
-            },
-            "Performance": {
-                "name": "Performance",
-                "properties": {
-                    "property": {
-                        "navigation": {
-                            "deprecated": 1
-                        },
-                        "timing": {
-                            "deprecated": 1
-                        }
-                    }
                 }
             },
             "ServiceWorkerGlobalScope": {
@@ -2254,10 +2115,6 @@
                         },
                         {
                             "name": "error",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "show",
                             "type": "Event"
                         }
                     ]
@@ -2355,23 +2212,6 @@
                 }
             },
             "HTMLMarqueeElement": {
-                "name": "HTMLMarqueeElement",
-                "events": {
-                    "event": [
-                        {
-                            "name": "bounce",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "finish",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "start",
-                            "type": "Event"
-                        }
-                    ]
-                },
                 "element": [
                     {
                         "name": "marquee"
@@ -2385,15 +2225,6 @@
             "ErrorEvent": {
                 "name": "ErrorEvent",
                 "override-exposed": "Window Worker"
-            },
-            "Event": {
-                "properties": {
-                    "property": {
-                        "srcElement": {
-                            "deprecated": 1
-                        }
-                    }
-                }
             },
             "Worker": {
                 "name": "Worker",
@@ -2453,21 +2284,6 @@
                     }
                 }
             },
-            "AudioListener": {
-                "name": "AudioListener",
-                "methods": {
-                    "method": {
-                        "setPosition": {
-                            "name": "setPosition",
-                            "deprecated": 1
-                        },
-                        "setOrientation": {
-                            "name": "setOrientation",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
             "OfflineAudioContext": {
                 "name": "OfflineAudioContext",
                 "events": {
@@ -2495,19 +2311,6 @@
                 }
             },
             "ScriptProcessorNode": {
-                "name": "ScriptProcessorNode",
-                "properties": {
-                    "property": {
-                        "onaudioprocess": {
-                            "name": "onaudioprocess",
-                            "deprecated": 1
-                        },
-                        "bufferSize": {
-                            "name": "bufferSize",
-                            "deprecated": 1
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -3062,8 +2865,6 @@
                 "properties": {
                     "property": {
                         "data": {
-                            "name": "data",
-                            "read-only": 1,
                             "override-type": "T"
                         }
                     }

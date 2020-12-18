@@ -7358,10 +7358,6 @@ declare var HTMLObjectElement: {
 interface HTMLOptGroupElement extends HTMLElement {
     disabled: boolean;
     /**
-     * Retrieves a reference to the form that the object is embedded in.
-     */
-    readonly form: HTMLFormElement | null;
-    /**
      * Sets or retrieves a value that you can use to implement your own label functionality for the object.
      */
     label: string;
@@ -7960,18 +7956,6 @@ declare var HTMLTableColElement: {
     new(): HTMLTableColElement;
 };
 
-interface HTMLTableDataCellElement extends HTMLTableCellElement {
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableDataCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableDataCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var HTMLTableDataCellElement: {
-    prototype: HTMLTableDataCellElement;
-    new(): HTMLTableDataCellElement;
-};
-
 /** Provides special properties and methods (beyond the regular HTMLElement object interface it also has available to it by inheritance) for manipulating the layout and presentation of tables in an HTML document. */
 interface HTMLTableElement extends HTMLElement {
     /**
@@ -8085,18 +8069,6 @@ declare var HTMLTableElement: {
     new(): HTMLTableElement;
 };
 
-interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableHeaderCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLTableHeaderCellElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var HTMLTableHeaderCellElement: {
-    prototype: HTMLTableHeaderCellElement;
-    new(): HTMLTableHeaderCellElement;
-};
-
 /** Provides special properties and methods (beyond the HTMLElement interface it also has available to it by inheritance) for manipulating the layout and presentation of rows in an HTML table. */
 interface HTMLTableRowElement extends HTMLElement {
     /**
@@ -8109,7 +8081,7 @@ interface HTMLTableRowElement extends HTMLElement {
     /**
      * Retrieves a collection of all cells in the table row.
      */
-    readonly cells: HTMLCollectionOf<HTMLTableDataCellElement | HTMLTableHeaderCellElement>;
+    readonly cells: HTMLCollectionOf<HTMLTableCellElement>;
     /** @deprecated */
     ch: string;
     /** @deprecated */
@@ -17260,11 +17232,11 @@ interface HTMLElementTagNameMap {
     "sup": HTMLElement;
     "table": HTMLTableElement;
     "tbody": HTMLTableSectionElement;
-    "td": HTMLTableDataCellElement;
+    "td": HTMLTableCellElement;
     "template": HTMLTemplateElement;
     "textarea": HTMLTextAreaElement;
     "tfoot": HTMLTableSectionElement;
-    "th": HTMLTableHeaderCellElement;
+    "th": HTMLTableCellElement;
     "thead": HTMLTableSectionElement;
     "time": HTMLTimeElement;
     "title": HTMLTitleElement;

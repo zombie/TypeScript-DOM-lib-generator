@@ -43,10 +43,6 @@
                             "type": "FocusEvent"
                         },
                         {
-                            "name": "cancel",
-                            "type": "Event"
-                        },
-                        {
                             "name": "change",
                             "type": "Event"
                         },
@@ -135,14 +131,6 @@
                             "type": "UIEvent"
                         },
                         {
-                            "name": "scroll",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "select",
-                            "type": "Event"
-                        },
-                        {
                             "name": "wheel",
                             "type": "WheelEvent"
                         },
@@ -195,9 +183,6 @@
     },
     "interfaces": {
         "interface": {
-            "AudioTrack": {
-                "exposed": ""
-            },
             "SVGSVGElement": {
                 "element": [
                     {
@@ -211,44 +196,6 @@
                     "event": [
                         {
                             "name": "abort",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
-            "ApplicationCache": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "checking",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "noupdate",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "downloading",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "progress",
-                            "type": "ProgressEvent"
-                        },
-                        {
-                            "name": "cached",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "updateready",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "obsolete",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
                             "type": "Event"
                         }
                     ]
@@ -312,24 +259,11 @@
                             "name": "objectPosition",
                             "type": "CSSOMString"
                         },
-                        "pointerEvents": {
-                            "name": "pointerEvents",
-                            "type": "CSSOMString"
-                        },
-                        "resize": {
-                            "name": "resize",
-                            "type": "CSSOMString"
-                        },
                         "touchAction": {
                             "deprecated": 0
                         },
-                        "userSelect": {
-                            "name": "userSelect",
-                            "type": "CSSOMString"
-                        },
                         "webkitAppearance": {
                             "name": "webkitAppearance",
-                            "type": "CSSOMString",
                             "deprecated": 1
                         },
                         "webkitFlex": {
@@ -339,7 +273,6 @@
                         },
                         "webkitUserSelect": {
                             "name": "webkitUserSelect",
-                            "type": "CSSOMString",
                             "deprecated": 1
                         },
                         "zoom": {
@@ -352,14 +285,6 @@
             },
             "Window": {
                 "name": "Window",
-                "properties": {
-                    "property": {
-                        "customElements": {
-                            "name": "customElements",
-                            "type": "CustomElementRegistry"
-                        }
-                    }
-                },
                 "methods": {
                     "method": {
                         "captureEvents": {
@@ -657,14 +582,6 @@
                         }
                     }
                 },
-                "events": {
-                    "event": [
-                        {
-                            "name": "visibilitychange",
-                            "type": "Event"
-                        }
-                    ]
-                },
                 "properties": {
                     "property": {
                         "ownerDocument": {
@@ -742,10 +659,6 @@
                 "events": {
                     "event": [
                         {
-                            "name": "block",
-                            "type": "Event"
-                        },
-                        {
                             "name": "upgradeneeded",
                             "type": "IDBVersionChangeEvent"
                         }
@@ -759,10 +672,6 @@
                         {
                             "name": "error",
                             "type": "Event"
-                        },
-                        {
-                            "name": "success",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -773,10 +682,6 @@
                     "event": [
                         {
                             "name": "abort",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "complete",
                             "type": "Event"
                         },
                         {
@@ -912,18 +817,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "KeyboardEvent": {
-                "properties": {
-                    "property": {
-                        "charCode": {
-                            "deprecated": 1
-                        },
-                        "keyCode": {
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
             "UIEvent": {
                 "properties": {
                     "property": {
@@ -947,10 +840,6 @@
                         {
                             "name": "error",
                             "type": "SpeechRecognitionErrorEvent"
-                        },
-                        {
-                            "name": "end",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -1103,15 +992,6 @@
                     }
                 ]
             },
-            "HTMLDirectoryElement": {
-                "properties": {
-                    "property": {
-                        "compact": {
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
             "HTMLDivElement": {
                 "element": [
                     {
@@ -1248,16 +1128,6 @@
                 ]
             },
             "HTMLEmbedElement": {
-                "properties": {
-                    "property": {
-                        "align": {
-                            "deprecated": 1
-                        },
-                        "name": {
-                            "deprecated": 1
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "embed"
@@ -1301,25 +1171,6 @@
                 ]
             },
             "HTMLHRElement": {
-                "properties": {
-                    "property": {
-                        "align": {
-                            "deprecated": 1
-                        },
-                        "color": {
-                            "deprecated": 1
-                        },
-                        "noShade": {
-                            "deprecated": 1
-                        },
-                        "size": {
-                            "deprecated": 1
-                        },
-                        "width": {
-                            "deprecated": 1
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "hr"
@@ -1327,13 +1178,6 @@
                 ]
             },
             "HTMLHtmlElement": {
-                "properties": {
-                    "property": {
-                        "version": {
-                            "deprecated": 1
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "html"
@@ -1343,14 +1187,8 @@
             "HTMLInputElement": {
                 "properties": {
                     "property": {
-                        "align": {
-                            "deprecated": 1
-                        },
                         "labels": {
                             "override-type": "NodeListOf<HTMLLabelElement> | null"
-                        },
-                        "useMap": {
-                            "deprecated": 1
                         }
                     }
                 },
@@ -1359,15 +1197,6 @@
                         "name": "input"
                     }
                 ]
-            },
-            "HTMLLegendElement": {
-                "properties": {
-                    "property": {
-                        "align": {
-                            "deprecated": 1
-                        }
-                    }
-                }
             },
             "HTMLLinkElement": {
                 "properties": {
@@ -1418,13 +1247,6 @@
                 ]
             },
             "HTMLMetaElement": {
-                "properties": {
-                    "property": {
-                        "scheme": {
-                            "deprecated": 1
-                        }
-                    }
-                },
                 "element": [
                     {
                         "name": "meta"
@@ -1563,32 +1385,10 @@
                     }
                 ]
             },
-            "HTMLTableDataCellElement": {
-                "name": "HTMLTableDataCellElement",
-                "extends": "HTMLTableCellElement",
-                "exposed": "Window",
-                "element": [
-                    {
-                        "specs": "HTML5",
-                        "namespace": "HTML",
-                        "name": "td"
-                    }
-                ]
-            },
             "HTMLTableElement": {
                 "element": [
                     {
                         "name": "table"
-                    }
-                ]
-            },
-            "HTMLTableHeaderCellElement": {
-                "name": "HTMLTableHeaderCellElement",
-                "extends": "HTMLTableCellElement",
-                "exposed": "Window",
-                "element": [
-                    {
-                        "name": "th"
                     }
                 ]
             },
@@ -2231,16 +2031,7 @@
             },
             "OverconstrainedError": {
                 "name": "OverconstrainedError",
-                "extends": "Error",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "constraint": {
-                            "name": "constraint",
-                            "type": "DOMString"
-                        }
-                    }
-                }
+                "extends": "Error"
             },
             "ProgressEvent": {
                 "type-parameters": [
@@ -2319,9 +2110,6 @@
                     }
                 }
             },
-            "VideoTrack": {
-                "exposed": ""
-            },
             "WebSocket": {
                 "events": {
                     "event": [
@@ -2360,35 +2148,6 @@
                     "member": {
                         "url": {
                             "name": "url",
-                            "type": "DOMString"
-                        }
-                    }
-                }
-            },
-            "ShadowRootInit": {
-                "members": {
-                    "member": {
-                        "delegatesFocus": {
-                            "name": "delegatesFocus",
-                            "type": "boolean"
-                        }
-                    }
-                }
-            },
-            "WorkerOptions": {
-                "name": "WorkerOptions",
-                "members": {
-                    "member": {
-                        "type": {
-                            "name": "type",
-                            "type": "WorkerType"
-                        },
-                        "credentials": {
-                            "name": "credentials",
-                            "type": "RequestCredentials"
-                        },
-                        "name": {
-                            "name": "name",
                             "type": "DOMString"
                         }
                     }

@@ -70,6 +70,9 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
                     if (shallow && typeof (targetProp as any).name === "string" && typeof (srcProp as any).name === "string") {
                         target[k] = srcProp;
                     } else {
+                        if (targetProp === srcProp && k !== "name" && k !== "new-type") {
+                            console.warn(`Redundant merge value ${targetProp} in ${JSON.stringify(src)}`);
+                        }
                         target[k] = merge(targetProp, srcProp, shallow);
                     }
                 }

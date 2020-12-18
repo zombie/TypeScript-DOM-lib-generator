@@ -354,11 +354,6 @@ interface DeviceOrientationEventInit extends EventInit {
     gamma?: number | null;
 }
 
-interface DevicePermissionDescriptor extends PermissionDescriptor {
-    deviceId?: string;
-    name: "camera" | "microphone" | "speaker";
-}
-
 interface DocumentTimelineOptions {
     originTime?: number;
 }
@@ -778,11 +773,6 @@ interface MessageEventInit<T = any> extends EventInit {
     source?: MessageEventSource | null;
 }
 
-interface MidiPermissionDescriptor extends PermissionDescriptor {
-    name: "midi";
-    sysex?: boolean;
-}
-
 interface MouseEventInit extends EventModifierInit {
     button?: number;
     buttons?: number;
@@ -1108,11 +1098,6 @@ interface PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
 interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
     displayName: string;
     id: BufferSource;
-}
-
-interface PushPermissionDescriptor extends PermissionDescriptor {
-    name: "push";
-    userVisibleOnly?: boolean;
 }
 
 interface PushSubscriptionJSON {
@@ -10788,7 +10773,7 @@ declare var PermissionStatus: {
 };
 
 interface Permissions {
-    query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>;
+    query(permissionDesc: PermissionDescriptor): Promise<PermissionStatus>;
 }
 
 declare var Permissions: {
@@ -17898,7 +17883,7 @@ type OverSampleType = "2x" | "4x" | "none";
 type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
 type PaymentShippingType = "delivery" | "pickup" | "shipping";
-type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-sync" | "bluetooth" | "camera" | "clipboard" | "device-info" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "notifications" | "persistent-storage" | "push" | "speaker";
+type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PremultiplyAlpha = "default" | "none" | "premultiply";

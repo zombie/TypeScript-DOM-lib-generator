@@ -125,11 +125,6 @@ interface DOMRectInit {
     y?: number;
 }
 
-interface DevicePermissionDescriptor extends PermissionDescriptor {
-    deviceId?: string;
-    name: "camera" | "microphone" | "speaker";
-}
-
 interface EcKeyGenParams extends Algorithm {
     namedCurve: NamedCurve;
 }
@@ -282,11 +277,6 @@ interface MessageEventInit<T = any> extends EventInit {
     source?: MessageEventSource | null;
 }
 
-interface MidiPermissionDescriptor extends PermissionDescriptor {
-    name: "midi";
-    sysex?: boolean;
-}
-
 interface MultiCacheQueryOptions extends CacheQueryOptions {
     cacheName?: string;
 }
@@ -364,11 +354,6 @@ interface PromiseRejectionEventInit extends EventInit {
 
 interface PushEventInit extends ExtendableEventInit {
     data?: PushMessageDataInit;
-}
-
-interface PushPermissionDescriptor extends PermissionDescriptor {
-    name: "push";
-    userVisibleOnly?: boolean;
 }
 
 interface PushSubscriptionJSON {
@@ -2420,7 +2405,7 @@ declare var PermissionStatus: {
 };
 
 interface Permissions {
-    query(permissionDesc: PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor): Promise<PermissionStatus>;
+    query(permissionDesc: PermissionDescriptor): Promise<PermissionStatus>;
 }
 
 declare var Permissions: {
@@ -5677,7 +5662,7 @@ type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
-type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-sync" | "bluetooth" | "camera" | "clipboard" | "device-info" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "notifications" | "persistent-storage" | "push" | "speaker";
+type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PushEncryptionKeyName = "auth" | "p256dh";

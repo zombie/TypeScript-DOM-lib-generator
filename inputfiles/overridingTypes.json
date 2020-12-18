@@ -2994,7 +2994,7 @@
                                     "param": [
                                         {
                                             "name": "permissionDesc",
-                                            "override-type": "PermissionDescriptor | DevicePermissionDescriptor | MidiPermissionDescriptor | PushPermissionDescriptor"
+                                            "type": "PermissionDescriptor"
                                         }
                                     ]
                                 }
@@ -3446,39 +3446,6 @@
                         },
                         "writableType": {
                             "override-type": "undefined"
-                        }
-                    }
-                }
-            },
-            "DevicePermissionDescriptor": {
-                "members": {
-                    "member": {
-                        "name": {
-                            "name": "name",
-                            "required": 1,
-                            "override-type": "\"camera\" | \"microphone\" | \"speaker\""
-                        }
-                    }
-                }
-            },
-            "MidiPermissionDescriptor": {
-                "members": {
-                    "member": {
-                        "name": {
-                            "name": "name",
-                            "required": 1,
-                            "override-type": "\"midi\""
-                        }
-                    }
-                }
-            },
-            "PushPermissionDescriptor": {
-                "members": {
-                    "member": {
-                        "name": {
-                            "name": "name",
-                            "required": 1,
-                            "override-type": "\"push\""
                         }
                     }
                 }

@@ -49,6 +49,26 @@
     "enums": {
         "enum": {
             "ClientType": null,
+            "PermissionName": {
+                "value": [
+                    "midi",
+                    "camera",
+                    "microphone",
+                    "speaker-selection",
+                    "device-info",
+                    "background-fetch",
+                    "background-sync",
+                    "bluetooth",
+                    "ambient-light-sensor",
+                    "accelerometer",
+                    "gyroscope",
+                    "magnetometer",
+                    "clipboard-read",
+                    "clipboard-write",
+                    "display-capture",
+                    "nfc"
+                ]
+            },
             "ReadableStreamReaderMode": null,
             "ReadableStreamType": null,
             "RequestType": null

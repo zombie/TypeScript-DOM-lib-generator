@@ -34,6 +34,11 @@
                     "namesakes": {
                         "canvas": null
                     }
+                },
+                "methods": {
+                    "method": {
+                        "makeXRCompatible": null
+                    }
                 }
             },
             "WindowOrWorkerGlobalScope": {
@@ -299,6 +304,13 @@
                 "members": {
                     "member": {
                         "autoAllocateChunkSize": null
+                    }
+                }
+            },
+            "WebGLContextAttributes": {
+                "members": {
+                    "member": {
+                        "xrCompatible": null
                     }
                 }
             }

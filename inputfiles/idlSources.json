@@ -646,6 +646,11 @@
         "shortName": "webvtt"
     },
     {
+        "url": "https://immersive-web.github.io/webxr/",
+        "title": "WebXR Device",
+        "shortName": "webxr"
+    },
+    {
         "url": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest",
         "shortName": "xhr"

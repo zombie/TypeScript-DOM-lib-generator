@@ -881,7 +881,7 @@ declare var CountQueuingStrategy: {
 /** Basic cryptography features available in the current context. It allows access to a cryptographically strong random number generator and to cryptographic primitives. */
 interface Crypto {
     readonly subtle: SubtleCrypto;
-    getRandomValues<T extends Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null>(array: T): T;
+    getRandomValues<T extends ArrayBufferView | null>(array: T): T;
 }
 
 declare var Crypto: {
@@ -913,7 +913,7 @@ interface CustomEvent<T = any> extends Event {
 
 declare var CustomEvent: {
     prototype: CustomEvent;
-    new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
+    new<T>(type: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
 };
 
 /** An abnormal event (called an exception) which occurs as a result of calling a method or accessing a property of a web API. */
@@ -2529,7 +2529,7 @@ declare var ReadableStream: {
 interface ReadableStreamDefaultController<R = any> {
     readonly desiredSize: number | null;
     close(): void;
-    enqueue(chunk: R): void;
+    enqueue(chunk?: R): void;
     error(e?: any): void;
 }
 
@@ -5123,7 +5123,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new(stringUrl: string | URL, options?: WorkerOptions): Worker;
+    new(scriptURL: string | URL, options?: WorkerOptions): Worker;
 };
 
 interface WorkerGlobalScopeEventMap {

@@ -76,7 +76,6 @@
         "RTCStatsType",
         "RTCTransport",
         "RTCTransportStats",
-        "RandomSource",
         "RsaHashedImportParams",
         "RsaHashedKeyAlgorithm",
         "RsaHashedKeyGenParams",

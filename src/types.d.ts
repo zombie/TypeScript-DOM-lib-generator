@@ -15,8 +15,9 @@ export interface Param extends Typed {
 
 export interface Signature extends Typed {
     param?: Param[];
-    "param-min-required"?: number,
-    "deprecated"?: 1
+    "param-min-required"?: number;
+    "deprecated"?: 1;
+    "type-parameters"?: TypeParameter[];
 }
 
 export interface Member extends Typed {

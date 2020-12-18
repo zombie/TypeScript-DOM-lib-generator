@@ -5,8 +5,6 @@ import { camelToHyphenCase } from "./utils/css.js";
 import { filterMapRecord, isEmptyRecord } from "./utils/record.js";
 import { mapDefined } from "./helpers.js";
 
-// TODO: Block every types that are not in BCD, with an allowlist
-
 const forceKeepAlive: Record<string, string[]> = {
   // Things that are incorrectly reported as unsupported.
   // These should be filed to https://github.com/mdn/browser-compat-data/issues

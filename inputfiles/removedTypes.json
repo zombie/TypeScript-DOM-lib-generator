@@ -96,6 +96,19 @@
                 }
             },
             "MediaStreamError": null,
+            "ReadableStream": {
+                "methods": {
+                    "method": {
+                        "getReader": {
+                            "signature": {
+                                "0": {
+                                    "param": ["options"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {

@@ -149,19 +149,6 @@
                 }
               }
             },
-            "RandomSource": {
-                "name": "RandomSource",
-                "methods": {
-                    "method": {
-                        "getRandomValues": {
-                            "name": "getRandomValues",
-                            "override-signatures": [
-                                "getRandomValues<T extends Int8Array | Uint8ClampedArray | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array>(array: T): T"
-                            ]
-                        }
-                    }
-                }
-            },
             "WebGLRenderingContextBase": {
                 "name": "WebGLRenderingContextBase",
                 "methods": {
@@ -485,8 +472,6 @@
                 "properties": {
                     "property": {
                         "detail": {
-                            "name": "detail",
-                            "read-only": 1,
                             "override-type": "T"
                         }
                     }
@@ -494,7 +479,6 @@
                 "methods": {
                     "method": {
                         "initCustomEvent": {
-                            "name": "initCustomEvent",
                             "signature": {
                                 "0": {
                                     "param": [
@@ -515,9 +499,22 @@
                     }
                 ],
                 "constructor": {
-                    "override-signatures": [
-                        "new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>"
-                    ]
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "T"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "eventInitDict",
+                                    "override-type": "CustomEventInit<T>"
+                                }
+                            ],
+                            "override-type": "CustomEvent<T>"
+                        }
+                    }
                 }
             },
             "Window": {
@@ -577,16 +574,42 @@
                 "methods": {
                     "method": {
                         "adoptNode": {
-                            "name": "adoptNode",
-                            "override-signatures": [
-                                "adoptNode<T extends Node>(source: T): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "Node"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "node",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         },
                         "importNode": {
-                            "name": "importNode",
-                            "override-signatures": [
-                                "importNode<T extends Node>(importedNode: T, deep: boolean): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "Node"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "node",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         },
                         "getElementById": {
                             "name": "getElementById",
@@ -720,28 +743,80 @@
                 "methods": {
                     "method": {
                         "appendChild": {
-                            "name": "appendChild",
-                            "override-signatures": [
-                                "appendChild<T extends Node>(newChild: T): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "Node"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "node",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         },
                         "insertBefore": {
-                            "name": "insertBefore",
-                            "override-signatures": [
-                                "insertBefore<T extends Node>(newChild: T, refChild: Node | null): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "Node"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "node",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         },
                         "removeChild": {
-                            "name": "removeChild",
-                            "override-signatures": [
-                                "removeChild<T extends Node>(oldChild: T): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "Node"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "child",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         },
                         "replaceChild": {
-                            "name": "replaceChild",
-                            "override-signatures": [
-                                "replaceChild<T extends Node>(newChild: Node, oldChild: T): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "Node"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "child",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         }
                     }
                 },
@@ -2324,9 +2399,16 @@
                 "name": "Worker",
                 "override-exposed": "Window Worker",
                 "constructor": {
-                    "override-signatures": [
-                        "new(stringUrl: string | URL, options?: WorkerOptions): Worker"
-                    ]
+                    "signature": {
+                        "0": {
+                            "param": [
+                                {
+                                    "name": "scriptURL",
+                                    "override-type": "string | URL"
+                                }
+                            ]
+                        }
+                    }
                 },
                 "methods": {
                     "method": {
@@ -2350,10 +2432,23 @@
                 "methods": {
                     "method": {
                         "getRandomValues": {
-                            "name": "getRandomValues",
-                            "override-signatures": [
-                                "getRandomValues<T extends Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null>(array: T): T"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "ArrayBufferView | null"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "array",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "T"
+                                }
+                            }
                         }
                     }
                 }
@@ -2513,9 +2608,27 @@
                     }
                 ],
                 "constructor": {
-                    "override-signatures": [
-                        "new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>"
-                    ],
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "R",
+                                    "default": "any"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "underlyingSource",
+                                    "override-type": "UnderlyingSource<R>"
+                                },
+                                {
+                                    "name": "strategy",
+                                    "override-type": "QueuingStrategy<R>"
+                                }
+                            ],
+                            "override-type": "ReadableStream<R>"
+                        }
+                    },
                     "force-references": [
                         {
                             "type": "UnderlyingSource"
@@ -2528,14 +2641,29 @@
                 "methods": {
                     "method": {
                         "getReader": {
-                            "override-signatures": [
-                                "getReader(): ReadableStreamDefaultReader<R>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "override-type": "ReadableStreamDefaultReader<R>"
+                                }
+                            }
                         },
                         "pipeThrough": {
-                            "override-signatures": [
-                                "pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "transform",
+                                            "override-type": "ReadableWritablePair<T, R>"
+                                        }
+                                    ],
+                                    "override-type": "ReadableStream<T>"
+                                }
+                            }
                         },
                         "pipeTo": {
                             "signature": {
@@ -2567,9 +2695,23 @@
                     }
                 ],
                 "constructor": {
-                    "override-signatures": [
-                        "new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>"
-                    ]
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "R",
+                                    "default": "any"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "stream",
+                                    "override-type": "ReadableStream<R>"
+                                }
+                            ],
+                            "override-type": "ReadableStreamDefaultReader<R>"
+                        }
+                    }
                 },
                 "methods": {
                     "method": {
@@ -2593,18 +2735,43 @@
                 "methods": {
                     "method": {
                         "enqueue": {
-                            "override-signatures": [
-                                "enqueue(chunk: R): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "chunk",
+                                            "override-type": "R"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
             },
             "WritableStream": {
                 "constructor": {
-                    "override-signatures": [
-                        "new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>"
-                    ],
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "W",
+                                    "default": "any"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "underlyingSink",
+                                    "override-type": "UnderlyingSink<W>"
+                                },
+                                {
+                                    "name": "strategy",
+                                    "override-type": "QueuingStrategy<W>"
+                                }
+                            ],
+                            "override-type": "WritableStream<W>"
+                        }
+                    },
                     "force-references": [
                         {
                             "type": "UnderlyingSink"
@@ -2640,9 +2807,23 @@
                     }
                 ],
                 "constructor": {
-                    "override-signatures": [
-                        "new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
-                    ]
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "W",
+                                    "default": "any"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "stream",
+                                    "override-type": "WritableStream<W>"
+                                }
+                            ],
+                            "override-type": "WritableStreamDefaultWriter<W>"
+                        }
+                    }
                 },
                 "methods": {
                     "method": {
@@ -2683,9 +2864,35 @@
                     }
                 },
                 "constructor": {
-                    "override-signatures": [
-                        "new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>"
-                    ],
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "I",
+                                    "default": "any"
+                                },
+                                {
+                                    "name": "O",
+                                    "default": "any"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "transformer",
+                                    "override-type": "Transformer<I, O>"
+                                },
+                                {
+                                    "name": "writableStrategy",
+                                    "override-type": "QueuingStrategy<I>"
+                                },
+                                {
+                                    "name": "readableStrategy",
+                                    "override-type": "QueuingStrategy<O>"
+                                }
+                            ],
+                            "override-type": "TransformStream<I, O>"
+                        }
+                    },
                     "force-references": [
                         {
                             "type": "Transformer"
@@ -2868,9 +3075,22 @@
                     }
                 ],
                 "constructor": {
-                    "override-signatures": [
-                        "new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>"
-                    ]
+                    "signature": {
+                        "0": {
+                            "type-parameters": [
+                                {
+                                    "name": "T"
+                                }
+                            ],
+                            "param": [
+                                {
+                                    "name": "eventInitDict",
+                                    "override-type": "MessageEventInit<T>"
+                                }
+                            ],
+                            "override-type": "MessageEvent<T>"
+                        }
+                    }
                 }
             },
             "Clients": {
@@ -2884,9 +3104,23 @@
                             }
                         },
                         "matchAll": {
-                            "override-signatures": [
-                                "matchAll<T extends ClientQueryOptions>(options?: T): Promise<ReadonlyArray<T[\"type\"] extends \"window\" ? WindowClient : Client>>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "type-parameters": [
+                                        {
+                                            "name": "T",
+                                            "extends": "ClientQueryOptions"
+                                        }
+                                    ],
+                                    "param": [
+                                        {
+                                            "name": "options",
+                                            "override-type": "T"
+                                        }
+                                    ],
+                                    "override-type": "Promise<ReadonlyArray<T[\"type\"] extends \"window\" ? WindowClient : Client>>"
+                                }
+                            }
                         }
                     }
                 }

@@ -3490,7 +3490,7 @@ declare var CredentialsContainer: {
 /** Basic cryptography features available in the current context. It allows access to a cryptographically strong random number generator and to cryptographic primitives. */
 interface Crypto {
     readonly subtle: SubtleCrypto;
-    getRandomValues<T extends Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | null>(array: T): T;
+    getRandomValues<T extends ArrayBufferView | null>(array: T): T;
 }
 
 declare var Crypto: {
@@ -3534,7 +3534,7 @@ interface CustomEvent<T = any> extends Event {
 
 declare var CustomEvent: {
     prototype: CustomEvent;
-    new<T>(typeArg: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
+    new<T>(type: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
 };
 
 /** An abnormal event (called an exception) which occurs as a result of calling a method or accessing a property of a web API. */
@@ -4273,7 +4273,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * 
      * If node is a document, throws a "NotSupportedError" DOMException or, if node is a shadow root, throws a "HierarchyRequestError" DOMException.
      */
-    adoptNode<T extends Node>(source: T): T;
+    adoptNode<T extends Node>(node: T): T;
     /** @deprecated */
     captureEvents(): void;
     /** @deprecated */
@@ -4482,7 +4482,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * 
      * If node is a document or a shadow root, throws a "NotSupportedError" DOMException.
      */
-    importNode<T extends Node>(importedNode: T, deep: boolean): T;
+    importNode<T extends Node>(node: T, deep?: boolean): T;
     /**
      * Opens a new window and loads a document specified by a given URL. Also, opens a new window that uses the url parameter and the name parameter to collect the output of the write method and the writeln method.
      * @param url Specifies a MIME type for the document.
@@ -4728,7 +4728,7 @@ interface Element extends Node, Animatable, ChildNode, InnerHTML, NonDocumentTyp
      */
     closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
     closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null;
-    closest<E extends Element = Element>(selector: string): E | null;
+    closest<E extends Element = Element>(selectors: string): E | null;
     /**
      * Returns element's first attribute whose qualified name is qualifiedName, and null if there is no such attribute otherwise.
      */
@@ -9959,7 +9959,7 @@ interface Node extends EventTarget {
      */
     readonly previousSibling: ChildNode | null;
     textContent: string | null;
-    appendChild<T extends Node>(newChild: T): T;
+    appendChild<T extends Node>(node: T): T;
     /**
      * Returns a copy of node. If deep is true, the copy also includes the node's descendants.
      */
@@ -9980,7 +9980,7 @@ interface Node extends EventTarget {
      * Returns whether node has children.
      */
     hasChildNodes(): boolean;
-    insertBefore<T extends Node>(newChild: T, refChild: Node | null): T;
+    insertBefore<T extends Node>(node: T, child: Node | null): T;
     isDefaultNamespace(namespace: string | null): boolean;
     /**
      * Returns whether node and otherNode have the same properties.
@@ -9993,8 +9993,8 @@ interface Node extends EventTarget {
      * Removes empty exclusive Text nodes and concatenates the data of remaining contiguous exclusive Text nodes into the first of their nodes.
      */
     normalize(): void;
-    removeChild<T extends Node>(oldChild: T): T;
-    replaceChild<T extends Node>(newChild: Node, oldChild: T): T;
+    removeChild<T extends Node>(child: T): T;
+    replaceChild<T extends Node>(node: Node, child: T): T;
     readonly ATTRIBUTE_NODE: number;
     /**
      * node is a CDATASection node.
@@ -11243,15 +11243,6 @@ declare var RadioNodeList: {
     new(): RadioNodeList;
 };
 
-interface RandomSource {
-    getRandomValues<T extends Int8Array | Uint8ClampedArray | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array>(array: T): T;
-}
-
-declare var RandomSource: {
-    prototype: RandomSource;
-    new(): RandomSource;
-};
-
 /** A fragment of a document that can contain nodes and parts of text nodes. */
 interface Range extends AbstractRange {
     /**
@@ -11323,7 +11314,7 @@ declare var ReadableStream: {
 interface ReadableStreamDefaultController<R = any> {
     readonly desiredSize: number | null;
     close(): void;
-    enqueue(chunk: R): void;
+    enqueue(chunk?: R): void;
     error(e?: any): void;
 }
 
@@ -16608,7 +16599,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new(stringUrl: string | URL, options?: WorkerOptions): Worker;
+    new(scriptURL: string | URL, options?: WorkerOptions): Worker;
 };
 
 interface Worklet {

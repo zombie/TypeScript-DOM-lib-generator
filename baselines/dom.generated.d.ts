@@ -1604,15 +1604,20 @@ interface ScrollToOptions extends ScrollOptions {
 
 interface SecurityPolicyViolationEventInit extends EventInit {
     blockedURI?: string;
+    blockedURL?: string;
+    colno?: number;
     columnNumber?: number;
+    disposition: SecurityPolicyViolationEventDisposition;
     documentURI?: string;
-    effectiveDirective?: string;
+    documentURL: string;
+    effectiveDirective: string;
     lineNumber?: number;
-    originalPolicy?: string;
+    lineno?: number;
+    originalPolicy: string;
     referrer?: string;
+    sample?: string;
     sourceFile?: string;
-    statusCode?: number;
-    violatedDirective?: string;
+    statusCode: number;
 }
 
 interface ShadowRootInit {
@@ -13452,11 +13457,13 @@ declare var ScriptProcessorNode: {
 interface SecurityPolicyViolationEvent extends Event {
     readonly blockedURI: string;
     readonly columnNumber: number;
+    readonly disposition: SecurityPolicyViolationEventDisposition;
     readonly documentURI: string;
     readonly effectiveDirective: string;
     readonly lineNumber: number;
     readonly originalPolicy: string;
     readonly referrer: string;
+    readonly sample: string;
     readonly sourceFile: string;
     readonly statusCode: number;
     readonly violatedDirective: string;
@@ -18264,6 +18271,7 @@ type ScrollBehavior = "auto" | "smooth";
 type ScrollLogicalPosition = "center" | "end" | "nearest" | "start";
 type ScrollRestoration = "auto" | "manual";
 type ScrollSetting = "" | "up";
+type SecurityPolicyViolationEventDisposition = "enforce" | "report";
 type SelectionMode = "end" | "preserve" | "select" | "start";
 type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";

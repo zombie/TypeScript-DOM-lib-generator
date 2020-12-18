@@ -3178,6 +3178,28 @@
                     }
                 }
             },
+            "SecurityPolicyViolationEventInit": {
+                "members": {
+                    "member": {
+                        "documentURI": {
+                            "name": "documentURI",
+                            "type": "DOMString"
+                        },
+                        "blockedURI": {
+                            "name": "blockedURI",
+                            "type": "DOMString"
+                        },
+                        "lineNumber": {
+                            "name": "lineNumber",
+                            "type": "unsigned long"
+                        },
+                        "columnNumber": {
+                            "name": "columnNumber",
+                            "type": "unsigned long"
+                        }
+                    }
+                }
+            },
             "UnderlyingSource": {
                 "type-parameters": [
                     {

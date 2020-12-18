@@ -15,6 +15,11 @@
         "shortName": "compat"
     },
     {
+        "url": "https://w3c.github.io/webappsec-csp/",
+        "title": "Content Security Policy",
+        "shortName": "CSP"
+    },
+    {
         "url": "https://w3c.github.io/requestidlecallback/",
         "title": "Cooperative Scheduling of Background Tasks",
         "shortName": "requestidlecallback"

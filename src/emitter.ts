@@ -738,6 +738,17 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         if (i.methods) {
             mapToArray(i.methods.method)
                 .filter(m => matchScope(emitScope, m) && !(prefix !== "" && (m.name === "addEventListener" || m.name === "removeEventListener")))
+                .filter(m => {
+                    // Already covered by `extends`.
+                    switch (i.iterator?.kind) {
+                        case "maplike":
+                            return !["set", "clear", "delete"].includes(m.name);
+                        case "setlike":
+                            return !["add", "clear", "delete"].includes(m.name);
+                        default:
+                            return true;
+                    }
+                })
                 .sort(compareName)
                 .forEach(m => emitMethod(prefix, m, conflictedMembers));
         }

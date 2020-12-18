@@ -245,6 +245,16 @@
                     }
                 }
             },
+            "FontFaceDescriptors": {
+                "members": {
+                    "member": {
+                        "ascentOverride": null,
+                        "descentOverride": null,
+                        "lineGapOverride": null,
+                        "variationSettings": null
+                    }
+                }
+            },
             "KeyframeAnimationOptions": {
                 "members": {
                     "member": {

@@ -75,6 +75,11 @@
         "shortName": "css-flexbox"
     },
     {
+        "url": "https://drafts.csswg.org/css-font-loading/",
+        "title": "CSS Font Loading",
+        "shortName": "css-font-loading"
+    },
+    {
         "url": "https://www.w3.org/TR/css-fonts-3/",
         "title": "CSS Fonts",
         "shortName": "css-fonts"

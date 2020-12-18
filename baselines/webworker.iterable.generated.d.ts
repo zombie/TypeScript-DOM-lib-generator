@@ -14,6 +14,9 @@ interface FileList {
     [Symbol.iterator](): IterableIterator<File>;
 }
 
+interface FontFaceSet extends Set<FontFace> {
+}
+
 interface FormData {
     [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>;
     /**

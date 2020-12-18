@@ -465,6 +465,20 @@ interface FocusOptions {
     preventScroll?: boolean;
 }
 
+interface FontFaceDescriptors {
+    display?: string;
+    featureSettings?: string;
+    stretch?: string;
+    style?: string;
+    unicodeRange?: string;
+    variant?: string;
+    weight?: string;
+}
+
+interface FontFaceSetLoadEventInit extends EventInit {
+    fontfaces?: FontFace[];
+}
+
 interface FormDataEventInit extends EventInit {
     formData: FormData;
 }
@@ -4072,7 +4086,7 @@ interface DocumentEventMap extends GlobalEventHandlersEventMap, DocumentAndEleme
 }
 
 /** Any web page loaded in the browser and serves as an entry point into the web page's content, which is the DOM tree. */
-interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShadowRoot, GlobalEventHandlers, NonElementParentNode, ParentNode, XPathEvaluatorBase {
+interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShadowRoot, FontFaceSource, GlobalEventHandlers, NonElementParentNode, ParentNode, XPathEvaluatorBase {
     /**
      * Sets or gets the URL for the current document.
      */
@@ -4332,6 +4346,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "Event"): Event;
     createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
+    createEvent(eventInterface: "FontFaceSetLoadEvent"): FontFaceSetLoadEvent;
     createEvent(eventInterface: "FormDataEvent"): FormDataEvent;
     createEvent(eventInterface: "GamepadEvent"): GamepadEvent;
     createEvent(eventInterface: "HashChangeEvent"): HashChangeEvent;
@@ -5089,6 +5104,64 @@ declare var FocusEvent: {
     prototype: FocusEvent;
     new(type: string, eventInitDict?: FocusEventInit): FocusEvent;
 };
+
+interface FontFace {
+    display: string;
+    family: string;
+    featureSettings: string;
+    readonly loaded: Promise<FontFace>;
+    readonly status: FontFaceLoadStatus;
+    stretch: string;
+    style: string;
+    unicodeRange: string;
+    variant: string;
+    weight: string;
+    load(): Promise<FontFace>;
+}
+
+declare var FontFace: {
+    prototype: FontFace;
+    new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
+};
+
+interface FontFaceSetEventMap {
+    "loading": Event;
+    "loadingdone": Event;
+    "loadingerror": Event;
+}
+
+interface FontFaceSet extends EventTarget {
+    onloading: ((this: FontFaceSet, ev: Event) => any) | null;
+    onloadingdone: ((this: FontFaceSet, ev: Event) => any) | null;
+    onloadingerror: ((this: FontFaceSet, ev: Event) => any) | null;
+    readonly ready: Promise<FontFaceSet>;
+    readonly status: FontFaceSetLoadStatus;
+    check(font: string, text?: string): boolean;
+    load(font: string, text?: string): Promise<FontFace[]>;
+    forEach(callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void, thisArg?: any): void;
+    addEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var FontFaceSet: {
+    prototype: FontFaceSet;
+    new(initialFaces: FontFace[]): FontFaceSet;
+};
+
+interface FontFaceSetLoadEvent extends Event {
+    readonly fontfaces: ReadonlyArray<FontFace>;
+}
+
+declare var FontFaceSetLoadEvent: {
+    prototype: FontFaceSetLoadEvent;
+    new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
+};
+
+interface FontFaceSource {
+    readonly fonts: FontFaceSet;
+}
 
 /** Provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data". */
 interface FormData {
@@ -17152,10 +17225,6 @@ interface EventHandlerNonNull {
     (event: Event): any;
 }
 
-interface ForEachCallback {
-    (keyId: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, status: MediaKeyStatus): void;
-}
-
 interface FrameRequestCallback {
     (time: number): void;
 }
@@ -17893,6 +17962,7 @@ declare function removeEventListener<K extends keyof WindowEventMap>(type: K, li
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 type AlgorithmIdentifier = string | Algorithm;
 type BigInteger = Uint8Array;
+type BinaryData = ArrayBuffer | ArrayBufferView;
 type BlobPart = BufferSource | Blob | string;
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 type BufferSource = ArrayBufferView | ArrayBuffer;
@@ -17985,6 +18055,8 @@ type DocumentReadyState = "complete" | "interactive" | "loading";
 type EndOfStreamError = "decode" | "network";
 type EndingType = "native" | "transparent";
 type FillMode = "auto" | "backwards" | "both" | "forwards" | "none";
+type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
+type FontFaceSetLoadStatus = "loaded" | "loading";
 type FullscreenNavigationUI = "auto" | "hide" | "show";
 type GamepadHapticActuatorType = "vibration";
 type GamepadMappingType = "" | "standard";

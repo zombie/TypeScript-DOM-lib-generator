@@ -27,7 +27,6 @@
         "EcdhKeyDeriveParams",
         "EcdsaParams",
         "FocusOptions",
-        "ForEachCallback",
         "HashAlgorithmIdentifier",
         "HkdfParams",
         "HmacImportParams",

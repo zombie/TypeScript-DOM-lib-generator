@@ -187,6 +187,20 @@ interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
 }
 
+interface FontFaceDescriptors {
+    display?: string;
+    featureSettings?: string;
+    stretch?: string;
+    style?: string;
+    unicodeRange?: string;
+    variant?: string;
+    weight?: string;
+}
+
+interface FontFaceSetLoadEventInit extends EventInit {
+    fontfaces?: FontFace[];
+}
+
 interface GetNotificationOptions {
     tag?: string;
 }
@@ -1492,6 +1506,64 @@ declare var FileReaderSync: {
     prototype: FileReaderSync;
     new(): FileReaderSync;
 };
+
+interface FontFace {
+    display: string;
+    family: string;
+    featureSettings: string;
+    readonly loaded: Promise<FontFace>;
+    readonly status: FontFaceLoadStatus;
+    stretch: string;
+    style: string;
+    unicodeRange: string;
+    variant: string;
+    weight: string;
+    load(): Promise<FontFace>;
+}
+
+declare var FontFace: {
+    prototype: FontFace;
+    new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
+};
+
+interface FontFaceSetEventMap {
+    "loading": Event;
+    "loadingdone": Event;
+    "loadingerror": Event;
+}
+
+interface FontFaceSet extends EventTarget {
+    onloading: ((this: FontFaceSet, ev: Event) => any) | null;
+    onloadingdone: ((this: FontFaceSet, ev: Event) => any) | null;
+    onloadingerror: ((this: FontFaceSet, ev: Event) => any) | null;
+    readonly ready: Promise<FontFaceSet>;
+    readonly status: FontFaceSetLoadStatus;
+    check(font: string, text?: string): boolean;
+    load(font: string, text?: string): Promise<FontFace[]>;
+    forEach(callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void, thisArg?: any): void;
+    addEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var FontFaceSet: {
+    prototype: FontFaceSet;
+    new(initialFaces: FontFace[]): FontFaceSet;
+};
+
+interface FontFaceSetLoadEvent extends Event {
+    readonly fontfaces: ReadonlyArray<FontFace>;
+}
+
+declare var FontFaceSetLoadEvent: {
+    prototype: FontFaceSetLoadEvent;
+    new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
+};
+
+interface FontFaceSource {
+    readonly fonts: FontFaceSet;
+}
 
 /** Provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data". */
 interface FormData {
@@ -5121,7 +5193,7 @@ interface WorkerGlobalScopeEventMap {
 }
 
 /** This Web Workers API interface is an interface representing the scope of any worker. Workers have no browsing context; this scope contains the information usually conveyed by Window objects — in this case event handlers, the console or the associated WorkerNavigator object. Each WorkerGlobalScope has its own event loop. */
-interface WorkerGlobalScope extends EventTarget, WindowOrWorkerGlobalScope {
+interface WorkerGlobalScope extends EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {
     /**
      * Returns workerGlobal's WorkerLocation object.
      */
@@ -5592,6 +5664,7 @@ declare function importScripts(...urls: string[]): void;
  * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
  */
 declare function dispatchEvent(event: Event): boolean;
+declare var fonts: FontFaceSet;
 declare var caches: CacheStorage;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
@@ -5616,6 +5689,7 @@ declare function removeEventListener<K extends keyof DedicatedWorkerGlobalScopeE
 declare function removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 type AlgorithmIdentifier = string | Algorithm;
 type BigInteger = Uint8Array;
+type BinaryData = ArrayBuffer | ArrayBufferView;
 type BlobPart = BufferSource | Blob | string;
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 type BufferSource = ArrayBufferView | ArrayBuffer;
@@ -5660,6 +5734,8 @@ type BinaryType = "arraybuffer" | "blob";
 type ClientTypes = "all" | "sharedworker" | "window" | "worker";
 type ColorSpaceConversion = "default" | "none";
 type EndingType = "native" | "transparent";
+type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
+type FontFaceSetLoadStatus = "loaded" | "loading";
 type FrameType = "auxiliary" | "nested" | "none" | "top-level";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "done" | "pending";

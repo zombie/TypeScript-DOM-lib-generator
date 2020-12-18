@@ -391,6 +391,11 @@
         "shortName": "referrer-policy"
     },
     {
+        "url": "https://w3c.github.io/remote-playback/",
+        "title": "Remote Playback",
+        "shortName": "remote-playback"
+    },
+    {
         "url": "https://drafts.csswg.org/resize-observer/",
         "title": "Resize Observer",
         "shortName": "resize-observer"

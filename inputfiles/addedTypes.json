@@ -1538,6 +1538,16 @@
             "WebGLVertexArrayObjectOES": {
                 "override-exposed": "Window Worker"
             },
+            "RemotePlayback": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "connect",
+                            "type": "Event"
+                        }
+                    ]
+                }
+            },
             "RTCDTMFSender": {
                 "events": {
                     "event": [

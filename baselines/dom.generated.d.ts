@@ -7220,6 +7220,7 @@ interface HTMLMediaElement extends HTMLElement {
      * Gets or sets the default playback rate when the user is not using fast forward or reverse for a video or audio resource.
      */
     defaultPlaybackRate: number;
+    disableRemotePlayback: boolean;
     /**
      * Returns the duration in seconds of the current media resource. A NaN value is returned if duration is not available, or Infinity if the media resource is streaming.
      */
@@ -11539,6 +11540,31 @@ interface ReadableStreamGenericReader {
     readonly closed: Promise<undefined>;
     cancel(reason?: any): Promise<void>;
 }
+
+interface RemotePlaybackEventMap {
+    "connect": Event;
+    "connecting": Event;
+    "disconnect": Event;
+}
+
+interface RemotePlayback extends EventTarget {
+    onconnect: ((this: RemotePlayback, ev: Event) => any) | null;
+    onconnecting: ((this: RemotePlayback, ev: Event) => any) | null;
+    ondisconnect: ((this: RemotePlayback, ev: Event) => any) | null;
+    readonly state: RemotePlaybackState;
+    cancelWatchAvailability(id?: number): Promise<void>;
+    prompt(): Promise<void>;
+    watchAvailability(callback: RemotePlaybackAvailabilityCallback): Promise<number>;
+    addEventListener<K extends keyof RemotePlaybackEventMap>(type: K, listener: (this: RemotePlayback, ev: RemotePlaybackEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof RemotePlaybackEventMap>(type: K, listener: (this: RemotePlayback, ev: RemotePlaybackEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var RemotePlayback: {
+    prototype: RemotePlayback;
+    new(): RemotePlayback;
+};
 
 /** This Fetch API interface represents a resource request. */
 interface Request extends Body {
@@ -17426,6 +17452,10 @@ interface RTCStatsCallback {
     (report: RTCStatsReport): void;
 }
 
+interface RemotePlaybackAvailabilityCallback {
+    (available: boolean): void;
+}
+
 interface ResizeObserverCallback {
     (entries: ResizeObserverEntry[], observer: ResizeObserver): void;
 }
@@ -18258,6 +18288,7 @@ type RTCStatsIceCandidateType = "host" | "peerreflexive" | "relayed" | "serverre
 type RTCStatsType = "candidatepair" | "datachannel" | "inboundrtp" | "localcandidate" | "outboundrtp" | "remotecandidate" | "session" | "track" | "transport";
 type ReadyState = "closed" | "ended" | "open";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
+type RemotePlaybackState = "connected" | "connecting" | "disconnected";
 type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
 type RequestCredentials = "include" | "omit" | "same-origin";
 type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "frame" | "iframe" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";

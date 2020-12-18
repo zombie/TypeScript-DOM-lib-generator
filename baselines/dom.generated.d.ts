@@ -558,6 +558,10 @@ interface IIRFilterOptions extends AudioNodeOptions {
     feedforward: number[];
 }
 
+interface IdleRequestOptions {
+    timeout?: number;
+}
+
 interface ImageBitmapOptions {
     colorSpaceConversion?: ColorSpaceConversion;
     imageOrientation?: ImageOrientation;
@@ -9148,6 +9152,16 @@ declare var IIRFilterNode: {
     new(context: BaseAudioContext, options: IIRFilterOptions): IIRFilterNode;
 };
 
+interface IdleDeadline {
+    readonly didTimeout: boolean;
+    timeRemaining(): number;
+}
+
+declare var IdleDeadline: {
+    prototype: IdleDeadline;
+    new(): IdleDeadline;
+};
+
 interface ImageBitmap {
     /**
      * Returns the intrinsic height of the image, in CSS pixels.
@@ -16687,6 +16701,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly window: Window & typeof globalThis;
     alert(message?: any): void;
     blur(): void;
+    cancelIdleCallback(handle: number): void;
     /** @deprecated */
     captureEvents(): void;
     /**
@@ -16721,6 +16736,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     prompt(message?: string, _default?: string): string | null;
     /** @deprecated */
     releaseEvents(): void;
+    requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): number;
     resizeBy(x: number, y: number): void;
     resizeTo(width: number, height: number): void;
     scroll(options?: ScrollToOptions): void;
@@ -17321,6 +17337,10 @@ interface FunctionStringCallback {
     (data: string): void;
 }
 
+interface IdleRequestCallback {
+    (deadline: IdleDeadline): void;
+}
+
 interface IntersectionObserverCallback {
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
 }
@@ -17697,6 +17717,7 @@ declare var visualViewport: VisualViewport;
 declare var window: Window & typeof globalThis;
 declare function alert(message?: any): void;
 declare function blur(): void;
+declare function cancelIdleCallback(handle: number): void;
 /** @deprecated */
 declare function captureEvents(): void;
 /**
@@ -17731,6 +17752,7 @@ declare function print(): void;
 declare function prompt(message?: string, _default?: string): string | null;
 /** @deprecated */
 declare function releaseEvents(): void;
+declare function requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): number;
 declare function resizeBy(x: number, y: number): void;
 declare function resizeTo(width: number, height: number): void;
 declare function scroll(options?: ScrollToOptions): void;

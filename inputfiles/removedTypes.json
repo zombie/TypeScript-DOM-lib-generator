@@ -168,6 +168,9 @@
                     }
                 }
             },
+            "SVGElement": {
+                "implements": ["SVGElementInstance"]
+            },
             "SVGFEGaussianBlurElement": {
                 "constants": {
                     "constant": {

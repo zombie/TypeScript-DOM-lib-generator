@@ -1,6 +1,6 @@
 import * as Browser from "./types";
 import bcd from "@mdn/browser-compat-data";
-import { CompatStatement, Identifier, SimpleSupportStatement, SupportBlock } from "@mdn/browser-compat-data/types";
+import { CompatStatement, SimpleSupportStatement, SupportBlock } from "@mdn/browser-compat-data/types";
 import { camelToHyphenCase } from "./utils/css.js";
 import { filterMapRecord, isEmptyRecord } from "./utils/record.js";
 import { mapDefined } from "./helpers.js";
@@ -499,9 +499,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "releaseLock",
     "write",
   ],
-
-  // Should ultimately be removed but not now
-  "SVGElementInstance": []
 };
 
 function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
@@ -530,9 +527,9 @@ function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
   return count >= 2;
 }
 
-function isSuitable(key: string, value: Identifier, parentKey?: string, prefix?: string) {
+function isSuitable(key: string, compat?: CompatStatement, parentKey?: string, prefix?: string) {
   const forceAlive = parentKey ? forceKeepAlive[parentKey]?.includes(key) : !!forceKeepAlive[key];
-  if (value.__compat && hasMultipleImplementations(value.__compat.support, prefix)) {
+  if (compat && hasMultipleImplementations(compat.support, prefix)) {
     if (forceAlive) {
       if (parentKey) {
         console.warn(`Redundant forceKeepAlive item: ${parentKey}#${key}`)
@@ -544,114 +541,56 @@ function isSuitable(key: string, value: Identifier, parentKey?: string, prefix?:
   }
   return forceAlive;
 }
-function getEachRemovalData(type: Browser.Interface, strict: boolean) {
-  function getMemberRemovalData(memberKey: string) {
-    const memberBcdData = bcdData && bcdData[memberKey];
-    if (!memberBcdData) {
-      if (strict && !forceKeepAlive[type.name]?.includes(memberKey)) {
-        return { exposed: "" };
-      }
-      return;
-    }
-
-    if (!isSuitable(memberKey, memberBcdData, type.name)) {
-      return { exposed: "" };
-    }
-  }
-
-  const bcdData = bcd.api[type.name];
-  // BCD hasn't decided what to do with mixins.
-  // Allow "unsuitable" mixins until it gets a consistent mixin representation.
-  // https://github.com/mdn/browser-compat-data/issues/472
-  if (!bcdData || !isSuitable(type.name, bcdData)) {
-    if (strict && !forceKeepAlive[type.name]) {
-      return { exposed: "" };
-    }
-  }
-
-  const methods: Record<string, object> = {};
-  const properties: Record<string, object> = {};
-  for (const memberKey of Object.keys(type.methods.method)) {
-    const memberRemoval = getMemberRemovalData(memberKey);
-    if (memberRemoval) {
-      methods[memberKey] = memberRemoval;
-    }
-  }
-  for (const memberKey of Object.keys(type.properties?.property || {})) {
-    const memberRemoval = getMemberRemovalData(memberKey);
-    if (memberRemoval) {
-      if (type.name === "CSSStyleDeclaration") {
-        const hyphenCase = camelToHyphenCase(memberKey);
-        const bcdCssItem = bcd.css.properties[hyphenCase];
-        if (!bcdCssItem || !isSuitable(hyphenCase, bcdCssItem, type.name)) {
-          if (hyphenCase.startsWith("-webkit-")) {
-            const noPrefix = hyphenCase.slice(8);
-            const bcdWebKitItem = bcd.css.properties[noPrefix];
-            if (!bcdWebKitItem || !isSuitable(noPrefix, bcdWebKitItem, type.name, "-webkit-")) {
-              properties[memberKey] = memberRemoval;
-            }
-          }
-          else if (!forceKeepAlive[type.name]?.includes(memberKey)) {
-            properties[memberKey] = memberRemoval;
-          }
-        }
-      } else {
-        properties[memberKey] = memberRemoval;
-      }
-    }
-  }
-  const removalItem: Record<string, object> = {};
-  if (!isEmptyRecord(methods)) {
-    removalItem.methods = { method: methods };
-  }
-  if (!isEmptyRecord(properties)) {
-    removalItem.properties = { property: properties };
-  }
-  if (!isEmptyRecord(removalItem)) {
-    return removalItem;
-  }
-  return;
-}
 
 export function getRemovalData(webidl: Browser.WebIdl) {
-  const interfaces: Record<string, object> = {};
-  const mixins: Record<string, object> = {};
-  const namespaces: object[] = [];
-  for (const type of Object.values(webidl.interfaces?.interface ?? {})) {
-    const removalData = getEachRemovalData(type, true);
-    if (removalData) {
-      interfaces[type.name] = removalData;
-    }
-  }
-  for (const type of Object.values(webidl.mixins?.mixin ?? {})) {
-    const removalData = getEachRemovalData(type, false);
-    if (removalData) {
-      mixins[type.name] = removalData;
-    }
-  }
-  for (const type of webidl.namespaces ?? []) {
-    const removalData = getEachRemovalData(type, true);
-    if (removalData) {
-      namespaces.push({ name: type.name, ...removalData });
-    }
-  }
-  return { interfaces: { interface: interfaces }, mixins: { mixin: mixins }, namespaces };
-}
-
-function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }: { key: string, compat?: CompatStatement, webkit?: boolean }) => any) {
-  function mapInterfaceLike(name: string, i: Browser.Interface) {
-    if (!bcd.api[name]?.__compat) {
+  return mapToBcdCompat(webidl, ({ key, parentKey, compat, mixin }) => {
+    // Allow:
+    // * all mixins, for now
+    // * mixin members that has no compat data
+    if (mixin && (!compat || !parentKey)) {
       return;
     }
-    const result = { ...mapper({ key: name, compat: bcd.api[name].__compat }) } as Browser.Interface;
+    if (isSuitable(key, compat, parentKey)) {
+      return;
+    }
+
+    if (parentKey === "CSSStyleDeclaration") {
+      const hyphenCase = camelToHyphenCase(key);
+      const bcdCssItem = bcd.css.properties[hyphenCase];
+      if (bcdCssItem && isSuitable(hyphenCase, bcdCssItem.__compat, parentKey)) {
+        return;
+      }
+      if (hyphenCase.startsWith("-webkit-")) {
+        const noPrefix = hyphenCase.slice(8);
+        const bcdWebKitItem = bcd.css.properties[noPrefix];
+        if (bcdWebKitItem && isSuitable(noPrefix, bcdWebKitItem.__compat, parentKey, "-webkit-")) {
+          return;
+        }
+      }
+      else if (forceKeepAlive[parentKey]?.includes(key)) {
+        return;
+      }
+    }
+
+    return { exposed: "" };
+  }) as Browser.WebIdl;
+}
+
+function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }: { key: string, compat?: CompatStatement, webkit?: boolean, mixin: boolean, parentKey?: string }) => any): Browser.WebIdl | undefined {
+  function mapInterfaceLike(name: string, i: Browser.Interface) {
+    const intCompat = bcd.api[name]?.__compat;
+    const mapped = mapper({ key: name, compat: intCompat, mixin: !!i.mixin });
+    if (!intCompat) {
+      if (mapped) {
+        return { name: i.name, ... mapped };
+      }
+      return;
+    }
+    const result = { ...mapped };
 
     const recordMapper = (key: string) => {
       const compat = bcd.api[name][key]?.__compat;
-      if (compat) {
-        return mapper({ key, compat });
-      } else if (key.startsWith("webkit")) {
-        return mapper({ key, webkit: true });
-      }
+      return mapper({ key, parentKey: name, webkit: key.startsWith("webkit"), compat, mixin: !!i.mixin });
     };
     const methods = filterMapRecord(i.methods.method, recordMapper);
     const properties = filterMapRecord(i.properties?.property, recordMapper);
@@ -662,7 +601,7 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
       result.properties = { property: properties! };
     }
     if (!isEmptyRecord(result)) {
-      return result;
+      return { name: i.name, ...result };
     }
   }
   const interfaces = filterMapRecord(webidl.interfaces?.interface, mapInterfaceLike);
@@ -670,8 +609,8 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
   const namespaces = mapDefined(webidl.namespaces, n => mapInterfaceLike(n.name, n));
   if (!isEmptyRecord(interfaces) || !isEmptyRecord(mixins) || !isEmptyRecord(namespaces)) {
     return {
-      interfaces: { interface: interfaces },
-      mixins: { mixin: mixins },
+      interfaces: interfaces && { interface: interfaces },
+      mixins: mixins && { mixin: mixins },
       namespaces
     }
   }
@@ -680,7 +619,7 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
 export function getDeprecationData(webidl: Browser.WebIdl) {
   const webkitExceptions = ["webkitLineClamp"];
   return mapToBcdCompat(webidl, ({ key, compat, webkit }) => {
-    if (compat?.status?.deprecated || (webkit && !webkitExceptions.includes(key))) {
+    if (compat?.status?.deprecated || (!compat && webkit && !webkitExceptions.includes(key))) {
       return { deprecated: 1 };
     }
   }) as Browser.WebIdl;

@@ -12059,7 +12059,7 @@ interface SVGElementEventMap extends ElementEventMap, GlobalEventHandlersEventMa
 }
 
 /** All of the SVG DOM interfaces that correspond directly to elements in the SVG language derive from the SVGElement interface. */
-interface SVGElement extends Element, DocumentAndElementEventHandlers, DocumentAndElementEventHandlers, ElementCSSInlineStyle, GlobalEventHandlers, GlobalEventHandlers, HTMLOrSVGElement, SVGElementInstance {
+interface SVGElement extends Element, DocumentAndElementEventHandlers, DocumentAndElementEventHandlers, ElementCSSInlineStyle, GlobalEventHandlers, GlobalEventHandlers, HTMLOrSVGElement {
     /** @deprecated */
     readonly className: any;
     readonly ownerSVGElement: SVGSVGElement | null;
@@ -12073,14 +12073,6 @@ interface SVGElement extends Element, DocumentAndElementEventHandlers, DocumentA
 declare var SVGElement: {
     prototype: SVGElement;
     new(): SVGElement;
-};
-
-interface SVGElementInstance extends EventTarget {
-}
-
-declare var SVGElementInstance: {
-    prototype: SVGElementInstance;
-    new(): SVGElementInstance;
 };
 
 /** Provides access to the properties of <ellipse> elements. */

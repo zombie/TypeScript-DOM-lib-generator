@@ -81,13 +81,13 @@ async function emitDom() {
 
     async function convertWidl(shortName: string) {
         // Specs that clashes with other specs
-        const skip = ["portals", "svg-paths", "trusted-types"];
+        const skip = ["EXT_disjoint_timer_query_webgl", "portals", "svg-markers", "svg-paths", "trusted-types"];
         if (skip.includes(shortName)) {
             return;
         }
 
         // Specs that need to fix their syntax, etc.
-        const local = ["css-typed-om", "permissions", "uievents", "xsltprocessor", "EXT_disjoint_timer_query_webgl2"];
+        const local = ["css-typed-om", "permissions", "uievents", "xsltprocessor"];
         const idl = local.includes(shortName) ?
             await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), { encoding: "utf-8" }) :
             await getIdl(shortName);
@@ -186,9 +186,7 @@ async function emitDom() {
             if (target) {
                 if (!target.implements) {
                     target.implements = [include.includes];
-                } else if (!target.implements.includes(include.includes)) {
-                    // This makes sure that browser.webidl.preprocessed.json
-                    // does not already have the mixin reference
+                } else {
                     target.implements.push(include.includes);
                 }
             }

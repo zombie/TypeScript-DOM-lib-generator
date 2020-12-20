@@ -218,18 +218,6 @@
                     }
                 }
             },
-            "SVGLineElement": {
-                "implements": ["SVGMarkableElement"]
-            },
-            "SVGPathElement": {
-                "implements": ["SVGMarkableElement"]
-            },
-            "SVGPolygonElement": {
-                "implements": ["SVGMarkableElement"]
-            },
-            "SVGPolylineElement": {
-                "implements": ["SVGMarkableElement"]
-            },
             "Text": {
                 "implements": ["GeometryUtils"]
             },

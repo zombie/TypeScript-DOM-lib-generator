@@ -316,6 +316,48 @@
                     }
                 }
             },
+            "MediaTrackConstraintSet": {
+                "members": {
+                    "member": {
+                        "autoGainControl": null,
+                        "cursor": null,
+                        "displaySurface": null,
+                        "logicalSurface": null,
+                        "noiseSuppression": null,
+                        "resizeMode": null,
+                        "restrictOwnAudio": null
+                    }
+                }
+            },
+            "MediaTrackSettings": {
+                "members": {
+                    "member": {
+                        "autoGainControl": null,
+                        "channelCount": null,
+                        "cursor": null,
+                        "displaySurface": null,
+                        "latency": null,
+                        "logicalSurface": null,
+                        "noiseSuppression": null,
+                        "resizeMode": null
+                    }
+                }
+            },
+            "MediaTrackSupportedConstraints": {
+                "members": {
+                    "member": {
+                        "autoGainControl": null,
+                        "channelCount": null,
+                        "cursor": null,
+                        "displaySurface": null,
+                        "latency": null,
+                        "logicalSurface": null,
+                        "noiseSuppression": null,
+                        "resizeMode": null,
+                        "restrictOwnAudio": null
+                    }
+                }
+            },
             "ObjectURLOptions": null,
             "PointerEventInit": {
                 "members": {

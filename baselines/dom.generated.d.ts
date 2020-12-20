@@ -367,6 +367,11 @@ interface DeviceOrientationEventInit extends EventInit {
     gamma?: number | null;
 }
 
+interface DisplayMediaStreamConstraints {
+    audio?: boolean | MediaTrackConstraints;
+    video?: boolean | MediaTrackConstraints;
+}
+
 interface DocumentTimelineOptions {
     originTime?: DOMHighResTimeStamp;
 }
@@ -800,7 +805,6 @@ interface MediaTrackCapabilities {
 
 interface MediaTrackConstraintSet {
     aspectRatio?: ConstrainDouble;
-    autoGainControl?: ConstrainBoolean;
     channelCount?: ConstrainULong;
     deviceId?: ConstrainDOMString;
     echoCancellation?: ConstrainBoolean;
@@ -809,8 +813,6 @@ interface MediaTrackConstraintSet {
     groupId?: ConstrainDOMString;
     height?: ConstrainULong;
     latency?: ConstrainDouble;
-    noiseSuppression?: ConstrainBoolean;
-    resizeMode?: ConstrainDOMString;
     sampleRate?: ConstrainULong;
     sampleSize?: ConstrainULong;
     width?: ConstrainULong;
@@ -822,17 +824,12 @@ interface MediaTrackConstraints extends MediaTrackConstraintSet {
 
 interface MediaTrackSettings {
     aspectRatio?: number;
-    autoGainControl?: boolean;
-    channelCount?: number;
     deviceId?: string;
     echoCancellation?: boolean;
     facingMode?: string;
     frameRate?: number;
     groupId?: string;
     height?: number;
-    latency?: number;
-    noiseSuppression?: boolean;
-    resizeMode?: string;
     sampleRate?: number;
     sampleSize?: number;
     width?: number;
@@ -840,17 +837,12 @@ interface MediaTrackSettings {
 
 interface MediaTrackSupportedConstraints {
     aspectRatio?: boolean;
-    autoGainControl?: boolean;
-    channelCount?: boolean;
     deviceId?: boolean;
     echoCancellation?: boolean;
     facingMode?: boolean;
     frameRate?: boolean;
     groupId?: boolean;
     height?: boolean;
-    latency?: boolean;
-    noiseSuppression?: boolean;
-    resizeMode?: boolean;
     sampleRate?: boolean;
     sampleSize?: boolean;
     width?: boolean;
@@ -9509,6 +9501,7 @@ interface MediaDevicesEventMap {
 interface MediaDevices extends EventTarget {
     ondevicechange: ((this: MediaDevices, ev: Event) => any) | null;
     enumerateDevices(): Promise<MediaDeviceInfo[]>;
+    getDisplayMedia(constraints?: DisplayMediaStreamConstraints): Promise<MediaStream>;
     getSupportedConstraints(): MediaTrackSupportedConstraints;
     getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
     addEventListener<K extends keyof MediaDevicesEventMap>(type: K, listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;

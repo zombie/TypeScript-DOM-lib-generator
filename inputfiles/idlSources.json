@@ -380,6 +380,11 @@
         "shortName": "savedata"
     },
     {
+        "url": "https://w3c.github.io/mediacapture-screen-share/",
+        "title": "Screen Capture",
+        "shortName": "screen-capture"
+    },
+    {
         "url": "https://notifications.spec.whatwg.org/",
         "title": "Notifications",
         "shortName": "notifications"

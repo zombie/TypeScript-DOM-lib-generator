@@ -1299,12 +1299,13 @@ interface RTCIceServer {
     username?: string;
 }
 
-interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
-    bytesReceived?: number;
-    fractionLost?: number;
-    jitter?: number;
-    packetsLost?: number;
-    packetsReceived?: number;
+interface RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
+    firCount?: number;
+    framesDecoded?: number;
+    nackCount?: number;
+    pliCount?: number;
+    qpSum?: number;
+    remoteId?: string;
 }
 
 interface RTCLocalSessionDescriptionInit {
@@ -1338,11 +1339,13 @@ interface RTCOfferOptions extends RTCOfferAnswerOptions {
     offerToReceiveVideo?: boolean;
 }
 
-interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
-    bytesSent?: number;
-    packetsSent?: number;
-    roundTripTime?: number;
-    targetBitrate?: number;
+interface RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
+    firCount?: number;
+    framesEncoded?: number;
+    nackCount?: number;
+    pliCount?: number;
+    qpSum?: number;
+    remoteId?: string;
 }
 
 interface RTCPeerConnectionIceEventInit extends EventInit {
@@ -1350,18 +1353,11 @@ interface RTCPeerConnectionIceEventInit extends EventInit {
     url?: string | null;
 }
 
-interface RTCRTPStreamStats extends RTCStats {
-    associateStatsId?: string;
-    codecId?: string;
-    firCount?: number;
-    isRemote?: boolean;
-    mediaTrackId?: string;
-    mediaType?: string;
-    nackCount?: number;
-    pliCount?: number;
-    sliCount?: number;
-    ssrc?: string;
-    transportId?: string;
+interface RTCReceivedRtpStreamStats extends RTCRtpStreamStats {
+    jitter?: number;
+    packetsDiscarded?: number;
+    packetsLost?: number;
+    packetsReceived?: number;
 }
 
 interface RTCRtcpFeedback {
@@ -1453,6 +1449,13 @@ interface RTCRtpSendParameters extends RTCRtpParameters {
     transactionId: string;
 }
 
+interface RTCRtpStreamStats extends RTCStats {
+    codecId?: string;
+    kind: string;
+    ssrc: number;
+    transportId?: string;
+}
+
 interface RTCRtpSynchronizationSource extends RTCRtpContributingSource {
 }
 
@@ -1466,6 +1469,11 @@ interface RTCRtpUnhandled {
     muxId?: string;
     payloadType?: number;
     ssrc?: number;
+}
+
+interface RTCSentRtpStreamStats extends RTCRtpStreamStats {
+    bytesSent?: number;
+    packetsSent?: number;
 }
 
 interface RTCSessionDescriptionInit {

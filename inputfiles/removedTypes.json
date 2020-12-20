@@ -547,6 +547,108 @@
                     }
                 }
             },
+            "RTCInboundRtpStreamStats": {
+                "members": {
+                    "member": {
+                        "receiverId": null,
+                        "keyFramesDecoded": null,
+                        "frameWidth": null,
+                        "frameHeight": null,
+                        "frameBitDepth": null,
+                        "framesPerSecond": null,
+                        "totalDecodeTime": null,
+                        "totalInterFrameDelay": null,
+                        "totalSquaredInterFrameDelay": null,
+                        "voiceActivityFlag": null,
+                        "lastPacketReceivedTimestamp": null,
+                        "averageRtcpInterval": null,
+                        "headerBytesReceived": null,
+                        "fecPacketsReceived": null,
+                        "fecPacketsDiscarded": null,
+                        "bytesReceived": null,
+                        "packetsFailedDecryption": null,
+                        "packetsDuplicated": null,
+                        "perDscpPacketsReceived": null,
+                        "sliCount": null,
+                        "totalProcessingDelay": null,
+                        "estimatedPlayoutTimestamp": null,
+                        "jitterBufferDelay": null,
+                        "jitterBufferEmittedCount": null,
+                        "totalSamplesReceived": null,
+                        "totalSamplesDecoded": null,
+                        "samplesDecodedWithSilk": null,
+                        "samplesDecodedWithCelt": null,
+                        "concealedSamples": null,
+                        "silentConcealedSamples": null,
+                        "concealmentEvents": null,
+                        "insertedSamplesForDeceleration": null,
+                        "removedSamplesForAcceleration": null,
+                        "audioLevel": null,
+                        "totalAudioEnergy": null,
+                        "totalSamplesDuration": null,
+                        "framesReceived": null,
+                        "decoderImplementation": null
+                    }
+                }
+            },
+            "RTCOutboundRtpStreamStats": {
+                "members": {
+                    "member": {
+                        "rtxSsrc": null,
+                        "mediaSourceId": null,
+                        "senderId": null,
+                        "rid": null,
+                        "lastPacketSentTimestamp": null,
+                        "headerBytesSent": null,
+                        "packetsDiscardedOnSend": null,
+                        "bytesDiscardedOnSend": null,
+                        "fecPacketsSent": null,
+                        "retransmittedPacketsSent": null,
+                        "retransmittedBytesSent": null,
+                        "targetBitrate": null,
+                        "totalEncodedBytesTarget": null,
+                        "frameWidth": null,
+                        "frameHeight": null,
+                        "frameBitDepth": null,
+                        "framesPerSecond": null,
+                        "framesSent": null,
+                        "hugeFramesSent": null,
+                        "keyFramesEncoded": null,
+                        "framesDiscardedOnSend": null,
+                        "totalSamplesSent": null,
+                        "samplesEncodedWithSilk": null,
+                        "samplesEncodedWithCelt": null,
+                        "voiceActivityFlag": null,
+                        "totalEncodeTime": null,
+                        "totalPacketSendDelay": null,
+                        "averageRtcpInterval": null,
+                        "qualityLimitationReason": null,
+                        "qualityLimitationDurations": null,
+                        "qualityLimitationResolutionChanges": null,
+                        "perDscpPacketsSent": null,
+                        "sliCount": null,
+                        "encoderImplementation": null
+                    }
+                }
+            },
+            "RTCReceivedRtpStreamStats": {
+                "members": {
+                    "member": {
+                        "packetsRepaired": null,
+                        "burstPacketsLost": null,
+                        "burstPacketsDiscarded": null,
+                        "burstLossCount": null,
+                        "burstDiscardCount": null,
+                        "burstLossRate": null,
+                        "burstDiscardRate": null,
+                        "gapLossRate": null,
+                        "gapDiscardRate": null,
+                        "framesDropped": null,
+                        "partialFramesLost": null,
+                        "fullFramesLost": null
+                    }
+                }
+            },
             "RTCRtpCodecCapability": {
                 "members": {
                     "member": {

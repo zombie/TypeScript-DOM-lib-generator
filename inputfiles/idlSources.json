@@ -325,6 +325,11 @@
         "shortName": "IndexedDB"
     },
     {
+        "url": "https://w3c.github.io/input-events/",
+        "title": "Input Events",
+        "shortName": "input-events"
+    },
+    {
         "url": "https://w3c.github.io/IntersectionObserver/",
         "title": "Intersection Observer",
         "shortName": "intersection-observer"

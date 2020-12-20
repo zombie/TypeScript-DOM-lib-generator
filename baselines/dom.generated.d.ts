@@ -599,8 +599,10 @@ interface ImportMeta {
 
 interface InputEventInit extends UIEventInit {
     data?: string | null;
+    dataTransfer?: DataTransfer | null;
     inputType?: string;
     isComposing?: boolean;
+    targetRanges?: StaticRange[];
 }
 
 interface IntersectionObserverEntryInit {
@@ -9297,8 +9299,10 @@ interface InnerHTML {
 
 interface InputEvent extends UIEvent {
     readonly data: string | null;
+    readonly dataTransfer: DataTransfer | null;
     readonly inputType: string;
     readonly isComposing: boolean;
+    getTargetRanges(): StaticRange[];
 }
 
 declare var InputEvent: {

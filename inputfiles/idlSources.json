@@ -350,6 +350,11 @@
         "shortName": "mediacapture-streams"
     },
     {
+        "url": "https://w3c.github.io/mediacapture-fromelement/",
+        "title": "Media Capture from DOM Elements",
+        "shortName": "mediacapture-fromelement"
+    },
+    {
         "url": "https://w3c.github.io/media-playback-quality/",
         "title": "Media Playback Quality",
         "shortName": "media-playback-quality"

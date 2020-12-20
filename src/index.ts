@@ -87,7 +87,7 @@ async function emitDom() {
         }
 
         // Specs that need to fix their syntax, etc.
-        const local = ["css-typed-om", "permissions", "uievents", "xsltprocessor"];
+        const local = ["css-typed-om", "permissions", "uievents", "xsltprocessor", "EXT_disjoint_timer_query_webgl2"];
         const idl = local.includes(shortName) ?
             await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), { encoding: "utf-8" }) :
             await getIdl(shortName);

@@ -211,8 +211,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             return ehParents;
         }
 
-        if (!i.name) {
-            throw new Error("Unexpected nameless object: " + JSON.stringify(i));
+        if (!i.extends) {
+            return [];
         }
 
         const iExtends = i.extends && i.extends.replace(/<.*>$/, '');
@@ -1227,7 +1227,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             }
             else if (i.name !== "Window") {
                 const iterableGetter = findIterableGetter();
-                const lengthProperty = findLengthProperty(i) || findLengthProperty(allInterfacesMap[i.extends]);
+                const lengthProperty = findLengthProperty(i) ?? (i.extends && findLengthProperty(allInterfacesMap[i.extends]));
                 if (iterableGetter && lengthProperty) {
                     return [convertDomTypeToTsType({
                         type: iterableGetter.signature[0].type,

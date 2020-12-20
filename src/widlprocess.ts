@@ -112,7 +112,6 @@ function addComments(obj: any, commentMap: Record<string, string>, container: st
 function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixinType | webidl2.CallbackInterfaceType, commentMap: Record<string, string>) {
     const result: Browser.Interface = {
         name: i.name,
-        extends: "Object",
         constants: { constant: {} },
         methods: { method: {} },
         "anonymous-methods": { method: [] },
@@ -320,7 +319,6 @@ function convertConstantValue(value: webidl2.ValueDescription): string {
 function convertNamespace(namespace: webidl2.NamespaceType, commentMap: Record<string, string>) {
     const result: Browser.Interface = {
         name: namespace.name,
-        extends: "Object",
         constructor: { signature: [] },
         methods: { method: {} },
         properties: { property: {} },
@@ -352,8 +350,10 @@ function convertNamespace(namespace: webidl2.NamespaceType, commentMap: Record<s
 function convertDictionary(dictionary: webidl2.DictionaryType, commentsMap: Record<string, string>) {
     const result: Browser.Dictionary = {
         name: dictionary.name,
-        extends: dictionary.inheritance || "Object",
         members: { member: {} }
+    }
+    if (dictionary.inheritance) {
+        result.extends = dictionary.inheritance;
     }
     for (const member of dictionary.members) {
         result.members.member[member.name] = convertDictionaryMember(member);

@@ -152,7 +152,7 @@ export interface TypeParameter {
 export interface Interface {
     name: string;
     mixin?: boolean;
-    extends: string;
+    extends?: string;
     comment?: string;
     constants?: {
         constant: Record<string, Constant>;
@@ -231,7 +231,7 @@ export interface TypeDef extends Typed {
 
 export interface Dictionary {
     name: string;
-    extends: string;
+    extends?: string;
     members: {
         member: Record<string, Member>;
     }

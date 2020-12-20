@@ -80,6 +80,16 @@
         "shortName": "css-conditional"
     },
     {
+        "url": "https://drafts.csswg.org/css-counter-styles/",
+        "title": "CSS Counter Styles",
+        "shortName": "css-counter-styles"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-device-adapt/",
+        "title": "CSS Device Adaptation",
+        "shortName": "css-device-adapt"
+    },
+    {
         "url": "https://www.w3.org/TR/fill-stroke-3/",
         "title": "CSS Fill and Stroke",
         "shortName": "fill-stroke"

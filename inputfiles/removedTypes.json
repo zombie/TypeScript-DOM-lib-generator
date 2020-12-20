@@ -448,6 +448,13 @@
                 }
             },
             "ObjectURLOptions": null,
+            "PerformanceObserverInit": {
+                "members": {
+                    "member": {
+                        "durationThreshold": null
+                    }
+                }
+            },
             "PointerEventInit": {
                 "members": {
                     "member": {

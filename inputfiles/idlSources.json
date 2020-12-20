@@ -270,6 +270,11 @@
         "shortName": "encrypted-media"
     },
     {
+        "url": "https://wicg.github.io/event-timing/",
+        "title": "Event Timing",
+        "shortName": "event-timing"
+    },
+    {
         "url": "https://fetch.spec.whatwg.org/",
         "title": "Fetch",
         "shortName": "fetch"

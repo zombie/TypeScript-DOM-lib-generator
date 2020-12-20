@@ -1406,6 +1406,7 @@ interface RTCRtpContributingSource {
 interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     active?: boolean;
     maxBitrate?: number;
+    priority?: RTCPriorityType;
     scaleResolutionDownBy?: number;
 }
 
@@ -18583,6 +18584,7 @@ type RTCIceCredentialType = "password";
 type RTCIceGatheringState = "complete" | "gathering" | "new";
 type RTCIceTransportPolicy = "all" | "relay";
 type RTCPeerConnectionState = "closed" | "connected" | "connecting" | "disconnected" | "failed" | "new";
+type RTCPriorityType = "high" | "low" | "medium" | "very-low";
 type RTCRtcpMuxPolicy = "require";
 type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendrecv" | "stopped";
 type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";

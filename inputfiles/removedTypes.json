@@ -474,10 +474,24 @@
                     }
                 }
             },
+            "RTCDataChannelInit": {
+                "members": {
+                    "member": {
+                        "priority": null
+                    }
+                }
+            },
             "RTCIceGatherOptions": {
                 "members": {
                     "member": {
                         "portRange": null
+                    }
+                }
+            },
+            "RTCRtpEncodingParameters": {
+                "members": {
+                    "member": {
+                        "networkPriority": null
                     }
                 }
             },

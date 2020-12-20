@@ -786,6 +786,11 @@
         "shortName": "webrtc-insertable-streams"
     },
     {
+        "url": "https://w3c.github.io/webrtc-priority/",
+        "title": "WebRTC Priority Control",
+        "shortName": "webrtc-priority"
+    },
+    {
         "url": "https://www.w3.org/TR/web-share/",
         "title": "Web Share",
         "shortName": "web-share"

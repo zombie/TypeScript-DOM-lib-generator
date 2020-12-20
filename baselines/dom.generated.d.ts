@@ -4860,6 +4860,7 @@ interface Element extends Node, ARIAMixin, Animatable, ChildNode, InnerHTML, Non
     onfullscreenerror: ((this: Element, ev: Event) => any) | null;
     outerHTML: string;
     readonly ownerDocument: Document;
+    readonly part: DOMTokenList;
     /**
      * Returns the namespace prefix.
      */

@@ -190,6 +190,11 @@
         "shortName": "css-sizing"
     },
     {
+        "url": "https://drafts.csswg.org/css-shadow-parts/",
+        "title": "CSS Shadow Parts",
+        "shortName": "css-shadow-parts"
+    },
+    {
         "url": "https://drafts.csswg.org/css-scroll-anchoring/",
         "title": "CSS Scroll Anchoring",
         "shortName": "css-scroll-anchoring"

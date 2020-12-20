@@ -475,6 +475,11 @@ interface FilePropertyBag extends BlobPropertyBag {
     lastModified?: number;
 }
 
+interface FileSystemFlags {
+    create?: boolean;
+    exclusive?: boolean;
+}
+
 interface FocusEventInit extends UIEventInit {
     relatedTarget?: EventTarget | null;
 }
@@ -5131,6 +5136,7 @@ declare var External: {
 interface File extends Blob {
     readonly lastModified: number;
     readonly name: string;
+    readonly webkitRelativePath: string;
 }
 
 declare var File: {
@@ -5190,6 +5196,61 @@ declare var FileReader: {
     readonly DONE: number;
     readonly EMPTY: number;
     readonly LOADING: number;
+};
+
+interface FileSystem {
+    readonly name: string;
+    readonly root: FileSystemDirectoryEntry;
+}
+
+declare var FileSystem: {
+    prototype: FileSystem;
+    new(): FileSystem;
+};
+
+interface FileSystemDirectoryEntry extends FileSystemEntry {
+    createReader(): FileSystemDirectoryReader;
+    getDirectory(path?: string | null, options?: FileSystemFlags, successCallback?: FileSystemEntryCallback, errorCallback?: ErrorCallback): void;
+    getFile(path?: string | null, options?: FileSystemFlags, successCallback?: FileSystemEntryCallback, errorCallback?: ErrorCallback): void;
+}
+
+declare var FileSystemDirectoryEntry: {
+    prototype: FileSystemDirectoryEntry;
+    new(): FileSystemDirectoryEntry;
+};
+
+/** @deprecated */
+interface FileSystemDirectoryReader {
+    /** @deprecated */
+    readEntries(successCallback: FileSystemEntriesCallback, errorCallback?: ErrorCallback): void;
+}
+
+declare var FileSystemDirectoryReader: {
+    prototype: FileSystemDirectoryReader;
+    new(): FileSystemDirectoryReader;
+};
+
+interface FileSystemEntry {
+    readonly filesystem: FileSystem;
+    readonly fullPath: string;
+    readonly isDirectory: boolean;
+    readonly isFile: boolean;
+    readonly name: string;
+    getParent(successCallback?: FileSystemEntryCallback, errorCallback?: ErrorCallback): void;
+}
+
+declare var FileSystemEntry: {
+    prototype: FileSystemEntry;
+    new(): FileSystemEntry;
+};
+
+interface FileSystemFileEntry extends FileSystemEntry {
+    file(successCallback: FileCallback, errorCallback?: ErrorCallback): void;
+}
+
+declare var FileSystemFileEntry: {
+    prototype: FileSystemFileEntry;
+    new(): FileSystemFileEntry;
 };
 
 /** Focus-related events like focus, blur, focusin, or focusout. */
@@ -7012,6 +7073,8 @@ interface HTMLInputElement extends HTMLElement {
      * Returns the input field value as a number.
      */
     valueAsNumber: number;
+    readonly webkitEntries: ReadonlyArray<FileSystemEntry>;
+    webkitdirectory: boolean;
     /**
      * Sets or retrieves the width of the object.
      */
@@ -17540,8 +17603,24 @@ interface DecodeSuccessCallback {
     (decodedData: AudioBuffer): void;
 }
 
+interface ErrorCallback {
+    (err: DOMException): void;
+}
+
 interface EventHandlerNonNull {
     (event: Event): any;
+}
+
+interface FileCallback {
+    (file: File): void;
+}
+
+interface FileSystemEntriesCallback {
+    (entries: FileSystemEntry[]): void;
+}
+
+interface FileSystemEntryCallback {
+    (entry: FileSystemEntry): void;
 }
 
 interface FrameRequestCallback {

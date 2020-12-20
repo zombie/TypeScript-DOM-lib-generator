@@ -1491,6 +1491,7 @@ declare var FetchEvent: {
 interface File extends Blob {
     readonly lastModified: number;
     readonly name: string;
+    readonly webkitRelativePath: string;
 }
 
 declare var File: {

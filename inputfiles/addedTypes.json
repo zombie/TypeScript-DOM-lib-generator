@@ -300,9 +300,6 @@
                             "name": "objectPosition",
                             "type": "CSSOMString"
                         },
-                        "touchAction": {
-                            "deprecated": 0
-                        },
                         "webkitFlex": {
                             "name": "webkitFlex",
                             "type": "CSSOMString",

@@ -18,7 +18,8 @@
                 "properties": {
                     "property": {
                         "onpointerrawupdate": null,
-                        "onslotchange": null
+                        "onslotchange": null,
+                        "onbeforexrselect": null
                     }
                 }
             },

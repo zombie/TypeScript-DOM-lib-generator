@@ -726,6 +726,11 @@
         "shortName": "webxr"
     },
     {
+        "url": "https://immersive-web.github.io/dom-overlays/",
+        "title": "WebXR DOM Overlays Module",
+        "shortName": "dom-overlays"
+    },
+    {
         "url": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest",
         "shortName": "xhr"

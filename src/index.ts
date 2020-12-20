@@ -181,6 +181,14 @@ async function emitDom() {
                 merge(base.members, partial.members, true);
             }
         }
+        for (const partial of w.partialNamespaces) {
+            const base = webidl.namespaces?.find(n => n.name === partial.name);
+            if (base) {
+                if (base.exposed) resolveExposure(partial, base.exposed);
+                merge(base.methods, partial.methods, true);
+                merge(base.properties, partial.properties, true);
+            }
+        }
         for (const include of w.includes) {
             const target = webidl.interfaces!.interface[include.target];
             if (target) {

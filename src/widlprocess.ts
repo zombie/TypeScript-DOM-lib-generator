@@ -7,6 +7,7 @@ export function convert(text: string, commentMap: Record<string, string>) {
     const partialInterfaces: Browser.Interface[] = [];
     const partialMixins: Browser.Interface[] = [];
     const partialDictionaries: Browser.Dictionary[] = [];
+    const partialNamespaces: Browser.Interface[] = [];
     const includes: webidl2.IncludesType[] = [];
     const namespaceNested: Record<string, Browser.Interface> = {};
     const browser = getEmptyWebIDL();
@@ -26,11 +27,16 @@ export function convert(text: string, commentMap: Record<string, string>) {
                 partialMixins.push(converted);
             }
             else {
-                browser["mixins"]!.mixin[rootType.name] = converted;
+                browser.mixins!.mixin[rootType.name] = converted;
             }
         }
         else if (rootType.type === "namespace") {
-            browser.namespaces!.push(convertNamespace(rootType, commentMap));
+            const converted = convertNamespace(rootType, commentMap);
+            if (rootType.partial) {
+                partialNamespaces.push(converted);
+            } else {
+                browser.namespaces!.push(converted);
+            }
         }
         else if (rootType.type === "callback interface") {
             browser["callback-interfaces"]!.interface[rootType.name] = convertInterfaceCommon(rootType, commentMap);
@@ -59,7 +65,7 @@ export function convert(text: string, commentMap: Record<string, string>) {
             includes.push(rootType);
         }
     }
-    return { browser, partialInterfaces, partialMixins, partialDictionaries, includes, namespaceNested };
+    return { browser, partialInterfaces, partialMixins, partialDictionaries, partialNamespaces, includes, namespaceNested };
 }
 
 function hasExtAttr(extAttrs: webidl2.ExtendedAttribute[], name: string) {

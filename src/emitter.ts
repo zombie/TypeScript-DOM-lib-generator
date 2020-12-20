@@ -528,6 +528,17 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         const returnType = overload.type ? convertDomTypeToTsReturnType(overload) : "void";
         printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
         printer.printLine("");
+
+        if (!mapToArray(i.constants?.constant ?? {}).length) {
+            return;
+        }
+
+        printer.printLine(`declare var ${i.name}: {`);
+        printer.increaseIndent();
+        emitConstants(i);
+        printer.decreaseIndent();
+        printer.printLine("};");
+        printer.printLine("");
     }
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {

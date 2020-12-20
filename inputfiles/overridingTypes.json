@@ -3235,6 +3235,15 @@
                     }
                 }
             },
+            "UIEventInit": {
+                "members": {
+                    "member": {
+                        "which": {
+                            "deprecated": 1
+                        }
+                    }
+                }
+            },
             "UnderlyingSink": {
                 "type-parameters": [
                     {

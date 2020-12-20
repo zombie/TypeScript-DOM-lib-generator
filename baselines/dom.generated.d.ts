@@ -97,11 +97,6 @@ interface AudioConfiguration {
     spatialRendering?: boolean;
 }
 
-interface AudioContextInfo {
-    currentTime?: number;
-    sampleRate?: number;
-}
-
 interface AudioContextOptions {
     latencyHint?: AudioContextLatencyCategory | number;
     sampleRate?: number;
@@ -168,10 +163,6 @@ interface BlobEventInit {
 interface BlobPropertyBag {
     endings?: EndingType;
     type?: string;
-}
-
-interface ByteLengthChunk {
-    byteLength?: number;
 }
 
 interface CacheQueryOptions {
@@ -250,11 +241,6 @@ interface ConstrainDoubleRange extends DoubleRange {
 interface ConstrainULongRange extends ULongRange {
     exact?: number;
     ideal?: number;
-}
-
-interface ConstrainVideoFacingModeParameters {
-    exact?: VideoFacingModeEnum | VideoFacingModeEnum[];
-    ideal?: VideoFacingModeEnum | VideoFacingModeEnum[];
 }
 
 interface ConvolverOptions extends AudioNodeOptions {
@@ -784,10 +770,6 @@ interface MediaStreamConstraints {
     video?: boolean | MediaTrackConstraints;
 }
 
-interface MediaStreamEventInit extends EventInit {
-    stream?: MediaStream;
-}
-
 interface MediaStreamTrackEventInit extends EventInit {
     track: MediaStreamTrack;
 }
@@ -1253,20 +1235,6 @@ interface RTCDtlsFingerprint {
     value?: string;
 }
 
-interface RTCDtlsParameters {
-    fingerprints?: RTCDtlsFingerprint[];
-    role?: RTCDtlsRole;
-}
-
-interface RTCIceCandidateAttributes extends RTCStats {
-    addressSourceUrl?: string;
-    candidateType?: RTCStatsIceCandidateType;
-    ipAddress?: string;
-    portNumber?: number;
-    priority?: number;
-    transport?: string;
-}
-
 interface RTCIceCandidateInit {
     candidate?: string;
     sdpMLineIndex?: number | null;
@@ -1313,23 +1281,6 @@ interface RTCLocalSessionDescriptionInit {
     type?: RTCSdpType;
 }
 
-interface RTCMediaStreamTrackStats extends RTCStats {
-    audioLevel?: number;
-    echoReturnLoss?: number;
-    echoReturnLossEnhancement?: number;
-    frameHeight?: number;
-    frameWidth?: number;
-    framesCorrupted?: number;
-    framesDecoded?: number;
-    framesDropped?: number;
-    framesPerSecond?: number;
-    framesReceived?: number;
-    framesSent?: number;
-    remoteSource?: boolean;
-    ssrcIds?: string[];
-    trackIdentifier?: string;
-}
-
 interface RTCOfferAnswerOptions {
 }
 
@@ -1358,11 +1309,6 @@ interface RTCReceivedRtpStreamStats extends RTCRtpStreamStats {
     packetsDiscarded?: number;
     packetsLost?: number;
     packetsReceived?: number;
-}
-
-interface RTCRtcpFeedback {
-    parameter?: string;
-    type?: string;
 }
 
 interface RTCRtcpParameters {
@@ -1408,18 +1354,6 @@ interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     scaleResolutionDownBy?: number;
 }
 
-interface RTCRtpFecParameters {
-    mechanism?: string;
-    ssrc?: number;
-}
-
-interface RTCRtpHeaderExtension {
-    kind?: string;
-    preferredEncrypt?: boolean;
-    preferredId?: number;
-    uri?: string;
-}
-
 interface RTCRtpHeaderExtensionCapability {
     uri?: string;
 }
@@ -1437,10 +1371,6 @@ interface RTCRtpParameters {
 }
 
 interface RTCRtpReceiveParameters extends RTCRtpParameters {
-}
-
-interface RTCRtpRtxParameters {
-    ssrc?: number;
 }
 
 interface RTCRtpSendParameters extends RTCRtpParameters {
@@ -1465,12 +1395,6 @@ interface RTCRtpTransceiverInit {
     streams?: MediaStream[];
 }
 
-interface RTCRtpUnhandled {
-    muxId?: string;
-    payloadType?: number;
-    ssrc?: number;
-}
-
 interface RTCSentRtpStreamStats extends RTCRtpStreamStats {
     bytesSent?: number;
     packetsSent?: number;
@@ -1481,18 +1405,10 @@ interface RTCSessionDescriptionInit {
     type: RTCSdpType;
 }
 
-interface RTCSsrcRange {
-    max?: number;
-    min?: number;
-}
-
 interface RTCStats {
     id: string;
     timestamp: DOMHighResTimeStamp;
     type: RTCStatsType;
-}
-
-interface RTCStatsReport {
 }
 
 interface RTCTrackEventInit extends EventInit {
@@ -1816,6 +1732,8 @@ interface TransitionEventInit extends EventInit {
 interface UIEventInit extends EventInit {
     detail?: number;
     view?: Window | null;
+    /** @deprecated */
+    which?: number;
 }
 
 interface ULongRange {
@@ -1892,6 +1810,27 @@ interface WorkletOptions {
 }
 
 type EventListener = ((event: Event) => void) | { handleEvent(event: Event): void; };
+
+type NodeFilter = ((node: Node) => number) | { acceptNode(node: Node): number; };
+
+declare var NodeFilter: {
+    readonly FILTER_ACCEPT: number;
+    readonly FILTER_REJECT: number;
+    readonly FILTER_SKIP: number;
+    readonly SHOW_ALL: number;
+    readonly SHOW_ATTRIBUTE: number;
+    readonly SHOW_CDATA_SECTION: number;
+    readonly SHOW_COMMENT: number;
+    readonly SHOW_DOCUMENT: number;
+    readonly SHOW_DOCUMENT_FRAGMENT: number;
+    readonly SHOW_DOCUMENT_TYPE: number;
+    readonly SHOW_ELEMENT: number;
+    readonly SHOW_ENTITY: number;
+    readonly SHOW_ENTITY_REFERENCE: number;
+    readonly SHOW_NOTATION: number;
+    readonly SHOW_PROCESSING_INSTRUCTION: number;
+    readonly SHOW_TEXT: number;
+};
 
 type XPathNSResolver = ((prefix: string | null) => string | null) | { lookupNamespaceURI(prefix: string | null): string | null; };
 
@@ -2137,64 +2076,6 @@ interface AnimationTimeline {
 declare var AnimationTimeline: {
     prototype: AnimationTimeline;
     new(): AnimationTimeline;
-};
-
-interface ApplicationCacheEventMap {
-    "cached": Event;
-    "checking": Event;
-    "downloading": Event;
-    "error": Event;
-    "noupdate": Event;
-    "obsolete": Event;
-    "progress": ProgressEvent<ApplicationCache>;
-    "updateready": Event;
-}
-
-/** @deprecated */
-interface ApplicationCache extends EventTarget {
-    /** @deprecated */
-    oncached: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    onchecking: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    ondownloading: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    onerror: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    onnoupdate: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    onobsolete: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    onprogress: ((this: ApplicationCache, ev: ProgressEvent<ApplicationCache>) => any) | null;
-    /** @deprecated */
-    onupdateready: ((this: ApplicationCache, ev: Event) => any) | null;
-    /** @deprecated */
-    readonly status: number;
-    /** @deprecated */
-    swapCache(): void;
-    /** @deprecated */
-    update(): void;
-    readonly CHECKING: number;
-    readonly DOWNLOADING: number;
-    readonly IDLE: number;
-    readonly OBSOLETE: number;
-    readonly UNCACHED: number;
-    readonly UPDATEREADY: number;
-    addEventListener<K extends keyof ApplicationCacheEventMap>(type: K, listener: (this: ApplicationCache, ev: ApplicationCacheEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof ApplicationCacheEventMap>(type: K, listener: (this: ApplicationCache, ev: ApplicationCacheEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var ApplicationCache: {
-    prototype: ApplicationCache;
-    new(): ApplicationCache;
-    readonly CHECKING: number;
-    readonly DOWNLOADING: number;
-    readonly IDLE: number;
-    readonly OBSOLETE: number;
-    readonly UNCACHED: number;
-    readonly UPDATEREADY: number;
 };
 
 /** A DOM element's attribute as an object. In most DOM methods, you will probably directly retrieve the attribute as a string (e.g., Element.getAttribute(), but certain functions (e.g., Element.getAttributeNode()) or means of iterating give Attr types. */
@@ -4566,8 +4447,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
     createEvent(eventInterface: "DragEvent"): DragEvent;
     createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
-    createEvent(eventInterface: "Event"): Event;
-    createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
     createEvent(eventInterface: "FontFaceSetLoadEvent"): FontFaceSetLoadEvent;
     createEvent(eventInterface: "FormDataEvent"): FormDataEvent;
@@ -4579,7 +4458,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
-    createEvent(eventInterface: "MediaStreamEvent"): MediaStreamEvent;
     createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
     createEvent(eventInterface: "MessageEvent"): MessageEvent;
     createEvent(eventInterface: "MouseEvent"): MouseEvent;
@@ -6405,19 +6283,6 @@ interface HTMLDivElement extends HTMLElement {
 declare var HTMLDivElement: {
     prototype: HTMLDivElement;
     new(): HTMLDivElement;
-};
-
-/** The HTMLDocument property of Window objects is an alias that browsers expose for the Document interface object. */
-interface HTMLDocument extends Document {
-    addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: HTMLDocument, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: HTMLDocument, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var HTMLDocument: {
-    prototype: HTMLDocument;
-    new(): HTMLDocument;
 };
 
 interface HTMLElementEventMap extends ElementEventMap, GlobalEventHandlersEventMap, DocumentAndElementEventHandlersEventMap {
@@ -10029,18 +9894,6 @@ declare var MediaStreamAudioSourceNode: {
     new(context: AudioContext, options: MediaStreamAudioSourceOptions): MediaStreamAudioSourceNode;
 };
 
-/** Events that occurs in relation to a MediaStream. Two events of this type can be thrown: addstream and removestream. */
-/** @deprecated */
-interface MediaStreamEvent extends Event {
-    /** @deprecated */
-    readonly stream: MediaStream | null;
-}
-
-declare var MediaStreamEvent: {
-    prototype: MediaStreamEvent;
-    new(type: string, eventInitDict: MediaStreamEventInit): MediaStreamEvent;
-};
-
 interface MediaStreamTrackEventMap {
     "ended": Event;
     "mute": Event;
@@ -10229,6 +10082,7 @@ interface MouseEvent extends UIEvent {
     readonly x: number;
     readonly y: number;
     getModifierState(keyArg: string): boolean;
+    /** @deprecated */
     initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void;
 }
 
@@ -10244,8 +10098,8 @@ interface MutationEvent extends Event {
     readonly attrName: string;
     readonly newValue: string;
     readonly prevValue: string;
-    readonly relatedNode: Node;
-    initMutationEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, relatedNodeArg: Node, prevValueArg: string, newValueArg: string, attrNameArg: string, attrChangeArg: number): void;
+    readonly relatedNode: Node | null;
+    initMutationEvent(typeArg: string, bubblesArg?: boolean, cancelableArg?: boolean, relatedNodeArg?: Node | null, prevValueArg?: string, newValueArg?: string, attrNameArg?: string, attrChangeArg?: number): void;
     readonly ADDITION: number;
     readonly MODIFICATION: number;
     readonly REMOVAL: number;
@@ -10645,30 +10499,6 @@ declare var Node: {
      * node is a Text node.
      */
     readonly TEXT_NODE: number;
-};
-
-/** An object used to filter the nodes in a NodeIterator or TreeWalker. They don't know anything about the DOM or how to traverse nodes; they just know how to evaluate a single node against the provided filter. */
-interface NodeFilter {
-    acceptNode(node: Node): number;
-}
-
-declare var NodeFilter: {
-    readonly FILTER_ACCEPT: number;
-    readonly FILTER_REJECT: number;
-    readonly FILTER_SKIP: number;
-    readonly SHOW_ALL: number;
-    readonly SHOW_ATTRIBUTE: number;
-    readonly SHOW_CDATA_SECTION: number;
-    readonly SHOW_COMMENT: number;
-    readonly SHOW_DOCUMENT: number;
-    readonly SHOW_DOCUMENT_FRAGMENT: number;
-    readonly SHOW_DOCUMENT_TYPE: number;
-    readonly SHOW_ELEMENT: number;
-    readonly SHOW_ENTITY: number;
-    readonly SHOW_ENTITY_REFERENCE: number;
-    readonly SHOW_NOTATION: number;
-    readonly SHOW_PROCESSING_INSTRUCTION: number;
-    readonly SHOW_TEXT: number;
 };
 
 /** An iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order. */
@@ -14763,6 +14593,8 @@ interface UIEvent extends Event {
     readonly view: Window | null;
     /** @deprecated */
     readonly which: number;
+    /** @deprecated */
+    initUIEvent(): void;
 }
 
 declare var UIEvent: {
@@ -17044,6 +16876,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
 
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
 interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandlers, WindowEventHandlers, WindowLocalStorage, WindowOrWorkerGlobalScope, WindowSessionStorage {
+    HTMLDocument: Document;
     /**
      * Returns true if the window has been closed, false otherwise.
      */
@@ -17584,7 +17417,7 @@ interface XSLTProcessor {
     reset(): void;
     setParameter(namespaceURI: string, localName: string, value: any): void;
     transformToDocument(source: Node): Document;
-    transformToFragment(source: Node, document: Document): DocumentFragment;
+    transformToFragment(source: Node, output: Document): DocumentFragment;
 }
 
 declare var XSLTProcessor: {
@@ -17745,10 +17578,6 @@ interface ErrorCallback {
     (err: DOMException): void;
 }
 
-interface EventHandlerNonNull {
-    (event: Event): any;
-}
-
 interface FileCallback {
     (file: File): void;
 }
@@ -17775,10 +17604,6 @@ interface IdleRequestCallback {
 
 interface IntersectionObserverCallback {
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;
-}
-
-interface MSLaunchUriCallback {
-    (): void;
 }
 
 interface MediaSessionActionHandler {
@@ -17823,10 +17648,6 @@ interface RTCPeerConnectionErrorCallback {
 
 interface RTCSessionDescriptionCallback {
     (description: RTCSessionDescriptionInit): void;
-}
-
-interface RTCStatsCallback {
-    (report: RTCStatsReport): void;
 }
 
 interface RemotePlaybackAvailabilityCallback {
@@ -18077,6 +17898,7 @@ declare var Image: {
 declare var Option: {
     new(text?: string, value?: string, defaultSelected?: boolean, selected?: boolean): HTMLOptionElement;
 };
+declare var HTMLDocument: Document;
 /**
  * Returns true if the window has been closed, false otherwise.
  */
@@ -18655,7 +18477,6 @@ type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-bundle" | "max-compat";
 type RTCDataChannelState = "closed" | "closing" | "connecting" | "open";
 type RTCDegradationPreference = "balanced" | "maintain-framerate" | "maintain-resolution";
-type RTCDtlsRole = "auto" | "client" | "server";
 type RTCDtlsTransportState = "closed" | "connected" | "connecting" | "failed" | "new";
 type RTCIceConnectionState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCIceCredentialType = "password";
@@ -18668,7 +18489,6 @@ type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendre
 type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
 type RTCSignalingState = "closed" | "have-local-offer" | "have-local-pranswer" | "have-remote-offer" | "have-remote-pranswer" | "stable";
 type RTCStatsIceCandidatePairState = "failed" | "frozen" | "in-progress" | "inprogress" | "succeeded" | "waiting";
-type RTCStatsIceCandidateType = "host" | "peerreflexive" | "relayed" | "serverreflexive";
 type RTCStatsType = "candidate-pair" | "certificate" | "codec" | "csrc" | "data-channel" | "inbound-rtp" | "local-candidate" | "media-source" | "outbound-rtp" | "peer-connection" | "remote-candidate" | "remote-inbound-rtp" | "remote-outbound-rtp" | "track" | "transport";
 type ReadyState = "closed" | "ended" | "open";
 type RecordingState = "inactive" | "paused" | "recording";

@@ -325,6 +325,14 @@
                         }
                     }
                 },
+                "properties": {
+                    "property": {
+                        "HTMLDocument": {
+                            "name": "HTMLDocument",
+                            "type": "Document"
+                        }
+                    }
+                },
                 "override-index-signatures": [
                     "[index: number]: Window"
                 ],

@@ -86,8 +86,8 @@ async function emitDom() {
             return;
         }
 
-        // Specs that need to fix their syntax
-        const local = ["css-typed-om", "permissions"];
+        // Specs that need to fix their syntax, etc.
+        const local = ["css-typed-om", "permissions", "uievents", "xsltprocessor"];
         const idl = local.includes(shortName) ?
             await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), { encoding: "utf-8" }) :
             await getIdl(shortName);
@@ -148,7 +148,7 @@ async function emitDom() {
     }
 
     /// Load the input file
-    let webidl: Browser.WebIdl = require(fileURLToPath(new URL("browser.webidl.preprocessed.json", inputFolder)));
+    let webidl: Browser.WebIdl = {};
 
     const knownTypes = require(fileURLToPath(new URL("knownTypes.json", inputFolder)));
 

@@ -9,5 +9,8 @@ export function getLatestSpecNames(): string[] {
     ...browserSpecs
       .filter(spec => spec.seriesComposition === "delta")
       .map(spec => spec.shortname),
+
+    // https://wiki.whatwg.org/wiki/DOM_XSLTProcessor
+    "xsltprocessor",
   ]
 }

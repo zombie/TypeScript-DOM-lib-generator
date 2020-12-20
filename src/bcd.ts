@@ -594,7 +594,7 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
       const compat = bcd.api[name][key]?.__compat;
       return mapper({ key, parentKey: name, webkit: key.startsWith("webkit"), compat, mixin: !!i.mixin });
     };
-    const methods = filterMapRecord(i.methods.method, recordMapper);
+    const methods = filterMapRecord(i.methods?.method, recordMapper);
     const properties = filterMapRecord(i.properties?.property, recordMapper);
     if (!isEmptyRecord(methods)) {
       result.methods = { method: methods! };

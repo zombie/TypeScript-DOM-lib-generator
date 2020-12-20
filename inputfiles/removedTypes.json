@@ -120,6 +120,7 @@
     },
     "interfaces": {
         "interface": {
+            "ApplicationCache": null,
             "Clipboard": {
                 "methods": {
                     "method": {

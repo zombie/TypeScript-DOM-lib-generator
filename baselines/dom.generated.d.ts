@@ -14653,7 +14653,7 @@ declare var VideoPlaybackQuality: {
 };
 
 interface VisualViewportEventMap {
-    "resize": UIEvent;
+    "resize": Event;
     "scroll": Event;
 }
 
@@ -14661,7 +14661,7 @@ interface VisualViewport extends EventTarget {
     readonly height: number;
     readonly offsetLeft: number;
     readonly offsetTop: number;
-    onresize: ((this: VisualViewport, ev: UIEvent) => any) | null;
+    onresize: ((this: VisualViewport, ev: Event) => any) | null;
     onscroll: ((this: VisualViewport, ev: Event) => any) | null;
     readonly pageLeft: number;
     readonly pageTop: number;

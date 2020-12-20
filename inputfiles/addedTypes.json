@@ -57,10 +57,6 @@
                             "type": "FocusEvent"
                         },
                         {
-                            "name": "change",
-                            "type": "Event"
-                        },
-                        {
                             "name": "click",
                             "type": "MouseEvent"
                         },
@@ -117,14 +113,6 @@
                             "type": "KeyboardEvent"
                         },
                         {
-                            "name": "load",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "loadstart",
-                            "type": "Event"
-                        },
-                        {
                             "name": "mousedown",
                             "type": "MouseEvent"
                         },
@@ -153,8 +141,8 @@
                             "type": "MouseEvent"
                         },
                         {
-                            "name": "pause",
-                            "type": "Event"
+                            "name": "progress",
+                            "type": "ProgressEvent"
                         },
                         {
                             "name": "resize",
@@ -182,6 +170,34 @@
             "WindowEventHandlers": {
                 "events": {
                     "event": [
+                        {
+                            "name": "beforeunload",
+                            "type": "BeforeUnloadEvent"
+                        },
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "pagehide",
+                            "type": "PageTransitionEvent"
+                        },
+                        {
+                            "name": "pageshow",
+                            "type": "PageTransitionEvent"
+                        },
+                        {
+                            "name": "popstate",
+                            "type": "PopStateEvent"
+                        },
+                        {
+                            "name": "storage",
+                            "type": "StorageEvent"
+                        },
                         {
                             "name": "unhandledrejection",
                             "type": "PromiseRejectionEvent"
@@ -220,16 +236,6 @@
                         "name": "svg"
                     }
                 ]
-            },
-            "AbortSignal": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "Event"
-                        }
-                    ]
-                }
             },
             "BroadcastChannel": {
                 "events": {
@@ -657,18 +663,6 @@
                 "events": {
                     "event": [
                         {
-                            "name": "abort",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "close",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        },
-                        {
                             "name": "versionchange",
                             "type": "IDBVersionChangeEvent"
                         }
@@ -683,36 +677,6 @@
                         {
                             "name": "upgradeneeded",
                             "type": "IDBVersionChangeEvent"
-                        }
-                    ]
-                }
-            },
-            "IDBRequest": {
-                "name": "IDBRequest",
-                "events": {
-                    "event": [
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
-            "IDBTransaction": {
-                "name": "IDBTransaction",
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "complete",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -949,8 +913,8 @@
                 "events": {
                     "event": [
                         {
-                            "name": "error",
-                            "type": "Event"
+                            "name": "message",
+                            "type": "MessageEvent"
                         }
                     ]
                 }
@@ -1572,16 +1536,6 @@
             "WebGLVertexArrayObjectOES": {
                 "override-exposed": "Window Worker"
             },
-            "RemotePlayback": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "connect",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
             "RTCDTMFSender": {
                 "events": {
                     "event": [
@@ -2085,16 +2039,6 @@
                 "name": "OverconstrainedError",
                 "extends": "Error"
             },
-            "PictureInPictureWindow": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "resize",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
             "ProgressEvent": {
                 "type-parameters": [
                     {
@@ -2178,10 +2122,6 @@
                         {
                             "name": "close",
                             "type": "CloseEvent"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
                         }
                     ]
                 }

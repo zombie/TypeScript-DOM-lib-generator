@@ -124,9 +124,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
-    /// Event name to event type map
-    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => e.type);
-
     /// Tag name to element name map
     const tagNameToEleName = getTagNameToElementNameMap();
 
@@ -256,7 +253,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 return getGenericEventType(event.type);
             }
         }
-        return getGenericEventType(eNameToEType[eName]) || "Event";
+        return "Event";
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name

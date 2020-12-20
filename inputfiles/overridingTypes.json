@@ -430,21 +430,6 @@
                     ]
                 }
             },
-            "SourceBuffer": {
-                "name": "SourceBuffer",
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
             "CustomEvent": {
                 "name": "CustomEvent",
                 "properties": {
@@ -1859,6 +1844,14 @@
                             ]
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        }
+                    ]
                 }
             },
             "HTMLTableRowElement": {
@@ -2034,14 +2027,6 @@
                         {
                             "name": "message",
                             "type": "MessageEvent"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "close",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -2103,25 +2088,6 @@
                         {
                             "name": "sync",
                             "type": "SyncEvent"
-                        }
-                    ]
-                }
-            },
-            "Notification": {
-                "name": "Notification",
-                "events": {
-                    "event": [
-                        {
-                            "name": "click",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "close",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -2262,6 +2228,18 @@
                             }
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        }
+                    ]
                 }
             },
             "Crypto": {
@@ -2343,6 +2321,18 @@
                             }
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        }
+                    ]
                 }
             },
             "ServiceWorker": {
@@ -2381,6 +2371,18 @@
                             }
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        }
+                    ]
                 }
             },
             "HTMLFormElement": {
@@ -2819,6 +2821,14 @@
                             "override-type": "WorkerGlobalScope & typeof globalThis"
                         }
                     }
+                },
+                "events": {
+                    "event": [
+                        {
+                            "name": "error",
+                            "type": "ErrorEvent"
+                        }
+                    ]
                 }
             },
             "Instance": {

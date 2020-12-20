@@ -1447,6 +1447,15 @@
             "EXT_blend_minmax": {
                 "override-exposed": "Window Worker"
             },
+            "EXT_color_buffer_float": {
+                "override-exposed":"Window Worker"
+            },
+            "EXT_color_buffer_half_float": {
+                "override-exposed":"Window Worker"
+            },
+            "EXT_float_blend": {
+                "override-exposed":"Window Worker"
+            },
             "EXT_texture_filter_anisotropic": {
                 "override-exposed": "Window Worker"
             },
@@ -1466,9 +1475,6 @@
                 "override-exposed": "Window Worker"
             },
             "OVR_multiview2": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_color_buffer_float": {
                 "override-exposed": "Window Worker"
             },
             "WEBGL_compressed_texture_astc": {

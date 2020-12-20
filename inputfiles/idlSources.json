@@ -601,6 +601,21 @@
         "shortName": "EXT_blend_minmax"
     },
     {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_float/",
+        "title": "WebGL EXT_color_buffer_float",
+        "shortName": "EXT_color_buffer_float"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_half_float/",
+        "title": "WebGL EXT_color_buffer_half_float",
+        "shortName": "EXT_color_buffer_half_float"
+    },
+    {
+        "url": "https://www.khronos.org/registry/webgl/extensions/EXT_float_blend/",
+        "title": "WebGL EXT_float_blend",
+        "shortName": "EXT_float_blend"
+    },
+    {
         "url": "https://www.khronos.org/registry/webgl/extensions/EXT_frag_depth/",
         "title": "WebGL EXT_frag_depth",
         "shortName": "EXT_frag_depth"
@@ -664,11 +679,6 @@
         "url": "https://www.khronos.org/registry/webgl/extensions/OVR_multiview2/",
         "title": "WebGL OVR_multiview2",
         "shortName": "OVR_multiview"
-    },
-    {
-        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_color_buffer_float/",
-        "title": "WebGL WEBGL_color_buffer_float",
-        "shortName": "WEBGL_color_buffer_float"
     },
     {
         "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/",

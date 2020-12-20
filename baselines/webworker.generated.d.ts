@@ -1260,6 +1260,19 @@ interface EXT_blend_minmax {
     readonly MIN_EXT: GLenum;
 }
 
+interface EXT_color_buffer_float {
+}
+
+interface EXT_color_buffer_half_float {
+    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: GLenum;
+    readonly RGB16F_EXT: GLenum;
+    readonly RGBA16F_EXT: GLenum;
+    readonly UNSIGNED_NORMALIZED_EXT: GLenum;
+}
+
+interface EXT_float_blend {
+}
+
 /** The EXT_frag_depth extension is part of the WebGL API and enables to set a depth value of a fragment from within the fragment shader. */
 interface EXT_frag_depth {
 }
@@ -3199,12 +3212,6 @@ declare var URLSearchParams: {
     toString(): string;
 };
 
-interface WEBGL_color_buffer_float {
-    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: GLenum;
-    readonly RGBA32F_EXT: GLenum;
-    readonly UNSIGNED_NORMALIZED_EXT: GLenum;
-}
-
 interface WEBGL_compressed_texture_astc {
     getSupportedProfiles(): string[];
     readonly COMPRESSED_RGBA_ASTC_10x10_KHR: GLenum;
@@ -4717,6 +4724,9 @@ interface WebGLRenderingContextBase {
     getContextAttributes(): WebGLContextAttributes | null;
     getError(): GLenum;
     getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
+    getExtension(extensionName: "EXT_color_buffer_float"): EXT_color_buffer_float | null;
+    getExtension(extensionName: "EXT_color_buffer_half_float"): EXT_color_buffer_half_float | null;
+    getExtension(extensionName: "EXT_float_blend"): EXT_float_blend | null;
     getExtension(extensionName: "EXT_texture_filter_anisotropic"): EXT_texture_filter_anisotropic | null;
     getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
     getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
@@ -4724,7 +4734,6 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "KHR_parallel_shader_compile"): KHR_parallel_shader_compile | null;
     getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
     getExtension(extensionName: "OVR_multiview2"): OVR_multiview2 | null;
-    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
     getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_etc1"): WEBGL_compressed_texture_etc1 | null;
     getExtension(extensionName: "WEBGL_compressed_texture_pvrtc"): WEBGL_compressed_texture_pvrtc | null;

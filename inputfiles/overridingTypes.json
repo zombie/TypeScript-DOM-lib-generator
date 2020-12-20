@@ -156,6 +156,9 @@
                             "name": "getExtension",
                             "additional-signatures": [
                                 "getExtension(extensionName: \"EXT_blend_minmax\"): EXT_blend_minmax | null",
+                                "getExtension(extensionName: \"EXT_color_buffer_float\"): EXT_color_buffer_float | null",
+                                "getExtension(extensionName: \"EXT_color_buffer_half_float\"): EXT_color_buffer_half_float | null",
+                                "getExtension(extensionName: \"EXT_float_blend\"): EXT_float_blend | null",
                                 "getExtension(extensionName: \"EXT_texture_filter_anisotropic\"): EXT_texture_filter_anisotropic | null",
                                 "getExtension(extensionName: \"EXT_frag_depth\"): EXT_frag_depth | null",
                                 "getExtension(extensionName: \"EXT_shader_texture_lod\"): EXT_shader_texture_lod | null",
@@ -163,7 +166,6 @@
                                 "getExtension(extensionName: \"KHR_parallel_shader_compile\"): KHR_parallel_shader_compile | null",
                                 "getExtension(extensionName: \"OES_vertex_array_object\"): OES_vertex_array_object | null",
                                 "getExtension(extensionName: \"OVR_multiview2\"): OVR_multiview2 | null",
-                                "getExtension(extensionName: \"WEBGL_color_buffer_float\"): WEBGL_color_buffer_float | null",
                                 "getExtension(extensionName: \"WEBGL_compressed_texture_astc\"): WEBGL_compressed_texture_astc | null",
                                 "getExtension(extensionName: \"WEBGL_compressed_texture_etc1\"): WEBGL_compressed_texture_etc1 | null",
                                 "getExtension(extensionName: \"WEBGL_compressed_texture_pvrtc\"): WEBGL_compressed_texture_pvrtc | null",

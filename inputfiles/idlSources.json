@@ -766,6 +766,11 @@
         "shortName": "WebIDL"
     },
     {
+        "url": "https://wicg.github.io/web-otp/",
+        "title": "Web OTP",
+        "shortName": "web-otp"
+    },
+    {
         "url": "https://w3c.github.io/webrtc-pc/",
         "title": "WebRTC",
         "shortName": "webrtc"

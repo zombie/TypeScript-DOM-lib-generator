@@ -285,6 +285,7 @@
                 "members": {
                     "member": {
                         "federated": null,
+                        "otp": null,
                         "password": null
                     }
                 }

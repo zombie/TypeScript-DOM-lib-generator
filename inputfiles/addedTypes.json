@@ -1,6 +1,16 @@
 {
     "mixins": {
         "mixin": {
+            "AbstractWorker": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "error",
+                            "type": "ErrorEvent"
+                        }
+                    ]
+                }
+            },
             "DocumentAndElementEventHandlers": {
                 "events": {
                     "event": [
@@ -35,6 +45,10 @@
                 "events": {
                     "event": [
                         {
+                            "name": "abort",
+                            "type": "UIEvent"
+                        },
+                        {
                             "name": "auxclick",
                             "type": "MouseEvent"
                         },
@@ -45,6 +59,10 @@
                         {
                             "name": "change",
                             "type": "Event"
+                        },
+                        {
+                            "name": "click",
+                            "type": "MouseEvent"
                         },
                         {
                             "name": "drag",
@@ -75,6 +93,10 @@
                             "type": "DragEvent"
                         },
                         {
+                            "name": "error",
+                            "type": "ErrorEvent"
+                        },
+                        {
                             "name": "focus",
                             "type": "FocusEvent"
                         },
@@ -93,6 +115,14 @@
                         {
                             "name": "keyup",
                             "type": "KeyboardEvent"
+                        },
+                        {
+                            "name": "load",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "loadstart",
+                            "type": "Event"
                         },
                         {
                             "name": "mousedown",
@@ -674,6 +704,10 @@
                     "event": [
                         {
                             "name": "abort",
+                            "type": "Event"
+                        },
+                        {
+                            "name": "complete",
                             "type": "Event"
                         },
                         {

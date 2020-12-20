@@ -24,18 +24,6 @@ const tsKeywords = new Set(["default", "delete", "continue"]);
 const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
     "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
 };
-const eventTypeMap: Record<string, string> = {
-    "abort": "UIEvent",
-    "complete": "Event",
-    "click": "MouseEvent",
-    "error": "ErrorEvent",
-    "load": "Event",
-    "loadstart": "Event",
-    "progress": "ProgressEvent",
-    "readystatechange": "ProgressEvent",
-    "resize": "UIEvent",
-    "timeout": "ProgressEvent"
-};
 
 // Namespaces that have been in form of interfaces for years
 // and can't be converted to namespaces without breaking type packages
@@ -138,7 +126,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
     /// Event name to event type map
-    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => eventTypeMap[e.name] || e.type);
+    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => e.type);
 
     /// Tag name to element name map
     const tagNameToEleName = getTagNameToElementNameMap();

@@ -375,6 +375,11 @@
         "shortName": "media-source"
     },
     {
+        "url": "https://w3c.github.io/mediacapture-image/",
+        "title": "MediaStream Image Capture",
+        "shortName": "image-capture"
+    },
+    {
         "url": "https://w3c.github.io/mediacapture-record/",
         "title": "MediaStream Recording",
         "shortName": "mediastream-recording"

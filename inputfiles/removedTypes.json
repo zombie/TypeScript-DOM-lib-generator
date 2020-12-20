@@ -327,6 +327,28 @@
                     }
                 }
             },
+            "MediaTrackCapabilities": {
+                "members": {
+                    "member": {
+                        "whiteBalanceMode": null,
+                        "exposureMode": null,
+                        "focusMode": null,
+                        "exposureCompensation": null,
+                        "exposureTime": null,
+                        "colorTemperature": null,
+                        "iso": null,
+                        "brightness": null,
+                        "contrast": null,
+                        "saturation": null,
+                        "sharpness": null,
+                        "focusDistance": null,
+                        "pan": null,
+                        "tilt": null,
+                        "zoom": null,
+                        "torch": null
+                    }
+                }
+            },
             "MediaTrackConstraintSet": {
                 "members": {
                     "member": {
@@ -336,7 +358,24 @@
                         "logicalSurface": null,
                         "noiseSuppression": null,
                         "resizeMode": null,
-                        "restrictOwnAudio": null
+                        "restrictOwnAudio": null,
+                        "whiteBalanceMode": null,
+                        "exposureMode": null,
+                        "focusMode": null,
+                        "pointsOfInterest": null,
+                        "exposureCompensation": null,
+                        "exposureTime": null,
+                        "colorTemperature": null,
+                        "iso": null,
+                        "brightness": null,
+                        "contrast": null,
+                        "saturation": null,
+                        "sharpness": null,
+                        "focusDistance": null,
+                        "pan": null,
+                        "tilt": null,
+                        "zoom": null,
+                        "torch": null
                     }
                 }
             },
@@ -350,7 +389,24 @@
                         "latency": null,
                         "logicalSurface": null,
                         "noiseSuppression": null,
-                        "resizeMode": null
+                        "resizeMode": null,
+                        "whiteBalanceMode": null,
+                        "exposureMode": null,
+                        "focusMode": null,
+                        "pointsOfInterest": null,
+                        "exposureCompensation": null,
+                        "exposureTime": null,
+                        "colorTemperature": null,
+                        "iso": null,
+                        "brightness": null,
+                        "contrast": null,
+                        "saturation": null,
+                        "sharpness": null,
+                        "focusDistance": null,
+                        "pan": null,
+                        "tilt": null,
+                        "zoom": null,
+                        "torch": null
                     }
                 }
             },
@@ -365,7 +421,24 @@
                         "logicalSurface": null,
                         "noiseSuppression": null,
                         "resizeMode": null,
-                        "restrictOwnAudio": null
+                        "restrictOwnAudio": null,
+                        "whiteBalanceMode": null,
+                        "exposureMode": null,
+                        "focusMode": null,
+                        "pointsOfInterest": null,
+                        "exposureCompensation": null,
+                        "exposureTime": null,
+                        "colorTemperature": null,
+                        "iso": null,
+                        "brightness": null,
+                        "contrast": null,
+                        "saturation": null,
+                        "sharpness": null,
+                        "focusDistance": null,
+                        "pan": null,
+                        "tilt": null,
+                        "zoom": null,
+                        "torch": null
                     }
                 }
             },

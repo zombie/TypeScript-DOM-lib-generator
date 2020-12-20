@@ -121,7 +121,7 @@ interface AudioProcessingEventInit extends EventInit {
 
 interface AudioTimestamp {
     contextTime?: number;
-    performanceTime?: number;
+    performanceTime?: DOMHighResTimeStamp;
 }
 
 interface AudioWorkletNodeOptions extends AudioNodeOptions {
@@ -363,7 +363,7 @@ interface DeviceOrientationEventInit extends EventInit {
 }
 
 interface DocumentTimelineOptions {
-    originTime?: number;
+    originTime?: DOMHighResTimeStamp;
 }
 
 interface DoubleRange {
@@ -600,7 +600,7 @@ interface IntersectionObserverEntryInit {
     isIntersecting: boolean;
     rootBounds: DOMRectInit | null;
     target: Element;
-    time: number;
+    time: DOMHighResTimeStamp;
 }
 
 interface IntersectionObserverInit {
@@ -918,7 +918,7 @@ interface NotificationOptions {
     requireInteraction?: boolean;
     silent?: boolean;
     tag?: string;
-    timestamp?: number;
+    timestamp?: DOMTimeStamp;
     vibrate?: VibratePattern;
 }
 
@@ -1058,14 +1058,14 @@ interface Pbkdf2Params extends Algorithm {
 
 interface PerformanceMarkOptions {
     detail?: any;
-    startTime?: number;
+    startTime?: DOMHighResTimeStamp;
 }
 
 interface PerformanceMeasureOptions {
     detail?: any;
-    duration?: number;
-    end?: string | number;
-    start?: string | number;
+    duration?: DOMHighResTimeStamp;
+    end?: string | DOMHighResTimeStamp;
+    start?: string | DOMHighResTimeStamp;
 }
 
 interface PerformanceObserverInit {
@@ -1181,7 +1181,7 @@ interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
 
 interface PushSubscriptionJSON {
     endpoint?: string;
-    expirationTime?: number | null;
+    expirationTime?: DOMTimeStamp | null;
     keys?: Record<string, string>;
 }
 
@@ -1208,7 +1208,7 @@ interface RTCAnswerOptions extends RTCOfferAnswerOptions {
 }
 
 interface RTCCertificateExpiration {
-    expires?: number;
+    expires?: DOMTimeStamp;
 }
 
 interface RTCConfiguration {
@@ -1389,7 +1389,7 @@ interface RTCRtpContributingSource {
     audioLevel?: number;
     rtpTimestamp: number;
     source: number;
-    timestamp: number;
+    timestamp: DOMHighResTimeStamp;
 }
 
 interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
@@ -1465,7 +1465,7 @@ interface RTCSsrcRange {
 
 interface RTCStats {
     id: string;
-    timestamp: number;
+    timestamp: DOMHighResTimeStamp;
     type: RTCStatsType;
 }
 
@@ -4985,7 +4985,7 @@ interface Event {
     /**
      * Returns the event's timestamp as the number of milliseconds measured relative to the time origin.
      */
-    readonly timeStamp: number;
+    readonly timeStamp: DOMHighResTimeStamp;
     /**
      * Returns the type of event, e.g. "click", "hashchange", or "submit".
      */
@@ -5296,7 +5296,7 @@ interface Gamepad {
     readonly id: string;
     readonly index: number;
     readonly mapping: GamepadMappingType;
-    readonly timestamp: number;
+    readonly timestamp: DOMHighResTimeStamp;
 }
 
 declare var Gamepad: {
@@ -5370,7 +5370,7 @@ declare var GeolocationCoordinates: {
 
 interface GeolocationPosition {
     readonly coords: GeolocationCoordinates;
-    readonly timestamp: number;
+    readonly timestamp: DOMTimeStamp;
 }
 
 declare var GeolocationPosition: {
@@ -9216,7 +9216,7 @@ declare var IIRFilterNode: {
 
 interface IdleDeadline {
     readonly didTimeout: boolean;
-    timeRemaining(): number;
+    timeRemaining(): DOMHighResTimeStamp;
 }
 
 declare var IdleDeadline: {
@@ -9321,7 +9321,7 @@ interface IntersectionObserverEntry {
     readonly isIntersecting: boolean;
     readonly rootBounds: DOMRectReadOnly | null;
     readonly target: Element;
-    readonly time: number;
+    readonly time: DOMHighResTimeStamp;
 }
 
 declare var IntersectionObserverEntry: {
@@ -10836,7 +10836,7 @@ interface Performance extends EventTarget {
     /** @deprecated */
     readonly navigation: PerformanceNavigation;
     onresourcetimingbufferfull: ((this: Performance, ev: Event) => any) | null;
-    readonly timeOrigin: number;
+    readonly timeOrigin: DOMHighResTimeStamp;
     /** @deprecated */
     readonly timing: PerformanceTiming;
     clearMarks(markName?: string): void;
@@ -10847,7 +10847,7 @@ interface Performance extends EventTarget {
     getEntriesByType(type: string): PerformanceEntryList;
     mark(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
     measure(measureName: string, startOrMeasureOptions?: string | PerformanceMeasureOptions, endMark?: string): PerformanceMeasure;
-    now(): number;
+    now(): DOMHighResTimeStamp;
     setResourceTimingBufferSize(maxSize: number): void;
     toJSON(): any;
     addEventListener<K extends keyof PerformanceEventMap>(type: K, listener: (this: Performance, ev: PerformanceEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -10863,10 +10863,10 @@ declare var Performance: {
 
 /** Encapsulates a single performance metric that is part of the performance timeline. A performance entry can be directly created by making a performance mark or measure (for example by calling the mark() method) at an explicit point in an application. Performance entries are also created in indirect ways such as loading a resource (such as an image). */
 interface PerformanceEntry {
-    readonly duration: number;
+    readonly duration: DOMHighResTimeStamp;
     readonly entryType: string;
     readonly name: string;
-    readonly startTime: number;
+    readonly startTime: DOMHighResTimeStamp;
     toJSON(): any;
 }
 
@@ -10920,16 +10920,16 @@ declare var PerformanceNavigation: {
 
 /** Provides methods and properties to store and retrieve metrics regarding the browser's document navigation events. For example, this interface can be used to determine how much time it takes to load or unload a document. */
 interface PerformanceNavigationTiming extends PerformanceResourceTiming {
-    readonly domComplete: number;
-    readonly domContentLoadedEventEnd: number;
-    readonly domContentLoadedEventStart: number;
-    readonly domInteractive: number;
-    readonly loadEventEnd: number;
-    readonly loadEventStart: number;
+    readonly domComplete: DOMHighResTimeStamp;
+    readonly domContentLoadedEventEnd: DOMHighResTimeStamp;
+    readonly domContentLoadedEventStart: DOMHighResTimeStamp;
+    readonly domInteractive: DOMHighResTimeStamp;
+    readonly loadEventEnd: DOMHighResTimeStamp;
+    readonly loadEventStart: DOMHighResTimeStamp;
     readonly redirectCount: number;
     readonly type: NavigationType;
-    readonly unloadEventEnd: number;
-    readonly unloadEventStart: number;
+    readonly unloadEventEnd: DOMHighResTimeStamp;
+    readonly unloadEventStart: DOMHighResTimeStamp;
     toJSON(): any;
 }
 
@@ -10963,24 +10963,24 @@ declare var PerformanceObserverEntryList: {
 
 /** Enables retrieval and analysis of detailed network timing data regarding the loading of an application's resources. An application can use the timing metrics to determine, for example, the length of time it takes to fetch a specific resource, such as an XMLHttpRequest, <SVG>, image, or script. */
 interface PerformanceResourceTiming extends PerformanceEntry {
-    readonly connectEnd: number;
-    readonly connectStart: number;
+    readonly connectEnd: DOMHighResTimeStamp;
+    readonly connectStart: DOMHighResTimeStamp;
     readonly decodedBodySize: number;
-    readonly domainLookupEnd: number;
-    readonly domainLookupStart: number;
+    readonly domainLookupEnd: DOMHighResTimeStamp;
+    readonly domainLookupStart: DOMHighResTimeStamp;
     readonly encodedBodySize: number;
-    readonly fetchStart: number;
+    readonly fetchStart: DOMHighResTimeStamp;
     readonly initiatorType: string;
     readonly nextHopProtocol: string;
-    readonly redirectEnd: number;
-    readonly redirectStart: number;
-    readonly requestStart: number;
-    readonly responseEnd: number;
-    readonly responseStart: number;
-    readonly secureConnectionStart: number;
+    readonly redirectEnd: DOMHighResTimeStamp;
+    readonly redirectStart: DOMHighResTimeStamp;
+    readonly requestStart: DOMHighResTimeStamp;
+    readonly responseEnd: DOMHighResTimeStamp;
+    readonly responseStart: DOMHighResTimeStamp;
+    readonly secureConnectionStart: DOMHighResTimeStamp;
     readonly serverTiming: ReadonlyArray<PerformanceServerTiming>;
     readonly transferSize: number;
-    readonly workerStart: number;
+    readonly workerStart: DOMHighResTimeStamp;
     toJSON(): any;
 }
 
@@ -10991,7 +10991,7 @@ declare var PerformanceResourceTiming: {
 
 interface PerformanceServerTiming {
     readonly description: string;
-    readonly duration: number;
+    readonly duration: DOMHighResTimeStamp;
     readonly name: string;
     toJSON(): any;
 }
@@ -11272,7 +11272,7 @@ declare var PushSubscriptionOptions: {
 };
 
 interface RTCCertificate {
-    readonly expires: number;
+    readonly expires: DOMTimeStamp;
     getFingerprints(): RTCDtlsFingerprint[];
 }
 
@@ -14642,7 +14642,7 @@ declare var ValidityState: {
 interface VideoPlaybackQuality {
     /** @deprecated */
     readonly corruptedVideoFrames: number;
-    readonly creationTime: number;
+    readonly creationTime: DOMHighResTimeStamp;
     readonly droppedVideoFrames: number;
     readonly totalVideoFrames: number;
 }
@@ -17489,7 +17489,7 @@ interface EventHandlerNonNull {
 }
 
 interface FrameRequestCallback {
-    (time: number): void;
+    (time: DOMHighResTimeStamp): void;
 }
 
 interface FunctionStringCallback {

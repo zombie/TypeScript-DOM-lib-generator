@@ -335,8 +335,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             return baseTypeConversionMap.get(objDomType)!;
         }
         switch (objDomType) {
-            case "DOMHighResTimeStamp": return "number";
-            case "DOMTimeStamp": return "number";
             case "EventListener": return "EventListenerOrEventListenerObject";
         }
         // Name of an interface / enum / dict. Just return itself

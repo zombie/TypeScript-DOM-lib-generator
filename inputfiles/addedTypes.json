@@ -1477,6 +1477,9 @@
             "OVR_multiview2": {
                 "override-exposed": "Window Worker"
             },
+            "WEBGL_color_buffer_float": {
+                "override-exposed": "Window Worker"
+            },
             "WEBGL_compressed_texture_astc": {
                 "override-exposed": "Window Worker"
             },

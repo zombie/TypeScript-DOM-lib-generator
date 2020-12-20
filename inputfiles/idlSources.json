@@ -681,6 +681,11 @@
         "shortName": "OVR_multiview"
     },
     {
+        "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_color_buffer_float/",
+        "title": "WebGL WEBGL_color_buffer_float",
+        "shortName": "WEBGL_color_buffer_float"
+    },
+    {
         "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/",
         "title": "WebGL WEBGL_compressed_texture_astc",
         "shortName": "WEBGL_compressed_texture_astc"

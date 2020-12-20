@@ -3212,6 +3212,12 @@ declare var URLSearchParams: {
     toString(): string;
 };
 
+interface WEBGL_color_buffer_float {
+    readonly FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT: GLenum;
+    readonly RGBA32F_EXT: GLenum;
+    readonly UNSIGNED_NORMALIZED_EXT: GLenum;
+}
+
 interface WEBGL_compressed_texture_astc {
     getSupportedProfiles(): string[];
     readonly COMPRESSED_RGBA_ASTC_10x10_KHR: GLenum;
@@ -4734,6 +4740,7 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "KHR_parallel_shader_compile"): KHR_parallel_shader_compile | null;
     getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
     getExtension(extensionName: "OVR_multiview2"): OVR_multiview2 | null;
+    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
     getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_etc1"): WEBGL_compressed_texture_etc1 | null;
     getExtension(extensionName: "WEBGL_compressed_texture_pvrtc"): WEBGL_compressed_texture_pvrtc | null;

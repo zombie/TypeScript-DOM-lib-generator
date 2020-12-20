@@ -463,7 +463,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "instantiateStreaming",
     "validate",
   ],
-  "WebKitCSSMatrix": [],
   "Window": [
     "closed",
     "captureEvents",

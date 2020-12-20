@@ -1,7 +1,6 @@
 {
     "callback-functions": {
         "callback-function": {
-            "ErrorEventHandler": null,
             "Function": null,
             "PerformanceObserverCallback": {
                 "signature": {
@@ -66,15 +65,7 @@
                         "originPolicyIds": null
                     }
                 }
-            },
-            "XMLHttpRequestEventTarget": null
-        }
-    },
-    "callback-interfaces": {
-        "interface": {
-            "WebKitEntriesCallback": null,
-            "WebKitErrorCallback": null,
-            "WebKitFileCallback": null
+            }
         }
     },
     "enums": {
@@ -105,7 +96,6 @@
             },
             "ReadableStreamReaderMode": null,
             "ReadableStreamType": null,
-            "RequestType": null,
             "RTCStatsType": {
                 "value": [
                     "stream",
@@ -120,7 +110,6 @@
     },
     "interfaces": {
         "interface": {
-            "ApplicationCache": null,
             "Clipboard": {
                 "methods": {
                     "method": {
@@ -129,9 +118,6 @@
                     }
                 }
             },
-            "Console": null,
-            "CryptoKeyPair": null,
-            "CSS": null,
             "CSSRule": {
                 "constants": {
                     "constant": {
@@ -162,7 +148,6 @@
                     }
                 }
             },
-            "MediaStreamError": null,
             "Navigator": {
                 "implements": [
                     "NavigatorBadge",
@@ -236,18 +221,15 @@
             "SVGLineElement": {
                 "implements": ["SVGMarkableElement"]
             },
-            "SVGMatrix": null,
             "SVGPathElement": {
                 "implements": ["SVGMarkableElement"]
             },
-            "SVGPoint": null,
             "SVGPolygonElement": {
                 "implements": ["SVGMarkableElement"]
             },
             "SVGPolylineElement": {
                 "implements": ["SVGMarkableElement"]
             },
-            "SVGRect": null,
             "Text": {
                 "implements": ["GeometryUtils"]
             },
@@ -287,7 +269,6 @@
             "WebGLVertexArrayObjectOES": {
                 "extends": null
             },
-            "WebKitCSSMatrix": null,
             "WorkerNavigator": {
                 "implements": [
                     "NavigatorBadge",
@@ -296,8 +277,7 @@
                     "NavigatorLocks",
                     "NavigatorUA"
                 ]
-            },
-            "XPathNSResolver": null
+            }
         }
     },
     "dictionaries": {
@@ -491,7 +471,6 @@
                     }
                 }
             },
-            "ObjectURLOptions": null,
             "PerformanceObserverInit": {
                 "members": {
                     "member": {

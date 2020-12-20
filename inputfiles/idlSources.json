@@ -345,6 +345,11 @@
         "shortName": "navigation-timing"
     },
     {
+        "url": "https://wicg.github.io/netinfo/",
+        "title": "Network Information",
+        "shortName": "netinfo"
+    },
+    {
         "url": "https://notifications.spec.whatwg.org/",
         "title": "Notifications",
         "shortName": "notifications"

@@ -10035,7 +10035,7 @@ declare var NamedNodeMap: {
 };
 
 /** The state and the identity of the user agent. It allows scripts to query it and to register themselves to carry on some activities. */
-interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentHardware, NavigatorContentUtils, NavigatorCookies, NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorPlugins, NavigatorStorage {
+interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentHardware, NavigatorContentUtils, NavigatorCookies, NavigatorID, NavigatorLanguage, NavigatorNetworkInformation, NavigatorOnLine, NavigatorPlugins, NavigatorStorage {
     readonly clipboard: Clipboard;
     readonly credentials: CredentialsContainer;
     readonly doNotTrack: string | null;
@@ -10097,6 +10097,10 @@ interface NavigatorLanguage {
     readonly languages: ReadonlyArray<string>;
 }
 
+interface NavigatorNetworkInformation {
+    readonly connection: NetworkInformation;
+}
+
 interface NavigatorOnLine {
     readonly onLine: boolean;
 }
@@ -10110,6 +10114,15 @@ interface NavigatorPlugins {
 interface NavigatorStorage {
     readonly storage: StorageManager;
 }
+
+interface NetworkInformation extends EventTarget {
+    readonly type: ConnectionType;
+}
+
+declare var NetworkInformation: {
+    prototype: NetworkInformation;
+    new(): NetworkInformation;
+};
 
 /** Node is an interface from which a number of DOM API object types inherit. It allows those types to be treated similarly; for example, inheriting the same set of methods, or being tested in the same way. */
 interface Node extends EventTarget {
@@ -18257,6 +18270,7 @@ type ClientTypes = "all" | "sharedworker" | "window" | "worker";
 type ColorSpaceConversion = "default" | "none";
 type CompositeOperation = "accumulate" | "add" | "replace";
 type CompositeOperationOrAuto = "accumulate" | "add" | "auto" | "replace";
+type ConnectionType = "bluetooth" | "cellular" | "ethernet" | "mixed" | "none" | "other" | "unknown" | "wifi";
 type CredentialMediationRequirement = "optional" | "required" | "silent";
 type DOMParserSupportedType = "application/xhtml+xml" | "application/xml" | "image/svg+xml" | "text/html" | "text/xml";
 type DirectionSetting = "" | "lr" | "rl";

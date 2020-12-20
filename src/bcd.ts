@@ -182,6 +182,7 @@ const forceKeepAlive: Record<string, string[]> = {
   ],
   "NavigatorStorage": ["storage"],
   "NavigatorPlugins": ["javaEnabled", "mimeTypes", "plugins"],
+  "NetworkInformation": ["type"],
   "OfflineAudioContext": ["resume"],
   "PaymentRequest": ["shippingAddress"],
   "PictureInPictureWindow": [

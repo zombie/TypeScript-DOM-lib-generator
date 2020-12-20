@@ -89,6 +89,14 @@ interface AudioBufferSourceOptions {
     playbackRate?: number;
 }
 
+interface AudioConfiguration {
+    bitrate?: number;
+    channels?: string;
+    contentType: string;
+    samplerate?: number;
+    spatialRendering?: boolean;
+}
+
 interface AudioContextInfo {
     currentTime?: number;
     sampleRate?: number;
@@ -654,8 +662,35 @@ interface KeyframeEffectOptions extends EffectTiming {
     pseudoElement?: string | null;
 }
 
+interface MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
+    configuration?: MediaDecodingConfiguration;
+}
+
+interface MediaCapabilitiesEncodingInfo extends MediaCapabilitiesInfo {
+    configuration?: MediaEncodingConfiguration;
+}
+
+interface MediaCapabilitiesInfo {
+    powerEfficient: boolean;
+    smooth: boolean;
+    supported: boolean;
+}
+
+interface MediaConfiguration {
+    audio?: AudioConfiguration;
+    video?: VideoConfiguration;
+}
+
+interface MediaDecodingConfiguration extends MediaConfiguration {
+    type: MediaDecodingType;
+}
+
 interface MediaElementAudioSourceOptions {
     mediaElement: HTMLMediaElement;
+}
+
+interface MediaEncodingConfiguration extends MediaConfiguration {
+    type: MediaEncodingType;
 }
 
 interface MediaEncryptedEventInit extends EventInit {
@@ -1775,6 +1810,17 @@ interface UnderlyingSource<R = any> {
     pull?: UnderlyingSourcePullCallback<R>;
     start?: UnderlyingSourceStartCallback<R>;
     type?: undefined;
+}
+
+interface VideoConfiguration {
+    bitrate: number;
+    colorGamut?: ColorGamut;
+    contentType: string;
+    framerate: number;
+    hdrMetadataType?: HdrMetadataType;
+    height: number;
+    transferFunction?: TransferFunction;
+    width: number;
 }
 
 interface WaveShaperOptions extends AudioNodeOptions {
@@ -9414,6 +9460,16 @@ declare var Location: {
     new(): Location;
 };
 
+interface MediaCapabilities {
+    decodingInfo(configuration: MediaDecodingConfiguration): Promise<MediaCapabilitiesDecodingInfo>;
+    encodingInfo(configuration: MediaEncodingConfiguration): Promise<MediaCapabilitiesEncodingInfo>;
+}
+
+declare var MediaCapabilities: {
+    prototype: MediaCapabilities;
+    new(): MediaCapabilities;
+};
+
 /** The MediaDevicesInfo interface contains information that describes a single media input or output device. */
 interface MediaDeviceInfo {
     readonly deviceId: string;
@@ -10041,6 +10097,7 @@ interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentH
     readonly doNotTrack: string | null;
     readonly geolocation: Geolocation;
     readonly maxTouchPoints: number;
+    readonly mediaCapabilities: MediaCapabilities;
     readonly mediaDevices: MediaDevices;
     readonly mediaSession: MediaSession;
     readonly permissions: Permissions;
@@ -18267,6 +18324,7 @@ type CanvasTextBaseline = "alphabetic" | "bottom" | "hanging" | "ideographic" | 
 type ChannelCountMode = "clamped-max" | "explicit" | "max";
 type ChannelInterpretation = "discrete" | "speakers";
 type ClientTypes = "all" | "sharedworker" | "window" | "worker";
+type ColorGamut = "p3" | "rec2020" | "srgb";
 type ColorSpaceConversion = "default" | "none";
 type CompositeOperation = "accumulate" | "add" | "replace";
 type CompositeOperationOrAuto = "accumulate" | "add" | "auto" | "replace";
@@ -18285,6 +18343,7 @@ type FontFaceSetLoadStatus = "loaded" | "loading";
 type FullscreenNavigationUI = "auto" | "hide" | "show";
 type GamepadHapticActuatorType = "vibration";
 type GamepadMappingType = "" | "standard";
+type HdrMetadataType = "smpteSt2086" | "smpteSt2094-10" | "smpteSt2094-40";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
@@ -18293,7 +18352,9 @@ type ImageSmoothingQuality = "high" | "low" | "medium";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
+type MediaDecodingType = "file" | "media-source";
 type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
+type MediaEncodingType = "record" | "transmission";
 type MediaKeyMessageType = "individualization-request" | "license-release" | "license-renewal" | "license-request";
 type MediaKeySessionType = "persistent-license" | "persistent-usage-record" | "temporary";
 type MediaKeyStatus = "expired" | "internal-error" | "output-downscaled" | "output-restricted" | "released" | "status-pending" | "usable" | "usable-in-future";
@@ -18359,6 +18420,7 @@ type SpeechSynthesisErrorCode = "audio-busy" | "audio-hardware" | "canceled" | "
 type TextTrackKind = "captions" | "chapters" | "descriptions" | "metadata" | "subtitles";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
+type TransferFunction = "hlg" | "pq" | "srgb";
 type UserVerificationRequirement = "discouraged" | "preferred" | "required";
 type VideoFacingModeEnum = "environment" | "left" | "right" | "user";
 type VisibilityState = "hidden" | "visible";

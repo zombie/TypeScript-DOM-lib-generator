@@ -169,6 +169,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "iterationComposite",
   ],
   "LinkStyle": ["sheet"],
+  "MediaCapabilities": ["encodingInfo"],
   "MutationEvent": [
     "attrChange",
     "attrName",

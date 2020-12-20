@@ -294,6 +294,20 @@
                     }
                 }
             },
+            "MediaCapabilitiesDecodingInfo": {
+                "members": {
+                    "member": {
+                        "keySystemAccess": null
+                    }
+                }
+            },
+            "MediaDecodingConfiguration": {
+                "members": {
+                    "member": {
+                        "keySystemConfiguration": null
+                    }
+                }
+            },
             "ObjectURLOptions": null,
             "PointerEventInit": {
                 "members": {
@@ -324,6 +338,13 @@
                 "members": {
                     "member": {
                         "autoAllocateChunkSize": null
+                    }
+                }
+            },
+            "VideoConfiguration": {
+                "members": {
+                    "member": {
+                        "hasAlphaChannel": null
                     }
                 }
             },

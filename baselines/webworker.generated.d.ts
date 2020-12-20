@@ -39,6 +39,14 @@ interface Algorithm {
     name: string;
 }
 
+interface AudioConfiguration {
+    bitrate?: number;
+    channels?: string;
+    contentType: string;
+    samplerate?: number;
+    spatialRendering?: boolean;
+}
+
 interface BlobPropertyBag {
     endings?: EndingType;
     type?: string;
@@ -281,6 +289,33 @@ interface JsonWebKey {
 
 interface KeyAlgorithm {
     name: string;
+}
+
+interface MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
+    configuration?: MediaDecodingConfiguration;
+}
+
+interface MediaCapabilitiesEncodingInfo extends MediaCapabilitiesInfo {
+    configuration?: MediaEncodingConfiguration;
+}
+
+interface MediaCapabilitiesInfo {
+    powerEfficient: boolean;
+    smooth: boolean;
+    supported: boolean;
+}
+
+interface MediaConfiguration {
+    audio?: AudioConfiguration;
+    video?: VideoConfiguration;
+}
+
+interface MediaDecodingConfiguration extends MediaConfiguration {
+    type: MediaDecodingType;
+}
+
+interface MediaEncodingConfiguration extends MediaConfiguration {
+    type: MediaEncodingType;
 }
 
 interface MessageEventInit<T = any> extends EventInit {
@@ -591,6 +626,17 @@ interface UnderlyingSource<R = any> {
     pull?: UnderlyingSourcePullCallback<R>;
     start?: UnderlyingSourceStartCallback<R>;
     type?: undefined;
+}
+
+interface VideoConfiguration {
+    bitrate: number;
+    colorGamut?: ColorGamut;
+    contentType: string;
+    framerate: number;
+    hdrMetadataType?: HdrMetadataType;
+    height: number;
+    transferFunction?: TransferFunction;
+    width: number;
 }
 
 interface WebGLContextAttributes {
@@ -2159,6 +2205,16 @@ declare var ImageData: {
     prototype: ImageData;
     new(sw: number, sh: number): ImageData;
     new(data: Uint8ClampedArray, sw: number, sh?: number): ImageData;
+};
+
+interface MediaCapabilities {
+    decodingInfo(configuration: MediaDecodingConfiguration): Promise<MediaCapabilitiesDecodingInfo>;
+    encodingInfo(configuration: MediaEncodingConfiguration): Promise<MediaCapabilitiesEncodingInfo>;
+}
+
+declare var MediaCapabilities: {
+    prototype: MediaCapabilities;
+    new(): MediaCapabilities;
 };
 
 /** This Channel Messaging API interface allows us to create a new message channel and send data through it via its two MessagePort properties. */
@@ -5819,12 +5875,14 @@ type VibratePattern = number | number[];
 type XMLHttpRequestBodyInit = Blob | BufferSource | FormData | URLSearchParams | string;
 type BinaryType = "arraybuffer" | "blob";
 type ClientTypes = "all" | "sharedworker" | "window" | "worker";
+type ColorGamut = "p3" | "rec2020" | "srgb";
 type ColorSpaceConversion = "default" | "none";
 type ConnectionType = "bluetooth" | "cellular" | "ethernet" | "mixed" | "none" | "other" | "unknown" | "wifi";
 type EndingType = "native" | "transparent";
 type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
 type FontFaceSetLoadStatus = "loaded" | "loading";
 type FrameType = "auxiliary" | "nested" | "none" | "top-level";
+type HdrMetadataType = "smpteSt2086" | "smpteSt2094-10" | "smpteSt2094-40";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
@@ -5832,6 +5890,8 @@ type ImageOrientation = "flipY" | "none";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
+type MediaDecodingType = "file" | "media-source";
+type MediaEncodingType = "record" | "transmission";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
@@ -5850,6 +5910,7 @@ type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaquer
 type SecurityPolicyViolationEventDisposition = "enforce" | "report";
 type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
+type TransferFunction = "hlg" | "pq" | "srgb";
 type VisibilityState = "hidden" | "visible";
 type WebGLPowerPreference = "default" | "high-performance" | "low-power";
 type WorkerType = "classic" | "module";

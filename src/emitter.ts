@@ -10,7 +10,7 @@ export const enum Flavor {
 // Note:
 // Eventhandler's name and the eventName are not just off by "on".
 // For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
-type EventHandler = { name: string; eventName: string; eventType: string };
+type EventHandler = { name: string; eventName: string };
 
 /// Decide which members of a function to emit
 enum EmitScope {
@@ -19,7 +19,6 @@ enum EmitScope {
     All
 }
 
-const defaultEventType = "Event";
 const tsKeywords = new Set(["default", "delete", "continue"]);
 const extendConflictsBaseTypes: Record<string, { extendType: string[], memberNames: Set<string> }> = {
     "HTMLCollection": { extendType: ["HTMLFormControlsCollection"], memberNames: new Set(["namedItem"]) },
@@ -151,9 +150,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
             const eventName = p["event-handler"]!;
             if (eventName === undefined) return undefined;
-            const eType = eNameToEType[eventName] || defaultEventType;
-            const eventType = eType === "Event" || dependsOn(eType, "Event") ? eType : defaultEventType;
-            return { name: p.name, eventName, eventType };
+            return { name: p.name, eventName };
         }));
 
     const iNameToAttributelessEhList = arrayToMap(allInterfaces, i => i.name, i =>
@@ -260,13 +257,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             }
         }
         return getGenericEventType(eNameToEType[eName]) || "Event";
-    }
-
-    /// Determine if interface1 depends on interface2
-    function dependsOn(i1Name: string, i2Name: string) {
-        return iNameToIDependList[i1Name]
-            ? iNameToIDependList[i1Name].includes(i2Name)
-            : i2Name === "Object";
     }
 
     /// Get typescript type using object dom type, object name, and it's associated interface name

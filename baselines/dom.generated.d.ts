@@ -2809,6 +2809,7 @@ interface CSSStyleDeclaration {
     gridTemplateRows: string;
     height: string;
     hyphens: string;
+    /** @deprecated */
     imageOrientation: string;
     imageRendering: string;
     inlineSize: string;
@@ -3140,8 +3141,6 @@ interface CSSStyleDeclaration {
     wordWrap: string;
     writingMode: string;
     zIndex: string;
-    /** @deprecated */
-    zoom: string;
     getPropertyPriority(property: string): string;
     getPropertyValue(property: string): string;
     item(index: number): string;

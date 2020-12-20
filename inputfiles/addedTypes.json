@@ -294,21 +294,12 @@
                     "property": {
                         "imageOrientation": {
                             "name": "imageOrientation",
-                            "type": "CSSOMString"
+                            "type": "CSSOMString",
+                            "deprecated": 1
                         },
                         "objectPosition": {
                             "name": "objectPosition",
                             "type": "CSSOMString"
-                        },
-                        "webkitFlex": {
-                            "name": "webkitFlex",
-                            "type": "CSSOMString",
-                            "deprecated": 1
-                        },
-                        "zoom": {
-                            "name": "zoom",
-                            "type": "CSSOMString",
-                            "deprecated": 1
                         }
                     }
                 }

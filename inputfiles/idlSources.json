@@ -355,6 +355,11 @@
         "shortName": "mediacapture-streams"
     },
     {
+        "url": "https://w3c.github.io/mediacapture-depth/",
+        "title": "Media Capture Depth Stream Extensions",
+        "shortName": "mediacapture-depth"
+    },
+    {
         "url": "https://w3c.github.io/mediacapture-fromelement/",
         "title": "Media Capture from DOM Elements",
         "shortName": "mediacapture-fromelement"

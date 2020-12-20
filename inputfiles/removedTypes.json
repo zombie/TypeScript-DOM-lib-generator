@@ -345,7 +345,8 @@
                         "pan": null,
                         "tilt": null,
                         "zoom": null,
-                        "torch": null
+                        "torch": null,
+                        "videoKind": null
                     }
                 }
             },
@@ -375,7 +376,8 @@
                         "pan": null,
                         "tilt": null,
                         "zoom": null,
-                        "torch": null
+                        "torch": null,
+                        "videoKind": null
                     }
                 }
             },
@@ -406,7 +408,8 @@
                         "pan": null,
                         "tilt": null,
                         "zoom": null,
-                        "torch": null
+                        "torch": null,
+                        "videoKind": null
                     }
                 }
             },
@@ -438,7 +441,8 @@
                         "pan": null,
                         "tilt": null,
                         "zoom": null,
-                        "torch": null
+                        "torch": null,
+                        "videoKind": null
                     }
                 }
             },

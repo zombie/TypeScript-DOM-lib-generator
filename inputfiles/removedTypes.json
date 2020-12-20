@@ -136,7 +136,8 @@
                     "property": {
                         "effectiveType": null
                     }
-                }
+                },
+                "implements": ["NetworkInformationSaveData"]
             },
             "ReadableStream": {
                 "methods": {

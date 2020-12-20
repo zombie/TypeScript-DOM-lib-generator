@@ -1,5 +1,10 @@
 [
     {
+        "url": "https://w3c.github.io/badging/",
+        "title": "Badging",
+        "shortName": "badging"
+    },
+    {
         "url": "https://www.w3.org/TR/beacon/",
         "title": "Beacon",
         "shortName": "beacon"
@@ -228,6 +233,11 @@
         "url": "https://drafts.csswg.org/css2/",
         "title": "CSS2",
         "shortName": "CSS"
+    },
+    {
+        "url": "https://w3c.github.io/device-memory/",
+        "title": "Device Memory",
+        "shortName": "device-memory"
     },
     {
         "url": "https://w3c.github.io/deviceorientation/",

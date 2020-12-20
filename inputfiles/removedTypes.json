@@ -131,6 +131,9 @@
                 }
             },
             "MediaStreamError": null,
+            "Navigator": {
+                "implements": ["NavigatorBadge", "NavigatorDeviceMemory"]
+            },
             "NetworkInformation": {
                 "properties": {
                     "property": {
@@ -235,6 +238,9 @@
                 "extends": null
             },
             "WebKitCSSMatrix": null,
+            "WorkerNavigator": {
+                "implements": ["NavigatorBadge", "NavigatorDeviceMemory"]
+            },
             "XPathNSResolver": null
         }
     },

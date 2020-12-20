@@ -781,6 +781,11 @@
         "shortName": "webrtc"
     },
     {
+        "url": "https://w3c.github.io/webrtc-insertable-streams/",
+        "title": "WebRTC Insertable Media using Streams",
+        "shortName": "webrtc-insertable-streams"
+    },
+    {
         "url": "https://www.w3.org/TR/web-share/",
         "title": "Web Share",
         "shortName": "web-share"

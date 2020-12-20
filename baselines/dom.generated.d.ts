@@ -160,6 +160,11 @@ interface BiquadFilterOptions extends AudioNodeOptions {
     type?: BiquadFilterType;
 }
 
+interface BlobEventInit {
+    data: Blob;
+    timecode?: DOMHighResTimeStamp;
+}
+
 interface BlobPropertyBag {
     endings?: EndingType;
     type?: string;
@@ -741,6 +746,13 @@ interface MediaPositionState {
 interface MediaQueryListEventInit extends EventInit {
     matches?: boolean;
     media?: string;
+}
+
+interface MediaRecorderOptions {
+    audioBitsPerSecond?: number;
+    bitsPerSecond?: number;
+    mimeType?: string;
+    videoBitsPerSecond?: number;
 }
 
 interface MediaSessionActionDetails {
@@ -2463,6 +2475,15 @@ interface Blob {
 declare var Blob: {
     prototype: Blob;
     new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
+};
+
+interface BlobEvent extends Event {
+    readonly data: Blob;
+}
+
+declare var BlobEvent: {
+    prototype: BlobEvent;
+    new(type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
 interface Body {
@@ -4419,6 +4440,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "AnimationPlaybackEvent"): AnimationPlaybackEvent;
     createEvent(eventInterface: "AudioProcessingEvent"): AudioProcessingEvent;
     createEvent(eventInterface: "BeforeUnloadEvent"): BeforeUnloadEvent;
+    createEvent(eventInterface: "BlobEvent"): BlobEvent;
     createEvent(eventInterface: "ClipboardEvent"): ClipboardEvent;
     createEvent(eventInterface: "CloseEvent"): CloseEvent;
     createEvent(eventInterface: "CompositionEvent"): CompositionEvent;
@@ -9674,6 +9696,44 @@ interface MediaQueryListEvent extends Event {
 declare var MediaQueryListEvent: {
     prototype: MediaQueryListEvent;
     new(type: string, eventInitDict?: MediaQueryListEventInit): MediaQueryListEvent;
+};
+
+interface MediaRecorderEventMap {
+    "dataavailable": BlobEvent;
+    "error": Event;
+    "pause": Event;
+    "resume": Event;
+    "start": Event;
+    "stop": Event;
+}
+
+interface MediaRecorder extends EventTarget {
+    readonly audioBitsPerSecond: number;
+    readonly mimeType: string;
+    ondataavailable: ((this: MediaRecorder, ev: BlobEvent) => any) | null;
+    onerror: ((this: MediaRecorder, ev: Event) => any) | null;
+    onpause: ((this: MediaRecorder, ev: Event) => any) | null;
+    onresume: ((this: MediaRecorder, ev: Event) => any) | null;
+    onstart: ((this: MediaRecorder, ev: Event) => any) | null;
+    onstop: ((this: MediaRecorder, ev: Event) => any) | null;
+    readonly state: RecordingState;
+    readonly stream: MediaStream;
+    readonly videoBitsPerSecond: number;
+    pause(): void;
+    requestData(): void;
+    resume(): void;
+    start(timeslice?: number): void;
+    stop(): void;
+    addEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
+}
+
+declare var MediaRecorder: {
+    prototype: MediaRecorder;
+    new(stream: MediaStream, options?: MediaRecorderOptions): MediaRecorder;
+    isTypeSupported(type: string): boolean;
 };
 
 interface MediaSession {
@@ -18391,6 +18451,7 @@ type RTCStatsIceCandidatePairState = "cancelled" | "failed" | "frozen" | "inprog
 type RTCStatsIceCandidateType = "host" | "peerreflexive" | "relayed" | "serverreflexive";
 type RTCStatsType = "candidatepair" | "datachannel" | "inboundrtp" | "localcandidate" | "outboundrtp" | "remotecandidate" | "session" | "track" | "transport";
 type ReadyState = "closed" | "ended" | "open";
+type RecordingState = "inactive" | "paused" | "recording";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 type RemotePlaybackState = "connected" | "connecting" | "disconnected";
 type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";

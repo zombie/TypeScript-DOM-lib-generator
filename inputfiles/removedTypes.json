@@ -309,6 +309,13 @@
                     }
                 }
             },
+            "MediaRecorderOptions": {
+                "members": {
+                    "member": {
+                        "audioBitrateMode": null
+                    }
+                }
+            },
             "ObjectURLOptions": null,
             "PointerEventInit": {
                 "members": {

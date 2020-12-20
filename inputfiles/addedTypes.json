@@ -2007,6 +2007,16 @@
                     }
                 ]
             },
+            "MediaRecorder": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "dataavailable",
+                            "type": "BlobEvent"
+                        }
+                    ]
+                }
+            },
             "MediaStream": {
                 "events": {
                     "event": [

@@ -355,6 +355,11 @@
         "shortName": "media-source"
     },
     {
+        "url": "https://w3c.github.io/mediacapture-record/",
+        "title": "MediaStream Recording",
+        "shortName": "mediastream-recording"
+    },
+    {
         "url": "https://w3c.github.io/mst-content-hint/",
         "title": "MediaStreamTrack Content Hints",
         "shortName": "mst-content-hint"

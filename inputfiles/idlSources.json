@@ -420,6 +420,11 @@
         "shortName": "savedata"
     },
     {
+        "url": "https://w3c.github.io/webrtc-svc/",
+        "title": "Scalable Video Coding Extension for WebRTC",
+        "shortName": "webrtc-svc"
+    },
+    {
         "url": "https://w3c.github.io/mediacapture-screen-share/",
         "title": "Screen Capture",
         "shortName": "screen-capture"

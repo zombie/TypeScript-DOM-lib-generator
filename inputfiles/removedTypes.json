@@ -521,10 +521,18 @@
                     }
                 }
             },
+            "RTCRtpCodecCapability": {
+                "members": {
+                    "member": {
+                        "scalabilityModes": null
+                    }
+                }
+            },
             "RTCRtpEncodingParameters": {
                 "members": {
                     "member": {
-                        "networkPriority": null
+                        "networkPriority": null,
+                        "scalabilityMode": null
                     }
                 }
             },

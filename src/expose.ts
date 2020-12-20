@@ -1,7 +1,25 @@
 import * as Browser from "./types.js";
 import { getEmptyWebIDL, deepFilter, exposesTo, followTypeReferences, filterProperties, mapToArray, arrayToMap } from "./helpers.js";
 
+class LoggedSet extends Set<string> {
+    private unvisited: Set<string>;
+
+    constructor(set: Set<string>) {
+        super(set);
+        this.unvisited = new Set(set);
+    }
+    has(value: string) {
+        this.unvisited.delete(value);
+        return super.has(value);
+    }
+    unvisitedValues() {
+        return this.unvisited.values();
+    }
+}
+
 export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKnownTypes: Set<string>) {
+    const forceKnownTypesLogged = new LoggedSet(forceKnownTypes);
+
     const unexposedTypes = new Set<string>();
     const filtered = getEmptyWebIDL();
     if (webidl.interfaces) {
@@ -19,10 +37,10 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
         ...followTypeReferences(webidl, filtered.interfaces!.interface),
         ...followTypeReferences(webidl, arrayToMap(filtered.namespaces!, i => i.name, i => i))
     ]);
-    const isKnownName = (o: { name: string }) => knownIDLTypes.has(o.name) || forceKnownTypes.has(o.name);
+    const isKnownName = (o: { name: string }) => knownIDLTypes.has(o.name) || forceKnownTypesLogged.has(o.name);
 
     if (webidl.typedefs) {
-        const referenced = webidl.typedefs.typedef.filter(t => knownIDLTypes.has(t["new-type"]) || forceKnownTypes.has(t["new-type"]));
+        const referenced = webidl.typedefs.typedef.filter(t => knownIDLTypes.has(t["new-type"]) || forceKnownTypesLogged.has(t["new-type"]));
         const { exposed, removed } = filterTypedefs(referenced, unexposedTypes);
         removed.forEach(s => unexposedTypes.add(s));
         filtered.typedefs!.typedef = exposed;
@@ -35,6 +53,10 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
     if (webidl.mixins) {
         const mixins = deepFilter(webidl.mixins.mixin, o => exposesTo(o, target));
         filtered.mixins!.mixin = filterProperties(mixins, isKnownName);
+    }
+
+    for (const unvisited of forceKnownTypesLogged.unvisitedValues()) {
+        console.warn(`${unvisited} is redundant in knownTypes.json (${target})`)
     }
 
     return deepFilterUnexposedTypes(filtered, unexposedTypes);

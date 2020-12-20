@@ -150,8 +150,6 @@ async function emitDom() {
     /// Load the input file
     let webidl: Browser.WebIdl = {};
 
-    const knownTypes = require(fileURLToPath(new URL("knownTypes.json", inputFolder)));
-
     for (const w of widlStandardTypes) {
         webidl = merge(webidl, w.browser, true);
     }
@@ -215,6 +213,8 @@ async function emitDom() {
             resolveExposure(i, i["override-exposed"]!, true);
         }
     }
+
+    const knownTypes = require(fileURLToPath(new URL("knownTypes.json", inputFolder)));
 
     emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", flavor: Flavor.Window, global: "Window", outputFolder });
     emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", flavor: Flavor.Worker, global: "Worker", outputFolder });

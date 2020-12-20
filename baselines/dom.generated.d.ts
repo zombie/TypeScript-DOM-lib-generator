@@ -4624,6 +4624,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Gets a value indicating whether the object currently has focus.
      */
     hasFocus(): boolean;
+    hasStorageAccess(): Promise<boolean>;
     /**
      * Returns a copy of node. If deep is true, the copy also includes the node's descendants.
      * 
@@ -4669,6 +4670,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     queryCommandValue(commandId: string): string;
     /** @deprecated */
     releaseEvents(): void;
+    requestStorageAccess(): Promise<void>;
     /**
      * Writes one or more HTML expressions to a document in the specified window.
      * @param content Specifies the text and HTML tags to write.

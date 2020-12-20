@@ -405,6 +405,11 @@
         "shortName": "screen-capture"
     },
     {
+        "url": "https://privacycg.github.io/storage-access/",
+        "title": "Storage Access",
+        "shortName": "storage-access"
+    },
+    {
         "url": "https://notifications.spec.whatwg.org/",
         "title": "Notifications",
         "shortName": "notifications"

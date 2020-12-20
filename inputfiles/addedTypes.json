@@ -468,20 +468,6 @@
                 },
                 "no-interface-object": "1"
             },
-            "EventListenerObject": {
-                "name": "EventListenerObject",
-                "methods": {
-                    "method": {
-                        "handleEvent": {
-                            "name": "handleEvent",
-                            "override-signatures": [
-                                "handleEvent(evt: Event): void"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
             "Element": {
                 "events": {
                     "event": [

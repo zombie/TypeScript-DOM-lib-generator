@@ -334,9 +334,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         if (baseTypeConversionMap.has(objDomType)) {
             return baseTypeConversionMap.get(objDomType)!;
         }
-        switch (objDomType) {
-            case "EventListener": return "EventListenerOrEventListenerObject";
-        }
         // Name of an interface / enum / dict. Just return itself
         if (allInterfacesMap[objDomType] ||
             allLegacyWindowAliases.includes(objDomType) ||
@@ -524,21 +521,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitCallBackInterface(i: Browser.Interface) {
-        if (i.name === "EventListener") {
-            printer.printLine(`interface ${i.name} {`);
-            printer.increaseIndent();
-            printer.printLine("(evt: Event): void;");
-            printer.decreaseIndent();
-            printer.printLine("}");
-        }
-        else {
-            const methods = mapToArray(i.methods.method);
-            const m = methods[0];
-            const overload = m.signature[0];
-            const paramsString = overload.param ? paramsToString(overload.param) : "";
-            const returnType = overload.type ? convertDomTypeToTsReturnType(overload) : "void";
-            printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
-        }
+        const methods = mapToArray(i.methods.method);
+        const m = methods[0];
+        const overload = m.signature[0];
+        const paramsString = overload.param ? paramsToString(overload.param) : "";
+        const returnType = overload.type ? convertDomTypeToTsReturnType(overload) : "void";
+        printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
         printer.printLine("");
     }
 
@@ -783,7 +771,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             const optionsType = addOrRemove === "add" ? "AddEventListenerOptions" : "EventListenerOptions";
             if (tryEmitTypedEventHandlerForInterface(addOrRemove, optionsType)) {
                 // only emit the string event handler if we just emitted a typed handler
-                printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${optionsType}): void;`);
+                printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListener, options?: boolean | ${optionsType}): void;`);
             }
         }
 
@@ -1176,9 +1164,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             .sort(compareName)
             .forEach(i => emitCallBackInterface(i));
         emitNonCallbackInterfaces();
-
-        printer.printLine("declare type EventListenerOrEventListenerObject = EventListener | EventListenerObject;");
-        printer.printLine("");
 
         collectLegacyNamespaceTypes(webidl).forEach(emitNamespace);
 

@@ -1459,6 +1459,9 @@
             "EXT_sRGB": {
                 "override-exposed": "Window Worker"
             },
+            "KHR_parallel_shader_compile": {
+                "override-exposed": "Window Worker"
+            },
             "OES_vertex_array_object": {
                 "override-exposed": "Window Worker"
             },

@@ -606,6 +606,11 @@
         "shortName": "EXT_sRGB"
     },
     {
+        "url": "https://www.khronos.org/registry/webgl/extensions/KHR_parallel_shader_compile/",
+        "title": "WebGL KHR_parallel_shader_compile",
+        "shortName": "KHR_parallel_shader_compile"
+    },
+    {
         "url": "https://www.khronos.org/registry/webgl/extensions/OES_element_index_uint/",
         "title": "WebGL OES_element_index_uint",
         "shortName": "OES_element_index_uint"

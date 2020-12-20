@@ -9338,6 +9338,10 @@ declare var IntersectionObserverEntry: {
     new(intersectionObserverEntryInit: IntersectionObserverEntryInit): IntersectionObserverEntry;
 };
 
+interface KHR_parallel_shader_compile {
+    readonly COMPLETION_STATUS_KHR: GLenum;
+}
+
 /** KeyboardEvent objects describe a user interaction with the keyboard; each event describes a single interaction between the user and a key (or combination of a key with modifier keys) on the keyboard. */
 interface KeyboardEvent extends UIEvent {
     readonly altKey: boolean;
@@ -16260,6 +16264,7 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
     getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
     getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
+    getExtension(extensionName: "KHR_parallel_shader_compile"): KHR_parallel_shader_compile | null;
     getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
     getExtension(extensionName: "OVR_multiview2"): OVR_multiview2 | null;
     getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;

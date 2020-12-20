@@ -224,6 +224,11 @@
                     "sharedworker",
                     "all"
                 ]
+            },
+            "RTCStatsIceCandidatePairState": {
+                "value": [
+                    "inprogress"
+                ]
             }
         }
     },

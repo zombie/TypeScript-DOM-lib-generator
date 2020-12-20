@@ -1279,15 +1279,17 @@ interface RTCIceCandidatePairStats extends RTCStats {
     availableOutgoingBitrate?: number;
     bytesReceived?: number;
     bytesSent?: number;
-    localCandidateId?: string;
+    currentRoundTripTime?: number;
+    localCandidateId: string;
     nominated?: boolean;
-    priority?: number;
-    readable?: boolean;
-    remoteCandidateId?: string;
-    roundTripTime?: number;
-    state?: RTCStatsIceCandidatePairState;
-    transportId?: string;
-    writable?: boolean;
+    remoteCandidateId: string;
+    requestsReceived?: number;
+    requestsSent?: number;
+    responsesReceived?: number;
+    responsesSent?: number;
+    state: RTCStatsIceCandidatePairState;
+    totalRoundTripTime?: number;
+    transportId: string;
 }
 
 interface RTCIceServer {
@@ -1493,13 +1495,16 @@ interface RTCTrackEventInit extends EventInit {
 }
 
 interface RTCTransportStats extends RTCStats {
-    activeConnection?: boolean;
     bytesReceived?: number;
     bytesSent?: number;
+    dtlsCipher?: string;
+    dtlsState: RTCDtlsTransportState;
     localCertificateId?: string;
     remoteCertificateId?: string;
     rtcpTransportStatsId?: string;
     selectedCandidatePairId?: string;
+    srtpCipher?: string;
+    tlsVersion?: string;
 }
 
 interface ReadableStreamDefaultReadDoneResult {
@@ -18589,9 +18594,9 @@ type RTCRtcpMuxPolicy = "require";
 type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendrecv" | "stopped";
 type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
 type RTCSignalingState = "closed" | "have-local-offer" | "have-local-pranswer" | "have-remote-offer" | "have-remote-pranswer" | "stable";
-type RTCStatsIceCandidatePairState = "cancelled" | "failed" | "frozen" | "inprogress" | "succeeded" | "waiting";
+type RTCStatsIceCandidatePairState = "failed" | "frozen" | "in-progress" | "inprogress" | "succeeded" | "waiting";
 type RTCStatsIceCandidateType = "host" | "peerreflexive" | "relayed" | "serverreflexive";
-type RTCStatsType = "candidatepair" | "datachannel" | "inboundrtp" | "localcandidate" | "outboundrtp" | "remotecandidate" | "session" | "track" | "transport";
+type RTCStatsType = "candidate-pair" | "certificate" | "codec" | "csrc" | "data-channel" | "inbound-rtp" | "local-candidate" | "media-source" | "outbound-rtp" | "peer-connection" | "remote-candidate" | "remote-inbound-rtp" | "remote-outbound-rtp" | "track" | "transport";
 type ReadyState = "closed" | "ended" | "open";
 type RecordingState = "inactive" | "paused" | "recording";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";

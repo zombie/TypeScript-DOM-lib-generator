@@ -330,6 +330,11 @@
         "shortName": "html"
     },
     {
+        "url": "https://w3c.github.io/webrtc-stats/",
+        "title": "Identifiers for WebRTC's Statistics",
+        "shortName": "webrtc-stats"
+    },
+    {
         "url": "https://w3c.github.io/webrtc-identity/",
         "title": "Identity for WebRTC",
         "shortName": "webrtc-identity"

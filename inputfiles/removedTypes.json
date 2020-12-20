@@ -98,7 +98,17 @@
             },
             "ReadableStreamReaderMode": null,
             "ReadableStreamType": null,
-            "RequestType": null
+            "RequestType": null,
+            "RTCStatsType": {
+                "value": [
+                    "stream",
+                    "transceiver",
+                    "sender",
+                    "receiver",
+                    "sctp-transport",
+                    "ice-server"
+                ]
+            }
         }
     },
     "interfaces": {
@@ -481,6 +491,29 @@
                     }
                 }
             },
+            "RTCIceCandidatePairStats": {
+                "members": {
+                    "member": {
+                        "bytesDiscardedOnSend": null,
+                        "circuitBreakerTriggerCount": null,
+                        "consentExpiredTimestamp": null,
+                        "consentRequestBytesSent": null,
+                        "consentRequestsSent": null,
+                        "firstRequestTimestamp": null,
+                        "lastPacketReceivedTimestamp": null,
+                        "lastPacketSentTimestamp": null,
+                        "lastRequestTimestamp": null,
+                        "lastResponseTimestamp": null,
+                        "packetsDiscardedOnSend": null,
+                        "packetsReceived": null,
+                        "packetsSent": null,
+                        "requestBytesSent": null,
+                        "responseBytesSent": null,
+                        "retransmissionsReceived": null,
+                        "retransmissionsSent": null
+                    }
+                }
+            },
             "RTCIceGatherOptions": {
                 "members": {
                     "member": {
@@ -492,6 +525,19 @@
                 "members": {
                     "member": {
                         "networkPriority": null
+                    }
+                }
+            },
+            "RTCTransportStats": {
+                "members": {
+                    "member": {
+                        "packetsSent": null,
+                        "packetsReceived": null,
+                        "iceRole": null,
+                        "iceLocalUsernameFragment": null,
+                        "iceState": null,
+                        "tlsGroup": null,
+                        "selectedCandidatePairChanges": null
                     }
                 }
             },

@@ -1415,7 +1415,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams"
                                         }
                                     ]
                                 }
@@ -1427,7 +1427,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params"
+                                            "override-type": "AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params"
                                         }
                                     ]
                                 }
@@ -1439,11 +1439,11 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params"
+                                            "override-type": "AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params"
                                         },
                                         {
                                             "name": "derivedKeyType",
-                                            "override-type": "string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params"
+                                            "override-type": "string | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params"
                                         }
                                     ],
                                     "override-type": "Promise<CryptoKey>"
@@ -1464,7 +1464,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams"
                                         }
                                     ]
                                 }
@@ -1489,7 +1489,7 @@
                         "generateKey": {
                             "name": "generateKey",
                             "additional-signatures": [
-                                "generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair>",
+                                "generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair>",
                                 "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
                             ],
                             "signature": {
@@ -1501,7 +1501,7 @@
                         "importKey": {
                             "name": "importKey",
                             "additional-signatures": [
-                                "importKey(format: \"jwk\", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
+                                "importKey(format: \"jwk\", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
                             ],
                             "signature": {
                                 "0": {
@@ -1516,7 +1516,7 @@
                                         },
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm"
+                                            "override-type": "AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm"
                                         }
                                     ]
                                 }
@@ -1533,7 +1533,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaPssParams | EcdsaParams | AesCmacParams"
+                                            "override-type": "AlgorithmIdentifier | RsaPssParams | EcdsaParams"
                                         }
                                     ],
                                     "override-type": "Promise<ArrayBuffer>"
@@ -1546,11 +1546,11 @@
                                     "param": [
                                         {
                                             "name": "unwrapAlgorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams"
                                         },
                                         {
                                             "name": "unwrappedKeyAlgorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams | AesKeyAlgorithm"
+                                            "override-type": "AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm"
                                         }
                                     ]
                                 }
@@ -1562,7 +1562,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaPssParams | EcdsaParams | AesCmacParams"
+                                            "override-type": "AlgorithmIdentifier | RsaPssParams | EcdsaParams"
                                         }
                                     ],
                                     "override-type": "Promise<boolean>"
@@ -1575,7 +1575,7 @@
                                     "param": [
                                         {
                                             "name": "wrapAlgorithm",
-                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams"
+                                            "override-type": "AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams"
                                         }
                                     ],
                                     "override-type": "Promise<ArrayBuffer>"

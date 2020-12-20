@@ -541,6 +541,11 @@
         "shortName": "vibration"
     },
     {
+        "url": "https://w3c.github.io/aria/",
+        "title": "Accessible Rich Internet Applications",
+        "shortName": "wai-aria"
+    },
+    {
         "url": "https://www.w3.org/TR/web-animations-1/",
         "title": "Web Animations",
         "shortName": "web-animations"

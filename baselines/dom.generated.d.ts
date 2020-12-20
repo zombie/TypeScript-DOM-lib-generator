@@ -1889,6 +1889,45 @@ interface ANGLE_instanced_arrays {
     readonly VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE: GLenum;
 }
 
+interface ARIAMixin {
+    ariaAtomic: string;
+    ariaAutoComplete: string;
+    ariaBusy: string;
+    ariaChecked: string;
+    ariaColCount: string;
+    ariaColIndex: string;
+    ariaColSpan: string;
+    ariaCurrent: string;
+    ariaDisabled: string;
+    ariaExpanded: string;
+    ariaHasPopup: string;
+    ariaHidden: string;
+    ariaKeyShortcuts: string;
+    ariaLabel: string;
+    ariaLevel: string;
+    ariaLive: string;
+    ariaModal: string;
+    ariaMultiLine: string;
+    ariaMultiSelectable: string;
+    ariaOrientation: string;
+    ariaPlaceholder: string;
+    ariaPosInSet: string;
+    ariaPressed: string;
+    ariaReadOnly: string;
+    ariaRequired: string;
+    ariaRoleDescription: string;
+    ariaRowCount: string;
+    ariaRowIndex: string;
+    ariaRowSpan: string;
+    ariaSelected: string;
+    ariaSetSize: string;
+    ariaSort: string;
+    ariaValueMax: string;
+    ariaValueMin: string;
+    ariaValueNow: string;
+    ariaValueText: string;
+}
+
 /** A controller object that allows you to abort one or more DOM requests as and when desired. */
 interface AbortController {
     /**
@@ -4791,7 +4830,7 @@ interface ElementEventMap {
 }
 
 /** Element is the most general base class from which all objects in a Document inherit. It only has methods and properties common to all kinds of elements. More specific classes inherit from Element. */
-interface Element extends Node, Animatable, ChildNode, InnerHTML, NonDocumentTypeChildNode, ParentNode, Slottable {
+interface Element extends Node, ARIAMixin, Animatable, ChildNode, InnerHTML, NonDocumentTypeChildNode, ParentNode, Slottable {
     readonly attributes: NamedNodeMap;
     /**
      * Allows for manipulation of element's class content attribute as a set of whitespace-separated tokens through a DOMTokenList object.

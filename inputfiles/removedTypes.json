@@ -14,6 +14,17 @@
     },
     "mixins": {
         "mixin": {
+            "ARIAMixin": {
+                "properties": {
+                    "property": {
+                        "ariaColIndexText": null,
+                        "ariaDescription": null,
+                        "ariaInvalid": null,
+                        "ariaRowIndexText": null,
+                        "role": null
+                    }
+                }
+            },
             "GlobalEventHandlers": {
                 "properties": {
                     "property": {

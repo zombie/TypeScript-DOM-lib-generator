@@ -45,6 +45,11 @@
         "shortName": "css-animations"
     },
     {
+        "url": "https://drafts.csswg.org/css-animations-2/",
+        "title": "CSS Animations Level 2",
+        "shortName": "css-animations-2"
+    },
+    {
         "url": "https://www.w3.org/TR/css-backgrounds-3/",
         "title": "CSS Backgrounds and Borders",
         "shortName": "css-backgrounds"
@@ -223,6 +228,11 @@
         "url": "https://www.w3.org/TR/css-transitions-1/",
         "title": "CSS Transitions",
         "shortName": "css-transitions"
+    },
+    {
+        "url": "https://drafts.csswg.org/css-transitions-2/",
+        "title": "CSS Transitions Level 2",
+        "shortName": "css-transitions-2"
     },
     {
         "url": "https://www.w3.org/TR/css-transforms-1/",

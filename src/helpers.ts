@@ -150,25 +150,6 @@ export function isArray(value: any): value is ReadonlyArray<{}> {
     return Array.isArray ? Array.isArray(value) : value instanceof Array;
 }
 
-export function flatMap<T, U>(array: ReadonlyArray<T> | undefined, mapfn: (x: T, i: number) => U | ReadonlyArray<U> | undefined): U[] {
-    let result: U[] | undefined;
-    if (array) {
-        result = [];
-        for (let i = 0; i < array.length; i++) {
-            const v = mapfn(array[i], i);
-            if (v) {
-                if (isArray(v)) {
-                    result.push(...v);
-                }
-                else {
-                    result.push(v);
-                }
-            }
-        }
-    }
-    return result || [];
-}
-
 export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
     return !a ? b || [] : a.concat(b || []);
 }

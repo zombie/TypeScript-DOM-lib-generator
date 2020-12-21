@@ -5763,6 +5763,9 @@ interface GlobalEventHandlersEventMap {
     "change": Event;
     "click": MouseEvent;
     "close": Event;
+    "compositionend": CompositionEvent;
+    "compositionstart": CompositionEvent;
+    "compositionupdate": CompositionEvent;
     "contextmenu": MouseEvent;
     "cuechange": Event;
     "dblclick": MouseEvent;

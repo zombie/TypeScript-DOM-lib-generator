@@ -25,6 +25,14 @@ To test:
 npm run test
 ```
 
+To deploy:
+
+```sh
+npm run migrate
+```
+
+The script will look in for a clone of the TypeScript repo in "../TypeScript", or "./TypeScript" to move the generated files in. 
+
 ## Contribution Guidelines
 
 The `dom.generated.d.ts`, `webworker.generated.d.ts` and `dom.iterable.generated.d.ts` files from the TypeScript repo are used as baselines.

@@ -70,6 +70,10 @@
                 "attributeless-events": {
                     "event": [
                         {
+                            "name": "beforeinput",
+                            "type": "InputEvent"
+                        },
+                        {
                             "name": "compositionstart",
                             "type": "CompositionEvent"
                         },

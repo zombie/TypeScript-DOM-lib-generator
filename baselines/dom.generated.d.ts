@@ -3430,7 +3430,7 @@ declare var CharacterData: {
     new(): CharacterData;
 };
 
-interface ChildNode extends Node {
+interface ChildNode {
     /**
      * Inserts nodes just after node, while replacing strings in nodes with equivalent Text nodes.
      * 
@@ -10262,11 +10262,11 @@ interface Node extends EventTarget {
     /**
      * Returns the children.
      */
-    readonly childNodes: NodeListOf<ChildNode>;
+    readonly childNodes: NodeListOf<ChildNode & Node>;
     /**
      * Returns the first child.
      */
-    readonly firstChild: ChildNode | null;
+    readonly firstChild: (ChildNode & Node) | null;
     /**
      * Returns true if node is connected and false otherwise.
      */
@@ -10274,13 +10274,13 @@ interface Node extends EventTarget {
     /**
      * Returns the last child.
      */
-    readonly lastChild: ChildNode | null;
+    readonly lastChild: (ChildNode & Node) | null;
     /** @deprecated */
     readonly namespaceURI: string | null;
     /**
      * Returns the next sibling.
      */
-    readonly nextSibling: ChildNode | null;
+    readonly nextSibling: (ChildNode & Node) | null;
     /**
      * Returns a string appropriate for the type of node.
      */
@@ -10301,11 +10301,11 @@ interface Node extends EventTarget {
     /**
      * Returns the parent.
      */
-    readonly parentNode: Node & ParentNode | null;
+    readonly parentNode: (Node & ParentNode) | null;
     /**
      * Returns the previous sibling.
      */
-    readonly previousSibling: ChildNode | null;
+    readonly previousSibling: (ChildNode & Node) | null;
     textContent: string | null;
     appendChild<T extends Node>(node: T): T;
     /**

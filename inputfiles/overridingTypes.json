@@ -21,10 +21,6 @@
                     }
                 }
             },
-            "ChildNode": {
-                "name": "ChildNode",
-                "extends": "Node"
-            },
             "GlobalEventHandlers": {
                 "name": "GlobalEventHandlers",
                 "events": {
@@ -782,19 +778,19 @@
                 "properties": {
                     "property": {
                         "parentNode": {
-                            "override-type": "Node & ParentNode | null"
+                            "override-type": "(Node & ParentNode) | null"
                         },
                         "parentElement": {
                             "override-type": "HTMLElement | null"
                         },
                         "childNodes": {
-                            "override-type": "NodeListOf<ChildNode>"
+                            "override-type": "NodeListOf<ChildNode & Node>"
                         },
                         "firstChild": {
-                            "override-type": "ChildNode | null"
+                            "override-type": "(ChildNode & Node) | null"
                         },
                         "lastChild": {
-                            "override-type": "ChildNode | null"
+                            "override-type": "(ChildNode & Node) | null"
                         },
                         "namespaceURI": {
                             "name":"namespaceURI",
@@ -803,10 +799,10 @@
                             "deprecated": 1
                         },
                         "nextSibling": {
-                            "override-type": "ChildNode | null"
+                            "override-type": "(ChildNode & Node) | null"
                         },
                         "previousSibling": {
-                            "override-type": "ChildNode | null"
+                            "override-type": "(ChildNode & Node) | null"
                         }
                     }
                 }

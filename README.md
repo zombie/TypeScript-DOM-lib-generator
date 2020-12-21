@@ -46,6 +46,12 @@ But so far some things still need manual modification and that is done by files 
 
 To maintain the package by myself without waiting for external reviews.
 
+## Why is my fancy API still not available here?
+
+A feature needs to be supported by more than two major browser engines to be included here, to make sure there is a good consensus among vendors: __Gecko__ (Firefox), __Blink__ (Chrome/Edge), and __WebKit__ (Safari).
+
+If the condition is met but still is not available here, please [file an issue](https://github.com/saschanaz/types-web/issues/new).
+
 ## Build Instructions
 
 * To get things setup:

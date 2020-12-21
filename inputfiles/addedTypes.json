@@ -293,13 +293,7 @@
                 "properties": {
                     "property": {
                         "imageOrientation": {
-                            "name": "imageOrientation",
-                            "type": "CSSOMString",
                             "deprecated": 1
-                        },
-                        "objectPosition": {
-                            "name": "objectPosition",
-                            "type": "CSSOMString"
                         }
                     }
                 }

@@ -27,7 +27,7 @@
     "@types/node": "^14.14.14",
     "@types/node-fetch": "^2.5.7",
     "@types/webidl2": "^23.13.5",
-    "browser-specs": "^1.25.0",
+    "browser-specs": "^1.25.1",
     "cpx2": "^3.0.0",
     "jsdom": "^16.4.0",
     "node-fetch": "^2.6.1",
@@ -35,7 +35,7 @@
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.0-dev.20201221",
     "webidl2": "^23.13.0",
-    "webref": "github:w3c/webref#ae50d8f3cc75f0d247cbb34454751024410777f4"
+    "webref": "github:w3c/webref#faacec6b561c65f3fa8184f4309d95aaba087f01"
   },
   "files": [
     "baselines/*"

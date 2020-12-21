@@ -1577,6 +1577,12 @@
                             "override-signatures": [
                                 "getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>"
                             ]
+                        },
+                        "register": {
+                            "name": "register",
+                            "override-signatures": [
+                                "register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>"
+                            ]
                         }
                     }
                 },

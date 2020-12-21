@@ -1,5 +1,5 @@
 import * as Browser from "./types.js";
-import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers.js";
+import { mapToArray, distinct, mapValues, toNameMap, mapDefined, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
 
 export const enum Flavor {
@@ -906,9 +906,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                         return true;
                     }
                     const sig = m.signature[0];
-                    const mTypes = distinct(i.methods && map(i.methods.method, m => m.signature && m.signature.length && m.signature[0].type || "void").filter(t => t !== "void") || []);
+                    const mTypes = distinct(i.methods && mapValues(i.methods.method, m => m.signature && m.signature.length && m.signature[0].type || "void").filter(t => t !== "void") || []);
                     const amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.signature[0].type).filter(t => t !== "void") || []); // |>  Array.distinct
-                    const pTypes = distinct(i.properties && map(i.properties.property, m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
+                    const pTypes = distinct(i.properties && mapValues(i.properties.property, m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
 
                     if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 0) return amTypes[0] === sig.type;
                     if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 0) return mTypes[0] === amTypes[0] && amTypes[0] === sig.type;

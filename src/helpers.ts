@@ -121,7 +121,7 @@ export function arrayToMap<T, U>(array: ReadonlyArray<T>, makeKey: (value: T) =>
     return result;
 }
 
-export function map<T, U>(obj: Record<string, T> | undefined, fn: (o: T) => U): U[] {
+export function mapValues<T, U>(obj: Record<string, T> | undefined, fn: (o: T) => U): U[] {
     return Object.keys(obj || {}).map(k => fn(obj![k]));
 }
 

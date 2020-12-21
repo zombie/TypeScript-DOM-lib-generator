@@ -1,5 +1,7 @@
 # types-web
 
+![An example showing types for MediaSession and MediaRecorder](docs/mediasession.png)
+
 ## How to use
 
 1. Install the package by `npm i types-web`.

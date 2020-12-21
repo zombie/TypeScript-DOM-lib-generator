@@ -26,7 +26,7 @@
     {
       /* ... same ... */
       "includes": [
-        "node_modules/types-web/baselines/dom*"
+        "node_modules/types-web/baselines/webworker*"
         "*"
       ]
     }

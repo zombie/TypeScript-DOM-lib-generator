@@ -4,7 +4,7 @@
 
 ## How to use
 
-1. Install the package by `npm i types-web`.
+1. Install the package by [`npm i types-web`](https://www.npmjs.com/package/types-web).
 2. Include the type files in your `tsconfig.json` or `jsconfig.json`:
 
     ```json5

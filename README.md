@@ -7,7 +7,7 @@
 1. Install the package by `npm i types-web`.
 2. Include the type files in your `tsconfig.json` or `jsconfig.json`:
 
-    ```json
+    ```json5
     {
       "compilerOptions": {
         // Explicitly exclude "dom" here
@@ -22,7 +22,7 @@
 
     Or for web workers:
 
-    ```json
+    ```json5
     {
       /* ... same ... */
       "includes": [

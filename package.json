@@ -1,6 +1,6 @@
 {
   "name": "types-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides TypeScript types for the latest web APIs.",
   "scripts": {
     "build": "tsc -p ./tsconfig.json && node ./lib/index.js",

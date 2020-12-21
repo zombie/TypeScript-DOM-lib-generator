@@ -81,7 +81,7 @@ async function emitDom() {
 
     async function convertWidl(shortName: string) {
         // Specs that clashes with other specs
-        const skip = ["EXT_disjoint_timer_query_webgl", "portals", "svg-markers", "svg-paths", "trusted-types"];
+        const skip = ["EXT_disjoint_timer_query_webgl2", "portals", "svg-markers", "svg-paths", "trusted-types"];
         if (skip.includes(shortName)) {
             return;
         }

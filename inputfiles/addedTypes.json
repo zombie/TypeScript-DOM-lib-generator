@@ -1352,6 +1352,9 @@
             "WEBGL_compressed_texture_astc": {
                 "override-exposed": "Window Worker"
             },
+            "WEBGL_compressed_texture_etc": {
+                "override-exposed": "Window Worker"
+            },
             "WEBGL_compressed_texture_etc1": {
                 "override-exposed": "Window Worker"
             },

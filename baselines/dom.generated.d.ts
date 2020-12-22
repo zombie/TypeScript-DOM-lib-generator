@@ -9376,8 +9376,6 @@ interface KHR_parallel_shader_compile {
 interface KeyboardEvent extends UIEvent {
     readonly altKey: boolean;
     /** @deprecated */
-    char: string;
-    /** @deprecated */
     readonly charCode: number;
     readonly code: string;
     readonly ctrlKey: boolean;

@@ -1924,18 +1924,6 @@
                     }
                 }
             },
-            "KeyboardEvent": {
-                "name": "KeyboardEvent",
-                "properties": {
-                    "property": {
-                        "char": {
-                            "name": "char",
-                            "override-type": "string",
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
             "URL": {
                 "name": "URL",
                 "constructor": {

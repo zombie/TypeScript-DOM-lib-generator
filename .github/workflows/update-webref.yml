@@ -21,6 +21,7 @@ jobs:
       - run: npm ci
       - id: run-update-webref
         run: npm run update-webref
+        continue-on-error: true
 
   rebuild:
     runs-on: ubuntu-latest

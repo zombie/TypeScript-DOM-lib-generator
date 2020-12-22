@@ -1,15 +1,15 @@
-import * as Browser from "./types.js";
+import * as Browser from "./build/types.js";
 import { promises as fs } from "fs";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
-import { merge, resolveExposure, arrayToMap } from "./helpers.js";
-import { Flavor, emitWebIdl } from "./emitter.js";
-import { convert } from "./widlprocess.js";
-import { getExposedTypes } from "./expose.js";
-import { getDeprecationData, getRemovalData } from "./bcd.js";
-import { createTryRequire } from "./utils/require.js";
-import { getIdl } from "./webref.js";
-import { getLatestSpecNames } from "./browser-specs.js";
+import { merge, resolveExposure, arrayToMap } from "./build/helpers.js";
+import { Flavor, emitWebIdl } from "./build/emitter.js";
+import { convert } from "./build/widlprocess.js";
+import { getExposedTypes } from "./build/expose.js";
+import { getDeprecationData, getRemovalData } from "./build/bcd.js";
+import { createTryRequire } from "./build/utils/require.js";
+import { getIdl } from "./build/webref.js";
+import { getLatestSpecNames } from "./build/browser-specs.js";
 
 const require = createRequire(import.meta.url);
 const tryRequire = createTryRequire(import.meta.url);

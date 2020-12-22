@@ -17,11 +17,13 @@ jobs:
 
           # Clone TypeScript, set it up
           git clone https://github.com/microsoft/TypeScript --depth 1
+
+          # Migrate the generated files into the repo
+          npm run migrate
+
           cd TypeScript
           npm i
           
-          # Move in the generated dom APIs into a new version of TSC
-          cp -rf ../generated/* src/lib
 
           # Run TypeScript's tests with the new DOM libs, but don't fail
           npm test || true

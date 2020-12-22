@@ -2891,7 +2891,7 @@ interface ServiceWorkerContainer extends EventTarget {
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>;
     getRegistrations(): Promise<ReadonlyArray<ServiceWorkerRegistration>>;
-    register(scriptURL: string, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
+    register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
     startMessages(): void;
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -6001,7 +6001,7 @@ type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "u
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type OffscreenRenderingContextId = "2d" | "bitmaprenderer" | "webgl" | "webgl2";
-type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-sync" | "bluetooth" | "camera" | "clipboard" | "device-info" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "notifications" | "persistent-storage" | "push" | "speaker";
+type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-fetch" | "background-sync" | "bluetooth" | "camera" | "clipboard-read" | "clipboard-write" | "device-info" | "display-capture" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "nfc" | "notifications" | "persistent-storage" | "push" | "speaker";
 type PermissionState = "denied" | "granted" | "prompt";
 type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PushEncryptionKeyName = "auth" | "p256dh";

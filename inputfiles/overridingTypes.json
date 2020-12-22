@@ -481,6 +481,9 @@
                             "override-type": "Event | undefined",
                             "deprecated": 1
                         },
+                        "frameElement": {
+                            "nullable": 1
+                        },
                         "location": {
                             "read-only": 0
                         },
@@ -1573,6 +1576,12 @@
                             "name": "getRegistration",
                             "override-signatures": [
                                 "getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>"
+                            ]
+                        },
+                        "register": {
+                            "name": "register",
+                            "override-signatures": [
+                                "register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>"
                             ]
                         }
                     }

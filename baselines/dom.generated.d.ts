@@ -5756,6 +5756,7 @@ interface GlobalEventHandlersEventMap {
     "animationiteration": AnimationEvent;
     "animationstart": AnimationEvent;
     "auxclick": MouseEvent;
+    "beforeinput": InputEvent;
     "blur": FocusEvent;
     "cancel": Event;
     "canplay": Event;
@@ -5763,6 +5764,9 @@ interface GlobalEventHandlersEventMap {
     "change": Event;
     "click": MouseEvent;
     "close": Event;
+    "compositionend": CompositionEvent;
+    "compositionstart": CompositionEvent;
+    "compositionupdate": CompositionEvent;
     "contextmenu": MouseEvent;
     "cuechange": Event;
     "dblclick": MouseEvent;
@@ -14983,7 +14987,7 @@ interface ServiceWorkerContainer extends EventTarget {
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>;
     getRegistrations(): Promise<ReadonlyArray<ServiceWorkerRegistration>>;
-    register(scriptURL: string, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
+    register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
     startMessages(): void;
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -18537,7 +18541,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly event: Event | undefined;
     /** @deprecated */
     readonly external: External;
-    readonly frameElement: Element;
+    readonly frameElement: Element | null;
     readonly frames: Window;
     readonly history: History;
     readonly innerHeight: number;
@@ -19586,7 +19590,7 @@ declare var document: Document;
 declare var event: Event | undefined;
 /** @deprecated */
 declare var external: External;
-declare var frameElement: Element;
+declare var frameElement: Element | null;
 declare var frames: Window;
 declare var history: History;
 declare var innerHeight: number;
@@ -20138,7 +20142,7 @@ type OverSampleType = "2x" | "4x" | "none";
 type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
 type PaymentShippingType = "delivery" | "pickup" | "shipping";
-type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-sync" | "bluetooth" | "camera" | "clipboard" | "device-info" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "notifications" | "persistent-storage" | "push" | "speaker";
+type PermissionName = "accelerometer" | "ambient-light-sensor" | "background-fetch" | "background-sync" | "bluetooth" | "camera" | "clipboard-read" | "clipboard-write" | "device-info" | "display-capture" | "geolocation" | "gyroscope" | "magnetometer" | "microphone" | "midi" | "nfc" | "notifications" | "persistent-storage" | "push" | "speaker";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";

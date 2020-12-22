@@ -759,12 +759,6 @@
                         "lastChild": {
                             "override-type": "(ChildNode & Node) | null"
                         },
-                        "namespaceURI": {
-                            "name":"namespaceURI",
-                            "read-only": 1,
-                            "override-type": "string | null",
-                            "deprecated": 1
-                        },
                         "nextSibling": {
                             "override-type": "(ChildNode & Node) | null"
                         },

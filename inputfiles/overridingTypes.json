@@ -605,34 +605,6 @@
                                     "override-type": "NodeListOf<HTMLElement>"
                                 }
                             }
-                        },
-                        "createTreeWalker": {
-                            "signature": [
-                                {
-                                    "type": "TreeWalker",
-                                    "param": [
-                                        {
-                                            "name": "root",
-                                            "type": "Node"
-                                        },
-                                        {
-                                            "name": "whatToShow",
-                                            "type": "unsigned long"
-                                        },
-                                        {
-                                            "name": "filter",
-                                            "type": "NodeFilter",
-                                            "nullable": 1
-                                        },
-                                        {
-                                            "name": "entityReferenceExpansion",
-                                            "type": "boolean",
-                                            "optional": 1
-                                        }
-                                    ],
-                                    "deprecated": 1
-                                }
-                            ]
                         }
                     }
                 },

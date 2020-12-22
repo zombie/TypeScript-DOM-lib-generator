@@ -1873,7 +1873,7 @@
                         "setLocalDescription": {
                             "name": "setLocalDescription",
                             "override-signatures": [
-                                "setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>"
+                                "setLocalDescription(description?: RTCSessionDescriptionInit): Promise<void>"
                             ]
                         },
                         "setRemoteDescription": {

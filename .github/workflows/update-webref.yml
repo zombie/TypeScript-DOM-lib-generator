@@ -1,0 +1,28 @@
+name: Update webref
+on:
+  workflow_dispatch:
+  schedule:
+    # https://crontab.guru/#5_8_*_*_*
+    - cron: "5 8 * * *"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '15'
+
+      - run: npm ci
+      - run: npm run update-webref || exit
+      - run: npm run build && npm run baseline-accept
+      - run: git diff --quiet HEAD baselines && exit
+
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: "chore(package): update webref"
+          title: "chore(package): update webref"
+          branch: update-webref
+

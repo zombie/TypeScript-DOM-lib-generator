@@ -3,12 +3,13 @@
   "version": "0.1.1",
   "description": "Provides TypeScript types for the latest web APIs.",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json && node ./lib/build.js",
-    "fetch-comment": "tsc -p ./tsconfig.json && node ./lib/fetch-comment.js",
+    "build": "tsc && node ./lib/build.js",
+    "fetch-comment": "tsc && node ./lib/fetch-comment.js",
     "fetch-mdn": "npm run build && node ./lib/fetch-mdn.js",
     "fetch": "echo This could take a few minutes... && npm run fetch-comment && npm run fetch-mdn",
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
-    "test": "npm run build && node ./lib/test.js && node ./unittests/index.js"
+    "test": "npm run build && node ./lib/test.js && node ./unittests/index.js",
+    "update-webref": "tsc && node ./lib/update-webref.js"
   },
   "author": {
     "name": "Kagami Sascha Rosylight",
@@ -35,7 +36,7 @@
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.0-dev.20201221",
     "webidl2": "^23.13.0",
-    "webref": "github:w3c/webref#faacec6b561c65f3fa8184f4309d95aaba087f01"
+    "webref": "github:w3c/webref#225fc5f70ebb10271aaca0fb8b182156debdc95c"
   },
   "files": [
     "baselines/*"

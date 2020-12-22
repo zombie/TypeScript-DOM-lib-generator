@@ -16895,7 +16895,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     onorientationchange: ((this: Window, ev: Event) => any) | null;
     opener: any;
     /** @deprecated */
-    readonly orientation: string | number;
+    readonly orientation: number;
     readonly outerHeight: number;
     readonly outerWidth: number;
     readonly pageXOffset: number;
@@ -17918,7 +17918,7 @@ declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => 
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
 declare var opener: any;
 /** @deprecated */
-declare var orientation: string | number;
+declare var orientation: number;
 declare var outerHeight: number;
 declare var outerWidth: number;
 declare var pageXOffset: number;

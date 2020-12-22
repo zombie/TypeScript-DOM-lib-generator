@@ -486,8 +486,6 @@
                 "properties": {
                     "property": {
                         "event": {
-                            "name": "event",
-                            "override-type": "Event | undefined",
                             "deprecated": 1
                         },
                         "location": {
@@ -495,10 +493,6 @@
                         },
                         "onorientationchange": {
                             "deprecated": 1
-                        },
-                        "orientation": {
-                            "name": "orientation",
-                            "override-type": "string | number"
                         },
                         "opener": {
                             "name": "opener",

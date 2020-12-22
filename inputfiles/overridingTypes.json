@@ -2342,26 +2342,6 @@
                     "[name: string]: any"
                 ]
             },
-            "Location": {
-                "methods": {
-                    "method": {
-                        "reload": {
-                            "signature": [
-                                {
-                                    "type": "void",
-                                    "param": [
-                                        {
-                                            "name": "forcedReload",
-                                            "type": "boolean"
-                                        }
-                                    ],
-                                    "deprecated": 1
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
             "ReadableStream": {
                 "type-parameters": [
                     {

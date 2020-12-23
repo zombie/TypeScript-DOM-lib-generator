@@ -2118,7 +2118,11 @@
                 "new-type": "IDBValidKey"
             },
             {
-                "override-type": "string | Algorithm",
+                "type": {
+                    "0": {
+                        "type": "Algorithm"
+                    }
+                },
                 "new-type": "AlgorithmIdentifier"
             },
             {

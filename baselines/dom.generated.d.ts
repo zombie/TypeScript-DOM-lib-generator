@@ -18347,8 +18347,6 @@ type Int32List = Int32Array | GLint[];
 type LineAndPositionSetting = number | AutoKeyword;
 type MediaProvider = MediaStream | MediaSource | Blob;
 type MessageEventSource = WindowProxy | MessagePort | ServiceWorker;
-/** @deprecated */
-type MouseWheelEvent = WheelEvent;
 type MutationRecordType = "attributes" | "characterData" | "childList";
 type NamedCurve = string;
 type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;

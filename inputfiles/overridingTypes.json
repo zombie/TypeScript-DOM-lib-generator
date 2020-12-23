@@ -2775,20 +2775,6 @@
                     ]
                 }
             },
-            "MediaKeyStatusMap": {
-                "methods": {
-                    "method": {
-                        "get": {
-                            "name": "get",
-                            "signature": {
-                                "0": {
-                                    "override-type": "MediaKeyStatus | undefined"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
             "MessageEvent": {
                 "name": "MessageEvent",
                 "properties": {

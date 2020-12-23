@@ -14090,7 +14090,7 @@ declare var SubmitEvent: {
 interface SubtleCrypto {
     decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<any>;
     deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
-    deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>;
+    deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>;
     digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
     encrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<any>;
     exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
@@ -18336,7 +18336,7 @@ type GLsizeiptr = number;
 type GLuint = number;
 type GLuint64 = number;
 type HashAlgorithmIdentifier = AlgorithmIdentifier;
-type HeadersInit = Headers | string[][] | Record<string, string>;
+type HeadersInit = string[][] | Record<string, string> | Headers;
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type IDBKeyPath = string;

@@ -4,6 +4,7 @@ export interface Typed {
     nullable?: 1;
     "type-original"?: string;
     "override-type"?: string;
+    "additional-types"?: string[];
 }
 
 export interface Param extends Typed {

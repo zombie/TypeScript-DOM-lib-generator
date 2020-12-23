@@ -280,12 +280,15 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
         let type;
-        if (typeof obj.type === "string") {
+        if (!obj["additional-types"] && typeof obj.type === "string") {
             type = { name: convertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
         }
         else {
-            const types = obj.type.map(convertDomTypeToTsTypeWorker);
-            const isAny = types.some(t => t.name === "any");
+            const types = typeof obj.type === "string" ? [{ ...obj, "additional-types": undefined }] : obj.type;
+            types.push(...(obj["additional-types"] ?? []).map(t => ({ type: t })));
+
+            const converted = types.map(convertDomTypeToTsTypeWorker);
+            const isAny = converted.some(t => t.name === "any");
             if (isAny) {
                 type = {
                     name: "any",
@@ -294,8 +297,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             }
             else {
                 type = {
-                    name: types.map(t => t.name).join(" | "),
-                    nullable: types.some(t => t.nullable) || !!obj.nullable
+                    name: converted.map(t => t.name).join(" | "),
+                    nullable: converted.some(t => t.nullable) || !!obj.nullable
                 };
             }
         }

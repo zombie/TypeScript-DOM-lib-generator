@@ -387,7 +387,7 @@
                             "param": [
                                 {
                                     "name": "init",
-                                    "override-type": "string[][] | Record<string, string> | string | URLSearchParams"
+                                    "additional-types": ["URLSearchParams"]
                                 }
                             ]
                         }
@@ -2110,7 +2110,7 @@
                 "new-type": "InsertPosition"
             },
             {
-                "override-type": "Headers | string[][] | Record<string, string>",
+                "additional-types": ["Headers"],
                 "new-type": "HeadersInit"
             },
             {

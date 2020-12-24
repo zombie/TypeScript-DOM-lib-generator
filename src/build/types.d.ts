@@ -52,7 +52,7 @@ export interface Property extends Typed {
     "lenient-this"?: string;
     "treat-null-as"?: string;
     "event-handler-map-to-window"?: string;
-    static?: 1;
+    static?: boolean;
     comment?: string;
     required?: 1;
     specs?: string;
@@ -78,7 +78,7 @@ export interface Event {
 
 export interface AnonymousMethod {
     tags?: string;
-    static?: 1;
+    static?: boolean;
     getter?: 1;
     stringifier?: 1;
     comment?: string;

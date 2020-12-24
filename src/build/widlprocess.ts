@@ -248,7 +248,7 @@ function convertOperation(operation: webidl2.OperationMemberType, inheritedExpos
             param: operation.arguments.map(convertArgument)
         }],
         getter: operation.special === "getter" ? 1 : undefined,
-        static: operation.special === "static" ? 1 : undefined,
+        static: operation.special === "static",
         stringifier: isStringifier ? 1 : undefined,
         exposed: getExtAttrConcatenated(operation.extAttrs, "Exposed") || inheritedExposure
     };
@@ -285,7 +285,7 @@ function convertAttribute(attribute: webidl2.AttributeMemberType, inheritedExpos
     return {
         name: attribute.name,
         ...convertIdlType(attribute.idlType),
-        static: attribute.special === "static" ? 1 : undefined,
+        static: attribute.special === "static",
         stringifier: attribute.special === "stringifier" ? 1 : undefined,
         readonly: attribute.readonly,
         eventHandler: isEventHandler ? attribute.name.slice(2) : undefined,

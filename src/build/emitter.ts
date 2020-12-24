@@ -30,7 +30,7 @@ const namespacesAsInterfaces = ["console"];
 
 // Used to decide if a member should be emitted given its static property and
 // the intended scope level.
-function matchScope(scope: EmitScope, x: { static?: 1 | undefined }) {
+function matchScope(scope: EmitScope, x: { static?: boolean }) {
     return scope === EmitScope.All || (scope === EmitScope.StaticOnly) === !!x.static;
 }
 

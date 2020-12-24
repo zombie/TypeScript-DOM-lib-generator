@@ -496,8 +496,7 @@
                         },
                         "opener": {
                             "name": "opener",
-                            "overrideType": "any",
-                            "readonly": false
+                            "overrideType": "any"
                         },
                         "self": {
                             "overrideType": "Window & typeof globalThis"

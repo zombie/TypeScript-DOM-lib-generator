@@ -511,8 +511,13 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function paramsToString(ps: Browser.Param[]) {
         function paramToString(p: Browser.Param) {
             p = resolvePromise(p);
-            const isOptional = !p.variadic && p.optional;
+            if (p.name.toLowerCase().includes("url") && p.type === "USVString") {
+                p = { ...p, "additional-types": [...p["additional-types"] ?? []] }
+                p["additional-types"]!.push("URL");
+            }
             const pType = convertDomTypeToTsType(p);
+
+            const isOptional = !p.variadic && p.optional;
             const variadicParams = p.variadic && pType.indexOf('|') !== -1;
             return (p.variadic ? "..." : "") +
                 adjustParamName(p.name) +

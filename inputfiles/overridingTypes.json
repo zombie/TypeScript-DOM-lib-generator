@@ -1921,9 +1921,16 @@
             "URL": {
                 "name": "URL",
                 "constructor": {
-                    "override-signatures": [
-                        "new(url: string, base?: string | URL): URL"
-                    ]
+                    "signature": {
+                        "0": {
+                            "param": [
+                                {
+                                    "name": "base",
+                                    "additional-types": ["URL"]
+                                }
+                            ]
+                        }
+                    }
                 }
             },
             "Client": {
@@ -2123,29 +2130,8 @@
                     }
                 ]
             },
-            "AbortSignal": {
-                "name": "AbortSignal",
-                "override-exposed": "Window Worker"
-            },
-            "ErrorEvent": {
-                "name": "ErrorEvent",
-                "override-exposed": "Window Worker"
-            },
             "Worker": {
                 "name": "Worker",
-                "override-exposed": "Window Worker",
-                "constructor": {
-                    "signature": {
-                        "0": {
-                            "param": [
-                                {
-                                    "name": "scriptURL",
-                                    "override-type": "string | URL"
-                                }
-                            ]
-                        }
-                    }
-                },
                 "methods": {
                     "method": {
                         "postMessage": {

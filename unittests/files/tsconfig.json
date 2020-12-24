@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2020",
+    "lib": ["es2020"],
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
@@ -10,6 +11,7 @@
     "noUnusedParameters": true
   },
   "include": [
-    "index.js"
+    "../../baselines/dom*",
+    "**/*"
   ]
 }

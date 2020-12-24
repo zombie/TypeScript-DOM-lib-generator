@@ -138,7 +138,6 @@ export interface Element {
     name: string;
     namespace?: string;
     deprecated?: boolean;
-    "html-self-closing"?: string;
     specs?: string;
 }
 
@@ -173,7 +172,7 @@ export interface Interface {
     "secure-context"?: 1;
     implements?: string[];
     static?: 1;
-    "anonymous-methods"?: {
+    anonymousMethods?: {
         method: AnonymousMethod[];
     }
     "anonymous-content-attributes"?: {

@@ -120,7 +120,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         name: i.name,
         constants: { constant: {} },
         methods: { method: {} },
-        "anonymous-methods": { method: [] },
+        anonymousMethods: { method: [] },
         properties: { property: {}, namesakes: {} },
         constructor: getConstructor(i.members, i.name) || getOldStyleConstructor(i.extAttrs, i.name),
         "named-constructor": getLegacyFactoryFunction(i.extAttrs, i.name),
@@ -160,7 +160,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
             const operation = convertOperation(member, result.exposed);
             const { method } = result.methods;
             if (!member.name) {
-                result["anonymous-methods"]!.method.push(operation);
+                result.anonymousMethods!.method.push(operation);
             }
             else if (method.hasOwnProperty(member.name)) {
                 method[member.name].signature.push(...operation.signature);

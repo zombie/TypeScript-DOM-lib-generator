@@ -732,8 +732,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 .sort(compareName)
                 .forEach(m => emitMethod(prefix, m, conflictedMembers));
         }
-        if (i["anonymous-methods"]) {
-            const stringifier = i["anonymous-methods"].method.find(m => m.stringifier);
+        if (i.anonymousMethods) {
+            const stringifier = i.anonymousMethods.method.find(m => m.stringifier);
             if (stringifier) {
                 printer.printLine("toString(): string;");
             }
@@ -915,7 +915,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                     }
                     const sig = m.signature[0];
                     const mTypes = distinct(i.methods && mapValues(i.methods.method, m => m.signature && m.signature.length && m.signature[0].type || "void").filter(t => t !== "void") || []);
-                    const amTypes = distinct(i["anonymous-methods"] && i["anonymous-methods"]!.method.map(m => m.signature[0].type).filter(t => t !== "void") || []); // |>  Array.distinct
+                    const amTypes = distinct(i.anonymousMethods && i.anonymousMethods!.method.map(m => m.signature[0].type).filter(t => t !== "void") || []); // |>  Array.distinct
                     const pTypes = distinct(i.properties && mapValues(i.properties.property, m => m.type).filter(t => t !== "void") || []); // |>  Array.distinct
 
                     if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 0) return amTypes[0] === sig.type;
@@ -934,7 +934,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         else {
             // The indices could be within either Methods or Anonymous Methods
             mapToArray<Browser.AnonymousMethod>(i.methods && i.methods.method)
-                .concat(i["anonymous-methods"] && i["anonymous-methods"]!.method || [])
+                .concat(i.anonymousMethods && i.anonymousMethods!.method || [])
                 .filter(m => shouldEmitIndexerSignature(i, m) && matchScope(emitScope, m))
                 .forEach(m => {
                     const indexer = (m.signature && m.signature.length && m.signature[0].param && m.signature[0].param!.length) ? m.signature[0].param![0] : undefined;
@@ -1214,7 +1214,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             m.getter === 1 && !!m.signature.length && !!m.signature[0].param && m.signature[0].param!.length === 1 && typeof m.signature[0].param![0].type === "string" && integerTypes.has(<string>m.signature[0].param![0].type);
 
         function findIterableGetter() {
-            const anonymousGetter = i["anonymous-methods"] && i["anonymous-methods"]!.method.find(isIterableGetter);
+            const anonymousGetter = i.anonymousMethods && i.anonymousMethods!.method.find(isIterableGetter);
 
             if (anonymousGetter) return anonymousGetter;
             else if (i.methods) return mapToArray(i.methods.method).find(isIterableGetter);

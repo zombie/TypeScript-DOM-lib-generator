@@ -79,7 +79,7 @@ export interface Event {
 export interface AnonymousMethod {
     tags?: string;
     static?: boolean;
-    getter?: 1;
+    getter?: boolean;
     stringifier?: boolean;
     comment?: string;
     overrideSignatures?: string[];

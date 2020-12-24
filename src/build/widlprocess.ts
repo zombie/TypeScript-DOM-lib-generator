@@ -247,7 +247,7 @@ function convertOperation(operation: webidl2.OperationMemberType, inheritedExpos
             ...type,
             param: operation.arguments.map(convertArgument)
         }],
-        getter: operation.special === "getter" ? 1 : undefined,
+        getter: operation.special === "getter",
         static: operation.special === "static",
         stringifier: isStringifier,
         exposed: getExtAttrConcatenated(operation.extAttrs, "Exposed") || inheritedExposure

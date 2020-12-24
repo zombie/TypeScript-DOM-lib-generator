@@ -1152,7 +1152,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
         // check anonymous unsigned long getter and length property
         const isIterableGetter = (m: Browser.AnonymousMethod) =>
-            m.getter === 1 && !!m.signature.length && !!m.signature[0].param && m.signature[0].param!.length === 1 && typeof m.signature[0].param![0].type === "string" && integerTypes.has(<string>m.signature[0].param![0].type);
+            m.getter && !!m.signature.length && !!m.signature[0].param && m.signature[0].param!.length === 1 && typeof m.signature[0].param![0].type === "string" && integerTypes.has(<string>m.signature[0].param![0].type);
 
         function findIterableGetter() {
             const anonymousGetter = i.anonymousMethods && i.anonymousMethods!.method.find(isIterableGetter);

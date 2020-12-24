@@ -453,7 +453,7 @@
                 "methods": {
                     "method": {
                         "item": {
-                            "getter": 1,
+                            "getter": true,
                             "signature": [
                                 {
                                     "nullable": 1,

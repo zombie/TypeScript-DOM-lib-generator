@@ -928,8 +928,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitIndexers(emitScope: EmitScope, i: Browser.Interface) {
-        if (i["override-index-signatures"]) {
-            i["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        if (i.overrideIndexSignatures) {
+            i.overrideIndexSignatures!.forEach(s => printer.printLine(`${s};`));
         }
         else {
             // The indices could be within either Methods or Anonymous Methods
@@ -1065,7 +1065,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             if (i.static) {
                 emitStaticInterface(i);
             }
-            else if (i["noInterfaceObject"]) {
+            else if (i.noInterfaceObject) {
                 emitInterface(i);
             }
             else {
@@ -1133,8 +1133,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                     printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`)
                 });
         }
-        if (dict["override-index-signatures"]) {
-            dict["override-index-signatures"]!.forEach(s => printer.printLine(`${s};`));
+        if (dict.overrideIndexSignatures) {
+            dict.overrideIndexSignatures!.forEach(s => printer.printLine(`${s};`));
         }
         printer.decreaseIndent();
         printer.printLine("}");

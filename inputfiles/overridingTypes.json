@@ -528,7 +528,7 @@
                         }
                     }
                 },
-                "override-index-signatures": []
+                "overrideIndexSignatures": []
             },
             "Document": {
                 "name": "Document",
@@ -1144,7 +1144,7 @@
                         "name": "select"
                     }
                 ],
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[name: number]: HTMLOptionElement | HTMLOptGroupElement"
                 ]
             },
@@ -1354,7 +1354,7 @@
                 }
             },
             "Storage": {
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[name: string]: any"
                 ]
             },
@@ -1595,7 +1595,7 @@
             },
             "DOMStringMap": {
                 "name": "DOMStringMap",
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[name: string]: string | undefined"
                 ]
             },
@@ -2305,7 +2305,7 @@
                 }
             },
             "HTMLFormElement": {
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[index: number]: Element",
                     "[name: string]: any"
                 ]
@@ -2893,13 +2893,13 @@
             },
             "BaseKeyframe": {
                 "name": "Keyframe",
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[property: string]: string | number | null | undefined"
                 ]
             },
             "BasePropertyIndexedKeyframe": {
                 "name": "PropertyIndexedKeyframes",
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[property: string]: string | string[] | number | null | (number | null)[] | undefined"
                 ]
             },
@@ -2921,7 +2921,7 @@
                         }
                     }
                 },
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[property: string]: string | number | null | undefined"
                 ]
             },

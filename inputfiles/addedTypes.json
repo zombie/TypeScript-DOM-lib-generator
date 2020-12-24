@@ -331,7 +331,7 @@
                         }
                     }
                 },
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[index: number]: Window"
                 ],
                 "attributelessEvents": {
@@ -428,7 +428,7 @@
                     }
                 },
                 "noInterfaceObject": true,
-                "override-index-signatures": [
+                "overrideIndexSignatures": [
                     "[index: number]: TNode"
                 ],
                 "iterator": {

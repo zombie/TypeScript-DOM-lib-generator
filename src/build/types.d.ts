@@ -183,7 +183,7 @@ export interface Interface {
     noInterfaceObject?: boolean;
     global?: string;
     typeParameters?: TypeParameter[];
-    "override-index-signatures"?: string[];
+    overrideIndexSignatures?: string[];
     specs?: string;
     iterator?: Iterator;
     legacyWindowAlias?: string[];
@@ -226,7 +226,7 @@ export interface Dictionary {
     members: {
         member: Record<string, Member>;
     }
-    "override-index-signatures"?: string[];
+    overrideIndexSignatures?: string[];
     specs?: string;
     typeParameters?: TypeParameter[];
     legacyNamespace?: string;

@@ -96,7 +96,6 @@ export interface Method extends AnonymousMethod {
 
 export interface CallbackFunction {
     name: string;
-    callback: 1;
     signature: Signature[];
     tags?: string;
     overrideSignatures?: string[];

@@ -257,7 +257,6 @@ function convertOperation(operation: webidl2.OperationMemberType, inheritedExpos
 function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunction {
     return {
         name: c.name,
-        callback: 1,
         signature: [{
             ...convertIdlType(c.idlType),
             param: c.arguments.map(convertArgument)

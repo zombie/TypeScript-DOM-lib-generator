@@ -624,14 +624,13 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             else {
                 pType = convertDomTypeToTsType(p);
             }
-            const required = p.required === undefined || p.required === 1;
-            const requiredModifier = required || prefix ? "" : "?";
+            let optionalModifier = (!p.optional || prefix) ? "" : "?";
             pType = p.nullable ? makeNullable(pType) : pType;
-            if (!required && prefix) {
-                pType += " | undefined"
+            if (p.optional && prefix) {
+                pType += " | undefined";
             }
-            const readOnlyModifier = p.readonly && prefix === "" ? "readonly " : "";
-            printer.printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
+            const readOnlyModifier = (p.readonly && prefix === "") ? "readonly " : "";
+            printer.printLine(`${prefix}${readOnlyModifier}${p.name}${optionalModifier}: ${pType};`);
         }
 
         if (p.stringifier) {

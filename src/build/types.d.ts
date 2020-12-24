@@ -54,7 +54,7 @@ export interface Property extends Typed {
     "event-handler-map-to-window"?: string;
     static?: boolean;
     comment?: string;
-    required?: 1;
+    optional?: boolean;
     specs?: string;
     deprecated?: 1;
     interop?: 1;

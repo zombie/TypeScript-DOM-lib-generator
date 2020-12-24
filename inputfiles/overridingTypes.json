@@ -121,16 +121,16 @@
                             "overrideType": "OnErrorEventHandler"
                         },
                         "ontouchcancel": {
-                            "required": 0
+                            "optional": true
                         },
                         "ontouchend": {
-                            "required": 0
+                            "optional": true
                         },
                         "ontouchmove": {
-                            "required": 0
+                            "optional": true
                         },
                         "ontouchstart": {
-                            "required": 0
+                            "optional": true
                         }
                     }
                 }

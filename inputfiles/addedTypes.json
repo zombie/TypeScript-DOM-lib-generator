@@ -30,7 +30,7 @@
                 }
             },
             "GlobalEventHandlers": {
-                "attributeless-events": {
+                "attributelessEvents": {
                     "event": [
                         {
                             "name": "beforeinput",
@@ -334,7 +334,7 @@
                 "override-index-signatures": [
                     "[index: number]: Window"
                 ],
-                "attributeless-events": {
+                "attributelessEvents": {
                     "event": [
                         {
                             "name": "gamepadconnected",

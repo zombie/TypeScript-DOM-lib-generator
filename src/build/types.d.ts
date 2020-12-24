@@ -83,7 +83,7 @@ export interface AnonymousMethod {
     stringifier?: 1;
     comment?: string;
     overrideSignatures?: string[];
-    "additionalSignatures"?: string[];
+    additionalSignatures?: string[];
     specs?: string;
     exposed?: string;
     deprecated?: 1;
@@ -158,7 +158,7 @@ export interface Interface {
     events?: {
         event: Event[];
     }
-    "attributeless-events"?: {
+    attributelessEvents?: {
         event: Event[];
     }
     properties?: {

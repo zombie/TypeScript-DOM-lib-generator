@@ -151,7 +151,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }));
 
     const iNameToAttributelessEhList = arrayToMap(allInterfaces, i => i.name, i =>
-        !i["attributeless-events"] ? [] : i["attributeless-events"].event.map(e => {
+        !i.attributelessEvents ? [] : i.attributelessEvents.event.map(e => {
             return { name: "on" + e.name, eventName: e.name, eventType: e.type };
         }));
 
@@ -247,8 +247,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 return getGenericEventType(event.type);
             }
         }
-        if (i["attributeless-events"]) {
-            const event = i["attributeless-events"].event.find(e => e.name === eName);
+        if (i.attributelessEvents) {
+            const event = i.attributelessEvents.event.find(e => e.name === eName);
             if (event && event.type) {
                 return getGenericEventType(event.type);
             }

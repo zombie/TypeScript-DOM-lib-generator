@@ -1330,97 +1330,97 @@
                 ]
             },
             "EXT_blend_minmax": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "EXT_color_buffer_float": {
-                "override-exposed":"Window Worker"
+                "overrideExposed":"Window Worker"
             },
             "EXT_color_buffer_half_float": {
-                "override-exposed":"Window Worker"
+                "overrideExposed":"Window Worker"
             },
             "EXT_float_blend": {
-                "override-exposed":"Window Worker"
+                "overrideExposed":"Window Worker"
             },
             "EXT_texture_filter_anisotropic": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "EXT_frag_depth": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "EXT_shader_texture_lod": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "EXT_sRGB": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "KHR_parallel_shader_compile": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_vertex_array_object": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OVR_multiview2": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_color_buffer_float": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_compressed_texture_astc": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_compressed_texture_etc": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_compressed_texture_etc1": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_compressed_texture_pvrtc": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_compressed_texture_s3tc_srgb": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_debug_shaders": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_draw_buffers": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_lose_context": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_depth_texture": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_debug_renderer_info": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WEBGL_compressed_texture_s3tc": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_texture_half_float_linear": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_texture_half_float": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_texture_float_linear": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_texture_float": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_standard_derivatives": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "OES_element_index_uint": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "ANGLE_instanced_arrays": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "WebGLVertexArrayObjectOES": {
-                "override-exposed": "Window Worker"
+                "overrideExposed": "Window Worker"
             },
             "RTCDTMFSender": {
                 "events": {

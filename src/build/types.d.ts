@@ -176,9 +176,8 @@ export interface Interface {
     }
     element?: Element[];
     namedConstructor?: NamedConstructor;
-    "override-builtins"?: 1;
     exposed?: string;
-    "override-exposed"?: string;
+    overrideExposed?: string;
     tags?: string;
     "implicit-this"?: 1;
     "primary-global"?: string;

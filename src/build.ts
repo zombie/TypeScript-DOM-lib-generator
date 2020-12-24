@@ -209,8 +209,8 @@ async function emitDom() {
     webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);
     for (const name in webidl.interfaces!.interface) {
         const i = webidl.interfaces!.interface[name];
-        if (i["override-exposed"]) {
-            resolveExposure(i, i["override-exposed"]!, true);
+        if (i.overrideExposed) {
+            resolveExposure(i, i.overrideExposed!, true);
         }
     }
 

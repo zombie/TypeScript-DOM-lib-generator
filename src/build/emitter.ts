@@ -1001,69 +1001,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
     }
 
-    function emitStaticInterface(i: Browser.Interface) {
-        // Some types are static types with non-static members. For example,
-        // NodeFilter is a static method itself, however it has an "acceptNode" method
-        // that expects the user to implement.
-        const hasNonStaticMethod = i.methods && mapToArray(i.methods.method).some(m => !m.static);
-        const hasProperty = i.properties && mapToArray(i.properties.property).some(p => !p.static);
-        const hasNonStaticMember = hasNonStaticMethod || hasProperty;
-
-        // For static types with non-static members, we put the non-static members into an
-        // interface, and put the static members into the object literal type of 'declare var'
-        // For static types with only static members, we put everything in the interface.
-        // Because in the two cases the interface contains different things, it might be easier to
-        // read to separate them into two functions.
-        function emitStaticInterfaceWithNonStaticMembers() {
-            emitInterfaceDeclaration(i);
-            printer.increaseIndent();
-
-            emitMembers(/*prefix*/ "", EmitScope.InstanceOnly, i);
-            emitEventHandlers(/*prefix*/ "", i);
-            emitIndexers(EmitScope.InstanceOnly, i);
-
-            printer.decreaseIndent();
-            printer.printLine("}");
-            printer.printLine("");
-            printer.printLine(`declare var ${i.name}: {`);
-            printer.increaseIndent();
-            emitConstants(i);
-            emitMembers(/*prefix*/ "", EmitScope.StaticOnly, i);
-            printer.decreaseIndent();
-            printer.printLine("};");
-            printer.printLine("");
-        }
-
-        function emitPureStaticInterface() {
-            emitInterfaceDeclaration(i);
-            printer.increaseIndent();
-
-            emitMembers(/*prefix*/ "", EmitScope.StaticOnly, i);
-            emitConstants(i);
-            emitEventHandlers(/*prefix*/ "", i);
-            emitIndexers(EmitScope.StaticOnly, i);
-            printer.decreaseIndent();
-            printer.printLine("}");
-            printer.printLine(`declare var ${i.name}: ${i.name};`);
-            printer.printLine("");
-        }
-
-        if (hasNonStaticMember) {
-            emitStaticInterfaceWithNonStaticMembers();
-        }
-        else {
-            emitPureStaticInterface();
-        }
-    }
-
     function emitNonCallbackInterfaces() {
         for (const i of allNonCallbackInterfaces.sort(compareName)) {
             if (i.legacyNamespace) {
                 continue;
-            }
-            // If the static attribute has a value, it means the type doesn't have a constructor
-            if (i.static) {
-                emitStaticInterface(i);
             }
             else if (i.noInterfaceObject) {
                 emitInterface(i);

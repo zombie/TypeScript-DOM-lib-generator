@@ -166,7 +166,6 @@ export interface Interface {
     }
     constructor?: Constructor;
     implements?: string[];
-    static?: 1;
     anonymousMethods?: {
         method: AnonymousMethod[];
     }

@@ -702,9 +702,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         printLine(`${prefix || ""}${getNameWithTypeParameter(s.typeParameters, name || "")}(${paramsString}): ${returnType};`);
     }
 
-    function emitSignatures(method: { signature?: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
-        if (method["override-signatures"]) {
-            method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
+    function emitSignatures(method: { signature?: Browser.Signature[], overrideSignatures?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
+        if (method.overrideSignatures) {
+            method.overrideSignatures!.forEach(s => printLine(`${prefix}${s};`));
         }
         else if (method.signature) {
             method["additional-signatures"]?.forEach(s => printLine(`${prefix}${s};`));
@@ -1328,7 +1328,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         const subtypes = getIteratorSubtypes();
         const methodsWithSequence: Browser.Method[] =
             mapToArray(i.methods ? i.methods.method : {})
-                .filter(m => m.signature && !m["override-signatures"])
+                .filter(m => m.signature && !m.overrideSignatures)
                 .map(m => ({
                     ...m,
                     signature: replaceTypedefsInSignatures(m.signature.filter(hasSequenceArgument))

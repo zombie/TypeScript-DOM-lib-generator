@@ -81,10 +81,8 @@ export interface AnonymousMethod {
     static?: 1;
     getter?: 1;
     stringifier?: 1;
-    serializer?: 1;
-    "serializer-info"?: string;
     comment?: string;
-    "override-signatures"?: string[];
+    overrideSignatures?: string[];
     "additional-signatures"?: string[];
     specs?: string;
     exposed?: string;
@@ -101,7 +99,7 @@ export interface CallbackFunction {
     callback: 1;
     signature: Signature[];
     tags?: string;
-    "override-signatures"?: string[];
+    overrideSignatures?: string[];
     specs?: string;
     typeParameters?: TypeParameter[];
 }

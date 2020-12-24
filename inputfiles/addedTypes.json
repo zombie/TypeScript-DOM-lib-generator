@@ -400,7 +400,7 @@
                     "method": {
                         "createObjectURL": {
                             "exposed": "Window Worker",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "createObjectURL(object: any): string"
                             ]
                         }
@@ -421,7 +421,7 @@
                     "method": {
                         "item": {
                             "name": "item",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "item(index: number): TNode"
                             ]
                         }
@@ -471,7 +471,7 @@
                         },
                         "namedItem": {
                             "name": "namedItem",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "namedItem(name: string): T | null"
                             ]
                         }

@@ -352,7 +352,7 @@
                 }
             },
             "CustomElementConstructor": {
-                "override-signatures": [
+                "overrideSignatures": [
                     "new (...params: any[]): HTMLElement"
                 ]
             }
@@ -510,7 +510,7 @@
                 "methods": {
                     "method": {
                         "alert": {
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "alert(message?: any): void"
                             ]
                         },
@@ -574,7 +574,7 @@
                         },
                         "getElementById": {
                             "name": "getElementById",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
                             ]
                         },
@@ -1112,14 +1112,14 @@
                         "append": {
                             "name": "append",
                             "flavor": "Web",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "append(name: string, value: string | Blob, fileName?: string): void"
                             ]
                         },
                         "set": {
                             "name": "set",
                             "flavor": "Web",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "set(name: string, value: string | Blob, fileName?: string): void"
                             ]
                         }
@@ -1255,7 +1255,7 @@
                     "method": {
                         "webkitGetAsEntry": {
                             "name": "webkitGetAsEntry",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "webkitGetAsEntry(): any"
                             ]
                         }
@@ -1586,7 +1586,7 @@
                     "method": {
                         "initMouseEvent": {
                             "name": "initMouseEvent",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void"
                             ]
                         }
@@ -1604,7 +1604,7 @@
                 "methods": {
                     "method": {
                         "hasFeature": {
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "hasFeature(...args: any[]): true"
                             ]
                         }
@@ -1784,7 +1784,7 @@
                     "method": {
                         "send": {
                             "name": "send",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void"
                             ]
                         }
@@ -3153,7 +3153,7 @@
                 "method": {
                     "timeStamp": {
                         "name": "timeStamp",
-                        "override-signatures": [
+                        "overrideSignatures": [
                             "timeStamp(label?: string): void"
                         ]
                     }

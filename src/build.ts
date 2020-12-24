@@ -234,7 +234,7 @@ async function emitDom() {
                     }
                     // template should include strings
                     filtered[k] = obj[k].filter((item: any) => {
-                        const name = typeof item === "string" ? item : (item.name || item["new-type"]);
+                        const name = typeof item === "string" ? item : item.name;
                         return !template[k].includes(name);
                     });
                     if (filtered[k].length === obj[k].length) {

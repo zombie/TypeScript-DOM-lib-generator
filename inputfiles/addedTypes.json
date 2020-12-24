@@ -2107,15 +2107,15 @@
         "typedef": [
             {
                 "overrideType": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
-                "new-type": "InsertPosition"
+                "name": "InsertPosition"
             },
             {
                 "additionalTypes": ["Headers"],
-                "new-type": "HeadersInit"
+                "name": "HeadersInit"
             },
             {
                 "overrideType": "number | string | Date | BufferSource | IDBArrayKey",
-                "new-type": "IDBValidKey"
+                "name": "IDBValidKey"
             },
             {
                 "type": {
@@ -2123,31 +2123,31 @@
                         "type": "Algorithm"
                     }
                 },
-                "new-type": "AlgorithmIdentifier"
+                "name": "AlgorithmIdentifier"
             },
             {
-                "new-type": "MutationRecordType",
+                "name": "MutationRecordType",
                 "overrideType": "\"attributes\" | \"characterData\" | \"childList\""
             },
             {
-                "new-type": "IDBKeyPath",
+                "name": "IDBKeyPath",
                 "type": "DOMString"
             },
             {
-                "new-type": "Transferable",
+                "name": "Transferable",
                 "overrideType": "ArrayBuffer | MessagePort | ImageBitmap"
             },
             {
-                "new-type": "WindowProxy",
+                "name": "WindowProxy",
                 "type": "Window"
             },
             {
-                "new-type": "ExportValue",
+                "name": "ExportValue",
                 "legacyNamespace": "WebAssembly",
                 "overrideType": "Function | Global | Memory | Table"
             },
             {
-                "new-type": "Exports",
+                "name": "Exports",
                 "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
@@ -2160,12 +2160,12 @@
                 ]
             },
             {
-                "new-type": "ImportValue",
+                "name": "ImportValue",
                 "legacyNamespace": "WebAssembly",
                 "overrideType": "ExportValue | number"
             },
             {
-                "new-type": "ModuleImports",
+                "name": "ModuleImports",
                 "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
@@ -2178,7 +2178,7 @@
                 ]
             },
             {
-                "new-type": "Imports",
+                "name": "Imports",
                 "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
@@ -2191,7 +2191,7 @@
                 ]
             },
             {
-                "new-type": "ReadableStreamDefaultReadResult",
+                "name": "ReadableStreamDefaultReadResult",
                 "typeParameters": [
                     {
                         "name": "T"
@@ -2208,7 +2208,7 @@
                 "overrideType": "ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult"
             },
             {
-                "new-type": "ReadableStreamReader",
+                "name": "ReadableStreamReader",
                 "typeParameters": [
                     {
                         "name": "T"

@@ -5683,10 +5683,10 @@ declare namespace WebAssembly {
     type ImportExportKind = "function" | "global" | "memory" | "table";
     type TableKind = "anyfunc";
     type ValueType = "f32" | "f64" | "i32" | "i64";
-    type Exports = Record<string, ExportValue>;
     type ExportValue = Function | Global | Memory | Table;
-    type Imports = Record<string, ModuleImports>;
+    type Exports = Record<string, ExportValue>;
     type ImportValue = ExportValue | number;
+    type Imports = Record<string, ModuleImports>;
     type ModuleImports = Record<string, ImportValue>;
     function compile(bytes: BufferSource): Promise<Module>;
     function compileStreaming(source: Response | PromiseLike<Response>): Promise<Module>;

@@ -387,7 +387,7 @@ function convertEnum(en: webidl2.EnumType): Browser.Enum {
 
 function convertTypedef(typedef: webidl2.TypedefType): Browser.TypeDef {
     return {
-        "new-type": typedef.name,
+        name: typedef.name,
         ...convertIdlType(typedef.idlType)
     }
 }

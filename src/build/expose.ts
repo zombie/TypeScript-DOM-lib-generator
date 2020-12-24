@@ -40,7 +40,7 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
     const isKnownName = (o: { name: string }) => knownIDLTypes.has(o.name) || forceKnownTypesLogged.has(o.name);
 
     if (webidl.typedefs) {
-        const referenced = webidl.typedefs.typedef.filter(t => knownIDLTypes.has(t["new-type"]) || forceKnownTypesLogged.has(t["new-type"]));
+        const referenced = webidl.typedefs.typedef.filter(t => knownIDLTypes.has(t.name) || forceKnownTypesLogged.has(t.name));
         const { exposed, removed } = filterTypedefs(referenced, unexposedTypes);
         removed.forEach(s => unexposedTypes.add(s));
         filtered.typedefs!.typedef = exposed;
@@ -89,14 +89,14 @@ function filterTypedefs(typedefs: Browser.TypeDef[], unexposedTypes: Set<string>
         else if (Array.isArray(typedef.type)) {
             const filteredType = filterUnexposedTypeFromUnion(typedef.type, unexposedTypes);
             if (!filteredType.length) {
-                removed.add(typedef["new-type"]);
+                removed.add(typedef.name);
             }
             else {
                 exposed.push({ ...typedef, type: flattenType(filteredType) });
             }
         }
         else if (unexposedTypes.has(typedef.type)) {
-            removed.add(typedef["new-type"]);
+            removed.add(typedef.name);
         }
         else {
             exposed.push(typedef);

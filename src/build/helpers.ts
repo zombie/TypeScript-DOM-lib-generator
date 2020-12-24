@@ -70,7 +70,7 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
                     if (shallow && typeof (targetProp as any).name === "string" && typeof (srcProp as any).name === "string") {
                         target[k] = srcProp;
                     } else {
-                        if (targetProp === srcProp && k !== "name" && k !== "new-type") {
+                        if (targetProp === srcProp && k !== "name") {
                             console.warn(`Redundant merge value ${targetProp} in ${JSON.stringify(src)}`);
                         }
                         target[k] = merge(targetProp, srcProp, shallow);
@@ -85,17 +85,17 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
     return target;
 }
 
-function mergeNamedArrays<T extends { name: string; "new-type": string; }>(srcProp: T[], targetProp: T[]) {
+function mergeNamedArrays<T extends { name: string }>(srcProp: T[], targetProp: T[]) {
     const map: any = {};
     for (const e1 of srcProp) {
-        const name = e1.name || e1["new-type"];
+        const { name } = e1;
         if (name) {
             map[name] = e1;
         }
     }
 
     for (const e2 of targetProp) {
-        const name = e2.name || e2["new-type"];
+        const { name } = e2;
         if (name && map[name]) {
             merge(map[name], e2);
         }
@@ -226,11 +226,10 @@ function getNonValueTypeMap(webidl: Browser.WebIdl) {
         ...mapToArray(webidl.callbackInterfaces!.interface),
         ...mapToArray(webidl.dictionaries!.dictionary),
         ...mapToArray(webidl.enums!.enum),
-        ...mapToArray(webidl.mixins!.mixin)
+        ...mapToArray(webidl.mixins!.mixin),
+        ...webidl.typedefs!.typedef,
     ];
-    const map = new Map(namedTypes.map(t => [t.name, t] as [string, any]));
-    webidl.typedefs!.typedef.map(typedef => map.set(typedef["new-type"], typedef));
-    return map;
+    return new Map(namedTypes.map(t => [t.name, t] as [string, any]));
 }
 
 export function followTypeReferences(webidl: Browser.WebIdl, filteredInterfaces: Record<string, Browser.Interface>) {
@@ -249,8 +248,8 @@ export function followTypeReferences(webidl: Browser.WebIdl, filteredInterfaces:
         if (!type) {
             return;
         }
-        if (!set.has(type.name || type["new-type"])) {
-            set.add(type.name || type["new-type"]);
+        if (!set.has(type.name)) {
+            set.add(type.name);
             collectTypeReferences(type).forEach(follow);
         }
     }

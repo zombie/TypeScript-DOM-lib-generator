@@ -122,7 +122,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     const allDictionariesMap = webidl.dictionaries?.dictionary ?? {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl.callbackFunctions?.callbackFunction ?? {};
-    const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
+    const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td.name));
 
     /// Tag name to element name map
     const tagNameToEleName = getTagNameToElementNameMap();
@@ -1105,7 +1105,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 .sort(compareName)
                 .forEach(emitEnum);
             namespace.nested.typedefs
-                .sort((x, y) => x["new-type"].localeCompare(y["new-type"]))
+                .sort(compareName)
                 .forEach(emitTypeDef);
         }
 
@@ -1150,14 +1150,14 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
         emitComments(typeDef, printer.printLine);
-        printer.printLine(`type ${getNameWithTypeParameter(typeDef.typeParameters, typeDef["new-type"])} = ${convertDomTypeToTsType(typeDef)};`);
+        printer.printLine(`type ${getNameWithTypeParameter(typeDef.typeParameters, typeDef.name)} = ${convertDomTypeToTsType(typeDef)};`);
     }
 
     function emitTypeDefs() {
         if (webidl.typedefs) {
             webidl.typedefs.typedef
             .filter(i => !i.legacyNamespace)
-            .sort((x, y) => x["new-type"].localeCompare(y["new-type"]))
+            .sort(compareName)
             .forEach(emitTypeDef);
         }
     }
@@ -1323,7 +1323,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 .filter(typedef => Array.isArray(typedef.type))
                 .map(typedef => ({ ...typedef, type: (typedef.type as Browser.Typed[]).filter(t => t.type === "sequence") }))
                 .filter(typedef => typedef.type.length)
-        const sequenceTypedefMap = arrayToMap(sequenceTypedefs, t => t["new-type"], t => t);
+        const sequenceTypedefMap = arrayToMap(sequenceTypedefs, t => t.name, t => t);
 
         const subtypes = getIteratorSubtypes();
         const methodsWithSequence: Browser.Method[] =

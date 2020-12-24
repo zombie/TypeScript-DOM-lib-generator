@@ -3137,7 +3137,7 @@
         "typedef": [
             {
                 "overrideType": "ReadableStreamDefaultController<T>",
-                "new-type": "ReadableStreamController",
+                "name": "ReadableStreamController",
                 "typeParameters": [
                     {
                         "name": "T"

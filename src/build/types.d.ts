@@ -214,7 +214,7 @@ export interface Enum {
 }
 
 export interface TypeDef extends Typed {
-    "new-type": string;
+    name: string;
     deprecated?: 1;
     legacyNamespace?: string;
     typeParameters?: TypeParameter[];

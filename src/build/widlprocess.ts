@@ -39,12 +39,12 @@ export function convert(text: string, commentMap: Record<string, string>) {
             }
         }
         else if (rootType.type === "callback interface") {
-            browser["callback-interfaces"]!.interface[rootType.name] = convertInterfaceCommon(rootType, commentMap);
+            browser.callbackInterfaces!.interface[rootType.name] = convertInterfaceCommon(rootType, commentMap);
         }
         else if (rootType.type === "callback") {
-            browser["callback-functions"]!["callback-function"][rootType.name]
+            browser.callbackFunctions!.callbackFunction[rootType.name]
                 = convertCallbackFunctions(rootType);
-            addComments(browser["callback-functions"]!["callback-function"][rootType.name], commentMap, rootType.name);
+            addComments(browser.callbackFunctions!.callbackFunction[rootType.name], commentMap, rootType.name);
         }
         else if (rootType.type === "dictionary") {
             const converted = convertDictionary(rootType, commentMap);

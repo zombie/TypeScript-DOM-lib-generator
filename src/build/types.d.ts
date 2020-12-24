@@ -233,10 +233,10 @@ export interface Dictionary {
 }
 
 export interface WebIdl {
-    "callback-functions"?: {
-        "callback-function": Record<string, CallbackFunction>;
+    callbackFunctions?: {
+        callbackFunction: Record<string, CallbackFunction>;
     },
-    "callback-interfaces"?: {
+    callbackInterfaces?: {
         interface: Record<string, Interface>;
     }
     dictionaries?: {

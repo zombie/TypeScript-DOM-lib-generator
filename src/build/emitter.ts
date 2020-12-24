@@ -114,14 +114,14 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     const allNonCallbackInterfaces = getElements(webidl.interfaces, "interface").concat(getElements(webidl.mixins, "mixin"));
     const allInterfaces = getElements(webidl.interfaces, "interface").concat(
-        getElements(webidl["callback-interfaces"], "interface"),
+        getElements(webidl.callbackInterfaces, "interface"),
         getElements(webidl.mixins, "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
     const allLegacyWindowAliases = allInterfaces.flatMap(i => i.legacyWindowAlias);
-    const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
+    const allDictionariesMap = webidl.dictionaries?.dictionary ?? {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
-    const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
+    const allCallbackFunctionsMap = webidl.callbackFunctions?.callbackFunction ?? {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
     /// Tag name to element name map
@@ -559,7 +559,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitCallBackFunctions() {
-        getElements(webidl["callback-functions"], "callback-function")
+        getElements(webidl.callbackFunctions, "callbackFunction")
             .sort(compareName)
             .forEach(emitCallBackFunction);
     }
@@ -1179,7 +1179,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         printer.printLine("");
 
         emitDictionaries();
-        getElements(webidl["callback-interfaces"], "interface")
+        getElements(webidl.callbackInterfaces, "interface")
             .sort(compareName)
             .forEach(i => emitCallBackInterface(i));
         emitNonCallbackInterfaces();

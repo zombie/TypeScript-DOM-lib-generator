@@ -1,6 +1,6 @@
 {
-    "callback-functions": {
-        "callback-function": {
+    "callbackFunctions": {
+        "callbackFunction": {
             "Function": null,
             "PerformanceObserverCallback": {
                 "signature": {

@@ -227,7 +227,7 @@
             }
         }
     },
-    "callback-interfaces": {
+    "callbackInterfaces": {
         "interface": {}
     },
     "enums": {

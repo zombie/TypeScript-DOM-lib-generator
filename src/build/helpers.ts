@@ -156,26 +156,26 @@ export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
 
 export function getEmptyWebIDL(): Browser.WebIdl {
     return {
-        "callback-functions": {
-            "callback-function": {}
+        callbackFunctions: {
+            callbackFunction: {}
         },
-        "callback-interfaces": {
-            "interface": {}
+        callbackInterfaces: {
+            interface: {}
         },
-        "dictionaries": {
-            "dictionary": {}
+        dictionaries: {
+            dictionary: {}
         },
-        "enums": {
-            "enum": {}
+        enums: {
+            enum: {}
         },
-        "interfaces": {
-            "interface": {}
+        interfaces: {
+            interface: {}
         },
-        "mixins": {
-            "mixin": {}
+        mixins: {
+            mixin: {}
         },
-        "typedefs": {
-            "typedef": []
+        typedefs: {
+            typedef: []
         },
         namespaces: []
     }
@@ -222,8 +222,8 @@ function collectTypeReferences(obj: any): string[] {
 
 function getNonValueTypeMap(webidl: Browser.WebIdl) {
     const namedTypes: { name: string }[] = [
-        ...mapToArray(webidl["callback-functions"]!["callback-function"]),
-        ...mapToArray(webidl["callback-interfaces"]!.interface),
+        ...mapToArray(webidl.callbackFunctions!.callbackFunction),
+        ...mapToArray(webidl.callbackInterfaces!.interface),
         ...mapToArray(webidl.dictionaries!.dictionary),
         ...mapToArray(webidl.enums!.enum),
         ...mapToArray(webidl.mixins!.mixin)

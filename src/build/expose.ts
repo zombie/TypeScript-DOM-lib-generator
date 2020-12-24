@@ -46,8 +46,8 @@ export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKno
         filtered.typedefs!.typedef = exposed;
     }
 
-    if (webidl["callback-functions"]) filtered["callback-functions"]!["callback-function"] = filterProperties(webidl["callback-functions"]!["callback-function"], isKnownName);
-    if (webidl["callback-interfaces"]) filtered["callback-interfaces"]!.interface = filterProperties(webidl["callback-interfaces"]!.interface, isKnownName);
+    if (webidl.callbackFunctions) filtered.callbackFunctions!.callbackFunction = filterProperties(webidl.callbackFunctions!.callbackFunction, isKnownName);
+    if (webidl.callbackInterfaces) filtered.callbackInterfaces!.interface = filterProperties(webidl.callbackInterfaces!.interface, isKnownName);
     if (webidl.dictionaries) filtered.dictionaries!.dictionary = filterProperties(webidl.dictionaries.dictionary, isKnownName);
     if (webidl.enums) filtered.enums!.enum = filterProperties(webidl.enums.enum, isKnownName);
     if (webidl.mixins) {

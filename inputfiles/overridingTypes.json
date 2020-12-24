@@ -210,8 +210,8 @@
             }
         }
     },
-    "callback-functions": {
-        "callback-function": {
+    "callbackFunctions": {
+        "callbackFunction": {
             "OnErrorEventHandlerNonNull": {
                 "signature": {
                     "0": {
@@ -358,7 +358,7 @@
             }
         }
     },
-    "callback-interfaces": {
+    "callbackInterfaces": {
         "interface": {}
     },
     "enums": {

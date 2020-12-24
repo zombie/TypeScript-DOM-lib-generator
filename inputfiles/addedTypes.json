@@ -273,10 +273,10 @@
                 }
             },
             "DeviceMotionEventAcceleration": {
-                "no-interface-object": 1
+                "noInterfaceObject": true
             },
             "DeviceMotionEventRotationRate": {
-                "no-interface-object": 1
+                "noInterfaceObject": true
             },
             "HTMLImageElement": {
                 "name": "HTMLImageElement",
@@ -427,7 +427,7 @@
                         }
                     }
                 },
-                "no-interface-object": "1",
+                "noInterfaceObject": true,
                 "override-index-signatures": [
                     "[index: number]: TNode"
                 ],
@@ -477,7 +477,7 @@
                         }
                     }
                 },
-                "no-interface-object": "1"
+                "noInterfaceObject": true
             },
             "Element": {
                 "events": {
@@ -638,7 +638,7 @@
             "IDBArrayKey": {
                 "name": "IDBArrayKey",
                 "extends": "Array<IDBValidKey>",
-                "no-interface-object": "1"
+                "noInterfaceObject": true
             },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",

@@ -101,7 +101,7 @@ function convertInterface(i: webidl2.InterfaceType, commentMap: Record<string, s
 function convertInterfaceMixin(i: webidl2.InterfaceMixinType, commentMap: Record<string, string>) {
     const result = convertInterfaceCommon(i, commentMap);
     result.mixin = true;
-    result['no-interface-object'] = 1;
+    result.noInterfaceObject = true;
     return result;
 }
 
@@ -126,7 +126,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         namedConstructor: getLegacyFactoryFunction(i.extAttrs, i.name),
         exposed: getExtAttrConcatenated(i.extAttrs, "Exposed"),
         global: getExtAttrConcatenated(i.extAttrs, "Global"),
-        "no-interface-object": (hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject") || hasExtAttr(i.extAttrs, "NoInterfaceObject")) ? 1 : undefined,
+        "noInterfaceObject": (hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject") || hasExtAttr(i.extAttrs, "NoInterfaceObject")),
         "legacy-window-alias": getExtAttr(i.extAttrs, "LegacyWindowAlias"),
         "legacy-namespace": getExtAttr(i.extAttrs, "LegacyNamespace")[0]
     };

@@ -180,8 +180,7 @@ export interface Interface {
     overrideExposed?: string;
     tags?: string;
     "implicit-this"?: 1;
-    "primary-global"?: string;
-    "no-interface-object"?: 1;
+    "noInterfaceObject"?: boolean;
     global?: string;
     "typeParameters"?: TypeParameter[];
     "override-index-signatures"?: string[];

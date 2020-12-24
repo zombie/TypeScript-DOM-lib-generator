@@ -1065,7 +1065,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             if (i.static) {
                 emitStaticInterface(i);
             }
-            else if (i["no-interface-object"]) {
+            else if (i["noInterfaceObject"]) {
                 emitInterface(i);
             }
             else {

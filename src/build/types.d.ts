@@ -166,7 +166,6 @@ export interface Interface {
         namesakes?: Record<string, Property[]>;
     }
     constructor?: Constructor;
-    "secure-context"?: 1;
     implements?: string[];
     static?: 1;
     anonymousMethods?: {
@@ -176,7 +175,7 @@ export interface Interface {
         parsedattribute: ParsedAttribute[];
     }
     element?: Element[];
-    "named-constructor"?: NamedConstructor;
+    namedConstructor?: NamedConstructor;
     "override-builtins"?: 1;
     exposed?: string;
     "override-exposed"?: string;

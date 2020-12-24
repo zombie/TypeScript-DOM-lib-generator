@@ -123,7 +123,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         anonymousMethods: { method: [] },
         properties: { property: {}, namesakes: {} },
         constructor: getConstructor(i.members, i.name) || getOldStyleConstructor(i.extAttrs, i.name),
-        "named-constructor": getLegacyFactoryFunction(i.extAttrs, i.name),
+        namedConstructor: getLegacyFactoryFunction(i.extAttrs, i.name),
         exposed: getExtAttrConcatenated(i.extAttrs, "Exposed"),
         global: getExtAttrConcatenated(i.extAttrs, "Global"),
         "no-interface-object": (hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject") || hasExtAttr(i.extAttrs, "NoInterfaceObject")) ? 1 : undefined,

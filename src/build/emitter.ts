@@ -857,7 +857,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitNamedConstructor(i: Browser.Interface) {
-        const nc = i["named-constructor"];
+        const nc = i.namedConstructor;
         if (nc) {
             printer.printLine(`declare var ${nc.name}: {`);
             printer.increaseIndent();

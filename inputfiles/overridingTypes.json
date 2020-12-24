@@ -364,13 +364,13 @@
     "enums": {
         "enum": {
             "ImportExportKind": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "TableKind": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "ValueType": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             }
         }
     },
@@ -3114,22 +3114,22 @@
                 }
             },
             "ModuleExportDescriptor": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "ModuleImportDescriptor": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "MemoryDescriptor": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "TableDescriptor": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "GlobalDescriptor": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             },
             "WebAssemblyInstantiatedSource": {
-                "legacy-namespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly"
             }
         }
     },

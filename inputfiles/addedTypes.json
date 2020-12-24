@@ -2143,12 +2143,12 @@
             },
             {
                 "new-type": "ExportValue",
-                "legacy-namespace": "WebAssembly",
+                "legacyNamespace": "WebAssembly",
                 "overrideType": "Function | Global | Memory | Table"
             },
             {
                 "new-type": "Exports",
-                "legacy-namespace": "WebAssembly",
+                "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
                     {
@@ -2161,12 +2161,12 @@
             },
             {
                 "new-type": "ImportValue",
-                "legacy-namespace": "WebAssembly",
+                "legacyNamespace": "WebAssembly",
                 "overrideType": "ExportValue | number"
             },
             {
                 "new-type": "ModuleImports",
-                "legacy-namespace": "WebAssembly",
+                "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
                     {
@@ -2179,7 +2179,7 @@
             },
             {
                 "new-type": "Imports",
-                "legacy-namespace": "WebAssembly",
+                "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
                     {

@@ -128,7 +128,7 @@ function convertInterfaceCommon(i: webidl2.InterfaceType | webidl2.InterfaceMixi
         global: getExtAttrConcatenated(i.extAttrs, "Global"),
         "noInterfaceObject": (hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject") || hasExtAttr(i.extAttrs, "NoInterfaceObject")),
         legacyWindowAlias: getExtAttr(i.extAttrs, "LegacyWindowAlias"),
-        "legacy-namespace": getExtAttr(i.extAttrs, "LegacyNamespace")[0]
+        legacyNamespace: getExtAttr(i.extAttrs, "LegacyNamespace")[0]
     };
     if (!result.exposed && i.type === "interface" && !i.partial) {
         result.exposed = "Window";

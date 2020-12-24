@@ -187,7 +187,7 @@ export interface Interface {
     specs?: string;
     iterator?: Iterator;
     legacyWindowAlias?: string[];
-    "legacy-namespace"?: string;
+    legacyNamespace?: string;
     nested?: {
         interfaces: Interface[];
         enums: Enum[];
@@ -210,13 +210,13 @@ export interface Enum {
     name: string;
     value: string[];
     specs?: string;
-    "legacy-namespace"?: string;
+    legacyNamespace?: string;
 }
 
 export interface TypeDef extends Typed {
     "new-type": string;
     deprecated?: 1;
-    "legacy-namespace"?: string;
+    legacyNamespace?: string;
     typeParameters?: TypeParameter[];
 }
 
@@ -229,7 +229,7 @@ export interface Dictionary {
     "override-index-signatures"?: string[];
     specs?: string;
     typeParameters?: TypeParameter[];
-    "legacy-namespace"?: string;
+    legacyNamespace?: string;
 }
 
 export interface WebIdl {

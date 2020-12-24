@@ -572,7 +572,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emitEnums() {
         getElements(webidl.enums, "enum")
             .sort(compareName)
-            .filter(i => !i["legacy-namespace"])
+            .filter(i => !i.legacyNamespace)
             .forEach(emitEnum);
     }
 
@@ -1058,7 +1058,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitNonCallbackInterfaces() {
         for (const i of allNonCallbackInterfaces.sort(compareName)) {
-            if (i["legacy-namespace"]) {
+            if (i.legacyNamespace) {
                 continue;
             }
             // If the static attribute has a value, it means the type doesn't have a constructor
@@ -1144,7 +1144,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emitDictionaries() {
         getElements(webidl.dictionaries, "dictionary")
             .sort(compareName)
-            .filter(i => !i["legacy-namespace"])
+            .filter(i => !i.legacyNamespace)
             .forEach(emitDictionary);
     }
 
@@ -1156,7 +1156,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emitTypeDefs() {
         if (webidl.typedefs) {
             webidl.typedefs.typedef
-            .filter(i => !i["legacy-namespace"])
+            .filter(i => !i.legacyNamespace)
             .sort((x, y) => x["new-type"].localeCompare(y["new-type"]))
             .forEach(emitTypeDef);
         }

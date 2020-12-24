@@ -2,7 +2,6 @@ export interface Typed {
     type: string | Typed[];
     subtype?: Typed | Typed[];
     nullable?: 1;
-    "type-original"?: string;
     "override-type"?: string;
     "additional-types"?: string[];
 }
@@ -16,9 +15,8 @@ export interface Param extends Typed {
 
 export interface Signature extends Typed {
     param?: Param[];
-    "param-min-required"?: number;
-    "deprecated"?: 1;
-    "type-parameters"?: TypeParameter[];
+    deprecated?: 1;
+    typeParameters?: TypeParameter[];
 }
 
 export interface Member extends Typed {
@@ -106,7 +104,7 @@ export interface CallbackFunction {
     tags?: string;
     "override-signatures"?: string[];
     specs?: string;
-    "type-parameters"?: TypeParameter[];
+    typeParameters?: TypeParameter[];
 }
 
 export interface Constructor {
@@ -191,7 +189,7 @@ export interface Interface {
     "primary-global"?: string;
     "no-interface-object"?: 1;
     global?: string;
-    "type-parameters"?: TypeParameter[];
+    "typeParameters"?: TypeParameter[];
     "override-index-signatures"?: string[];
     specs?: string;
     iterable?: "value" | "pair" | "pair-iterator";
@@ -227,7 +225,7 @@ export interface TypeDef extends Typed {
     "new-type": string;
     deprecated?: 1;
     "legacy-namespace"?: string;
-    "type-parameters"?: TypeParameter[];
+    typeParameters?: TypeParameter[];
 }
 
 export interface Dictionary {
@@ -238,7 +236,7 @@ export interface Dictionary {
     }
     "override-index-signatures"?: string[];
     specs?: string;
-    "type-parameters"?: TypeParameter[];
+    typeParameters?: TypeParameter[];
     "legacy-namespace"?: string;
 }
 

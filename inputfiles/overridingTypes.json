@@ -225,7 +225,7 @@
                 }
             },
             "QueuingStrategySize": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -243,7 +243,7 @@
                 }
             },
             "UnderlyingSourceStartCallback": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R"
                     }
@@ -260,7 +260,7 @@
                 }
             },
             "UnderlyingSourcePullCallback": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R"
                     }
@@ -277,7 +277,7 @@
                 }
             },
             "UnderlyingSinkWriteCallback": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "W"
                     }
@@ -294,7 +294,7 @@
                 }
             },
             "TransformerFlushCallback": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "O"
                     }
@@ -311,7 +311,7 @@
                 }
             },
             "TransformerStartCallback": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "O"
                     }
@@ -328,7 +328,7 @@
                 }
             },
             "TransformerTransformCallback": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "I"
                     },
@@ -456,7 +456,7 @@
                         }
                     }
                 },
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -465,7 +465,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "T"
                                 }
@@ -537,7 +537,7 @@
                         "adoptNode": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "Node"
@@ -556,7 +556,7 @@
                         "importNode": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "Node"
@@ -667,7 +667,7 @@
                         "appendChild": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "Node"
@@ -686,7 +686,7 @@
                         "insertBefore": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "Node"
@@ -705,7 +705,7 @@
                         "removeChild": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "Node"
@@ -724,7 +724,7 @@
                         "replaceChild": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "Node"
@@ -1337,7 +1337,7 @@
                         }
                     }
                 },
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -2168,7 +2168,7 @@
                         "getRandomValues": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "ArrayBufferView | null"
@@ -2311,7 +2311,7 @@
                 ]
             },
             "ReadableStream": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R",
                         "default": "any"
@@ -2320,7 +2320,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "R",
                                     "default": "any"
@@ -2360,7 +2360,7 @@
                         "pipeThrough": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T"
                                         }
@@ -2398,7 +2398,7 @@
                 }
             },
             "ReadableStreamDefaultReader": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R",
                         "default": "any"
@@ -2407,7 +2407,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "R",
                                     "default": "any"
@@ -2436,7 +2436,7 @@
                 }
             },
             "ReadableStreamDefaultController": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R",
                         "default": "any"
@@ -2463,7 +2463,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "W",
                                     "default": "any"
@@ -2491,7 +2491,7 @@
                         }
                     ]
                 },
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "W",
                         "default": "any"
@@ -2510,7 +2510,7 @@
                 }
             },
             "WritableStreamDefaultWriter": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "W",
                         "default": "any"
@@ -2519,7 +2519,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "W",
                                     "default": "any"
@@ -2553,7 +2553,7 @@
                 }
             },
             "TransformStream": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "I",
                         "default": "any"
@@ -2576,7 +2576,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "I",
                                     "default": "any"
@@ -2614,7 +2614,7 @@
                 }
             },
             "TransformStreamDefaultController": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "O",
                         "default": "any"
@@ -2770,7 +2770,7 @@
                         }
                     }
                 },
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -2779,7 +2779,7 @@
                 "constructor": {
                     "signature": {
                         "0": {
-                            "type-parameters": [
+                            "typeParameters": [
                                 {
                                     "name": "T"
                                 }
@@ -2808,7 +2808,7 @@
                         "matchAll": {
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "T",
                                             "extends": "ClientQueryOptions"
@@ -2841,7 +2841,7 @@
                         }
                     }
                 },
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -2858,7 +2858,7 @@
                         }
                     }
                 },
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -2967,7 +2967,7 @@
                 }
             },
             "QueuingStrategy": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "default": "any"
@@ -2982,7 +2982,7 @@
                 }
             },
             "ReadableWritablePair": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R",
                         "default": "any"
@@ -3026,7 +3026,7 @@
                 }
             },
             "UnderlyingSource": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "R",
                         "default": "any"
@@ -3056,7 +3056,7 @@
                 }
             },
             "UnderlyingSink": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "W",
                         "default": "any"
@@ -3083,7 +3083,7 @@
                 }
             },
             "Transformer": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "I",
                         "default": "any"
@@ -3138,7 +3138,7 @@
             {
                 "override-type": "ReadableStreamDefaultController<T>",
                 "new-type": "ReadableStreamController",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T"
                     }

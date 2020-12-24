@@ -361,7 +361,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function nameWithForwardedTypes(i: Browser.Interface) {
-        const typeParameters = i["type-parameters"];
+        const typeParameters = i.typeParameters;
 
         if (!typeParameters) return i.name;
         if (!typeParameters.length) return i.name;
@@ -502,7 +502,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         if (t.type !== "Promise") {
             return t;
         }
-        const type = [t.subtype].flat() as Browser.Typed[];
+        const type = [t.subtype!].flat();
         type.push({ ...t, type: "PromiseLike" });
         return { ...t, subtype: undefined, type };
     }
@@ -550,7 +550,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitCallBackFunction(cb: Browser.CallbackFunction) {
-        printer.printLine(`interface ${getNameWithTypeParameter(cb["type-parameters"], cb.name)} {`);
+        printer.printLine(`interface ${getNameWithTypeParameter(cb.typeParameters, cb.name)} {`);
         printer.increaseIndent();
         emitSignatures(cb, "", "", printer.printLine, true);
         printer.decreaseIndent();
@@ -699,7 +699,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         let returnType = convertDomTypeToTsReturnType(resolved);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
         emitComments(s, printLine);
-        printLine(`${prefix || ""}${getNameWithTypeParameter(s["type-parameters"], name || "")}(${paramsString}): ${returnType};`);
+        printLine(`${prefix || ""}${getNameWithTypeParameter(s.typeParameters, name || "")}(${paramsString}): ${returnType};`);
     }
 
     function emitSignatures(method: { signature?: Browser.Signature[], "override-signatures"?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
@@ -755,7 +755,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         const value = subtype[subtype.length - 1];
         const key = subtype.length > 1 ? subtype[0] :
             i.iterator.kind === "iterable" ? "number" : value;
-        const name = i["type-parameters"] ? `${i.name}<${i["type-parameters"]!.map(p => p.name).join(", ")}>` : i.name;
+        const name = i.typeParameters ? `${i.name}<${i.typeParameters!.map(p => p.name).join(", ")}>` : i.name;
         printer.printLine(`forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`);
     }
 
@@ -882,12 +882,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         const processedIName = processIName(i.name);
 
         if (processedIName !== i.name) {
-            printer.printLineToStack(`interface ${getNameWithTypeParameter(i["type-parameters"], i.name)} extends ${processedIName} {`);
+            printer.printLineToStack(`interface ${getNameWithTypeParameter(i.typeParameters, i.name)} extends ${processedIName} {`);
         }
 
         emitComments(i, printer.printLine);
 
-        printer.print(`interface ${getNameWithTypeParameter(i["type-parameters"], processedIName)}`);
+        printer.print(`interface ${getNameWithTypeParameter(i.typeParameters, processedIName)}`);
 
         const finalExtends = [i.extends || "Object"]
             .concat((i.implements || []).sort())
@@ -1119,10 +1119,10 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitDictionary(dict: Browser.Dictionary) {
         if (!dict.extends || dict.extends === "Object") {
-            printer.printLine(`interface ${getNameWithTypeParameter(dict["type-parameters"], dict.name)} {`);
+            printer.printLine(`interface ${getNameWithTypeParameter(dict.typeParameters, dict.name)} {`);
         }
         else {
-            printer.printLine(`interface ${getNameWithTypeParameter(dict["type-parameters"], dict.name)} extends ${dict.extends} {`);
+            printer.printLine(`interface ${getNameWithTypeParameter(dict.typeParameters, dict.name)} extends ${dict.extends} {`);
         }
         printer.increaseIndent();
         if (dict.members) {
@@ -1150,7 +1150,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function emitTypeDef(typeDef: Browser.TypeDef) {
         emitComments(typeDef, printer.printLine);
-        printer.printLine(`type ${getNameWithTypeParameter(typeDef["type-parameters"], typeDef["new-type"])} = ${convertDomTypeToTsType(typeDef)};`);
+        printer.printLine(`type ${getNameWithTypeParameter(typeDef.typeParameters, typeDef["new-type"])} = ${convertDomTypeToTsType(typeDef)};`);
     }
 
     function emitTypeDefs() {
@@ -1338,7 +1338,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
         if (subtypes || methodsWithSequence.length) {
             const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
-            const name = getNameWithTypeParameter(i["type-parameters"], extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name);
+            const name = getNameWithTypeParameter(i.typeParameters, extendConflictsBaseTypes[i.name] ? `${i.name}Base` : i.name);
             printer.printLine("");
             printer.printLine(`interface ${name} ${iteratorExtends}{`);
             printer.increaseIndent();

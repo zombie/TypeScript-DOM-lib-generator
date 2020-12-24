@@ -409,7 +409,7 @@
             },
             "NodeListOf": {
                 "name": "NodeListOf",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "TNode",
                         "extends": "Node"
@@ -442,7 +442,7 @@
             },
             "HTMLCollectionOf": {
                 "name": "HTMLCollectionOf",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "extends": "Element"
@@ -534,7 +534,7 @@
                             ],
                             "signature": {
                                 "0": {
-                                    "type-parameters": [
+                                    "typeParameters": [
                                         {
                                             "name": "E",
                                             "extends": "Element",
@@ -1936,7 +1936,7 @@
                 "extends": "Error"
             },
             "ProgressEvent": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "extends": "EventTarget",
@@ -2081,7 +2081,7 @@
             },
             "ReadableStreamDefaultReadValueResult": {
                 "name": "ReadableStreamDefaultReadValueResult",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T"
                     }
@@ -2192,7 +2192,7 @@
             },
             {
                 "new-type": "ReadableStreamDefaultReadResult",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T"
                     }
@@ -2209,7 +2209,7 @@
             },
             {
                 "new-type": "ReadableStreamReader",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T"
                     }

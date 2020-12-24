@@ -489,7 +489,7 @@
                             "deprecated": 1
                         },
                         "location": {
-                            "read-only": 0
+                            "readonly": false
                         },
                         "onorientationchange": {
                             "deprecated": 1
@@ -497,7 +497,7 @@
                         "opener": {
                             "name": "opener",
                             "overrideType": "any",
-                            "read-only": 0
+                            "readonly": false
                         },
                         "self": {
                             "overrideType": "Window & typeof globalThis"
@@ -651,7 +651,7 @@
                             "overrideType": "HTMLCollectionOf<HTMLScriptElement>"
                         },
                         "location": {
-                            "read-only": 0,
+                            "readonly": false,
                             "nullable": false
                         },
                         "body": {
@@ -2668,12 +2668,12 @@
                     "property": {
                         "readable": {
                             "name": "readable",
-                            "read-only": 1,
+                            "readonly": true,
                             "overrideType": "ReadableStream<string>"
                         },
                         "writable": {
                             "name": "writable",
-                            "read-only": 1,
+                            "readonly": true,
                             "overrideType": "WritableStream<BufferSource>"
                         }
                     }
@@ -2684,12 +2684,12 @@
                     "property": {
                         "readable": {
                             "name": "readable",
-                            "read-only": 1,
+                            "readonly": true,
                             "overrideType": "ReadableStream<Uint8Array>"
                         },
                         "writable": {
                             "name": "writable",
-                            "read-only": 1,
+                            "readonly": true,
                             "overrideType": "WritableStream<string>"
                         }
                     }

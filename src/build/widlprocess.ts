@@ -288,8 +288,8 @@ function convertAttribute(attribute: webidl2.AttributeMemberType, inheritedExpos
         ...convertIdlType(attribute.idlType),
         static: attribute.special === "static" ? 1 : undefined,
         stringifier: attribute.special === "stringifier" ? 1 : undefined,
-        "read-only": attribute.readonly ? 1 : undefined,
-        "eventHandler": isEventHandler ? attribute.name.slice(2) : undefined,
+        readonly: attribute.readonly,
+        eventHandler: isEventHandler ? attribute.name.slice(2) : undefined,
         exposed: getExtAttrConcatenated(attribute.extAttrs, "Exposed") || inheritedExposure
     }
 }
@@ -373,7 +373,7 @@ function convertDictionaryMember(member: webidl2.DictionaryMemberType): Browser.
     return {
         name: member.name,
         default: member.default ? convertConstantValue(member.default) : undefined,
-        "required": member.required ? 1 : undefined,
+        required: member.required ? 1 : undefined,
         ...convertIdlType(member.idlType)
     }
 }

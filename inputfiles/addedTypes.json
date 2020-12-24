@@ -587,7 +587,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -611,7 +611,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "overrideType": "null"
                         }
                     }
@@ -623,12 +623,12 @@
                     "property": {
                         "pointerEnabled": {
                             "name": "pointerEnabled",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "boolean"
                         },
                         "doNotTrack": {
                             "name": "doNotTrack",
-                            "read-only": 1,
+                            "readonly": true,
                             "nullable": 1,
                             "type": "DOMString"
                         }
@@ -751,7 +751,7 @@
                     "property": {
                         "assignedSlot": {
                             "name": "assignedSlot",
-                            "read-only": 1,
+                            "readonly": true,
                             "overrideType": "HTMLSlotElement | null"
                         }
                     }
@@ -1448,12 +1448,12 @@
                     "property": {
                         "x": {
                             "name": "x",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "SVGAnimatedLength"
                         },
                         "y": {
                             "name": "y",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "SVGAnimatedLength"
                         }
                     }
@@ -1947,7 +1947,7 @@
                     "property": {
                         "target": {
                             "name": "target",
-                            "read-only": 1,
+                            "readonly": true,
                             "nullable": 1,
                             "overrideType": "T"
                         }
@@ -1970,7 +1970,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -1982,7 +1982,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -1994,7 +1994,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -2006,7 +2006,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }

@@ -630,7 +630,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             if (!required && prefix) {
                 pType += " | undefined"
             }
-            const readOnlyModifier = p["read-only"] === 1 && prefix === "" ? "readonly " : "";
+            const readOnlyModifier = p.readonly && prefix === "" ? "readonly " : "";
             printer.printLine(`${prefix}${readOnlyModifier}${p.name}${requiredModifier}: ${pType};`);
         }
 

@@ -21,7 +21,7 @@ export interface Signature extends Typed {
 export interface Member extends Typed {
     name: string;
     default?: string;
-    required?: 1;
+    required?: boolean;
     specs?: string;
     comment?: string;
 }

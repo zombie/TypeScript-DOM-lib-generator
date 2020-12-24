@@ -372,7 +372,7 @@ function convertDictionaryMember(member: webidl2.DictionaryMemberType): Browser.
     return {
         name: member.name,
         default: member.default ? convertConstantValue(member.default) : undefined,
-        required: member.required ? 1 : undefined,
+        required: member.required,
         ...convertIdlType(member.idlType)
     }
 }

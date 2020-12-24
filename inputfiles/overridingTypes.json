@@ -2907,16 +2907,16 @@
                 "members": {
                     "member": {
                         "offset": {
-                            "required": 1
+                            "required": true
                         },
                         "computedOffset": {
-                            "required": 1
+                            "required": true
                         },
                         "easing": {
-                            "required": 1
+                            "required": true
                         },
                         "composite": {
-                            "required": 1
+                            "required": true
                         }
                     }
                 },

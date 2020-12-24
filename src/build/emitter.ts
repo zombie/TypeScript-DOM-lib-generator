@@ -1070,7 +1070,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 .sort(compareName)
                 .forEach(m => {
                     emitComments(m, printer.printLine);
-                    printer.printLine(`${m.name}${m.required === 1 ? "" : "?"}: ${convertDomTypeToTsType(m)};`)
+                    printer.printLine(`${m.name}${m.required ? "" : "?"}: ${convertDomTypeToTsType(m)};`)
                 });
         }
         if (dict.overrideIndexSignatures) {

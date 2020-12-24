@@ -2070,7 +2070,7 @@
                         "done": {
                             "name": "done",
                             "overrideType": "true",
-                            "required": 1
+                            "required": true
                         },
                         "value": {
                             "name": "value",
@@ -2091,12 +2091,12 @@
                         "done": {
                             "name": "done",
                             "overrideType": "false",
-                            "required": 1
+                            "required": true
                         },
                         "value": {
                             "name": "value",
                             "overrideType": "T",
-                            "required": 1
+                            "required": true
                         }
                     }
                 }

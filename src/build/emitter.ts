@@ -118,7 +118,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         getElements(webidl.mixins, "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
-    const allLegacyWindowAliases = allInterfaces.flatMap(i => i["legacy-window-alias"]);
+    const allLegacyWindowAliases = allInterfaces.flatMap(i => i.legacyWindowAlias);
     const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
@@ -847,8 +847,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         printer.printLine("};");
         printer.printLine("");
 
-        if (flavor === Flavor.Window && i["legacy-window-alias"]) {
-            for (const alias of i["legacy-window-alias"]!) {
+        if (flavor === Flavor.Window && i.legacyWindowAlias) {
+            for (const alias of i.legacyWindowAlias!) {
                 printer.printLine(`type ${alias} = ${i.name};`);
                 printer.printLine(`declare var ${alias}: typeof ${i.name};`);
                 printer.printLine("");

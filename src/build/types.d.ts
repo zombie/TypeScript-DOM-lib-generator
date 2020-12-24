@@ -180,14 +180,13 @@ export interface Interface {
     overrideExposed?: string;
     tags?: string;
     "implicit-this"?: 1;
-    "noInterfaceObject"?: boolean;
+    noInterfaceObject?: boolean;
     global?: string;
-    "typeParameters"?: TypeParameter[];
+    typeParameters?: TypeParameter[];
     "override-index-signatures"?: string[];
     specs?: string;
-    iterable?: "value" | "pair" | "pair-iterator";
     iterator?: Iterator;
-    "legacy-window-alias"?: string[];
+    legacyWindowAlias?: string[];
     "legacy-namespace"?: string;
     nested?: {
         interfaces: Interface[];

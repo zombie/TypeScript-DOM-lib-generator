@@ -83,7 +83,7 @@ function filterTypedefs(typedefs: Browser.TypeDef[], unexposedTypes: Set<string>
     }
 
     function filterTypedef(typedef: Browser.TypeDef) {
-        if (typedef["override-type"]) {
+        if (typedef.overrideType) {
             exposed.push(typedef);
         }
         else if (Array.isArray(typedef.type)) {
@@ -152,7 +152,7 @@ function filterUnexposedTypeFromUnion(union: Browser.Typed[], unexposedTypes: Se
                 result.push({ ...type, type: flattenType(filteredUnion) });
             }
         }
-        else if (type["override-type"] || !unexposedTypes.has(type.type)) {
+        else if (type.overrideType || !unexposedTypes.has(type.type)) {
             result.push(type);
         }
     }

@@ -284,7 +284,7 @@
                     "property": {
                         "decoding": {
                             "name": "decoding",
-                            "override-type": "\"async\" | \"sync\" | \"auto\""
+                            "overrideType": "\"async\" | \"sync\" | \"auto\""
                         }
                     }
                 },
@@ -435,7 +435,7 @@
                     "kind": "iterable",
                     "type": [
                         {
-                            "override-type": "TNode"
+                            "overrideType": "TNode"
                         }
                     ]
                 }
@@ -457,7 +457,7 @@
                             "signature": [
                                 {
                                     "nullable": 1,
-                                    "override-type": "T",
+                                    "overrideType": "T",
                                     "param": [
                                         {
                                             "name": "index",
@@ -523,7 +523,7 @@
                             "name": "getElementsByClassName",
                             "signature": {
                                 "0": {
-                                    "override-type": "HTMLCollectionOf<Element>"
+                                    "overrideType": "HTMLCollectionOf<Element>"
                                 }
                             }
                         },
@@ -541,7 +541,7 @@
                                             "default": "Element"
                                         }
                                     ],
-                                    "override-type": "E | null"
+                                    "overrideType": "E | null"
                                 }
                             }
                         },
@@ -612,7 +612,7 @@
                         "ownerDocument": {
                             "name": "ownerDocument",
                             "read-only": 1,
-                            "override-type": "null"
+                            "overrideType": "null"
                         }
                     }
                 }
@@ -752,7 +752,7 @@
                         "assignedSlot": {
                             "name": "assignedSlot",
                             "read-only": 1,
-                            "override-type": "HTMLSlotElement | null"
+                            "overrideType": "HTMLSlotElement | null"
                         }
                     }
                 }
@@ -1056,7 +1056,7 @@
                 "properties": {
                     "property": {
                         "labels": {
-                            "override-type": "NodeListOf<HTMLLabelElement> | null"
+                            "overrideType": "NodeListOf<HTMLLabelElement> | null"
                         }
                     }
                 },
@@ -1949,7 +1949,7 @@
                             "name": "target",
                             "read-only": 1,
                             "nullable": 1,
-                            "override-type": "T"
+                            "overrideType": "T"
                         }
                     }
                 }
@@ -2069,12 +2069,12 @@
                     "member": {
                         "done": {
                             "name": "done",
-                            "override-type": "true",
+                            "overrideType": "true",
                             "required": 1
                         },
                         "value": {
                             "name": "value",
-                            "override-type": "undefined"
+                            "overrideType": "undefined"
                         }
                     }
                 }
@@ -2090,12 +2090,12 @@
                     "member": {
                         "done": {
                             "name": "done",
-                            "override-type": "false",
+                            "overrideType": "false",
                             "required": 1
                         },
                         "value": {
                             "name": "value",
-                            "override-type": "T",
+                            "overrideType": "T",
                             "required": 1
                         }
                     }
@@ -2106,7 +2106,7 @@
     "typedefs": {
         "typedef": [
             {
-                "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
+                "overrideType": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
                 "new-type": "InsertPosition"
             },
             {
@@ -2114,7 +2114,7 @@
                 "new-type": "HeadersInit"
             },
             {
-                "override-type": "number | string | Date | BufferSource | IDBArrayKey",
+                "overrideType": "number | string | Date | BufferSource | IDBArrayKey",
                 "new-type": "IDBValidKey"
             },
             {
@@ -2127,7 +2127,7 @@
             },
             {
                 "new-type": "MutationRecordType",
-                "override-type": "\"attributes\" | \"characterData\" | \"childList\""
+                "overrideType": "\"attributes\" | \"characterData\" | \"childList\""
             },
             {
                 "new-type": "IDBKeyPath",
@@ -2135,7 +2135,7 @@
             },
             {
                 "new-type": "Transferable",
-                "override-type": "ArrayBuffer | MessagePort | ImageBitmap"
+                "overrideType": "ArrayBuffer | MessagePort | ImageBitmap"
             },
             {
                 "new-type": "WindowProxy",
@@ -2144,7 +2144,7 @@
             {
                 "new-type": "ExportValue",
                 "legacy-namespace": "WebAssembly",
-                "override-type": "Function | Global | Memory | Table"
+                "overrideType": "Function | Global | Memory | Table"
             },
             {
                 "new-type": "Exports",
@@ -2162,7 +2162,7 @@
             {
                 "new-type": "ImportValue",
                 "legacy-namespace": "WebAssembly",
-                "override-type": "ExportValue | number"
+                "overrideType": "ExportValue | number"
             },
             {
                 "new-type": "ModuleImports",
@@ -2205,7 +2205,7 @@
                         "type": "ReadableStreamDefaultReadDoneResult"
                     }
                 ],
-                "override-type": "ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult"
+                "overrideType": "ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult"
             },
             {
                 "new-type": "ReadableStreamReader",
@@ -2219,7 +2219,7 @@
                         "type": "ReadableStreamDefaultReader"
                     }
                 ],
-                "override-type": "ReadableStreamDefaultReader<T>"
+                "overrideType": "ReadableStreamDefaultReader<T>"
             }
         ]
     }

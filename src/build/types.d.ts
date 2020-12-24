@@ -2,7 +2,7 @@ export interface Typed {
     type: string | Typed[];
     subtype?: Typed | Typed[];
     nullable?: 1;
-    "override-type"?: string;
+    overrideType?: string;
     "additional-types"?: string[];
 }
 
@@ -10,7 +10,6 @@ export interface Param extends Typed {
     name: string;
     optional?: 1;
     variadic?: 1;
-    "treat-null-as"?: string;
 }
 
 export interface Signature extends Typed {

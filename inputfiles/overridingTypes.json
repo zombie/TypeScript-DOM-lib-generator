@@ -12,7 +12,7 @@
                                     "param": [
                                         {
                                             "name": "keyframes",
-                                            "override-type": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                            "overrideType": "Keyframe[] | PropertyIndexedKeyframes | null"
                                         }
                                     ]
                                 }
@@ -118,7 +118,7 @@
                 "properties": {
                     "property": {
                         "onerror": {
-                            "override-type": "OnErrorEventHandler"
+                            "overrideType": "OnErrorEventHandler"
                         },
                         "ontouchcancel": {
                             "required": 0
@@ -203,7 +203,7 @@
                 "properties": {
                     "property": {
                         "body": {
-                            "override-type": "ReadableStream<Uint8Array> | null"
+                            "overrideType": "ReadableStream<Uint8Array> | null"
                         }
                     }
                 }
@@ -218,7 +218,7 @@
                         "param": [
                             {
                                 "name": "error",
-                                "override-type": "Error"
+                                "overrideType": "Error"
                             }
                         ]
                     }
@@ -236,7 +236,7 @@
                         "param": [
                             {
                                 "name": "chunk",
-                                "override-type": "T"
+                                "overrideType": "T"
                             }
                         ]
                     }
@@ -253,7 +253,7 @@
                         "param": [
                             {
                                 "name": "controller",
-                                "override-type": "ReadableStreamController<R>"
+                                "overrideType": "ReadableStreamController<R>"
                             }
                         ]
                     }
@@ -270,7 +270,7 @@
                         "param": [
                             {
                                 "name": "controller",
-                                "override-type": "ReadableStreamController<R>"
+                                "overrideType": "ReadableStreamController<R>"
                             }
                         ]
                     }
@@ -287,7 +287,7 @@
                         "param": [
                             {
                                 "name": "chunk",
-                                "override-type": "W"
+                                "overrideType": "W"
                             }
                         ]
                     }
@@ -304,7 +304,7 @@
                         "param": [
                             {
                                 "name": "controller",
-                                "override-type": "TransformStreamDefaultController<O>"
+                                "overrideType": "TransformStreamDefaultController<O>"
                             }
                         ]
                     }
@@ -321,7 +321,7 @@
                         "param": [
                             {
                                 "name": "controller",
-                                "override-type": "TransformStreamDefaultController<O>"
+                                "overrideType": "TransformStreamDefaultController<O>"
                             }
                         ]
                     }
@@ -341,11 +341,11 @@
                         "param": [
                             {
                                 "name": "chunk",
-                                "override-type": "I"
+                                "overrideType": "I"
                             },
                             {
                                 "name": "controller",
-                                "override-type": "TransformStreamDefaultController<O>"
+                                "overrideType": "TransformStreamDefaultController<O>"
                             }
                         ]
                     }
@@ -401,7 +401,7 @@
                                     "param": [
                                         {
                                             "name": "callback",
-                                            "override-type": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
+                                            "overrideType": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
                                         }
                                     ]
                                 }
@@ -414,7 +414,7 @@
                                     "param": [
                                         {
                                             "name": "callback",
-                                            "override-type": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
+                                            "overrideType": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
                                         }
                                     ]
                                 }
@@ -436,7 +436,7 @@
                 "properties": {
                     "property": {
                         "detail": {
-                            "override-type": "T"
+                            "overrideType": "T"
                         }
                     }
                 },
@@ -448,7 +448,7 @@
                                     "param": [
                                         {
                                             "name": "detail",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ]
                                 }
@@ -473,10 +473,10 @@
                             "param": [
                                 {
                                     "name": "eventInitDict",
-                                    "override-type": "CustomEventInit<T>"
+                                    "overrideType": "CustomEventInit<T>"
                                 }
                             ],
-                            "override-type": "CustomEvent<T>"
+                            "overrideType": "CustomEvent<T>"
                         }
                     }
                 }
@@ -496,14 +496,14 @@
                         },
                         "opener": {
                             "name": "opener",
-                            "override-type": "any",
+                            "overrideType": "any",
                             "read-only": 0
                         },
                         "self": {
-                            "override-type": "Window & typeof globalThis"
+                            "overrideType": "Window & typeof globalThis"
                         },
                         "window": {
-                            "override-type": "Window & typeof globalThis"
+                            "overrideType": "Window & typeof globalThis"
                         }
                     }
                 },
@@ -520,7 +520,7 @@
                                     "param": [
                                         {
                                             "name": "transfer",
-                                            "override-type": "Transferable[]"
+                                            "overrideType": "Transferable[]"
                                         }
                                     ]
                                 }
@@ -546,10 +546,10 @@
                                     "param": [
                                         {
                                             "name": "node",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         },
@@ -565,10 +565,10 @@
                                     "param": [
                                         {
                                             "name": "node",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         },
@@ -586,7 +586,7 @@
                             ],
                             "signature": {
                                 "0": {
-                                    "override-type": "HTMLCollectionOf<Element>"
+                                    "overrideType": "HTMLCollectionOf<Element>"
                                 }
                             }
                         },
@@ -594,7 +594,7 @@
                             "name": "getElementsByClassName",
                             "signature": {
                                 "0": {
-                                    "override-type": "HTMLCollectionOf<Element>"
+                                    "overrideType": "HTMLCollectionOf<Element>"
                                 }
                             }
                         },
@@ -602,7 +602,7 @@
                             "name": "getElementsByName",
                             "signature": {
                                 "0": {
-                                    "override-type": "NodeListOf<HTMLElement>"
+                                    "overrideType": "NodeListOf<HTMLElement>"
                                 }
                             }
                         }
@@ -612,11 +612,11 @@
                     "property": {
                         "defaultView": {
                             "name": "defaultView",
-                            "override-type": "(WindowProxy & typeof globalThis) | null"
+                            "overrideType": "(WindowProxy & typeof globalThis) | null"
                         },
                         "documentElement": {
                             "name": "documentElement",
-                            "override-type": "HTMLElement",
+                            "overrideType": "HTMLElement",
                             "nullable": false
                         },
                         "head": {
@@ -624,31 +624,31 @@
                         },
                         "anchors": {
                             "name": "anchors",
-                            "override-type": "HTMLCollectionOf<HTMLAnchorElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLAnchorElement>"
                         },
                         "embeds": {
                             "name": "embeds",
-                            "override-type": "HTMLCollectionOf<HTMLEmbedElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLEmbedElement>"
                         },
                         "forms": {
                             "name": "forms",
-                            "override-type": "HTMLCollectionOf<HTMLFormElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLFormElement>"
                         },
                         "images": {
                             "name": "images",
-                            "override-type": "HTMLCollectionOf<HTMLImageElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLImageElement>"
                         },
                         "links": {
                             "name": "links",
-                            "override-type": "HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>"
                         },
                         "plugins": {
                             "name": "plugins",
-                            "override-type": "HTMLCollectionOf<HTMLEmbedElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLEmbedElement>"
                         },
                         "scripts": {
                             "name": "scripts",
-                            "override-type": "HTMLCollectionOf<HTMLScriptElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLScriptElement>"
                         },
                         "location": {
                             "read-only": 0,
@@ -676,10 +676,10 @@
                                     "param": [
                                         {
                                             "name": "node",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         },
@@ -695,10 +695,10 @@
                                     "param": [
                                         {
                                             "name": "node",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         },
@@ -714,10 +714,10 @@
                                     "param": [
                                         {
                                             "name": "child",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         },
@@ -733,10 +733,10 @@
                                     "param": [
                                         {
                                             "name": "child",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         }
@@ -745,25 +745,25 @@
                 "properties": {
                     "property": {
                         "parentNode": {
-                            "override-type": "(Node & ParentNode) | null"
+                            "overrideType": "(Node & ParentNode) | null"
                         },
                         "parentElement": {
-                            "override-type": "HTMLElement | null"
+                            "overrideType": "HTMLElement | null"
                         },
                         "childNodes": {
-                            "override-type": "NodeListOf<ChildNode & Node>"
+                            "overrideType": "NodeListOf<ChildNode & Node>"
                         },
                         "firstChild": {
-                            "override-type": "(ChildNode & Node) | null"
+                            "overrideType": "(ChildNode & Node) | null"
                         },
                         "lastChild": {
-                            "override-type": "(ChildNode & Node) | null"
+                            "overrideType": "(ChildNode & Node) | null"
                         },
                         "nextSibling": {
-                            "override-type": "(ChildNode & Node) | null"
+                            "overrideType": "(ChildNode & Node) | null"
                         },
                         "previousSibling": {
-                            "override-type": "(ChildNode & Node) | null"
+                            "overrideType": "(ChildNode & Node) | null"
                         }
                     }
                 }
@@ -779,10 +779,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBCursorWithValue | null>"
+                                    "overrideType": "IDBRequest<IDBCursorWithValue | null>"
                                 }
                             }
                         },
@@ -793,10 +793,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBCursor | null>"
+                                    "overrideType": "IDBRequest<IDBCursor | null>"
                                 }
                             }
                         },
@@ -807,10 +807,10 @@
                                     "param": [
                                         {
                                             "name": "key",
-                                            "override-type": "IDBValidKey"
+                                            "overrideType": "IDBValidKey"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBValidKey>"
+                                    "overrideType": "IDBRequest<IDBValidKey>"
                                 }
                             }
                         },
@@ -818,7 +818,7 @@
                             "name": "clear",
                             "signature": {
                                 "0": {
-                                    "override-type": "IDBRequest<undefined>"
+                                    "overrideType": "IDBRequest<undefined>"
                                 }
                             }
                         },
@@ -829,10 +829,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<number>"
+                                    "overrideType": "IDBRequest<number>"
                                 }
                             }
                         },
@@ -843,10 +843,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<undefined>"
+                                    "overrideType": "IDBRequest<undefined>"
                                 }
                             }
                         },
@@ -857,10 +857,10 @@
                                     "param": [
                                         {
                                             "name": "key",
-                                            "override-type": "IDBValidKey"
+                                            "overrideType": "IDBValidKey"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBValidKey>"
+                                    "overrideType": "IDBRequest<IDBValidKey>"
                                 }
                             }
                         },
@@ -871,10 +871,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<any>"
+                                    "overrideType": "IDBRequest<any>"
                                 }
                             }
                         },
@@ -885,10 +885,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<any[]>"
+                                    "overrideType": "IDBRequest<any[]>"
                                 }
                             }
                         },
@@ -899,10 +899,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBValidKey[]>"
+                                    "overrideType": "IDBRequest<IDBValidKey[]>"
                                 }
                             }
                         },
@@ -913,10 +913,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBValidKey | undefined>"
+                                    "overrideType": "IDBRequest<IDBValidKey | undefined>"
                                 }
                             }
                         }
@@ -926,7 +926,7 @@
                     "property": {
                         "keyPath": {
                             "name": "keyPath",
-                            "override-type": "string | string[]"
+                            "overrideType": "string | string[]"
                         }
                     }
                 }
@@ -937,7 +937,7 @@
                     "property": {
                         "keyPath": {
                             "name": "keyPath",
-                            "override-type": "string | string[]"
+                            "overrideType": "string | string[]"
                         }
                     }
                 },
@@ -950,10 +950,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBCursorWithValue | null>"
+                                    "overrideType": "IDBRequest<IDBCursorWithValue | null>"
                                 }
                             }
                         },
@@ -964,10 +964,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBCursor | null>"
+                                    "overrideType": "IDBRequest<IDBCursor | null>"
                                 }
                             }
                         },
@@ -978,10 +978,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<number>"
+                                    "overrideType": "IDBRequest<number>"
                                 }
                             }
                         },
@@ -992,10 +992,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<any>"
+                                    "overrideType": "IDBRequest<any>"
                                 }
                             }
                         },
@@ -1006,10 +1006,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<any[]>"
+                                    "overrideType": "IDBRequest<any[]>"
                                 }
                             }
                         },
@@ -1020,10 +1020,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange | null"
+                                            "overrideType": "IDBValidKey | IDBKeyRange | null"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBValidKey[]>"
+                                    "overrideType": "IDBRequest<IDBValidKey[]>"
                                 }
                             }
                         },
@@ -1034,10 +1034,10 @@
                                     "param": [
                                         {
                                             "name": "query",
-                                            "override-type": "IDBValidKey | IDBKeyRange"
+                                            "overrideType": "IDBValidKey | IDBKeyRange"
                                         }
                                     ],
-                                    "override-type": "IDBRequest<IDBValidKey | undefined>"
+                                    "overrideType": "IDBRequest<IDBValidKey | undefined>"
                                 }
                             }
                         }
@@ -1064,7 +1064,7 @@
                     "property": {
                         "returnValue": {
                             "name": "returnValue",
-                            "override-type": "any"
+                            "overrideType": "any"
                         }
                     }
                 }
@@ -1088,14 +1088,14 @@
                         "getEnclosureList": {
                             "signature": {
                                 "0": {
-                                    "override-type": "NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
+                                    "overrideType": "NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
                                 }
                             }
                         },
                         "getIntersectionList": {
                             "signature": {
                                 "0": {
-                                    "override-type": "NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
+                                    "overrideType": "NodeListOf<SVGCircleElement | SVGEllipseElement | SVGImageElement | SVGLineElement | SVGPathElement | SVGPolygonElement | SVGPolylineElement | SVGRectElement | SVGTextElement | SVGUseElement>"
                                 }
                             }
                         }
@@ -1131,11 +1131,11 @@
                     "property": {
                         "selectedOptions": {
                             "name": "selectedOptions",
-                            "override-type": "HTMLCollectionOf<HTMLOptionElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLOptionElement>"
                         },
                         "labels": {
                             "name": "labels",
-                            "override-type": "NodeListOf<HTMLLabelElement>"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1153,7 +1153,7 @@
                     "property": {
                         "options": {
                             "name": "options",
-                            "override-type": "HTMLCollectionOf<HTMLOptionElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLOptionElement>"
                         }
                     }
                 },
@@ -1196,11 +1196,11 @@
                     "property": {
                         "rows": {
                             "name": "rows",
-                            "override-type": "HTMLCollectionOf<HTMLTableRowElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLTableRowElement>"
                         },
                         "tBodies": {
                             "name": "tBodies",
-                            "override-type": "HTMLCollectionOf<HTMLTableSectionElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLTableSectionElement>"
                         }
                     }
                 }
@@ -1210,7 +1210,7 @@
                     "property": {
                         "rows": {
                             "name": "rows",
-                            "override-type": "HTMLCollectionOf<HTMLTableRowElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLTableRowElement>"
                         }
                     }
                 }
@@ -1227,7 +1227,7 @@
                             ],
                             "signature": {
                                 "0": {
-                                    "override-type": "HTMLCollectionOf<Element>"
+                                    "overrideType": "HTMLCollectionOf<Element>"
                                 }
                             }
                         }
@@ -1240,11 +1240,11 @@
                     "property": {
                         "dropEffect": {
                             "name": "dropEffect",
-                            "override-type": "\"none\" | \"copy\" | \"link\" | \"move\""
+                            "overrideType": "\"none\" | \"copy\" | \"link\" | \"move\""
                         },
                         "effectAllowed": {
                             "name": "effectAllowed",
-                            "override-type": "\"none\" | \"copy\" | \"copyLink\" | \"copyMove\" | \"link\" | \"linkMove\" | \"move\" | \"all\" | \"uninitialized\""
+                            "overrideType": "\"none\" | \"copy\" | \"copyLink\" | \"copyMove\" | \"link\" | \"linkMove\" | \"move\" | \"all\" | \"uninitialized\""
                         }
                     }
                 }
@@ -1284,7 +1284,7 @@
                                     "param": [
                                         {
                                             "name": "key",
-                                            "override-type": "IDBValidKey"
+                                            "overrideType": "IDBValidKey"
                                         }
                                     ]
                                 }
@@ -1296,11 +1296,11 @@
                                     "param": [
                                         {
                                             "name": "key",
-                                            "override-type": "IDBValidKey"
+                                            "overrideType": "IDBValidKey"
                                         },
                                         {
                                             "name": "primaryKey",
-                                            "override-type": "IDBValidKey"
+                                            "overrideType": "IDBValidKey"
                                         }
                                     ]
                                 }
@@ -1309,14 +1309,14 @@
                         "delete": {
                             "signature": {
                                 "0": {
-                                    "override-type": "IDBRequest<undefined>"
+                                    "overrideType": "IDBRequest<undefined>"
                                 }
                             }
                         },
                         "update": {
                             "signature": {
                                 "0": {
-                                    "override-type": "IDBRequest<IDBValidKey>"
+                                    "overrideType": "IDBRequest<IDBValidKey>"
                                 }
                             }
                         }
@@ -1333,7 +1333,7 @@
                         },
                         "result": {
                             "name": "result",
-                            "override-type": "T"
+                            "overrideType": "T"
                         }
                     }
                 },
@@ -1403,7 +1403,7 @@
                                             "additional-types": ["AesDerivedKeyParams", "HmacImportParams", "HkdfParams", "Pbkdf2Params"]
                                         }
                                     ],
-                                    "override-type": "Promise<CryptoKey>"
+                                    "overrideType": "Promise<CryptoKey>"
                                 }
                             }
                         },
@@ -1411,7 +1411,7 @@
                             "name": "digest",
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<ArrayBuffer>"
+                                    "overrideType": "Promise<ArrayBuffer>"
                                 }
                             }
                         },
@@ -1436,10 +1436,10 @@
                                     "param": [
                                         {
                                             "name": "format",
-                                            "override-type": "Exclude<KeyFormat, \"jwk\">"
+                                            "overrideType": "Exclude<KeyFormat, \"jwk\">"
                                         }
                                     ],
-                                    "override-type": "Promise<ArrayBuffer>"
+                                    "overrideType": "Promise<ArrayBuffer>"
                                 }
                             }
                         },
@@ -1451,7 +1451,7 @@
                             ],
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<CryptoKeyPair | CryptoKey>"
+                                    "overrideType": "Promise<CryptoKeyPair | CryptoKey>"
                                 }
                             }
                         },
@@ -1465,7 +1465,7 @@
                                     "param": [
                                         {
                                             "name": "format",
-                                            "override-type": "Exclude<KeyFormat, \"jwk\">"
+                                            "overrideType": "Exclude<KeyFormat, \"jwk\">"
                                         },
                                         {
                                             "name": "keyData",
@@ -1493,7 +1493,7 @@
                                             "additional-types": ["RsaPssParams", "EcdsaParams"]
                                         }
                                     ],
-                                    "override-type": "Promise<ArrayBuffer>"
+                                    "overrideType": "Promise<ArrayBuffer>"
                                 }
                             }
                         },
@@ -1522,7 +1522,7 @@
                                             "additional-types": ["RsaPssParams", "EcdsaParams"]
                                         }
                                     ],
-                                    "override-type": "Promise<boolean>"
+                                    "overrideType": "Promise<boolean>"
                                 }
                             }
                         },
@@ -1535,7 +1535,7 @@
                                             "additional-types": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         }
                                     ],
-                                    "override-type": "Promise<ArrayBuffer>"
+                                    "overrideType": "Promise<ArrayBuffer>"
                                 }
                             }
                         }
@@ -1547,11 +1547,11 @@
                     "property": {
                         "selectionDirection": {
                             "name": "selectionDirection",
-                            "override-type": "\"forward\" | \"backward\" | \"none\""
+                            "overrideType": "\"forward\" | \"backward\" | \"none\""
                         },
                         "valueAsDate": {
                             "name": "valueAsDate",
-                            "override-type": "Date | null"
+                            "overrideType": "Date | null"
                         }
                     }
                 },
@@ -1571,7 +1571,7 @@
                                         },
                                         {
                                             "name": "direction",
-                                            "override-type": "\"forward\" | \"backward\" | \"none\""
+                                            "overrideType": "\"forward\" | \"backward\" | \"none\""
                                         }
                                     ]
                                 }
@@ -1616,7 +1616,7 @@
                     "property": {
                         "labels": {
                             "name": "labels",
-                            "override-type": "NodeListOf<HTMLLabelElement>"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1638,7 +1638,7 @@
                     "property": {
                         "form": {
                             "name": "form",
-                            "override-type": "HTMLFormElement | null"
+                            "overrideType": "HTMLFormElement | null"
                         }
                     }
                 }
@@ -1655,7 +1655,7 @@
                     "property": {
                         "labels": {
                             "name": "labels",
-                            "override-type": "NodeListOf<HTMLLabelElement>"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1684,7 +1684,7 @@
                     "property": {
                         "labels": {
                             "name": "labels",
-                            "override-type": "NodeListOf<HTMLLabelElement>"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1699,7 +1699,7 @@
                     "property": {
                         "labels": {
                             "name": "labels",
-                            "override-type": "NodeListOf<HTMLLabelElement>"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },
@@ -1714,11 +1714,11 @@
                     "property": {
                         "labels": {
                             "name": "labels",
-                            "override-type": "NodeListOf<HTMLLabelElement>"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         },
                         "selectionDirection": {
                             "name": "selectionDirection",
-                            "override-type": "\"forward\" | \"backward\" | \"none\""
+                            "overrideType": "\"forward\" | \"backward\" | \"none\""
                         }
                     }
                 },
@@ -1738,7 +1738,7 @@
                                         },
                                         {
                                             "name": "direction",
-                                            "override-type": "\"forward\" | \"backward\" | \"none\""
+                                            "overrideType": "\"forward\" | \"backward\" | \"none\""
                                         }
                                     ]
                                 }
@@ -1759,7 +1759,7 @@
                         "getRegistration": {
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<ServiceWorkerRegistration | undefined>"
+                                    "overrideType": "Promise<ServiceWorkerRegistration | undefined>"
                                 }
                             }
                         }
@@ -1804,7 +1804,7 @@
                     "property": {
                         "cells": {
                             "name": "cells",
-                            "override-type": "HTMLCollectionOf<HTMLTableCellElement>"
+                            "overrideType": "HTMLCollectionOf<HTMLTableCellElement>"
                         }
                     }
                 }
@@ -1815,31 +1815,31 @@
                     "property": {
                         "onloadstart": {
                             "name": "onloadstart",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onprogress": {
                             "name": "onprogress",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onabort": {
                             "name": "onabort",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onerror": {
                             "name": "onerror",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onload": {
                             "name": "onload",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "ontimeout": {
                             "name": "ontimeout",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         },
                         "onloadend": {
                             "name": "onloadend",
-                            "override-type": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
+                            "overrideType": "((this: XMLHttpRequest, ev: ProgressEvent) => any) | null"
                         }
                     }
                 },
@@ -1913,7 +1913,7 @@
                     "property": {
                         "type": {
                             "name": "type",
-                            "override-type": "MutationRecordType"
+                            "overrideType": "MutationRecordType"
                         }
                     }
                 }
@@ -1939,7 +1939,7 @@
                     "property": {
                         "type": {
                             "name": "type",
-                            "override-type": "ClientTypes"
+                            "overrideType": "ClientTypes"
                         }
                     }
                 },
@@ -1951,7 +1951,7 @@
                                     "param": [
                                         {
                                             "name": "transfer",
-                                            "override-type": "Transferable[]"
+                                            "overrideType": "Transferable[]"
                                         }
                                     ]
                                 }
@@ -2040,7 +2040,7 @@
                             "name": "match",
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<Response | undefined>"
+                                    "overrideType": "Promise<Response | undefined>"
                                 }
                             }
                         }
@@ -2055,7 +2055,7 @@
                             "name": "match",
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<Response | undefined>"
+                                    "overrideType": "Promise<Response | undefined>"
                                 }
                             }
                         }
@@ -2085,7 +2085,7 @@
                             "param": [
                                 {
                                     "name": "keyframes",
-                                    "override-type": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                    "overrideType": "Keyframe[] | PropertyIndexedKeyframes | null"
                                 }
                             ]
                         }
@@ -2095,7 +2095,7 @@
                     "property": {
                         "target": {
                             "name": "target",
-                            "override-type": "Element | null"
+                            "overrideType": "Element | null"
                         }
                     }
                 },
@@ -2104,7 +2104,7 @@
                         "getKeyframes": {
                             "signature": {
                                 "0": {
-                                    "override-type": "ComputedKeyframe[]"
+                                    "overrideType": "ComputedKeyframe[]"
                                 }
                             }
                         },
@@ -2114,7 +2114,7 @@
                                     "param": [
                                         {
                                             "name": "keyframes",
-                                            "override-type": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                            "overrideType": "Keyframe[] | PropertyIndexedKeyframes | null"
                                         }
                                     ]
                                 }
@@ -2140,7 +2140,7 @@
                                     "param": [
                                         {
                                             "name": "transfer",
-                                            "override-type": "Transferable[]"
+                                            "overrideType": "Transferable[]"
                                         }
                                     ]
                                 }
@@ -2177,10 +2177,10 @@
                                     "param": [
                                         {
                                             "name": "array",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "T"
+                                    "overrideType": "T"
                                 }
                             }
                         }
@@ -2233,7 +2233,7 @@
                                     "param": [
                                         {
                                             "name": "transfer",
-                                            "override-type": "Transferable[]"
+                                            "overrideType": "Transferable[]"
                                         }
                                     ]
                                 }
@@ -2264,7 +2264,7 @@
                                     "param": [
                                         {
                                             "name": "transfer",
-                                            "override-type": "Transferable[]"
+                                            "overrideType": "Transferable[]"
                                         }
                                     ]
                                 }
@@ -2283,7 +2283,7 @@
                                     "param": [
                                         {
                                             "name": "transfer",
-                                            "override-type": "Transferable[]"
+                                            "overrideType": "Transferable[]"
                                         }
                                     ]
                                 }
@@ -2329,14 +2329,14 @@
                             "param": [
                                 {
                                     "name": "underlyingSource",
-                                    "override-type": "UnderlyingSource<R>"
+                                    "overrideType": "UnderlyingSource<R>"
                                 },
                                 {
                                     "name": "strategy",
-                                    "override-type": "QueuingStrategy<R>"
+                                    "overrideType": "QueuingStrategy<R>"
                                 }
                             ],
-                            "override-type": "ReadableStream<R>"
+                            "overrideType": "ReadableStream<R>"
                         }
                     },
                     "force-references": [
@@ -2353,7 +2353,7 @@
                         "getReader": {
                             "signature": {
                                 "0": {
-                                    "override-type": "ReadableStreamDefaultReader<R>"
+                                    "overrideType": "ReadableStreamDefaultReader<R>"
                                 }
                             }
                         },
@@ -2368,10 +2368,10 @@
                                     "param": [
                                         {
                                             "name": "transform",
-                                            "override-type": "ReadableWritablePair<T, R>"
+                                            "overrideType": "ReadableWritablePair<T, R>"
                                         }
                                     ],
-                                    "override-type": "ReadableStream<T>"
+                                    "overrideType": "ReadableStream<T>"
                                 }
                             }
                         },
@@ -2381,7 +2381,7 @@
                                     "param": [
                                         {
                                             "name": "destination",
-                                            "override-type": "WritableStream<R>"
+                                            "overrideType": "WritableStream<R>"
                                         }
                                     ]
                                 }
@@ -2390,7 +2390,7 @@
                         "tee": {
                             "signature": {
                                 "0": {
-                                    "override-type": "[ReadableStream<R>, ReadableStream<R>]"
+                                    "overrideType": "[ReadableStream<R>, ReadableStream<R>]"
                                 }
                             }
                         }
@@ -2416,10 +2416,10 @@
                             "param": [
                                 {
                                     "name": "stream",
-                                    "override-type": "ReadableStream<R>"
+                                    "overrideType": "ReadableStream<R>"
                                 }
                             ],
-                            "override-type": "ReadableStreamDefaultReader<R>"
+                            "overrideType": "ReadableStreamDefaultReader<R>"
                         }
                     }
                 },
@@ -2428,7 +2428,7 @@
                         "read": {
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<ReadableStreamDefaultReadResult<R>>"
+                                    "overrideType": "Promise<ReadableStreamDefaultReadResult<R>>"
                                 }
                             }
                         }
@@ -2450,7 +2450,7 @@
                                     "param": [
                                         {
                                             "name": "chunk",
-                                            "override-type": "R"
+                                            "overrideType": "R"
                                         }
                                     ]
                                 }
@@ -2472,14 +2472,14 @@
                             "param": [
                                 {
                                     "name": "underlyingSink",
-                                    "override-type": "UnderlyingSink<W>"
+                                    "overrideType": "UnderlyingSink<W>"
                                 },
                                 {
                                     "name": "strategy",
-                                    "override-type": "QueuingStrategy<W>"
+                                    "overrideType": "QueuingStrategy<W>"
                                 }
                             ],
-                            "override-type": "WritableStream<W>"
+                            "overrideType": "WritableStream<W>"
                         }
                     },
                     "force-references": [
@@ -2502,7 +2502,7 @@
                         "getWriter": {
                             "signature": {
                                 "0": {
-                                    "override-type": "WritableStreamDefaultWriter<W>"
+                                    "overrideType": "WritableStreamDefaultWriter<W>"
                                 }
                             }
                         }
@@ -2528,10 +2528,10 @@
                             "param": [
                                 {
                                     "name": "stream",
-                                    "override-type": "WritableStream<W>"
+                                    "overrideType": "WritableStream<W>"
                                 }
                             ],
-                            "override-type": "WritableStreamDefaultWriter<W>"
+                            "overrideType": "WritableStreamDefaultWriter<W>"
                         }
                     }
                 },
@@ -2543,7 +2543,7 @@
                                     "param": [
                                         {
                                             "name": "chunk",
-                                            "override-type": "W"
+                                            "overrideType": "W"
                                         }
                                     ]
                                 }
@@ -2566,10 +2566,10 @@
                 "properties": {
                     "property": {
                         "readable": {
-                            "override-type": "ReadableStream<O>"
+                            "overrideType": "ReadableStream<O>"
                         },
                         "writable": {
-                            "override-type": "WritableStream<I>"
+                            "overrideType": "WritableStream<I>"
                         }
                     }
                 },
@@ -2589,18 +2589,18 @@
                             "param": [
                                 {
                                     "name": "transformer",
-                                    "override-type": "Transformer<I, O>"
+                                    "overrideType": "Transformer<I, O>"
                                 },
                                 {
                                     "name": "writableStrategy",
-                                    "override-type": "QueuingStrategy<I>"
+                                    "overrideType": "QueuingStrategy<I>"
                                 },
                                 {
                                     "name": "readableStrategy",
-                                    "override-type": "QueuingStrategy<O>"
+                                    "overrideType": "QueuingStrategy<O>"
                                 }
                             ],
-                            "override-type": "TransformStream<I, O>"
+                            "overrideType": "TransformStream<I, O>"
                         }
                     },
                     "force-references": [
@@ -2628,7 +2628,7 @@
                                     "param": [
                                         {
                                             "name": "chunk",
-                                            "override-type": "O"
+                                            "overrideType": "O"
                                         }
                                     ]
                                 }
@@ -2643,7 +2643,7 @@
                     "property": {
                         "size": {
                             "name": "size",
-                            "override-type": [
+                            "overrideType": [
                                 "QueuingStrategySize<ArrayBufferView>"
                             ]
                         }
@@ -2656,7 +2656,7 @@
                     "property": {
                         "size": {
                             "name": "size",
-                            "override-type": [
+                            "overrideType": [
                                 "QueuingStrategySize"
                             ]
                         }
@@ -2669,12 +2669,12 @@
                         "readable": {
                             "name": "readable",
                             "read-only": 1,
-                            "override-type": "ReadableStream<string>"
+                            "overrideType": "ReadableStream<string>"
                         },
                         "writable": {
                             "name": "writable",
                             "read-only": 1,
-                            "override-type": "WritableStream<BufferSource>"
+                            "overrideType": "WritableStream<BufferSource>"
                         }
                     }
                 }
@@ -2685,12 +2685,12 @@
                         "readable": {
                             "name": "readable",
                             "read-only": 1,
-                            "override-type": "ReadableStream<Uint8Array>"
+                            "overrideType": "ReadableStream<Uint8Array>"
                         },
                         "writable": {
                             "name": "writable",
                             "read-only": 1,
-                            "override-type": "WritableStream<string>"
+                            "overrideType": "WritableStream<string>"
                         }
                     }
                 }
@@ -2717,7 +2717,7 @@
                 "properties": {
                     "property": {
                         "self": {
-                            "override-type": "WorkerGlobalScope & typeof globalThis"
+                            "overrideType": "WorkerGlobalScope & typeof globalThis"
                         }
                     }
                 },
@@ -2766,7 +2766,7 @@
                 "properties": {
                     "property": {
                         "data": {
-                            "override-type": "T"
+                            "overrideType": "T"
                         }
                     }
                 },
@@ -2787,10 +2787,10 @@
                             "param": [
                                 {
                                     "name": "eventInitDict",
-                                    "override-type": "MessageEventInit<T>"
+                                    "overrideType": "MessageEventInit<T>"
                                 }
                             ],
-                            "override-type": "MessageEvent<T>"
+                            "overrideType": "MessageEvent<T>"
                         }
                     }
                 }
@@ -2801,7 +2801,7 @@
                         "get": {
                             "signature": {
                                 "0": {
-                                    "override-type": "Promise<Client | undefined>"
+                                    "overrideType": "Promise<Client | undefined>"
                                 }
                             }
                         },
@@ -2817,10 +2817,10 @@
                                     "param": [
                                         {
                                             "name": "options",
-                                            "override-type": "T"
+                                            "overrideType": "T"
                                         }
                                     ],
-                                    "override-type": "Promise<ReadonlyArray<T[\"type\"] extends \"window\" ? WindowClient : Client>>"
+                                    "overrideType": "Promise<ReadonlyArray<T[\"type\"] extends \"window\" ? WindowClient : Client>>"
                                 }
                             }
                         }
@@ -2837,7 +2837,7 @@
                     "member": {
                         "data": {
                             "name": "data",
-                            "override-type": "T"
+                            "overrideType": "T"
                         }
                     }
                 },
@@ -2854,7 +2854,7 @@
                     "member": {
                         "detail": {
                             "name": "detail",
-                            "override-type": "T"
+                            "overrideType": "T"
                         }
                     }
                 },
@@ -2871,7 +2871,7 @@
                     "member": {
                         "type": {
                             "name": "type",
-                            "override-type": "ClientTypes"
+                            "overrideType": "ClientTypes"
                         }
                     }
                 }
@@ -2976,7 +2976,7 @@
                 "members": {
                     "member": {
                         "size": {
-                            "override-type": "QueuingStrategySize<T>"
+                            "overrideType": "QueuingStrategySize<T>"
                         }
                     }
                 }
@@ -2995,10 +2995,10 @@
                 "members": {
                     "member": {
                         "readable": {
-                            "override-type": "ReadableStream<R>"
+                            "overrideType": "ReadableStream<R>"
                         },
                         "writable": {
-                            "override-type": "WritableStream<W>"
+                            "overrideType": "WritableStream<W>"
                         }
                     }
                 }
@@ -3035,13 +3035,13 @@
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "UnderlyingSourceStartCallback<R>"
+                            "overrideType": "UnderlyingSourceStartCallback<R>"
                         },
                         "pull": {
-                            "override-type": "UnderlyingSourcePullCallback<R>"
+                            "overrideType": "UnderlyingSourcePullCallback<R>"
                         },
                         "type": {
-                            "override-type": "undefined"
+                            "overrideType": "undefined"
                         }
                     }
                 }
@@ -3065,10 +3065,10 @@
                 "members": {
                     "member": {
                         "write": {
-                            "override-type": "UnderlyingSinkWriteCallback<W>"
+                            "overrideType": "UnderlyingSinkWriteCallback<W>"
                         },
                         "type": {
-                            "override-type": "undefined"
+                            "overrideType": "undefined"
                         }
                     }
                 }
@@ -3096,19 +3096,19 @@
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "TransformerStartCallback<O>"
+                            "overrideType": "TransformerStartCallback<O>"
                         },
                         "transform": {
-                            "override-type": "TransformerTransformCallback<I, O>"
+                            "overrideType": "TransformerTransformCallback<I, O>"
                         },
                         "flush": {
-                            "override-type": "TransformerFlushCallback<O>"
+                            "overrideType": "TransformerFlushCallback<O>"
                         },
                         "readableType": {
-                            "override-type": "undefined"
+                            "overrideType": "undefined"
                         },
                         "writableType": {
-                            "override-type": "undefined"
+                            "overrideType": "undefined"
                         }
                     }
                 }
@@ -3136,7 +3136,7 @@
     "typedefs": {
         "typedef": [
             {
-                "override-type": "ReadableStreamDefaultController<T>",
+                "overrideType": "ReadableStreamDefaultController<T>",
                 "new-type": "ReadableStreamController",
                 "typeParameters": [
                     {

@@ -258,7 +258,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
     function convertDomTypeToTsType(obj: Browser.Typed): string {
-        if (obj["override-type"]) return obj["override-type"]!;
+        if (obj.overrideType) return obj.overrideType!;
         if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
         const type = convertDomTypeToTsTypeWorker(obj);
         return type.nullable ? makeNullable(type.name) : type.name;
@@ -608,8 +608,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
         else {
             let pType: string;
-            if (p["override-type"]) {
-                pType = p["override-type"]!;
+            if (p.overrideType) {
+                pType = p.overrideType!;
             }
             else if (isEventHandler(p)) {
                 // Sometimes event handlers with the same name may actually handle different
@@ -941,7 +941,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                     if (indexer) {
                         printer.printLine(`[${indexer.name}: ${convertDomTypeToTsType(indexer)}]: ${convertDomTypeToTsType({
                             type: m.signature[0].type,
-                            "override-type": m.signature[0]["override-type"],
+                            overrideType: m.signature[0].overrideType,
                             subtype: m.signature[0].subtype,
                             nullable: undefined
                         })};`);
@@ -1239,7 +1239,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 if (iterableGetter && lengthProperty) {
                     return [convertDomTypeToTsType({
                         type: iterableGetter.signature[0].type,
-                        "override-type": iterableGetter.signature[0]["override-type"]
+                        overrideType: iterableGetter.signature[0].overrideType
                     })];
                 }
             }
@@ -1302,7 +1302,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 }
                 return type === "sequence" || !!sequenceTypedefMap[type];
             }
-            return !!s.param && s.param.some(p => !p["override-type"] && typeIncludesSequence(p.type));
+            return !!s.param && s.param.some(p => !p.overrideType && typeIncludesSequence(p.type));
         }
 
         function replaceTypedefsInSignatures(signatures: Browser.Signature[]): Browser.Signature[] {

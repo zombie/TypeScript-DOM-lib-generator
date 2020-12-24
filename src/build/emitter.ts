@@ -103,7 +103,7 @@ function createTextWriter(newLine: string) {
 }
 
 function isEventHandler(p: Browser.Property) {
-    return typeof p["event-handler"] === "string";
+    return typeof p.eventHandler === "string";
 }
 
 export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boolean) {
@@ -145,7 +145,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     /// And they don't just differ by an "on" prefix!
     const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
         !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
-            const eventName = p["event-handler"]!;
+            const eventName = p.eventHandler!;
             if (eventName === undefined) return undefined;
             return { name: p.name, eventName };
         }));
@@ -615,7 +615,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
                 // Sometimes event handlers with the same name may actually handle different
                 // events in different interfaces. For example, "onerror" handles "ErrorEvent"
                 // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
-                const eType = p["event-handler"] ? getEventTypeInInterface(p["event-handler"]!, i) : "Event";
+                const eType = p.eventHandler ? getEventTypeInInterface(p.eventHandler!, i) : "Event";
                 pType = `(${emitEventHandlerThis(prefix, i)}ev: ${eType}) => any`;
                 if (typeof p.type === "string" && !p.type.endsWith("NonNull")) {
                     pType = `(${pType}) | null`;

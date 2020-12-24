@@ -28,7 +28,7 @@ export interface Member extends Typed {
 
 export interface Property extends Typed {
     name: string;
-    "event-handler"?: string;
+    eventHandler?: string;
     "read-only"?: 1;
     replaceable?: string;
     "put-forwards"?: string;

@@ -702,12 +702,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         printLine(`${prefix || ""}${getNameWithTypeParameter(s.typeParameters, name || "")}(${paramsString}): ${returnType};`);
     }
 
-    function emitSignatures(method: { signature?: Browser.Signature[], overrideSignatures?: string[], "additional-signatures"?: string[] }, prefix: string, name: string, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
+    function emitSignatures(method: Browser.AnonymousMethod, prefix: string, name: string, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
         if (method.overrideSignatures) {
             method.overrideSignatures!.forEach(s => printLine(`${prefix}${s};`));
         }
         else if (method.signature) {
-            method["additional-signatures"]?.forEach(s => printLine(`${prefix}${s};`));
+            method.additionalSignatures?.forEach(s => printLine(`${prefix}${s};`));
             method.signature.forEach(sig => emitSignature(sig, prefix, name, printLine, shouldResolvePromise));
         }
     }

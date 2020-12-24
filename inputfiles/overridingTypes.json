@@ -150,7 +150,7 @@
                     "method": {
                         "getExtension": {
                             "name": "getExtension",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "getExtension(extensionName: \"EXT_blend_minmax\"): EXT_blend_minmax | null",
                                 "getExtension(extensionName: \"EXT_color_buffer_float\"): EXT_color_buffer_float | null",
                                 "getExtension(extensionName: \"EXT_color_buffer_half_float\"): EXT_color_buffer_half_float | null",
@@ -580,7 +580,7 @@
                         },
                         "getElementsByTagNameNS": {
                             "name": "getElementsByTagNameNS",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>"
                             ],
@@ -1048,7 +1048,7 @@
                 "methods": {
                     "method": {
                         "getContext": {
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "getContext(contextId: \"2d\", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null",
                                 "getContext(contextId: \"bitmaprenderer\", options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext | null",
                                 "getContext(contextId: \"webgl\", options?: WebGLContextAttributes): WebGLRenderingContext | null",
@@ -1221,7 +1221,7 @@
                     "method": {
                         "getElementsByTagNameNS": {
                             "name": "getElementsByTagNameNS",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", localName: string): HTMLCollectionOf<HTMLElement>",
                                 "getElementsByTagNameNS(namespaceURI: \"http://www.w3.org/2000/svg\", localName: string): HTMLCollectionOf<SVGElement>"
                             ],
@@ -1428,7 +1428,7 @@
                             }
                         },
                         "exportKey": {
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "exportKey(format: \"jwk\", key: CryptoKey): Promise<JsonWebKey>"
                             ],
                             "signature": {
@@ -1445,7 +1445,7 @@
                         },
                         "generateKey": {
                             "name": "generateKey",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair>",
                                 "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
                             ],
@@ -1457,7 +1457,7 @@
                         },
                         "importKey": {
                             "name": "importKey",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "importKey(format: \"jwk\", keyData: JsonWebKey, algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
                             ],
                             "signature": {

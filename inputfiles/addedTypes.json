@@ -528,7 +528,7 @@
                             }
                         },
                         "closest": {
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null",
                                 "closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null"
                             ],
@@ -598,7 +598,7 @@
                     "method": {
                         "createElementNS": {
                             "name": "createElementNS",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "createElementNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", qualifiedName: string): HTMLElement",
                                 "createElementNS<K extends keyof SVGElementTagNameMap>(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: K): SVGElementTagNameMap[K]",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement",

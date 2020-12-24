@@ -83,7 +83,7 @@ export interface AnonymousMethod {
     stringifier?: 1;
     comment?: string;
     overrideSignatures?: string[];
-    "additional-signatures"?: string[];
+    "additionalSignatures"?: string[];
     specs?: string;
     exposed?: string;
     deprecated?: 1;

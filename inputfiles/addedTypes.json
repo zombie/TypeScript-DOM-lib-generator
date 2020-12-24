@@ -456,7 +456,7 @@
                             "getter": true,
                             "signature": [
                                 {
-                                    "nullable": 1,
+                                    "nullable": true,
                                     "overrideType": "T",
                                     "param": [
                                         {
@@ -629,7 +629,7 @@
                         "doNotTrack": {
                             "name": "doNotTrack",
                             "readonly": true,
-                            "nullable": 1,
+                            "nullable": true,
                             "type": "DOMString"
                         }
                     }
@@ -1948,7 +1948,7 @@
                         "target": {
                             "name": "target",
                             "readonly": true,
-                            "nullable": 1,
+                            "nullable": true,
                             "overrideType": "T"
                         }
                     }

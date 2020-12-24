@@ -265,16 +265,15 @@ function convertCallbackFunctions(c: webidl2.CallbackType): Browser.CallbackFunc
 }
 
 function convertArgument(arg: webidl2.Argument): Browser.Param {
-    const allowNull = hasExtAttr(arg.extAttrs, "LegacyNullToEmptyString");
     const idlType = convertIdlType(arg.idlType);
-    if (allowNull) {
-        idlType.nullable = 1;
+    if (hasExtAttr(arg.extAttrs, "LegacyNullToEmptyString")) {
+        idlType.nullable = true;
     }
     return {
         name: arg.name,
         ...idlType,
-        optional: arg.optional ? 1 : undefined,
-        variadic: arg.variadic ? 1 : undefined,
+        optional: arg.optional,
+        variadic: arg.variadic,
     }
 }
 
@@ -395,7 +394,7 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
     if (typeof i.idlType === "string") {
         return {
             type: i.idlType,
-            nullable: i.nullable ? 1 : undefined
+            nullable: i.nullable
         };
     }
     if (i.generic) {
@@ -405,13 +404,13 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
                 !Array.isArray(i.idlType) ? convertIdlType(i.idlType) :
                 i.idlType.length === 1 ? convertIdlType(i.idlType[0]) :
                 i.idlType.map(convertIdlType),
-            nullable: i.nullable ? 1 : undefined
+            nullable: i.nullable
         };
     }
     if (i.union) {
         return {
             type: (i.idlType as webidl2.IDLTypeDescription[]).map(convertIdlType),
-            nullable: i.nullable ? 1 : undefined
+            nullable: i.nullable
         };
     }
     throw new Error("Unsupported IDL type structure");

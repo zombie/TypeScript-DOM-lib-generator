@@ -1562,11 +1562,11 @@
                                     "param": [
                                         {
                                             "name": "start",
-                                            "nullable": 1
+                                            "nullable": true
                                         },
                                         {
                                             "name": "end",
-                                            "nullable": 1
+                                            "nullable": true
                                         },
                                         {
                                             "name": "direction",
@@ -1729,11 +1729,11 @@
                                     "param": [
                                         {
                                             "name": "start",
-                                            "nullable": 1
+                                            "nullable": true
                                         },
                                         {
                                             "name": "end",
-                                            "nullable": 1
+                                            "nullable": true
                                         },
                                         {
                                             "name": "direction",

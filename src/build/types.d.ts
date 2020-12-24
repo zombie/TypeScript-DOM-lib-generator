@@ -1,15 +1,15 @@
 export interface Typed {
     type: string | Typed[];
     subtype?: Typed | Typed[];
-    nullable?: 1;
+    nullable?: boolean;
     overrideType?: string;
     additionalTypes?: string[];
 }
 
 export interface Param extends Typed {
     name: string;
-    optional?: 1;
-    variadic?: 1;
+    optional?: boolean;
+    variadic?: boolean;
 }
 
 export interface Signature extends Typed {

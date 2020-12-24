@@ -387,7 +387,7 @@
                             "param": [
                                 {
                                     "name": "init",
-                                    "additional-types": ["URLSearchParams"]
+                                    "additionalTypes": ["URLSearchParams"]
                                 }
                             ]
                         }
@@ -2110,7 +2110,7 @@
                 "new-type": "InsertPosition"
             },
             {
-                "additional-types": ["Headers"],
+                "additionalTypes": ["Headers"],
                 "new-type": "HeadersInit"
             },
             {

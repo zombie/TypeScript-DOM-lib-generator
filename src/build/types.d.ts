@@ -3,7 +3,7 @@ export interface Typed {
     subtype?: Typed | Typed[];
     nullable?: 1;
     overrideType?: string;
-    "additional-types"?: string[];
+    additionalTypes?: string[];
 }
 
 export interface Param extends Typed {

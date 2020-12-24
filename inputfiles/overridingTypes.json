@@ -190,7 +190,7 @@
                                     "param": [
                                         {
                                             "name": "param",
-                                            "additional-types": ["GLboolean"]
+                                            "additionalTypes": ["GLboolean"]
                                         }
                                     ]
                                 }
@@ -1372,7 +1372,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
+                                            "additionalTypes": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         }
                                     ]
                                 }
@@ -1384,7 +1384,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["EcdhKeyDeriveParams", "HkdfParams", "Pbkdf2Params"]
+                                            "additionalTypes": ["EcdhKeyDeriveParams", "HkdfParams", "Pbkdf2Params"]
                                         }
                                     ]
                                 }
@@ -1396,11 +1396,11 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["EcdhKeyDeriveParams", "HkdfParams", "Pbkdf2Params"]
+                                            "additionalTypes": ["EcdhKeyDeriveParams", "HkdfParams", "Pbkdf2Params"]
                                         },
                                         {
                                             "name": "derivedKeyType",
-                                            "additional-types": ["AesDerivedKeyParams", "HmacImportParams", "HkdfParams", "Pbkdf2Params"]
+                                            "additionalTypes": ["AesDerivedKeyParams", "HmacImportParams", "HkdfParams", "Pbkdf2Params"]
                                         }
                                     ],
                                     "overrideType": "Promise<CryptoKey>"
@@ -1421,7 +1421,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
+                                            "additionalTypes": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         }
                                     ]
                                 }
@@ -1473,7 +1473,7 @@
                                         },
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["RsaHashedImportParams", "EcKeyImportParams", "HmacImportParams", "AesKeyAlgorithm"]
+                                            "additionalTypes": ["RsaHashedImportParams", "EcKeyImportParams", "HmacImportParams", "AesKeyAlgorithm"]
                                         }
                                     ]
                                 }
@@ -1490,7 +1490,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["RsaPssParams", "EcdsaParams"]
+                                            "additionalTypes": ["RsaPssParams", "EcdsaParams"]
                                         }
                                     ],
                                     "overrideType": "Promise<ArrayBuffer>"
@@ -1503,11 +1503,11 @@
                                     "param": [
                                         {
                                             "name": "unwrapAlgorithm",
-                                            "additional-types": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
+                                            "additionalTypes": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         },
                                         {
                                             "name": "unwrappedKeyAlgorithm",
-                                            "additional-types": ["RsaHashedImportParams", "EcKeyImportParams", "HmacImportParams", "AesKeyAlgorithm"]
+                                            "additionalTypes": ["RsaHashedImportParams", "EcKeyImportParams", "HmacImportParams", "AesKeyAlgorithm"]
                                         }
                                     ]
                                 }
@@ -1519,7 +1519,7 @@
                                     "param": [
                                         {
                                             "name": "algorithm",
-                                            "additional-types": ["RsaPssParams", "EcdsaParams"]
+                                            "additionalTypes": ["RsaPssParams", "EcdsaParams"]
                                         }
                                     ],
                                     "overrideType": "Promise<boolean>"
@@ -1532,7 +1532,7 @@
                                     "param": [
                                         {
                                             "name": "wrapAlgorithm",
-                                            "additional-types": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
+                                            "additionalTypes": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         }
                                     ],
                                     "overrideType": "Promise<ArrayBuffer>"
@@ -1926,7 +1926,7 @@
                             "param": [
                                 {
                                     "name": "base",
-                                    "additional-types": ["URL"]
+                                    "additionalTypes": ["URL"]
                                 }
                             ]
                         }

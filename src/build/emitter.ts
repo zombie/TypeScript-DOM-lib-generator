@@ -280,12 +280,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
         let type;
-        if (!obj["additional-types"] && typeof obj.type === "string") {
+        if (!obj.additionalTypes && typeof obj.type === "string") {
             type = { name: convertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
         }
         else {
-            const types = typeof obj.type === "string" ? [{ ...obj, "additional-types": undefined }] : obj.type;
-            types.push(...(obj["additional-types"] ?? []).map(t => ({ type: t })));
+            const types = typeof obj.type === "string" ? [{ ...obj, additionalTypes: undefined }] : obj.type;
+            types.push(...(obj.additionalTypes ?? []).map(t => ({ type: t })));
 
             const converted = types.map(convertDomTypeToTsTypeWorker);
             const isAny = converted.some(t => t.name === "any");
@@ -512,8 +512,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         function paramToString(p: Browser.Param) {
             p = resolvePromise(p);
             if (p.name.toLowerCase().includes("url") && p.type === "USVString") {
-                p = { ...p, "additional-types": [...p["additional-types"] ?? []] }
-                p["additional-types"]!.push("URL");
+                p = { ...p, additionalTypes: [...p.additionalTypes ?? []] }
+                p.additionalTypes!.push("URL");
             }
             const pType = convertDomTypeToTsType(p);
 

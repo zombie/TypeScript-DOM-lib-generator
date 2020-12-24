@@ -638,7 +638,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
     }
 
-    function emitComments(entity: { comment?: string; deprecated?: 1 }, print: (s: string) => void) {
+    function emitComments(entity: { comment?: string; deprecated?: boolean }, print: (s: string) => void) {
         if (entity.comment) {
             if (entity.comment.startsWith("/*")) {
                 entity.comment.split('\n').forEach(print);

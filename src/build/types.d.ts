@@ -14,7 +14,7 @@ export interface Param extends Typed {
 
 export interface Signature extends Typed {
     param?: Param[];
-    deprecated?: 1;
+    deprecated?: boolean;
     typeParameters?: TypeParameter[];
 }
 
@@ -56,10 +56,8 @@ export interface Property extends Typed {
     comment?: string;
     optional?: boolean;
     specs?: string;
-    deprecated?: 1;
-    interop?: 1;
+    deprecated?: boolean;
     exposed?: string;
-    constant?: 1;
 }
 
 export interface Event {
@@ -86,7 +84,7 @@ export interface AnonymousMethod {
     additionalSignatures?: string[];
     specs?: string;
     exposed?: string;
-    deprecated?: 1;
+    deprecated?: boolean;
     signature: Signature[];
 }
 
@@ -192,7 +190,7 @@ export interface Interface {
         dictionaries: Dictionary[];
         typedefs: TypeDef[];
     },
-    deprecated?: 1
+    deprecated?: boolean
 }
 
 export interface Iterator {
@@ -213,7 +211,7 @@ export interface Enum {
 
 export interface TypeDef extends Typed {
     name: string;
-    deprecated?: 1;
+    deprecated?: boolean;
     legacyNamespace?: string;
     typeParameters?: TypeParameter[];
 }

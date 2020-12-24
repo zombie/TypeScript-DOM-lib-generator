@@ -395,7 +395,7 @@
                 "methods": {
                     "method": {
                         "addListener": {
-                            "deprecated": 1,
+                            "deprecated": true,
                             "signature": {
                                 "0": {
                                     "param": [
@@ -408,7 +408,7 @@
                             }
                         },
                         "removeListener": {
-                            "deprecated": 1,
+                            "deprecated": true,
                             "signature": {
                                 "0": {
                                     "param": [
@@ -486,13 +486,13 @@
                 "properties": {
                     "property": {
                         "event": {
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "location": {
                             "readonly": false
                         },
                         "onorientationchange": {
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "opener": {
                             "name": "opener",
@@ -1073,7 +1073,7 @@
                 "properties": {
                     "property": {
                         "className": {
-                            "deprecated": 1,
+                            "deprecated": true,
                             "name": "className",
                             "type": "any"
                         }
@@ -2203,11 +2203,11 @@
                     "method": {
                         "setPosition": {
                             "name": "setPosition",
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "setOrientation": {
                             "name": "setOrientation",
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }
@@ -3049,7 +3049,7 @@
                 "members": {
                     "member": {
                         "which": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }

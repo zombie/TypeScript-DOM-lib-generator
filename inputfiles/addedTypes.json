@@ -309,7 +309,7 @@
                 "properties": {
                     "property": {
                         "imageOrientation": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }
@@ -319,7 +319,7 @@
                 "methods": {
                     "method": {
                         "captureEvents": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 },
@@ -682,7 +682,7 @@
                 "properties": {
                     "property": {
                         "which": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }
@@ -775,7 +775,7 @@
                 "methods": {
                     "method": {
                         "scaleNonUniform": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }
@@ -822,7 +822,7 @@
                 "properties": {
                     "property": {
                         "onorientationchange": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 },
@@ -1070,13 +1070,13 @@
                 "properties": {
                     "property": {
                         "charset": {
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "rev": {
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "target": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 },
@@ -2055,10 +2055,10 @@
                 "members": {
                     "member": {
                         "charCode": {
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "keyCode": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }

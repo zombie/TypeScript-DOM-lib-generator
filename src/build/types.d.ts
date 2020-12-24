@@ -32,7 +32,7 @@ export interface Property extends Typed {
     readonly?: boolean;
     replaceable?: string;
     "put-forwards"?: string;
-    stringifier?: 1;
+    stringifier?: boolean;
     tags?: string;
     "property-descriptor-not-enumerable"?: string;
     "content-attribute"?: string;
@@ -80,7 +80,7 @@ export interface AnonymousMethod {
     tags?: string;
     static?: boolean;
     getter?: 1;
-    stringifier?: 1;
+    stringifier?: boolean;
     comment?: string;
     overrideSignatures?: string[];
     additionalSignatures?: string[];

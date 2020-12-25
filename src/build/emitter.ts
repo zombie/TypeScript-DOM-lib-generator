@@ -574,15 +574,13 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
     }
 
-    // A covariant  EventHandler is one that is defined in a parent interface as then redefined in current interface with a more specific argument types
+    // A covariant EventHandler is one that is defined in a parent interface as then redefined in current interface with a more specific argument types
     // These patterns are unsafe, and flagged as error under --strictFunctionTypes.
     // Here we know the property is already defined on the interface, we elide its declaration if the parent has the same handler defined
     function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
         return isEventHandler(p) &&
-            iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
             iNameToEhParents[i.name].some(
-                i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
-                    iNameToEhList[i.name].some(e => e.name === p.name));
+                parent => parent.properties?.property.hasOwnProperty(p.name));
     }
 
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property) {

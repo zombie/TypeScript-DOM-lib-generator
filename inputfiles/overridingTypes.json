@@ -2023,10 +2023,6 @@
                         {
                             "name": "push",
                             "type": "PushEvent"
-                        },
-                        {
-                            "name": "sync",
-                            "type": "SyncEvent"
                         }
                     ]
                 }

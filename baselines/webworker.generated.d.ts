@@ -2912,7 +2912,7 @@ declare var ServiceWorkerRegistration: {
 };
 
 interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
-    "connect": Event;
+    "connect": MessageEvent;
 }
 
 interface SharedWorkerGlobalScope extends WorkerGlobalScope {
@@ -2920,7 +2920,7 @@ interface SharedWorkerGlobalScope extends WorkerGlobalScope {
      * Returns sharedWorkerGlobal's name, i.e. the value given to the SharedWorker constructor. Multiple SharedWorker objects can correspond to the same shared worker (and SharedWorkerGlobalScope), by reusing the same name.
      */
     readonly name: string;
-    onconnect: ((this: SharedWorkerGlobalScope, ev: Event) => any) | null;
+    onconnect: ((this: SharedWorkerGlobalScope, ev: MessageEvent) => any) | null;
     /**
      * Aborts sharedWorkerGlobal.
      */
@@ -5327,6 +5327,8 @@ interface WorkerGlobalScopeEventMap {
     "languagechange": Event;
     "offline": Event;
     "online": Event;
+    "rejectionhandled": PromiseRejectionEvent;
+    "unhandledrejection": PromiseRejectionEvent;
 }
 
 /** This Web Workers API interface is an interface representing the scope of any worker. Workers have no browsing context; this scope contains the information usually conveyed by Window objects — in this case event handlers, the console or the associated WorkerNavigator object. Each WorkerGlobalScope has its own event loop. */
@@ -5343,6 +5345,8 @@ interface WorkerGlobalScope extends EventTarget, FontFaceSource, WindowOrWorkerG
     onlanguagechange: ((this: WorkerGlobalScope, ev: Event) => any) | null;
     onoffline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
     ononline: ((this: WorkerGlobalScope, ev: Event) => any) | null;
+    onrejectionhandled: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+    onunhandledrejection: ((this: WorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
     /**
      * Returns workerGlobal.
      */
@@ -5787,6 +5791,8 @@ declare var onerror: ((this: DedicatedWorkerGlobalScope, ev: ErrorEvent) => any)
 declare var onlanguagechange: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
 declare var onoffline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
 declare var ononline: ((this: DedicatedWorkerGlobalScope, ev: Event) => any) | null;
+declare var onrejectionhandled: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
+declare var onunhandledrejection: ((this: DedicatedWorkerGlobalScope, ev: PromiseRejectionEvent) => any) | null;
 /**
  * Returns workerGlobal.
  */

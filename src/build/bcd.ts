@@ -468,6 +468,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "captureEvents",
   ],
   "WindowEventHandlers": ["onmessage"],
+  "WorkerGlobalScope": ["onrejectionhandled", "onunhandledrejection"],
   "WritableStream": ["abort", "close", "getWriter", "locked"],
   "XMLSerializer": ["serializeToString"],
   "XPathResult": [

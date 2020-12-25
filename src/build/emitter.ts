@@ -7,11 +7,6 @@ export const enum Flavor {
     Worker
 }
 
-// Note:
-// Eventhandler's name and the eventName are not just off by "on".
-// For example, handlers named "onabort" may handle "SVGAbort" event in the XML file
-type EventHandler = { name: string; eventName: string };
-
 /// Decide which members of a function to emit
 enum EmitScope {
     StaticOnly,
@@ -143,17 +138,11 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     /// 1. eventhandler name: "onready", "onabort" etc.
     /// 2. the event name that it handles: "ready", "SVGAbort" etc.
     /// And they don't just differ by an "on" prefix!
-    const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i =>
-        !i.properties ? [] : mapDefined<Browser.Property, EventHandler>(mapToArray(i.properties.property), p => {
-            const eventName = p.eventHandler!;
-            if (eventName === undefined) return undefined;
-            return { name: p.name, eventName };
-        }));
-
-    const iNameToAttributelessEhList = arrayToMap(allInterfaces, i => i.name, i =>
-        !i.attributelessEvents ? [] : i.attributelessEvents.event.map(e => {
-            return { name: "on" + e.name, eventName: e.name, eventType: e.type };
-        }));
+    const iNameToEhList = arrayToMap(allInterfaces, i => i.name, i => {
+        const fromProperties = mapDefined(mapToArray(i.properties?.property), p => p.eventHandler);
+        const fromEvents = (i.events?.event ?? []).map(e => e.name);
+        return distinct([...fromProperties, ...fromEvents]).sort();
+    });
 
     const iNameToConstList = arrayToMap(allInterfaces, i => i.name, i =>
         !i.constants ? [] : mapToArray(i.constants.constant));
@@ -932,15 +921,14 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     }
 
     function emitInterfaceEventMap(i: Browser.Interface) {
-        function emitInterfaceEventMapEntry(eHandler: EventHandler) {
-            printer.printLine(`"${eHandler.eventName}": ${getEventTypeInInterface(eHandler.eventName, i)};`);
+        function emitInterfaceEventMapEntry(eventName: string) {
+            printer.printLine(`"${eventName}": ${getEventTypeInInterface(eventName, i)};`);
         }
 
         const hasEventHandlers = iNameToEhList[i.name] && iNameToEhList[i.name].length;
-        const hasAttributelessEventHandlers = iNameToAttributelessEhList[i.name] && iNameToAttributelessEhList[i.name].length;
         const ehParentCount = iNameToEhParents[i.name] && iNameToEhParents[i.name].length;
 
-        if (hasEventHandlers || hasAttributelessEventHandlers || ehParentCount > 1) {
+        if (hasEventHandlers || ehParentCount > 1) {
             printer.print(`interface ${i.name}EventMap`);
             if (ehParentCount) {
                 const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
@@ -950,8 +938,6 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             printer.endLine();
             printer.increaseIndent();
             iNameToEhList[i.name]
-                .concat(iNameToAttributelessEhList[i.name])
-                .sort(compareName)
                 .forEach(emitInterfaceEventMapEntry);
             printer.decreaseIndent();
             printer.printLine("}");

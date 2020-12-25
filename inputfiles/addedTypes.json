@@ -30,11 +30,27 @@
                 }
             },
             "GlobalEventHandlers": {
-                "attributelessEvents": {
+                "events": {
                     "event": [
+                        {
+                            "name": "abort",
+                            "type": "UIEvent"
+                        },
+                        {
+                            "name": "auxclick",
+                            "type": "MouseEvent"
+                        },
                         {
                             "name": "beforeinput",
                             "type": "InputEvent"
+                        },
+                        {
+                            "name": "blur",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "click",
+                            "type": "MouseEvent"
                         },
                         {
                             "name": "compositionstart",
@@ -47,34 +63,6 @@
                         {
                             "name": "compositionend",
                             "type": "CompositionEvent"
-                        },
-                        {
-                            "name": "focusin",
-                            "type": "FocusEvent"
-                        },
-                        {
-                            "name": "focusout",
-                            "type": "FocusEvent"
-                        }
-                    ]
-                },
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "UIEvent"
-                        },
-                        {
-                            "name": "auxclick",
-                            "type": "MouseEvent"
-                        },
-                        {
-                            "name": "blur",
-                            "type": "FocusEvent"
-                        },
-                        {
-                            "name": "click",
-                            "type": "MouseEvent"
                         },
                         {
                             "name": "drag",
@@ -110,6 +98,14 @@
                         },
                         {
                             "name": "focus",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "focusin",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "focusout",
                             "type": "FocusEvent"
                         },
                         {
@@ -334,24 +330,8 @@
                 "overrideIndexSignatures": [
                     "[index: number]: Window"
                 ],
-                "attributelessEvents": {
-                    "event": [
-                        {
-                            "name": "gamepadconnected",
-                            "type": "GamepadEvent"
-                        },
-                        {
-                            "name": "gamepaddisconnected",
-                            "type": "GamepadEvent"
-                        }
-                    ]
-                },
                 "events": {
                     "event": [
-                        {
-                            "name": "beforeunload",
-                            "type": "BeforeUnloadEvent"
-                        },
                         {
                             "name": "devicemotion",
                             "type": "DeviceMotionEvent"
@@ -361,20 +341,12 @@
                             "type": "DeviceOrientationEvent"
                         },
                         {
-                            "name": "pagehide",
-                            "type": "PageTransitionEvent"
+                            "name": "gamepadconnected",
+                            "type": "GamepadEvent"
                         },
                         {
-                            "name": "pageshow",
-                            "type": "PageTransitionEvent"
-                        },
-                        {
-                            "name": "popstate",
-                            "type": "PopStateEvent"
-                        },
-                        {
-                            "name": "storage",
-                            "type": "StorageEvent"
+                            "name": "gamepaddisconnected",
+                            "type": "GamepadEvent"
                         }
                     ]
                 }
@@ -480,42 +452,6 @@
                 "noInterfaceObject": true
             },
             "Element": {
-                "events": {
-                    "event": [
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchstart",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchmove",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchcancel",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchend",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        }
-                    ]
-                },
                 "name": "Element",
                 "methods": {
                     "method": {
@@ -1954,7 +1890,7 @@
                     }
                 }
             },
-            "SharedWorker": {
+            "SharedWorkerGlobalScope": {
                 "events": {
                     "event": [
                         {

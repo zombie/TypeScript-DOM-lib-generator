@@ -109,8 +109,8 @@ export function distinct<T>(a: T[]): T[] {
     return Array.from(new Set(a).values());
 }
 
-export function mapToArray<T>(m: Record<string, T>): T[] {
-    return Object.keys(m || {}).map(k => m[k]);
+export function mapToArray<T>(m?: Record<string, T>): T[] {
+    return Object.keys(m || {}).map(k => m![k]);
 }
 
 export function arrayToMap<T, U>(array: ReadonlyArray<T>, makeKey: (value: T) => string, makeValue: (value: T) => U): Record<string, U> {

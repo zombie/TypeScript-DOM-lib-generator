@@ -16,6 +16,8 @@
       "includes": [
         // For general scripts: dom*
         // Web workers: webworker*
+        // Shared workers: sharedworker*
+        // Service workers: serviceworker*
         // Audio worklets: audioworklet*
         "node_modules/types-web/baselines/dom*"
         "*"

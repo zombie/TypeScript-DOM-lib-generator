@@ -1,5 +1,5 @@
 /////////////////////////////
-/// DedicatedWorker APIs
+/// Worker APIs
 /////////////////////////////
 
 interface AddEventListenerOptions extends EventListenerOptions {
@@ -61,6 +61,11 @@ interface CacheQueryOptions {
 interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
     desynchronized?: boolean;
+}
+
+interface ClientQueryOptions {
+    includeUncontrolled?: boolean;
+    type?: ClientTypes;
 }
 
 interface CloseEventInit extends EventInit {
@@ -164,6 +169,26 @@ interface EventListenerOptions {
 
 interface EventSourceInit {
     withCredentials?: boolean;
+}
+
+interface ExtendableEventInit extends EventInit {
+}
+
+interface ExtendableMessageEventInit extends ExtendableEventInit {
+    data?: any;
+    lastEventId?: string;
+    origin?: string;
+    ports?: MessagePort[];
+    source?: Client | ServiceWorker | MessagePort | null;
+}
+
+interface FetchEventInit extends ExtendableEventInit {
+    clientId?: string;
+    handled?: Promise<undefined>;
+    preloadResponse?: Promise<any>;
+    replacesClientId?: string;
+    request: Request;
+    resultingClientId?: string;
 }
 
 interface FilePropertyBag extends BlobPropertyBag {
@@ -311,6 +336,11 @@ interface NotificationAction {
     title: string;
 }
 
+interface NotificationEventInit extends ExtendableEventInit {
+    action?: string;
+    notification: Notification;
+}
+
 interface NotificationOptions {
     actions?: NotificationAction[];
     badge?: string;
@@ -369,6 +399,10 @@ interface ProgressEventInit extends EventInit {
 interface PromiseRejectionEventInit extends EventInit {
     promise: Promise<any>;
     reason?: any;
+}
+
+interface PushEventInit extends ExtendableEventInit {
+    data?: PushMessageDataInit;
 }
 
 interface PushSubscriptionJSON {
@@ -827,6 +861,34 @@ interface CanvasPattern {
 declare var CanvasPattern: {
     prototype: CanvasPattern;
     new(): CanvasPattern;
+};
+
+/** The Client interface represents an executable context such as a Worker, or a SharedWorker. Window clients are represented by the more-specific WindowClient. You can get Client/WindowClient objects from methods such as Clients.matchAll() and Clients.get(). */
+interface Client {
+    readonly frameType: FrameType;
+    readonly id: string;
+    readonly type: ClientTypes;
+    readonly url: string;
+    postMessage(message: any, transfer: Transferable[]): void;
+    postMessage(message: any, options?: PostMessageOptions): void;
+}
+
+declare var Client: {
+    prototype: Client;
+    new(): Client;
+};
+
+/** Provides access to Client objects. Access it via self.clients within a service worker. */
+interface Clients {
+    claim(): Promise<void>;
+    get(id: string): Promise<Client | undefined>;
+    matchAll<T extends ClientQueryOptions>(options?: T): Promise<ReadonlyArray<T["type"] extends "window" ? WindowClient : Client>>;
+    openWindow(url: string | URL): Promise<WindowClient | null>;
+}
+
+declare var Clients: {
+    prototype: Clients;
+    new(): Clients;
 };
 
 /** A CloseEvent is sent to clients using WebSockets when the connection is closed. This is delivered to the listener indicated by the WebSocket object's onclose attribute. */
@@ -1363,6 +1425,43 @@ interface EventTarget {
 declare var EventTarget: {
     prototype: EventTarget;
     new(): EventTarget;
+};
+
+/** Extends the lifetime of the install and activate events dispatched on the global scope as part of the service worker lifecycle. This ensures that any functional events (like FetchEvent) are not dispatched until it upgrades database schemas and deletes the outdated cache entries. */
+interface ExtendableEvent extends Event {
+    waitUntil(f: any): void;
+}
+
+declare var ExtendableEvent: {
+    prototype: ExtendableEvent;
+    new(type: string, eventInitDict?: ExtendableEventInit): ExtendableEvent;
+};
+
+/** This ServiceWorker API interface represents the event object of a message event fired on a service worker (when a channel message is received on the ServiceWorkerGlobalScope from another context) — extends the lifetime of such events. */
+interface ExtendableMessageEvent extends ExtendableEvent {
+    readonly data: any;
+    readonly lastEventId: string;
+    readonly origin: string;
+    readonly ports: ReadonlyArray<MessagePort>;
+    readonly source: Client | ServiceWorker | MessagePort | null;
+}
+
+declare var ExtendableMessageEvent: {
+    prototype: ExtendableMessageEvent;
+    new(type: string, eventInitDict?: ExtendableMessageEventInit): ExtendableMessageEvent;
+};
+
+/** This is the event type for fetch events dispatched on the service worker global scope. It contains information about the fetch, including the request and how the receiver will treat the response. It provides the event.respondWith() method, which allows us to provide a response to this fetch. */
+interface FetchEvent extends ExtendableEvent {
+    readonly clientId: string;
+    readonly request: Request;
+    readonly resultingClientId: string;
+    respondWith(r: Response | PromiseLike<Response>): void;
+}
+
+declare var FetchEvent: {
+    prototype: FetchEvent;
+    new(type: string, eventInitDict: FetchEventInit): FetchEvent;
 };
 
 /** Provides information about files and allows JavaScript in a web page to access their content. */
@@ -2251,6 +2350,17 @@ declare var Notification: {
     readonly permission: NotificationPermission;
 };
 
+/** The parameter passed into the onnotificationclick handler, the NotificationEvent interface represents a notification click event that is dispatched on the ServiceWorkerGlobalScope of a ServiceWorker. */
+interface NotificationEvent extends ExtendableEvent {
+    readonly action: string;
+    readonly notification: Notification;
+}
+
+declare var NotificationEvent: {
+    prototype: NotificationEvent;
+    new(type: string, eventInitDict: NotificationEventInit): NotificationEvent;
+};
+
 /** The OES_element_index_uint extension is part of the WebGL API and adds support for gl.UNSIGNED_INT types to WebGLRenderingContext.drawElements(). */
 interface OES_element_index_uint {
 }
@@ -2481,6 +2591,16 @@ declare var PromiseRejectionEvent: {
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
+/** This Push API interface represents a push message that has been received. This event is sent to the global scope of a ServiceWorker. It contains the information sent from an application server to a PushSubscription. */
+interface PushEvent extends ExtendableEvent {
+    readonly data: PushMessageData | null;
+}
+
+declare var PushEvent: {
+    prototype: PushEvent;
+    new(type: string, eventInitDict?: PushEventInit): PushEvent;
+};
+
 /** This Push API interface provides a way to receive notifications from third-party servers as well as request URLs for push notifications. */
 interface PushManager {
     getSubscription(): Promise<PushSubscription | null>;
@@ -2492,6 +2612,19 @@ declare var PushManager: {
     prototype: PushManager;
     new(): PushManager;
     readonly supportedContentEncodings: ReadonlyArray<string>;
+};
+
+/** This Push API interface provides methods which let you retrieve the push data sent by a server in various formats. */
+interface PushMessageData {
+    arrayBuffer(): ArrayBuffer;
+    blob(): Blob;
+    json(): any;
+    text(): string;
+}
+
+declare var PushMessageData: {
+    prototype: PushMessageData;
+    new(): PushMessageData;
 };
 
 /** This Push API interface provides a subcription's URL endpoint and allows unsubscription from a push service. */
@@ -2712,6 +2845,41 @@ declare var ServiceWorkerContainer: {
     new(): ServiceWorkerContainer;
 };
 
+interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
+    "activate": ExtendableEvent;
+    "fetch": FetchEvent;
+    "install": ExtendableEvent;
+    "message": ExtendableMessageEvent;
+    "messageerror": MessageEvent;
+    "notificationclick": NotificationEvent;
+    "notificationclose": NotificationEvent;
+    "push": PushEvent;
+}
+
+/** This ServiceWorker API interface represents the global execution context of a service worker. */
+interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
+    readonly clients: Clients;
+    onactivate: ((this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any) | null;
+    onfetch: ((this: ServiceWorkerGlobalScope, ev: FetchEvent) => any) | null;
+    oninstall: ((this: ServiceWorkerGlobalScope, ev: ExtendableEvent) => any) | null;
+    onmessage: ((this: ServiceWorkerGlobalScope, ev: ExtendableMessageEvent) => any) | null;
+    onmessageerror: ((this: ServiceWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    onnotificationclick: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
+    onnotificationclose: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
+    onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
+    readonly registration: ServiceWorkerRegistration;
+    skipWaiting(): Promise<void>;
+    addEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(type: K, listener: (this: ServiceWorkerGlobalScope, ev: ServiceWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
+}
+
+declare var ServiceWorkerGlobalScope: {
+    prototype: ServiceWorkerGlobalScope;
+    new(): ServiceWorkerGlobalScope;
+};
+
 interface ServiceWorkerRegistrationEventMap {
     "updatefound": Event;
 }
@@ -2738,6 +2906,31 @@ interface ServiceWorkerRegistration extends EventTarget {
 declare var ServiceWorkerRegistration: {
     prototype: ServiceWorkerRegistration;
     new(): ServiceWorkerRegistration;
+};
+
+interface SharedWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
+    "connect": MessageEvent;
+}
+
+interface SharedWorkerGlobalScope extends WorkerGlobalScope {
+    /**
+     * Returns sharedWorkerGlobal's name, i.e. the value given to the SharedWorker constructor. Multiple SharedWorker objects can correspond to the same shared worker (and SharedWorkerGlobalScope), by reusing the same name.
+     */
+    readonly name: string;
+    onconnect: ((this: SharedWorkerGlobalScope, ev: MessageEvent) => any) | null;
+    /**
+     * Aborts sharedWorkerGlobal.
+     */
+    close(): void;
+    addEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(type: K, listener: (this: SharedWorkerGlobalScope, ev: SharedWorkerGlobalScopeEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
+}
+
+declare var SharedWorkerGlobalScope: {
+    prototype: SharedWorkerGlobalScope;
+    new(): SharedWorkerGlobalScope;
 };
 
 interface StorageManager {
@@ -5065,6 +5258,19 @@ declare var WebSocket: {
     readonly OPEN: number;
 };
 
+/** This ServiceWorker API interface represents the scope of a service worker client that is a document in a browser context, controlled by an active worker. The service worker client independently selects and uses a service worker for its own loading and sub-resources. */
+interface WindowClient extends Client {
+    readonly focused: boolean;
+    readonly visibilityState: VisibilityState;
+    focus(): Promise<WindowClient>;
+    navigate(url: string | URL): Promise<WindowClient | null>;
+}
+
+declare var WindowClient: {
+    prototype: WindowClient;
+    new(): WindowClient;
+};
+
 interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
     readonly crypto: Crypto;
@@ -5675,6 +5881,7 @@ type MessageEventSource = MessagePort | ServiceWorker;
 type NamedCurve = string;
 type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 type PerformanceEntryList = PerformanceEntry[];
+type PushMessageDataInit = BufferSource | string;
 type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
 type ReadableStreamReader<T> = ReadableStreamDefaultReader<T>;
@@ -5693,6 +5900,7 @@ type ConnectionType = "bluetooth" | "cellular" | "ethernet" | "mixed" | "none" |
 type EndingType = "native" | "transparent";
 type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
 type FontFaceSetLoadStatus = "loaded" | "loading";
+type FrameType = "auxiliary" | "nested" | "none" | "top-level";
 type HdrMetadataType = "smpteSt2086" | "smpteSt2094-10" | "smpteSt2094-40";
 type IDBCursorDirection = "next" | "nextunique" | "prev" | "prevunique";
 type IDBRequestReadyState = "done" | "pending";
@@ -5722,6 +5930,7 @@ type SecurityPolicyViolationEventDisposition = "enforce" | "report";
 type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
 type TransferFunction = "hlg" | "pq" | "srgb";
+type VisibilityState = "hidden" | "visible";
 type WebGLPowerPreference = "default" | "high-performance" | "low-power";
 type WorkerType = "classic" | "module";
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

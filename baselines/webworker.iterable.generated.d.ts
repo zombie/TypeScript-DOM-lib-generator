@@ -1,5 +1,5 @@
 /////////////////////////////
-/// DedicatedWorker Iterable APIs
+/// Worker Iterable APIs
 /////////////////////////////
 
 interface Cache {

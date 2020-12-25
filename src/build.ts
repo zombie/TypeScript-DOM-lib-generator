@@ -217,7 +217,6 @@ async function emitDom() {
 
     emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", global: ["Window"], outputFolder });
     emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", global: ["Worker", "DedicatedWorker", "SharedWorker", "ServiceWorker"], outputFolder });
-    emitFlavor(webidl, new Set(knownTypes.Worker), { name: "dedicatedworker", global: ["DedicatedWorker", "Worker"], outputFolder });
     emitFlavor(webidl, new Set(knownTypes.Worker), { name: "sharedworker", global: ["SharedWorker", "Worker"], outputFolder });
     emitFlavor(webidl, new Set(knownTypes.Worker), { name: "serviceworker", global: ["ServiceWorker", "Worker"], outputFolder });
     emitFlavor(webidl, new Set(knownTypes.Worklet), { name: "audioworklet", global: ["AudioWorklet", "Worklet"], outputFolder });

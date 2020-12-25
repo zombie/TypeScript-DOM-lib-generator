@@ -1,7 +1,6 @@
 # Unreleased
 
-* Adds `dedicatedworker*`, `sharedworker*`, `serviceworker*`, and `audioworklet*` libraries.
-* Removes `webworker*` library.
+* Adds `sharedworker*`, `serviceworker*`, and `audioworklet*` libraries.
 
 # v0.1.0
 

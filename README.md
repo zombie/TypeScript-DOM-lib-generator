@@ -14,19 +14,10 @@
         "lib": ["es2020"]
       },
       "includes": [
+        // For general scripts: dom*
+        // Web workers: webworker*
+        // Audio worklets: audioworklet*
         "node_modules/types-web/baselines/dom*"
-        "*"
-      ]
-    }
-    ```
-
-    Or for web workers:
-
-    ```json5
-    {
-      /* ... same ... */
-      "includes": [
-        "node_modules/types-web/baselines/webworker*"
         "*"
       ]
     }

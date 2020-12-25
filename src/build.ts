@@ -34,7 +34,7 @@ function mergeNamesakes(filtered: Browser.WebIdl) {
 }
 
 interface EmitOptions {
-    global: string;
+    global: string[];
     name: string;
     outputFolder: URL;
 }
@@ -43,10 +43,10 @@ async function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, 
     const exposed = getExposedTypes(webidl, options.global, forceKnownTypes);
     mergeNamesakes(exposed);
 
-    const result = emitWebIdl(exposed, options.global, false);
+    const result = emitWebIdl(exposed, options.global[0], false);
     await fs.writeFile(new URL(`${options.name}.generated.d.ts`, options.outputFolder), result);
 
-    const iterators = emitWebIdl(exposed, options.global, true);
+    const iterators = emitWebIdl(exposed, options.global[0], true);
     await fs.writeFile(new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder), iterators);
 }
 
@@ -215,8 +215,9 @@ async function emitDom() {
 
     const knownTypes = require(fileURLToPath(new URL("knownTypes.json", inputFolder)));
 
-    emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", global: "Window", outputFolder });
-    emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", global: "Worker", outputFolder });
+    emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", global: ["Window"], outputFolder });
+    emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", global: ["Worker", "DedicatedWorker", "SharedWorker", "ServiceWorker"], outputFolder });
+    emitFlavor(webidl, new Set(knownTypes.Worklet), { name: "audioworklet", global: ["AudioWorklet", "Worklet"], outputFolder });
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
         return filterByNull(obj, template);

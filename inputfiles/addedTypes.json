@@ -576,11 +576,6 @@
                     }
                 }
             },
-            "IDBArrayKey": {
-                "name": "IDBArrayKey",
-                "extends": "Array<IDBValidKey>",
-                "noInterfaceObject": true
-            },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
                 "properties": {
@@ -2065,7 +2060,7 @@
                 "name": "HeadersInit"
             },
             {
-                "overrideType": "number | string | Date | BufferSource | IDBArrayKey",
+                "overrideType": "number | string | Date | BufferSource | IDBValidKey[]",
                 "name": "IDBValidKey"
             },
             {
@@ -2081,12 +2076,12 @@
                 "overrideType": "\"attributes\" | \"characterData\" | \"childList\""
             },
             {
-                "name": "IDBKeyPath",
-                "type": "DOMString"
-            },
-            {
                 "name": "Transferable",
-                "overrideType": "ArrayBuffer | MessagePort | ImageBitmap"
+                "type": [
+                    { "type": "ArrayBuffer" },
+                    { "type": "MessagePort" },
+                    { "type": "ImageBitmap" }
+                ]
             },
             {
                 "name": "WindowProxy",

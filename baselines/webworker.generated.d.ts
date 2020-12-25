@@ -1637,9 +1637,6 @@ declare var Headers: {
     new(init?: HeadersInit): Headers;
 };
 
-interface IDBArrayKey extends Array<IDBValidKey> {
-}
-
 /** This IndexedDB API interface represents a cursor for traversing or iterating over multiple records in a database. */
 interface IDBCursor {
     /**
@@ -5877,7 +5874,7 @@ type GLuint = number;
 type GLuint64 = number;
 type HashAlgorithmIdentifier = AlgorithmIdentifier;
 type HeadersInit = string[][] | Record<string, string> | Headers;
-type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
+type IDBValidKey = number | string | Date | BufferSource | IDBValidKey[];
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type Int32List = Int32Array | GLint[];
 type MessageEventSource = MessagePort | ServiceWorker;

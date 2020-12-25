@@ -8753,9 +8753,6 @@ declare var History: {
     new(): History;
 };
 
-interface IDBArrayKey extends Array<IDBValidKey> {
-}
-
 /** This IndexedDB API interface represents a cursor for traversing or iterating over multiple records in a database. */
 interface IDBCursor {
     /**
@@ -18363,8 +18360,7 @@ type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 type HashAlgorithmIdentifier = AlgorithmIdentifier;
 type HeadersInit = string[][] | Record<string, string> | Headers;
-type IDBKeyPath = string;
-type IDBValidKey = number | string | Date | BufferSource | IDBArrayKey;
+type IDBValidKey = number | string | Date | BufferSource | IDBValidKey[];
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
 type InsertPosition = "beforebegin" | "afterbegin" | "beforeend" | "afterend";
 type Int32List = Int32Array | GLint[];

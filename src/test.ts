@@ -42,8 +42,11 @@ function compileGeneratedFiles(lib: string, ...files: string[]) {
 function test() {
     if (compareToBaselines() &&
         compileGeneratedFiles("es5", "dom.generated.d.ts") &&
+        compileGeneratedFiles("es6", "dom.generated.d.ts", "dom.iterable.generated.d.ts") &&
         compileGeneratedFiles("es5", "webworker.generated.d.ts") &&
-        compileGeneratedFiles("es6", "dom.generated.d.ts", "dom.iterable.generated.d.ts")) {
+        compileGeneratedFiles("es6", "webworker.generated.d.ts", "webworker.iterable.generated.d.ts") &&
+        compileGeneratedFiles("es5", "audioworklet.generated.d.ts") &&
+        compileGeneratedFiles("es6", "audioworklet.generated.d.ts", "audioworklet.iterable.generated.d.ts")) {
         console.log("All tests passed.");
         process.exit(0);
     }

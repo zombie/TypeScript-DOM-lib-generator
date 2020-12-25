@@ -17,14 +17,14 @@ class LoggedSet extends Set<string> {
     }
 }
 
-export function getExposedTypes(webidl: Browser.WebIdl, target: string, forceKnownTypes: Set<string>) {
+export function getExposedTypes(webidl: Browser.WebIdl, target: string[], forceKnownTypes: Set<string>) {
     const forceKnownTypesLogged = new LoggedSet(forceKnownTypes);
 
     const unexposedTypes = new Set<string>();
     const filtered = getEmptyWebIDL();
     if (webidl.interfaces) {
         filtered.interfaces!.interface = deepFilter(webidl.interfaces.interface, o => exposesTo(o, target));
-        const unexposedInterfaces = mapToArray(webidl.interfaces.interface).filter(i => !i.exposed || !i.exposed.includes(target));
+        const unexposedInterfaces = mapToArray(webidl.interfaces.interface).filter(i => !exposesTo(i, target));
         for (const i of unexposedInterfaces) {
             unexposedTypes.add(i.name);
         }
@@ -117,6 +117,9 @@ function deepFilterUnexposedTypes(webidl: Browser.WebIdl, unexposedTypes: Set<st
         if (!o.overrideSignatures && Array.isArray(o.signature)) {
             return { ...o, signature: o.signature.map(filterUnknownTypeFromSignature) };
         }
+        if (o.members) {
+            return filterUnknownTypeFromDictionary(o);
+        }
         // TODO: Support filtering dictionary members
     });
 
@@ -141,19 +144,37 @@ function deepFilterUnexposedTypes(webidl: Browser.WebIdl, unexposedTypes: Set<st
         }
         return { ...signature, param };
     }
+
+    function filterUnknownTypeFromDictionary(dictionary: Browser.Dictionary) {
+        const result: Record<string, Browser.Member> = {};
+        for (const member of Object.values(dictionary.members.member)) {
+            const filtered = filterUnexposedType(member, unexposedTypes);
+            if (filtered) {
+                result[member.name] = filtered;
+            }
+        }
+        return { ...dictionary, members: { member: result }};
+    }
+}
+
+function filterUnexposedType<T extends Browser.Typed>(type: T, unexposedTypes: Set<string>) {
+    if (Array.isArray(type.type)) {
+        const filteredUnion = filterUnexposedTypeFromUnion(type.type, unexposedTypes);
+        if (filteredUnion.length) {
+            return { ...type, type: flattenType(filteredUnion) };
+        }
+    }
+    else if (type.overrideType || !unexposedTypes.has(type.type)) {
+        return type;
+    }
 }
 
 function filterUnexposedTypeFromUnion(union: Browser.Typed[], unexposedTypes: Set<string>): Browser.Typed[] {
     const result: Browser.Typed[] = [];
     for (const type of union) {
-        if (Array.isArray(type.type)) {
-            const filteredUnion = filterUnexposedTypeFromUnion(type.type, unexposedTypes);
-            if (filteredUnion.length) {
-                result.push({ ...type, type: flattenType(filteredUnion) });
-            }
-        }
-        else if (type.overrideType || !unexposedTypes.has(type.type)) {
-            result.push(type);
+        const filtered = filterUnexposedType(type, unexposedTypes);
+        if (filtered) {
+            result.push(filtered);
         }
     }
     return result;

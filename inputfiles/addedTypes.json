@@ -541,7 +541,7 @@
                                             "default": "Element"
                                         }
                                     ],
-                                    "overrideType": "E | null"
+                                    "overrideType": "E"
                                 }
                             }
                         },
@@ -1056,7 +1056,7 @@
                 "properties": {
                     "property": {
                         "labels": {
-                            "overrideType": "NodeListOf<HTMLLabelElement> | null"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
                 },

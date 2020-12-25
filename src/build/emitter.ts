@@ -258,7 +258,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     /// Get typescript type using object dom type, object name, and it's associated interface name
     function convertDomTypeToTsType(obj: Browser.Typed): string {
-        if (obj.overrideType) return obj.overrideType!;
+        if (obj.overrideType) {
+            return obj.nullable ? makeNullable(obj.overrideType) : obj.overrideType;
+        }
         if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
         const type = convertDomTypeToTsTypeWorker(obj);
         return obj.nullable ? makeNullable(type) : type;
@@ -340,11 +342,11 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         switch (originalType) {
             case "any": return "any";
             case "void": return "void";
-            default:
-                if (originalType.includes("| null")) return originalType;
-                else if (originalType.includes("=>")) return "(" + originalType + ") | null";
-                else return originalType + " | null";
         }
+        if (originalType.includes("=>") || originalType.includes("&")) {
+            return "(" + originalType + ") | null";
+        }
+        return originalType + " | null";
     }
 
     function nameWithForwardedTypes(i: Browser.Interface) {
@@ -595,10 +597,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         }
         else {
             let pType: string;
-            if (p.overrideType) {
-                pType = p.overrideType!;
-            }
-            else if (isEventHandler(p)) {
+            if (!p.overrideType && isEventHandler(p)) {
                 // Sometimes event handlers with the same name may actually handle different
                 // events in different interfaces. For example, "onerror" handles "ErrorEvent"
                 // normally, but in "SVGSVGElement" it handles "SVGError" event instead.
@@ -611,12 +610,11 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             else {
                 pType = convertDomTypeToTsType(p);
             }
-            let optionalModifier = (!p.optional || prefix) ? "" : "?";
-            pType = p.nullable ? makeNullable(pType) : pType;
             if (p.optional && prefix) {
                 pType += " | undefined";
             }
             const readOnlyModifier = (p.readonly && prefix === "") ? "readonly " : "";
+            const optionalModifier = (!p.optional || prefix) ? "" : "?";
             printer.printLine(`${prefix}${readOnlyModifier}${p.name}${optionalModifier}: ${pType};`);
         }
 
@@ -682,8 +680,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void, shouldResolvePromise?: boolean) {
         const paramsString = s.param ? paramsToString(s.param) : "";
         const resolved = shouldResolvePromise ? resolvePromise(s) : s;
-        let returnType = convertDomTypeToTsReturnType(resolved);
-        returnType = s.nullable ? makeNullable(returnType) : returnType;
+        const returnType = convertDomTypeToTsReturnType(resolved);
         emitComments(s, printLine);
         printLine(`${prefix || ""}${getNameWithTypeParameter(s.typeParameters, name || "")}(${paramsString}): ${returnType};`);
     }

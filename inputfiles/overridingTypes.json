@@ -12,7 +12,7 @@
                                     "param": [
                                         {
                                             "name": "keyframes",
-                                            "overrideType": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                            "overrideType": "Keyframe[] | PropertyIndexedKeyframes"
                                         }
                                     ]
                                 }
@@ -203,7 +203,7 @@
                 "properties": {
                     "property": {
                         "body": {
-                            "overrideType": "ReadableStream<Uint8Array> | null"
+                            "overrideType": "ReadableStream<Uint8Array>"
                         }
                     }
                 }
@@ -401,7 +401,7 @@
                                     "param": [
                                         {
                                             "name": "callback",
-                                            "overrideType": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
+                                            "overrideType": "(this: MediaQueryList, ev: MediaQueryListEvent) => any"
                                         }
                                     ]
                                 }
@@ -414,7 +414,7 @@
                                     "param": [
                                         {
                                             "name": "callback",
-                                            "overrideType": "((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null"
+                                            "overrideType": "(this: MediaQueryList, ev: MediaQueryListEvent) => any"
                                         }
                                     ]
                                 }
@@ -611,7 +611,7 @@
                     "property": {
                         "defaultView": {
                             "name": "defaultView",
-                            "overrideType": "(WindowProxy & typeof globalThis) | null"
+                            "overrideType": "WindowProxy & typeof globalThis"
                         },
                         "documentElement": {
                             "name": "documentElement",
@@ -744,25 +744,25 @@
                 "properties": {
                     "property": {
                         "parentNode": {
-                            "overrideType": "(Node & ParentNode) | null"
+                            "overrideType": "Node & ParentNode"
                         },
                         "parentElement": {
-                            "overrideType": "HTMLElement | null"
+                            "overrideType": "HTMLElement"
                         },
                         "childNodes": {
                             "overrideType": "NodeListOf<ChildNode & Node>"
                         },
                         "firstChild": {
-                            "overrideType": "(ChildNode & Node) | null"
+                            "overrideType": "ChildNode & Node"
                         },
                         "lastChild": {
-                            "overrideType": "(ChildNode & Node) | null"
+                            "overrideType": "ChildNode & Node"
                         },
                         "nextSibling": {
-                            "overrideType": "(ChildNode & Node) | null"
+                            "overrideType": "ChildNode & Node"
                         },
                         "previousSibling": {
-                            "overrideType": "(ChildNode & Node) | null"
+                            "overrideType": "ChildNode & Node"
                         }
                     }
                 }
@@ -1550,7 +1550,7 @@
                         },
                         "valueAsDate": {
                             "name": "valueAsDate",
-                            "overrideType": "Date | null"
+                            "overrideType": "Date"
                         }
                     }
                 },
@@ -1637,7 +1637,7 @@
                     "property": {
                         "form": {
                             "name": "form",
-                            "overrideType": "HTMLFormElement | null"
+                            "overrideType": "HTMLFormElement"
                         }
                     }
                 }
@@ -2084,17 +2084,9 @@
                             "param": [
                                 {
                                     "name": "keyframes",
-                                    "overrideType": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                    "overrideType": "Keyframe[] | PropertyIndexedKeyframes"
                                 }
                             ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "target": {
-                            "name": "target",
-                            "overrideType": "Element | null"
                         }
                     }
                 },
@@ -2113,7 +2105,7 @@
                                     "param": [
                                         {
                                             "name": "keyframes",
-                                            "overrideType": "Keyframe[] | PropertyIndexedKeyframes | null"
+                                            "overrideType": "Keyframe[] | PropertyIndexedKeyframes"
                                         }
                                     ]
                                 }

@@ -1,5 +1,5 @@
 /////////////////////////////
-/// DOM Iterable APIs
+/// Window Iterable APIs
 /////////////////////////////
 
 interface AudioParam {

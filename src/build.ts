@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { merge, resolveExposure, arrayToMap } from "./build/helpers.js";
-import { Flavor, emitWebIdl } from "./build/emitter.js";
+import { emitWebIdl } from "./build/emitter.js";
 import { convert } from "./build/widlprocess.js";
 import { getExposedTypes } from "./build/expose.js";
 import { getDeprecationData, getRemovalData } from "./build/bcd.js";
@@ -34,7 +34,6 @@ function mergeNamesakes(filtered: Browser.WebIdl) {
 }
 
 interface EmitOptions {
-    flavor: Flavor;
     global: string;
     name: string;
     outputFolder: URL;
@@ -44,10 +43,10 @@ async function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, 
     const exposed = getExposedTypes(webidl, options.global, forceKnownTypes);
     mergeNamesakes(exposed);
 
-    const result = emitWebIdl(exposed, options.flavor, false);
+    const result = emitWebIdl(exposed, options.global, false);
     await fs.writeFile(new URL(`${options.name}.generated.d.ts`, options.outputFolder), result);
 
-    const iterators = emitWebIdl(exposed, options.flavor, true);
+    const iterators = emitWebIdl(exposed, options.global, true);
     await fs.writeFile(new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder), iterators);
 }
 
@@ -216,8 +215,8 @@ async function emitDom() {
 
     const knownTypes = require(fileURLToPath(new URL("knownTypes.json", inputFolder)));
 
-    emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", flavor: Flavor.Window, global: "Window", outputFolder });
-    emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", flavor: Flavor.Worker, global: "Worker", outputFolder });
+    emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", global: "Window", outputFolder });
+    emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", global: "Worker", outputFolder });
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
         return filterByNull(obj, template);

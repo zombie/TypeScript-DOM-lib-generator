@@ -2,11 +2,6 @@ import * as Browser from "./types.js";
 import { mapToArray, distinct, mapValues, toNameMap, mapDefined, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers.js";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace.js";
 
-export const enum Flavor {
-    Window,
-    Worker
-}
-
 /// Decide which members of a function to emit
 enum EmitScope {
     StaticOnly,
@@ -101,7 +96,7 @@ function isEventHandler(p: Browser.Property) {
     return typeof p.eventHandler === "string";
 }
 
-export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boolean) {
+export function emitWebIdl(webidl: Browser.WebIdl, global: string, iterator: boolean) {
     // Global print target
     const printer = createTextWriter("\n");
 
@@ -817,7 +812,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         printer.printLine("};");
         printer.printLine("");
 
-        if (flavor === Flavor.Window && i.legacyWindowAlias) {
+        if (global === "Window" && i.legacyWindowAlias) {
             for (const alias of i.legacyWindowAlias!) {
                 printer.printLine(`type ${alias} = ${i.name};`);
                 printer.printLine(`declare var ${alias}: typeof ${i.name};`);
@@ -1077,12 +1072,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emit() {
         printer.reset();
         printer.printLine("/////////////////////////////");
-        if (flavor === Flavor.Worker) {
-            printer.printLine("/// Worker APIs");
-        }
-        else {
-            printer.printLine("/// DOM APIs");
-        }
+        printer.printLine(`/// ${global} APIs`);
         printer.printLine("/////////////////////////////");
         printer.printLine("");
 
@@ -1096,7 +1086,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
         emitCallBackFunctions();
 
-        if (flavor === Flavor.Window) {
+        if (global === "Window") {
             emitHTMLElementTagNameMap();
             emitHTMLElementDeprecatedTagNameMap();
             emitSVGElementTagNameMap();
@@ -1265,12 +1255,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
     function emitES6DomIterators() {
         printer.reset();
         printer.printLine("/////////////////////////////");
-        if (flavor === Flavor.Worker) {
-            printer.printLine("/// Worker Iterable APIs");
-        }
-        else {
-            printer.printLine("/// DOM Iterable APIs");
-        }
+        printer.printLine(`/// ${global} Iterable APIs`);
         printer.printLine("/////////////////////////////");
 
         allInterfaces

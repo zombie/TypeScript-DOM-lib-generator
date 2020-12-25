@@ -17429,6 +17429,14 @@ declare namespace CSS {
 }
 
 declare namespace WebAssembly {
+    interface CompileError extends Error {
+    }
+    
+    var CompileError: {
+        prototype: CompileError;
+        new(): CompileError;
+    };
+    
     interface Global {
         value: any;
         valueOf(): any;
@@ -17446,6 +17454,14 @@ declare namespace WebAssembly {
     var Instance: {
         prototype: Instance;
         new(module: Module, importObject?: Imports): Instance;
+    };
+    
+    interface LinkError extends Error {
+    }
+    
+    var LinkError: {
+        prototype: LinkError;
+        new(): LinkError;
     };
     
     interface Memory {
@@ -17467,6 +17483,14 @@ declare namespace WebAssembly {
         customSections(moduleObject: Module, sectionName: string): ArrayBuffer[];
         exports(moduleObject: Module): ModuleExportDescriptor[];
         imports(moduleObject: Module): ModuleImportDescriptor[];
+    };
+    
+    interface RuntimeError extends Error {
+    }
+    
+    var RuntimeError: {
+        prototype: RuntimeError;
+        new(): RuntimeError;
     };
     
     interface Table {

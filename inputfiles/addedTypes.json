@@ -268,6 +268,11 @@
                     ]
                 }
             },
+            "CompileError": {
+                "name": "CompileError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
+            },
             "DeviceMotionEventAcceleration": {
                 "noInterfaceObject": true
             },
@@ -1368,6 +1373,11 @@
                     ]
                 }
             },
+            "RuntimeError": {
+                "name": "RuntimeError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
+            },
             "SVGAElement": {
                 "element": [
                     {
@@ -1842,6 +1852,11 @@
                         "name": "view"
                     }
                 ]
+            },
+            "LinkError": {
+                "name": "LinkError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
             },
             "MediaRecorder": {
                 "events": {

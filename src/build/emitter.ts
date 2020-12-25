@@ -261,7 +261,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         if (obj.overrideType) return obj.overrideType!;
         if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
         const type = convertDomTypeToTsTypeWorker(obj);
-        return type.nullable ? makeNullable(type.name) : type.name;
+        return obj.nullable ? makeNullable(type) : type;
     }
 
     function convertDomTypeToTsReturnType(obj: Browser.Typed): string {
@@ -278,38 +278,25 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         return type;
     }
 
-    function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
-        let type;
-        if (!obj.additionalTypes && typeof obj.type === "string") {
-            type = { name: convertDomTypeToTsTypeSimple(obj.type), nullable: !!obj.nullable };
-        }
-        else {
-            const types = typeof obj.type === "string" ? [{ ...obj, additionalTypes: undefined }] : obj.type;
-            types.push(...(obj.additionalTypes ?? []).map(t => ({ type: t })));
-
-            const converted = types.map(convertDomTypeToTsTypeWorker);
-            const isAny = converted.some(t => t.name === "any");
-            if (isAny) {
-                type = {
-                    name: "any",
-                    nullable: false
-                };
+    function convertDomTypeToTsTypeWorker(obj: Browser.Typed): string {
+        function convertBaseType() {
+            if (!obj.additionalTypes && typeof obj.type === "string") {
+                return convertDomTypeToTsTypeSimple(obj.type);
             }
             else {
-                type = {
-                    name: converted.map(t => t.name).join(" | "),
-                    nullable: converted.some(t => t.nullable) || !!obj.nullable
-                };
+                const types = typeof obj.type === "string" ? [{ ...obj, additionalTypes: undefined }] : obj.type;
+                types.push(...(obj.additionalTypes ?? []).map(t => ({ type: t })));
+
+                const converted = types.map(convertDomTypeToTsTypeWorker);
+                const isAny = converted.some(t => t === "any");
+                return isAny ? "any" : converted.join(" | ");
             }
         }
 
-        const subtypes = arrayify(obj.subtype).map(convertDomTypeToTsTypeWorker);
-        const subtypeString = subtypes.map(subtype => subtype.nullable ? makeNullable(subtype.name) : subtype.name).join(", ");
+        const type = convertBaseType();
+        const subtypeString = arrayify(obj.subtype).map(convertDomTypeToTsType).join(", ");
 
-        return {
-            name: (type.name === "Array" && subtypeString) ? makeArrayType(subtypeString, obj) : `${type.name}${subtypeString ? `<${subtypeString}>` : ""}`,
-            nullable: type.nullable
-        };
+        return (type === "Array" && subtypeString) ? makeArrayType(subtypeString, obj) : `${type}${subtypeString ? `<${subtypeString}>` : ""}`;
     }
 
     function makeArrayType(elementType: string, obj: Browser.Typed): string {

@@ -1,8 +1,12 @@
 {
   "name": "types-web",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Provides TypeScript types for the latest web APIs.",
-  "keywords": ["typescript", "web", "api"],
+  "keywords": [
+    "typescript",
+    "web",
+    "api"
+  ],
   "scripts": {
     "build": "tsc && node ./lib/build.js",
     "fetch-comment": "tsc && node ./lib/fetch-comment.js",

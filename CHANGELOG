@@ -1,4 +1,4 @@
-# Unreleased
+# v0.1.3
 
 * Adds `sharedworker*`, `serviceworker*`, and `audioworklet*` libraries.
 

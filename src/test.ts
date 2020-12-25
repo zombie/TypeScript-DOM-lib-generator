@@ -13,13 +13,15 @@ function normalizeLineEndings(text: string): string {
 
 function compareToBaselines() {
     for (const file of fs.readdirSync(baselineFolder)) {
-        if (file.startsWith(".")) continue
+        if (file.startsWith(".")) {
+            continue;
+        }
 
         const baseline = normalizeLineEndings(fs.readFileSync(new URL(file, baselineFolder)).toString());
         const generated = normalizeLineEndings(fs.readFileSync(new URL(file, outputFolder)).toString());
         if (baseline !== generated) {
             console.error(`Test failed: '${file}' is different from baseline file.`);
-            printDiff(generated, baseline);
+            printDiff(baseline, generated);
             return false;
         }
     }
@@ -45,6 +47,12 @@ function test() {
         compileGeneratedFiles("es6", "dom.generated.d.ts", "dom.iterable.generated.d.ts") &&
         compileGeneratedFiles("es5", "webworker.generated.d.ts") &&
         compileGeneratedFiles("es6", "webworker.generated.d.ts", "webworker.iterable.generated.d.ts") &&
+        compileGeneratedFiles("es5", "dedicatedworker.generated.d.ts") &&
+        compileGeneratedFiles("es6", "dedicatedworker.generated.d.ts", "dedicatedworker.iterable.generated.d.ts") &&
+        compileGeneratedFiles("es5", "sharedworker.generated.d.ts") &&
+        compileGeneratedFiles("es6", "sharedworker.generated.d.ts", "sharedworker.iterable.generated.d.ts") &&
+        compileGeneratedFiles("es5", "serviceworker.generated.d.ts") &&
+        compileGeneratedFiles("es6", "serviceworker.generated.d.ts", "serviceworker.iterable.generated.d.ts") &&
         compileGeneratedFiles("es5", "audioworklet.generated.d.ts") &&
         compileGeneratedFiles("es6", "audioworklet.generated.d.ts", "audioworklet.iterable.generated.d.ts")) {
         console.log("All tests passed.");

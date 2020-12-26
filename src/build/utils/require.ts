@@ -11,5 +11,5 @@ export function createTryRequire(path: string): (id: string) => any {
       }
       return;
     }
-  }
+  };
 }

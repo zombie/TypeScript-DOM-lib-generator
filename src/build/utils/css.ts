@@ -7,6 +7,5 @@ export function hyphenToCamelCase(name: string): string {
 
 export function camelToHyphenCase(name: string): string {
   const dashPrefix = name.startsWith("webkit") ? "-" : "";
-  return dashPrefix + name
-    .replace(/[A-Z]/g, c => "-" + c.toLowerCase());
+  return dashPrefix + name.replace(/[A-Z]/g, c => "-" + c.toLowerCase());
 }

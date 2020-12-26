@@ -1,6 +1,10 @@
 import * as Browser from "./types";
 import bcd from "@mdn/browser-compat-data";
-import { CompatStatement, SimpleSupportStatement, SupportBlock } from "@mdn/browser-compat-data/types";
+import {
+  CompatStatement,
+  SimpleSupportStatement,
+  SupportBlock,
+} from "@mdn/browser-compat-data/types";
 import { camelToHyphenCase } from "./utils/css.js";
 import { filterMapRecord, isEmptyRecord } from "./utils/record.js";
 import { mapDefined } from "./helpers.js";
@@ -8,17 +12,18 @@ import { mapDefined } from "./helpers.js";
 const forceKeepAlive: Record<string, string[]> = {
   // Things that are incorrectly reported as unsupported.
   // These should be filed to https://github.com/mdn/browser-compat-data/issues
-  "AbstractRange": [ // Blink only implements them in the subinterfaces
+  AbstractRange: [
+    // Blink only implements them in the subinterfaces
     "collapsed",
     "endContainer",
     "endOffset",
     "startContainer",
-    "startOffset"
+    "startOffset",
   ],
-  "Animation": ["finished", "pending", "ready", "updatePlaybackRate"],
-  "AnimationPlaybackEvent": ["currentTime", "timelineTime"],
-  "BeforeUnloadEvent": ["returnValue"],
-  "console": [
+  Animation: ["finished", "pending", "ready", "updatePlaybackRate"],
+  AnimationPlaybackEvent: ["currentTime", "timelineTime"],
+  BeforeUnloadEvent: ["returnValue"],
+  console: [
     "assert",
     "clear",
     "count",
@@ -42,11 +47,11 @@ const forceKeepAlive: Record<string, string[]> = {
     "trace",
     "warn",
   ],
-  "ConstantSourceNode": ["offset"],
-  "CountQueuingStrategy": ["size"],
-  "CSSConditionRule": ["conditionText"],
-  "CSSGroupingRule": ["cssRules", "deleteRule", "insertRule"],
-  "CSSStyleDeclaration": [
+  ConstantSourceNode: ["offset"],
+  CountQueuingStrategy: ["size"],
+  CSSConditionRule: ["conditionText"],
+  CSSGroupingRule: ["cssRules", "deleteRule", "insertRule"],
+  CSSStyleDeclaration: [
     "alignContent",
     "alignItems",
     "alignSelf",
@@ -109,9 +114,9 @@ const forceKeepAlive: Record<string, string[]> = {
     "webkitMaskBoxImageWidth",
     "wordWrap", // TODO: Support for alternative names
   ],
-  "CloseEvent": ["code", "reason", "wasClean"],
-  "DOMRectList": ["item", "length"],
-  "DOMMatrix": [
+  CloseEvent: ["code", "reason", "wasClean"],
+  DOMRectList: ["item", "length"],
+  DOMMatrix: [
     "invertSelf",
     "multiplySelf",
     "preMultiplySelf",
@@ -126,32 +131,32 @@ const forceKeepAlive: Record<string, string[]> = {
     "fromFloat64Array",
     "fromMatrix",
   ],
-  "DOMMatrixReadOnly": ["fromFloat32Array", "fromFloat64Array"],
-  "DOMPoint": ["fromPoint"],
-  "DOMRect": ["fromRect"],
-  "DOMRectReadOnly": ["toJSON"],
-  "Document": [
+  DOMMatrixReadOnly: ["fromFloat32Array", "fromFloat64Array"],
+  DOMPoint: ["fromPoint"],
+  DOMRect: ["fromRect"],
+  DOMRectReadOnly: ["toJSON"],
+  Document: [
     "charset",
     "inputEncoding",
     "elementFromPoint",
     "elementsFromPoint",
     "getSelection",
   ],
-  "Element": ["webkitMatchesSelector"],
-  "ExtendableMessageEvent": ["lastEventId", "origin", "ports", "source"],
-  "FileReader": ["onloadstart"],
-  "Gamepad": ["hapticActuators"],
-  "GlobalEventHandlers": [
+  Element: ["webkitMatchesSelector"],
+  ExtendableMessageEvent: ["lastEventId", "origin", "ports", "source"],
+  FileReader: ["onloadstart"],
+  Gamepad: ["hapticActuators"],
+  GlobalEventHandlers: [
     "onabort",
     "ontouchcancel",
     "ontouchend",
     "ontouchmove",
-    "ontouchstart"
+    "ontouchstart",
   ],
-  "HTMLAnchorElement": ["ping"],
-  "HTMLAreaElement": ["ping"],
-  "HTMLIFrameElement": ["allowPaymentRequest"],
-  "HTMLLinkElement": [
+  HTMLAnchorElement: ["ping"],
+  HTMLAreaElement: ["ping"],
+  HTMLIFrameElement: ["allowPaymentRequest"],
+  HTMLLinkElement: [
     "charset",
     "disabled",
     "href",
@@ -164,13 +169,11 @@ const forceKeepAlive: Record<string, string[]> = {
     "target",
     "type",
   ],
-  "HTMLScriptElement": ["integrity"],
-  "KeyframeEffect": [
-    "iterationComposite",
-  ],
-  "LinkStyle": ["sheet"],
-  "MediaCapabilities": ["encodingInfo"],
-  "MutationEvent": [
+  HTMLScriptElement: ["integrity"],
+  KeyframeEffect: ["iterationComposite"],
+  LinkStyle: ["sheet"],
+  MediaCapabilities: ["encodingInfo"],
+  MutationEvent: [
     "attrChange",
     "attrName",
     "newValue",
@@ -181,28 +184,28 @@ const forceKeepAlive: Record<string, string[]> = {
     "MODIFICATION",
     "REMOVAL",
   ],
-  "NavigatorStorage": ["storage"],
-  "NavigatorPlugins": ["javaEnabled", "mimeTypes", "plugins"],
-  "NetworkInformation": ["type"],
-  "OfflineAudioContext": ["resume"],
-  "PaymentRequest": ["shippingAddress"],
-  "PictureInPictureWindow": [
+  NavigatorStorage: ["storage"],
+  NavigatorPlugins: ["javaEnabled", "mimeTypes", "plugins"],
+  NetworkInformation: ["type"],
+  OfflineAudioContext: ["resume"],
+  PaymentRequest: ["shippingAddress"],
+  PictureInPictureWindow: [
     "requestPictureInPicture",
     "onenterpictureinpicture",
     "onleavepictureinpicture",
     "autoPictureInPicture",
     "disablePictureInPicture",
   ],
-  "Plugin": ["length"],
-  "Request": ["keepalive"],
-  "ResizeObserverSize": ["blockSize", "inlineSize"],
-  "RTCDtlsTransport": ["onstatechange", "state"],
-  "RTCPeerConnection": ["canTrickleIceCandidates", "getTransceivers"],
-  "RTCStatsReport": [],
-  "SharedWorkerGlobalScope": ["close"],
-  "ServiceWorker": ["postMessage"],
-  "ServiceWorkerGlobalScope": ["onmessageerror"],
-  "SVGAngle": [
+  Plugin: ["length"],
+  Request: ["keepalive"],
+  ResizeObserverSize: ["blockSize", "inlineSize"],
+  RTCDtlsTransport: ["onstatechange", "state"],
+  RTCPeerConnection: ["canTrickleIceCandidates", "getTransceivers"],
+  RTCStatsReport: [],
+  SharedWorkerGlobalScope: ["close"],
+  ServiceWorker: ["postMessage"],
+  ServiceWorkerGlobalScope: ["onmessageerror"],
+  SVGAngle: [
     "unitType",
     "value",
     "valueAsString",
@@ -210,20 +213,20 @@ const forceKeepAlive: Record<string, string[]> = {
     "convertToSpecifiedUnits",
     "newValueSpecifiedUnits",
   ],
-  "SVGAnimatedAngle": ["animVal", "baseVal"],
-  "SVGAnimatedBoolean": ["animVal", "baseVal"],
-  "SVGAnimatedEnumeration": ["animVal", "baseVal"],
-  "SVGAnimatedInteger": ["animVal", "baseVal"],
-  "SVGAnimatedLength": ["animVal", "baseVal"],
-  "SVGAnimatedLengthList": ["animVal", "baseVal"],
-  "SVGAnimatedNumber": ["animVal", "baseVal"],
-  "SVGAnimatedNumberList": ["animVal", "baseVal"],
-  "SVGAnimatedPreserveAspectRatio": ["animVal", "baseVal"],
-  "SVGAnimatedRect": ["animVal", "baseVal"],
-  "SVGAnimatedTransformList": ["animVal", "baseVal"],
-  "SVGAnimationElement": ["getCurrentTime", "getSimpleDuration", "getStartTime"],
-  "SVGClipPathElement": ["transform"],
-  "SVGComponentTransferFunctionElement": [
+  SVGAnimatedAngle: ["animVal", "baseVal"],
+  SVGAnimatedBoolean: ["animVal", "baseVal"],
+  SVGAnimatedEnumeration: ["animVal", "baseVal"],
+  SVGAnimatedInteger: ["animVal", "baseVal"],
+  SVGAnimatedLength: ["animVal", "baseVal"],
+  SVGAnimatedLengthList: ["animVal", "baseVal"],
+  SVGAnimatedNumber: ["animVal", "baseVal"],
+  SVGAnimatedNumberList: ["animVal", "baseVal"],
+  SVGAnimatedPreserveAspectRatio: ["animVal", "baseVal"],
+  SVGAnimatedRect: ["animVal", "baseVal"],
+  SVGAnimatedTransformList: ["animVal", "baseVal"],
+  SVGAnimationElement: ["getCurrentTime", "getSimpleDuration", "getStartTime"],
+  SVGClipPathElement: ["transform"],
+  SVGComponentTransferFunctionElement: [
     "amplitude",
     "exponent",
     "intercept",
@@ -232,23 +235,11 @@ const forceKeepAlive: Record<string, string[]> = {
     "tableValues",
     "type",
   ],
-  "SVGElement": [
-    "className",
-    "ownerSVGElement",
-    "viewportElement",
-  ],
-  "SVGFEBlendElement": ["in1", "in2", "mode"],
-  "SVGFEComponentTransferElement": ["in1"],
-  "SVGFECompositeElement": [
-    "in1",
-    "in2",
-    "k1",
-    "k2",
-    "k3",
-    "k4",
-    "operator",
-  ],
-  "SVGFEConvolveMatrixElement": [
+  SVGElement: ["className", "ownerSVGElement", "viewportElement"],
+  SVGFEBlendElement: ["in1", "in2", "mode"],
+  SVGFEComponentTransferElement: ["in1"],
+  SVGFECompositeElement: ["in1", "in2", "k1", "k2", "k3", "k4", "operator"],
+  SVGFEConvolveMatrixElement: [
     "bias",
     "divisor",
     "edgeMode",
@@ -262,22 +253,22 @@ const forceKeepAlive: Record<string, string[]> = {
     "targetX",
     "targetY",
   ],
-  "SVGFEDiffuseLightingElement": [
+  SVGFEDiffuseLightingElement: [
     "diffuseConstant",
     "in1",
     "kernelUnitLengthX",
     "kernelUnitLengthY",
     "surfaceScale",
   ],
-  "SVGFEDisplacementMapElement": [
+  SVGFEDisplacementMapElement: [
     "in1",
     "in2",
     "scale",
     "xChannelSelector",
     "yChannelSelector",
   ],
-  "SVGFEDistantLightElement": ["azimuth", "elevation"],
-  "SVGFEDropShadowElement": [
+  SVGFEDistantLightElement: ["azimuth", "elevation"],
+  SVGFEDropShadowElement: [
     "dx",
     "dy",
     "in1",
@@ -285,23 +276,18 @@ const forceKeepAlive: Record<string, string[]> = {
     "stdDeviationY",
     "setStdDeviation",
   ],
-  "SVGFEGaussianBlurElement": [
+  SVGFEGaussianBlurElement: [
     "in1",
     "stdDeviationX",
     "stdDeviationY",
     "setStdDeviation",
   ],
-  "SVGFEImageElement": ["preserveAspectRatio"],
-  "SVGFEMergeNodeElement": ["in1"],
-  "SVGFEMorphologyElement": [
-    "in1",
-    "operator",
-    "radiusX",
-    "radiusY",
-  ],
-  "SVGFEOffsetElement": ["dx", "dy", "in1"],
-  "SVGFEPointLightElement": ["x", "y", "z"],
-  "SVGFESpecularLightingElement": [
+  SVGFEImageElement: ["preserveAspectRatio"],
+  SVGFEMergeNodeElement: ["in1"],
+  SVGFEMorphologyElement: ["in1", "operator", "radiusX", "radiusY"],
+  SVGFEOffsetElement: ["dx", "dy", "in1"],
+  SVGFEPointLightElement: ["x", "y", "z"],
+  SVGFESpecularLightingElement: [
     "in1",
     "kernelUnitLengthX",
     "kernelUnitLengthY",
@@ -309,7 +295,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "specularExponent",
     "surfaceScale",
   ],
-  "SVGFESpotLightElement": [
+  SVGFESpotLightElement: [
     "limitingConeAngle",
     "pointsAtX",
     "pointsAtY",
@@ -319,8 +305,8 @@ const forceKeepAlive: Record<string, string[]> = {
     "y",
     "z",
   ],
-  "SVGFETileElement": ["in1"],
-  "SVGFETurbulenceElement": [
+  SVGFETileElement: ["in1"],
+  SVGFETurbulenceElement: [
     "baseFrequencyX",
     "baseFrequencyY",
     "numOctaves",
@@ -328,7 +314,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "stitchTiles",
     "type",
   ],
-  "SVGFilterElement": [
+  SVGFilterElement: [
     "filterUnits",
     "height",
     "primitiveUnits",
@@ -336,18 +322,9 @@ const forceKeepAlive: Record<string, string[]> = {
     "x",
     "y",
   ],
-  "SVGForeignObjectElement": [
-    "height",
-    "width",
-    "x",
-    "y",
-  ],
-  "SVGGradientElement": [
-    "gradientTransform",
-    "gradientUnits",
-    "spreadMethod",
-  ],
-  "SVGLength": [
+  SVGForeignObjectElement: ["height", "width", "x", "y"],
+  SVGGradientElement: ["gradientTransform", "gradientUnits", "spreadMethod"],
+  SVGLength: [
     "unitType",
     "value",
     "valueAsString",
@@ -355,7 +332,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "convertToSpecifiedUnits",
     "newValueSpecifiedUnits",
   ],
-  "SVGLengthList": [
+  SVGLengthList: [
     "length",
     "numberOfItems",
     "appendItem",
@@ -366,9 +343,9 @@ const forceKeepAlive: Record<string, string[]> = {
     "removeItem",
     "replaceItem",
   ],
-  "SVGLinearGradientElement": ["x1", "x2", "y1", "y2"],
-  "SVGNumber": ["value"],
-  "SVGNumberList": [
+  SVGLinearGradientElement: ["x1", "x2", "y1", "y2"],
+  SVGNumber: ["value"],
+  SVGNumberList: [
     "length",
     "numberOfItems",
     "appendItem",
@@ -379,7 +356,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "removeItem",
     "replaceItem",
   ],
-  "SVGPointList": [
+  SVGPointList: [
     "appendItem",
     "clear",
     "getItem",
@@ -390,11 +367,11 @@ const forceKeepAlive: Record<string, string[]> = {
     "replaceItem",
     "removeItem",
   ],
-  "SVGPreserveAspectRatio": ["align", "meetOrSlice"],
-  "SVGRadialGradientElement": ["cx", "cy", "fr", "fx", "fy", "r"],
-  "SVGScriptElement": ["type"],
-  "SVGStopElement": ["offset"],
-  "SVGStringList": [
+  SVGPreserveAspectRatio: ["align", "meetOrSlice"],
+  SVGRadialGradientElement: ["cx", "cy", "fr", "fx", "fy", "r"],
+  SVGScriptElement: ["type"],
+  SVGStopElement: ["offset"],
+  SVGStringList: [
     "numberOfItems",
     "appendItem",
     "clear",
@@ -404,8 +381,8 @@ const forceKeepAlive: Record<string, string[]> = {
     "removeItem",
     "replaceItem",
   ],
-  "SVGStyleElement": ["media", "title", "type"],
-  "SVGTransform": [
+  SVGStyleElement: ["media", "title", "type"],
+  SVGTransform: [
     "angle",
     "matrix",
     "type",
@@ -416,7 +393,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "setSkewY",
     "setTranslate",
   ],
-  "SVGTransformList": [
+  SVGTransformList: [
     "numberOfItems",
     "appendItem",
     "clear",
@@ -428,15 +405,15 @@ const forceKeepAlive: Record<string, string[]> = {
     "removeItem",
     "replaceItem",
   ],
-  "SpeechSynthesisEvent": ["charLength"],
-  "TextDecoderStream": [],
-  "TextEncoderStream": [],
-  "TextTrackCue": ["onenter", "onexit"],
-  "TextTrackCueList": ["getCueById", "length"],
-  "TextTrackList": ["onchange", "onaddtrack", "onremovetrack"],
-  "TrackEvent": ["track"],
-  "TransformStream": ["readable", "writable"],
-  "ValidityState": [
+  SpeechSynthesisEvent: ["charLength"],
+  TextDecoderStream: [],
+  TextEncoderStream: [],
+  TextTrackCue: ["onenter", "onexit"],
+  TextTrackCueList: ["getCueById", "length"],
+  TextTrackList: ["onchange", "onaddtrack", "onremovetrack"],
+  TrackEvent: ["track"],
+  TransformStream: ["readable", "writable"],
+  ValidityState: [
     "customError",
     "patternMismatch",
     "rangeOverflow",
@@ -446,7 +423,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "valid",
     "valueMissing",
   ],
-  "VTTRegion": [
+  VTTRegion: [
     "id",
     "lines",
     "regionAnchorX",
@@ -456,23 +433,20 @@ const forceKeepAlive: Record<string, string[]> = {
     "viewportAnchorY",
     "width",
   ],
-  "WebAssembly": [
+  WebAssembly: [
     "compile",
     "compileStreaming",
     "instantiate",
     "instantiateStreaming",
     "validate",
   ],
-  "Window": [
-    "closed",
-    "captureEvents",
-  ],
-  "WindowEventHandlers": ["onmessage"],
-  "WorkerGlobalScope": ["onrejectionhandled", "onunhandledrejection"],
-  "WorkletGlobalScope": [],
-  "WritableStream": ["abort", "close", "getWriter", "locked"],
-  "XMLSerializer": ["serializeToString"],
-  "XPathResult": [
+  Window: ["closed", "captureEvents"],
+  WindowEventHandlers: ["onmessage"],
+  WorkerGlobalScope: ["onrejectionhandled", "onunhandledrejection"],
+  WorkletGlobalScope: [],
+  WritableStream: ["abort", "close", "getWriter", "locked"],
+  XMLSerializer: ["serializeToString"],
+  XPathResult: [
     "booleanValue",
     "numberValue",
     "singleNodeValue",
@@ -481,19 +455,24 @@ const forceKeepAlive: Record<string, string[]> = {
   ],
   // (WebAssembly namespace members)
   // TODO: Shouldn't these be inside "WebAssembly"?
-  "Instance": ["exports"],
-  "Global": ["value", "valueOf"],
-  "Memory": ["buffer", "grow"],
-  "Module": ["customSections", "exports", "imports"],
-  "Table": ["length", "get", "grow", "set"],
+  Instance: ["exports"],
+  Global: ["value", "valueOf"],
+  Memory: ["buffer", "grow"],
+  Module: ["customSections", "exports", "imports"],
+  Table: ["length", "get", "grow", "set"],
 
   // Widely supported but without being correctly exposed to global
-  "ReadableStreamDefaultReader": ["closed", "cancel", "read", "releaseLock"],
-  "ReadableStreamDefaultController": ["desiredSize", "close", "enqueue", "error"],
-  "TransformStreamDefaultController": ["desiredSize", "enqueue", "error", "terminate"],
-  "WebGLVertexArrayObjectOES": [],
-  "WritableStreamDefaultController": ["error"],
-  "WritableStreamDefaultWriter": [
+  ReadableStreamDefaultReader: ["closed", "cancel", "read", "releaseLock"],
+  ReadableStreamDefaultController: ["desiredSize", "close", "enqueue", "error"],
+  TransformStreamDefaultController: [
+    "desiredSize",
+    "enqueue",
+    "error",
+    "terminate",
+  ],
+  WebGLVertexArrayObjectOES: [],
+  WritableStreamDefaultController: ["error"],
+  WritableStreamDefaultWriter: [
     "abort",
     "close",
     "closed",
@@ -505,39 +484,62 @@ const forceKeepAlive: Record<string, string[]> = {
 };
 
 function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
-  function hasStableImplementation(browser: SimpleSupportStatement | SimpleSupportStatement[] | undefined) {
+  function hasStableImplementation(
+    browser: SimpleSupportStatement | SimpleSupportStatement[] | undefined
+  ) {
     if (!browser) {
       return false;
     }
-    const latest =
-      !Array.isArray(browser) ? browser :
-      browser.find(i => i.prefix === prefix); // first one if no prefix
+    const latest = !Array.isArray(browser)
+      ? browser
+      : browser.find(i => i.prefix === prefix); // first one if no prefix
     if (!latest) {
       return false;
     }
-    return latest.version_added && !latest.version_removed && !latest.flags && latest.prefix === prefix;
+    return (
+      latest.version_added &&
+      !latest.version_removed &&
+      !latest.flags &&
+      latest.prefix === prefix
+    );
   }
   let count = 0;
-  if (hasStableImplementation(support.chrome) || hasStableImplementation(support.chrome_android)) {
+  if (
+    hasStableImplementation(support.chrome) ||
+    hasStableImplementation(support.chrome_android)
+  ) {
     count += 1;
   }
-  if (hasStableImplementation(support.firefox) || hasStableImplementation(support.firefox_android)) {
+  if (
+    hasStableImplementation(support.firefox) ||
+    hasStableImplementation(support.firefox_android)
+  ) {
     count += 1;
   }
-  if (hasStableImplementation(support.safari) || hasStableImplementation(support.safari_ios)) {
+  if (
+    hasStableImplementation(support.safari) ||
+    hasStableImplementation(support.safari_ios)
+  ) {
     count += 1;
   }
   return count >= 2;
 }
 
-function isSuitable(key: string, compat?: CompatStatement, parentKey?: string, prefix?: string) {
-  const forceAlive = parentKey ? forceKeepAlive[parentKey]?.includes(key) : !!forceKeepAlive[key];
+function isSuitable(
+  key: string,
+  compat?: CompatStatement,
+  parentKey?: string,
+  prefix?: string
+) {
+  const forceAlive = parentKey
+    ? forceKeepAlive[parentKey]?.includes(key)
+    : !!forceKeepAlive[key];
   if (compat && hasMultipleImplementations(compat.support, prefix)) {
     if (forceAlive) {
       if (parentKey) {
-        console.warn(`Redundant forceKeepAlive item: ${parentKey}#${key}`)
+        console.warn(`Redundant forceKeepAlive item: ${parentKey}#${key}`);
       } else if (!forceKeepAlive[key].length) {
-        console.warn(`Redundant forceKeepAlive item: ${key}`)
+        console.warn(`Redundant forceKeepAlive item: ${key}`);
       }
     }
     return true;
@@ -560,17 +562,22 @@ export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
     if (parentKey === "CSSStyleDeclaration") {
       const hyphenCase = camelToHyphenCase(key);
       const bcdCssItem = bcd.css.properties[hyphenCase];
-      if (bcdCssItem && isSuitable(hyphenCase, bcdCssItem.__compat, parentKey)) {
+      if (
+        bcdCssItem &&
+        isSuitable(hyphenCase, bcdCssItem.__compat, parentKey)
+      ) {
         return;
       }
       if (hyphenCase.startsWith("-webkit-")) {
         const noPrefix = hyphenCase.slice(8);
         const bcdWebKitItem = bcd.css.properties[noPrefix];
-        if (bcdWebKitItem && isSuitable(noPrefix, bcdWebKitItem.__compat, parentKey, "-webkit-")) {
+        if (
+          bcdWebKitItem &&
+          isSuitable(noPrefix, bcdWebKitItem.__compat, parentKey, "-webkit-")
+        ) {
           return;
         }
-      }
-      else if (forceKeepAlive[parentKey]?.includes(key)) {
+      } else if (forceKeepAlive[parentKey]?.includes(key)) {
         return;
       }
     }
@@ -579,13 +586,26 @@ export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
   }) as Browser.WebIdl;
 }
 
-function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }: { key: string, compat?: CompatStatement, webkit?: boolean, mixin: boolean, parentKey?: string }) => any): Browser.WebIdl | undefined {
+function mapToBcdCompat(
+  webidl: Browser.WebIdl,
+  mapper: ({
+    key,
+    compat,
+    webkit,
+  }: {
+    key: string;
+    compat?: CompatStatement;
+    webkit?: boolean;
+    mixin: boolean;
+    parentKey?: string;
+  }) => any
+): Browser.WebIdl | undefined {
   function mapInterfaceLike(name: string, i: Browser.Interface) {
     const intCompat = bcd.api[name]?.__compat;
     const mapped = mapper({ key: name, compat: intCompat, mixin: !!i.mixin });
     if (!intCompat) {
       if (mapped) {
-        return { name: i.name, ... mapped };
+        return { name: i.name, ...mapped };
       }
       return;
     }
@@ -593,7 +613,13 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
 
     const recordMapper = (key: string) => {
       const compat = bcd.api[name][key]?.__compat;
-      return mapper({ key, parentKey: name, webkit: key.startsWith("webkit"), compat, mixin: !!i.mixin });
+      return mapper({
+        key,
+        parentKey: name,
+        webkit: key.startsWith("webkit"),
+        compat,
+        mixin: !!i.mixin,
+      });
     };
     const methods = filterMapRecord(i.methods?.method, recordMapper);
     const properties = filterMapRecord(i.properties?.property, recordMapper);
@@ -607,22 +633,34 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
       return { name: i.name, ...result };
     }
   }
-  const interfaces = filterMapRecord(webidl.interfaces?.interface, mapInterfaceLike);
+  const interfaces = filterMapRecord(
+    webidl.interfaces?.interface,
+    mapInterfaceLike
+  );
   const mixins = filterMapRecord(webidl.mixins?.mixin, mapInterfaceLike);
-  const namespaces = mapDefined(webidl.namespaces, n => mapInterfaceLike(n.name, n));
-  if (!isEmptyRecord(interfaces) || !isEmptyRecord(mixins) || !isEmptyRecord(namespaces)) {
+  const namespaces = mapDefined(webidl.namespaces, n =>
+    mapInterfaceLike(n.name, n)
+  );
+  if (
+    !isEmptyRecord(interfaces) ||
+    !isEmptyRecord(mixins) ||
+    !isEmptyRecord(namespaces)
+  ) {
     return {
       interfaces: interfaces && { interface: interfaces },
       mixins: mixins && { mixin: mixins },
-      namespaces
-    }
+      namespaces,
+    };
   }
 }
 
 export function getDeprecationData(webidl: Browser.WebIdl): Browser.WebIdl {
   const webkitExceptions = ["webkitLineClamp"];
   return mapToBcdCompat(webidl, ({ key, compat, webkit }) => {
-    if (compat?.status?.deprecated || (!compat && webkit && !webkitExceptions.includes(key))) {
+    if (
+      compat?.status?.deprecated ||
+      (!compat && webkit && !webkitExceptions.includes(key))
+    ) {
       return { deprecated: 1 };
     }
   }) as Browser.WebIdl;

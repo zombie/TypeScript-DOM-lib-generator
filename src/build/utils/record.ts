@@ -1,4 +1,7 @@
-export function filterMapRecord<T, V>(object: Record<string, T> | undefined, mapper: (key: string, value: T) => V | undefined): Record<string, V> | undefined {
+export function filterMapRecord<T, V>(
+  object: Record<string, T> | undefined,
+  mapper: (key: string, value: T) => V | undefined
+): Record<string, V> | undefined {
   if (!object) {
     return;
   }

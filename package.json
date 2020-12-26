@@ -13,7 +13,8 @@
     "fetch-mdn": "npm run build && node ./lib/fetch-mdn.js",
     "fetch": "echo This could take a few minutes... && npm run fetch-comment && npm run fetch-mdn",
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
-    "test": "eslint --max-warnings 0 src && npm run build && node ./lib/test.js && node ./unittests/index.js",
+    "lint": "eslint --max-warnings 0 src",
+    "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
     "update-webref": "tsc && node ./lib/update-webref.js"
   },
   "author": {
@@ -38,8 +39,11 @@
     "browser-specs": "^1.25.1",
     "cpx2": "^3.0.0",
     "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "jsdom": "^16.4.0",
     "node-fetch": "^2.6.1",
+    "prettier": "^2.2.1",
     "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.0-dev.20201221",

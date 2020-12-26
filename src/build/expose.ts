@@ -17,7 +17,7 @@ class LoggedSet extends Set<string> {
     }
 }
 
-export function getExposedTypes(webidl: Browser.WebIdl, target: string[], forceKnownTypes: Set<string>) {
+export function getExposedTypes(webidl: Browser.WebIdl, target: string[], forceKnownTypes: Set<string>): Browser.WebIdl {
     const forceKnownTypesLogged = new LoggedSet(forceKnownTypes);
 
     const unexposedTypes = new Set<string>();

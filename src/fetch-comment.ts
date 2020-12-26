@@ -76,7 +76,7 @@ function convertChildPre(e: Element) {
             continue;
         }
         const text = innerText(code, {
-            getComputedStyle(_: Element) {
+            getComputedStyle() {
                 return { whiteSpace: "pre" } as CSSStyleDeclaration;
             }
         });
@@ -110,7 +110,7 @@ function* generateDescriptionPairs(domIntro: Element) {
                 dd.push(element as HTMLElement)
                 break;
             default:
-                debugger;
+                throw new Error(`Unexpected element ${element.localName}`)
         }
         element = element.nextElementSibling;
     }

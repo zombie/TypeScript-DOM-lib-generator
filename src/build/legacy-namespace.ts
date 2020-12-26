@@ -43,7 +43,7 @@ export function collectLegacyNamespaceTypes(webidl: Browser.WebIdl): Browser.Int
 function addEmptyNested(namespace: Browser.Interface): Browser.Interface {
   if (namespace.nested) {
     return namespace;
-  };
+  }
   return {
     ...namespace,
     nested: {

@@ -96,7 +96,7 @@ function isEventHandler(p: Browser.Property) {
     return typeof p.eventHandler === "string";
 }
 
-export function emitWebIdl(webidl: Browser.WebIdl, global: string, iterator: boolean) {
+export function emitWebIdl(webidl: Browser.WebIdl, global: string, iterator: boolean): string {
     // Global print target
     const printer = createTextWriter("\n");
 
@@ -874,7 +874,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, global: string, iterator: boo
             // the other properties, following the Dictionary pattern
             switch (convertDomTypeToTsType(m.signature[0].param![0])) {
                 case "number": return true;
-                case "string":
+                case "string": {
                     if (convertDomTypeToTsType(m.signature[0]) === "any") {
                         return true;
                     }
@@ -887,6 +887,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, global: string, iterator: boo
                     if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 0) return mTypes[0] === amTypes[0] && amTypes[0] === sig.type;
                     if (mTypes.length === 0 && amTypes.length === 1 && pTypes.length === 1) return amTypes[0] === pTypes[0] && amTypes[0] === sig.type;
                     if (mTypes.length === 1 && amTypes.length === 1 && pTypes.length === 1) return mTypes[0] === amTypes[0] && amTypes[0] === pTypes[0] && amTypes[0] === sig.type;
+                }
             }
         }
         return false;

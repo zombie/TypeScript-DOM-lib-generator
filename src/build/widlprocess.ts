@@ -2,6 +2,7 @@ import webidl2 from "webidl2";
 import * as Browser from "./types.js";
 import { getEmptyWebIDL } from "./helpers.js";
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function convert(text: string, commentMap: Record<string, string>) {
     const rootTypes = webidl2.parse(text);
     const partialInterfaces: Browser.Interface[] = [];

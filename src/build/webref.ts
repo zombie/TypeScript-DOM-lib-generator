@@ -23,7 +23,7 @@ function generateWebIdlFromCssProperties(properties: string[]) {
 }
 
 function tryGetCss(title: string) {
-  let path = new URL(`${title}.json`, webrefCssDir);
+  const path = new URL(`${title}.json`, webrefCssDir);
   const data = tryRequire(fileURLToPath(path));
   if (!data) {
     return;
@@ -35,7 +35,7 @@ function tryGetCss(title: string) {
   return generateWebIdlFromCssProperties(properties);
 }
 
-export async function getIdl(specShortName: string) {
+export async function getIdl(specShortName: string): Promise<string> {
   const sources = [
     await tryReadFile(new URL(`${specShortName}.idl`, webrefDir)),
     tryGetCss(specShortName)

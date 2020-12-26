@@ -47,7 +47,7 @@ export function filterProperties<T, U extends T>(obj: Record<string, U>, fn: (o:
     return result;
 }
 
-export function exposesTo(o: { exposed?: string }, target: string[]) {
+export function exposesTo(o: { exposed?: string }, target: string[]): boolean {
     if (!o || typeof o.exposed !== "string") {
         return true;
     }
@@ -138,16 +138,12 @@ export function mapDefined<T, U>(array: ReadonlyArray<T> | undefined, mapFn: (x:
     return result;
 }
 
-export function toNameMap<T extends { name: string }>(array: T[]) {
+export function toNameMap<T extends { name: string }>(array: T[]): Record<string, T> {
     const result: Record<string, T> = {};
     for (const value of array) {
         result[value.name] = value;
     }
     return result;
-}
-
-export function isArray(value: any): value is ReadonlyArray<{}> {
-    return Array.isArray ? Array.isArray(value) : value instanceof Array;
 }
 
 export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
@@ -181,7 +177,7 @@ export function getEmptyWebIDL(): Browser.WebIdl {
     }
 }
 
-export function resolveExposure(obj: any, exposure: string, override?: boolean) {
+export function resolveExposure(obj: Record<string, any>, exposure: string, override?: boolean): void {
     if (!exposure) {
         throw new Error("No exposure set");
     }
@@ -232,7 +228,7 @@ function getNonValueTypeMap(webidl: Browser.WebIdl) {
     return new Map(namedTypes.map(t => [t.name, t] as [string, any]));
 }
 
-export function followTypeReferences(webidl: Browser.WebIdl, filteredInterfaces: Record<string, Browser.Interface>) {
+export function followTypeReferences(webidl: Browser.WebIdl, filteredInterfaces: Record<string, Browser.Interface>): Set<string> {
     const set = new Set<string>();
     const map = getNonValueTypeMap(webidl);
 

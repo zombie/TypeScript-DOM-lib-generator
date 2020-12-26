@@ -545,7 +545,7 @@ function isSuitable(key: string, compat?: CompatStatement, parentKey?: string, p
   return forceAlive;
 }
 
-export function getRemovalData(webidl: Browser.WebIdl) {
+export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
   return mapToBcdCompat(webidl, ({ key, parentKey, compat, mixin }) => {
     // Allow:
     // * all mixins, for now
@@ -619,7 +619,7 @@ function mapToBcdCompat(webidl: Browser.WebIdl, mapper: ({ key, compat, webkit }
   }
 }
 
-export function getDeprecationData(webidl: Browser.WebIdl) {
+export function getDeprecationData(webidl: Browser.WebIdl): Browser.WebIdl {
   const webkitExceptions = ["webkitLineClamp"];
   return mapToBcdCompat(webidl, ({ key, compat, webkit }) => {
     if (compat?.status?.deprecated || (!compat && webkit && !webkitExceptions.includes(key))) {

@@ -3139,6 +3139,7 @@ interface CSSStyleDeclaration {
     willChange: string;
     wordBreak: string;
     wordSpacing: string;
+    /** @deprecated */
     wordWrap: string;
     writingMode: string;
     zIndex: string;

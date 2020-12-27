@@ -311,6 +311,9 @@
                     "property": {
                         "imageOrientation": {
                             "deprecated": true
+                        },
+                        "wordWrap": {
+                            "deprecated": true
                         }
                     }
                 }

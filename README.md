@@ -35,6 +35,8 @@
 
 But so far some things still need manual modification and that is done by files in `inputfiles/` directory.
 
+See how many types have been added in the [changelog](CHANGELOG.md).
+
 ## Why not `@types`?
 
 To maintain the package by myself without waiting for external reviews.

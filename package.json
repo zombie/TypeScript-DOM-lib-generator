@@ -15,7 +15,8 @@
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
     "lint": "eslint --max-warnings 0 src",
     "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
-    "update-webref": "tsc && node ./lib/update-webref.js"
+    "update-webref": "tsc && node ./lib/update-webref.js",
+    "changelog": "tsc && node ./lib/changelog.js"
   },
   "author": {
     "name": "Kagami Sascha Rosylight",

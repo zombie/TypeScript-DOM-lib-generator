@@ -785,6 +785,7 @@ declare var BroadcastChannel: {
 
 /** This Streams API interface provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
+    readonly highWaterMark: number;
     readonly size: QueuingStrategySize<ArrayBufferView>;
 }
 
@@ -914,6 +915,7 @@ declare var CloseEvent: {
 
 /** This Streams API interface provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface CountQueuingStrategy extends QueuingStrategy {
+    readonly highWaterMark: number;
     readonly size: QueuingStrategySize;
 }
 

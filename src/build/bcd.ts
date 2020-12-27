@@ -23,6 +23,7 @@ const forceKeepAlive: Record<string, string[]> = {
   Animation: ["finished", "pending", "ready", "updatePlaybackRate"],
   AnimationPlaybackEvent: ["currentTime", "timelineTime"],
   BeforeUnloadEvent: ["returnValue"],
+  ByteLengthQueuingStrategy: ["highWaterMark"],
   console: [
     "assert",
     "clear",
@@ -48,7 +49,7 @@ const forceKeepAlive: Record<string, string[]> = {
     "warn",
   ],
   ConstantSourceNode: ["offset"],
-  CountQueuingStrategy: ["size"],
+  CountQueuingStrategy: ["highWaterMark", "size"],
   CSSConditionRule: ["conditionText"],
   CSSGroupingRule: ["cssRules", "deleteRule", "insertRule"],
   CSSStyleDeclaration: [

@@ -2231,6 +2231,7 @@ interface AudioProcessingEvent extends Event {
     readonly playbackTime: number;
 }
 
+/** @deprecated */
 declare var AudioProcessingEvent: {
     prototype: AudioProcessingEvent;
     new(type: string, eventInitDict: AudioProcessingEventInit): AudioProcessingEvent;
@@ -5101,6 +5102,7 @@ interface External {
     IsSearchProviderInstalled(): void;
 }
 
+/** @deprecated */
 declare var External: {
     prototype: External;
     new(): External;
@@ -5199,6 +5201,7 @@ interface FileSystemDirectoryReader {
     readEntries(successCallback: FileSystemEntriesCallback, errorCallback?: ErrorCallback): void;
 }
 
+/** @deprecated */
 declare var FileSystemDirectoryReader: {
     prototype: FileSystemDirectoryReader;
     new(): FileSystemDirectoryReader;
@@ -6228,6 +6231,7 @@ interface HTMLDirectoryElement extends HTMLElement {
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
+/** @deprecated */
 declare var HTMLDirectoryElement: {
     prototype: HTMLDirectoryElement;
     new(): HTMLDirectoryElement;
@@ -6385,6 +6389,7 @@ interface HTMLFontElement extends HTMLElement {
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
+/** @deprecated */
 declare var HTMLFontElement: {
     prototype: HTMLFontElement;
     new(): HTMLFontElement;
@@ -6536,6 +6541,7 @@ interface HTMLFrameElement extends HTMLElement {
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
+/** @deprecated */
 declare var HTMLFrameElement: {
     prototype: HTMLFrameElement;
     new(): HTMLFrameElement;
@@ -6563,6 +6569,7 @@ interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
+/** @deprecated */
 declare var HTMLFrameSetElement: {
     prototype: HTMLFrameSetElement;
     new(): HTMLFrameSetElement;
@@ -7269,6 +7276,7 @@ interface HTMLMarqueeElement extends HTMLElement {
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
+/** @deprecated */
 declare var HTMLMarqueeElement: {
     prototype: HTMLMarqueeElement;
     new(): HTMLMarqueeElement;
@@ -10951,6 +10959,7 @@ interface PerformanceNavigation {
     readonly TYPE_RESERVED: number;
 }
 
+/** @deprecated */
 declare var PerformanceNavigation: {
     prototype: PerformanceNavigation;
     new(): PerformanceNavigation;
@@ -11093,6 +11102,7 @@ interface PerformanceTiming {
     toJSON(): any;
 }
 
+/** @deprecated */
 declare var PerformanceTiming: {
     prototype: PerformanceTiming;
     new(): PerformanceTiming;
@@ -13620,6 +13630,7 @@ interface ScriptProcessorNode extends AudioNode {
     removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
 }
 
+/** @deprecated */
 declare var ScriptProcessorNode: {
     prototype: ScriptProcessorNode;
     new(): ScriptProcessorNode;

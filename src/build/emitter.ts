@@ -1080,6 +1080,9 @@ export function emitWebIdl(
   }
 
   function emitConstructor(i: Browser.Interface, prefix = "") {
+    if (i.deprecated) {
+      printer.printLine(`/** @deprecated */`);
+    }
     printer.printLine(`${prefix}var ${i.name}: {`);
     printer.increaseIndent();
 

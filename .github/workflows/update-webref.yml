@@ -22,8 +22,7 @@ jobs:
         continue-on-error: true
       - run: npm run build && npm run baseline-accept
         if: ${{ steps.run-update-webref.outcome == 'success' }}
-      - id: git-diff-baselines
-        run: git diff HEAD baselines
+      - run: git diff --quiet HEAD baselines
       - uses: peter-evans/create-pull-request@v3
         if: ${{ failure() }}
         with:

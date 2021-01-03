@@ -119,7 +119,7 @@ interface AudioWorkletGlobalScope extends WorkletGlobalScope {
 }
 
 declare var AudioWorkletGlobalScope: {
-    prototype: AudioWorkletGlobalScope;
+    readonly prototype: AudioWorkletGlobalScope;
     new(): AudioWorkletGlobalScope;
 };
 
@@ -128,7 +128,7 @@ interface AudioWorkletProcessor {
 }
 
 declare var AudioWorkletProcessor: {
-    prototype: AudioWorkletProcessor;
+    readonly prototype: AudioWorkletProcessor;
     new(): AudioWorkletProcessor;
 };
 
@@ -139,7 +139,7 @@ interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
 }
 
 declare var ByteLengthQueuingStrategy: {
-    prototype: ByteLengthQueuingStrategy;
+    readonly prototype: ByteLengthQueuingStrategy;
     new(init: QueuingStrategyInit): ByteLengthQueuingStrategy;
 };
 
@@ -150,7 +150,7 @@ interface CountQueuingStrategy extends QueuingStrategy {
 }
 
 declare var CountQueuingStrategy: {
-    prototype: CountQueuingStrategy;
+    readonly prototype: CountQueuingStrategy;
     new(init: QueuingStrategyInit): CountQueuingStrategy;
 };
 
@@ -226,7 +226,7 @@ interface Event {
 }
 
 declare var Event: {
-    prototype: Event;
+    readonly prototype: Event;
     new(type: string, eventInitDict?: EventInit): Event;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
@@ -263,7 +263,7 @@ interface EventTarget {
 }
 
 declare var EventTarget: {
-    prototype: EventTarget;
+    readonly prototype: EventTarget;
     new(): EventTarget;
 };
 
@@ -294,7 +294,7 @@ interface MessageEvent<T = any> extends Event {
 }
 
 declare var MessageEvent: {
-    prototype: MessageEvent;
+    readonly prototype: MessageEvent;
     new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
 };
 
@@ -329,7 +329,7 @@ interface MessagePort extends EventTarget {
 }
 
 declare var MessagePort: {
-    prototype: MessagePort;
+    readonly prototype: MessagePort;
     new(): MessagePort;
 };
 
@@ -345,7 +345,7 @@ interface ReadableStream<R = any> {
 }
 
 declare var ReadableStream: {
-    prototype: ReadableStream;
+    readonly prototype: ReadableStream;
     new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
 };
 
@@ -357,7 +357,7 @@ interface ReadableStreamDefaultController<R = any> {
 }
 
 declare var ReadableStreamDefaultController: {
-    prototype: ReadableStreamDefaultController;
+    readonly prototype: ReadableStreamDefaultController;
     new(): ReadableStreamDefaultController;
 };
 
@@ -367,7 +367,7 @@ interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericRead
 }
 
 declare var ReadableStreamDefaultReader: {
-    prototype: ReadableStreamDefaultReader;
+    readonly prototype: ReadableStreamDefaultReader;
     new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
 };
 
@@ -382,7 +382,7 @@ interface TransformStream<I = any, O = any> {
 }
 
 declare var TransformStream: {
-    prototype: TransformStream;
+    readonly prototype: TransformStream;
     new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
 };
 
@@ -394,7 +394,7 @@ interface TransformStreamDefaultController<O = any> {
 }
 
 declare var TransformStreamDefaultController: {
-    prototype: TransformStreamDefaultController;
+    readonly prototype: TransformStreamDefaultController;
     new(): TransformStreamDefaultController;
 };
 
@@ -402,7 +402,7 @@ interface WorkletGlobalScope {
 }
 
 declare var WorkletGlobalScope: {
-    prototype: WorkletGlobalScope;
+    readonly prototype: WorkletGlobalScope;
     new(): WorkletGlobalScope;
 };
 
@@ -415,7 +415,7 @@ interface WritableStream<W = any> {
 }
 
 declare var WritableStream: {
-    prototype: WritableStream;
+    readonly prototype: WritableStream;
     new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
 };
 
@@ -425,7 +425,7 @@ interface WritableStreamDefaultController {
 }
 
 declare var WritableStreamDefaultController: {
-    prototype: WritableStreamDefaultController;
+    readonly prototype: WritableStreamDefaultController;
     new(): WritableStreamDefaultController;
 };
 
@@ -441,7 +441,7 @@ interface WritableStreamDefaultWriter<W = any> {
 }
 
 declare var WritableStreamDefaultWriter: {
-    prototype: WritableStreamDefaultWriter;
+    readonly prototype: WritableStreamDefaultWriter;
     new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
 };
 
@@ -475,7 +475,7 @@ declare namespace WebAssembly {
     }
     
     var CompileError: {
-        prototype: CompileError;
+        readonly prototype: CompileError;
         new(): CompileError;
     };
     
@@ -485,7 +485,7 @@ declare namespace WebAssembly {
     }
     
     var Global: {
-        prototype: Global;
+        readonly prototype: Global;
         new(descriptor: GlobalDescriptor, v?: any): Global;
     };
     
@@ -494,7 +494,7 @@ declare namespace WebAssembly {
     }
     
     var Instance: {
-        prototype: Instance;
+        readonly prototype: Instance;
         new(module: Module, importObject?: Imports): Instance;
     };
     
@@ -502,7 +502,7 @@ declare namespace WebAssembly {
     }
     
     var LinkError: {
-        prototype: LinkError;
+        readonly prototype: LinkError;
         new(): LinkError;
     };
     
@@ -512,7 +512,7 @@ declare namespace WebAssembly {
     }
     
     var Memory: {
-        prototype: Memory;
+        readonly prototype: Memory;
         new(descriptor: MemoryDescriptor): Memory;
     };
     
@@ -520,7 +520,7 @@ declare namespace WebAssembly {
     }
     
     var Module: {
-        prototype: Module;
+        readonly prototype: Module;
         new(bytes: BufferSource): Module;
         customSections(moduleObject: Module, sectionName: string): ArrayBuffer[];
         exports(moduleObject: Module): ModuleExportDescriptor[];
@@ -531,7 +531,7 @@ declare namespace WebAssembly {
     }
     
     var RuntimeError: {
-        prototype: RuntimeError;
+        readonly prototype: RuntimeError;
         new(): RuntimeError;
     };
     
@@ -543,7 +543,7 @@ declare namespace WebAssembly {
     }
     
     var Table: {
-        prototype: Table;
+        readonly prototype: Table;
         new(descriptor: TableDescriptor): Table;
     };
     

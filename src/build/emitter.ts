@@ -1086,7 +1086,7 @@ export function emitWebIdl(
     printer.printLine(`${prefix}var ${i.name}: {`);
     printer.increaseIndent();
 
-    printer.printLine(`prototype: ${i.name};`);
+    printer.printLine(`readonly prototype: ${i.name};`);
     emitConstructorSignature(i);
     emitConstants(i);
     if (iNameToConstParents[i.name]?.length) {

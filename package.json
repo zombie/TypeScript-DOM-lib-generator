@@ -5,7 +5,10 @@
   "keywords": [
     "typescript",
     "web",
-    "api"
+    "api",
+    "dom",
+    "worker",
+    "worklet"
   ],
   "scripts": {
     "build": "tsc && node ./lib/build.js",

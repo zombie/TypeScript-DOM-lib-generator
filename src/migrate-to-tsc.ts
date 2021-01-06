@@ -14,8 +14,8 @@ if (!tscWD) throw new Error("Could not find a TypeScript clone to put the genera
 const generatedFiles = readdirSync("generated")
 generatedFiles.forEach(file => {
     const contents = readFileSync(join("generated", file) , "utf8")
-    const newFilePath = join(tscWD, "lib", file.replace(".generated", ""))
+    const newFilePath = join(tscWD, "src", "lib", file)
     writeFileSync(newFilePath, contents)
 })
 
-console.log(`Moved ${generatedFiles.map(f => f.replace(".generated", "")).join(", ")} to '${tscWD}'.`)
+console.log(`Moved ${generatedFiles.map(f => f.replace(".generated", "")).join(", ")} to '${tscWD}/src/lib'.`)

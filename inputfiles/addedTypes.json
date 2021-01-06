@@ -626,7 +626,7 @@
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
                             "override-signatures": [
-                                "getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>"
+                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
                             ]
                         },
                         "closest": {
@@ -988,7 +988,7 @@
                             "name": "getElementById",
                             "exposed": "Window",
                             "override-signatures": [
-                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
+                                "getElementById(elementId: string): HTMLElement | null"
                             ]
                         }
                     }

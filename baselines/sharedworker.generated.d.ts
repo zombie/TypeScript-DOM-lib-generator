@@ -238,7 +238,7 @@ interface ImageBitmapRenderingContextSettings {
 }
 
 interface ImportMeta {
-    url?: string;
+    url: string;
 }
 
 interface JsonWebKey {

@@ -2301,7 +2301,8 @@
                     "member": {
                         "url": {
                             "name": "url",
-                            "type": "DOMString"
+                            "type": "DOMString",
+                            "required": 1
                         }
                     }
                 }

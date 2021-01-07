@@ -1,3 +1,23 @@
+# v0.1.6
+
+## New interfaces
+
+* `ClipboardItem`
+* `RTCIceTransport`
+
+## Modified
+
+* CSSStyleDeclaration
+  * Added: `borderEndEndRadius`, `borderEndStartRadius`, `borderStartEndRadius`, `borderStartStartRadius`
+* Document
+  * Added: `pictureInPictureEnabled`, `exitPictureInPicture`
+* HTMLInputElement
+  * Added: `capture`
+* HTMLMediaElement
+  * Added: `remote`
+* SVGAnimationElement
+  * Added: `beginElement`, `beginElementAt`, `endElement`, `endElementAt`
+
 # v0.1.4
 
 ## Modified

@@ -1997,7 +1997,7 @@
                         "url": {
                             "name": "url",
                             "type": "DOMString",
-                            "required": 1
+                            "required": true
                         }
                     }
                 }

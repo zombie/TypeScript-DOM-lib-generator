@@ -193,6 +193,10 @@ interface ClipboardEventInit extends EventInit {
     clipboardData?: DataTransfer | null;
 }
 
+interface ClipboardItemOptions {
+    presentationStyle?: PresentationStyle;
+}
+
 interface CloseEventInit extends EventInit {
     code?: number;
     reason?: string;
@@ -2589,6 +2593,7 @@ interface CSSRule {
     cssText: string;
     readonly parentRule: CSSRule | null;
     readonly parentStyleSheet: CSSStyleSheet | null;
+    /** @deprecated */
     readonly type: number;
     readonly CHARSET_RULE: number;
     readonly FONT_FACE_RULE: number;
@@ -2682,6 +2687,8 @@ interface CSSStyleDeclaration {
     borderBottomWidth: string;
     borderCollapse: string;
     borderColor: string;
+    borderEndEndRadius: string;
+    borderEndStartRadius: string;
     borderImage: string;
     borderImageOutset: string;
     borderImageRepeat: string;
@@ -2710,6 +2717,8 @@ interface CSSStyleDeclaration {
     borderRightStyle: string;
     borderRightWidth: string;
     borderSpacing: string;
+    borderStartEndRadius: string;
+    borderStartStartRadius: string;
     borderStyle: string;
     borderTop: string;
     borderTopColor: string;
@@ -3475,6 +3484,16 @@ interface ClipboardEvent extends Event {
 declare var ClipboardEvent: {
     readonly prototype: ClipboardEvent;
     new(type: string, eventInitDict?: ClipboardEventInit): ClipboardEvent;
+};
+
+interface ClipboardItem {
+    readonly types: ReadonlyArray<string>;
+    getType(type: string): Promise<Blob>;
+}
+
+declare var ClipboardItem: {
+    readonly prototype: ClipboardItem;
+    new(items: Record<string, ClipboardItemData>, options?: ClipboardItemOptions): ClipboardItem;
 };
 
 /** A CloseEvent is sent to clients using WebSockets when the connection is closed. This is delivered to the listener indicated by the WebSocket object's onclose attribute. */
@@ -4311,6 +4330,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     onreadystatechange: ((this: Document, ev: Event) => any) | null;
     onvisibilitychange: ((this: Document, ev: Event) => any) | null;
     readonly ownerDocument: null;
+    readonly pictureInPictureEnabled: boolean;
     /**
      * Return an HTMLCollection of the embed elements in the Document.
      */
@@ -4501,6 +4521,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      * Stops document's fullscreen element from being displayed fullscreen and resolves promise when done.
      */
     exitFullscreen(): Promise<void>;
+    exitPictureInPicture(): Promise<void>;
     exitPointerLock(): void;
     /**
      * Returns a reference to the first object with the specified value of the ID attribute.
@@ -6909,6 +6930,7 @@ interface HTMLInputElement extends HTMLElement {
      * Specifies whether autocomplete is applied to an editable text field.
      */
     autocomplete: string;
+    capture: string;
     /**
      * Sets or retrieves the state of the check box or radio button.
      */
@@ -7359,6 +7381,7 @@ interface HTMLMediaElement extends HTMLElement {
      */
     preload: string;
     readonly readyState: number;
+    readonly remote: RemotePlayback;
     /**
      * Returns a TimeRanges object that represents the ranges of the current media resource that can be seeked.
      */
@@ -11442,6 +11465,17 @@ declare var RTCIceCandidate: {
     new(candidateInitDict?: RTCIceCandidateInit): RTCIceCandidate;
 };
 
+/** Provides access to information about the ICE transport layer over which the data is being sent and received. */
+interface RTCIceTransport extends EventTarget {
+    readonly gatheringState: RTCIceGathererState;
+    readonly state: RTCIceTransportState;
+}
+
+declare var RTCIceTransport: {
+    readonly prototype: RTCIceTransport;
+    new(): RTCIceTransport;
+};
+
 interface RTCPeerConnectionEventMap {
     "connectionstatechange": Event;
     "datachannel": RTCDataChannelEvent;
@@ -12062,6 +12096,10 @@ declare var SVGAnimatedTransformList: {
 
 interface SVGAnimationElement extends SVGElement, SVGTests {
     readonly targetElement: SVGElement | null;
+    beginElement(): void;
+    beginElementAt(offset: number): void;
+    endElement(): void;
+    endElementAt(offset: number): void;
     getCurrentTime(): number;
     getSimpleDuration(): number;
     getStartTime(): number;
@@ -18351,6 +18389,8 @@ type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type COSEAlgorithmIdentifier = number;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
+type ClipboardItemData = Promise<ClipboardItemDataType>;
+type ClipboardItemDataType = string | Blob;
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type ConstrainDouble = number | ConstrainDoubleRange;
@@ -18475,6 +18515,7 @@ type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PremultiplyAlpha = "default" | "none" | "premultiply";
+type PresentationStyle = "attachment" | "inline" | "unspecified";
 type PublicKeyCredentialType = "public-key";
 type PushEncryptionKeyName = "auth" | "p256dh";
 type PushPermissionState = "denied" | "granted" | "prompt";
@@ -18484,8 +18525,10 @@ type RTCDegradationPreference = "balanced" | "maintain-framerate" | "maintain-re
 type RTCDtlsTransportState = "closed" | "connected" | "connecting" | "failed" | "new";
 type RTCIceConnectionState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCIceCredentialType = "password";
+type RTCIceGathererState = "complete" | "gathering" | "new";
 type RTCIceGatheringState = "complete" | "gathering" | "new";
 type RTCIceTransportPolicy = "all" | "relay";
+type RTCIceTransportState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCPeerConnectionState = "closed" | "connected" | "connecting" | "disconnected" | "failed" | "new";
 type RTCPriorityType = "high" | "low" | "medium" | "very-low";
 type RTCRtcpMuxPolicy = "require";

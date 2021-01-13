@@ -1,4 +1,4 @@
-const {message} = require("danger")
+const {markdown} = require("danger")
 const {readFileSync, existsSync} = require("fs")
 const parseDiff = require("parse-diff")
 
@@ -28,6 +28,7 @@ if (existsSync(diffPath)) {
     md.push("```")
   })
 
-
-  message(md.join("\n"))
+  if (md.length > 2) {
+    markdown(md.join("\n"))
+  }
 }

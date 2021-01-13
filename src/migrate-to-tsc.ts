@@ -18,4 +18,4 @@ generatedFiles.forEach(file => {
     writeFileSync(newFilePath, contents)
 })
 
-console.log(`Moved ${generatedFiles.map(f => f.replace(".generated", "")).join(", ")} to '${tscWD}'.`)
+console.log(`Moved ${generatedFiles.map(f => f.replace(".generated", "")).join(", ")} to '${tscWD}/src/lib'.`)

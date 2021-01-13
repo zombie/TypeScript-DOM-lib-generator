@@ -1,32 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "NonElementParentNode": {
-                "name": "NonElementParentNode",
-                "methods": {
-                    "method": {
-                        "getElementById": {
-                            "name": "getElementById",
-                            "override-signatures": [
-                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
-                            ]
-                        }
-                    }
-                }
-            },
-            "GlobalFetch": {
-                "name": "GlobalFetch",
-                "methods": {
-                    "method": {
-                        "fetch": {
-                            "name": "fetch",
-                            "override-signatures": [
-                                "fetch(input: RequestInfo, init?: RequestInit): Promise<Response>"
-                            ]
-                        }
-                    }
-                }
-            },
             "Animatable": {
                 "name": "Animatable",
                 "methods": {
@@ -528,18 +502,6 @@
                 },
                 "override-index-signatures": []
             },
-            "HTMLElement": {
-                "name": "HTMLElement",
-                "properties": {
-                    "property": {
-                        "parentElement": {
-                            "name": "parentElement",
-                            "read-only": 1,
-                            "override-type": "HTMLElement | null"
-                        }
-                    }
-                }
-            },
             "Document": {
                 "name": "Document",
                 "methods": {
@@ -565,7 +527,7 @@
                         "getElementById": {
                             "name": "getElementById",
                             "override-signatures": [
-                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
+                                "getElementById(elementId: string): HTMLElement | null"
                             ]
                         },
                         "getElementsByTagNameNS": {
@@ -579,7 +541,7 @@
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
                             "override-signatures": [
-                                "getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>"
+                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
                             ]
                         },
                         "getElementsByName": {
@@ -728,7 +690,7 @@
                             "override-type": "Node & ParentNode | null"
                         },
                         "parentElement": {
-                            "override-type": "Element | null"
+                            "override-type": "HTMLElement | null"
                         },
                         "childNodes": {
                             "override-type": "NodeListOf<ChildNode>"
@@ -939,21 +901,6 @@
                             "deprecated": 1,
                             "name": "className",
                             "type": "any"
-                        },
-                        "parentElement": {
-                            "name": "parentElement",
-                            "read-only": 1,
-                            "override-type": "SVGElement | null"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "getElementsByClassName": {
-                            "name": "getElementsByClassName",
-                            "override-signatures": [
-                                "getElementsByClassName<E extends Element = SVGElement>(classNames: string): HTMLCollectionOf<E>"
-                            ]
                         }
                     }
                 }
@@ -962,12 +909,6 @@
                 "name": "SVGSVGElement",
                 "methods": {
                     "method": {
-                        "getElementById": {
-                            "name": "getElementById",
-                            "override-signatures": [
-                                "getElementById<E extends Element = HTMLElement>(elementId: string): E | null"
-                            ]
-                        },
                         "getEnclosureList": {
                             "name": "getEnclosureList",
                             "override-signatures": [
@@ -995,19 +936,6 @@
                         "getCurrentTime": {
                             "name": "getCurrentTime",
                             "deprecated": 0
-                        }
-                    }
-                }
-            },
-            "SVGForeignObjectElement": {
-                "name": "SVGForeignObjectElement",
-                "methods": {
-                    "method": {
-                        "getElementsByClassName": {
-                            "name": "getElementsByClassName",
-                            "override-signatures": [
-                                "getElementsByClassName<E extends Element = HTMLElement>(classNames: string): HTMLCollectionOf<E>"
-                            ]
                         }
                     }
                 }

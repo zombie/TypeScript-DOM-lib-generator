@@ -1,3 +1,15 @@
+# v0.1.7
+
+## Modified
+
+* CSSStyleDeclaration
+  * Removed: `colorAdjust`
+
+### Non-value types
+
+* WindowOrWorkerGlobalScope
+  * Added: `crossOriginIsolated`
+
 # v0.1.6
 
 ## New interfaces

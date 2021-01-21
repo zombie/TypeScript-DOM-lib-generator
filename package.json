@@ -1,6 +1,6 @@
 {
   "name": "types-web",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Provides TypeScript types for the latest web APIs.",
   "keywords": [
     "typescript",

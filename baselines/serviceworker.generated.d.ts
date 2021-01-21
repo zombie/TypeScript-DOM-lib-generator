@@ -5189,6 +5189,7 @@ declare var WindowClient: {
 
 interface WindowOrWorkerGlobalScope {
     readonly caches: CacheStorage;
+    readonly crossOriginIsolated: boolean;
     readonly crypto: Crypto;
     readonly indexedDB: IDBFactory;
     readonly isSecureContext: boolean;
@@ -5555,6 +5556,7 @@ declare function importScripts(...urls: (string | URL)[]): void;
  */
 declare function dispatchEvent(event: Event): boolean;
 declare var caches: CacheStorage;
+declare var crossOriginIsolated: boolean;
 declare var crypto: Crypto;
 declare var indexedDB: IDBFactory;
 declare var isSecureContext: boolean;

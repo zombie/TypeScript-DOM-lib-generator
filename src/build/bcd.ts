@@ -235,7 +235,8 @@ function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
       latest.version_added &&
       !latest.version_removed &&
       !latest.flags &&
-      latest.prefix === prefix
+      latest.prefix === prefix &&
+      !latest.alternative_name
     );
   }
   let count = 0;

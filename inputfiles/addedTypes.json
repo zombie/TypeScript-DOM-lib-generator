@@ -1885,7 +1885,6 @@
                 "extends": "Error"
             },
             "ProgressEvent": {
-                "exposed": "Window Worker",
                 "typeParameters": [
                     {
                         "name": "T",

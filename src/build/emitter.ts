@@ -1459,29 +1459,22 @@ export function emitWebIdl(
   }
 
   function emitIterator(i: Browser.Interface) {
-    // check anonymous unsigned long getter and length property
-    const isIterableGetter = (m: Browser.AnonymousMethod) =>
+    // https://heycam.github.io/webidl/#dfn-indexed-property-getter
+    const isIndexedPropertyGetter = (m: Browser.AnonymousMethod) =>
       m.getter &&
       m.signature[0]?.param?.length === 1 &&
       typeof m.signature[0].param[0].type === "string" &&
       integerTypes.has(m.signature[0].param[0].type);
 
     function findIterableGetter() {
-      const anonymousGetter = i.anonymousMethods?.method.find(isIterableGetter);
+      const anonymousGetter = i.anonymousMethods?.method.find(
+        isIndexedPropertyGetter
+      );
 
       if (anonymousGetter) return anonymousGetter;
       else if (i.methods)
-        return mapToArray(i.methods.method).find(isIterableGetter);
+        return mapToArray(i.methods.method).find(isIndexedPropertyGetter);
       else return undefined;
-    }
-
-    function hasLengthProperty(i: Browser.Interface | undefined) {
-      const p = i?.properties?.property.length;
-      return (
-        p?.name === "length" &&
-        typeof p.type === "string" &&
-        integerTypes.has(p.type)
-      );
     }
 
     function getIteratorSubtypes() {
@@ -1492,10 +1485,7 @@ export function emitWebIdl(
         return i.iterator.type.map(convertDomTypeToTsType);
       } else if (i.name !== "Window") {
         const iterableGetter = findIterableGetter();
-        const lengthProperty =
-          hasLengthProperty(i) ||
-          (i.extends && hasLengthProperty(allInterfacesMap[i.extends]));
-        if (iterableGetter && lengthProperty) {
+        if (iterableGetter) {
           return [
             convertDomTypeToTsType({
               type: iterableGetter.signature[0].type,

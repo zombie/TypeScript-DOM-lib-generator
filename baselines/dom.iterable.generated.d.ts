@@ -185,6 +185,10 @@ interface NodeListOf<TNode extends Node> {
     values(): IterableIterator<TNode>;
 }
 
+interface Plugin {
+    [Symbol.iterator](): IterableIterator<undefined>;
+}
+
 interface PluginArray {
     [Symbol.iterator](): IterableIterator<any>;
 }

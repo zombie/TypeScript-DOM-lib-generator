@@ -20,7 +20,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "startContainer",
     "startOffset",
   ],
-  Animation: ["finished", "pending", "ready", "updatePlaybackRate"],
   AnimationPlaybackEvent: ["currentTime", "timelineTime"],
   BeforeUnloadEvent: ["returnValue"],
   console: [

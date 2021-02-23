@@ -467,7 +467,7 @@
                         },
                         "opener": {
                             "name": "opener",
-                            "override-type": "any",
+                            "override-type": "WindowProxy | null",
                             "read-only": 0
                         },
                         "self": {

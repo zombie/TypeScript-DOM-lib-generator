@@ -18585,7 +18585,7 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
-    opener: any;
+    opener: WindowProxy | null;
     /** @deprecated */
     readonly orientation: string | number;
     readonly outerHeight: number;
@@ -19635,7 +19635,7 @@ declare var onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
-declare var opener: any;
+declare var opener: WindowProxy | null;
 /** @deprecated */
 declare var orientation: string | number;
 declare var outerHeight: number;

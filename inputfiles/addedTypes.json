@@ -2307,6 +2307,17 @@
                     }
                 }
             },
+            "MemoryDescriptor": {
+                "legacy-namespace": "WebAssembly",
+                "members": {
+                    "member": {
+                        "shared": {
+                            "name": "shared",
+                            "type": "boolean"
+                        }
+                    }
+                }
+            },
             "ShadowRootInit": {
                 "members": {
                     "member": {

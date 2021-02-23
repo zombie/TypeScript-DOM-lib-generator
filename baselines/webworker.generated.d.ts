@@ -5685,6 +5685,7 @@ declare namespace WebAssembly {
     interface MemoryDescriptor {
         initial: number;
         maximum?: number;
+        shared?: boolean;
     }
 
     interface ModuleExportDescriptor {

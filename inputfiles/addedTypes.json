@@ -2013,6 +2013,16 @@
                     }
                 }
             },
+            "MemoryDescriptor": {
+                "members": {
+                    "member": {
+                        "shared": {
+                            "name": "shared",
+                            "type": "boolean"
+                        }
+                    }
+                }
+            },
             "ReadableStreamDefaultReadDoneResult": {
                 "name": "ReadableStreamDefaultReadDoneResult",
                 "members": {

@@ -33,7 +33,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "devDependencies": {
-    "@mdn/browser-compat-data": "3.1.1",
+    "@mdn/browser-compat-data": "3.1.2",
     "@types/jsdom": "^16.2.6",
     "@types/node": "^14.14.27",
     "@types/node-fetch": "^2.5.8",

@@ -168,7 +168,6 @@ const forceKeepAlive: Record<string, string[]> = {
   SpeechSynthesisEvent: ["charLength"],
   TextDecoderStream: [],
   TextEncoderStream: [],
-  TrackEvent: ["track"],
   TransformStream: ["readable", "writable"],
   WebAssembly: [
     "compile",

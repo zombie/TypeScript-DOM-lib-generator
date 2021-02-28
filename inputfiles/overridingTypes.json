@@ -494,10 +494,6 @@
                         "onorientationchange": {
                             "deprecated": true
                         },
-                        "opener": {
-                            "name": "opener",
-                            "overrideType": "any"
-                        },
                         "self": {
                             "overrideType": "Window & typeof globalThis"
                         },

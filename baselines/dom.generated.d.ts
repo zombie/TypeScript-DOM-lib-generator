@@ -2,17 +2,22 @@
 /// DOM APIs
 /////////////////////////////
 
-interface Account {
-    displayName: string;
-    id: string;
-    imageURL?: string;
-    name?: string;
-    rpDisplayName: string;
-}
-
 interface AddEventListenerOptions extends EventListenerOptions {
     once?: boolean;
     passive?: boolean;
+}
+
+interface AddressErrors {
+    addressLine?: string;
+    city?: string;
+    country?: string;
+    dependentLocality?: string;
+    organization?: string;
+    phone?: string;
+    postalCode?: string;
+    recipient?: string;
+    region?: string;
+    sortingCode?: string;
 }
 
 interface AesCbcParams extends Algorithm {
@@ -62,13 +67,6 @@ interface AnimationEventInit extends EventInit {
 interface AnimationPlaybackEventInit extends EventInit {
     currentTime?: number | null;
     timelineTime?: number | null;
-}
-
-interface AssertionOptions {
-    allowList?: ScopedCredentialDescriptor[];
-    extensions?: WebAuthnExtensions;
-    rpId?: string;
-    timeoutSeconds?: number;
 }
 
 interface AssignedNodesOptions {
@@ -187,15 +185,6 @@ interface ChannelMergerOptions extends AudioNodeOptions {
 
 interface ChannelSplitterOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
-}
-
-interface ClientData {
-    challenge: string;
-    extensions?: WebAuthnExtensions;
-    hashAlg: string | Algorithm;
-    origin: string;
-    rpId: string;
-    tokenBinding?: string;
 }
 
 interface ClientQueryOptions {
@@ -343,10 +332,6 @@ interface DOMRectInit {
 interface DelayOptions extends AudioNodeOptions {
     delayTime?: number;
     maxDelayTime?: number;
-}
-
-interface DeviceLightEventInit extends EventInit {
-    value?: number;
 }
 
 interface DeviceMotionEventAccelerationInit {
@@ -946,9 +931,14 @@ interface PannerOptions extends AudioNodeOptions {
     rolloffFactor?: number;
 }
 
+interface PayerErrors {
+    email?: string;
+    name?: string;
+    phone?: string;
+}
+
 interface PaymentCurrencyAmount {
     currency: string;
-    currencySystem?: string;
     value: string;
 }
 
@@ -972,6 +962,9 @@ interface PaymentDetailsModifier {
 
 interface PaymentDetailsUpdate extends PaymentDetailsBase {
     error?: string;
+    payerErrors?: PayerErrors;
+    paymentMethodErrors?: any;
+    shippingAddressErrors?: AddressErrors;
     total?: PaymentItem;
 }
 
@@ -981,17 +974,23 @@ interface PaymentItem {
     pending?: boolean;
 }
 
+interface PaymentMethodChangeEventInit extends PaymentRequestUpdateEventInit {
+    methodDetails?: any;
+    methodName?: string;
+}
+
 interface PaymentMethodData {
     data?: any;
     supportedMethods: string | string[];
 }
 
 interface PaymentOptions {
+    requestBillingAddress?: boolean;
     requestPayerEmail?: boolean;
     requestPayerName?: boolean;
     requestPayerPhone?: boolean;
     requestShipping?: boolean;
-    shippingType?: string;
+    shippingType?: PaymentShippingType;
 }
 
 interface PaymentRequestUpdateEventInit extends EventInit {
@@ -1002,6 +1001,13 @@ interface PaymentShippingOption {
     id: string;
     label: string;
     selected?: boolean;
+}
+
+interface PaymentValidationErrors {
+    error?: string;
+    payer?: PayerErrors;
+    paymentMethod?: any;
+    shippingAddress?: AddressErrors;
 }
 
 interface Pbkdf2Params extends Algorithm {
@@ -1164,12 +1170,11 @@ interface RTCConfiguration {
     iceCandidatePoolSize?: number;
     iceServers?: RTCIceServer[];
     iceTransportPolicy?: RTCIceTransportPolicy;
-    peerIdentity?: string;
     rtcpMuxPolicy?: RTCRtcpMuxPolicy;
 }
 
 interface RTCDTMFToneChangeEventInit extends EventInit {
-    tone: string;
+    tone?: string;
 }
 
 interface RTCDataChannelEventInit extends EventInit {
@@ -1182,7 +1187,6 @@ interface RTCDataChannelInit {
     maxRetransmits?: number;
     negotiated?: boolean;
     ordered?: boolean;
-    priority?: RTCPriorityType;
     protocol?: string;
 }
 
@@ -1202,7 +1206,6 @@ interface RTCErrorEventInit extends EventInit {
 
 interface RTCErrorInit {
     errorDetail: RTCErrorDetailType;
-    httpRequestStatusCode?: number;
     receivedAlert?: number;
     sctpCauseCode?: number;
     sdpLineNumber?: number;
@@ -1292,7 +1295,7 @@ interface RTCIceParameters {
 }
 
 interface RTCIceServer {
-    credential?: string | RTCOAuthCredential;
+    credential?: string;
     credentialType?: RTCIceCredentialType;
     urls: string | string[];
     username?: string;
@@ -1312,6 +1315,11 @@ interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
     packetsReceived?: number;
 }
 
+interface RTCLocalSessionDescriptionInit {
+    sdp?: string;
+    type?: RTCSdpType;
+}
+
 interface RTCMediaStreamTrackStats extends RTCStats {
     audioLevel?: number;
     echoReturnLoss?: number;
@@ -1329,13 +1337,7 @@ interface RTCMediaStreamTrackStats extends RTCStats {
     trackIdentifier?: string;
 }
 
-interface RTCOAuthCredential {
-    accessToken: string;
-    macKey: string;
-}
-
 interface RTCOfferAnswerOptions {
-    voiceActivityDetection?: boolean;
 }
 
 interface RTCOfferOptions extends RTCOfferAnswerOptions {
@@ -1352,8 +1354,9 @@ interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
 }
 
 interface RTCPeerConnectionIceErrorEventInit extends EventInit {
+    address?: string | null;
     errorCode: number;
-    hostCandidate?: string;
+    port?: number | null;
     statusText?: string;
     url?: string;
 }
@@ -1418,16 +1421,9 @@ interface RTCRtpContributingSource {
     timestamp: number;
 }
 
-interface RTCRtpDecodingParameters extends RTCRtpCodingParameters {
-}
-
 interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     active?: boolean;
-    codecPayloadType?: number;
-    dtx?: RTCDtxStatus;
     maxBitrate?: number;
-    maxFramerate?: number;
-    ptime?: number;
     scaleResolutionDownBy?: number;
 }
 
@@ -1460,7 +1456,6 @@ interface RTCRtpParameters {
 }
 
 interface RTCRtpReceiveParameters extends RTCRtpParameters {
-    encodings: RTCRtpDecodingParameters[];
 }
 
 interface RTCRtpRtxParameters {
@@ -1468,9 +1463,7 @@ interface RTCRtpRtxParameters {
 }
 
 interface RTCRtpSendParameters extends RTCRtpParameters {
-    degradationPreference?: RTCDegradationPreference;
     encodings: RTCRtpEncodingParameters[];
-    priority?: RTCPriorityType;
     transactionId: string;
 }
 
@@ -1492,7 +1485,7 @@ interface RTCRtpUnhandled {
 
 interface RTCSessionDescriptionInit {
     sdp?: string;
-    type?: RTCSdpType;
+    type: RTCSdpType;
 }
 
 interface RTCSrtpKeyParam {
@@ -1519,10 +1512,6 @@ interface RTCStats {
     id?: string;
     timestamp?: number;
     type?: RTCStatsType;
-}
-
-interface RTCStatsEventInit extends EventInit {
-    report: RTCStatsReport;
 }
 
 interface RTCStatsReport {
@@ -1687,24 +1676,6 @@ interface SVGBoundingBoxOptions {
     stroke?: boolean;
 }
 
-interface ScopedCredentialDescriptor {
-    id: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null;
-    transports?: Transport[];
-    type: ScopedCredentialType;
-}
-
-interface ScopedCredentialOptions {
-    excludeList?: ScopedCredentialDescriptor[];
-    extensions?: WebAuthnExtensions;
-    rpId?: string;
-    timeoutSeconds?: number;
-}
-
-interface ScopedCredentialParameters {
-    algorithm: string | Algorithm;
-    type: ScopedCredentialType;
-}
-
 interface ScrollIntoViewOptions extends ScrollOptions {
     block?: ScrollLogicalPosition;
     inline?: ScrollLogicalPosition;
@@ -1730,14 +1701,6 @@ interface SecurityPolicyViolationEventInit extends EventInit {
     sourceFile?: string;
     statusCode?: number;
     violatedDirective?: string;
-}
-
-interface ServiceWorkerMessageEventInit extends EventInit {
-    data?: any;
-    lastEventId?: string;
-    origin?: string;
-    ports?: MessagePort[] | null;
-    source?: ServiceWorker | MessagePort | null;
 }
 
 interface ShadowRootInit {
@@ -1932,9 +1895,6 @@ interface VRStageParameters {
 interface WaveShaperOptions extends AudioNodeOptions {
     curve?: number[] | Float32Array;
     oversample?: OverSampleType;
-}
-
-interface WebAuthnExtensions {
 }
 
 interface WebGLContextAttributes {
@@ -3871,10 +3831,6 @@ declare var DOMImplementation: {
     new(): DOMImplementation;
 };
 
-interface DOML2DeprecatedColorProperty {
-    color: string;
-}
-
 interface DOMMatrix extends DOMMatrixReadOnly {
     a: number;
     b: number;
@@ -4360,16 +4316,6 @@ declare var DeviceAcceleration: {
     new(): DeviceAcceleration;
 };
 
-/** The DeviceLightEvent provides web developers with information from photo sensors or similiar detectors about ambient light levels near the device. For example this may be useful to adjust the screen's brightness based on the current ambient light level in order to save energy or provide better readability. */
-interface DeviceLightEvent extends Event {
-    readonly value: number;
-}
-
-declare var DeviceLightEvent: {
-    prototype: DeviceLightEvent;
-    new(typeArg: string, eventInitDict?: DeviceLightEventInit): DeviceLightEvent;
-};
-
 /** The DeviceMotionEvent provides web developers with information about the speed of changes for the device's position and orientation. */
 interface DeviceMotionEvent extends Event {
     readonly acceleration: DeviceMotionEventAcceleration | null;
@@ -4704,7 +4650,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "CloseEvent"): CloseEvent;
     createEvent(eventInterface: "CompositionEvent"): CompositionEvent;
     createEvent(eventInterface: "CustomEvent"): CustomEvent;
-    createEvent(eventInterface: "DeviceLightEvent"): DeviceLightEvent;
     createEvent(eventInterface: "DeviceMotionEvent"): DeviceMotionEvent;
     createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
     createEvent(eventInterface: "DragEvent"): DragEvent;
@@ -4719,10 +4664,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "InputEvent"): InputEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
-    createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
-    createEvent(eventInterface: "MSMediaKeyMessageEvent"): MSMediaKeyMessageEvent;
-    createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
-    createEvent(eventInterface: "MSPointerEvent"): MSPointerEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
@@ -4737,6 +4678,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "OfflineAudioCompletionEvent"): OfflineAudioCompletionEvent;
     createEvent(eventInterface: "OverflowEvent"): OverflowEvent;
     createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
+    createEvent(eventInterface: "PaymentMethodChangeEvent"): PaymentMethodChangeEvent;
     createEvent(eventInterface: "PaymentRequestUpdateEvent"): PaymentRequestUpdateEvent;
     createEvent(eventInterface: "PermissionRequestedEvent"): PermissionRequestedEvent;
     createEvent(eventInterface: "PointerEvent"): PointerEvent;
@@ -4753,12 +4695,10 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "RTCPeerConnectionIceErrorEvent"): RTCPeerConnectionIceErrorEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCSsrcConflictEvent"): RTCSsrcConflictEvent;
-    createEvent(eventInterface: "RTCStatsEvent"): RTCStatsEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
     createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
     createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
-    createEvent(eventInterface: "ServiceWorkerMessageEvent"): ServiceWorkerMessageEvent;
     createEvent(eventInterface: "SpeechRecognitionErrorEvent"): SpeechRecognitionErrorEvent;
     createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
     createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
@@ -4954,7 +4894,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "CloseEvent"): CloseEvent;
     createEvent(eventInterface: "CompositionEvent"): CompositionEvent;
     createEvent(eventInterface: "CustomEvent"): CustomEvent;
-    createEvent(eventInterface: "DeviceLightEvent"): DeviceLightEvent;
     createEvent(eventInterface: "DeviceMotionEvent"): DeviceMotionEvent;
     createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
     createEvent(eventInterface: "DragEvent"): DragEvent;
@@ -4969,10 +4908,6 @@ interface DocumentEvent {
     createEvent(eventInterface: "InputEvent"): InputEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
     createEvent(eventInterface: "ListeningStateChangedEvent"): ListeningStateChangedEvent;
-    createEvent(eventInterface: "MSGestureEvent"): MSGestureEvent;
-    createEvent(eventInterface: "MSMediaKeyMessageEvent"): MSMediaKeyMessageEvent;
-    createEvent(eventInterface: "MSMediaKeyNeededEvent"): MSMediaKeyNeededEvent;
-    createEvent(eventInterface: "MSPointerEvent"): MSPointerEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
@@ -4987,6 +4922,7 @@ interface DocumentEvent {
     createEvent(eventInterface: "OfflineAudioCompletionEvent"): OfflineAudioCompletionEvent;
     createEvent(eventInterface: "OverflowEvent"): OverflowEvent;
     createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
+    createEvent(eventInterface: "PaymentMethodChangeEvent"): PaymentMethodChangeEvent;
     createEvent(eventInterface: "PaymentRequestUpdateEvent"): PaymentRequestUpdateEvent;
     createEvent(eventInterface: "PermissionRequestedEvent"): PermissionRequestedEvent;
     createEvent(eventInterface: "PointerEvent"): PointerEvent;
@@ -5003,12 +4939,10 @@ interface DocumentEvent {
     createEvent(eventInterface: "RTCPeerConnectionIceErrorEvent"): RTCPeerConnectionIceErrorEvent;
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCSsrcConflictEvent"): RTCSsrcConflictEvent;
-    createEvent(eventInterface: "RTCStatsEvent"): RTCStatsEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
     createEvent(eventInterface: "SVGZoomEvent"): SVGZoomEvent;
     createEvent(eventInterface: "SVGZoomEvents"): SVGZoomEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
-    createEvent(eventInterface: "ServiceWorkerMessageEvent"): ServiceWorkerMessageEvent;
     createEvent(eventInterface: "SpeechRecognitionErrorEvent"): SpeechRecognitionErrorEvent;
     createEvent(eventInterface: "SpeechRecognitionEvent"): SpeechRecognitionEvent;
     createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
@@ -6338,29 +6272,6 @@ interface HTMLBaseElement extends HTMLElement {
 declare var HTMLBaseElement: {
     prototype: HTMLBaseElement;
     new(): HTMLBaseElement;
-};
-
-/** Provides special properties (beyond the regular HTMLElement interface it also has available to it by inheritance) for manipulating <basefont> elements. */
-interface HTMLBaseFontElement extends HTMLElement, DOML2DeprecatedColorProperty {
-    /**
-     * Sets or retrieves the current typeface family.
-     */
-    /** @deprecated */
-    face: string;
-    /**
-     * Sets or retrieves the font size of the object.
-     */
-    /** @deprecated */
-    size: number;
-    addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLBaseFontElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLBaseFontElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-}
-
-declare var HTMLBaseFontElement: {
-    prototype: HTMLBaseFontElement;
-    new(): HTMLBaseFontElement;
 };
 
 interface HTMLBodyElementEventMap extends HTMLElementEventMap, WindowEventHandlersEventMap {
@@ -9918,43 +9829,6 @@ declare var MSGesture: {
     new(): MSGesture;
 };
 
-/** The MSGestureEvent is a proprietary interface specific to Internet Explorer and Microsoft Edge which represents events that occur due to touch gestures. Events using this interface include MSGestureStart, MSGestureEnd, MSGestureTap, MSGestureHold, MSGestureChange, and MSInertiaStart. */
-interface MSGestureEvent extends UIEvent {
-    readonly clientX: number;
-    readonly clientY: number;
-    readonly expansion: number;
-    readonly gestureObject: any;
-    readonly hwTimestamp: number;
-    readonly offsetX: number;
-    readonly offsetY: number;
-    readonly rotation: number;
-    readonly scale: number;
-    readonly screenX: number;
-    readonly screenY: number;
-    readonly translationX: number;
-    readonly translationY: number;
-    readonly velocityAngular: number;
-    readonly velocityExpansion: number;
-    readonly velocityX: number;
-    readonly velocityY: number;
-    initGestureEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, offsetXArg: number, offsetYArg: number, translationXArg: number, translationYArg: number, scaleArg: number, expansionArg: number, rotationArg: number, velocityXArg: number, velocityYArg: number, velocityExpansionArg: number, velocityAngularArg: number, hwTimestampArg: number): void;
-    readonly MSGESTURE_FLAG_BEGIN: number;
-    readonly MSGESTURE_FLAG_CANCEL: number;
-    readonly MSGESTURE_FLAG_END: number;
-    readonly MSGESTURE_FLAG_INERTIA: number;
-    readonly MSGESTURE_FLAG_NONE: number;
-}
-
-declare var MSGestureEvent: {
-    prototype: MSGestureEvent;
-    new(): MSGestureEvent;
-    readonly MSGESTURE_FLAG_BEGIN: number;
-    readonly MSGESTURE_FLAG_CANCEL: number;
-    readonly MSGESTURE_FLAG_END: number;
-    readonly MSGESTURE_FLAG_INERTIA: number;
-    readonly MSGESTURE_FLAG_NONE: number;
-};
-
 /** The msGraphicsTrust() constructor returns an object that provides properties for info on protected video playback. */
 interface MSGraphicsTrust {
     readonly constrictionActive: boolean;
@@ -10016,25 +9890,6 @@ declare var MSMediaKeyError: {
     readonly MS_MEDIA_KEYERR_UNKNOWN: number;
 };
 
-interface MSMediaKeyMessageEvent extends Event {
-    readonly destinationURL: string | null;
-    readonly message: Uint8Array;
-}
-
-declare var MSMediaKeyMessageEvent: {
-    prototype: MSMediaKeyMessageEvent;
-    new(): MSMediaKeyMessageEvent;
-};
-
-interface MSMediaKeyNeededEvent extends Event {
-    readonly initData: Uint8Array | null;
-}
-
-declare var MSMediaKeyNeededEvent: {
-    prototype: MSMediaKeyNeededEvent;
-    new(): MSMediaKeyNeededEvent;
-};
-
 interface MSMediaKeySession extends EventTarget {
     readonly error: MSMediaKeyError | null;
     readonly keySystem: string;
@@ -10068,29 +9923,6 @@ interface MSNavigatorDoNotTrack {
     storeSiteSpecificTrackingException(args: StoreSiteSpecificExceptionsInformation): void;
     storeWebWideTrackingException(args: StoreExceptionsInformation): void;
 }
-
-interface MSPointerEvent extends MouseEvent {
-    readonly currentPoint: any;
-    readonly height: number;
-    readonly hwTimestamp: number;
-    readonly intermediatePoints: any;
-    readonly isPrimary: boolean;
-    readonly pointerId: number;
-    readonly pointerType: any;
-    readonly pressure: number;
-    readonly rotation: number;
-    readonly tiltX: number;
-    readonly tiltY: number;
-    readonly width: number;
-    getCurrentPoint(element: Element): void;
-    getIntermediatePoints(element: Element): void;
-    initPointerEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget, offsetXArg: number, offsetYArg: number, widthArg: number, heightArg: number, pressure: number, rotation: number, tiltX: number, tiltY: number, pointerIdArg: number, pointerType: any, hwTimestampArg: number, isPrimary: boolean): void;
-}
-
-declare var MSPointerEvent: {
-    prototype: MSPointerEvent;
-    new(typeArg: string, eventInitDict?: PointerEventInit): MSPointerEvent;
-};
 
 interface MSStream {
     readonly type: string;
@@ -10416,7 +10248,6 @@ declare var MediaStreamEvent: {
 
 interface MediaStreamTrackEventMap {
     "ended": Event;
-    "isolationchange": Event;
     "mute": Event;
     "unmute": Event;
 }
@@ -10425,12 +10256,10 @@ interface MediaStreamTrackEventMap {
 interface MediaStreamTrack extends EventTarget {
     enabled: boolean;
     readonly id: string;
-    readonly isolated: boolean;
     readonly kind: string;
     readonly label: string;
     readonly muted: boolean;
     onended: ((this: MediaStreamTrack, ev: Event) => any) | null;
-    onisolationchange: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     onunmute: ((this: MediaStreamTrack, ev: Event) => any) | null;
     readonly readyState: MediaStreamTrackState;
@@ -11435,11 +11264,10 @@ declare var Path2D: {
 
 /** This Payment Request API interface is used to store shipping or payment address information. */
 interface PaymentAddress {
-    readonly addressLine: string[];
+    readonly addressLine: ReadonlyArray<string>;
     readonly city: string;
     readonly country: string;
     readonly dependentLocality: string;
-    readonly languageCode: string;
     readonly organization: string;
     readonly phone: string;
     readonly postalCode: string;
@@ -11454,7 +11282,18 @@ declare var PaymentAddress: {
     new(): PaymentAddress;
 };
 
+interface PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
+    readonly methodDetails: any;
+    readonly methodName: string;
+}
+
+declare var PaymentMethodChangeEvent: {
+    prototype: PaymentMethodChangeEvent;
+    new(type: string, eventInitDict?: PaymentMethodChangeEventInit): PaymentMethodChangeEvent;
+};
+
 interface PaymentRequestEventMap {
+    "paymentmethodchange": Event;
     "shippingaddresschange": Event;
     "shippingoptionchange": Event;
 }
@@ -11462,6 +11301,7 @@ interface PaymentRequestEventMap {
 /** This Payment Request API interface is the primary access point into the API, and lets web content and apps accept payments from the end user. */
 interface PaymentRequest extends EventTarget {
     readonly id: string;
+    onpaymentmethodchange: ((this: PaymentRequest, ev: Event) => any) | null;
     onshippingaddresschange: ((this: PaymentRequest, ev: Event) => any) | null;
     onshippingoptionchange: ((this: PaymentRequest, ev: Event) => any) | null;
     readonly shippingAddress: PaymentAddress | null;
@@ -11469,7 +11309,7 @@ interface PaymentRequest extends EventTarget {
     readonly shippingType: PaymentShippingType | null;
     abort(): Promise<void>;
     canMakePayment(): Promise<boolean>;
-    show(): Promise<PaymentResponse>;
+    show(detailsPromise: PaymentDetailsUpdate | Promise<PaymentDetailsUpdate>): Promise<PaymentResponse>;
     addEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof PaymentRequestEventMap>(type: K, listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -11491,10 +11331,15 @@ declare var PaymentRequestUpdateEvent: {
     new(type: string, eventInitDict?: PaymentRequestUpdateEventInit): PaymentRequestUpdateEvent;
 };
 
+interface PaymentResponseEventMap {
+    "payerdetailchange": Event;
+}
+
 /** This Payment Request API interface is returned after a user selects a payment method and approves a payment request. */
-interface PaymentResponse {
+interface PaymentResponse extends EventTarget {
     readonly details: any;
     readonly methodName: string;
+    onpayerdetailchange: ((this: PaymentResponse, ev: Event) => any) | null;
     readonly payerEmail: string | null;
     readonly payerName: string | null;
     readonly payerPhone: string | null;
@@ -11502,7 +11347,12 @@ interface PaymentResponse {
     readonly shippingAddress: PaymentAddress | null;
     readonly shippingOption: string | null;
     complete(result?: PaymentComplete): Promise<void>;
+    retry(errorFields?: PaymentValidationErrors): Promise<void>;
     toJSON(): any;
+    addEventListener<K extends keyof PaymentResponseEventMap>(type: K, listener: (this: PaymentResponse, ev: PaymentResponseEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PaymentResponseEventMap>(type: K, listener: (this: PaymentResponse, ev: PaymentResponseEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var PaymentResponse: {
@@ -11956,7 +11806,6 @@ interface RTCCertificate {
 declare var RTCCertificate: {
     prototype: RTCCertificate;
     new(): RTCCertificate;
-    getSupportedAlgorithms(): AlgorithmIdentifier[];
 };
 
 interface RTCDTMFSenderEventMap {
@@ -11986,7 +11835,7 @@ interface RTCDTMFToneChangeEvent extends Event {
 
 declare var RTCDTMFToneChangeEvent: {
     prototype: RTCDTMFToneChangeEvent;
-    new(type: string, eventInitDict: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
+    new(type: string, eventInitDict?: RTCDTMFToneChangeEventInit): RTCDTMFToneChangeEvent;
 };
 
 interface RTCDataChannelEventMap {
@@ -11998,7 +11847,7 @@ interface RTCDataChannelEventMap {
 }
 
 interface RTCDataChannel extends EventTarget {
-    binaryType: string;
+    binaryType: BinaryType;
     readonly bufferedAmount: number;
     bufferedAmountLowThreshold: number;
     readonly id: number | null;
@@ -12012,7 +11861,6 @@ interface RTCDataChannel extends EventTarget {
     onmessage: ((this: RTCDataChannel, ev: MessageEvent) => any) | null;
     onopen: ((this: RTCDataChannel, ev: Event) => any) | null;
     readonly ordered: boolean;
-    readonly priority: RTCPriorityType;
     readonly protocol: string;
     readonly readyState: RTCDataChannelState;
     close(): void;
@@ -12096,7 +11944,6 @@ declare var RTCDtmfSender: {
 
 interface RTCError extends DOMException {
     readonly errorDetail: RTCErrorDetailType;
-    readonly httpRequestStatusCode: number | null;
     readonly receivedAlert: number | null;
     readonly sctpCauseCode: number | null;
     readonly sdpLineNumber: number | null;
@@ -12189,7 +12036,6 @@ interface RTCIceTransportEventMap {
 
 /** Provides access to information about the ICE transport layer over which the data is being sent and received. */
 interface RTCIceTransport extends EventTarget {
-    readonly component: RTCIceComponent;
     readonly gatheringState: RTCIceGathererState;
     ongatheringstatechange: ((this: RTCIceTransport, ev: Event) => any) | null;
     onselectedcandidatepairchange: ((this: RTCIceTransport, ev: Event) => any) | null;
@@ -12240,7 +12086,6 @@ interface RTCPeerConnectionEventMap {
     "icegatheringstatechange": Event;
     "negotiationneeded": Event;
     "signalingstatechange": Event;
-    "statsended": RTCStatsEvent;
     "track": RTCTrackEvent;
 }
 
@@ -12263,7 +12108,6 @@ interface RTCPeerConnection extends EventTarget {
     onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onsignalingstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
-    onstatsended: ((this: RTCPeerConnection, ev: RTCStatsEvent) => any) | null;
     ontrack: ((this: RTCPeerConnection, ev: RTCTrackEvent) => any) | null;
     readonly peerIdentity: Promise<RTCIdentityAssertion>;
     readonly pendingLocalDescription: RTCSessionDescription | null;
@@ -12285,7 +12129,8 @@ interface RTCPeerConnection extends EventTarget {
     getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
     getTransceivers(): RTCRtpTransceiver[];
     removeTrack(sender: RTCRtpSender): void;
-    setConfiguration(configuration: RTCConfiguration): void;
+    restartIce(): void;
+    setConfiguration(configuration?: RTCConfiguration): void;
     setIdentityProvider(provider: string, options?: RTCIdentityProviderOptions): void;
     setLocalDescription(description?: RTCSessionDescriptionInit): Promise<void>;
     setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
@@ -12299,13 +12144,13 @@ declare var RTCPeerConnection: {
     prototype: RTCPeerConnection;
     new(configuration?: RTCConfiguration): RTCPeerConnection;
     generateCertificate(keygenAlgorithm: AlgorithmIdentifier): Promise<RTCCertificate>;
-    getDefaultIceServers(): RTCIceServer[];
 };
 
 interface RTCPeerConnectionIceErrorEvent extends Event {
+    readonly address: string | null;
     readonly errorCode: number;
     readonly errorText: string;
-    readonly hostCandidate: string;
+    readonly port: number | null;
     readonly url: string;
 }
 
@@ -12317,7 +12162,6 @@ declare var RTCPeerConnectionIceErrorEvent: {
 /** Events that occurs in relation to ICE candidates with the target, usually an RTCPeerConnection. Only one event is of this type: icecandidate. */
 interface RTCPeerConnectionIceEvent extends Event {
     readonly candidate: RTCIceCandidate | null;
-    readonly url: string | null;
 }
 
 declare var RTCPeerConnectionIceEvent: {
@@ -12327,7 +12171,6 @@ declare var RTCPeerConnectionIceEvent: {
 
 /** This WebRTC API interface manages the reception and decoding of data for a MediaStreamTrack on an RTCPeerConnection. */
 interface RTCRtpReceiver {
-    readonly rtcpTransport: RTCDtlsTransport | null;
     readonly track: MediaStreamTrack;
     readonly transport: RTCDtlsTransport | null;
     getContributingSources(): RTCRtpContributingSource[];
@@ -12345,7 +12188,6 @@ declare var RTCRtpReceiver: {
 /** Provides the ability to control and obtain details about how a particular MediaStreamTrack is encoded and sent to a remote peer. */
 interface RTCRtpSender {
     readonly dtmf: RTCDTMFSender | null;
-    readonly rtcpTransport: RTCDtlsTransport | null;
     readonly track: MediaStreamTrack | null;
     readonly transport: RTCDtlsTransport | null;
     getParameters(): RTCRtpSendParameters;
@@ -12406,7 +12248,7 @@ interface RTCSessionDescription {
 
 declare var RTCSessionDescription: {
     prototype: RTCSessionDescription;
-    new(descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
+    new(descriptionInitDict: RTCSessionDescriptionInit): RTCSessionDescription;
 };
 
 interface RTCSrtpSdesTransportEventMap {
@@ -12435,15 +12277,6 @@ interface RTCSsrcConflictEvent extends Event {
 declare var RTCSsrcConflictEvent: {
     prototype: RTCSsrcConflictEvent;
     new(): RTCSsrcConflictEvent;
-};
-
-interface RTCStatsEvent extends Event {
-    readonly report: RTCStatsReport;
-}
-
-declare var RTCStatsEvent: {
-    prototype: RTCStatsEvent;
-    new(type: string, eventInitDict: RTCStatsEventInit): RTCStatsEvent;
 };
 
 interface RTCStatsProvider extends EventTarget {
@@ -13927,46 +13760,6 @@ declare var SVGNumberList: {
 interface SVGPathElement extends SVGGraphicsElement {
     /** @deprecated */
     readonly pathSegList: SVGPathSegList;
-    /** @deprecated */
-    createSVGPathSegArcAbs(x: number, y: number, r1: number, r2: number, angle: number, largeArcFlag: boolean, sweepFlag: boolean): SVGPathSegArcAbs;
-    /** @deprecated */
-    createSVGPathSegArcRel(x: number, y: number, r1: number, r2: number, angle: number, largeArcFlag: boolean, sweepFlag: boolean): SVGPathSegArcRel;
-    /** @deprecated */
-    createSVGPathSegClosePath(): SVGPathSegClosePath;
-    /** @deprecated */
-    createSVGPathSegCurvetoCubicAbs(x: number, y: number, x1: number, y1: number, x2: number, y2: number): SVGPathSegCurvetoCubicAbs;
-    /** @deprecated */
-    createSVGPathSegCurvetoCubicRel(x: number, y: number, x1: number, y1: number, x2: number, y2: number): SVGPathSegCurvetoCubicRel;
-    /** @deprecated */
-    createSVGPathSegCurvetoCubicSmoothAbs(x: number, y: number, x2: number, y2: number): SVGPathSegCurvetoCubicSmoothAbs;
-    /** @deprecated */
-    createSVGPathSegCurvetoCubicSmoothRel(x: number, y: number, x2: number, y2: number): SVGPathSegCurvetoCubicSmoothRel;
-    /** @deprecated */
-    createSVGPathSegCurvetoQuadraticAbs(x: number, y: number, x1: number, y1: number): SVGPathSegCurvetoQuadraticAbs;
-    /** @deprecated */
-    createSVGPathSegCurvetoQuadraticRel(x: number, y: number, x1: number, y1: number): SVGPathSegCurvetoQuadraticRel;
-    /** @deprecated */
-    createSVGPathSegCurvetoQuadraticSmoothAbs(x: number, y: number): SVGPathSegCurvetoQuadraticSmoothAbs;
-    /** @deprecated */
-    createSVGPathSegCurvetoQuadraticSmoothRel(x: number, y: number): SVGPathSegCurvetoQuadraticSmoothRel;
-    /** @deprecated */
-    createSVGPathSegLinetoAbs(x: number, y: number): SVGPathSegLinetoAbs;
-    /** @deprecated */
-    createSVGPathSegLinetoHorizontalAbs(x: number): SVGPathSegLinetoHorizontalAbs;
-    /** @deprecated */
-    createSVGPathSegLinetoHorizontalRel(x: number): SVGPathSegLinetoHorizontalRel;
-    /** @deprecated */
-    createSVGPathSegLinetoRel(x: number, y: number): SVGPathSegLinetoRel;
-    /** @deprecated */
-    createSVGPathSegLinetoVerticalAbs(y: number): SVGPathSegLinetoVerticalAbs;
-    /** @deprecated */
-    createSVGPathSegLinetoVerticalRel(y: number): SVGPathSegLinetoVerticalRel;
-    /** @deprecated */
-    createSVGPathSegMovetoAbs(x: number, y: number): SVGPathSegMovetoAbs;
-    /** @deprecated */
-    createSVGPathSegMovetoRel(x: number, y: number): SVGPathSegMovetoRel;
-    /** @deprecated */
-    getPathSegAtLength(distance: number): number;
     getPointAtLength(distance: number): SVGPoint;
     getTotalLength(): number;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -14404,25 +14197,11 @@ interface SVGSVGElementEventMap extends SVGElementEventMap {
 
 /** Provides access to the properties of <svg> elements, as well as methods to manipulate them. This interface contains also various miscellaneous commonly-used utility methods, such as matrix operations and the ability to control the time of redraw on visual rendering devices. */
 interface SVGSVGElement extends SVGGraphicsElement, DocumentEvent, SVGFitToViewBox, SVGZoomAndPan {
-    /** @deprecated */
-    contentScriptType: string;
-    /** @deprecated */
-    contentStyleType: string;
     currentScale: number;
     readonly currentTranslate: SVGPoint;
     readonly height: SVGAnimatedLength;
     onunload: ((this: SVGSVGElement, ev: Event) => any) | null;
     onzoom: ((this: SVGSVGElement, ev: SVGZoomEvent) => any) | null;
-    /** @deprecated */
-    readonly pixelUnitToMillimeterX: number;
-    /** @deprecated */
-    readonly pixelUnitToMillimeterY: number;
-    /** @deprecated */
-    readonly screenPixelToMillimeterX: number;
-    /** @deprecated */
-    readonly screenPixelToMillimeterY: number;
-    /** @deprecated */
-    readonly viewport: SVGRect;
     readonly width: SVGAnimatedLength;
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
@@ -14750,9 +14529,7 @@ declare var SVGUnitTypes: {
 
 /** Corresponds to the <use> element. */
 interface SVGUseElement extends SVGGraphicsElement, SVGURIReference {
-    readonly animatedInstanceRoot: SVGElementInstance | null;
     readonly height: SVGAnimatedLength;
-    readonly instanceRoot: SVGElementInstance | null;
     readonly width: SVGAnimatedLength;
     readonly x: SVGAnimatedLength;
     readonly y: SVGAnimatedLength;
@@ -14785,16 +14562,12 @@ declare var SVGViewElement: {
     readonly SVG_ZOOMANDPAN_UNKNOWN: number;
 };
 
-/** Used to reflect the zoomAndPan attribute, and is mixed in to other interfaces for elements that support this attribute. */
 interface SVGZoomAndPan {
-    readonly zoomAndPan: number;
-}
-
-declare var SVGZoomAndPan: {
+    zoomAndPan: number;
     readonly SVG_ZOOMANDPAN_DISABLE: number;
     readonly SVG_ZOOMANDPAN_MAGNIFY: number;
     readonly SVG_ZOOMANDPAN_UNKNOWN: number;
-};
+}
 
 interface SVGZoomEvent extends UIEvent {
     readonly newScale: number;
@@ -14807,26 +14580,6 @@ interface SVGZoomEvent extends UIEvent {
 declare var SVGZoomEvent: {
     prototype: SVGZoomEvent;
     new(): SVGZoomEvent;
-};
-
-interface ScopedCredential {
-    readonly id: ArrayBuffer;
-    readonly type: ScopedCredentialType;
-}
-
-declare var ScopedCredential: {
-    prototype: ScopedCredential;
-    new(): ScopedCredential;
-};
-
-interface ScopedCredentialInfo {
-    readonly credential: ScopedCredential;
-    readonly publicKey: CryptoKey;
-}
-
-declare var ScopedCredentialInfo: {
-    prototype: ScopedCredentialInfo;
-    new(): ScopedCredentialInfo;
 };
 
 /** A screen, usually the one on which the current window is being rendered, and is obtained using window.screen. */
@@ -14994,22 +14747,6 @@ interface ServiceWorkerContainer extends EventTarget {
 declare var ServiceWorkerContainer: {
     prototype: ServiceWorkerContainer;
     new(): ServiceWorkerContainer;
-};
-
-/** This ServiceWorker API interface contains information about an event sent to a ServiceWorkerContainer target. This extends the default message event to allow setting a ServiceWorker object as the source of a message. The event object is accessed via the handler function of a message event, when fired by a message received from a service worker.
- * @deprecated In modern browsers, this interface has been deprecated. Service worker messages will now use the MessageEvent interface, for consistency with other web messaging features.
- */
-interface ServiceWorkerMessageEvent extends Event {
-    readonly data: any;
-    readonly lastEventId: string;
-    readonly origin: string;
-    readonly ports: ReadonlyArray<MessagePort> | null;
-    readonly source: ServiceWorker | MessagePort | null;
-}
-
-declare var ServiceWorkerMessageEvent: {
-    prototype: ServiceWorkerMessageEvent;
-    new(type: string, eventInitDict?: ServiceWorkerMessageEventInit): ServiceWorkerMessageEvent;
 };
 
 interface ServiceWorkerRegistrationEventMap {
@@ -15673,34 +15410,6 @@ interface TextMetrics {
     /**
      * Returns the measurement described below.
      */
-    readonly alphabeticBaseline: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly emHeightAscent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly emHeightDescent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly fontBoundingBoxAscent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly fontBoundingBoxDescent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly hangingBaseline: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly ideographicBaseline: number;
-    /**
-     * Returns the measurement described below.
-     */
     readonly width: number;
 }
 
@@ -15754,7 +15463,6 @@ interface TextTrack extends EventTarget {
      */
     mode: TextTrackMode;
     oncuechange: ((this: TextTrack, ev: Event) => any) | null;
-    readonly sourceBuffer: SourceBuffer | null;
     /**
      * Adds the given cue to textTrack's text track list of cues.
      */
@@ -16192,7 +15900,6 @@ interface VRPose {
     readonly linearVelocity: Float32Array | null;
     readonly orientation: Float32Array | null;
     readonly position: Float32Array | null;
-    readonly timestamp: number;
 }
 
 declare var VRPose: {
@@ -16417,28 +16124,6 @@ interface WaveShaperNode extends AudioNode {
 declare var WaveShaperNode: {
     prototype: WaveShaperNode;
     new(context: BaseAudioContext, options?: WaveShaperOptions): WaveShaperNode;
-};
-
-interface WebAuthentication {
-    getAssertion(assertionChallenge: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, options?: AssertionOptions): Promise<WebAuthnAssertion>;
-    makeCredential(accountInformation: Account, cryptoParameters: ScopedCredentialParameters[], attestationChallenge: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, options?: ScopedCredentialOptions): Promise<ScopedCredentialInfo>;
-}
-
-declare var WebAuthentication: {
-    prototype: WebAuthentication;
-    new(): WebAuthentication;
-};
-
-interface WebAuthnAssertion {
-    readonly authenticatorData: ArrayBuffer;
-    readonly clientData: ArrayBuffer;
-    readonly credential: ScopedCredential;
-    readonly signature: ArrayBuffer;
-}
-
-declare var WebAuthnAssertion: {
-    prototype: WebAuthnAssertion;
-    new(): WebAuthnAssertion;
 };
 
 interface WebGL2RenderingContext extends WebGL2RenderingContextBase, WebGL2RenderingContextOverloads, WebGLRenderingContextBase {
@@ -17418,7 +17103,7 @@ declare var WebGLActiveInfo: {
 };
 
 /** Part of the WebGL API and represents an opaque buffer object storing data such as vertices or colors. */
-interface WebGLBuffer extends WebGLObject {
+interface WebGLBuffer {
 }
 
 declare var WebGLBuffer: {
@@ -17437,7 +17122,7 @@ declare var WebGLContextEvent: {
 };
 
 /** Part of the WebGL API and represents a collection of buffers that serve as a rendering destination. */
-interface WebGLFramebuffer extends WebGLObject {
+interface WebGLFramebuffer {
 }
 
 declare var WebGLFramebuffer: {
@@ -17445,16 +17130,8 @@ declare var WebGLFramebuffer: {
     new(): WebGLFramebuffer;
 };
 
-interface WebGLObject {
-}
-
-declare var WebGLObject: {
-    prototype: WebGLObject;
-    new(): WebGLObject;
-};
-
 /** The WebGLProgram is part of the WebGL API and is a combination of two compiled WebGLShaders consisting of a vertex shader and a fragment shader (both written in GLSL). */
-interface WebGLProgram extends WebGLObject {
+interface WebGLProgram {
 }
 
 declare var WebGLProgram: {
@@ -17462,7 +17139,7 @@ declare var WebGLProgram: {
     new(): WebGLProgram;
 };
 
-interface WebGLQuery extends WebGLObject {
+interface WebGLQuery {
 }
 
 declare var WebGLQuery: {
@@ -17471,7 +17148,7 @@ declare var WebGLQuery: {
 };
 
 /** Part of the WebGL API and represents a buffer that can contain an image, or can be source or target of an rendering operation. */
-interface WebGLRenderbuffer extends WebGLObject {
+interface WebGLRenderbuffer {
 }
 
 declare var WebGLRenderbuffer: {
@@ -18250,7 +17927,7 @@ interface WebGLRenderingContextOverloads {
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Float32List): void;
 }
 
-interface WebGLSampler extends WebGLObject {
+interface WebGLSampler {
 }
 
 declare var WebGLSampler: {
@@ -18259,7 +17936,7 @@ declare var WebGLSampler: {
 };
 
 /** The WebGLShader is part of the WebGL API and can either be a vertex or a fragment shader. A WebGLProgram requires both types of shaders. */
-interface WebGLShader extends WebGLObject {
+interface WebGLShader {
 }
 
 declare var WebGLShader: {
@@ -18279,7 +17956,7 @@ declare var WebGLShaderPrecisionFormat: {
     new(): WebGLShaderPrecisionFormat;
 };
 
-interface WebGLSync extends WebGLObject {
+interface WebGLSync {
 }
 
 declare var WebGLSync: {
@@ -18288,7 +17965,7 @@ declare var WebGLSync: {
 };
 
 /** Part of the WebGL API and represents an opaque texture object providing storage and state for texturing operations. */
-interface WebGLTexture extends WebGLObject {
+interface WebGLTexture {
 }
 
 declare var WebGLTexture: {
@@ -18296,7 +17973,7 @@ declare var WebGLTexture: {
     new(): WebGLTexture;
 };
 
-interface WebGLTransformFeedback extends WebGLObject {
+interface WebGLTransformFeedback {
 }
 
 declare var WebGLTransformFeedback: {
@@ -18313,7 +17990,7 @@ declare var WebGLUniformLocation: {
     new(): WebGLUniformLocation;
 };
 
-interface WebGLVertexArrayObject extends WebGLObject {
+interface WebGLVertexArrayObject {
 }
 
 declare var WebGLVertexArrayObject: {
@@ -18321,7 +17998,7 @@ declare var WebGLVertexArrayObject: {
     new(): WebGLVertexArrayObject;
 };
 
-interface WebGLVertexArrayObjectOES extends WebGLObject {
+interface WebGLVertexArrayObjectOES {
 }
 
 interface WebKitPoint {
@@ -18434,7 +18111,6 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "compassneedscalibration": Event;
     "contextmenu": MouseEvent;
     "dblclick": MouseEvent;
-    "devicelight": DeviceLightEvent;
     "devicemotion": DeviceMotionEvent;
     "deviceorientation": DeviceOrientationEvent;
     "deviceorientationabsolute": DeviceOrientationEvent;
@@ -18471,21 +18147,6 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "mouseover": MouseEvent;
     "mouseup": MouseEvent;
     "mousewheel": Event;
-    "MSGestureChange": Event;
-    "MSGestureDoubleTap": Event;
-    "MSGestureEnd": Event;
-    "MSGestureHold": Event;
-    "MSGestureStart": Event;
-    "MSGestureTap": Event;
-    "MSInertiaStart": Event;
-    "MSPointerCancel": Event;
-    "MSPointerDown": Event;
-    "MSPointerEnter": Event;
-    "MSPointerLeave": Event;
-    "MSPointerMove": Event;
-    "MSPointerOut": Event;
-    "MSPointerOver": Event;
-    "MSPointerUp": Event;
     "offline": Event;
     "online": Event;
     "orientationchange": Event;
@@ -18516,9 +18177,6 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
     "vrdisplayconnect": Event;
     "vrdisplaydeactivate": Event;
     "vrdisplaydisconnect": Event;
-    "vrdisplayfocus": Event;
-    "vrdisplaypointerrestricted": Event;
-    "vrdisplaypointerunrestricted": Event;
     "vrdisplaypresentchange": Event;
     "waiting": Event;
 }
@@ -18551,28 +18209,12 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly navigator: Navigator;
     offscreenBuffering: string | boolean;
     oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
-    ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
     ondeviceorientationabsolute: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
     ongamepadconnected: ((this: Window, ev: GamepadEvent) => any) | null;
     ongamepaddisconnected: ((this: Window, ev: GamepadEvent) => any) | null;
     onmousewheel: ((this: Window, ev: Event) => any) | null;
-    onmsgesturechange: ((this: Window, ev: Event) => any) | null;
-    onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
-    onmsgestureend: ((this: Window, ev: Event) => any) | null;
-    onmsgesturehold: ((this: Window, ev: Event) => any) | null;
-    onmsgesturestart: ((this: Window, ev: Event) => any) | null;
-    onmsgesturetap: ((this: Window, ev: Event) => any) | null;
-    onmsinertiastart: ((this: Window, ev: Event) => any) | null;
-    onmspointercancel: ((this: Window, ev: Event) => any) | null;
-    onmspointerdown: ((this: Window, ev: Event) => any) | null;
-    onmspointerenter: ((this: Window, ev: Event) => any) | null;
-    onmspointerleave: ((this: Window, ev: Event) => any) | null;
-    onmspointermove: ((this: Window, ev: Event) => any) | null;
-    onmspointerout: ((this: Window, ev: Event) => any) | null;
-    onmspointerover: ((this: Window, ev: Event) => any) | null;
-    onmspointerup: ((this: Window, ev: Event) => any) | null;
     /** @deprecated */
     onorientationchange: ((this: Window, ev: Event) => any) | null;
     onreadystatechange: ((this: Window, ev: ProgressEvent<Window>) => any) | null;
@@ -18581,9 +18223,6 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
     onvrdisplaydeactivate: ((this: Window, ev: Event) => any) | null;
     onvrdisplaydisconnect: ((this: Window, ev: Event) => any) | null;
-    onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
-    onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
-    onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
     onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
     opener: WindowProxy | null;
     /** @deprecated */
@@ -19387,7 +19026,6 @@ interface HTMLElementTagNameMap {
     "audio": HTMLAudioElement;
     "b": HTMLElement;
     "base": HTMLBaseElement;
-    "basefont": HTMLBaseFontElement;
     "bdi": HTMLElement;
     "bdo": HTMLElement;
     "blockquote": HTMLQuoteElement;
@@ -19602,28 +19240,12 @@ declare const name: void;
 declare var navigator: Navigator;
 declare var offscreenBuffering: string | boolean;
 declare var oncompassneedscalibration: ((this: Window, ev: Event) => any) | null;
-declare var ondevicelight: ((this: Window, ev: DeviceLightEvent) => any) | null;
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
 declare var ondeviceorientationabsolute: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
 declare var ongamepadconnected: ((this: Window, ev: GamepadEvent) => any) | null;
 declare var ongamepaddisconnected: ((this: Window, ev: GamepadEvent) => any) | null;
 declare var onmousewheel: ((this: Window, ev: Event) => any) | null;
-declare var onmsgesturechange: ((this: Window, ev: Event) => any) | null;
-declare var onmsgesturedoubletap: ((this: Window, ev: Event) => any) | null;
-declare var onmsgestureend: ((this: Window, ev: Event) => any) | null;
-declare var onmsgesturehold: ((this: Window, ev: Event) => any) | null;
-declare var onmsgesturestart: ((this: Window, ev: Event) => any) | null;
-declare var onmsgesturetap: ((this: Window, ev: Event) => any) | null;
-declare var onmsinertiastart: ((this: Window, ev: Event) => any) | null;
-declare var onmspointercancel: ((this: Window, ev: Event) => any) | null;
-declare var onmspointerdown: ((this: Window, ev: Event) => any) | null;
-declare var onmspointerenter: ((this: Window, ev: Event) => any) | null;
-declare var onmspointerleave: ((this: Window, ev: Event) => any) | null;
-declare var onmspointermove: ((this: Window, ev: Event) => any) | null;
-declare var onmspointerout: ((this: Window, ev: Event) => any) | null;
-declare var onmspointerover: ((this: Window, ev: Event) => any) | null;
-declare var onmspointerup: ((this: Window, ev: Event) => any) | null;
 /** @deprecated */
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
 declare var onreadystatechange: ((this: Window, ev: ProgressEvent<Window>) => any) | null;
@@ -19632,9 +19254,6 @@ declare var onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaydeactivate: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaydisconnect: ((this: Window, ev: Event) => any) | null;
-declare var onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
-declare var onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
-declare var onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
 declare var onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
 declare var opener: WindowProxy | null;
 /** @deprecated */
@@ -20149,15 +19768,13 @@ type PushEncryptionKeyName = "auth" | "p256dh";
 type PushPermissionState = "denied" | "granted" | "prompt";
 type RTCBundlePolicy = "balanced" | "max-bundle" | "max-compat";
 type RTCDataChannelState = "closed" | "closing" | "connecting" | "open";
-type RTCDegradationPreference = "balanced" | "maintain-framerate" | "maintain-resolution";
 type RTCDtlsRole = "auto" | "client" | "server";
 type RTCDtlsTransportState = "closed" | "connected" | "connecting" | "failed" | "new";
-type RTCDtxStatus = "disabled" | "enabled";
-type RTCErrorDetailType = "data-channel-failure" | "dtls-failure" | "fingerprint-failure" | "hardware-encoder-error" | "hardware-encoder-not-available" | "idp-bad-script-failure" | "idp-execution-failure" | "idp-load-failure" | "idp-need-login" | "idp-timeout" | "idp-tls-failure" | "idp-token-expired" | "idp-token-invalid" | "sctp-failure" | "sdp-syntax-error";
+type RTCErrorDetailType = "data-channel-failure" | "dtls-failure" | "fingerprint-failure" | "hardware-encoder-error" | "hardware-encoder-not-available" | "sctp-failure" | "sdp-syntax-error";
 type RTCIceCandidateType = "host" | "prflx" | "relay" | "srflx";
 type RTCIceComponent = "rtcp" | "rtp";
 type RTCIceConnectionState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
-type RTCIceCredentialType = "oauth" | "password";
+type RTCIceCredentialType = "password";
 type RTCIceGatherPolicy = "all" | "nohost" | "relay";
 type RTCIceGathererState = "complete" | "gathering" | "new";
 type RTCIceGatheringState = "complete" | "gathering" | "new";
@@ -20167,8 +19784,7 @@ type RTCIceTcpCandidateType = "active" | "passive" | "so";
 type RTCIceTransportPolicy = "all" | "relay";
 type RTCIceTransportState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCPeerConnectionState = "closed" | "connected" | "connecting" | "disconnected" | "failed" | "new";
-type RTCPriorityType = "high" | "low" | "medium" | "very-low";
-type RTCRtcpMuxPolicy = "negotiate" | "require";
+type RTCRtcpMuxPolicy = "require";
 type RTCRtpTransceiverDirection = "inactive" | "recvonly" | "sendonly" | "sendrecv" | "stopped";
 type RTCSctpTransportState = "closed" | "connected" | "connecting";
 type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
@@ -20187,7 +19803,6 @@ type ResidentKeyRequirement = "discouraged" | "preferred" | "required";
 type ResizeObserverBoxOptions = "border-box" | "content-box" | "device-pixel-content-box";
 type ResizeQuality = "high" | "low" | "medium" | "pixelated";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
-type ScopedCredentialType = "ScopedCred";
 type ScrollBehavior = "auto" | "smooth";
 type ScrollLogicalPosition = "center" | "end" | "nearest" | "start";
 type ScrollRestoration = "auto" | "manual";
@@ -20201,7 +19816,6 @@ type SpeechSynthesisErrorCode = "audio-busy" | "audio-hardware" | "canceled" | "
 type TextTrackKind = "captions" | "chapters" | "descriptions" | "metadata" | "subtitles";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
-type Transport = "ble" | "nfc" | "usb";
 type UserVerificationRequirement = "discouraged" | "preferred" | "required";
 type VRDisplayEventReason = "mounted" | "navigation" | "requested" | "unmounted";
 type VideoFacingModeEnum = "environment" | "left" | "right" | "user";

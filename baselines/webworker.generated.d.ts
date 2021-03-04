@@ -362,11 +362,6 @@ interface PushPermissionDescriptor extends PermissionDescriptor {
     userVisibleOnly?: boolean;
 }
 
-interface PushSubscriptionChangeEventInit extends ExtendableEventInit {
-    newSubscription?: PushSubscription;
-    oldSubscription?: PushSubscription;
-}
-
 interface PushSubscriptionJSON {
     endpoint?: string;
     expirationTime?: number | null;
@@ -1550,7 +1545,6 @@ declare var ExtendableMessageEvent: {
 interface FetchEvent extends ExtendableEvent {
     readonly clientId: string;
     readonly preloadResponse: Promise<any>;
-    readonly replacesClientId: string;
     readonly request: Request;
     readonly resultingClientId: string;
     respondWith(r: Response | Promise<Response>): void;
@@ -2702,16 +2696,6 @@ declare var PushSubscription: {
     new(): PushSubscription;
 };
 
-interface PushSubscriptionChangeEvent extends ExtendableEvent {
-    readonly newSubscription: PushSubscription | null;
-    readonly oldSubscription: PushSubscription | null;
-}
-
-declare var PushSubscriptionChangeEvent: {
-    prototype: PushSubscriptionChangeEvent;
-    new(type: string, eventInitDict?: PushSubscriptionChangeEventInit): PushSubscriptionChangeEvent;
-};
-
 interface PushSubscriptionOptions {
     readonly applicationServerKey: ArrayBuffer | null;
     readonly userVisibleOnly: boolean;
@@ -2913,7 +2897,6 @@ interface ServiceWorkerGlobalScopeEventMap extends WorkerGlobalScopeEventMap {
     "notificationclick": NotificationEvent;
     "notificationclose": NotificationEvent;
     "push": PushEvent;
-    "pushsubscriptionchange": PushSubscriptionChangeEvent;
     "sync": SyncEvent;
 }
 
@@ -2928,7 +2911,6 @@ interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
     onnotificationclick: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
     onnotificationclose: ((this: ServiceWorkerGlobalScope, ev: NotificationEvent) => any) | null;
     onpush: ((this: ServiceWorkerGlobalScope, ev: PushEvent) => any) | null;
-    onpushsubscriptionchange: ((this: ServiceWorkerGlobalScope, ev: PushSubscriptionChangeEvent) => any) | null;
     onsync: ((this: ServiceWorkerGlobalScope, ev: SyncEvent) => any) | null;
     readonly registration: ServiceWorkerRegistration;
     readonly serviceWorker: ServiceWorker;
@@ -3174,34 +3156,6 @@ interface TextMetrics {
      * Returns the measurement described below.
      */
     readonly actualBoundingBoxRight: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly alphabeticBaseline: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly emHeightAscent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly emHeightDescent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly fontBoundingBoxAscent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly fontBoundingBoxDescent: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly hangingBaseline: number;
-    /**
-     * Returns the measurement described below.
-     */
-    readonly ideographicBaseline: number;
     /**
      * Returns the measurement described below.
      */
@@ -4387,7 +4341,7 @@ declare var WebGLActiveInfo: {
 };
 
 /** Part of the WebGL API and represents an opaque buffer object storing data such as vertices or colors. */
-interface WebGLBuffer extends WebGLObject {
+interface WebGLBuffer {
 }
 
 declare var WebGLBuffer: {
@@ -4406,7 +4360,7 @@ declare var WebGLContextEvent: {
 };
 
 /** Part of the WebGL API and represents a collection of buffers that serve as a rendering destination. */
-interface WebGLFramebuffer extends WebGLObject {
+interface WebGLFramebuffer {
 }
 
 declare var WebGLFramebuffer: {
@@ -4414,16 +4368,8 @@ declare var WebGLFramebuffer: {
     new(): WebGLFramebuffer;
 };
 
-interface WebGLObject {
-}
-
-declare var WebGLObject: {
-    prototype: WebGLObject;
-    new(): WebGLObject;
-};
-
 /** The WebGLProgram is part of the WebGL API and is a combination of two compiled WebGLShaders consisting of a vertex shader and a fragment shader (both written in GLSL). */
-interface WebGLProgram extends WebGLObject {
+interface WebGLProgram {
 }
 
 declare var WebGLProgram: {
@@ -4431,7 +4377,7 @@ declare var WebGLProgram: {
     new(): WebGLProgram;
 };
 
-interface WebGLQuery extends WebGLObject {
+interface WebGLQuery {
 }
 
 declare var WebGLQuery: {
@@ -4440,7 +4386,7 @@ declare var WebGLQuery: {
 };
 
 /** Part of the WebGL API and represents a buffer that can contain an image, or can be source or target of an rendering operation. */
-interface WebGLRenderbuffer extends WebGLObject {
+interface WebGLRenderbuffer {
 }
 
 declare var WebGLRenderbuffer: {
@@ -5219,7 +5165,7 @@ interface WebGLRenderingContextOverloads {
     uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: GLboolean, value: Float32List): void;
 }
 
-interface WebGLSampler extends WebGLObject {
+interface WebGLSampler {
 }
 
 declare var WebGLSampler: {
@@ -5228,7 +5174,7 @@ declare var WebGLSampler: {
 };
 
 /** The WebGLShader is part of the WebGL API and can either be a vertex or a fragment shader. A WebGLProgram requires both types of shaders. */
-interface WebGLShader extends WebGLObject {
+interface WebGLShader {
 }
 
 declare var WebGLShader: {
@@ -5248,7 +5194,7 @@ declare var WebGLShaderPrecisionFormat: {
     new(): WebGLShaderPrecisionFormat;
 };
 
-interface WebGLSync extends WebGLObject {
+interface WebGLSync {
 }
 
 declare var WebGLSync: {
@@ -5257,7 +5203,7 @@ declare var WebGLSync: {
 };
 
 /** Part of the WebGL API and represents an opaque texture object providing storage and state for texturing operations. */
-interface WebGLTexture extends WebGLObject {
+interface WebGLTexture {
 }
 
 declare var WebGLTexture: {
@@ -5265,7 +5211,7 @@ declare var WebGLTexture: {
     new(): WebGLTexture;
 };
 
-interface WebGLTransformFeedback extends WebGLObject {
+interface WebGLTransformFeedback {
 }
 
 declare var WebGLTransformFeedback: {
@@ -5282,7 +5228,7 @@ declare var WebGLUniformLocation: {
     new(): WebGLUniformLocation;
 };
 
-interface WebGLVertexArrayObject extends WebGLObject {
+interface WebGLVertexArrayObject {
 }
 
 declare var WebGLVertexArrayObject: {
@@ -5290,7 +5236,7 @@ declare var WebGLVertexArrayObject: {
     new(): WebGLVertexArrayObject;
 };
 
-interface WebGLVertexArrayObjectOES extends WebGLObject {
+interface WebGLVertexArrayObjectOES {
 }
 
 interface WebSocketEventMap {
@@ -5363,7 +5309,6 @@ declare var WebSocket: {
 
 /** This ServiceWorker API interface represents the scope of a service worker client that is a document in a browser context, controlled by an active worker. The service worker client independently selects and uses a service worker for its own loading and sub-resources. */
 interface WindowClient extends Client {
-    readonly ancestorOrigins: ReadonlyArray<string>;
     readonly focused: boolean;
     readonly visibilityState: VisibilityState;
     focus(): Promise<WindowClient>;
@@ -5486,7 +5431,6 @@ declare var WorkerLocation: {
 /** A subset of the Navigator interface allowed to be accessed from a Worker. Such an object is initialized for each worker and is available via the WorkerGlobalScope.navigator property obtained by calling window.self.navigator. */
 interface WorkerNavigator extends NavigatorConcurrentHardware, NavigatorID, NavigatorLanguage, NavigatorOnLine, NavigatorStorage {
     readonly permissions: Permissions;
-    readonly serviceWorker: ServiceWorkerContainer;
 }
 
 declare var WorkerNavigator: {

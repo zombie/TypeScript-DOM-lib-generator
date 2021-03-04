@@ -1859,10 +1859,6 @@
                         {
                             "name": "isolationchange",
                             "type": "Event"
-                        },
-                        {
-                            "name": "statsended",
-                            "type": "RTCStatsEvent"
                         }
                     ]
                 }
@@ -1915,10 +1911,6 @@
                         {
                             "name": "push",
                             "type": "PushEvent"
-                        },
-                        {
-                            "name": "pushsubscriptionchange",
-                            "type": "PushSubscriptionChangeEvent"
                         },
                         {
                             "name": "sync",

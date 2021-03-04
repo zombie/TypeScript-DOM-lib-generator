@@ -34,19 +34,7 @@
                     }
                 }
             },
-            "XMLHttpRequestEventTarget": null,
-            "WorkerUtils": {
-                "methods": {
-                    "method": {
-                        "clearImmediate": null,
-                        "clearInterval": null,
-                        "clearTimeout": null,
-                        "setImmediate": null,
-                        "setInterval": null,
-                        "setTimeout": null
-                    }
-                }
-            }
+            "XMLHttpRequestEventTarget": null
         }
     },
     "callback-interfaces": {
@@ -66,14 +54,12 @@
     },
     "interfaces": {
         "interface": {
-            "AudioTrackList": null,
             "AuthenticatorAttestationResponse": {
                 "methods": {
                     "method": {
                         "getAuthenticatorData": null,
                         "getPublicKey": null,
-                        "getPublicKeyAlgorithm": null,
-                        "getTransports": null
+                        "getPublicKeyAlgorithm": null
                     }
                 }
             },
@@ -202,12 +188,6 @@
             "FormDataEvent": null,
             "HTMLAreasCollection": null,
             "HTMLMediaElement": {
-                "properties": {
-                    "property": {
-                        "audioTracks": null,
-                        "videoTracks": null
-                    }
-                },
                 "methods": {
                     "method": {
                         "getStartDate": null
@@ -244,16 +224,16 @@
             "MSCredentials": null,
             "MSDCCEvent": null,
             "MSDSHEvent": null,
+            "MSMediaKeyMessageEvent": null,
+            "MSMediaKeyNeededEvent": null,
+            "MSPointerEvent": null,
             "MSStreamReader": null,
             "PasswordCredential": null,
             "Position": null,
             "PositionError": null,
-            "ReadableByteStreamController": null,
             "ReadableStream": {
                 "iterator": null
             },
-            "ReadableStreamBYOBReader": null,
-            "ReadableStreamBYOBRequest": null,
             "ReadableStreamReader": null,
             "ResizeObservation": null,
             "ResizeObserverEntry": {
@@ -263,24 +243,10 @@
                     }
                 }
             },
-            "RTCDataChannel": {
+            "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
-                        "onclosing": null
-                    }
-                }
-            },
-            "RTCIceCandidate": {
-                "properties": {
-                    "property": {
-                        "address": null
-                    }
-                }
-            },
-            "RTCPeerConnection": {
-                "methods": {
-                    "method": {
-                        "restartIce": null
+                        "onpushsubscriptionchange": null
                     }
                 }
             },
@@ -288,15 +254,6 @@
                 "properties": {
                     "property": {
                         "onslotchange": null
-                    }
-                }
-            },
-            "SourceBuffer": {
-                "properties": {
-                    "property": {
-                        "audioTracks": null,
-                        "textTracks": null,
-                        "videoTracks": null
                     }
                 }
             },
@@ -361,7 +318,44 @@
                     }
                 }
             },
-            "VideoTrackList": null,
+            "WebAuthentication": null,
+            "WebAuthnAssertion": null,
+            "WebGLBuffer": {
+                "extends": null
+            },
+            "WebGLFramebuffer": {
+                "extends": null
+            },
+            "WebGLProgram": {
+                "extends": null
+            },
+            "WebGLQuery": {
+                "extends": null
+            },
+            "WebGLRenderbuffer": {
+                "extends": null
+            },
+            "WebGLSampler": {
+                "extends": null
+            },
+            "WebGLShader": {
+                "extends": null
+            },
+            "WebGLSync": {
+                "extends": null
+            },
+            "WebGLTexture": {
+                "extends": null
+            },
+            "WebGLTransformFeedback": {
+                "extends": null
+            },
+            "WebGLVertexArrayObject": {
+                "extends": null
+            },
+            "WebGLVertexArrayObjectOES": {
+                "extends": null
+            },
             "WebKitCSSMatrix": null,
             "WebKitDirectoryEntry": null,
             "WebKitDirectoryReader": null,
@@ -376,6 +370,21 @@
                         "crypto": null,
                         "isSecureContext": null,
                         "msCredentials": null,
+                        "onmsgesturechange": null,
+                        "onmsgesturedoubletap": null,
+                        "onmsgestureend": null,
+                        "onmsgesturehold": null,
+                        "onmsgesturestart": null,
+                        "onmsgesturetap": null,
+                        "onmsinertiastart": null,
+                        "onmspointercancel": null,
+                        "onmspointerdown": null,
+                        "onmspointerenter": null,
+                        "onmspointerleave": null,
+                        "onmspointermove": null,
+                        "onmspointerout": null,
+                        "onmspointerover": null,
+                        "onmspointerup": null,
                         "ontouchcancel": null,
                         "ontouchend": null,
                         "ontouchmove": null,
@@ -388,6 +397,11 @@
                         "cancelAnimationFrame": null,
                         "requestAnimationFrame": null
                     }
+                },
+                "events": {
+                    "event": [
+                        "devicelight"
+                    ]
                 },
                 "implements": [
                     "GlobalFetch",

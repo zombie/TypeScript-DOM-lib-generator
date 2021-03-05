@@ -20,7 +20,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "startContainer",
     "startOffset",
   ],
-  AnimationPlaybackEvent: ["currentTime", "timelineTime"],
   BeforeUnloadEvent: ["returnValue"],
   console: [
     "assert",
@@ -153,6 +152,7 @@ const forceKeepAlive: Record<string, string[]> = {
   ServiceWorkerGlobalScope: ["onmessageerror"],
   SVGAnimatedTransformList: ["animVal", "baseVal"],
   SVGElement: ["ownerSVGElement", "viewportElement"],
+  SVGFECompositeElement: ["in1"], // https://github.com/mdn/browser-compat-data/issues/9337
   SVGTransformList: [
     "numberOfItems",
     "appendItem",

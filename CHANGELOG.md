@@ -1,3 +1,14 @@
+# v0.1.8
+
+## New interfaces
+
+* `PerformancePaintTiming`
+
+### Non-value types
+
+* VideoConfiguration
+  * Added: `scalabilityMode`
+
 # v0.1.7
 
 ## Modified

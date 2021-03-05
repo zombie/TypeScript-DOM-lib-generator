@@ -1,5 +1,5 @@
 {
-  "name": "tsjs-lib-generator",
+  "name": "typescript-dom-lib-generator",
   "private": true,
   "engines": {
     "node": ">=15"

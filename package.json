@@ -1,6 +1,9 @@
 {
   "name": "tsjs-lib-generator",
   "private": true,
+  "engines": {
+    "node": ">=15"
+  },
   "scripts": {
     "build": "tsc -p ./tsconfig.json && node ./lib/index.js",
     "fetch-idl": "tsc -p ./tsconfig.json && node ./lib/idlfetcher.js",

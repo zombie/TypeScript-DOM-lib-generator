@@ -8,8 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+        with:
+          node-version: '15'
 
-      - name: Run TypeScript Compiler Tests with new dom.d.ts 
+      - name: Run TypeScript Compiler Tests with new dom.d.ts
         run: |
           # Get local dependencies
           npm install
@@ -24,17 +26,17 @@ jobs:
 
           cd TypeScript
           npm i
-          
+
 
           # Run TypeScript's tests with the new DOM libs, but don't fail
           npm test || true
           gulp baseline-accept
 
-          # The git diff now is the difference between tests 
+          # The git diff now is the difference between tests
           git diff > baseline-changes.diff
 
       - name: Danger
         run: npm run danger -- ci
-        env: 
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

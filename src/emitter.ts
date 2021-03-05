@@ -1,5 +1,5 @@
 import * as Browser from "./types";
-import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
+import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace";
 
 export const enum Flavor {
@@ -131,14 +131,14 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
         getElements(webidl.mixins, "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
-    const allLegacyWindowAliases = flatMap(allInterfaces, i => i["legacy-window-alias"]);
+    const allLegacyWindowAliases = allInterfaces.flatMap(i => i["legacy-window-alias"]);
     const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
     /// Event name to event type map
-    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => eventTypeMap[e.name] || e.type);
+    const eNameToEType = arrayToMap(allNonCallbackInterfaces.flatMap(i => i.events ? i.events.event : []), e => e.name, e => eventTypeMap[e.name] || e.type);
 
     /// Tag name to element name map
     const tagNameToEleName = getTagNameToElementNameMap();
@@ -149,7 +149,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
     /// Distinct event type list, used in the "createEvent" function
     const distinctETypeList = distinct(
-        flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event.map(e => e.type) : [])
+        allNonCallbackInterfaces.flatMap(i => i.events ? i.events.event.map(e => e.type) : [])
             .concat(allNonCallbackInterfaces.filter(i => i.extends && i.extends.endsWith("Event") && i.name.endsWith("Event")).map(i => i.name))
     ).sort();
 
@@ -235,7 +235,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
 
         const iExtends = i.extends && i.extends.replace(/<.*>$/, '');
         const parentWithEventHandler = allInterfacesMap[iExtends] && getParentEventHandler(allInterfacesMap[iExtends]) || [];
-        const mixinsWithEventHandler = flatMap(i.implements || [], i => getParentEventHandler(allInterfacesMap[i]));
+        const mixinsWithEventHandler = (i.implements || []).flatMap(i => getParentEventHandler(allInterfacesMap[i]));
 
         return distinct(parentWithEventHandler.concat(mixinsWithEventHandler));
     }
@@ -246,7 +246,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boo
             return (hasConst ? [i] : []).concat(getParentsWithConstant(i));
         }
 
-        const mixinsWithConstant = flatMap(i.implements || [], i => getParentConstant(allInterfacesMap[i]));
+        const mixinsWithConstant = (i.implements || []).flatMap(i => getParentConstant(allInterfacesMap[i]));
 
         return distinct(mixinsWithConstant);
     }

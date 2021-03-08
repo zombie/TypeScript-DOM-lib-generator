@@ -4081,7 +4081,7 @@ interface DataTransferItem {
      * Invokes the callback with the string data as the argument, if the drag data item kind is text.
      */
     getAsString(callback: FunctionStringCallback | null): void;
-    webkitGetAsEntry(): any;
+    webkitGetAsEntry(): FileSystemEntry | null;
 }
 
 declare var DataTransferItem: {

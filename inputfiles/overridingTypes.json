@@ -1244,19 +1244,6 @@
                     }
                 }
             },
-            "DataTransferItem": {
-                "name": "DataTransferItem",
-                "methods": {
-                    "method": {
-                        "webkitGetAsEntry": {
-                            "name": "webkitGetAsEntry",
-                            "overrideSignatures": [
-                                "webkitGetAsEntry(): any"
-                            ]
-                        }
-                    }
-                }
-            },
             "IDBCursor": {
                 "name": "IDBCursor",
                 "properties": {

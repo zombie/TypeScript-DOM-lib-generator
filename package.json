@@ -1,25 +1,33 @@
 {
-  "name": "tsjs-lib-generator",
+  "name": "typescript-dom-lib-generator",
   "private": true,
+  "engines": {
+    "node": ">=15"
+  },
   "scripts": {
     "build": "tsc -p ./tsconfig.json && node ./lib/index.js",
     "fetch-idl": "tsc -p ./tsconfig.json && node ./lib/idlfetcher.js",
     "fetch-mdn": "npm run build && node ./lib/mdnfetcher.js",
     "fetch": "echo This could take a few minutes... && npm run fetch-idl && npm run fetch-mdn",
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
-    "test": "tsc -p ./tsconfig.json && node ./lib/index.js && node ./lib/test.js"
+    "test": "tsc -p ./tsconfig.json && node ./lib/index.js && node ./lib/test.js",
+    "danger": "danger",
+    "migrate": "node ./lib/migrate-to-tsc.js"
   },
   "dependencies": {
-    "@types/jsdom": "^11.12.0",
-    "@types/node": "^9.6.56",
-    "@types/node-fetch": "^1.6.9",
-    "@types/webidl2": "^23.12.1",
+    "@mdn/browser-compat-data": "2.0.7",
+    "@types/jsdom": "^16.2.4",
+    "@types/node": "^14.6.4",
+    "@types/node-fetch": "^2.5.7",
+    "@types/webidl2": "^23.13.2",
     "cpx2": "^2.0.0",
-    "jsdom": "^11.12.0",
-    "node-fetch": "^2.6.0",
-    "print-diff": "^0.1.1",
+    "danger": "^10.5.4",
+    "jsdom": "^16.4.0",
+    "node-fetch": "^2.6.1",
+    "parse-diff": "^0.7.0",
+    "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
-    "typescript": "next",
-    "webidl2": "^23.12.1"
+    "typescript": "4.1.0-dev.20200908",
+    "webidl2": "^23.13.0"
   }
 }

@@ -221,7 +221,7 @@
         "title": "Gamepad Extensions"
     },
     {
-        "url": "https://www.w3.org/TR/geolocation-API/",
+        "url": "https://w3c.github.io/geolocation-api/",
         "title": "Geolocation"
     },
     {
@@ -387,7 +387,7 @@
         "title": "Indexed Database"
     },
     {
-        "url": "https://www.w3.org/TR/intersection-observer/",
+        "url": "https://w3c.github.io/IntersectionObserver/",
         "title": "Intersection Observer"
     },
     {
@@ -423,7 +423,7 @@
         "title": "Permissions"
     },
     {
-        "url": "https://www.w3.org/TR/pointerevents2/",
+        "url": "https://www.w3.org/TR/pointerevents3/",
         "title": "Pointer Events"
     },
     {
@@ -435,8 +435,16 @@
         "title": "Push"
     },
     {
+        "url": "https://w3c.github.io/payment-request/",
+        "title": "Payment Request"
+    },
+    {
         "url": "https://www.w3.org/TR/referrer-policy/",
         "title": "Referrer Policy"
+    },
+    {
+        "url": "https://drafts.csswg.org/resize-observer/",
+        "title": "Resize Observer"
     },
     {
         "url": "https://w3c.github.io/resource-timing/",
@@ -464,8 +472,7 @@
     },
     {
         "url": "https://streams.spec.whatwg.org/",
-        "title": "Streams",
-        "local": true
+        "title": "Streams"
     },
     {
         "url": "https://www.w3.org/TR/SVG2/types.html",
@@ -488,11 +495,15 @@
         "title": "SVG - Text"
     },
     {
+        "url": "https://www.w3.org/TR/SVG2/styling.html",
+        "title": "SVG - Style Element"
+    },
+    {
         "url": "https://w3c.github.io/touch-events/",
         "title": "Touch Events"
     },
     {
-        "url": "https://www.w3.org/TR/uievents/",
+        "url": "https://w3c.github.io/uievents/",
         "title": "UI Events"
     },
     {
@@ -524,7 +535,7 @@
         "title": "Web Audio"
     },
     {
-        "url": "https://www.w3.org/TR/2019/REC-webauthn-1-20190304/",
+        "url": "https://w3c.github.io/webauthn/",
         "title": "Web Authentication"
     },
     {
@@ -650,6 +661,10 @@
     {
         "url": "https://w3c.github.io/webrtc-pc/",
         "title": "WebRTC"
+    },
+    {
+        "url": "https://www.w3.org/TR/webrtc-stats",
+        "title": "WebRTC Stats"
     },
     {
         "url": "https://www.w3.org/TR/web-share/",

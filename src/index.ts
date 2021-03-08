@@ -5,6 +5,7 @@ import { merge, resolveExposure, markAsDeprecated, mapToArray, arrayToMap } from
 import { Flavor, emitWebIdl } from "./emitter";
 import { convert } from "./widlprocess";
 import { getExposedTypes } from "./expose";
+import { getRemovalDataFromBcd } from "./bcd";
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
     const targets = [
@@ -25,24 +26,22 @@ function mergeNamesakes(filtered: Browser.WebIdl) {
     }
 }
 
-function emitDomWorker(webidl: Browser.WebIdl, tsWorkerOutput: string, forceKnownWorkerTypes: Set<string>) {
-    const worker = getExposedTypes(webidl, "Worker", forceKnownWorkerTypes);
-    mergeNamesakes(worker);
-    const result = emitWebIdl(worker, Flavor.Worker);
-    fs.writeFileSync(tsWorkerOutput, result);
-    return;
+interface EmitOptions {
+    flavor: Flavor;
+    global: string;
+    name: string;
+    outputFolder: string;
 }
 
-function emitDomWeb(webidl: Browser.WebIdl, tsWebOutput: string, forceKnownWindowTypes: Set<string>) {
-    const browser = getExposedTypes(webidl, "Window", forceKnownWindowTypes);
-    mergeNamesakes(browser);
-    const result = emitWebIdl(browser, Flavor.Web);
-    fs.writeFileSync(tsWebOutput, result);
-    return;
-}
+function emitFlavor(webidl: Browser.WebIdl, forceKnownTypes: Set<string>, options: EmitOptions) {
+    const exposed = getExposedTypes(webidl, options.global, forceKnownTypes);
+    mergeNamesakes(exposed);
 
-function emitES6DomIterators(webidl: Browser.WebIdl, tsWebIteratorsOutput: string) {
-    fs.writeFileSync(tsWebIteratorsOutput, emitWebIdl(webidl, Flavor.ES6Iterators));
+    const result = emitWebIdl(exposed, options.flavor, false);
+    fs.writeFileSync(`${options.outputFolder}/${options.name}.generated.d.ts`, result);
+
+    const iterators = emitWebIdl(exposed, options.flavor, true);
+    fs.writeFileSync(`${options.outputFolder}/${options.name}.iterable.generated.d.ts`, iterators);
 }
 
 function emitDom() {
@@ -65,13 +64,10 @@ function emitDom() {
         fs.mkdirSync(outputFolder);
     }
 
-    const tsWebOutput = path.join(outputFolder, "dom.generated.d.ts");
-    const tsWebIteratorsOutput = path.join(outputFolder, "dom.iterable.generated.d.ts");
-    const tsWorkerOutput = path.join(outputFolder, "webworker.generated.d.ts");
-
     const overriddenItems = require(path.join(inputFolder, "overridingTypes.json"));
     const addedItems = require(path.join(inputFolder, "addedTypes.json"));
     const comments = require(path.join(inputFolder, "comments.json"));
+    const deprecatedInfo = require(path.join(inputFolder, "deprecatedMessage.json"));
     const documentationFromMDN = require(path.join(inputFolder, 'mdn', 'apiDescriptions.json'));
     const removedItems = require(path.join(inputFolder, "removedTypes.json"));
     const idlSources: any[] = require(path.join(inputFolder, "idlSources.json"));
@@ -82,7 +78,7 @@ function emitDom() {
         const idl: string = fs.readFileSync(path.join(inputFolder, "idl", filename), { encoding: "utf-8" });
         const commentsMapFilePath = path.join(inputFolder, "idl", title + ".commentmap.json");
         const commentsMap: Record<string, string> = fs.existsSync(commentsMapFilePath) ? require(commentsMapFilePath) : {};
-        commentCleanup(commentsMap)
+        commentCleanup(commentsMap);
         const result = convert(idl, commentsMap);
         if (deprecated) {
             mapToArray(result.browser.interfaces!.interface).forEach(markAsDeprecated);
@@ -104,7 +100,27 @@ function emitDom() {
         for (const [key, value] of Object.entries(descriptions)) {
             const target = idl.interfaces!.interface[key] || namespaces[key];
             if (target) {
-                target.comment = transformVerbosity(key, value);
+                if (value.startsWith("REDIRECT")) {
+                    // When an MDN article for an interface redirects to a different one,
+                    // it implies the interface was renamed in the specification and
+                    // its old name should be deprecated.
+                    markAsDeprecated(target);
+                } else {
+                    target.comment = transformVerbosity(key, value);
+                }
+            }
+        }
+        return idl;
+    }
+
+    function mergeDeprecatedMessage(idl: Browser.WebIdl, descriptions: Record<string, string>) {
+        const namespaces = arrayToMap(idl.namespaces!, i => i.name, i => i);
+        for (const [key, value] of Object.entries(descriptions)) {
+            const target = idl.interfaces!.interface[key] || namespaces[key];
+            if (target) {
+                const comment = target.comment ?? "";
+                const deprecated = "\n * @deprecated " + transformVerbosity(key, value);
+                target.comment = comment + deprecated;
             }
         }
         return idl;
@@ -172,11 +188,13 @@ function emitDom() {
         }
     }
 
+    webidl = merge(webidl, getRemovalDataFromBcd(webidl) as any);
     webidl = prune(webidl, removedItems);
     webidl = mergeApiDescriptions(webidl, documentationFromMDN);
     webidl = merge(webidl, addedItems);
     webidl = merge(webidl, overriddenItems);
     webidl = merge(webidl, comments);
+    webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);
     for (const name in webidl.interfaces!.interface) {
         const i = webidl.interfaces!.interface[name];
         if (i["override-exposed"]) {
@@ -184,9 +202,8 @@ function emitDom() {
         }
     }
 
-    emitDomWeb(webidl, tsWebOutput, new Set(knownTypes.Window));
-    emitDomWorker(webidl, tsWorkerOutput, new Set(knownTypes.Worker));
-    emitES6DomIterators(webidl, tsWebIteratorsOutput);
+    emitFlavor(webidl, new Set(knownTypes.Window), { name: "dom", flavor: Flavor.Window, global: "Window", outputFolder });
+    emitFlavor(webidl, new Set(knownTypes.Worker), { name: "webworker", flavor: Flavor.Worker, global: "Worker", outputFolder });
 
     function prune(obj: Browser.WebIdl, template: Partial<Browser.WebIdl>): Browser.WebIdl {
         return filterByNull(obj, template);
@@ -195,7 +212,7 @@ function emitDom() {
             if (!template) return obj;
             const filtered = { ...obj };
             for (const k in template) {
-                if (!obj[k]) {
+                if (!obj[k] || obj[k].exposed === "") {
                     console.warn(`removedTypes.json has a redundant field ${k} in ${JSON.stringify(template)}`);
                 } else if (Array.isArray(template[k])) {
                     if (!Array.isArray(obj[k])) {

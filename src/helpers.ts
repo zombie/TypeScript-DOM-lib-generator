@@ -5,7 +5,7 @@ export const bufferSourceTypes = new Set(["ArrayBuffer", "ArrayBufferView", "Dat
 export const integerTypes = new Set(["byte", "octet", "short", "unsigned short", "long", "unsigned long", "long long", "unsigned long long"]);
 export const stringTypes = new Set(["ByteString", "DOMString", "USVString", "CSSOMString"]);
 const floatTypes = new Set(["float", "unrestricted float", "double", "unrestricted double"]);
-const sameTypes = new Set(["any", "boolean", "Date", "Function", "Promise", "void"]);
+const sameTypes = new Set(["any", "boolean", "Date", "Function", "Promise", "undefined", "void"]);
 export const baseTypeConversionMap = new Map<string, string>([
     ...[...bufferSourceTypes].map(type => [type, type] as [string, string]),
     ...[...integerTypes].map(type => [type, "number"] as [string, string]),
@@ -70,11 +70,11 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
                     if (Array.isArray(targetProp) !== Array.isArray(srcProp)) {
                         throw new Error("Mismatch on property: " + k + JSON.stringify(srcProp));
                     }
-                    if (shallow && typeof (target[k] as any).name === "string" && typeof (src[k] as any).name === "string") {
-                        target[k] = src[k];
+                    if (shallow && typeof (targetProp as any).name === "string" && typeof (srcProp as any).name === "string") {
+                        target[k] = srcProp;
                     }
                     else {
-                        target[k] = merge(target[k], src[k], shallow);
+                        target[k] = merge(targetProp, srcProp, shallow);
                     }
                 }
             }
@@ -145,29 +145,6 @@ export function toNameMap<T extends { name: string }>(array: T[]) {
         result[value.name] = value;
     }
     return result;
-}
-
-export function isArray(value: any): value is ReadonlyArray<{}> {
-    return Array.isArray ? Array.isArray(value) : value instanceof Array;
-}
-
-export function flatMap<T, U>(array: ReadonlyArray<T> | undefined, mapfn: (x: T, i: number) => U | ReadonlyArray<U> | undefined): U[] {
-    let result: U[] | undefined;
-    if (array) {
-        result = [];
-        for (let i = 0; i < array.length; i++) {
-            const v = mapfn(array[i], i);
-            if (v) {
-                if (isArray(v)) {
-                    result.push(...v);
-                }
-                else {
-                    result.push(v);
-                }
-            }
-        }
-    }
-    return result || [];
 }
 
 export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {

@@ -1,11 +1,10 @@
 import * as Browser from "./types";
-import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, flatMap, integerTypes, baseTypeConversionMap } from "./helpers";
+import { mapToArray, distinct, map, toNameMap, mapDefined, arrayToMap, integerTypes, baseTypeConversionMap } from "./helpers";
 import { collectLegacyNamespaceTypes } from "./legacy-namespace";
 
 export const enum Flavor {
-    Web,
-    Worker,
-    ES6Iterators
+    Window,
+    Worker
 }
 
 // Note:
@@ -61,7 +60,7 @@ function createTextWriter(newLine: string) {
     let output: string;
     let indent: number;
     let lineStart: boolean;
-    /** print declarations conflicting with base interface to a side list to write them under a diffrent name later */
+    /** print declarations conflicting with base interface to a side list to write them under a different name later */
     let stack: { content: string, indent: number }[] = [];
 
     function getIndentString(level: number) {
@@ -69,7 +68,7 @@ function createTextWriter(newLine: string) {
     }
 
     function write(s: string) {
-        if (lineStart) {
+        if (s && lineStart) {
             output += getIndentString(indent);
             lineStart = false;
         }
@@ -120,11 +119,11 @@ function isEventHandler(p: Browser.Property) {
     return typeof p["event-handler"] === "string";
 }
 
-export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
+export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor, iterator: boolean) {
     // Global print target
     const printer = createTextWriter("\n");
 
-    const pollutor = getElements(webidl.interfaces, "interface").find(i => flavor === Flavor.Web ? !!i["primary-global"] : !!i.global);
+    const polluter = getElements(webidl.interfaces, "interface").find(i => flavor === Flavor.Window ? !!i["primary-global"] : !!i.global);
 
     const allNonCallbackInterfaces = getElements(webidl.interfaces, "interface").concat(getElements(webidl.mixins, "mixin"));
     const allInterfaces = getElements(webidl.interfaces, "interface").concat(
@@ -132,14 +131,14 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         getElements(webidl.mixins, "mixin"));
 
     const allInterfacesMap = toNameMap(allInterfaces);
-    const allLegacyWindowAliases = flatMap(allInterfaces, i => i["legacy-window-alias"]);
+    const allLegacyWindowAliases = allInterfaces.flatMap(i => i["legacy-window-alias"]);
     const allDictionariesMap = webidl.dictionaries ? webidl.dictionaries.dictionary : {};
     const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
     const allCallbackFunctionsMap = webidl["callback-functions"] ? webidl["callback-functions"]!["callback-function"] : {};
     const allTypeDefsMap = new Set(webidl.typedefs && webidl.typedefs.typedef.map(td => td["new-type"]));
 
     /// Event name to event type map
-    const eNameToEType = arrayToMap(flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event : []), e => e.name, e => eventTypeMap[e.name] || e.type);
+    const eNameToEType = arrayToMap(allNonCallbackInterfaces.flatMap(i => i.events ? i.events.event : []), e => e.name, e => eventTypeMap[e.name] || e.type);
 
     /// Tag name to element name map
     const tagNameToEleName = getTagNameToElementNameMap();
@@ -150,7 +149,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     /// Distinct event type list, used in the "createEvent" function
     const distinctETypeList = distinct(
-        flatMap(allNonCallbackInterfaces, i => i.events ? i.events.event.map(e => e.type) : [])
+        allNonCallbackInterfaces.flatMap(i => i.events ? i.events.event.map(e => e.type) : [])
             .concat(allNonCallbackInterfaces.filter(i => i.extends && i.extends.endsWith("Event") && i.name.endsWith("Event")).map(i => i.name))
     ).sort();
 
@@ -182,7 +181,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     const iNameToConstParents = arrayToMap(allInterfaces, i => i.name, getParentsWithConstant);
 
-    return flavor === Flavor.ES6Iterators ? emitES6DomIterators() : emit();
+    return iterator ? emitES6DomIterators() : emit();
 
     function getTagNameToElementNameMap() {
         const htmlResult: Record<string, string> = {};
@@ -236,7 +235,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         const iExtends = i.extends && i.extends.replace(/<.*>$/, '');
         const parentWithEventHandler = allInterfacesMap[iExtends] && getParentEventHandler(allInterfacesMap[iExtends]) || [];
-        const mixinsWithEventHandler = flatMap(i.implements || [], i => getParentEventHandler(allInterfacesMap[i]));
+        const mixinsWithEventHandler = (i.implements || []).flatMap(i => getParentEventHandler(allInterfacesMap[i]));
 
         return distinct(parentWithEventHandler.concat(mixinsWithEventHandler));
     }
@@ -247,7 +246,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             return (hasConst ? [i] : []).concat(getParentsWithConstant(i));
         }
 
-        const mixinsWithConstant = flatMap(i.implements || [], i => getParentConstant(allInterfacesMap[i]));
+        const mixinsWithConstant = (i.implements || []).flatMap(i => getParentConstant(allInterfacesMap[i]));
 
         return distinct(mixinsWithConstant);
     }
@@ -290,6 +289,17 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         return type.nullable ? makeNullable(type.name) : type.name;
     }
 
+    function convertDomTypeToTsReturnType(obj: Browser.Typed): string {
+        const type = convertDomTypeToTsType(obj);
+        if (type === "undefined") {
+            return "void";
+        }
+        if (type === "Promise<undefined>") {
+            return "Promise<void>";
+        }
+        return type;
+    }
+
     function convertDomTypeToTsTypeWorker(obj: Browser.Typed): { name: string; nullable: boolean } {
         let type;
         if (typeof obj.type === "string") {
@@ -297,7 +307,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         }
         else {
             const types = obj.type.map(convertDomTypeToTsTypeWorker);
-            const isAny = types.find(t => t.name === "any");
+            const isAny = types.some(t => t.name === "any");
             if (isAny) {
                 type = {
                     name: "any",
@@ -307,7 +317,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             else {
                 type = {
                     name: types.map(t => t.name).join(" | "),
-                    nullable: !!types.find(t => t.nullable) || !!obj.nullable
+                    nullable: types.some(t => t.nullable) || !!obj.nullable
                 };
             }
         }
@@ -340,7 +350,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     }
 
     function convertDomTypeToTsTypeSimple(objDomType: string): string {
-        if (objDomType === "sequence" && flavor === Flavor.ES6Iterators) {
+        if (objDomType === "sequence" && iterator) {
             return "Iterable";
         }
         if (baseTypeConversionMap.has(objDomType)) {
@@ -543,7 +553,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             const m = methods[0];
             const overload = m.signature[0];
             const paramsString = overload.param ? paramsToString(overload.param) : "";
-            const returnType = overload.type ? convertDomTypeToTsType(overload) : "void";
+            const returnType = overload.type ? convertDomTypeToTsReturnType(overload) : "void";
             printer.printLine(`type ${i.name} = ((${paramsString}) => ${returnType}) | { ${m.name}(${paramsString}): ${returnType}; };`);
         }
         printer.printLine("");
@@ -581,7 +591,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             return `this: ${nameWithForwardedTypes(i)}, `;
         }
         else {
-            return pollutor ? `this: ${pollutor.name}, ` : "";
+            return polluter ? `this: ${polluter.name}, ` : "";
         }
     }
 
@@ -591,17 +601,20 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
         return isEventHandler(p) &&
             iNameToEhParents[i.name] && iNameToEhParents[i.name].length > 0 &&
-            !!iNameToEhParents[i.name].find(
+            iNameToEhParents[i.name].some(
                 i => iNameToEhList[i.name] && iNameToEhList[i.name].length > 0 &&
-                    !!iNameToEhList[i.name].find(e => e.name === p.name));
+                    iNameToEhList[i.name].some(e => e.name === p.name));
     }
 
     function emitProperty(prefix: string, i: Browser.Interface, emitScope: EmitScope, p: Browser.Property) {
         emitComments(p, printer.printLine);
 
-        // Treat window.name specially because of https://github.com/Microsoft/TypeScript/issues/9850
+        // Treat window.name specially because of
+        //   - https://github.com/Microsoft/TypeScript/issues/9850
+        //   - https://github.com/microsoft/TypeScript/issues/18433
         if (p.name === "name" && i.name === "Window" && emitScope === EmitScope.All) {
-            printer.printLine("declare const name: never;");
+            printer.printLine("/** @deprecated */");
+            printer.printLine("declare const name: void;");
         }
         else {
             let pType: string;
@@ -640,7 +653,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         if (entity.comment) {
             entity.comment.split('\n').forEach(print);
         }
-        if (entity.deprecated) {
+        if (entity.deprecated && !entity.comment?.includes('@deprecated')) {
             print(`/** @deprecated */`);
         }
     }
@@ -688,7 +701,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
     function emitSignature(s: Browser.Signature, prefix: string | undefined, name: string | undefined, printLine: (s: string) => void) {
         const paramsString = s.param ? paramsToString(s.param) : "";
-        let returnType = convertDomTypeToTsType(s);
+        let returnType = convertDomTypeToTsReturnType(s);
         returnType = s.nullable ? makeNullable(returnType) : returnType;
         emitComments(s, printLine);
         printLine(`${prefix || ""}${name || ""}(${paramsString}): ${returnType};`);
@@ -699,9 +712,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             method["override-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
         }
         else if (method.signature) {
-            if (method["additional-signatures"]) {
-                method["additional-signatures"]!.forEach(s => printLine(`${prefix}${s};`));
-            }
+            method["additional-signatures"]?.forEach(s => printLine(`${prefix}${s};`));
             method.signature.forEach(sig => emitSignature(sig, prefix, name, printLine));
         }
     }
@@ -772,7 +783,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         for (const addOrRemove of ["add", "remove"]) {
             const optionsType = addOrRemove === "add" ? "AddEventListenerOptions" : "EventListenerOptions";
             if (tryEmitTypedEventHandlerForInterface(addOrRemove, optionsType)) {
-                // only emit the string event handler if we just emited a typed handler
+                // only emit the string event handler if we just emitted a typed handler
                 printer.printLine(`${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${optionsType}): void;`);
             }
         }
@@ -830,7 +841,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.printLine("};");
         printer.printLine("");
 
-        if (flavor === Flavor.Web && i["legacy-window-alias"]) {
+        if (flavor === Flavor.Window && i["legacy-window-alias"]) {
             for (const alias of i["legacy-window-alias"]!) {
                 printer.printLine(`type ${alias} = ${i.name};`);
                 printer.printLine(`declare var ${alias}: typeof ${i.name};`);
@@ -886,7 +897,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         printer.endLine();
     }
 
-    /// To decide if a given method is an indexer and should be emited
+    /// To decide if a given method is an indexer and should be emitted
     function shouldEmitIndexerSignature(i: Browser.Interface, m: Browser.AnonymousMethod) {
         if (m.getter && m.signature && m.signature[0].param && m.signature[0].param!.length === 1) {
             // TypeScript array indexer can only be number or string
@@ -990,8 +1001,8 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
         // Some types are static types with non-static members. For example,
         // NodeFilter is a static method itself, however it has an "acceptNode" method
         // that expects the user to implement.
-        const hasNonStaticMethod = i.methods && !!mapToArray(i.methods.method).find(m => !m.static);
-        const hasProperty = i.properties && mapToArray(i.properties.property).find(p => !p.static);
+        const hasNonStaticMethod = i.methods && mapToArray(i.methods.method).some(m => !m.static);
+        const hasProperty = i.properties && mapToArray(i.properties.property).some(p => !p.static);
         const hasNonStaticMember = hasNonStaticMethod || hasProperty;
 
         // For static types with non-static members, we put the non-static members into an
@@ -1174,7 +1185,7 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
 
         emitCallBackFunctions();
 
-        if (flavor !== Flavor.Worker) {
+        if (flavor === Flavor.Window) {
             emitHTMLElementTagNameMap();
             emitHTMLElementDeprecatedTagNameMap();
             emitSVGElementTagNameMap();
@@ -1182,9 +1193,9 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
             emitNamedConstructors();
         }
 
-        if (pollutor) {
-            emitAllMembers(pollutor);
-            emitEventHandlers("declare var ", pollutor);
+        if (polluter) {
+            emitAllMembers(polluter);
+            emitEventHandlers("declare var ", polluter);
         }
 
         emitTypeDefs();
@@ -1345,7 +1356,12 @@ export function emitWebIdl(webidl: Browser.WebIdl, flavor: Flavor) {
     function emitES6DomIterators() {
         printer.reset();
         printer.printLine("/////////////////////////////");
-        printer.printLine("/// DOM Iterable APIs");
+        if (flavor === Flavor.Worker) {
+            printer.printLine("/// Worker Iterable APIs");
+        }
+        else {
+            printer.printLine("/// DOM Iterable APIs");
+        }
         printer.printLine("/////////////////////////////");
 
         allInterfaces

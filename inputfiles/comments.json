@@ -834,7 +834,7 @@
                             "comment": "/**\n * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.\n */"
                         },
                         "getElementById": {
-                            "comment": "/**\n * Returns a reference to the first object with the specified value of the ID or NAME attribute.\n * @param elementId String that specifies the ID value. Case-insensitive.\n */"
+                            "comment": "/**\n * Returns a reference to the first object with the specified value of the ID attribute.\n * @param elementId String that specifies the ID value.\n */"
                         }
                     }
                 }
@@ -1338,18 +1338,6 @@
                     }
                 }
             },
-            "HTMLBaseFontElement": {
-                "properties": {
-                    "property": {
-                        "face": {
-                            "comment": "/**\n * Sets or retrieves the current typeface family.\n */"
-                        },
-                        "size": {
-                            "comment": "/**\n * Sets or retrieves the font size of the object.\n */"
-                        }
-                    }
-                }
-            },
             "HTMLTextAreaElement": {
                 "properties": {
                     "property": {
@@ -1751,6 +1739,9 @@
             "HTMLVideoElement": {
                 "properties": {
                     "property": {
+                        "playsInline": {
+                            "comment": "/**\n * Gets or sets the playsinline of the video element. for example, On iPhone, video elements will now be allowed to play inline, and will not automatically enter fullscreen mode when playback begins.\n */"
+                        },
                         "width": {
                             "comment": "/**\n * Gets or sets the width of the video element.\n */"
                         },

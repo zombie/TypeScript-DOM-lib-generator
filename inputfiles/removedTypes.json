@@ -34,19 +34,7 @@
                     }
                 }
             },
-            "XMLHttpRequestEventTarget": null,
-            "WorkerUtils": {
-                "methods": {
-                    "method": {
-                        "clearImmediate": null,
-                        "clearInterval": null,
-                        "clearTimeout": null,
-                        "setImmediate": null,
-                        "setInterval": null,
-                        "setTimeout": null
-                    }
-                }
-            }
+            "XMLHttpRequestEventTarget": null
         }
     },
     "callback-interfaces": {
@@ -59,12 +47,22 @@
     "enums": {
         "enum": {
             "ClientType": null,
+            "ReadableStreamReaderMode": null,
+            "ReadableStreamType": null,
             "RequestType": null
         }
     },
     "interfaces": {
         "interface": {
-            "AudioTrackList": null,
+            "AuthenticatorAttestationResponse": {
+                "methods": {
+                    "method": {
+                        "getAuthenticatorData": null,
+                        "getPublicKey": null,
+                        "getPublicKeyAlgorithm": null
+                    }
+                }
+            },
             "CanvasRenderingContext2D": {
                 "methods": {
                     "method": {
@@ -82,6 +80,7 @@
             },
             "ClipboardItem": null,
             "Console": null,
+            "Coordinates": null,
             "CSS": null,
             "CSSMarginRule": null,
             "CSSRule": {
@@ -189,22 +188,9 @@
             "FormDataEvent": null,
             "HTMLAreasCollection": null,
             "HTMLMediaElement": {
-                "properties": {
-                    "property": {
-                        "audioTracks": null,
-                        "videoTracks": null
-                    }
-                },
                 "methods": {
                     "method": {
                         "getStartDate": null
-                    }
-                }
-            },
-            "HTMLVideoElement": {
-                "properties": {
-                    "property": {
-                        "playsInline": null
                     }
                 }
             },
@@ -238,26 +224,29 @@
             "MSCredentials": null,
             "MSDCCEvent": null,
             "MSDSHEvent": null,
+            "MSMediaKeyMessageEvent": null,
+            "MSMediaKeyNeededEvent": null,
+            "MSPointerEvent": null,
             "MSStreamReader": null,
             "PasswordCredential": null,
-            "RTCDataChannel": {
+            "Position": null,
+            "PositionError": null,
+            "ReadableStream": {
+                "iterator": null
+            },
+            "ReadableStreamReader": null,
+            "ResizeObservation": null,
+            "ResizeObserverEntry": {
                 "properties": {
                     "property": {
-                        "onclosing": null
+                        "devicePixelContentBoxSize": null
                     }
                 }
             },
-            "RTCIceCandidate": {
+            "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
-                        "address": null
-                    }
-                }
-            },
-            "RTCPeerConnection": {
-                "methods": {
-                    "method": {
-                        "restartIce": null
+                        "onpushsubscriptionchange": null
                     }
                 }
             },
@@ -268,19 +257,6 @@
                     }
                 }
             },
-            "SourceBuffer": {
-                "properties": {
-                    "property": {
-                        "audioTracks": null,
-                        "textTracks": null,
-                        "videoTracks": null
-                    }
-                }
-            },
-            "SpeechRecognitionEvent": {
-                "constructor": null
-            },
-            "SpeechRecognitionErrorEvent": null,
             "StorageEvent": {
                 "methods": {
                     "method": {
@@ -342,7 +318,44 @@
                     }
                 }
             },
-            "VideoTrackList": null,
+            "WebAuthentication": null,
+            "WebAuthnAssertion": null,
+            "WebGLBuffer": {
+                "extends": null
+            },
+            "WebGLFramebuffer": {
+                "extends": null
+            },
+            "WebGLProgram": {
+                "extends": null
+            },
+            "WebGLQuery": {
+                "extends": null
+            },
+            "WebGLRenderbuffer": {
+                "extends": null
+            },
+            "WebGLSampler": {
+                "extends": null
+            },
+            "WebGLShader": {
+                "extends": null
+            },
+            "WebGLSync": {
+                "extends": null
+            },
+            "WebGLTexture": {
+                "extends": null
+            },
+            "WebGLTransformFeedback": {
+                "extends": null
+            },
+            "WebGLVertexArrayObject": {
+                "extends": null
+            },
+            "WebGLVertexArrayObjectOES": {
+                "extends": null
+            },
             "WebKitCSSMatrix": null,
             "WebKitDirectoryEntry": null,
             "WebKitDirectoryReader": null,
@@ -357,6 +370,21 @@
                         "crypto": null,
                         "isSecureContext": null,
                         "msCredentials": null,
+                        "onmsgesturechange": null,
+                        "onmsgesturedoubletap": null,
+                        "onmsgestureend": null,
+                        "onmsgesturehold": null,
+                        "onmsgesturestart": null,
+                        "onmsgesturetap": null,
+                        "onmsinertiastart": null,
+                        "onmspointercancel": null,
+                        "onmspointerdown": null,
+                        "onmspointerenter": null,
+                        "onmspointerleave": null,
+                        "onmspointermove": null,
+                        "onmspointerout": null,
+                        "onmspointerover": null,
+                        "onmspointerup": null,
                         "ontouchcancel": null,
                         "ontouchend": null,
                         "ontouchmove": null,
@@ -370,6 +398,11 @@
                         "requestAnimationFrame": null
                     }
                 },
+                "events": {
+                    "event": [
+                        "devicelight"
+                    ]
+                },
                 "implements": [
                     "GlobalFetch",
                     "IDBEnvironment",
@@ -377,6 +410,13 @@
                     "WindowTimers",
                     "WindowConsole"
                 ]
+            },
+            "WritableStream": {
+                "methods": {
+                    "method": {
+                        "close": null
+                    }
+                }
             },
             "XPathNSResolver": null
         }
@@ -400,10 +440,20 @@
                 }
             },
             "ObjectURLOptions": null,
+            "ReadableStreamBYOBReadResult": null,
+            "ReadableStreamDefaultReadResult": null,
+            "ReadableStreamGetReaderOptions": null,
             "RTCIceGatherOptions": {
                 "members": {
                     "member": {
                         "portRange": null
+                    }
+                }
+            },
+            "UnderlyingSource": {
+                "members": {
+                    "member": {
+                        "autoAllocateChunkSize": null
                     }
                 }
             }

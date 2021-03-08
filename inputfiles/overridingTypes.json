@@ -1,19 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "GlobalFetch": {
-                "name": "GlobalFetch",
-                "methods": {
-                    "method": {
-                        "fetch": {
-                            "name": "fetch",
-                            "override-signatures": [
-                                "fetch(input: RequestInfo, init?: RequestInit): Promise<Response>"
-                            ]
-                        }
-                    }
-                }
-            },
             "Animatable": {
                 "name": "Animatable",
                 "methods": {
@@ -227,13 +214,7 @@
                     "(event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error): any"
                 ]
             },
-            "DecodeErrorCallback": {
-                "name": "DecodeErrorCallback",
-                "override-signatures": [
-                    "(error: DOMException): void"
-                ]
-            },
-            "QueuingStrategySizeCallback": {
+            "QueuingStrategySize": {
                 "type-parameters": [
                     {
                         "name": "T",
@@ -244,32 +225,37 @@
                     "(chunk: T): number"
                 ]
             },
-            "ReadableByteStreamControllerCallback": {
-                "override-signatures": [
-                    "(controller: ReadableByteStreamController): void | PromiseLike<void>"
-                ]
-            },
-            "ReadableStreamDefaultControllerCallback": {
+            "UnderlyingSourceStartCallback": {
                 "type-parameters": [
                     {
                         "name": "R"
                     }
                 ],
                 "override-signatures": [
-                    "(controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>"
+                    "(controller: ReadableStreamController<R>): void | PromiseLike<void>"
                 ]
             },
-            "ReadableStreamErrorCallback": {
+            "UnderlyingSourcePullCallback": {
+                "type-parameters": [
+                    {
+                        "name": "R"
+                    }
+                ],
+                "override-signatures": [
+                    "(controller: ReadableStreamController<R>): void | PromiseLike<void>"
+                ]
+            },
+            "UnderlyingSourceCancelCallback": {
                 "override-signatures": [
                     "(reason: any): void | PromiseLike<void>"
                 ]
             },
-            "WritableStreamDefaultControllerStartCallback": {
+            "UnderlyingSinkStartCallback": {
                 "override-signatures": [
                     "(controller: WritableStreamDefaultController): void | PromiseLike<void>"
                 ]
             },
-            "WritableStreamDefaultControllerWriteCallback": {
+            "UnderlyingSinkWriteCallback": {
                 "type-parameters": [
                     {
                         "name": "W"
@@ -279,17 +265,17 @@
                     "(chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>"
                 ]
             },
-            "WritableStreamDefaultControllerCloseCallback": {
+            "UnderlyingSinkCloseCallback": {
                 "override-signatures": [
                     "(): void | PromiseLike<void>"
                 ]
             },
-            "WritableStreamErrorCallback": {
+            "UnderlyingSinkAbortCallback": {
                 "override-signatures": [
                     "(reason: any): void | PromiseLike<void>"
                 ]
             },
-            "TransformStreamDefaultControllerCallback": {
+            "TransformerFlushCallback": {
                 "type-parameters": [
                     {
                         "name": "O"
@@ -299,7 +285,17 @@
                     "(controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
                 ]
             },
-            "TransformStreamDefaultControllerTransformCallback": {
+            "TransformerStartCallback": {
+                "type-parameters": [
+                    {
+                        "name": "O"
+                    }
+                ],
+                "override-signatures": [
+                    "(controller: TransformStreamDefaultController<O>): void | PromiseLike<void>"
+                ]
+            },
+            "TransformerTransformCallback": {
                 "type-parameters": [
                     {
                         "name": "I"
@@ -459,6 +455,9 @@
                             "override-type": "Event | undefined",
                             "deprecated": 1
                         },
+                        "frameElement": {
+                            "nullable": 1
+                        },
                         "location": {
                             "read-only": 0
                         },
@@ -468,7 +467,7 @@
                         },
                         "opener": {
                             "name": "opener",
-                            "override-type": "any",
+                            "override-type": "WindowProxy | null",
                             "read-only": 0
                         },
                         "self": {
@@ -529,12 +528,6 @@
                             "name": "getElementById",
                             "override-signatures": [
                                 "getElementById(elementId: string): HTMLElement | null"
-                            ]
-                        },
-                        "elementsFromPoint": {
-                            "name": "elementsFromPoint",
-                            "override-signatures": [
-                                "elementsFromPoint(x: number, y: number): Element[]"
                             ]
                         },
                         "getElementsByTagNameNS": {
@@ -693,13 +686,6 @@
                 },
                 "properties": {
                     "property": {
-                        "isConnected": {
-                            "name": "isConnected",
-                            "default": "false",
-                            "read-only": 1,
-                            "type-original": "boolean",
-                            "type": "boolean"
-                        },
                         "parentNode": {
                             "override-type": "Node & ParentNode | null"
                         },
@@ -811,23 +797,6 @@
                     }
                 }
             },
-            "MediaError": {
-                "name": "MediaError",
-                "properties": {
-                    "property": {
-                        "message": {
-                            "specs": "html5",
-                            "name": "message",
-                            "tags": "Media",
-                            "type": "DOMString",
-                            "type-original": "DOMString",
-                            "read-only": 1,
-                            "exposed": "Window",
-                            "default": "\"\""
-                        }
-                    }
-                }
-            },
             "IDBIndex": {
                 "name": "IDBIndex",
                 "properties": {
@@ -885,33 +854,6 @@
                     }
                 }
             },
-            "IDBDatabase": {
-                "name": "IDBDatabase",
-                "methods": {
-                    "method": {
-                        "createObjectStore": {
-                            "name": "createObjectStore",
-                            "override-signatures": [
-                                "createObjectStore(name: string, optionalParameters?: IDBObjectStoreParameters): IDBObjectStore"
-                            ]
-                        },
-                        "transaction": {
-                            "name": "transaction",
-                            "override-signatures": [
-                                "transaction(storeNames: string | string[], mode?: IDBTransactionMode): IDBTransaction"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "version": {
-                            "name": "version",
-                            "override-type": "number"
-                        }
-                    }
-                }
-            },
             "HTMLCanvasElement": {
                 "methods": {
                     "method": {
@@ -958,7 +900,7 @@
                         "className": {
                             "deprecated": 1,
                             "name": "className",
-                            "override-type": "any"
+                            "type": "any"
                         }
                     }
                 }
@@ -1017,24 +959,6 @@
                             ]
                         }
                     }
-                }
-            },
-            "ImageData": {
-                "name": "ImageData",
-                "exposed": "Window Worker",
-                "constructor": {
-                    "override-signatures": [
-                        "new(width: number, height: number): ImageData",
-                        "new(array: Uint8ClampedArray, width: number, height?: number): ImageData"
-                    ]
-                }
-            },
-            "DOMException": {
-                "name": "DOMException",
-                "constructor": {
-                    "override-signatures": [
-                        "new(message?: string, name?: string): DOMException"
-                    ]
                 }
             },
             "HTMLSelectElement": {
@@ -1125,16 +1049,6 @@
             },
             "HTMLTableSectionElement": {
                 "name": "HTMLTableSectionElement",
-                "methods": {
-                    "method": {
-                        "insertRow": {
-                            "name": "insertRow",
-                            "override-signatures": [
-                                "insertRow(index?: number): HTMLTableRowElement"
-                            ]
-                        }
-                    }
-                },
                 "properties": {
                     "property": {
                         "rows": {
@@ -1148,18 +1062,6 @@
                 "name": "Element",
                 "methods": {
                     "method": {
-                        "getAttributeNodeNS": {
-                            "name": "getAttributeNodeNS",
-                            "override-signatures": [
-                                "getAttributeNodeNS(namespaceURI: string, localName: string): Attr | null"
-                            ]
-                        },
-                        "getAttributeNode": {
-                            "name": "getAttributeNode",
-                            "override-signatures": [
-                                "getAttributeNode(name: string): Attr | null"
-                            ]
-                        },
                         "getElementsByTagNameNS": {
                             "name": "getElementsByTagNameNS",
                             "override-signatures": [
@@ -1173,6 +1075,21 @@
                             "override-signatures": [
                                 "msGetRegionContent(): any"
                             ]
+                        }
+                    }
+                }
+            },
+            "DataTransfer": {
+                "name": "DataTransfer",
+                "properties": {
+                    "property": {
+                        "dropEffect": {
+                            "name": "dropEffect",
+                            "override-type": "\"none\" | \"copy\" | \"link\" | \"move\""
+                        },
+                        "effectAllowed": {
+                            "name": "effectAllowed",
+                            "override-type": "\"none\" | \"copy\" | \"copyLink\" | \"copyMove\" | \"link\" | \"linkMove\" | \"move\" | \"all\" | \"uninitialized\""
                         }
                     }
                 }
@@ -1212,11 +1129,11 @@
                     "property": {
                         "key": {
                             "name": "key",
-                            "override-type": "IDBValidKey"
+                            "type": "IDBValidKey"
                         },
                         "primaryKey": {
                             "name": "primaryKey",
-                            "override-type": "IDBValidKey"
+                            "type": "IDBValidKey"
                         }
                     }
                 },
@@ -1251,15 +1168,9 @@
                 "name": "IDBRequest",
                 "properties": {
                     "property": {
-                        "error": {
-                            "name": "error",
-                            "read-only": 1,
-                            "override-type": "DOMException"
-                        },
                         "source": {
                             "name": "source",
-                            "nullable": false,
-                            "override-type": "IDBObjectStore | IDBIndex | IDBCursor"
+                            "nullable": false
                         },
                         "result": {
                             "name": "result",
@@ -1274,36 +1185,7 @@
                     }
                 ]
             },
-            "IDBTransaction": {
-                "name": "IDBTransaction",
-                "properties": {
-                    "property": {
-                        "error": {
-                            "name": "error",
-                            "read-only": 1,
-                            "override-type": "DOMException"
-                        }
-                    }
-                }
-            },
             "Storage": {
-                "name": "Storage",
-                "methods": {
-                    "method": {
-                        "getItem": {
-                            "name": "getItem",
-                            "override-signatures": [
-                                "getItem(key: string): string | null"
-                            ]
-                        },
-                        "key": {
-                            "name": "key",
-                            "override-signatures": [
-                                "key(index: number): string | null"
-                            ]
-                        }
-                    }
-                },
                 "override-index-signatures": [
                     "[name: string]: any"
                 ]
@@ -1325,13 +1207,13 @@
                         "deriveBits": {
                             "name": "deriveBits",
                             "override-signatures": [
-                                "deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>"
+                                "deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>"
                             ]
                         },
                         "deriveKey": {
                             "name": "deriveKey",
                             "override-signatures": [
-                                "deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
+                                "deriveKey(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
                             ]
                         },
                         "digest": {
@@ -1357,9 +1239,9 @@
                         "generateKey": {
                             "name": "generateKey",
                             "override-signatures": [
-                                "generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair | CryptoKey>",
                                 "generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams | DhKeyGenParams, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair>",
-                                "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>"
+                                "generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKey>",
+                                "generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair | CryptoKey>"
                             ]
                         },
                         "importKey": {
@@ -1401,16 +1283,6 @@
                 "name": "HTMLInputElement",
                 "properties": {
                     "property": {
-                        "files": {
-                            "name": "files",
-                            "read-only": 0,
-                            "override-type": "FileList | null"
-                        },
-                        "form": {
-                            "name": "form",
-                            "read-only": 1,
-                            "override-type": "HTMLFormElement | null"
-                        },
                         "selectionDirection": {
                             "name": "selectionDirection",
                             "override-type": "\"forward\" | \"backward\" | \"none\""
@@ -1426,7 +1298,7 @@
                         "setSelectionRange": {
                             "name": "setSelectionRange",
                             "override-signatures": [
-                                "setSelectionRange(start: number, end: number, direction?: \"forward\" | \"backward\" | \"none\"): void"
+                                "setSelectionRange(start: number | null, end: number | null, direction?: \"forward\" | \"backward\" | \"none\"): void"
                             ]
                         }
                     }
@@ -1461,12 +1333,6 @@
                                 "hasFeature(...args: any[]): true"
                             ],
                             "deprecated": 1
-                        },
-                        "createDocument": {
-                            "name": "createDocument",
-                            "override-signatures": [
-                                "createDocument(namespaceURI: string | null, qualifiedName: string | null, doctype: DocumentType | null): Document"
-                            ]
                         }
                     }
                 }
@@ -1619,7 +1485,7 @@
                         "setSelectionRange": {
                             "name": "setSelectionRange",
                             "override-signatures": [
-                                "setSelectionRange(start: number, end: number, direction?: \"forward\" | \"backward\" | \"none\"): void"
+                                "setSelectionRange(start: number | null, end: number | null, direction?: \"forward\" | \"backward\" | \"none\"): void"
                             ]
                         }
                     }
@@ -1638,6 +1504,12 @@
                             "name": "getRegistration",
                             "override-signatures": [
                                 "getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>"
+                            ]
+                        },
+                        "register": {
+                            "name": "register",
+                            "override-signatures": [
+                                "register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>"
                             ]
                         }
                     }
@@ -1802,17 +1674,6 @@
                     ]
                 }
             },
-            "MediaList": {
-                "name": "MediaList",
-                "properties": {
-                    "property": {
-                        "mediaText": {
-                            "name": "mediaText",
-                            "override-type": "string"
-                        }
-                    }
-                }
-            },
             "MutationRecord": {
                 "name": "MutationRecord",
                 "properties": {
@@ -1940,7 +1801,7 @@
                         "setLocalDescription": {
                             "name": "setLocalDescription",
                             "override-signatures": [
-                                "setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>"
+                                "setLocalDescription(description?: RTCSessionDescriptionInit): Promise<void>"
                             ]
                         },
                         "setRemoteDescription": {
@@ -1998,10 +1859,6 @@
                         {
                             "name": "isolationchange",
                             "type": "Event"
-                        },
-                        {
-                            "name": "statsended",
-                            "type": "RTCStatsEvent"
                         }
                     ]
                 }
@@ -2054,10 +1911,6 @@
                         {
                             "name": "push",
                             "type": "PushEvent"
-                        },
-                        {
-                            "name": "pushsubscriptionchange",
-                            "type": "PushSubscriptionChangeEvent"
                         },
                         {
                             "name": "sync",
@@ -2379,60 +2232,37 @@
                 ],
                 "constructor": {
                     "override-signatures": [
-                        "new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>",
                         "new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>"
+                    ],
+                    "force-references": [
+                        {
+                            "type": "UnderlyingSource"
+                        },
+                        {
+                            "type": "QueuingStrategy"
+                        }
                     ]
                 },
                 "methods": {
                     "method": {
                         "getReader": {
                             "override-signatures": [
-                                "getReader(options: { mode: \"byob\" }): ReadableStreamBYOBReader",
                                 "getReader(): ReadableStreamDefaultReader<R>"
                             ]
                         },
                         "pipeThrough": {
                             "override-signatures": [
-                                "pipeThrough<T>({ writable, readable }: { writable: WritableStream<R>, readable: ReadableStream<T> }, options?: PipeOptions): ReadableStream<T>"
+                                "pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>"
                             ]
                         },
                         "pipeTo": {
                             "override-signatures": [
-                                "pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>"
+                                "pipeTo(dest: WritableStream<R>, options?: StreamPipeOptions): Promise<void>"
                             ]
                         },
                         "tee": {
                             "override-signatures": [
                                 "tee(): [ReadableStream<R>, ReadableStream<R>]"
-                            ]
-                        }
-                    }
-                }
-            },
-            "ReadableStreamReader": {
-                "override-exposed": "Window Worker",
-                "type-parameters": [
-                    {
-                        "name": "R",
-                        "default": "any"
-                    }
-                ],
-                "methods": {
-                    "method": {
-                        "read": {
-                            "override-signatures": [
-                                "read(): Promise<ReadableStreamReadResult<R>>"
-                            ]
-                        }
-                    }
-                }
-            },
-            "ReadableStreamBYOBReader": {
-                "methods": {
-                    "method": {
-                        "read": {
-                            "override-signatures": [
-                                "read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>"
                             ]
                         }
                     }
@@ -2445,21 +2275,17 @@
                         "default": "any"
                     }
                 ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>"
+                    ]
+                },
                 "methods": {
                     "method": {
                         "read": {
                             "override-signatures": [
-                                "read(): Promise<ReadableStreamReadResult<R>>"
+                                "read(): Promise<ReadableStreamDefaultReadResult<R>>"
                             ]
-                        }
-                    }
-                }
-            },
-            "ReadableByteStreamController": {
-                "properties": {
-                    "property": {
-                        "byobRequest": {
-                            "override-type": "ReadableStreamBYOBRequest | undefined"
                         }
                     }
                 }
@@ -2485,6 +2311,14 @@
                 "constructor": {
                     "override-signatures": [
                         "new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>"
+                    ],
+                    "force-references": [
+                        {
+                            "type": "UnderlyingSink"
+                        },
+                        {
+                            "type": "QueuingStrategy"
+                        }
                     ]
                 },
                 "type-parameters": [
@@ -2510,6 +2344,11 @@
                         "default": "any"
                     }
                 ],
+                "constructor": {
+                    "override-signatures": [
+                        "new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>"
+                    ]
+                },
                 "methods": {
                     "method": {
                         "write": {
@@ -2544,6 +2383,14 @@
                 "constructor": {
                     "override-signatures": [
                         "new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>"
+                    ],
+                    "force-references": [
+                        {
+                            "type": "Transformer"
+                        },
+                        {
+                            "type": "QueuingStrategy"
+                        }
                     ]
                 }
             },
@@ -2566,24 +2413,58 @@
             },
             "ByteLengthQueuingStrategy": {
                 "extends": "QueuingStrategy<ArrayBufferView>",
-                "constructor": {
-                    "override-signatures": [
-                        "new(options: { highWaterMark: number }): ByteLengthQueuingStrategy"
-                    ]
+                "properties": {
+                    "property": {
+                        "size": {
+                            "name": "size",
+                            "override-type": [
+                                "QueuingStrategySize<ArrayBufferView>"
+                            ]
+                        }
+                    }
                 }
             },
             "CountQueuingStrategy": {
-                "constructor": {
-                    "override-signatures": [
-                        "new(options: { highWaterMark: number }): CountQueuingStrategy"
-                    ]
-                },
-                "methods": {
-                    "method": {
+                "extends": "QueuingStrategy",
+                "properties": {
+                    "property": {
                         "size": {
-                            "override-signatures": [
-                                "size(chunk: any): 1"
+                            "name": "size",
+                            "override-type": [
+                                "QueuingStrategySize"
                             ]
+                        }
+                    }
+                }
+            },
+            "TextDecoderStream": {
+                "properties": {
+                    "property": {
+                        "readable": {
+                            "name": "readable",
+                            "read-only": 1,
+                            "override-type": "ReadableStream<string>"
+                        },
+                        "writable": {
+                            "name": "writable",
+                            "read-only": 1,
+                            "override-type": "WritableStream<BufferSource>"
+                        }
+                    }
+                }
+            },
+            "TextEncoderStream": {
+                "properties": {
+                    "property": {
+                        "readable": {
+                            "name": "readable",
+                            "read-only": 1,
+                            "override-type": "ReadableStream<Uint8Array>"
+                        },
+                        "writable": {
+                            "name": "writable",
+                            "read-only": 1,
+                            "override-type": "WritableStream<string>"
                         }
                     }
                 }
@@ -2725,6 +2606,11 @@
                         "get": {
                             "override-signatures": [
                                 "get(id: string): Promise<Client | undefined>"
+                            ]
+                        },
+                        "matchAll": {
+                            "override-signatures": [
+                                "matchAll<T extends ClientQueryOptions>(options?: T): Promise<ReadonlyArray<T[\"type\"] extends \"window\" ? WindowClient : Client>>"
                             ]
                         }
                     }
@@ -2895,6 +2781,21 @@
                     }
                 }
             },
+            "AuthenticatorSelectionCriteria": {
+                "members": {
+                    "member": {
+                        "authenticatorAttachment": {
+                            "type": "AuthenticatorAttachment"
+                        },
+                        "residentKey": {
+                            "type": "ResidentKeyRequirement"
+                        },
+                        "userVerification": {
+                            "type": "UserVerificationRequirement"
+                        }
+                    }
+                }
+            },
             "BaseKeyframe": {
                 "name": "Keyframe",
                 "override-index-signatures": [
@@ -2929,20 +2830,43 @@
                     "[property: string]: string | number | null | undefined"
                 ]
             },
-            "PipeOptions": {
+            "PublicKeyCredentialCreationOptions": {
                 "members": {
                     "member": {
-                        "preventClose": {
-                            "nullable": 0
+                        "attestation": {
+                            "type": "AttestationConveyancePreference"
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialDescriptor": {
+                "members": {
+                    "member": {
+                        "type": {
+                            "type": "PublicKeyCredentialType"
                         },
-                        "preventAbort": {
-                            "nullable": 0
-                        },
-                        "preventCancel": {
-                            "nullable": 0
-                        },
-                        "signal": {
-                            "nullable": 0
+                        "transports": {
+                            "subtype": {
+                                "type": "AuthenticatorTransport"
+                            }
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialParameters": {
+                "members": {
+                    "member": {
+                        "type": {
+                            "type": "PublicKeyCredentialType"
+                        }
+                    }
+                }
+            },
+            "PublicKeyCredentialRequestOptions": {
+                "members": {
+                    "member": {
+                        "userVerification": {
+                            "type": "UserVerificationRequirement"
                         }
                     }
                 }
@@ -2956,67 +2880,30 @@
                 ],
                 "members": {
                     "member": {
-                        "highWaterMark": {
-                            "nullable": 0
-                        },
                         "size": {
-                            "override-type": "QueuingStrategySizeCallback<T>",
-                            "nullable": 0
+                            "override-type": "QueuingStrategySize<T>"
                         }
                     }
                 }
             },
-            "ReadableStreamReadDoneResult": {
+            "ReadableWritablePair": {
                 "type-parameters": [
                     {
-                        "name": "T"
+                        "name": "R",
+                        "default": "any"
+                    },
+                    {
+                        "name": "W",
+                        "default": "any"
                     }
                 ],
                 "members": {
                     "member": {
-                        "done": {
-                            "override-type": "true"
+                        "readable": {
+                            "override-type": "ReadableStream<R>"
                         },
-                        "value": {
-                            "override-type": "T"
-                        }
-                    }
-                }
-            },
-            "ReadableStreamReadValueResult": {
-                "type-parameters": [
-                    {
-                        "name": "T"
-                    }
-                ],
-                "members": {
-                    "member": {
-                        "done": {
-                            "override-type": "false"
-                        },
-                        "value": {
-                            "override-type": "T"
-                        }
-                    }
-                }
-            },
-            "UnderlyingByteSource": {
-                "members": {
-                    "member": {
-                        "start": {
-                            "nullable": 0
-                        },
-                        "pull": {
-                            "nullable": 0
-                        },
-                        "cancel": {
-                            "nullable": 0
-                        },
-                        "autoAllocateChunkSize": {
-                            "nullable": 0
-                        },
-                        "type": {
-                            "override-type": "\"bytes\""
+                        "writable": {
+                            "override-type": "WritableStream<W>"
                         }
                     }
                 }
@@ -3031,15 +2918,10 @@
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "ReadableStreamDefaultControllerCallback<R>",
-                            "nullable": 0
+                            "override-type": "UnderlyingSourceStartCallback<R>"
                         },
                         "pull": {
-                            "override-type": "ReadableStreamDefaultControllerCallback<R>",
-                            "nullable": 0
-                        },
-                        "cancel": {
-                            "nullable": 0
+                            "override-type": "UnderlyingSourcePullCallback<R>"
                         },
                         "type": {
                             "override-type": "undefined"
@@ -3056,21 +2938,20 @@
                 ],
                 "members": {
                     "member": {
-                        "start": {
-                            "nullable": 0
-                        },
                         "write": {
-                            "override-type": "WritableStreamDefaultControllerWriteCallback<W>",
-                            "nullable": 0
-                        },
-                        "close": {
-                            "nullable": 0
-                        },
-                        "abort": {
-                            "nullable": 0
+                            "override-type": "UnderlyingSinkWriteCallback<W>"
                         },
                         "type": {
                             "override-type": "undefined"
+                        }
+                    }
+                }
+            },
+            "TokenBinding": {
+                "members": {
+                    "member": {
+                        "status": {
+                            "type": "TokenBindingStatus"
                         }
                     }
                 }
@@ -3089,16 +2970,13 @@
                 "members": {
                     "member": {
                         "start": {
-                            "override-type": "TransformStreamDefaultControllerCallback<O>",
-                            "nullable": 0
+                            "override-type": "TransformerStartCallback<O>"
                         },
                         "transform": {
-                            "override-type": "TransformStreamDefaultControllerTransformCallback<I, O>",
-                            "nullable": 0
+                            "override-type": "TransformerTransformCallback<I, O>"
                         },
                         "flush": {
-                            "override-type": "TransformStreamDefaultControllerCallback<O>",
-                            "nullable": 0
+                            "override-type": "TransformerFlushCallback<O>"
                         },
                         "readableType": {
                             "override-type": "undefined"
@@ -3169,8 +3047,8 @@
                 "new-type": "BodyInit"
             },
             {
-                "override-type": "ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>",
-                "new-type": "ReadableStreamReadResult",
+                "override-type": "ReadableStreamDefaultController<T>",
+                "new-type": "ReadableStreamController",
                 "type-parameters": [
                     {
                         "name": "T"

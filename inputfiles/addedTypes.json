@@ -1268,97 +1268,10 @@
                     }
                 ]
             },
-            "EXT_blend_minmax": {
-                "overrideExposed": "Window Worker"
-            },
-            "EXT_color_buffer_float": {
-                "overrideExposed":"Window Worker"
-            },
-            "EXT_color_buffer_half_float": {
-                "overrideExposed":"Window Worker"
-            },
-            "EXT_float_blend": {
-                "overrideExposed":"Window Worker"
-            },
-            "EXT_texture_filter_anisotropic": {
-                "overrideExposed": "Window Worker"
-            },
-            "EXT_frag_depth": {
-                "overrideExposed": "Window Worker"
-            },
-            "EXT_shader_texture_lod": {
-                "overrideExposed": "Window Worker"
-            },
-            "EXT_sRGB": {
-                "overrideExposed": "Window Worker"
-            },
             "KHR_parallel_shader_compile": {
                 "overrideExposed": "Window Worker"
             },
-            "OES_vertex_array_object": {
-                "overrideExposed": "Window Worker"
-            },
             "OVR_multiview2": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_color_buffer_float": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_astc": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_etc": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_etc1": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_pvrtc": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_s3tc_srgb": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_debug_shaders": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_draw_buffers": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_lose_context": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_depth_texture": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_debug_renderer_info": {
-                "overrideExposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_s3tc": {
-                "overrideExposed": "Window Worker"
-            },
-            "OES_texture_half_float_linear": {
-                "overrideExposed": "Window Worker"
-            },
-            "OES_texture_half_float": {
-                "overrideExposed": "Window Worker"
-            },
-            "OES_texture_float_linear": {
-                "overrideExposed": "Window Worker"
-            },
-            "OES_texture_float": {
-                "overrideExposed": "Window Worker"
-            },
-            "OES_standard_derivatives": {
-                "overrideExposed": "Window Worker"
-            },
-            "OES_element_index_uint": {
-                "overrideExposed": "Window Worker"
-            },
-            "ANGLE_instanced_arrays": {
-                "overrideExposed": "Window Worker"
-            },
-            "WebGLVertexArrayObjectOES": {
                 "overrideExposed": "Window Worker"
             },
             "RTCDTMFSender": {

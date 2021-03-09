@@ -145,14 +145,14 @@ async function main() {
     others,
   } = diffTypes(previous, current);
 
-  const output = [writeAddedRemoved(added, removed)];
+  const outputs = [writeAddedRemoved(added, removed)];
   if (modified.size) {
     const modifiedOutput = [`## Modified\n`];
     for (const [key, value] of modified.entries()) {
       modifiedOutput.push(`* ${key}`);
       modifiedOutput.push(writeAddedRemovedInline(value.added, value.removed));
     }
-    output.push(modifiedOutput.join("\n"));
+    outputs.push(modifiedOutput.join("\n"));
   }
 
   if (others.modified.size) {
@@ -161,9 +161,15 @@ async function main() {
       modifiedOutput.push(`* ${key}`);
       modifiedOutput.push(writeAddedRemovedInline(value.added, value.removed));
     }
-    output.push(modifiedOutput.join("\n"));
+    outputs.push(modifiedOutput.join("\n"));
   }
-  console.log(output.join("\n\n"));
+
+  const output = outputs.join("\n\n");
+  if (output.length) {
+    console.log(output);
+  } else {
+    throw new Error(`No change reported between ${base} and ${head}.`);
+  }
 }
 
 await main();

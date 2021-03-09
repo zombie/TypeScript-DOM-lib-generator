@@ -5,6 +5,12 @@ function gitShowFile(commit: string, path: string) {
   return execSync(`git show ${commit}:${path}`, { encoding: "utf-8" });
 }
 
+function gitLatestTag() {
+  return execSync(`git describe --tags --abbrev=0`, {
+    encoding: "utf-8",
+  }).trim();
+}
+
 function mapInterfaceToMembers(interfaces: ts.InterfaceDeclaration[]) {
   const interfaceToMemberMap = new Map<string, string[]>();
   for (const decl of interfaces) {
@@ -131,10 +137,7 @@ function writeAddedRemovedInline(added: Set<string>, removed: Set<string>) {
 const dom = "baselines/dom.generated.d.ts";
 
 async function main() {
-  const [base, head = "HEAD"] = process.argv.slice(2);
-  if (!base) {
-    throw new Error("This needs a commit identifier as a parameter");
-  }
+  const [base = gitLatestTag(), head = "HEAD"] = process.argv.slice(2);
   const previous = gitShowFile(base, dom);
   const current = gitShowFile(head, dom);
   const {

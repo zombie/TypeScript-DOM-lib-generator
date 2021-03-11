@@ -14,3 +14,12 @@ updates:
     # https://github.com/dependabot/dependabot-core/issues/3103
     # https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates#versioning-strategy
     versioning-strategy: "increase"
+    
+  - package-ecosystem: "npm"
+    directory: "/"
+    allow:
+      - dependency-name: "@mdn/browser-compat-data"
+      - dependency-name: "browser-specs"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"

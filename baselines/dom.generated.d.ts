@@ -10012,38 +10012,49 @@ declare var MessagePort: {
 };
 
 /** Provides contains information about a MIME type associated with a particular plugin. NavigatorPlugins.mimeTypes returns an array of this object. */
+/** @deprecated */
 interface MimeType {
     /**
      * Returns the MIME type's description.
      */
+    /** @deprecated */
     readonly description: undefined;
     /**
      * Returns the Plugin object that implements this MIME type.
      */
+    /** @deprecated */
     readonly enabledPlugin: undefined;
     /**
      * Returns the MIME type's typical file extensions, in a comma-separated list.
      */
+    /** @deprecated */
     readonly suffixes: undefined;
     /**
      * Returns the MIME type.
      */
+    /** @deprecated */
     readonly type: undefined;
 }
 
+/** @deprecated */
 declare var MimeType: {
     readonly prototype: MimeType;
     new(): MimeType;
 };
 
 /** Returns an array of MimeType instances, each of which contains information about a supported browser plugins. This object is returned by NavigatorPlugins.mimeTypes. */
+/** @deprecated */
 interface MimeTypeArray {
+    /** @deprecated */
     readonly length: number;
+    /** @deprecated */
     item(index: number): any;
+    /** @deprecated */
     namedItem(name: string): any;
     [index: number]: any;
 }
 
+/** @deprecated */
 declare var MimeTypeArray: {
     readonly prototype: MimeTypeArray;
     new(): MimeTypeArray;
@@ -10260,9 +10271,13 @@ interface NavigatorOnLine {
     readonly onLine: boolean;
 }
 
+/** @deprecated */
 interface NavigatorPlugins {
+    /** @deprecated */
     readonly mimeTypes: MimeTypeArray;
+    /** @deprecated */
     readonly plugins: PluginArray;
+    /** @deprecated */
     javaEnabled(): boolean;
 }
 
@@ -11192,45 +11207,59 @@ declare var PictureInPictureWindow: {
 };
 
 /** Provides information about a browser plugin. */
+/** @deprecated */
 interface Plugin {
     /**
      * Returns the plugin's description.
      */
+    /** @deprecated */
     readonly description: undefined;
     /**
      * Returns the plugin library's filename, if applicable on the current platform.
      */
+    /** @deprecated */
     readonly filename: undefined;
     /**
      * Returns the number of MIME types, represented by MimeType objects, supported by the plugin.
      */
+    /** @deprecated */
     readonly length: undefined;
     /**
      * Returns the plugin's name.
      */
+    /** @deprecated */
     readonly name: undefined;
     /**
      * Returns the specified MimeType object.
      */
+    /** @deprecated */
     item(index: number): void;
+    /** @deprecated */
     namedItem(name: string): void;
     [index: number]: undefined;
 }
 
+/** @deprecated */
 declare var Plugin: {
     readonly prototype: Plugin;
     new(): Plugin;
 };
 
 /** Used to store a list of Plugin objects describing the available plugins; it's returned by the window.navigator.plugins property. The PluginArray is not a JavaScript array, but has the length property and supports accessing individual items using bracket notation (plugins[2]), as well as via item(index) and namedItem("name") methods. */
+/** @deprecated */
 interface PluginArray {
+    /** @deprecated */
     readonly length: number;
+    /** @deprecated */
     item(index: number): any;
+    /** @deprecated */
     namedItem(name: string): any;
+    /** @deprecated */
     refresh(): void;
     [index: number]: any;
 }
 
+/** @deprecated */
 declare var PluginArray: {
     readonly prototype: PluginArray;
     new(): PluginArray;

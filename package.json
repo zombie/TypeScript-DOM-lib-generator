@@ -18,7 +18,6 @@
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
     "lint": "eslint --max-warnings 0 src",
     "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
-    "update-webref": "tsc && node ./lib/update-webref.js",
     "changelog": "tsc && node ./lib/changelog.js"
   },
   "author": {
@@ -40,6 +39,8 @@
     "@types/webidl2": "^23.13.5",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "@webref/css": "^1.0.0",
+    "@webref/idl": "^1.0.10",
     "browser-specs": "^1.32.0",
     "cpx2": "^3.0.0",
     "eslint": "^7.22.0",
@@ -51,8 +52,7 @@
     "print-diff": "^1.0.0",
     "styleless-innertext": "^1.1.2",
     "typescript": "^4.2.3",
-    "webidl2": "^23.13.1",
-    "webref": "github:w3c/webref#41a8ec6b85634d1bdf5daa85f3c32a1adad1d2f8"
+    "webidl2": "^23.13.1"
   },
   "files": [
     "baselines/*"

@@ -5,7 +5,7 @@
             "PerformanceObserverCallback": {
                 "signature": {
                     "0": {
-                        "param": ["hasDroppedEntry"]
+                        "param": ["options"]
                     }
                 }
             }
@@ -160,6 +160,7 @@
                     "NavigatorBadge",
                     "NavigatorDeviceMemory",
                     "NavigatorFonts",
+                    "NavigatorGPU",
                     "NavigatorLocks",
                     "NavigatorUA"
                 ]
@@ -199,9 +200,6 @@
                         "navigationPreload": null
                     }
                 }
-            },
-            "SVGAElement": {
-                "implements": ["HTMLHyperlinkElementUtils"]
             },
             "SVGAnimationElement": {
                 "properties": {
@@ -269,6 +267,7 @@
                     "NavigatorBadge",
                     "NavigatorDeviceMemory",
                     "NavigatorFonts",
+                    "NavigatorGPU",
                     "NavigatorLocks",
                     "NavigatorUA"
                 ]

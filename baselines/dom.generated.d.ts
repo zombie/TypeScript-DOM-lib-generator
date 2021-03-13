@@ -8779,8 +8779,8 @@ interface History {
     back(): void;
     forward(): void;
     go(delta?: number): void;
-    pushState(data: any, title: string, url?: string | URL | null): void;
-    replaceState(data: any, title: string, url?: string | URL | null): void;
+    pushState(data: any, unused: string, url?: string | URL | null): void;
+    replaceState(data: any, unused: string, url?: string | URL | null): void;
 }
 
 declare var History: {

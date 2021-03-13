@@ -18,7 +18,7 @@ jobs:
 
       - run: npm ci
       - id: run-update-webref
-        run: npm run update-webref
+        run: npm i @webref/idl@latest @webref/css@latest
         continue-on-error: true
       - run: npm run build && npm run baseline-accept
         if: ${{ steps.run-update-webref.outcome == 'success' }}

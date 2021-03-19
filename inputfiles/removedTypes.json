@@ -41,9 +41,9 @@
             "GlobalEventHandlers": {
                 "properties": {
                     "property": {
+                        "onbeforexrselect": null,
                         "onpointerrawupdate": null,
-                        "onslotchange": null,
-                        "onbeforexrselect": null
+                        "onslotchange": null
                     }
                 }
             },
@@ -66,10 +66,18 @@
                     }
                 }
             },
+            "WindowEventHandlers": {
+                "properties": {
+                    "property": {
+                        "onportalactivate": null
+                    }
+                }
+            },
             "WindowOrWorkerGlobalScope": {
                 "properties": {
                     "property": {
-                        "originPolicyIds": null
+                        "originPolicyIds": null,
+                        "trustedTypes": null
                     }
                 }
             }

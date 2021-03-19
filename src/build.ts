@@ -115,20 +115,8 @@ async function emitDom() {
   ).filter(i => i) as ReturnType<typeof convert>[];
 
   async function convertWidl(shortName: string) {
-    // Specs that clashes with other specs
-    const skip = [
-      "EXT_disjoint_timer_query_webgl2",
-      "portals",
-      "svg-markers",
-      "svg-paths",
-      "trusted-types",
-    ];
-    if (skip.includes(shortName)) {
-      return;
-    }
-
     // Specs that need to fix their syntax, etc.
-    const local = ["css-typed-om", "permissions", "uievents", "xsltprocessor"];
+    const local = ["uievents", "xsltprocessor"];
     const idl = local.includes(shortName)
       ? await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), {
           encoding: "utf-8",

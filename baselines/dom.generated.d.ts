@@ -2352,6 +2352,7 @@ interface BaseAudioContext extends EventTarget {
     createOscillator(): OscillatorNode;
     createPanner(): PannerNode;
     createPeriodicWave(real: number[] | Float32Array, imag: number[] | Float32Array, constraints?: PeriodicWaveConstraints): PeriodicWave;
+    /** @deprecated */
     createScriptProcessor(bufferSize?: number, numberOfInputChannels?: number, numberOfOutputChannels?: number): ScriptProcessorNode;
     createStereoPanner(): StereoPannerNode;
     createWaveShaper(): WaveShaperNode;
@@ -5673,6 +5674,7 @@ interface GlobalEventHandlers {
      * Fires when the user presses an alphanumeric key.
      * @param ev The event.
      */
+    /** @deprecated */
     onkeypress: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null;
     /**
      * Fires when the user releases a key.
@@ -18224,6 +18226,7 @@ declare var onkeydown: ((this: Window, ev: KeyboardEvent) => any) | null;
  * Fires when the user presses an alphanumeric key.
  * @param ev The event.
  */
+/** @deprecated */
 declare var onkeypress: ((this: Window, ev: KeyboardEvent) => any) | null;
 /**
  * Fires when the user releases a key.

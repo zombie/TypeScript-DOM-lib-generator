@@ -487,7 +487,6 @@
             "RTCConfiguration": {
                 "members": {
                     "member": {
-                        "encodedInsertableStreams": null,
                         "peerIdentity": null
                     }
                 }

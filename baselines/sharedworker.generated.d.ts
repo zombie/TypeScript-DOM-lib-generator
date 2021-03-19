@@ -1399,6 +1399,7 @@ declare var FileReader: {
 /** Allows to read File or Blob objects in a synchronous way. */
 interface FileReaderSync {
     readAsArrayBuffer(blob: Blob): ArrayBuffer;
+    /** @deprecated */
     readAsBinaryString(blob: Blob): string;
     readAsDataURL(blob: Blob): string;
     readAsText(blob: Blob, encoding?: string): string;

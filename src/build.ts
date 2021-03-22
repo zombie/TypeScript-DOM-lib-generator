@@ -1,4 +1,4 @@
-import * as Browser from "./types";
+import * as Browser from "./build/types";
 import * as fs from "fs";
 import * as path from "path";
 import {
@@ -7,11 +7,11 @@ import {
   markAsDeprecated,
   mapToArray,
   arrayToMap,
-} from "./helpers";
-import { Flavor, emitWebIdl } from "./emitter";
-import { convert } from "./widlprocess";
-import { getExposedTypes } from "./expose";
-import { getRemovalDataFromBcd } from "./bcd";
+} from "./build/helpers";
+import { Flavor, emitWebIdl } from "./build/emitter";
+import { convert } from "./build/widlprocess";
+import { getExposedTypes } from "./build/expose";
+import { getRemovalDataFromBcd } from "./build/bcd";
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
   const targets = [

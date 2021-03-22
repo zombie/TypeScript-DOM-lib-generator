@@ -1,7 +1,7 @@
 // Mainly a quick script to migrate the generated files into the
 // lib folder of a TypeScript clone.
 //
-// node ./lib/migrate-to-tsc.js [optional/file/path/to/tsc]
+// node ./lib/migrate.js [optional/file/path/to/tsc]
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";

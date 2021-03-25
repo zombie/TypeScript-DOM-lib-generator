@@ -45,7 +45,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "trace",
     "warn",
   ],
-  ConstantSourceNode: ["offset"],
   CSSConditionRule: ["conditionText"],
   CSSGroupingRule: ["cssRules", "deleteRule", "insertRule"],
   CSSStyleDeclaration: [

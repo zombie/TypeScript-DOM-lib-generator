@@ -41,7 +41,7 @@ function compileGeneratedFiles(lib: string, ...files: string[]) {
       `node ${fileURLToPath(
         tscPath
       )} --strict --lib ${lib} --types --noEmit ${files
-        .map(file => fileURLToPath(new URL(file, outputFolder)))
+        .map((file) => fileURLToPath(new URL(file, outputFolder)))
         .join(" ")}`
     );
   } catch (e) {

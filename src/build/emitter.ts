@@ -113,7 +113,7 @@ function createTextWriter(newLine: string) {
       stack.push({ content, indent });
     },
     printStackContent() {
-      stack.forEach(e => {
+      stack.forEach((e) => {
         const oldIndent = indent;
         indent = e.indent;
         this.printLine(e.content);
@@ -140,7 +140,7 @@ export function emitWebIdl(
   const printer = createTextWriter("\n");
 
   const polluter = getElements(webidl.interfaces, "interface").find(
-    i => !!i.global
+    (i) => !!i.global
   );
 
   const allNonCallbackInterfaces = getElements(
@@ -154,13 +154,13 @@ export function emitWebIdl(
 
   const allInterfacesMap = toNameMap(allInterfaces);
   const allLegacyWindowAliases = allInterfaces.flatMap(
-    i => i.legacyWindowAlias
+    (i) => i.legacyWindowAlias
   );
   const allDictionariesMap = webidl.dictionaries?.dictionary ?? {};
   const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
   const allCallbackFunctionsMap =
     webidl.callbackFunctions?.callbackFunction ?? {};
-  const allTypeDefsMap = new Set(webidl.typedefs?.typedef.map(td => td.name));
+  const allTypeDefsMap = new Set(webidl.typedefs?.typedef.map((td) => td.name));
 
   /// Tag name to element name map
   const tagNameToEleName = getTagNameToElementNameMap();
@@ -169,18 +169,20 @@ export function emitWebIdl(
   /// e.g. If i1 depends on i2, i2 should be in dependencyMap.[i1.Name]
   const iNameToIDependList = arrayToMap(
     allNonCallbackInterfaces,
-    i => i.name,
-    i => getExtendList(i.name).concat(getImplementList(i.name))
+    (i) => i.name,
+    (i) => getExtendList(i.name).concat(getImplementList(i.name))
   );
 
   /// Distinct event type list, used in the "createEvent" function
   const distinctETypeList = distinct(
     allNonCallbackInterfaces
-      .flatMap(i => (i.events ? i.events.event.map(e => e.type) : []))
+      .flatMap((i) => (i.events ? i.events.event.map((e) => e.type) : []))
       .concat(
         allNonCallbackInterfaces
-          .filter(i => i.extends?.endsWith("Event") && i.name.endsWith("Event"))
-          .map(i => i.name)
+          .filter(
+            (i) => i.extends?.endsWith("Event") && i.name.endsWith("Event")
+          )
+          .map((i) => i.name)
       )
   ).sort();
 
@@ -192,33 +194,33 @@ export function emitWebIdl(
   /// And they don't just differ by an "on" prefix!
   const iNameToEhList = arrayToMap(
     allInterfaces,
-    i => i.name,
-    i => {
+    (i) => i.name,
+    (i) => {
       const fromProperties = mapDefined(
         mapToArray(i.properties?.property),
-        p => p.eventHandler
+        (p) => p.eventHandler
       );
-      const fromEvents = (i.events?.event ?? []).map(e => e.name);
+      const fromEvents = (i.events?.event ?? []).map((e) => e.name);
       return distinct([...fromProperties, ...fromEvents]).sort();
     }
   );
 
   const iNameToConstList = arrayToMap(
     allInterfaces,
-    i => i.name,
-    i => (!i.constants ? [] : mapToArray(i.constants.constant))
+    (i) => i.name,
+    (i) => (!i.constants ? [] : mapToArray(i.constants.constant))
   );
 
   // Map of interface.Name -> List of base interfaces with event handlers
   const iNameToEhParents = arrayToMap(
     allInterfaces,
-    i => i.name,
+    (i) => i.name,
     getParentsWithEventHandler
   );
 
   const iNameToConstParents = arrayToMap(
     allInterfaces,
-    i => i.name,
+    (i) => i.name,
     getParentsWithConstant
   );
 
@@ -277,7 +279,7 @@ export function emitWebIdl(
       (allInterfacesMap[iExtends] &&
         getParentEventHandler(allInterfacesMap[iExtends])) ||
       [];
-    const mixinsWithEventHandler = (i.implements || []).flatMap(i =>
+    const mixinsWithEventHandler = (i.implements || []).flatMap((i) =>
       getParentEventHandler(allInterfacesMap[i])
     );
 
@@ -290,7 +292,7 @@ export function emitWebIdl(
       return (hasConst ? [i] : []).concat(getParentsWithConstant(i));
     }
 
-    const mixinsWithConstant = (i.implements || []).flatMap(i =>
+    const mixinsWithConstant = (i.implements || []).flatMap((i) =>
       getParentConstant(allInterfacesMap[i])
     );
 
@@ -306,13 +308,13 @@ export function emitWebIdl(
     }
 
     if (i.events) {
-      const event = i.events.event.find(e => e.name === eName);
+      const event = i.events.event.find((e) => e.name === eName);
       if (event?.type) {
         return getGenericEventType(event.type);
       }
     }
     if (i.attributelessEvents) {
-      const event = i.attributelessEvents.event.find(e => e.name === eName);
+      const event = i.attributelessEvents.event.find((e) => e.name === eName);
       if (event?.type) {
         return getGenericEventType(event.type);
       }
@@ -353,10 +355,10 @@ export function emitWebIdl(
           typeof obj.type === "string"
             ? [{ ...obj, additionalTypes: undefined }]
             : obj.type;
-        types.push(...(obj.additionalTypes ?? []).map(t => ({ type: t })));
+        types.push(...(obj.additionalTypes ?? []).map((t) => ({ type: t })));
 
         const converted = types.map(convertDomTypeToTsTypeWorker);
-        const isAny = converted.some(t => t === "any");
+        const isAny = converted.some((t) => t === "any");
         return isAny ? "any" : converted.join(" | ");
       }
     }
@@ -436,7 +438,7 @@ export function emitWebIdl(
     if (!typeParameters) return i.name;
     if (!typeParameters.length) return i.name;
 
-    return `${i.name}<${typeParameters.map(t => t.name)}>`;
+    return `${i.name}<${typeParameters.map((t) => t.name)}>`;
   }
 
   function emitConstant(c: Browser.Constant) {
@@ -723,14 +725,14 @@ export function emitWebIdl(
   function emitEnum(e: Browser.Enum) {
     const values = e.value.slice().sort();
     printer.printLine(
-      `type ${e.name} = ${values.map(v => `"${v}"`).join(" | ")};`
+      `type ${e.name} = ${values.map((v) => `"${v}"`).join(" | ")};`
     );
   }
 
   function emitEnums() {
     getElements(webidl.enums, "enum")
       .sort(compareName)
-      .filter(i => !i.legacyNamespace)
+      .filter((i) => !i.legacyNamespace)
       .forEach(emitEnum);
   }
 
@@ -748,7 +750,7 @@ export function emitWebIdl(
   function isCovariantEventHandler(i: Browser.Interface, p: Browser.Property) {
     return (
       isEventHandler(p) &&
-      iNameToEhParents[i.name].some(parent =>
+      iNameToEhParents[i.name].some((parent) =>
         parent.properties?.property.hasOwnProperty(p.name)
       )
     );
@@ -826,10 +828,10 @@ export function emitWebIdl(
   ) {
     if (i.properties) {
       mapToArray(i.properties.property)
-        .filter(m => matchScope(emitScope, m))
-        .filter(p => !isCovariantEventHandler(i, p))
+        .filter((m) => matchScope(emitScope, m))
+        .filter((p) => !isCovariantEventHandler(i, p))
         .sort(compareName)
-        .forEach(p => emitProperty(prefix, i, emitScope, p));
+        .forEach((p) => emitProperty(prefix, i, emitScope, p));
     }
   }
 
@@ -899,10 +901,10 @@ export function emitWebIdl(
     shouldResolvePromise?: boolean
   ) {
     if (method.overrideSignatures) {
-      method.overrideSignatures!.forEach(s => printLine(`${prefix}${s};`));
+      method.overrideSignatures!.forEach((s) => printLine(`${prefix}${s};`));
     } else if (method.signature) {
-      method.additionalSignatures?.forEach(s => printLine(`${prefix}${s};`));
-      method.signature.forEach(sig =>
+      method.additionalSignatures?.forEach((s) => printLine(`${prefix}${s};`));
+      method.signature.forEach((sig) =>
         emitSignature(sig, prefix, name, printLine, shouldResolvePromise)
       );
     }
@@ -919,7 +921,7 @@ export function emitWebIdl(
     if (i.methods) {
       mapToArray(i.methods.method)
         .filter(
-          m =>
+          (m) =>
             matchScope(emitScope, m) &&
             !(
               prefix !== "" &&
@@ -927,7 +929,7 @@ export function emitWebIdl(
                 m.name === "removeEventListener")
             )
         )
-        .filter(m => {
+        .filter((m) => {
           // Already covered by `extends`.
           switch (i.iterator?.kind) {
             case "maplike":
@@ -939,10 +941,10 @@ export function emitWebIdl(
           }
         })
         .sort(compareName)
-        .forEach(m => emitMethod(prefix, m, conflictedMembers));
+        .forEach((m) => emitMethod(prefix, m, conflictedMembers));
     }
     if (i.anonymousMethods) {
-      const stringifier = i.anonymousMethods.method.find(m => m.stringifier);
+      const stringifier = i.anonymousMethods.method.find((m) => m.stringifier);
       if (stringifier) {
         printer.printLine("toString(): string;");
       }
@@ -969,7 +971,7 @@ export function emitWebIdl(
         ? "number"
         : value;
     const name = i.typeParameters
-      ? `${i.name}<${i.typeParameters!.map(p => p.name).join(", ")}>`
+      ? `${i.name}<${i.typeParameters!.map((p) => p.name).join(", ")}>`
       : i.name;
     printer.printLine(
       `forEach(callbackfn: (value: ${value}, key: ${key}, parent: ${name}) => void, thisArg?: any): void;`
@@ -1114,7 +1116,7 @@ export function emitWebIdl(
     if (nc) {
       printer.printLine(`declare var ${nc.name}: {`);
       printer.increaseIndent();
-      nc.signature.forEach(s =>
+      nc.signature.forEach((s) =>
         printer.printLine(
           `new(${s.param ? paramsToString(s.param) : ""}): ${i.name};`
         )
@@ -1155,7 +1157,7 @@ export function emitWebIdl(
 
     const finalExtends = [i.extends || "Object"]
       .concat((i.implements || []).sort())
-      .filter(i => i !== "Object")
+      .filter((i) => i !== "Object")
       .map(processIName);
 
     if (finalExtends.length) {
@@ -1185,17 +1187,17 @@ export function emitWebIdl(
           const mTypes = distinct(
             mapValues(
               i.methods?.method,
-              m => m.signature?.[0].type || "void"
-            ).filter(t => t !== "void") || []
+              (m) => m.signature?.[0].type || "void"
+            ).filter((t) => t !== "void") || []
           );
           const amTypes = distinct(
             i.anonymousMethods?.method
-              .map(m => m.signature[0].type)
-              .filter(t => t !== "void") || []
+              .map((m) => m.signature[0].type)
+              .filter((t) => t !== "void") || []
           ); // |>  Array.distinct
           const pTypes = distinct(
-            mapValues(i.properties?.property, m => m.type).filter(
-              t => t !== "void"
+            mapValues(i.properties?.property, (m) => m.type).filter(
+              (t) => t !== "void"
             ) || []
           ); // |>  Array.distinct
 
@@ -1235,15 +1237,15 @@ export function emitWebIdl(
 
   function emitIndexers(emitScope: EmitScope, i: Browser.Interface) {
     if (i.overrideIndexSignatures) {
-      i.overrideIndexSignatures!.forEach(s => printer.printLine(`${s};`));
+      i.overrideIndexSignatures!.forEach((s) => printer.printLine(`${s};`));
     } else {
       // The indices could be within either Methods or Anonymous Methods
       mapToArray<Browser.AnonymousMethod>(i.methods?.method)
         .concat(i.anonymousMethods?.method || [])
         .filter(
-          m => shouldEmitIndexerSignature(i, m) && matchScope(emitScope, m)
+          (m) => shouldEmitIndexerSignature(i, m) && matchScope(emitScope, m)
         )
-        .forEach(m => {
+        .forEach((m) => {
           const indexer = m.signature?.[0].param?.[0];
           if (indexer) {
             printer.printLine(
@@ -1274,7 +1276,7 @@ export function emitWebIdl(
     if (hasEventHandlers || ehParentCount > 1) {
       printer.print(`interface ${i.name}EventMap`);
       if (ehParentCount) {
-        const extend = iNameToEhParents[i.name].map(i => i.name + "EventMap");
+        const extend = iNameToEhParents[i.name].map((i) => i.name + "EventMap");
         printer.print(` extends ${extend.join(", ")}`);
       }
       printer.print(" {");
@@ -1340,7 +1342,7 @@ export function emitWebIdl(
     printer.increaseIndent();
 
     if (namespace.nested) {
-      namespace.nested.interfaces.sort(compareName).forEach(i => {
+      namespace.nested.interfaces.sort(compareName).forEach((i) => {
         emitInterface(i);
         emitConstructor(i);
       });
@@ -1377,7 +1379,7 @@ export function emitWebIdl(
     if (dict.members) {
       mapToArray(dict.members.member)
         .sort(compareName)
-        .forEach(m => {
+        .forEach((m) => {
           emitComments(m, printer.printLine);
           printer.printLine(
             `${m.name}${m.required ? "" : "?"}: ${convertDomTypeToTsType(m)};`
@@ -1385,7 +1387,7 @@ export function emitWebIdl(
         });
     }
     if (dict.overrideIndexSignatures) {
-      dict.overrideIndexSignatures!.forEach(s => printer.printLine(`${s};`));
+      dict.overrideIndexSignatures!.forEach((s) => printer.printLine(`${s};`));
     }
     printer.decreaseIndent();
     printer.printLine("}");
@@ -1395,7 +1397,7 @@ export function emitWebIdl(
   function emitDictionaries() {
     getElements(webidl.dictionaries, "dictionary")
       .sort(compareName)
-      .filter(i => !i.legacyNamespace)
+      .filter((i) => !i.legacyNamespace)
       .forEach(emitDictionary);
   }
 
@@ -1412,7 +1414,7 @@ export function emitWebIdl(
   function emitTypeDefs() {
     if (webidl.typedefs) {
       webidl.typedefs.typedef
-        .filter(i => !i.legacyNamespace)
+        .filter((i) => !i.legacyNamespace)
         .sort(compareName)
         .forEach(emitTypeDef);
     }
@@ -1432,7 +1434,7 @@ export function emitWebIdl(
     emitDictionaries();
     getElements(webidl.callbackInterfaces, "interface")
       .sort(compareName)
-      .forEach(i => emitCallBackInterface(i));
+      .forEach((i) => emitCallBackInterface(i));
     emitNonCallbackInterfaces();
 
     collectLegacyNamespaceTypes(webidl).forEach(emitNamespace);
@@ -1530,7 +1532,7 @@ export function emitWebIdl(
 
       const comments = i.iterator?.comments?.comment;
 
-      methods.forEach(m => {
+      methods.forEach((m) => {
         if (comments?.[m.name]) {
           comments[m.name].split("\n").forEach(printer.printLine);
         }
@@ -1561,20 +1563,20 @@ export function emitWebIdl(
     function hasSequenceArgument(s: Browser.Signature) {
       function typeIncludesSequence(type: string | Browser.Typed[]): boolean {
         if (Array.isArray(type)) {
-          return type.some(t => typeIncludesSequence(t.type));
+          return type.some((t) => typeIncludesSequence(t.type));
         }
         return type === "sequence" || !!sequenceTypedefMap[type];
       }
       return s.param?.some(
-        p => !p.overrideType && typeIncludesSequence(p.type)
+        (p) => !p.overrideType && typeIncludesSequence(p.type)
       );
     }
 
     function replaceTypedefsInSignatures(
       signatures: Browser.Signature[]
     ): Browser.Signature[] {
-      return signatures.map(s => {
-        const params = s.param!.map(p => {
+      return signatures.map((s) => {
+        const params = s.param!.map((p) => {
           const typedef =
             typeof p.type === "string" ? sequenceTypedefMap[p.type] : undefined;
           if (!typedef) {
@@ -1589,32 +1591,32 @@ export function emitWebIdl(
     const sequenceTypedefs = !webidl.typedefs
       ? []
       : webidl.typedefs.typedef
-          .filter(typedef => Array.isArray(typedef.type))
-          .map(typedef => ({
+          .filter((typedef) => Array.isArray(typedef.type))
+          .map((typedef) => ({
             ...typedef,
             type: (typedef.type as Browser.Typed[]).filter(
-              t => t.type === "sequence"
+              (t) => t.type === "sequence"
             ),
           }))
-          .filter(typedef => typedef.type.length);
+          .filter((typedef) => typedef.type.length);
     const sequenceTypedefMap = arrayToMap(
       sequenceTypedefs,
-      t => t.name,
-      t => t
+      (t) => t.name,
+      (t) => t
     );
 
     const subtypes = getIteratorSubtypes();
     const methodsWithSequence: Browser.Method[] = mapToArray(
       i.methods ? i.methods.method : {}
     )
-      .filter(m => m.signature && !m.overrideSignatures)
-      .map(m => ({
+      .filter((m) => m.signature && !m.overrideSignatures)
+      .map((m) => ({
         ...m,
         signature: replaceTypedefsInSignatures(
           m.signature.filter(hasSequenceArgument)
         ),
       }))
-      .filter(m => m.signature.length)
+      .filter((m) => m.signature.length)
       .sort(compareName);
 
     if (subtypes || methodsWithSequence.length) {
@@ -1627,7 +1629,7 @@ export function emitWebIdl(
       printer.printLine(`interface ${name} ${iteratorExtends}{`);
       printer.increaseIndent();
 
-      methodsWithSequence.forEach(m => emitMethod("", m, new Set()));
+      methodsWithSequence.forEach((m) => emitMethod("", m, new Set()));
 
       if (subtypes && !iteratorExtends) {
         printer.printLine(

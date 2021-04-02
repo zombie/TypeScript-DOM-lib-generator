@@ -20,7 +20,7 @@ function hyphenToCamelCase(name: string) {
 function generateWebIdlFromCssProperties(properties: string[]) {
   return `partial interface CSSStyleDeclaration {${properties
     .map(
-      property =>
+      (property) =>
         `\n  [CEReactions] attribute [LegacyNullToEmptyString] CSSOMString ${hyphenToCamelCase(
           property
         )};`
@@ -45,7 +45,7 @@ export async function getIdl(specShortName: string): Promise<string> {
   const sources = [
     await tryReadFile(new URL(`${specShortName}.idl`, webrefDir)),
     tryGetCss(specShortName),
-  ].filter(t => t !== undefined);
+  ].filter((t) => t !== undefined);
 
   return sources.join("\n");
 }

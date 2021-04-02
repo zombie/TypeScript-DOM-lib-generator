@@ -74,11 +74,11 @@ export function convert(text: string, commentMap: Record<string, string>) {
 }
 
 function hasExtAttr(extAttrs: webidl2.ExtendedAttribute[], name: string) {
-  return extAttrs.some(extAttr => extAttr.name === name);
+  return extAttrs.some((extAttr) => extAttr.name === name);
 }
 
 function getExtAttr(extAttrs: webidl2.ExtendedAttribute[], name: string) {
-  const attr = extAttrs.find(extAttr => extAttr.name === name);
+  const attr = extAttrs.find((extAttr) => extAttr.name === name);
   if (!attr || !attr.rhs) {
     return [];
   }
@@ -88,7 +88,7 @@ function getExtAttr(extAttrs: webidl2.ExtendedAttribute[], name: string) {
     attr.rhs.type === "integer-list"
     ? (attr.rhs
         .value as webidl2.ExtendedAttributeRightHandSideIdentifier[]).map(
-        item => item.value
+        (item) => item.value
       )
     : [attr.rhs.value];
 }
@@ -135,7 +135,7 @@ function addComments(
   if (commentMap[key]) {
     const comments = commentMap[key].split("\n");
     obj.comment = "/**\n";
-    obj.comment += comments.map(c => ` * ${c}`.trimEnd() + "\n").join("");
+    obj.comment += comments.map((c) => ` * ${c}`.trimEnd() + "\n").join("");
     obj.comment += " */";
   }
 }
@@ -478,7 +478,7 @@ function convertDictionaryMember(
 function convertEnum(en: webidl2.EnumType): Browser.Enum {
   return {
     name: en.name,
-    value: en.values.map(value => value.value),
+    value: en.values.map((value) => value.value),
   };
 }
 

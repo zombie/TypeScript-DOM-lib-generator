@@ -16,7 +16,7 @@ function mapInterfaceToMembers(interfaces: ts.InterfaceDeclaration[]) {
   for (const decl of interfaces) {
     interfaceToMemberMap.set(
       decl.name.text,
-      decl.members.map(m => m.name?.getText()).filter(n => n) as string[]
+      decl.members.map((m) => m.name?.getText()).filter((n) => n) as string[]
     );
   }
   return interfaceToMemberMap;
@@ -32,13 +32,13 @@ function extractTypesFromFile(file: string) {
 
   const interfaceNames = source.statements
     .filter(ts.isVariableStatement)
-    .map(v => v.declarationList.declarations[0].name.getText(source));
+    .map((v) => v.declarationList.declarations[0].name.getText(source));
   const tsInterfacedecls = source.statements.filter(ts.isInterfaceDeclaration);
-  const idlInterfaceDecls = tsInterfacedecls.filter(i =>
+  const idlInterfaceDecls = tsInterfacedecls.filter((i) =>
     interfaceNames.includes(i.name.text)
   );
   const otherDecls = tsInterfacedecls.filter(
-    i => !interfaceNames.includes(i.name.text)
+    (i) => !interfaceNames.includes(i.name.text)
   );
 
   const interfaceToMemberMap = mapInterfaceToMembers(idlInterfaceDecls);
@@ -108,7 +108,7 @@ function diffTypes(previous: string, current: string) {
 
 function writeAddedRemoved(added: Set<string>, removed: Set<string>) {
   function newlineSeparatedList(names: Set<string>) {
-    return [...names].map(a => `* \`${a}\``).join("\n");
+    return [...names].map((a) => `* \`${a}\``).join("\n");
   }
   const output = [];
   if (added.size) {
@@ -122,7 +122,7 @@ function writeAddedRemoved(added: Set<string>, removed: Set<string>) {
 
 function writeAddedRemovedInline(added: Set<string>, removed: Set<string>) {
   function commaSeparatedList(names: Set<string>) {
-    return [...names].map(a => `\`${a}\``).join(", ");
+    return [...names].map((a) => `\`${a}\``).join(", ");
   }
   const output = [];
   if (added.size) {

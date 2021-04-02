@@ -10,8 +10,8 @@ export function collectLegacyNamespaceTypes(
 
   const namespaceMap: Record<string, Browser.Interface> = arrayToMap(
     webidl.namespaces,
-    i => i.name,
-    i => i
+    (i) => i.name,
+    (i) => i
   );
   for (const i of mapToArray(webidl.interfaces!.interface)) {
     if (i.legacyNamespace) {

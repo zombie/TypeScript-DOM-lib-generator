@@ -17,10 +17,10 @@ interface IDLSource {
 
 async function fetchIDLs(filter: string[]) {
   const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[]).filter(
-    source => !filter.length || filter.includes(source.shortName)
+    (source) => !filter.length || filter.includes(source.shortName)
   );
   await Promise.all(
-    idlSources.map(async source => {
+    idlSources.map(async (source) => {
       const { comments } = await fetchIDL(source);
       if (comments) {
         fs.writeFileSync(
@@ -53,14 +53,14 @@ function processComments(dom: DocumentFragment) {
     for (const { dt, dd } of generateDescriptionPairs(element)) {
       elements.push(...importNestedList(dd));
       const comment = dd
-        .map(desc => {
+        .map((desc) => {
           desc.normalize();
           convertChildPre(desc);
           return innerText(desc).replace(/’/g, "'");
         })
-        .filter(text => text)
+        .filter((text) => text)
         .join("\n\n");
-      for (const key of dt.map(term => getKey(term.innerHTML))) {
+      for (const key of dt.map((term) => getKey(term.innerHTML))) {
         if (!key) {
           continue;
         }

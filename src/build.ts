@@ -112,7 +112,7 @@ async function emitDom() {
   ));
   const widlStandardTypes = (
     await Promise.all(getLatestSpecNames().map(convertWidl))
-  ).filter(i => i) as ReturnType<typeof convert>[];
+  ).filter((i) => i) as ReturnType<typeof convert>[];
 
   async function convertWidl(shortName: string) {
     // Specs that need to fix their syntax, etc.
@@ -150,8 +150,8 @@ async function emitDom() {
   ) {
     const namespaces = arrayToMap(
       idl.namespaces!,
-      i => i.name,
-      i => i
+      (i) => i.name,
+      (i) => i
     );
     for (const [key, value] of Object.entries(descriptions)) {
       const target = idl.interfaces!.interface[key] || namespaces[key];
@@ -168,8 +168,8 @@ async function emitDom() {
   ) {
     const namespaces = arrayToMap(
       idl.namespaces!,
-      i => i.name,
-      i => i
+      (i) => i.name,
+      (i) => i
     );
     for (const [key, value] of Object.entries(descriptions)) {
       const target = idl.interfaces!.interface[key] || namespaces[key];
@@ -231,7 +231,7 @@ async function emitDom() {
       }
     }
     for (const partial of w.partialNamespaces) {
-      const base = webidl.namespaces?.find(n => n.name === partial.name);
+      const base = webidl.namespaces?.find((n) => n.name === partial.name);
       if (base) {
         if (base.exposed) resolveExposure(partial, base.exposed);
         merge(base.methods, partial.methods, true);

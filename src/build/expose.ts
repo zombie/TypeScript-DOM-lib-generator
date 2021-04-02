@@ -37,17 +37,17 @@ export function getExposedTypes(
   if (webidl.interfaces) {
     filtered.interfaces!.interface = deepFilter(
       webidl.interfaces.interface,
-      o => exposesTo(o, target)
+      (o) => exposesTo(o, target)
     );
     const unexposedInterfaces = mapToArray(webidl.interfaces.interface).filter(
-      i => !exposesTo(i, target)
+      (i) => !exposesTo(i, target)
     );
     for (const i of unexposedInterfaces) {
       unexposedTypes.add(i.name);
     }
   }
   if (webidl.namespaces) {
-    filtered.namespaces = deepFilter(webidl.namespaces, o =>
+    filtered.namespaces = deepFilter(webidl.namespaces, (o) =>
       exposesTo(o, target)
     );
   }
@@ -58,8 +58,8 @@ export function getExposedTypes(
       webidl,
       arrayToMap(
         filtered.namespaces!,
-        i => i.name,
-        i => i
+        (i) => i.name,
+        (i) => i
       )
     ),
   ]);
@@ -68,10 +68,10 @@ export function getExposedTypes(
 
   if (webidl.typedefs) {
     const referenced = webidl.typedefs.typedef.filter(
-      t => knownIDLTypes.has(t.name) || forceKnownTypesLogged.has(t.name)
+      (t) => knownIDLTypes.has(t.name) || forceKnownTypesLogged.has(t.name)
     );
     const { exposed, removed } = filterTypedefs(referenced, unexposedTypes);
-    removed.forEach(s => unexposedTypes.add(s));
+    removed.forEach((s) => unexposedTypes.add(s));
     filtered.typedefs!.typedef = exposed;
   }
 
@@ -93,7 +93,7 @@ export function getExposedTypes(
   if (webidl.enums)
     filtered.enums!.enum = filterProperties(webidl.enums.enum, isKnownName);
   if (webidl.mixins) {
-    const mixins = deepFilter(webidl.mixins.mixin, o => exposesTo(o, target));
+    const mixins = deepFilter(webidl.mixins.mixin, (o) => exposesTo(o, target));
     filtered.mixins!.mixin = filterProperties(mixins, isKnownName);
   }
 
@@ -120,7 +120,7 @@ function filterTypedefs(
   typedefs.forEach(filterTypedef);
   if (removed.size) {
     const result = filterTypedefs(exposed, removed);
-    result.removed.forEach(s => removed.add(s));
+    result.removed.forEach((s) => removed.add(s));
     return { exposed: result.exposed, removed };
   } else {
     return { exposed, removed };
@@ -156,7 +156,7 @@ function deepFilterUnexposedTypes(
   webidl: Browser.WebIdl,
   unexposedTypes: Set<string>
 ) {
-  return deepClone(webidl, o => {
+  return deepClone(webidl, (o) => {
     if (Array.isArray(o.type)) {
       return {
         ...o,
@@ -243,7 +243,7 @@ function deepClone<T>(o: T, custom: (o: any) => any): T {
     return o;
   }
   if (Array.isArray(o)) {
-    return (o.map(v => deepClone(v, custom)) as any) as T;
+    return (o.map((v) => deepClone(v, custom)) as any) as T;
   }
   const mapped = custom(o);
   if (mapped !== undefined) {

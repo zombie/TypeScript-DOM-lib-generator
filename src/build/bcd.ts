@@ -217,7 +217,7 @@ function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
     }
     const latest = !Array.isArray(browser)
       ? browser
-      : browser.find(i => i.prefix === prefix); // first one if no prefix
+      : browser.find((i) => i.prefix === prefix); // first one if no prefix
     if (!latest) {
       return false;
     }
@@ -364,7 +364,7 @@ function mapToBcdCompat(
     mapInterfaceLike
   );
   const mixins = filterMapRecord(webidl.mixins?.mixin, mapInterfaceLike);
-  const namespaces = mapDefined(webidl.namespaces, n =>
+  const namespaces = mapDefined(webidl.namespaces, (n) =>
     mapInterfaceLike(n.name, n)
   );
   if (

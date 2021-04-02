@@ -48,11 +48,11 @@ const sameTypes = new Set([
   "void",
 ]);
 export const baseTypeConversionMap = new Map<string, string>([
-  ...[...bufferSourceTypes].map(type => [type, type] as [string, string]),
-  ...[...integerTypes].map(type => [type, "number"] as [string, string]),
-  ...[...floatTypes].map(type => [type, "number"] as [string, string]),
-  ...[...stringTypes].map(type => [type, "string"] as [string, string]),
-  ...[...sameTypes].map(type => [type, type] as [string, string]),
+  ...[...bufferSourceTypes].map((type) => [type, type] as [string, string]),
+  ...[...integerTypes].map((type) => [type, "number"] as [string, string]),
+  ...[...floatTypes].map((type) => [type, "number"] as [string, string]),
+  ...[...stringTypes].map((type) => [type, "string"] as [string, string]),
+  ...[...sameTypes].map((type) => [type, type] as [string, string]),
   ["object", "any"],
   ["sequence", "Array"],
   ["record", "Record"],
@@ -66,7 +66,7 @@ export function deepFilter<T>(
 ): T {
   if (typeof obj === "object") {
     if (Array.isArray(obj)) {
-      return (mapDefined(obj, e =>
+      return (mapDefined(obj, (e) =>
         fn(e, undefined) ? deepFilter(e, fn) : undefined
       ) as any) as T;
     } else {
@@ -99,7 +99,7 @@ export function exposesTo(o: { exposed?: string }, target: string[]): boolean {
   if (!o || typeof o.exposed !== "string") {
     return true;
   }
-  return o.exposed.split(" ").some(e => target.includes(e));
+  return o.exposed.split(" ").some((e) => target.includes(e));
 }
 
 export function merge<T>(target: T, src: T, shallow?: boolean): T {
@@ -164,7 +164,7 @@ export function distinct<T>(a: T[]): T[] {
 }
 
 export function mapToArray<T>(m?: Record<string, T>): T[] {
-  return Object.keys(m || {}).map(k => m![k]);
+  return Object.keys(m || {}).map((k) => m![k]);
 }
 
 export function arrayToMap<T, U>(
@@ -183,7 +183,7 @@ export function mapValues<T, U>(
   obj: Record<string, T> | undefined,
   fn: (o: T) => U
 ): U[] {
-  return Object.keys(obj || {}).map(k => fn(obj![k]));
+  return Object.keys(obj || {}).map((k) => fn(obj![k]));
 }
 
 export function mapDefined<T, U>(
@@ -295,7 +295,7 @@ function getNonValueTypeMap(webidl: Browser.WebIdl) {
     ...mapToArray(webidl.mixins!.mixin),
     ...webidl.typedefs!.typedef,
   ];
-  return new Map(namedTypes.map(t => [t.name, t] as [string, any]));
+  return new Map(namedTypes.map((t) => [t.name, t] as [string, any]));
 }
 
 export function followTypeReferences(

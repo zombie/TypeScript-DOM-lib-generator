@@ -1605,6 +1605,7 @@ interface SecurityPolicyViolationEventInit extends EventInit {
 interface ShadowRootInit {
     delegatesFocus?: boolean;
     mode: ShadowRootMode;
+    slotAssignment?: SlotAssignmentMode;
 }
 
 interface ShareData {
@@ -17079,6 +17080,8 @@ interface WindowEventHandlersEventMap {
     "afterprint": Event;
     "beforeprint": Event;
     "beforeunload": BeforeUnloadEvent;
+    "gamepadconnected": Event;
+    "gamepaddisconnected": Event;
     "hashchange": Event;
     "languagechange": Event;
     "message": MessageEvent;
@@ -17098,6 +17101,8 @@ interface WindowEventHandlers {
     onafterprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onbeforeunload: ((this: WindowEventHandlers, ev: BeforeUnloadEvent) => any) | null;
+    ongamepadconnected: ((this: WindowEventHandlers, ev: Event) => any) | null;
+    ongamepaddisconnected: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onhashchange: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onlanguagechange: ((this: WindowEventHandlers, ev: Event) => any) | null;
     onmessage: ((this: WindowEventHandlers, ev: MessageEvent) => any) | null;
@@ -18389,6 +18394,8 @@ declare var onwheel: ((this: Window, ev: WheelEvent) => any) | null;
 declare var onafterprint: ((this: Window, ev: Event) => any) | null;
 declare var onbeforeprint: ((this: Window, ev: Event) => any) | null;
 declare var onbeforeunload: ((this: Window, ev: BeforeUnloadEvent) => any) | null;
+declare var ongamepadconnected: ((this: Window, ev: Event) => any) | null;
+declare var ongamepaddisconnected: ((this: Window, ev: Event) => any) | null;
 declare var onhashchange: ((this: Window, ev: Event) => any) | null;
 declare var onlanguagechange: ((this: Window, ev: Event) => any) | null;
 declare var onmessage: ((this: Window, ev: MessageEvent) => any) | null;
@@ -18605,6 +18612,7 @@ type SelectionMode = "end" | "preserve" | "select" | "start";
 type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
 type ShadowRootMode = "closed" | "open";
+type SlotAssignmentMode = "manual" | "named";
 type SpeechSynthesisErrorCode = "audio-busy" | "audio-hardware" | "canceled" | "interrupted" | "invalid-argument" | "language-unavailable" | "network" | "not-allowed" | "synthesis-failed" | "synthesis-unavailable" | "text-too-long" | "voice-unavailable";
 type TextTrackKind = "captions" | "chapters" | "descriptions" | "metadata" | "subtitles";
 type TextTrackMode = "disabled" | "hidden" | "showing";

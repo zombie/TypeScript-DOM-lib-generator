@@ -1,4 +1,4 @@
-import webidl2 from "webidl2";
+import * as webidl2 from "webidl2";
 import * as Browser from "./types.js";
 import { getEmptyWebIDL } from "./helpers.js";
 

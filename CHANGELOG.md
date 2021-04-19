@@ -1,3 +1,16 @@
+# v0.1.9
+
+### Non-value types
+
+* RTCConfiguration
+  * Added: `encodedInsertableStreams`
+* ShadowRootInit
+  * Added: `slotAssignment`
+* WindowEventHandlersEventMap
+  * Added: `"gamepadconnected"`, `"gamepaddisconnected"`
+* WindowEventHandlers
+  * Added: `ongamepadconnected`, `ongamepaddisconnected`
+
 # v0.1.8
 
 ## New interfaces

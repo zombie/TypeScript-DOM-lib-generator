@@ -1,3 +1,10 @@
+# v0.1.10
+
+## Modified
+
+* Clipboard
+  * Added: `read`, `write`
+
 # v0.1.9
 
 ### Non-value types

@@ -3470,7 +3470,9 @@ interface ChildNode {
 }
 
 interface Clipboard extends EventTarget {
+    read(): Promise<ClipboardItems>;
     readText(): Promise<string>;
+    write(data: ClipboardItems): Promise<void>;
     writeText(data: string): Promise<void>;
 }
 
@@ -18444,6 +18446,7 @@ type COSEAlgorithmIdentifier = number;
 type CanvasImageSource = HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
 type ClipboardItemData = Promise<ClipboardItemDataType>;
 type ClipboardItemDataType = string | Blob;
+type ClipboardItems = ClipboardItem[];
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 type ConstrainDOMString = string | string[] | ConstrainDOMStringParameters;
 type ConstrainDouble = number | ConstrainDoubleRange;

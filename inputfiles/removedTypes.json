@@ -125,14 +125,6 @@
     },
     "interfaces": {
         "interface": {
-            "Clipboard": {
-                "methods": {
-                    "method": {
-                        "read": null,
-                        "write": null
-                    }
-                }
-            },
             "CSSRule": {
                 "constants": {
                     "constant": {

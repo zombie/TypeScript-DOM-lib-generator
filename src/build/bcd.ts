@@ -12,14 +12,6 @@ import { mapDefined } from "./helpers.js";
 const forceKeepAlive: Record<string, string[]> = {
   // Things that are incorrectly reported as unsupported.
   // These should be filed to https://github.com/mdn/browser-compat-data/issues
-  AbstractRange: [
-    // Blink only implements them in the subinterfaces
-    "collapsed",
-    "endContainer",
-    "endOffset",
-    "startContainer",
-    "startOffset",
-  ],
   BeforeUnloadEvent: ["returnValue"],
   console: [
     "assert",
@@ -164,9 +156,6 @@ const forceKeepAlive: Record<string, string[]> = {
     "replaceItem",
   ],
   SpeechSynthesisEvent: ["charLength"],
-  TextDecoderStream: [],
-  TextEncoderStream: [],
-  TransformStream: ["readable", "writable"],
   WebAssembly: [
     "compile",
     "compileStreaming",
@@ -177,7 +166,6 @@ const forceKeepAlive: Record<string, string[]> = {
   WindowEventHandlers: ["onmessage"],
   WorkerGlobalScope: ["onrejectionhandled", "onunhandledrejection"],
   WorkletGlobalScope: [],
-  WritableStream: ["abort", "close", "getWriter", "locked"],
   // (WebAssembly namespace members)
   // TODO: Shouldn't these be inside "WebAssembly"?
   Instance: ["exports"],
@@ -189,23 +177,8 @@ const forceKeepAlive: Record<string, string[]> = {
   // Widely supported but without being correctly exposed to global
   ReadableStreamDefaultReader: ["closed", "cancel", "read", "releaseLock"],
   ReadableStreamDefaultController: ["desiredSize", "close", "enqueue", "error"],
-  TransformStreamDefaultController: [
-    "desiredSize",
-    "enqueue",
-    "error",
-    "terminate",
-  ],
   WebGLVertexArrayObjectOES: [],
   WritableStreamDefaultController: ["error"],
-  WritableStreamDefaultWriter: [
-    "abort",
-    "close",
-    "closed",
-    "desiredSize",
-    "ready",
-    "releaseLock",
-    "write",
-  ],
 };
 
 function hasMultipleImplementations(support: SupportBlock, prefix?: string) {

@@ -750,6 +750,10 @@ interface MediaQueryListEventInit extends EventInit {
     media?: string;
 }
 
+interface MediaRecorderErrorEventInit extends EventInit {
+    error: DOMException;
+}
+
 interface MediaRecorderOptions {
     audioBitsPerSecond?: number;
     bitsPerSecond?: number;
@@ -1615,6 +1619,11 @@ interface ShareData {
     url?: string;
 }
 
+interface SpeechRecognitionErrorEventInit extends EventInit {
+    error: SpeechRecognitionErrorCode;
+    message?: string;
+}
+
 interface SpeechSynthesisErrorEventInit extends SpeechSynthesisEventInit {
     error: SpeechSynthesisErrorCode;
 }
@@ -2163,6 +2172,15 @@ declare var AudioDestinationNode: {
 
 /** The position and orientation of the unique person listening to the audio scene, and is used in audio spatialization. All PannerNodes spatialize in relation to the AudioListener stored in the BaseAudioContext.listener attribute. */
 interface AudioListener {
+    readonly forwardX: AudioParam;
+    readonly forwardY: AudioParam;
+    readonly forwardZ: AudioParam;
+    readonly positionX: AudioParam;
+    readonly positionY: AudioParam;
+    readonly positionZ: AudioParam;
+    readonly upX: AudioParam;
+    readonly upY: AudioParam;
+    readonly upZ: AudioParam;
     /** @deprecated */
     setOrientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): void;
     /** @deprecated */
@@ -2200,10 +2218,12 @@ declare var AudioNode: {
 
 /** The Web Audio API's AudioParam interface represents an audio-related parameter, usually a parameter of an AudioNode (such as GainNode.gain). */
 interface AudioParam {
+    automationRate: AutomationRate;
     readonly defaultValue: number;
     readonly maxValue: number;
     readonly minValue: number;
     value: number;
+    cancelAndHoldAtTime(cancelTime: number): AudioParam;
     cancelScheduledValues(cancelTime: number): AudioParam;
     exponentialRampToValueAtTime(value: number, endTime: number): AudioParam;
     linearRampToValueAtTime(value: number, endTime: number): AudioParam;
@@ -2412,6 +2432,7 @@ declare var Blob: {
 
 interface BlobEvent extends Event {
     readonly data: Blob;
+    readonly timecode: DOMHighResTimeStamp;
 }
 
 declare var BlobEvent: {
@@ -2934,6 +2955,7 @@ interface CSSStyleDeclaration {
     scrollMarginBlockEnd: string;
     scrollMarginBlockStart: string;
     scrollMarginBottom: string;
+    scrollMarginInline: string;
     scrollMarginInlineEnd: string;
     scrollMarginInlineStart: string;
     scrollMarginLeft: string;
@@ -4450,6 +4472,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
+    createEvent(eventInterface: "MediaRecorderErrorEvent"): MediaRecorderErrorEvent;
     createEvent(eventInterface: "MediaStreamTrackEvent"): MediaStreamTrackEvent;
     createEvent(eventInterface: "MessageEvent"): MessageEvent;
     createEvent(eventInterface: "MouseEvent"): MouseEvent;
@@ -4469,6 +4492,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "RTCPeerConnectionIceEvent"): RTCPeerConnectionIceEvent;
     createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
     createEvent(eventInterface: "SecurityPolicyViolationEvent"): SecurityPolicyViolationEvent;
+    createEvent(eventInterface: "SpeechRecognitionErrorEvent"): SpeechRecognitionErrorEvent;
     createEvent(eventInterface: "SpeechSynthesisErrorEvent"): SpeechSynthesisErrorEvent;
     createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
     createEvent(eventInterface: "StorageEvent"): StorageEvent;
@@ -4764,6 +4788,13 @@ interface EXT_sRGB {
 }
 
 interface EXT_shader_texture_lod {
+}
+
+interface EXT_texture_compression_rgtc {
+    readonly COMPRESSED_RED_GREEN_RGTC2_EXT: GLenum;
+    readonly COMPRESSED_RED_RGTC1_EXT: GLenum;
+    readonly COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT: GLenum;
+    readonly COMPRESSED_SIGNED_RED_RGTC1_EXT: GLenum;
 }
 
 /** The EXT_texture_filter_anisotropic extension is part of the WebGL API and exposes two constants for anisotropic filtering (AF). */
@@ -9796,6 +9827,15 @@ declare var MediaRecorder: {
     isTypeSupported(type: string): boolean;
 };
 
+interface MediaRecorderErrorEvent extends Event {
+    readonly error: DOMException;
+}
+
+declare var MediaRecorderErrorEvent: {
+    readonly prototype: MediaRecorderErrorEvent;
+    new(type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
+};
+
 interface MediaSession {
     metadata: MediaMetadata | null;
     playbackState: MediaSessionPlaybackState;
@@ -10619,6 +10659,9 @@ declare var Notification: {
 interface OES_element_index_uint {
 }
 
+interface OES_fbo_render_mipmap {
+}
+
 /** The OES_standard_derivatives extension is part of the WebGL API and adds the GLSL derivative functions dFdx, dFdy, and fwidth. */
 interface OES_standard_derivatives {
     readonly FRAGMENT_SHADER_DERIVATIVE_HINT_OES: GLenum;
@@ -10677,6 +10720,7 @@ interface OfflineAudioContext extends BaseAudioContext {
     oncomplete: ((this: OfflineAudioContext, ev: OfflineAudioCompletionEvent) => any) | null;
     resume(): Promise<void>;
     startRendering(): Promise<AudioBuffer>;
+    suspend(suspendTime: number): Promise<void>;
     addEventListener<K extends keyof OfflineAudioContextEventMap>(type: K, listener: (this: OfflineAudioContext, ev: OfflineAudioContextEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof OfflineAudioContextEventMap>(type: K, listener: (this: OfflineAudioContext, ev: OfflineAudioContextEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -10971,6 +11015,7 @@ declare var PerformanceEntry: {
 
 /** PerformanceMark is an abstract interface for PerformanceEntry objects with an entryType of "mark". Entries of this type are created by calling performance.mark() to add a named DOMHighResTimeStamp (the mark) to the browser's performance timeline. */
 interface PerformanceMark extends PerformanceEntry {
+    readonly detail: any;
 }
 
 declare var PerformanceMark: {
@@ -10980,6 +11025,7 @@ declare var PerformanceMark: {
 
 /** PerformanceMeasure is an abstract interface for PerformanceEntry objects with an entryType of "measure". Entries of this type are created by calling performance.measure() to add a named DOMHighResTimeStamp (the measure) between two marks to the browser's performance timeline. */
 interface PerformanceMeasure extends PerformanceEntry {
+    readonly detail: any;
 }
 
 declare var PerformanceMeasure: {
@@ -11497,9 +11543,19 @@ declare var RTCDtlsTransport: {
 
 /** The RTCIceCandidate interface—part of the WebRTC API—represents a candidate Internet Connectivity Establishment (ICE) configuration which may be used to establish an RTCPeerConnection. */
 interface RTCIceCandidate {
+    readonly address: string | null;
     readonly candidate: string;
+    readonly component: RTCIceComponent | null;
+    readonly foundation: string | null;
+    readonly port: number | null;
+    readonly priority: number | null;
+    readonly protocol: RTCIceProtocol | null;
+    readonly relatedAddress: string | null;
+    readonly relatedPort: number | null;
     readonly sdpMLineIndex: number | null;
     readonly sdpMid: string | null;
+    readonly tcpType: RTCIceTcpCandidateType | null;
+    readonly type: RTCIceCandidateType | null;
     readonly usernameFragment: string | null;
     toJSON(): RTCIceCandidateInit;
 }
@@ -11626,6 +11682,7 @@ interface RTCRtpSender {
     getStats(): Promise<RTCStatsReport>;
     replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
     setParameters(parameters: RTCRtpSendParameters): Promise<void>;
+    setStreams(...streams: MediaStream[]): void;
 }
 
 declare var RTCRtpSender: {
@@ -13940,6 +13997,49 @@ declare var SourceBufferList: {
     new(): SourceBufferList;
 };
 
+interface SpeechRecognitionAlternative {
+    readonly confidence: number;
+    readonly transcript: string;
+}
+
+declare var SpeechRecognitionAlternative: {
+    readonly prototype: SpeechRecognitionAlternative;
+    new(): SpeechRecognitionAlternative;
+};
+
+interface SpeechRecognitionErrorEvent extends Event {
+    readonly error: SpeechRecognitionErrorCode;
+    readonly message: string;
+}
+
+declare var SpeechRecognitionErrorEvent: {
+    readonly prototype: SpeechRecognitionErrorEvent;
+    new(type: string, eventInitDict: SpeechRecognitionErrorEventInit): SpeechRecognitionErrorEvent;
+};
+
+interface SpeechRecognitionResult {
+    readonly isFinal: boolean;
+    readonly length: number;
+    item(index: number): SpeechRecognitionAlternative;
+    [index: number]: SpeechRecognitionAlternative;
+}
+
+declare var SpeechRecognitionResult: {
+    readonly prototype: SpeechRecognitionResult;
+    new(): SpeechRecognitionResult;
+};
+
+interface SpeechRecognitionResultList {
+    readonly length: number;
+    item(index: number): SpeechRecognitionResult;
+    [index: number]: SpeechRecognitionResult;
+}
+
+declare var SpeechRecognitionResultList: {
+    readonly prototype: SpeechRecognitionResultList;
+    new(): SpeechRecognitionResultList;
+};
+
 interface SpeechSynthesisEventMap {
     "voiceschanged": Event;
 }
@@ -14723,7 +14823,10 @@ declare var URLSearchParams: {
 interface VTTCue extends TextTrackCue {
     align: AlignSetting;
     line: LineAndPositionSetting;
+    lineAlign: LineAlignSetting;
     position: LineAndPositionSetting;
+    positionAlign: PositionAlignSetting;
+    region: VTTRegion | null;
     size: number;
     snapToLines: boolean;
     text: string;
@@ -18507,6 +18610,7 @@ type AudioContextState = "closed" | "running" | "suspended";
 type AuthenticatorAttachment = "cross-platform" | "platform";
 type AuthenticatorTransport = "ble" | "internal" | "nfc" | "usb";
 type AutoKeyword = "auto";
+type AutomationRate = "a-rate" | "k-rate";
 type BinaryType = "arraybuffer" | "blob";
 type BiquadFilterType = "allpass" | "bandpass" | "highpass" | "highshelf" | "lowpass" | "lowshelf" | "notch" | "peaking";
 type CanPlayTypeResult = "" | "maybe" | "probably";
@@ -18547,6 +18651,7 @@ type ImageSmoothingQuality = "high" | "low" | "medium";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
+type LineAlignSetting = "center" | "end" | "start";
 type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
 type MediaEncodingType = "record" | "webrtc";
@@ -18570,6 +18675,7 @@ type PaymentShippingType = "delivery" | "pickup" | "shipping";
 type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
+type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";
 type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PresentationStyle = "attachment" | "inline" | "unspecified";
 type PublicKeyCredentialType = "public-key";
@@ -18579,10 +18685,14 @@ type RTCBundlePolicy = "balanced" | "max-bundle" | "max-compat";
 type RTCDataChannelState = "closed" | "closing" | "connecting" | "open";
 type RTCDegradationPreference = "balanced" | "maintain-framerate" | "maintain-resolution";
 type RTCDtlsTransportState = "closed" | "connected" | "connecting" | "failed" | "new";
+type RTCIceCandidateType = "host" | "prflx" | "relay" | "srflx";
+type RTCIceComponent = "rtcp" | "rtp";
 type RTCIceConnectionState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCIceCredentialType = "password";
 type RTCIceGathererState = "complete" | "gathering" | "new";
 type RTCIceGatheringState = "complete" | "gathering" | "new";
+type RTCIceProtocol = "tcp" | "udp";
+type RTCIceTcpCandidateType = "active" | "passive" | "so";
 type RTCIceTransportPolicy = "all" | "relay";
 type RTCIceTransportState = "checking" | "closed" | "completed" | "connected" | "disconnected" | "failed" | "new";
 type RTCPeerConnectionState = "closed" | "connected" | "connecting" | "disconnected" | "failed" | "new";
@@ -18616,6 +18726,7 @@ type ServiceWorkerState = "activated" | "activating" | "installed" | "installing
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
 type ShadowRootMode = "closed" | "open";
 type SlotAssignmentMode = "manual" | "named";
+type SpeechRecognitionErrorCode = "aborted" | "audio-capture" | "bad-grammar" | "language-not-supported" | "network" | "no-speech" | "not-allowed" | "service-not-allowed";
 type SpeechSynthesisErrorCode = "audio-busy" | "audio-hardware" | "canceled" | "interrupted" | "invalid-argument" | "language-unavailable" | "network" | "not-allowed" | "synthesis-failed" | "synthesis-unavailable" | "text-too-long" | "voice-unavailable";
 type TextTrackKind = "captions" | "chapters" | "descriptions" | "metadata" | "subtitles";
 type TextTrackMode = "disabled" | "hidden" | "showing";

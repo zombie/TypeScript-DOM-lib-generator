@@ -1154,6 +1154,13 @@ interface EXT_sRGB {
 interface EXT_shader_texture_lod {
 }
 
+interface EXT_texture_compression_rgtc {
+    readonly COMPRESSED_RED_GREEN_RGTC2_EXT: GLenum;
+    readonly COMPRESSED_RED_RGTC1_EXT: GLenum;
+    readonly COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT: GLenum;
+    readonly COMPRESSED_SIGNED_RED_RGTC1_EXT: GLenum;
+}
+
 /** The EXT_texture_filter_anisotropic extension is part of the WebGL API and exposes two constants for anisotropic filtering (AF). */
 interface EXT_texture_filter_anisotropic {
     readonly MAX_TEXTURE_MAX_ANISOTROPY_EXT: GLenum;
@@ -2221,6 +2228,9 @@ declare var Notification: {
 interface OES_element_index_uint {
 }
 
+interface OES_fbo_render_mipmap {
+}
+
 /** The OES_standard_derivatives extension is part of the WebGL API and adds the GLSL derivative functions dFdx, dFdy, and fwidth. */
 interface OES_standard_derivatives {
     readonly FRAGMENT_SHADER_DERIVATIVE_HINT_OES: GLenum;
@@ -2318,6 +2328,7 @@ declare var PerformanceEntry: {
 
 /** PerformanceMark is an abstract interface for PerformanceEntry objects with an entryType of "mark". Entries of this type are created by calling performance.mark() to add a named DOMHighResTimeStamp (the mark) to the browser's performance timeline. */
 interface PerformanceMark extends PerformanceEntry {
+    readonly detail: any;
 }
 
 declare var PerformanceMark: {
@@ -2327,6 +2338,7 @@ declare var PerformanceMark: {
 
 /** PerformanceMeasure is an abstract interface for PerformanceEntry objects with an entryType of "measure". Entries of this type are created by calling performance.measure() to add a named DOMHighResTimeStamp (the measure) between two marks to the browser's performance timeline. */
 interface PerformanceMeasure extends PerformanceEntry {
+    readonly detail: any;
 }
 
 declare var PerformanceMeasure: {

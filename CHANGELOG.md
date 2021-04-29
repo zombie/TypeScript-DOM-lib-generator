@@ -1,3 +1,36 @@
+# v0.1.11
+
+## New interfaces
+
+* `MediaRecorderErrorEvent`
+* `SpeechRecognitionAlternative`
+* `SpeechRecognitionErrorEvent`
+* `SpeechRecognitionResult`
+* `SpeechRecognitionResultList`
+
+## Modified
+
+* AudioListener
+  * Added: `forwardX`, `forwardY`, `forwardZ`, `positionX`, `positionY`, `positionZ`, `upX`, `upY`, `upZ`
+* AudioParam
+  * Added: `automationRate`, `cancelAndHoldAtTime`
+* BlobEvent
+  * Added: `timecode`
+* CSSStyleDeclaration
+  * Added: `scrollMarginInline`
+* OfflineAudioContext
+  * Added: `suspend`
+* PerformanceMark
+  * Added: `detail`
+* PerformanceMeasure
+  * Added: `detail`
+* RTCIceCandidate
+  * Added: `address`, `component`, `foundation`, `port`, `priority`, `protocol`, `relatedAddress`, `relatedPort`, `tcpType`, `type`
+* RTCRtpSender
+  * Added: `setStreams`
+* VTTCue
+  * Added: `lineAlign`, `positionAlign`, `region`
+
 # v0.1.10
 
 ## Modified

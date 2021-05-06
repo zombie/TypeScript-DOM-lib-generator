@@ -173,6 +173,7 @@ interface CacheQueryOptions {
 
 interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
+    colorSpace?: PredefinedColorSpace;
     desynchronized?: boolean;
 }
 
@@ -213,6 +214,7 @@ interface ComputedEffectTiming extends EffectTiming {
     endTime?: number;
     localTime?: number | null;
     progress?: number | null;
+    startTime?: number;
 }
 
 interface ComputedKeyframe {
@@ -412,6 +414,7 @@ interface EffectTiming {
     fill?: FillMode;
     iterationStart?: number;
     iterations?: number;
+    playbackRate?: number;
 }
 
 interface ElementCreationOptions {
@@ -588,6 +591,10 @@ interface ImageBitmapRenderingContextSettings {
     alpha?: boolean;
 }
 
+interface ImageDataSettings {
+    colorSpace?: PredefinedColorSpace;
+}
+
 interface ImportMeta {
     url: string;
 }
@@ -666,6 +673,7 @@ interface KeyframeAnimationOptions extends KeyframeEffectOptions {
 
 interface KeyframeEffectOptions extends EffectTiming {
     composite?: CompositeOperation;
+    iterationComposite?: IterationCompositeOperation;
     pseudoElement?: string | null;
 }
 
@@ -942,6 +950,7 @@ interface OptionalEffectTiming {
     fill?: FillMode;
     iterationStart?: number;
     iterations?: number;
+    playbackRate?: number;
 }
 
 interface OscillatorOptions extends AudioNodeOptions {
@@ -1215,7 +1224,6 @@ interface RTCCertificateExpiration {
 interface RTCConfiguration {
     bundlePolicy?: RTCBundlePolicy;
     certificates?: RTCCertificate[];
-    encodedInsertableStreams?: boolean;
     iceCandidatePoolSize?: number;
     iceServers?: RTCIceServer[];
     iceTransportPolicy?: RTCIceTransportPolicy;
@@ -2676,6 +2684,7 @@ interface CSSStyleDeclaration {
     animationPlayState: string;
     animationTimingFunction: string;
     appearance: string;
+    aspectRatio: string;
     backfaceVisibility: string;
     background: string;
     backgroundAttachment: string;
@@ -3325,9 +3334,9 @@ declare var CanvasGradient: {
 };
 
 interface CanvasImageData {
-    createImageData(sw: number, sh: number): ImageData;
+    createImageData(sw: number, sh: number, settings?: ImageDataSettings): ImageData;
     createImageData(imagedata: ImageData): ImageData;
-    getImageData(sx: number, sy: number, sw: number, sh: number): ImageData;
+    getImageData(sx: number, sy: number, sw: number, sh: number, settings?: ImageDataSettings): ImageData;
     putImageData(imagedata: ImageData, dx: number, dy: number): void;
     putImageData(imagedata: ImageData, dx: number, dy: number, dirtyX: number, dirtyY: number, dirtyWidth: number, dirtyHeight: number): void;
 }
@@ -3396,6 +3405,7 @@ interface CanvasShadowStyles {
 }
 
 interface CanvasState {
+    reset(): void;
     restore(): void;
     save(): void;
 }
@@ -3409,8 +3419,14 @@ interface CanvasText {
 interface CanvasTextDrawingStyles {
     direction: CanvasDirection;
     font: string;
+    fontKerning: CanvasFontKerning;
+    fontStretch: CanvasFontStretch;
+    fontVariantCaps: CanvasFontVariantCaps;
     textAlign: CanvasTextAlign;
     textBaseline: CanvasTextBaseline;
+    textLetterSpacing: number;
+    textRendering: CanvasTextRendering;
+    textWordSpacing: number;
 }
 
 interface CanvasTransform {
@@ -9383,8 +9399,8 @@ interface ImageData {
 
 declare var ImageData: {
     readonly prototype: ImageData;
-    new(sw: number, sh: number): ImageData;
-    new(data: Uint8ClampedArray, sw: number, sh?: number): ImageData;
+    new(sw: number, sh: number, settings?: ImageDataSettings): ImageData;
+    new(data: Uint8ClampedArray, sw: number, sh?: number, settings?: ImageDataSettings): ImageData;
 };
 
 interface InnerHTML {
@@ -9473,6 +9489,7 @@ declare var KeyboardEvent: {
 
 interface KeyframeEffect extends AnimationEffect {
     composite: CompositeOperation;
+    iterationComposite: IterationCompositeOperation;
     pseudoElement: string | null;
     target: Element | null;
     getKeyframes(): ComputedKeyframe[];
@@ -18616,10 +18633,14 @@ type BiquadFilterType = "allpass" | "bandpass" | "highpass" | "highshelf" | "low
 type CanPlayTypeResult = "" | "maybe" | "probably";
 type CanvasDirection = "inherit" | "ltr" | "rtl";
 type CanvasFillRule = "evenodd" | "nonzero";
+type CanvasFontKerning = "auto" | "none" | "normal";
+type CanvasFontStretch = "condensed" | "expanded" | "extra-condensed" | "extra-expanded" | "normal" | "semi-condensed" | "semi-expanded" | "ultra-condensed" | "ultra-expanded";
+type CanvasFontVariantCaps = "all-petite-caps" | "all-small-caps" | "normal" | "petite-caps" | "small-caps" | "titling-caps" | "unicase";
 type CanvasLineCap = "butt" | "round" | "square";
 type CanvasLineJoin = "bevel" | "miter" | "round";
 type CanvasTextAlign = "center" | "end" | "left" | "right" | "start";
 type CanvasTextBaseline = "alphabetic" | "bottom" | "hanging" | "ideographic" | "middle" | "top";
+type CanvasTextRendering = "auto" | "geometricPrecision" | "optimizeLegibility" | "optimizeSpeed";
 type ChannelCountMode = "clamped-max" | "explicit" | "max";
 type ChannelInterpretation = "discrete" | "speakers";
 type ClientTypes = "all" | "sharedworker" | "window" | "worker";
@@ -18648,6 +18669,7 @@ type IDBRequestReadyState = "done" | "pending";
 type IDBTransactionMode = "readonly" | "readwrite" | "versionchange";
 type ImageOrientation = "flipY" | "none";
 type ImageSmoothingQuality = "high" | "low" | "medium";
+type IterationCompositeOperation = "accumulate" | "replace";
 type KeyFormat = "jwk" | "pkcs8" | "raw" | "spki";
 type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
@@ -18659,7 +18681,7 @@ type MediaKeyMessageType = "individualization-request" | "license-release" | "li
 type MediaKeySessionType = "persistent-license" | "temporary";
 type MediaKeyStatus = "expired" | "internal-error" | "output-downscaled" | "output-restricted" | "released" | "status-pending" | "usable" | "usable-in-future";
 type MediaKeysRequirement = "not-allowed" | "optional" | "required";
-type MediaSessionAction = "nexttrack" | "pause" | "play" | "previoustrack" | "seekbackward" | "seekforward" | "seekto" | "skipad" | "stop";
+type MediaSessionAction = "hangup" | "nexttrack" | "pause" | "play" | "previoustrack" | "seekbackward" | "seekforward" | "seekto" | "skipad" | "stop" | "togglecamera" | "togglemicrophone";
 type MediaSessionPlaybackState = "none" | "paused" | "playing";
 type MediaStreamTrackState = "ended" | "live";
 type NavigationType = "back_forward" | "navigate" | "prerender" | "reload";
@@ -18676,6 +18698,7 @@ type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";
+type PredefinedColorSpace = "display-p3" | "srgb";
 type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PresentationStyle = "attachment" | "inline" | "unspecified";
 type PublicKeyCredentialType = "public-key";

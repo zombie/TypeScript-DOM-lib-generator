@@ -60,6 +60,7 @@ interface CacheQueryOptions {
 
 interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
+    colorSpace?: PredefinedColorSpace;
     desynchronized?: boolean;
 }
 
@@ -260,6 +261,10 @@ interface ImageBitmapOptions {
 
 interface ImageBitmapRenderingContextSettings {
     alpha?: boolean;
+}
+
+interface ImageDataSettings {
+    colorSpace?: PredefinedColorSpace;
 }
 
 interface ImportMeta {
@@ -2125,8 +2130,8 @@ interface ImageData {
 
 declare var ImageData: {
     readonly prototype: ImageData;
-    new(sw: number, sh: number): ImageData;
-    new(data: Uint8ClampedArray, sw: number, sh?: number): ImageData;
+    new(sw: number, sh: number, settings?: ImageDataSettings): ImageData;
+    new(data: Uint8ClampedArray, sw: number, sh?: number, settings?: ImageDataSettings): ImageData;
 };
 
 interface KHR_parallel_shader_compile {
@@ -5660,6 +5665,7 @@ type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
+type PredefinedColorSpace = "display-p3" | "srgb";
 type PremultiplyAlpha = "default" | "none" | "premultiply";
 type PushEncryptionKeyName = "auth" | "p256dh";
 type PushPermissionState = "denied" | "granted" | "prompt";

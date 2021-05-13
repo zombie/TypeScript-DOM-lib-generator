@@ -247,6 +247,37 @@ function isSuitable(
 }
 
 export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
+  const CSSStyleDeclarationKey = "CSSStyleDeclaration";
+
+  function shouldStyleBeRemoved(key: string) {
+    const hyphenCase = camelToHyphenCase(key);
+    const bcdCssItem = bcd.css.properties[hyphenCase];
+    if (
+      bcdCssItem &&
+      isSuitable(hyphenCase, bcdCssItem.__compat, CSSStyleDeclarationKey)
+    ) {
+      return false;
+    }
+    if (hyphenCase.startsWith("-webkit-")) {
+      const noPrefix = hyphenCase.slice(8);
+      const bcdWebKitItem = bcd.css.properties[noPrefix];
+      if (
+        bcdWebKitItem &&
+        isSuitable(
+          noPrefix,
+          bcdWebKitItem.__compat,
+          CSSStyleDeclarationKey,
+          "-webkit-"
+        )
+      ) {
+        return false;
+      }
+    } else if (forceKeepAlive[CSSStyleDeclarationKey]?.includes(key)) {
+      return false;
+    }
+    return true;
+  }
+
   return mapToBcdCompat(webidl, ({ key, parentKey, compat, mixin }) => {
     // Allow:
     // * all mixins, for now
@@ -258,27 +289,8 @@ export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
       return;
     }
 
-    if (parentKey === "CSSStyleDeclaration") {
-      const hyphenCase = camelToHyphenCase(key);
-      const bcdCssItem = bcd.css.properties[hyphenCase];
-      if (
-        bcdCssItem &&
-        isSuitable(hyphenCase, bcdCssItem.__compat, parentKey)
-      ) {
-        return;
-      }
-      if (hyphenCase.startsWith("-webkit-")) {
-        const noPrefix = hyphenCase.slice(8);
-        const bcdWebKitItem = bcd.css.properties[noPrefix];
-        if (
-          bcdWebKitItem &&
-          isSuitable(noPrefix, bcdWebKitItem.__compat, parentKey, "-webkit-")
-        ) {
-          return;
-        }
-      } else if (forceKeepAlive[parentKey]?.includes(key)) {
-        return;
-      }
+    if (parentKey === CSSStyleDeclarationKey && !shouldStyleBeRemoved(key)) {
+      return;
     }
 
     return { exposed: "" };
@@ -330,6 +342,7 @@ function mapToBcdCompat(
       return { name: i.name, ...result };
     }
   }
+
   const interfaces = filterMapRecord(
     webidl.interfaces?.interface,
     mapInterfaceLike

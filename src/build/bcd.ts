@@ -285,19 +285,17 @@ export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
   }) as Browser.WebIdl;
 }
 
+interface DataToMap {
+  key: string;
+  compat?: CompatStatement;
+  webkit?: boolean;
+  mixin: boolean;
+  parentKey?: string;
+}
+
 function mapToBcdCompat(
   webidl: Browser.WebIdl,
-  mapper: ({
-    key,
-    compat,
-    webkit,
-  }: {
-    key: string;
-    compat?: CompatStatement;
-    webkit?: boolean;
-    mixin: boolean;
-    parentKey?: string;
-  }) => any
+  mapper: (data: DataToMap) => any
 ): Browser.WebIdl | undefined {
   function mapInterfaceLike(name: string, i: Browser.Interface) {
     const intCompat = bcd.api[name]?.__compat;

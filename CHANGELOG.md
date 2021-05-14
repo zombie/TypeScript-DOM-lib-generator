@@ -1,3 +1,35 @@
+# v0.1.12
+
+## Modified
+
+* CSSStyleDeclaration
+  * Added: `aspectRatio`
+* KeyframeEffect
+  * Added: `iterationComposite`
+
+### Non-value types
+
+* CanvasRenderingContext2DSettings
+  * Added: `colorSpace`
+* ComputedEffectTiming
+  * Added: `startTime`
+* EffectTiming
+  * Added: `playbackRate`
+* KeyframeEffectOptions
+  * Added: `iterationComposite`
+* OptionalEffectTiming
+  * Added: `playbackRate`
+* RTCConfiguration
+  * Removed: `encodedInsertableStreams`
+* CanvasUserInterface
+  * Removed: `scrollPathIntoView`
+* GlobalEventHandlers
+  * Removed: `onsecuritypolicyviolation`
+* HTMLOrSVGElement
+  * Removed: `autofocus`
+* NavigatorContentUtils
+  * Removed: `unregisterProtocolHandler`
+
 # v0.1.11
 
 ## New interfaces

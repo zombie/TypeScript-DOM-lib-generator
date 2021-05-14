@@ -1,8 +1,8 @@
-import { CompatStatement } from "@mdn/browser-compat-data/types";
+import { CompatData, CompatStatement } from "@mdn/browser-compat-data/types";
 import * as Browser from "../types";
 import { filterMapRecord, isEmptyRecord } from "../utils/record.js";
 import { mapDefined } from "../helpers.js";
-import bcd from "@mdn/browser-compat-data";
+import resolveMixinSupportData from "./resolve-mixin.js";
 
 interface DataToMap {
   key: string;
@@ -15,9 +15,10 @@ interface DataToMap {
 function mapInterfaceLike(
   name: string,
   i: Browser.Interface,
+  bcdResolved: CompatData,
   mapper: (data: DataToMap) => any
 ) {
-  const intCompat = bcd.api[name]?.__compat;
+  const intCompat = bcdResolved.api[name]?.__compat;
   const mapped = mapper({ key: name, compat: intCompat, mixin: !!i.mixin });
   if (!intCompat) {
     if (mapped) {
@@ -28,7 +29,7 @@ function mapInterfaceLike(
   const result = { ...mapped };
 
   const recordMapper = (key: string) => {
-    const compat = bcd.api[name][key]?.__compat;
+    const compat = bcdResolved.api[name][key]?.__compat;
     return mapper({
       key,
       parentKey: name,
@@ -54,13 +55,14 @@ export function mapToBcdCompat(
   webidl: Browser.WebIdl,
   mapper: (data: DataToMap) => any
 ): Browser.WebIdl | undefined {
+  const bcdResolved = resolveMixinSupportData(webidl);
   const map = (name: string, i: Browser.Interface) =>
-    mapInterfaceLike(name, i, mapper);
+    mapInterfaceLike(name, i, bcdResolved, mapper);
 
   const interfaces = filterMapRecord(webidl.interfaces?.interface, map);
   const mixins = filterMapRecord(webidl.mixins?.mixin, map);
   const namespaces = mapDefined(webidl.namespaces, (n) =>
-    mapInterfaceLike(n.name, n, mapper)
+    mapInterfaceLike(n.name, n, bcdResolved, mapper)
   );
   if (
     !isEmptyRecord(interfaces) ||

@@ -3405,7 +3405,6 @@ interface CanvasShadowStyles {
 }
 
 interface CanvasState {
-    reset(): void;
     restore(): void;
     save(): void;
 }
@@ -3419,14 +3418,8 @@ interface CanvasText {
 interface CanvasTextDrawingStyles {
     direction: CanvasDirection;
     font: string;
-    fontKerning: CanvasFontKerning;
-    fontStretch: CanvasFontStretch;
-    fontVariantCaps: CanvasFontVariantCaps;
     textAlign: CanvasTextAlign;
     textBaseline: CanvasTextBaseline;
-    textLetterSpacing: number;
-    textRendering: CanvasTextRendering;
-    textWordSpacing: number;
 }
 
 interface CanvasTransform {
@@ -3443,8 +3436,6 @@ interface CanvasTransform {
 interface CanvasUserInterface {
     drawFocusIfNeeded(element: Element): void;
     drawFocusIfNeeded(path: Path2D, element: Element): void;
-    scrollPathIntoView(): void;
-    scrollPathIntoView(path: Path2D): void;
 }
 
 /** The ChannelMergerNode interface, often used in conjunction with its opposite, ChannelSplitterNode, reunites different mono inputs into a single output. Each input is used to fill a channel of the output. This is useful for accessing each channels separately, e.g. for performing channel mixing where gain must be separately controlled on each channel. */
@@ -5825,7 +5816,6 @@ interface GlobalEventHandlers {
      * @param ev The event.
      */
     onscroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    onsecuritypolicyviolation: ((this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) | null;
     /**
      * Occurs when the seek operation ends.
      * @param ev The event.
@@ -7810,7 +7800,6 @@ declare var HTMLOptionsCollection: {
 };
 
 interface HTMLOrSVGElement {
-    autofocus: boolean;
     readonly dataset: DOMStringMap;
     nonce?: string;
     tabIndex: number;
@@ -10298,7 +10287,6 @@ interface NavigatorConcurrentHardware {
 
 interface NavigatorContentUtils {
     registerProtocolHandler(scheme: string, url: string | URL): void;
-    unregisterProtocolHandler(scheme: string, url: string | URL): void;
 }
 
 interface NavigatorCookies {
@@ -10316,9 +10304,11 @@ interface NavigatorID {
     readonly platform: string;
     /** @deprecated */
     readonly product: string;
+    /** @deprecated */
     readonly productSub: string;
     readonly userAgent: string;
     readonly vendor: string;
+    /** @deprecated */
     readonly vendorSub: string;
 }
 
@@ -18455,7 +18445,6 @@ declare var onresize: ((this: Window, ev: UIEvent) => any) | null;
  * @param ev The event.
  */
 declare var onscroll: ((this: Window, ev: Event) => any) | null;
-declare var onsecuritypolicyviolation: ((this: Window, ev: SecurityPolicyViolationEvent) => any) | null;
 /**
  * Occurs when the seek operation ends.
  * @param ev The event.

@@ -8,45 +8,23 @@ import {
 import { camelToHyphenCase } from "./utils/css.js";
 import { forceKeepAlive } from "./bcd/keep-alive.js";
 import { mapToBcdCompat } from "./bcd/mapper.js";
+import { hasStableImplementation } from "./bcd/stable.js";
 
 function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
-  function hasStableImplementation(
+  const hasStableImpl = (
     browser: SimpleSupportStatement | SimpleSupportStatement[] | undefined
-  ) {
-    if (!browser) {
-      return false;
-    }
-    const latest = !Array.isArray(browser)
-      ? browser
-      : browser.find((i) => i.prefix === prefix); // first one if no prefix
-    if (!latest) {
-      return false;
-    }
-    return (
-      latest.version_added &&
-      !latest.version_removed &&
-      !latest.flags &&
-      latest.prefix === prefix &&
-      !latest.alternative_name
-    );
-  }
+  ) => hasStableImplementation(browser, prefix);
   let count = 0;
-  if (
-    hasStableImplementation(support.chrome) ||
-    hasStableImplementation(support.chrome_android)
-  ) {
+  if (hasStableImpl(support.chrome) || hasStableImpl(support.chrome_android)) {
     count += 1;
   }
   if (
-    hasStableImplementation(support.firefox) ||
-    hasStableImplementation(support.firefox_android)
+    hasStableImpl(support.firefox) ||
+    hasStableImpl(support.firefox_android)
   ) {
     count += 1;
   }
-  if (
-    hasStableImplementation(support.safari) ||
-    hasStableImplementation(support.safari_ios)
-  ) {
+  if (hasStableImpl(support.safari) || hasStableImpl(support.safari_ios)) {
     count += 1;
   }
   return count >= 2;
@@ -107,20 +85,17 @@ export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
   }
 
   return mapToBcdCompat(webidl, ({ key, parentKey, compat, mixin }) => {
-    // Allow:
-    // * all mixins, for now
-    // * mixin members that has no compat data
-    if (mixin && (!compat || !parentKey)) {
+    // Allow all mixins for now, but not their members
+    // Ultimately expose.ts should be updated to check empty mixins
+    if (mixin && !parentKey) {
       return;
     }
     if (isSuitable(key, compat, parentKey)) {
       return;
     }
-
     if (parentKey === CSSStyleDeclarationKey && !shouldStyleBeRemoved(key)) {
       return;
     }
-
     return { exposed: "" };
   }) as Browser.WebIdl;
 }

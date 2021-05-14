@@ -13,72 +13,10 @@
     },
     "mixins": {
         "mixin": {
-            "ARIAMixin": {
-                "properties": {
-                    "property": {
-                        "ariaColIndexText": null,
-                        "ariaDescription": null,
-                        "ariaInvalid": null,
-                        "ariaRowIndexText": null,
-                        "role": null
-                    }
-                }
-            },
-            "DocumentOrShadowRoot": {
-                "properties": {
-                    "property": {
-                        "adoptedStyleSheets": null
-                    }
-                }
-            },
-            "ElementCSSInlineStyle": {
-                "properties": {
-                    "property": {
-                        "attributeStyleMap": null
-                    }
-                }
-            },
-            "GlobalEventHandlers": {
-                "properties": {
-                    "property": {
-                        "onbeforexrselect": null,
-                        "onpointerrawupdate": null,
-                        "onslotchange": null
-                    }
-                }
-            },
-            "NavigatorID": {
-                "properties": {
-                    "property": {
-                        "oscpu": null
-                    }
-                }
-            },
             "WebGLRenderingContextBase": {
                 "properties": {
                     "namesakes": {
                         "canvas": null
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "makeXRCompatible": null
-                    }
-                }
-            },
-            "WindowEventHandlers": {
-                "properties": {
-                    "property": {
-                        "onportalactivate": null
-                    }
-                }
-            },
-            "WindowOrWorkerGlobalScope": {
-                "properties": {
-                    "property": {
-                        "originPolicyIds": null,
-                        "scheduler": null,
-                        "trustedTypes": null
                     }
                 }
             }

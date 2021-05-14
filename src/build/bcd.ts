@@ -6,9 +6,8 @@ import {
   SupportBlock,
 } from "@mdn/browser-compat-data/types";
 import { camelToHyphenCase } from "./utils/css.js";
-import { filterMapRecord, isEmptyRecord } from "./utils/record.js";
-import { mapDefined } from "./helpers.js";
 import { forceKeepAlive } from "./bcd/keep-alive.js";
+import { mapToBcdCompat } from "./bcd/mapper.js";
 
 function hasMultipleImplementations(support: SupportBlock, prefix?: string) {
   function hasStableImplementation(
@@ -124,73 +123,6 @@ export function getRemovalData(webidl: Browser.WebIdl): Browser.WebIdl {
 
     return { exposed: "" };
   }) as Browser.WebIdl;
-}
-
-interface DataToMap {
-  key: string;
-  compat?: CompatStatement;
-  webkit?: boolean;
-  mixin: boolean;
-  parentKey?: string;
-}
-
-function mapToBcdCompat(
-  webidl: Browser.WebIdl,
-  mapper: (data: DataToMap) => any
-): Browser.WebIdl | undefined {
-  function mapInterfaceLike(name: string, i: Browser.Interface) {
-    const intCompat = bcd.api[name]?.__compat;
-    const mapped = mapper({ key: name, compat: intCompat, mixin: !!i.mixin });
-    if (!intCompat) {
-      if (mapped) {
-        return { name: i.name, ...mapped };
-      }
-      return;
-    }
-    const result = { ...mapped };
-
-    const recordMapper = (key: string) => {
-      const compat = bcd.api[name][key]?.__compat;
-      return mapper({
-        key,
-        parentKey: name,
-        webkit: key.startsWith("webkit"),
-        compat,
-        mixin: !!i.mixin,
-      });
-    };
-    const methods = filterMapRecord(i.methods?.method, recordMapper);
-    const properties = filterMapRecord(i.properties?.property, recordMapper);
-    if (!isEmptyRecord(methods)) {
-      result.methods = { method: methods! };
-    }
-    if (!isEmptyRecord(properties)) {
-      result.properties = { property: properties! };
-    }
-    if (!isEmptyRecord(result)) {
-      return { name: i.name, ...result };
-    }
-  }
-
-  const interfaces = filterMapRecord(
-    webidl.interfaces?.interface,
-    mapInterfaceLike
-  );
-  const mixins = filterMapRecord(webidl.mixins?.mixin, mapInterfaceLike);
-  const namespaces = mapDefined(webidl.namespaces, (n) =>
-    mapInterfaceLike(n.name, n)
-  );
-  if (
-    !isEmptyRecord(interfaces) ||
-    !isEmptyRecord(mixins) ||
-    !isEmptyRecord(namespaces)
-  ) {
-    return {
-      interfaces: interfaces && { interface: interfaces },
-      mixins: mixins && { mixin: mixins },
-      namespaces,
-    };
-  }
 }
 
 export function getDeprecationData(webidl: Browser.WebIdl): Browser.WebIdl {

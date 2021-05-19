@@ -1,3 +1,25 @@
+# v0.1.13
+
+## Modified
+
+* HTMLElement
+  * Added: `outerText`
+* PaymentRequest
+  * Removed: `onshippingaddresschange`, `onshippingoptionchange`, `shippingAddress`, `shippingOption`, `shippingType`
+* PaymentResponse
+  * Removed: `onpayerdetailchange`, `payerEmail`, `payerName`, `payerPhone`, `shippingAddress`, `shippingOption`, `addEventListener`, `removeEventListener`
+
+### Non-value types
+
+* PaymentDetailsBase
+  * Removed: `shippingOptions`
+* PaymentDetailsUpdate
+  * Removed: `error`, `payerErrors`, `shippingAddressErrors`
+* PaymentValidationErrors
+  * Removed: `payer`, `shippingAddress`
+* PaymentRequestEventMap
+  * Removed: `"shippingaddresschange"`, `"shippingoptionchange"`
+
 # v0.1.12
 
 ## Modified

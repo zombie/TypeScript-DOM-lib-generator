@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: '15'
 
-      - run: npm ci
-      - id: run-update
-        run: npm i @webref/idl@latest @webref/css@latest @mdn/browser-compat-data@latest
+      - run: npm i -g npm-check-updates
+      - run: ncu -u
+      - run: npm i
       - run: npm run build && npm run baseline-accept
       - id: git-diff
         run: git diff --quiet HEAD baselines

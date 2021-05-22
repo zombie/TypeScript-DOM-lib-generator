@@ -123,7 +123,6 @@ export const forceKeepAlive: Record<string, string[]> = {
     "MODIFICATION",
     "REMOVAL",
   ],
-  OfflineAudioContext: ["resume"],
   PaymentRequest: ["shippingAddress"],
   PictureInPictureWindow: [
     "requestPictureInPicture",
@@ -132,7 +131,6 @@ export const forceKeepAlive: Record<string, string[]> = {
     "autoPictureInPicture",
     "disablePictureInPicture",
   ],
-  ReadableStreamGenericReader: ["closed", "cancel"],
   Request: ["keepalive"],
   ResizeObserverSize: ["blockSize", "inlineSize"],
   RTCDtlsTransport: ["onstatechange", "state"],

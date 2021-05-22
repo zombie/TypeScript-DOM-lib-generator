@@ -1,3 +1,14 @@
+# v0.1.14
+
+## New interfaces
+
+* `PerformanceEventTiming`
+
+## Modified
+
+* CSSStyleDeclaration
+  * Added: `fontVariantAlternates`
+
 # v0.1.13
 
 ## Modified

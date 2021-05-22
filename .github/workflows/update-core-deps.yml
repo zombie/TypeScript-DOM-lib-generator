@@ -1,4 +1,4 @@
-name: Update webref
+name: Update core dependencies
 on:
   workflow_dispatch:
   schedule:
@@ -17,18 +17,16 @@ jobs:
           node-version: '15'
 
       - run: npm ci
-      - id: run-update-webref
-        run: npm i @webref/idl@latest @webref/css@latest
-        continue-on-error: true
+      - id: run-update
+        run: npm i @webref/idl@latest @webref/css@latest @mdn/browser-compat-data@latest
       - run: npm run build && npm run baseline-accept
-        if: ${{ steps.run-update-webref.outcome == 'success' }}
       - id: git-diff
         run: git diff --quiet HEAD baselines
         continue-on-error: true
       - uses: peter-evans/create-pull-request@v3
         if: ${{ steps.git-diff.outcome == 'failure' }}
         with:
-          commit-message: "chore(package): update webref"
-          title: "chore(package): update webref"
-          branch: update-webref
+          commit-message: "chore(package): update core dependencies"
+          title: "chore(package): update core dependencies"
+          branch: update-core-deps
 

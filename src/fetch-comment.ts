@@ -16,9 +16,9 @@ interface IDLSource {
 }
 
 async function fetchIDLs(filter: string[]) {
-  const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[]).filter(
-    (source) => !filter.length || filter.includes(source.shortName)
-  );
+  const idlSources = (
+    require("../inputfiles/idlSources.json") as IDLSource[]
+  ).filter((source) => !filter.length || filter.includes(source.shortName));
   await Promise.all(
     idlSources.map(async (source) => {
       const { comments } = await fetchIDL(source);

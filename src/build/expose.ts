@@ -243,7 +243,7 @@ function deepClone<T>(o: T, custom: (o: any) => any): T {
     return o;
   }
   if (Array.isArray(o)) {
-    return (o.map((v) => deepClone(v, custom)) as any) as T;
+    return o.map((v) => deepClone(v, custom)) as any as T;
   }
   const mapped = custom(o);
   if (mapped !== undefined) {

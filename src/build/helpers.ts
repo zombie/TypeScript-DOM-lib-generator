@@ -66,9 +66,9 @@ export function deepFilter<T>(
 ): T {
   if (typeof obj === "object") {
     if (Array.isArray(obj)) {
-      return (mapDefined(obj, (e) =>
+      return mapDefined(obj, (e) =>
         fn(e, undefined) ? deepFilter(e, fn) : undefined
-      ) as any) as T;
+      ) as any as T;
     } else {
       const result: any = {};
       for (const e in obj) {

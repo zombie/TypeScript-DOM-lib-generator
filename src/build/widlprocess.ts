@@ -35,13 +35,11 @@ export function convert(text: string, commentMap: Record<string, string>) {
         browser.namespaces!.push(converted);
       }
     } else if (rootType.type === "callback interface") {
-      browser.callbackInterfaces!.interface[
-        rootType.name
-      ] = convertInterfaceCommon(rootType, commentMap);
+      browser.callbackInterfaces!.interface[rootType.name] =
+        convertInterfaceCommon(rootType, commentMap);
     } else if (rootType.type === "callback") {
-      browser.callbackFunctions!.callbackFunction[
-        rootType.name
-      ] = convertCallbackFunctions(rootType);
+      browser.callbackFunctions!.callbackFunction[rootType.name] =
+        convertCallbackFunctions(rootType);
       addComments(
         browser.callbackFunctions!.callbackFunction[rootType.name],
         commentMap,
@@ -86,10 +84,9 @@ function getExtAttr(extAttrs: webidl2.ExtendedAttribute[], name: string) {
     attr.rhs.type === "string-list" ||
     attr.rhs.type === "decimal-list" ||
     attr.rhs.type === "integer-list"
-    ? (attr.rhs
-        .value as webidl2.ExtendedAttributeRightHandSideIdentifier[]).map(
-        (item) => item.value
-      )
+    ? (
+        attr.rhs.value as webidl2.ExtendedAttributeRightHandSideIdentifier[]
+      ).map((item) => item.value)
     : [attr.rhs.value];
 }
 

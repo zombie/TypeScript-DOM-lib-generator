@@ -413,9 +413,10 @@ export function emitWebIdl(
     return type;
   }
 
-  function convertDomTypeToTsTypeWorker(
-    obj: Browser.Typed
-  ): { name: string; nullable: boolean } {
+  function convertDomTypeToTsTypeWorker(obj: Browser.Typed): {
+    name: string;
+    nullable: boolean;
+  } {
     let type;
     if (typeof obj.type === "string") {
       type = {

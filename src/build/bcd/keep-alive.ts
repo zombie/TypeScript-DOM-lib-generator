@@ -98,7 +98,6 @@ export const forceKeepAlive: Record<string, string[]> = {
   DOMRect: ["fromRect"],
   Document: ["charset", "inputEncoding"],
   Element: ["webkitMatchesSelector"],
-  ExtendableMessageEvent: ["lastEventId", "origin", "ports", "source"],
   FileReader: ["onloadstart"],
   Gamepad: ["hapticActuators"],
   GlobalEventHandlers: [
@@ -136,11 +135,8 @@ export const forceKeepAlive: Record<string, string[]> = {
   RTCDtlsTransport: ["onstatechange", "state"],
   RTCPeerConnection: ["canTrickleIceCandidates"],
   ServiceWorkerGlobalScope: ["onmessageerror"],
-  SVGAnimatedPoints: ["animatedPoints", "points"],
   SVGAnimatedTransformList: ["animVal", "baseVal"],
   SVGElement: ["ownerSVGElement", "viewportElement"],
-  SVGFilterPrimitiveStandardAttributes: ["height", "result", "width", "x", "y"],
-  SVGTests: ["requiredExtensions", "systemLanguage"],
   SVGTransformList: [
     "numberOfItems",
     "appendItem",
@@ -198,8 +194,5 @@ export const forceKeepAlive: Record<string, string[]> = {
   Table: ["length", "get", "grow", "set"],
 
   // Widely supported but without being correctly exposed to global
-  ReadableStreamDefaultReader: ["read", "releaseLock"],
-  ReadableStreamDefaultController: ["desiredSize", "close", "enqueue", "error"],
-  WebGLVertexArrayObjectOES: [],
   WritableStreamDefaultController: ["error"],
 };

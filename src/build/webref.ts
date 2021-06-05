@@ -2,6 +2,8 @@ import { fileURLToPath } from "url";
 import { tryReadFile } from "./utils/fs.js";
 import { createTryRequire } from "./utils/require.js";
 
+export * from "./webref/elements.js";
+
 const webrefDir = new URL("../../node_modules/@webref/idl/", import.meta.url);
 const webrefCssDir = new URL(
   "../../node_modules/@webref/css/",

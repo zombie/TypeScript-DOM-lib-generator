@@ -8,12 +8,7 @@ import {
   SimpleSupportStatement,
 } from "@mdn/browser-compat-data/types";
 import { hasStableImplementation } from "./stable.js";
-
-function addToArrayMap<T>(map: Map<string, T[]>, name: string, value: T) {
-  const array = map.get(name) || [];
-  array.push(value);
-  map.set(name, array);
-}
+import { addToArrayMap } from "../utils/map.js";
 
 function trackMixinInclusions(interfaces: Browser.Interface[]) {
   const map = new Map<string, Browser.Interface[]>();

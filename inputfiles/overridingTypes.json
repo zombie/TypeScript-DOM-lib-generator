@@ -1134,11 +1134,6 @@
                         }
                     }
                 },
-                "element": [
-                    {
-                        "name": "select"
-                    }
-                ],
                 "overrideIndexSignatures": [
                     "[name: number]: HTMLOptionElement | HTMLOptGroupElement"
                 ]
@@ -1151,12 +1146,7 @@
                             "overrideType": "HTMLCollectionOf<HTMLOptionElement>"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "datalist"
-                    }
-                ]
+                }
             },
             "HTMLDirectoryElement": {
                 "element": [
@@ -1601,19 +1591,7 @@
                             "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "button"
-                    }
-                ]
-            },
-            "HTMLFieldSetElement": {
-                "element": [
-                    {
-                        "name": "fieldset"
-                    }
-                ]
+                }
             },
             "HTMLLabelElement": {
                 "properties": {
@@ -1625,13 +1603,6 @@
                     }
                 }
             },
-            "HTMLLegendElement": {
-                "element": [
-                    {
-                        "name": "legend"
-                    }
-                ]
-            },
             "HTMLMeterElement": {
                 "properties": {
                     "property": {
@@ -1640,26 +1611,7 @@
                             "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "meter"
-                    }
-                ]
-            },
-            "HTMLOptGroupElement": {
-                "element": [
-                    {
-                        "name": "optgroup"
-                    }
-                ]
-            },
-            "HTMLOptionElement": {
-                "element": [
-                    {
-                        "name": "option"
-                    }
-                ]
+                }
             },
             "HTMLOutputElement": {
                 "properties": {
@@ -1669,12 +1621,7 @@
                             "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "output"
-                    }
-                ]
+                }
             },
             "HTMLProgressElement": {
                 "properties": {
@@ -1684,12 +1631,7 @@
                             "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "progress"
-                    }
-                ]
+                }
             },
             "HTMLTextAreaElement": {
                 "properties": {
@@ -1727,12 +1669,7 @@
                             }
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "textarea"
-                    }
-                ]
+                }
             },
             "ServiceWorkerContainer": {
                 "name": "ServiceWorkerContainer",

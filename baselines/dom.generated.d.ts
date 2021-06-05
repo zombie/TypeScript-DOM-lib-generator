@@ -18019,6 +18019,9 @@ interface HTMLElementDeprecatedTagNameMap {
 
 interface SVGElementTagNameMap {
     "a": SVGAElement;
+    "animate": SVGAnimateElement;
+    "animateMotion": SVGAnimateMotionElement;
+    "animateTransform": SVGAnimateTransformElement;
     "circle": SVGCircleElement;
     "clipPath": SVGClipPathElement;
     "defs": SVGDefsElement;
@@ -18032,6 +18035,7 @@ interface SVGElementTagNameMap {
     "feDiffuseLighting": SVGFEDiffuseLightingElement;
     "feDisplacementMap": SVGFEDisplacementMapElement;
     "feDistantLight": SVGFEDistantLightElement;
+    "feDropShadow": SVGFEDropShadowElement;
     "feFlood": SVGFEFloodElement;
     "feFuncA": SVGFEFuncAElement;
     "feFuncB": SVGFEFuncBElement;
@@ -18057,6 +18061,7 @@ interface SVGElementTagNameMap {
     "marker": SVGMarkerElement;
     "mask": SVGMaskElement;
     "metadata": SVGMetadataElement;
+    "mpath": SVGMPathElement;
     "path": SVGPathElement;
     "pattern": SVGPatternElement;
     "polygon": SVGPolygonElement;
@@ -18064,6 +18069,7 @@ interface SVGElementTagNameMap {
     "radialGradient": SVGRadialGradientElement;
     "rect": SVGRectElement;
     "script": SVGScriptElement;
+    "set": SVGSetElement;
     "stop": SVGStopElement;
     "style": SVGStyleElement;
     "svg": SVGSVGElement;

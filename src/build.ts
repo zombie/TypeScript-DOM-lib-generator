@@ -10,6 +10,7 @@ import { getDeprecationData, getRemovalData } from "./build/bcd.js";
 import { createTryRequire } from "./build/utils/require.js";
 import { getIdl } from "./build/webref.js";
 import { getLatestSpecNames } from "./build/browser-specs.js";
+import { getInterfaceElementMergeData } from "./build/webref/elements.js";
 
 const require = createRequire(import.meta.url);
 const tryRequire = createTryRequire(import.meta.url);
@@ -249,6 +250,7 @@ async function emitDom() {
       }
     }
   }
+  webidl = merge(webidl, await getInterfaceElementMergeData());
 
   webidl = merge(webidl, getDeprecationData(webidl));
   webidl = merge(webidl, getRemovalData(webidl) as any);

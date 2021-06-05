@@ -1,3 +1,14 @@
+# v0.1.15
+
+## New interfaces
+
+* `RTCPeerConnectionIceErrorEvent`
+
+### Non-value types
+
+* SVGElementTagNameMap
+  * Added: `"animate"`, `"animateMotion"`, `"animateTransform"`, `"feDropShadow"`, `"mpath"`, `"set"`
+
 # v0.1.14
 
 ## New interfaces

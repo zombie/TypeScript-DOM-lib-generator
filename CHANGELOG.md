@@ -1,3 +1,10 @@
+# v0.1.16
+
+## Modified
+
+* CompositionEvent
+  * Added: `initCompositionEvent`
+
 # v0.1.15
 
 ## New interfaces

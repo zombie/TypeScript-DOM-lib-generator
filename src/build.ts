@@ -8,9 +8,8 @@ import { convert } from "./build/widlprocess.js";
 import { getExposedTypes } from "./build/expose.js";
 import { getDeprecationData, getRemovalData } from "./build/bcd.js";
 import { createTryRequire } from "./build/utils/require.js";
-import { getIdl } from "./build/webref.js";
-import { getLatestSpecNames } from "./build/browser-specs.js";
 import { getInterfaceElementMergeData } from "./build/webref/elements.js";
+import { getWebidls } from "./build/webref/idl.js";
 
 const require = createRequire(import.meta.url);
 const tryRequire = createTryRequire(import.meta.url);
@@ -112,15 +111,10 @@ async function emitDom() {
     new URL("removedTypes.json", inputFolder)
   ));
   const widlStandardTypes = (
-    await Promise.all(getLatestSpecNames().map(convertWidl))
+    await Promise.all([...(await getWebidls()).entries()].map(convertWidl))
   ).filter((i) => i) as ReturnType<typeof convert>[];
 
-  async function convertWidl(shortName: string) {
-    // Specs that need to fix their syntax, etc.
-    const idl = await getIdl(shortName);
-    if (!idl.trim().length) {
-      return;
-    }
+  async function convertWidl([shortName, idl]: string[]) {
     const commentsMapFilePath = new URL(
       `idl/${shortName}.commentmap.json`,
       inputFolder

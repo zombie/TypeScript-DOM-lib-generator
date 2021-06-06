@@ -7,3 +7,12 @@ export function addToArrayMap<T>(
   array.push(value);
   map.set(name, array);
 }
+
+export function addToStringMap(
+  map: Map<string, string>,
+  name: string,
+  value: string
+): void {
+  const old = map.get(name) || "";
+  map.set(name, `${old}\n${value}\n`);
+}

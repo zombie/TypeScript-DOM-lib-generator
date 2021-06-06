@@ -7,7 +7,6 @@ Get types for the latest web APIs as soon as they become widely available!
 [The default types generator](https://github.com/microsoft/TypeScript-DOM-lib-generator/) for TypeScript requires manual review for every update, and thus does not provide types for every latest API in a timely manner. `types-web` solves this issue by deploying automation by following tools:
 
   * [`@mdn/browser-compat-data`](https://www.npmjs.com/package/@mdn/browser-compat-data) provides which features are supported by which browsers, so that undersupported features can be disabled automatically.
-  * [`browser-specs`](https://www.npmjs.com/package/browser-specs) provides a full list of web specs, so that every latest feature can be covered.
   * [`webref`](https://github.com/w3c/webref) provides IDL code from the specs, so that the features can be properly typed.
 
 See how many types have been added in the [changelog](CHANGELOG.md).

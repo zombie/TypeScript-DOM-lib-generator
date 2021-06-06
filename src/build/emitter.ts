@@ -254,7 +254,7 @@ export function emitWebIdl(
 
   function getImplementList(iName: string) {
     const i = allInterfacesMap[iName];
-    return i?.implements || [];
+    return i?.implements?.sort() || [];
   }
 
   function getParentsWithEventHandler(i: Browser.Interface) {
@@ -279,7 +279,7 @@ export function emitWebIdl(
       (allInterfacesMap[iExtends] &&
         getParentEventHandler(allInterfacesMap[iExtends])) ||
       [];
-    const mixinsWithEventHandler = (i.implements || []).flatMap((i) =>
+    const mixinsWithEventHandler = getImplementList(i.name).flatMap((i) =>
       getParentEventHandler(allInterfacesMap[i])
     );
 
@@ -292,7 +292,7 @@ export function emitWebIdl(
       return (hasConst ? [i] : []).concat(getParentsWithConstant(i));
     }
 
-    const mixinsWithConstant = (i.implements || []).flatMap((i) =>
+    const mixinsWithConstant = getImplementList(i.name).flatMap((i) =>
       getParentConstant(allInterfacesMap[i])
     );
 
@@ -1172,7 +1172,7 @@ export function emitWebIdl(
     );
 
     const finalExtends = [i.extends || "Object"]
-      .concat((i.implements || []).sort())
+      .concat(getImplementList(i.name))
       .filter((i) => i !== "Object")
       .map(processIName);
 

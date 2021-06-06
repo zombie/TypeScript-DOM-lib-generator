@@ -3531,6 +3531,8 @@ declare var Comment: {
 /** The DOM CompositionEvent represents events that occur due to the user indirectly entering text. */
 interface CompositionEvent extends UIEvent {
     readonly data: string;
+    /** @deprecated */
+    initCompositionEvent(typeArg: string, bubblesArg?: boolean, cancelableArg?: boolean, viewArg?: WindowProxy | null, dataArg?: string): void;
 }
 
 declare var CompositionEvent: {
@@ -14737,7 +14739,7 @@ interface UIEvent extends Event {
     /** @deprecated */
     readonly which: number;
     /** @deprecated */
-    initUIEvent(): void;
+    initUIEvent(typeArg: string, bubblesArg?: boolean, cancelableArg?: boolean, viewArg?: Window | null, detailArg?: number): void;
 }
 
 declare var UIEvent: {
@@ -17577,11 +17579,11 @@ declare var XPathResult: {
 /** An XSLTProcessor applies an XSLT stylesheet transformation to an XML document to produce a new XML document as output. It has methods to load the XSLT stylesheet, to manipulate <xsl:param> parameter values, and to apply the transformation to documents. */
 interface XSLTProcessor {
     clearParameters(): void;
-    getParameter(namespaceURI: string, localName: string): any;
+    getParameter(namespaceURI: string | null, localName: string): any;
     importStylesheet(style: Node): void;
-    removeParameter(namespaceURI: string, localName: string): void;
+    removeParameter(namespaceURI: string | null, localName: string): void;
     reset(): void;
-    setParameter(namespaceURI: string, localName: string, value: any): void;
+    setParameter(namespaceURI: string | null, localName: string, value: any): void;
     transformToDocument(source: Node): Document;
     transformToFragment(source: Node, output: Document): DocumentFragment;
 }

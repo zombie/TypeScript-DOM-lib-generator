@@ -117,12 +117,7 @@ async function emitDom() {
 
   async function convertWidl(shortName: string) {
     // Specs that need to fix their syntax, etc.
-    const local = ["uievents", "xsltprocessor"];
-    const idl = local.includes(shortName)
-      ? await fs.readFile(new URL(`idl/${shortName}.webidl`, inputFolder), {
-          encoding: "utf-8",
-        })
-      : await getIdl(shortName);
+    const idl = await getIdl(shortName);
     if (!idl.trim().length) {
       return;
     }

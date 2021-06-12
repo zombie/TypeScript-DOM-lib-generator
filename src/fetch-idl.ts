@@ -26,9 +26,9 @@ const cssPropSelector = [
 ].join(",");
 
 async function fetchIDLs(filter: string[]) {
-  const idlSources = (require("../inputfiles/idlSources.json") as IDLSource[]).filter(
-    (source) => !filter.length || filter.includes(source.title)
-  );
+  const idlSources = (
+    require("../inputfiles/idlSources.json") as IDLSource[]
+  ).filter((source) => !filter.length || filter.includes(source.title));
   await Promise.all(
     idlSources.map(async (source) => {
       const { idl, comments } = await fetchIDL(source);
@@ -92,9 +92,9 @@ function extractIDL(dom: DocumentFragment) {
 }
 
 function extractCSSDefinitions(dom: DocumentFragment) {
-  const properties = Array.from(
-    dom.querySelectorAll(cssPropSelector)
-  ).map((element) => element.textContent!.trim());
+  const properties = Array.from(dom.querySelectorAll(cssPropSelector)).map(
+    (element) => element.textContent!.trim()
+  );
 
   if (!properties.length) {
     return "";

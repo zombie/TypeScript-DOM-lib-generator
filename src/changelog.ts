@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import ts from "typescript";
+import { fileURLToPath } from "url";
 
 function gitShowFile(commit: string, path: string) {
   return execSync(`git show ${commit}:${path}`, { encoding: "utf-8" });
@@ -136,7 +137,7 @@ function writeAddedRemovedInline(added: Set<string>, removed: Set<string>) {
 
 const dom = "baselines/dom.generated.d.ts";
 
-async function main() {
+export function generate(): string {
   const [base = gitLatestTag(), head = "HEAD"] = process.argv.slice(2);
   const previous = gitShowFile(base, dom);
   const current = gitShowFile(head, dom);
@@ -165,11 +166,14 @@ async function main() {
   }
 
   const output = outputs.join("\n\n");
-  if (output.length) {
-    console.log(output);
-  } else {
+
+  if (!output.length) {
     throw new Error(`No change reported between ${base} and ${head}.`);
   }
+
+  return output;
 }
 
-await main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  console.log(generate());
+}

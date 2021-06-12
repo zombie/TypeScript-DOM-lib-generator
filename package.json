@@ -18,7 +18,8 @@
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
     "lint": "eslint --max-warnings 0 src",
     "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
-    "changelog": "tsc && node ./lib/changelog.js"
+    "changelog": "tsc && node ./lib/changelog.js",
+    "version": "tsc && node ./lib/version.js"
   },
   "author": {
     "name": "Kagami Sascha Rosylight",

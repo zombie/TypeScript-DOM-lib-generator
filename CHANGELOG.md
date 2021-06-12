@@ -1,3 +1,17 @@
+# v0.1.17
+
+## New interfaces
+
+* `CSSCounterStyleRule`
+* `MathMLElement`
+
+### Non-value types
+
+* MediaTrackCapabilities
+  * Added: `cursor`, `displaySurface`, `logicalSurface`
+* MediaTrackSettings
+  * Added: `restrictOwnAudio`
+
 # v0.1.16
 
 ## Modified

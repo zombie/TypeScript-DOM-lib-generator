@@ -146,7 +146,10 @@ export function generate(): string {
     others,
   } = diffTypes(previous, current);
 
-  const outputs = [writeAddedRemoved(added, removed)];
+  const outputs = [];
+  if (added.size || removed.size) {
+    outputs.push(writeAddedRemoved(added, removed));
+  }
   if (modified.size) {
     const modifiedOutput = [`## Modified\n`];
     for (const [key, value] of modified.entries()) {

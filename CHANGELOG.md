@@ -1,3 +1,17 @@
+# v0.1.18
+
+## Modified
+
+* SourceBuffer
+  * Added: `changeType`
+
+### Non-value types
+
+* MediaTrackConstraintSet
+  * Added: `suppressLocalAudioPlayback`
+* MediaTrackSupportedConstraints
+  * Added: `suppressLocalAudioPlayback`
+
 # v0.1.17
 
 ## New interfaces

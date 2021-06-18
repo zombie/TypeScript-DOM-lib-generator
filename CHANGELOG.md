@@ -1,3 +1,10 @@
+# v0.1.19
+
+## Modified
+
+* FontFace
+  * Added: `ascentOverride`, `descentOverride`, `lineGapOverride`, `variationSettings`
+
 # v0.1.18
 
 ## Modified

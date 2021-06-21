@@ -5,15 +5,15 @@
     "node": ">=15"
   },
   "scripts": {
-    "build": "tsc -p ./tsconfig.json && node ./lib/index.js",
-    "fetch-idl": "tsc -p ./tsconfig.json && node ./lib/idlfetcher.js",
-    "fetch-mdn": "npm run build && node ./lib/mdnfetcher.js",
+    "build": "tsc -p ./tsconfig.json && node ./lib/build.js",
+    "fetch-idl": "tsc -p ./tsconfig.json && node ./lib/fetch-idl.js",
+    "fetch-mdn": "npm run build && node ./lib/fetch-mdn.js",
     "fetch": "echo This could take a few minutes... && npm run fetch-idl && npm run fetch-mdn",
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
     "lint": "eslint --max-warnings 0 src",
     "test": "npm run lint && npm run build && node ./lib/test.js",
     "danger": "danger",
-    "migrate": "node ./lib/migrate-to-tsc.js"
+    "migrate": "node ./lib/migrate.js"
   },
   "dependencies": {
     "@mdn/browser-compat-data": "2.0.7",

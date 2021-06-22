@@ -286,3 +286,4 @@ inputfiles/browser.webidl.json
 package-lock.json
 yarn.lock
 TypeScript
+deploy/generated

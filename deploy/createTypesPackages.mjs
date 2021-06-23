@@ -7,6 +7,7 @@ const packages = [
     {
       name: "@types/web",
       description: "Types for the DOM, and other web technologies in browsers",
+      readme: "./readmes/web.md",
       files: [
         { from: "../generated/dom.generated.d.ts", to: "index.d.ts" }
       ],
@@ -20,6 +21,7 @@ const packages = [
 import { join, dirname } from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import semver from "semver";
 import pkg from "prettier";
 const { format } = pkg;
 import { execSync } from "child_process";
@@ -58,9 +60,11 @@ const go = async () => {
       );
     });
 
-    // Setup the files
-    await updatePackageJSON(packagePath, pkg, gitSha);
+    // Setup the files in the repo
+    const newPkgJSON = await updatePackageJSON(packagePath, pkg, gitSha);
+    copyREADME(pkg, newPkgJSON, join(packagePath, "README.md"));
 
+    // Done
     console.log("Built:", pkg.name);
   }
 };
@@ -89,7 +93,7 @@ async function updatePackageJSON(packagePath, pkg, gitSha) {
       Number(semverMarkers[2]) + 1
     }`;
 
-    if (isBumpedVersionHigher(version, bumpedVersion)) {
+    if (semver.gt(version, bumpedVersion)) {
       version = bumpedVersion;
     }
   } catch (error) {
@@ -103,20 +107,23 @@ async function updatePackageJSON(packagePath, pkg, gitSha) {
     pkgJSONPath,
     format(JSON.stringify(packageJSON), { filepath: pkgJSONPath })
   );
+
+  return packageJSON;
 }
 
-/**
- * @param packageJSONVersion {string}
- * @param bumpedVersion {string}
- */
-function isBumpedVersionHigher(packageJSONVersion, bumpedVersion) {
-  const semverMarkersPackageJSON = packageJSONVersion.split(".");
-  const semverMarkersBumped = bumpedVersion.split(".");
-  for (let i = 0; i < 3; i++) {
-    if (Number(semverMarkersPackageJSON[i]) > Number(semverMarkersBumped[i])) {
-      return false;
-    }
-  }
+// Copies the README and adds some rudimentary templating to the file.
+function copyREADME(pkg, pkgJSON, writePath) {
+  let readme = fs.readFileSync(join(__filename, "..", pkg.readme), "utf-8");
 
-  return true;
+  const htmlEncodedTag =
+    encodeURIComponent(pkgJSON.name) + "%40" + pkgJSON.version;
+
+  readme = readme
+    .replace("{{version}}", pkgJSON.version)
+    .replace(
+      "{{release_href}}",
+      `https://github.com/microsoft/TypeScript-DOM-lib-generator/releases/tag/${htmlEncodedTag}`
+    );
+
+  fs.writeFileSync(writePath, readme);
 }

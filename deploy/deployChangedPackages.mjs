@@ -67,6 +67,7 @@ Assuming that this means we need to upload this package.`);
       if (process.env.NODE_AUTH_TOKEN) {
         const publish = spawnSync("npm", ["publish", "--access", "public"], {
           cwd: join("packages", dirName),
+          stdio: "inherit",
         });
 
         if (publish.status) {

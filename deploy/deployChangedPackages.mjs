@@ -55,11 +55,10 @@ const go = async () => {
         upload = upload || npmDTSText !== generatedDTSContent;
       } catch (error) {
         // Could not find a previous build
-        console.log(
-          `Could not get the file ${file} inside the npm package ${pkgJSON.name} from unpkg at ${unpkgURL}`
-        );
-        process.exitCode = 1;
-        upload = false;
+        console.log(`
+Could not get the file ${file} inside the npm package ${pkgJSON.name} from unpkg at ${unpkgURL}
+Assuming that this means we need to upload this package.`);
+        upload = true;
       }
     }
 

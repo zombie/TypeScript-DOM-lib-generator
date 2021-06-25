@@ -9,7 +9,8 @@ const packages = [
       description: "Types for the DOM, and other web technologies in browsers",
       readme: "./readmes/web.md",
       files: [
-        { from: "../generated/dom.generated.d.ts", to: "index.d.ts" }
+        { from: "../generated/dom.generated.d.ts", to: "index.d.ts" },
+        { from: "../generated/dom.iterable.generated.d.ts", to: "index.iterable.d.ts" }
       ],
     },
   ];

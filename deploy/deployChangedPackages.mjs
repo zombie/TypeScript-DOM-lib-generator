@@ -66,7 +66,7 @@ Assuming that this means we need to upload this package.`);
     if (upload) {
       if (process.env.NODE_AUTH_TOKEN) {
         const publish = spawnSync("npm", ["publish", "--access", "public"], {
-          cwd: join(generatedDir, "packages", dirName),
+          cwd: join(generatedDir, dirName),
           stdio: "inherit",
         });
 
@@ -79,6 +79,11 @@ Assuming that this means we need to upload this package.`);
 
           await createRelease(`${pkgJSON.name}@${pkgJSON.version}`);
         }
+      } else {
+        console.log(
+          "Wanting to run: 'npm publish --access public' in " +
+            join(generatedDir, dirName)
+        );
       }
 
       uploaded.push(dirName);
@@ -103,12 +108,18 @@ async function createRelease(tag) {
   const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
   const octokit = new Octokit({ auth: authToken });
 
-  await octokit.request("POST /repos/{owner}/{repo}/releases", {
-    owner: "microsoft",
-    repo: "TypeScript-DOM-lib-generator",
-    tag_name: tag,
-    target_commitish: process.env.GITHUB_SHA,
-  });
+  try {
+    await octokit.request("POST /repos/{owner}/{repo}/releases", {
+      owner: "microsoft",
+      repo: "TypeScript-DOM-lib-generator",
+      tag_name: tag,
+      target_commitish: process.env.GITHUB_SHA,
+    });
+  } catch (error) {
+    console.error(
+      "Creating the GitHub release failed, this is likely due to re-running the deploy."
+    );
+  }
 }
 
 go();

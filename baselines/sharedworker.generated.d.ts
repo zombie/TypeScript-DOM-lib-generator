@@ -62,6 +62,7 @@ interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
     colorSpace?: PredefinedColorSpace;
     desynchronized?: boolean;
+    willReadFrequently?: boolean;
 }
 
 interface CloseEventInit extends EventInit {
@@ -517,20 +518,17 @@ interface RsaPssParams extends Algorithm {
 
 interface SecurityPolicyViolationEventInit extends EventInit {
     blockedURI?: string;
-    blockedURL?: string;
-    colno?: number;
     columnNumber?: number;
     disposition: SecurityPolicyViolationEventDisposition;
-    documentURI?: string;
-    documentURL: string;
+    documentURI: string;
     effectiveDirective: string;
     lineNumber?: number;
-    lineno?: number;
     originalPolicy: string;
     referrer?: string;
     sample?: string;
     sourceFile?: string;
     statusCode: number;
+    violatedDirective: string;
 }
 
 interface StorageEstimate {
@@ -5723,7 +5721,7 @@ type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaEncodingType = "record" | "webrtc";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
-type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
+type PermissionName = "gamepad" | "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PredefinedColorSpace = "display-p3" | "srgb";
 type PremultiplyAlpha = "default" | "none" | "premultiply";

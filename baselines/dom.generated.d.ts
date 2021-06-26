@@ -152,6 +152,12 @@ interface BlobPropertyBag {
     type?: string;
 }
 
+interface CSSStyleSheetInit {
+    baseURL?: string;
+    disabled?: boolean;
+    media?: MediaList | string;
+}
+
 interface CacheQueryOptions {
     ignoreMethod?: boolean;
     ignoreSearch?: boolean;
@@ -162,6 +168,7 @@ interface CanvasRenderingContext2DSettings {
     alpha?: boolean;
     colorSpace?: PredefinedColorSpace;
     desynchronized?: boolean;
+    willReadFrequently?: boolean;
 }
 
 interface ChannelMergerOptions extends AudioNodeOptions {
@@ -1571,20 +1578,17 @@ interface ScrollToOptions extends ScrollOptions {
 
 interface SecurityPolicyViolationEventInit extends EventInit {
     blockedURI?: string;
-    blockedURL?: string;
-    colno?: number;
     columnNumber?: number;
     disposition: SecurityPolicyViolationEventDisposition;
-    documentURI?: string;
-    documentURL: string;
+    documentURI: string;
     effectiveDirective: string;
     lineNumber?: number;
-    lineno?: number;
     originalPolicy: string;
     referrer?: string;
     sample?: string;
     sourceFile?: string;
     statusCode: number;
+    violatedDirective: string;
 }
 
 interface ShadowRootInit {
@@ -3221,7 +3225,7 @@ interface CSSStyleSheet extends StyleSheet {
 
 declare var CSSStyleSheet: {
     prototype: CSSStyleSheet;
-    new(): CSSStyleSheet;
+    new(options?: CSSStyleSheetInit): CSSStyleSheet;
 };
 
 /** An object representing a single CSS @supports at-rule. It implements the CSSConditionRule interface, and therefore the CSSRule and CSSGroupingRule interfaces with a type value of 12 (CSSRule.SUPPORTS_RULE). */
@@ -8106,7 +8110,7 @@ interface HTMLSelectElement extends HTMLElement {
      * @param name Variant of type Number or String that specifies the object or collection to retrieve. If this parameter is an integer, it is the zero-based index of the object. If this parameter is a string, all objects with matching name or id properties are retrieved, and a collection is returned if more than one match is made.
      * @param index Variant of type Number that specifies the zero-based index of the object to retrieve when a collection is returned.
      */
-    item(index: number): Element | null;
+    item(index: number): HTMLOptionElement | null;
     /**
      * Retrieves a select object or an object from an options collection.
      * @param namedItem A String that specifies the name or id property of the object to retrieve. A collection is returned if more than one match is made.
@@ -12349,20 +12353,6 @@ declare var SVGComponentTransferFunctionElement: {
     readonly SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_TABLE: number;
     readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: number;
-};
-
-interface SVGCursorElement extends SVGElement {
-    readonly x: SVGAnimatedLength;
-    readonly y: SVGAnimatedLength;
-    addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGCursorElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGCursorElement, ev: SVGElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
-}
-
-declare var SVGCursorElement: {
-    prototype: SVGCursorElement;
-    new(): SVGCursorElement;
 };
 
 /** Corresponds to the <defs> element. */
@@ -18757,7 +18747,7 @@ type OscillatorType = "custom" | "sawtooth" | "sine" | "square" | "triangle";
 type OverSampleType = "2x" | "4x" | "none";
 type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
-type PermissionName = "geolocation" | "notifications" | "persistent-storage" | "push";
+type PermissionName = "gamepad" | "geolocation" | "notifications" | "persistent-storage" | "push";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";

@@ -815,25 +815,6 @@
                 "extends": "Error",
                 "legacyNamespace": "WebAssembly"
             },
-            "SVGCursorElement": {
-                "name": "SVGCursorElement",
-                "extends": "SVGElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "x": {
-                            "name": "x",
-                            "readonly": true,
-                            "type": "SVGAnimatedLength"
-                        },
-                        "y": {
-                            "name": "y",
-                            "readonly": true,
-                            "type": "SVGAnimatedLength"
-                        }
-                    }
-                }
-            },
             "SVGStyleElement": {
                 "properties": {
                     "property": {

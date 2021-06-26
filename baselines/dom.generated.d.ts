@@ -1915,6 +1915,7 @@ interface AbortSignal extends EventTarget {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
+    abort(): AbortSignal;
 };
 
 interface AbstractRange {
@@ -2975,6 +2976,7 @@ interface CSSStyleDeclaration {
     scrollPaddingRight: string;
     scrollPaddingTop: string;
     scrollSnapAlign: string;
+    scrollSnapStop: string;
     scrollSnapType: string;
     shapeImageThreshold: string;
     shapeMargin: string;
@@ -3383,6 +3385,7 @@ interface CanvasRect {
 /** The CanvasRenderingContext2D interface, part of the Canvas API, provides the 2D rendering context for the drawing surface of a <canvas> element. It is used for drawing shapes, text, images, and other objects. */
 interface CanvasRenderingContext2D extends CanvasCompositing, CanvasDrawImage, CanvasDrawPath, CanvasFillStrokeStyles, CanvasFilters, CanvasImageData, CanvasImageSmoothing, CanvasPath, CanvasPathDrawingStyles, CanvasRect, CanvasShadowStyles, CanvasState, CanvasText, CanvasTextDrawingStyles, CanvasTransform, CanvasUserInterface {
     readonly canvas: HTMLCanvasElement;
+    getContextAttributes(): CanvasRenderingContext2DSettings;
 }
 
 declare var CanvasRenderingContext2D: {
@@ -13978,6 +13981,7 @@ declare var ServiceWorkerRegistration: {
 };
 
 interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot, InnerHTML {
+    readonly delegatesFocus: boolean;
     readonly host: Element;
     readonly mode: ShadowRootMode;
     /**

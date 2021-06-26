@@ -93,7 +93,6 @@ export const forceKeepAlive: Record<string, string[]> = {
   CloseEvent: ["code", "reason", "wasClean"],
   DOMRectList: ["item", "length"],
   DOMMatrix: ["fromFloat32Array", "fromFloat64Array", "fromMatrix"],
-  DOMPoint: ["fromPoint"],
   DOMRect: ["fromRect"],
   Document: ["charset", "inputEncoding"],
   Element: ["webkitMatchesSelector"],

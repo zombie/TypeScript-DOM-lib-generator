@@ -26,7 +26,6 @@ export const forceKeepAlive: Record<string, string[]> = {
     "trace",
     "warn",
   ],
-  CSSConditionRule: ["conditionText"],
   CSSGroupingRule: ["cssRules", "deleteRule", "insertRule"],
   CSSStyleDeclaration: [
     "alignContent",
@@ -109,7 +108,6 @@ export const forceKeepAlive: Record<string, string[]> = {
   ],
   HTMLIFrameElement: ["allowPaymentRequest"],
   KeyframeEffect: ["iterationComposite"],
-  LinkStyle: ["sheet"],
   MediaCapabilities: ["encodingInfo"],
   MutationEvent: [
     "attrChange",
@@ -131,10 +129,8 @@ export const forceKeepAlive: Record<string, string[]> = {
     "disablePictureInPicture",
   ],
   Request: ["keepalive"],
-  ResizeObserverSize: ["blockSize", "inlineSize"],
   RTCDtlsTransport: ["onstatechange", "state"],
   RTCPeerConnection: ["canTrickleIceCandidates"],
-  ServiceWorkerGlobalScope: ["onmessageerror"],
   SVGAnimatedTransformList: ["animVal", "baseVal"],
   SVGElement: ["ownerSVGElement", "viewportElement"],
   SVGTransformList: [

@@ -310,27 +310,6 @@
                     }
                 }
             },
-            "HTMLAppletElement": {
-                "properties": {
-                    "property": {
-                        "archive": {
-                            "comment": "/**\n * Sets or retrieves a character string that can be used to implement your own archive functionality for the object.\n */"
-                        },
-                        "alt": {
-                            "comment": "/**\n * Sets or retrieves a text alternative to the graphic.\n */"
-                        },
-                        "name": {
-                            "comment": "/**\n * Sets or retrieves the shape of the object.\n */"
-                        },
-                        "height": {
-                            "comment": "/**\n * Sets or retrieves the height of the object.\n */"
-                        },
-                        "codeBase": {
-                            "comment": "/**\n * Sets or retrieves the URL of the component.\n */"
-                        }
-                    }
-                }
-            },
             "HTMLOListElement": {
                 "properties": {
                     "property": {
@@ -792,7 +771,7 @@
                             "comment": "/**\n * Returns a Boolean value that indicates whether the current command is supported on the current range.\n * @param commandId Specifies a command identifier.\n */"
                         },
                         "createTreeWalker": {
-                            "comment": "/**\n * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.\n * @param root The root element or node to start traversing on.\n * @param whatToShow The type of nodes or elements to appear in the node list. For more information, see whatToShow.\n * @param filter A custom NodeFilter function to use.\n * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.\n */"
+                            "comment": "/**\n * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.\n * @param root The root element or node to start traversing on.\n * @param whatToShow The type of nodes or elements to appear in the node list. For more information, see whatToShow.\n * @param filter A custom NodeFilter function to use.\n */"
                         },
                         "queryCommandEnabled": {
                             "comment": "/**\n * Returns a Boolean value that indicates whether a specified command can be successfully executed using execCommand, given the current state of the document.\n * @param commandId Specifies a command identifier.\n */"
@@ -828,7 +807,7 @@
                             "comment": "/**\n * Creates a text string from the specified value.\n * @param data String that specifies the nodeValue property of the text node.\n */"
                         },
                         "createNodeIterator": {
-                            "comment": "/**\n * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.\n * @param root The root element or node to start traversing on.\n * @param whatToShow The type of nodes or elements to appear in the node list\n * @param filter A custom NodeFilter function to use. For more information, see filter. Use null for no filter.\n * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded.\n */"
+                            "comment": "/**\n * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.\n * @param root The root element or node to start traversing on.\n * @param whatToShow The type of nodes or elements to appear in the node list\n * @param filter A custom NodeFilter function to use. For more information, see filter. Use null for no filter.\n */"
                         },
                         "getSelection": {
                             "comment": "/**\n * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.\n */"
@@ -1727,9 +1706,6 @@
             "HTMLOptGroupElement": {
                 "properties": {
                     "property": {
-                        "form": {
-                            "comment": "/**\n * Retrieves a reference to the form that the object is embedded in.\n */"
-                        },
                         "label": {
                             "comment": "/**\n * Sets or retrieves a value that you can use to implement your own label functionality for the object.\n */"
                         }

@@ -1,6 +1,6 @@
 import * as webidl2 from "webidl2";
-import * as Browser from "./types";
-import { getEmptyWebIDL } from "./helpers";
+import * as Browser from "./types.js";
+import { getEmptyWebIDL } from "./helpers.js";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function convert(text: string, commentMap: Record<string, string>) {
@@ -8,6 +8,7 @@ export function convert(text: string, commentMap: Record<string, string>) {
   const partialInterfaces: Browser.Interface[] = [];
   const partialMixins: Browser.Interface[] = [];
   const partialDictionaries: Browser.Dictionary[] = [];
+  const partialNamespaces: Browser.Interface[] = [];
   const includes: webidl2.IncludesType[] = [];
   const namespaceNested: Record<string, Browser.Interface> = {};
   const browser = getEmptyWebIDL();
@@ -24,18 +25,23 @@ export function convert(text: string, commentMap: Record<string, string>) {
       if (rootType.partial) {
         partialMixins.push(converted);
       } else {
-        browser["mixins"]!.mixin[rootType.name] = converted;
+        browser.mixins!.mixin[rootType.name] = converted;
       }
     } else if (rootType.type === "namespace") {
-      browser.namespaces!.push(convertNamespace(rootType, commentMap));
+      const converted = convertNamespace(rootType, commentMap);
+      if (rootType.partial) {
+        partialNamespaces.push(converted);
+      } else {
+        browser.namespaces!.push(converted);
+      }
     } else if (rootType.type === "callback interface") {
-      browser["callback-interfaces"]!.interface[rootType.name] =
+      browser.callbackInterfaces!.interface[rootType.name] =
         convertInterfaceCommon(rootType, commentMap);
     } else if (rootType.type === "callback") {
-      browser["callback-functions"]!["callback-function"][rootType.name] =
+      browser.callbackFunctions!.callbackFunction[rootType.name] =
         convertCallbackFunctions(rootType);
       addComments(
-        browser["callback-functions"]!["callback-function"][rootType.name],
+        browser.callbackFunctions!.callbackFunction[rootType.name],
         commentMap,
         rootType.name
       );
@@ -59,6 +65,7 @@ export function convert(text: string, commentMap: Record<string, string>) {
     partialInterfaces,
     partialMixins,
     partialDictionaries,
+    partialNamespaces,
     includes,
     namespaceNested,
   };
@@ -110,7 +117,7 @@ function convertInterfaceMixin(
 ) {
   const result = convertInterfaceCommon(i, commentMap);
   result.mixin = true;
-  result["no-interface-object"] = 1;
+  result.noInterfaceObject = true;
   return result;
 }
 
@@ -124,11 +131,9 @@ function addComments(
     container.toLowerCase() + (member ? "-" + member.toLowerCase() : "");
   if (commentMap[key]) {
     const comments = commentMap[key].split("\n");
-    obj["comment"] = "/**\n";
-    obj["comment"] += comments
-      .map((c) => ` * ${c}`.trimRight() + "\n")
-      .join("");
-    obj["comment"] += " */";
+    obj.comment = "/**\n";
+    obj.comment += comments.map((c) => ` * ${c}`.trimEnd() + "\n").join("");
+    obj.comment += " */";
   }
 }
 
@@ -141,22 +146,21 @@ function convertInterfaceCommon(
 ) {
   const result: Browser.Interface = {
     name: i.name,
-    extends: "Object",
     constants: { constant: {} },
     methods: { method: {} },
-    "anonymous-methods": { method: [] },
+    anonymousMethods: { method: [] },
     properties: { property: {}, namesakes: {} },
     constructor:
       getConstructor(i.members, i.name) ||
       getOldStyleConstructor(i.extAttrs, i.name),
-    "named-constructor": getLegacyFactoryFunction(i.extAttrs, i.name),
+    namedConstructor: getLegacyFactoryFunction(i.extAttrs, i.name),
     exposed: getExtAttrConcatenated(i.extAttrs, "Exposed"),
     global: getExtAttrConcatenated(i.extAttrs, "Global"),
-    "no-interface-object": hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject")
-      ? 1
-      : undefined,
-    "legacy-window-alias": getExtAttr(i.extAttrs, "LegacyWindowAlias"),
-    "legacy-namespace": getExtAttr(i.extAttrs, "LegacyNamespace")[0],
+    noInterfaceObject:
+      hasExtAttr(i.extAttrs, "LegacyNoInterfaceObject") ||
+      hasExtAttr(i.extAttrs, "NoInterfaceObject"),
+    legacyWindowAlias: getExtAttr(i.extAttrs, "LegacyWindowAlias"),
+    legacyNamespace: getExtAttr(i.extAttrs, "LegacyNamespace")[0],
   };
   if (!result.exposed && i.type === "interface" && !i.partial) {
     result.exposed = "Window";
@@ -171,6 +175,9 @@ function convertInterfaceCommon(
         member.name
       );
     } else if (member.type === "attribute") {
+      if ((member.special as string) === "inherit") {
+        continue; // no need to redeclare
+      }
       const { properties } = result;
       const prop = convertAttribute(member, result.exposed);
       addComments(prop, commentMap, i.name, member.name);
@@ -188,7 +195,7 @@ function convertInterfaceCommon(
       const operation = convertOperation(member, result.exposed);
       const { method } = result.methods;
       if (!member.name) {
-        result["anonymous-methods"]!.method.push(operation);
+        result.anonymousMethods!.method.push(operation);
       } else if (method.hasOwnProperty(member.name)) {
         method[member.name].signature.push(...operation.signature);
       } else {
@@ -299,9 +306,9 @@ function convertOperation(
         param: operation.arguments.map(convertArgument),
       },
     ],
-    getter: operation.special === "getter" ? 1 : undefined,
-    static: operation.special === "static" ? 1 : undefined,
-    stringifier: isStringifier ? 1 : undefined,
+    getter: operation.special === "getter",
+    static: operation.special === "static",
+    stringifier: isStringifier,
     exposed:
       getExtAttrConcatenated(operation.extAttrs, "Exposed") ||
       inheritedExposure,
@@ -313,7 +320,6 @@ function convertCallbackFunctions(
 ): Browser.CallbackFunction {
   return {
     name: c.name,
-    callback: 1,
     signature: [
       {
         ...convertIdlType(c.idlType),
@@ -324,16 +330,15 @@ function convertCallbackFunctions(
 }
 
 function convertArgument(arg: webidl2.Argument): Browser.Param {
-  const allowNull = hasExtAttr(arg.extAttrs, "LegacyNullToEmptyString");
   const idlType = convertIdlType(arg.idlType);
-  if (allowNull) {
-    idlType.nullable = 1;
+  if (hasExtAttr(arg.extAttrs, "LegacyNullToEmptyString")) {
+    idlType.nullable = true;
   }
   return {
     name: arg.name,
     ...idlType,
-    optional: arg.optional ? 1 : undefined,
-    variadic: arg.variadic ? 1 : undefined,
+    optional: arg.optional,
+    variadic: arg.variadic,
   };
 }
 
@@ -347,14 +352,14 @@ function convertAttribute(
   return {
     name: attribute.name,
     ...convertIdlType(attribute.idlType),
-    static: attribute.special === "static" ? 1 : undefined,
-    stringifier: attribute.special === "stringifier" ? 1 : undefined,
-    "read-only": attribute.readonly ? 1 : undefined,
-    "event-handler": isEventHandler ? attribute.name.slice(2) : undefined,
+    static: attribute.special === "static",
+    stringifier: attribute.special === "stringifier",
+    readonly: attribute.readonly,
+    eventHandler: isEventHandler ? attribute.name.slice(2) : undefined,
     exposed:
       getExtAttrConcatenated(attribute.extAttrs, "Exposed") ||
       inheritedExposure,
-    "put-forwards": getExtAttr(attribute.extAttrs, "PutForwards")[0],
+    putForwards: getExtAttr(attribute.extAttrs, "PutForwards")[0],
   };
 }
 
@@ -381,8 +386,10 @@ function convertConstantValue(value: webidl2.ValueDescription): string {
       return value.type;
     case "Infinity":
       return (value.negative ? "-" : "") + value.type;
+    case "dictionary":
+      return "{}";
     default:
-      throw new Error("Not implemented");
+      throw new Error(`Not implemented: ${(value as any).type}`);
   }
 }
 
@@ -392,7 +399,6 @@ function convertNamespace(
 ) {
   const result: Browser.Interface = {
     name: namespace.name,
-    extends: "Object",
     constructor: { signature: [] },
     methods: { method: {} },
     properties: { property: {} },
@@ -438,9 +444,11 @@ function convertDictionary(
 ) {
   const result: Browser.Dictionary = {
     name: dictionary.name,
-    extends: dictionary.inheritance || "Object",
     members: { member: {} },
   };
+  if (dictionary.inheritance) {
+    result.extends = dictionary.inheritance;
+  }
   for (const member of dictionary.members) {
     result.members.member[member.name] = convertDictionaryMember(member);
     addComments(
@@ -460,7 +468,7 @@ function convertDictionaryMember(
   return {
     name: member.name,
     default: member.default ? convertConstantValue(member.default) : undefined,
-    required: member.required ? 1 : undefined,
+    required: member.required,
     ...convertIdlType(member.idlType),
   };
 }
@@ -474,7 +482,7 @@ function convertEnum(en: webidl2.EnumType): Browser.Enum {
 
 function convertTypedef(typedef: webidl2.TypedefType): Browser.TypeDef {
   return {
-    "new-type": typedef.name,
+    name: typedef.name,
     ...convertIdlType(typedef.idlType),
   };
 }
@@ -483,7 +491,7 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
   if (typeof i.idlType === "string") {
     return {
       type: i.idlType,
-      nullable: i.nullable ? 1 : undefined,
+      nullable: i.nullable,
     };
   }
   if (i.generic) {
@@ -494,13 +502,13 @@ function convertIdlType(i: webidl2.IDLTypeDescription): Browser.Typed {
         : i.idlType.length === 1
         ? convertIdlType(i.idlType[0])
         : i.idlType.map(convertIdlType),
-      nullable: i.nullable ? 1 : undefined,
+      nullable: i.nullable,
     };
   }
   if (i.union) {
     return {
       type: (i.idlType as webidl2.IDLTypeDescription[]).map(convertIdlType),
-      nullable: i.nullable ? 1 : undefined,
+      nullable: i.nullable,
     };
   }
   throw new Error("Unsupported IDL type structure");

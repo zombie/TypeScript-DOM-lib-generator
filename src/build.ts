@@ -1,17 +1,18 @@
-import * as Browser from "./build/types";
-import * as fs from "fs";
-import * as path from "path";
-import {
-  merge,
-  resolveExposure,
-  markAsDeprecated,
-  mapToArray,
-  arrayToMap,
-} from "./build/helpers";
-import { Flavor, emitWebIdl } from "./build/emitter";
-import { convert } from "./build/widlprocess";
-import { getExposedTypes } from "./build/expose";
-import { getRemovalDataFromBcd } from "./build/bcd";
+import * as Browser from "./build/types.js";
+import { promises as fs } from "fs";
+import { createRequire } from "module";
+import { fileURLToPath } from "url";
+import { merge, resolveExposure, arrayToMap } from "./build/helpers.js";
+import { emitWebIdl } from "./build/emitter.js";
+import { convert } from "./build/widlprocess.js";
+import { getExposedTypes } from "./build/expose.js";
+import { getDeprecationData, getRemovalData } from "./build/bcd.js";
+import { createTryRequire } from "./build/utils/require.js";
+import { getInterfaceElementMergeData } from "./build/webref/elements.js";
+import { getWebidls } from "./build/webref/idl.js";
+
+const require = createRequire(import.meta.url);
+const tryRequire = createTryRequire(import.meta.url);
 
 function mergeNamesakes(filtered: Browser.WebIdl) {
   const targets = [
@@ -33,13 +34,12 @@ function mergeNamesakes(filtered: Browser.WebIdl) {
 }
 
 interface EmitOptions {
-  flavor: Flavor;
-  global: string;
+  global: string[];
   name: string;
-  outputFolder: string;
+  outputFolder: URL;
 }
 
-function emitFlavor(
+async function emitFlavor(
   webidl: Browser.WebIdl,
   forceKnownTypes: Set<string>,
   options: EmitOptions
@@ -47,23 +47,22 @@ function emitFlavor(
   const exposed = getExposedTypes(webidl, options.global, forceKnownTypes);
   mergeNamesakes(exposed);
 
-  const result = emitWebIdl(exposed, options.flavor, false);
-  fs.writeFileSync(
-    `${options.outputFolder}/${options.name}.generated.d.ts`,
+  const result = emitWebIdl(exposed, options.global[0], false);
+  await fs.writeFile(
+    new URL(`${options.name}.generated.d.ts`, options.outputFolder),
     result
   );
 
-  const iterators = emitWebIdl(exposed, options.flavor, true);
-  fs.writeFileSync(
-    `${options.outputFolder}/${options.name}.iterable.generated.d.ts`,
+  const iterators = emitWebIdl(exposed, options.global[0], true);
+  await fs.writeFile(
+    new URL(`${options.name}.iterable.generated.d.ts`, options.outputFolder),
     iterators
   );
 }
 
-function emitDom() {
-  const __SOURCE_DIRECTORY__ = __dirname;
-  const inputFolder = path.join(__SOURCE_DIRECTORY__, "../", "inputfiles");
-  const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
+async function emitDom() {
+  const inputFolder = new URL("../inputfiles/", import.meta.url);
+  const outputFolder = new URL("../generated/", import.meta.url);
 
   // ${name} will be substituted with the name of an interface
   const removeVerboseIntroductions: [RegExp, string][] = [
@@ -88,59 +87,42 @@ function emitDom() {
   ];
 
   // Create output folder
-  if (!fs.existsSync(outputFolder)) {
-    fs.mkdirSync(outputFolder);
-  }
+  await fs.mkdir(outputFolder, {
+    // Doesn't need to be recursive, but this helpfully ignores EEXIST
+    recursive: true,
+  });
 
-  const overriddenItems = require(path.join(
-    inputFolder,
-    "overridingTypes.json"
+  const overriddenItems = require(fileURLToPath(
+    new URL("overridingTypes.json", inputFolder)
   ));
-  const addedItems = require(path.join(inputFolder, "addedTypes.json"));
-  const comments = require(path.join(inputFolder, "comments.json"));
-  const deprecatedInfo = require(path.join(
-    inputFolder,
-    "deprecatedMessage.json"
+  const addedItems = require(fileURLToPath(
+    new URL("addedTypes.json", inputFolder)
   ));
-  const documentationFromMDN = require(path.join(
-    inputFolder,
-    "mdn",
-    "apiDescriptions.json"
+  const comments = require(fileURLToPath(
+    new URL("comments.json", inputFolder)
   ));
-  const removedItems = require(path.join(inputFolder, "removedTypes.json"));
-  const idlSources: any[] = require(path.join(inputFolder, "idlSources.json"));
-  const widlStandardTypes = idlSources.map(convertWidl);
+  const deprecatedInfo = require(fileURLToPath(
+    new URL("deprecatedMessage.json", inputFolder)
+  ));
+  const documentationFromMDN = require(fileURLToPath(
+    new URL("mdn/apiDescriptions.json", inputFolder)
+  ));
+  const removedItems = require(fileURLToPath(
+    new URL("removedTypes.json", inputFolder)
+  ));
+  const widlStandardTypes = (
+    await Promise.all([...(await getWebidls()).entries()].map(convertWidl))
+  ).filter((i) => i) as ReturnType<typeof convert>[];
 
-  function convertWidl({
-    title,
-    deprecated,
-  }: {
-    title: string;
-    deprecated?: boolean;
-  }) {
-    const filename = title + ".widl";
-    const idl: string = fs.readFileSync(
-      path.join(inputFolder, "idl", filename),
-      { encoding: "utf-8" }
+  async function convertWidl([shortName, idl]: string[]) {
+    const commentsMapFilePath = new URL(
+      `idl/${shortName}.commentmap.json`,
+      inputFolder
     );
-    const commentsMapFilePath = path.join(
-      inputFolder,
-      "idl",
-      title + ".commentmap.json"
-    );
-    const commentsMap: Record<string, string> = fs.existsSync(
-      commentsMapFilePath
-    )
-      ? require(commentsMapFilePath)
-      : {};
+    const commentsMap: Record<string, string> =
+      (await tryRequire(fileURLToPath(commentsMapFilePath))) ?? {};
     commentCleanup(commentsMap);
     const result = convert(idl, commentsMap);
-    if (deprecated) {
-      mapToArray(result.browser.interfaces!.interface).forEach(
-        markAsDeprecated
-      );
-      result.partialInterfaces.forEach(markAsDeprecated);
-    }
     return result;
   }
 
@@ -163,15 +145,8 @@ function emitDom() {
     );
     for (const [key, value] of Object.entries(descriptions)) {
       const target = idl.interfaces!.interface[key] || namespaces[key];
-      if (target) {
-        if (value.startsWith("REDIRECT")) {
-          // When an MDN article for an interface redirects to a different one,
-          // it implies the interface was renamed in the specification and
-          // its old name should be deprecated.
-          markAsDeprecated(target);
-        } else {
-          target.comment = transformVerbosity(key, value);
-        }
+      if (target && !value.startsWith("REDIRECT")) {
+        target.comment = transformVerbosity(key, value);
       }
     }
     return idl;
@@ -212,12 +187,7 @@ function emitDom() {
   }
 
   /// Load the input file
-  let webidl: Browser.WebIdl = require(path.join(
-    inputFolder,
-    "browser.webidl.preprocessed.json"
-  ));
-
-  const knownTypes = require(path.join(inputFolder, "knownTypes.json"));
+  let webidl: Browser.WebIdl = {};
 
   for (const w of widlStandardTypes) {
     webidl = merge(webidl, w.browser, true);
@@ -250,21 +220,29 @@ function emitDom() {
         merge(base.members, partial.members, true);
       }
     }
+    for (const partial of w.partialNamespaces) {
+      const base = webidl.namespaces?.find((n) => n.name === partial.name);
+      if (base) {
+        if (base.exposed) resolveExposure(partial, base.exposed);
+        merge(base.methods, partial.methods, true);
+        merge(base.properties, partial.properties, true);
+      }
+    }
     for (const include of w.includes) {
       const target = webidl.interfaces!.interface[include.target];
       if (target) {
         if (!target.implements) {
           target.implements = [include.includes];
-        } else if (!target.implements.includes(include.includes)) {
-          // This makes sure that browser.webidl.preprocessed.json
-          // does not already have the mixin reference
+        } else {
           target.implements.push(include.includes);
         }
       }
     }
   }
+  webidl = merge(webidl, await getInterfaceElementMergeData());
 
-  webidl = merge(webidl, getRemovalDataFromBcd(webidl) as any);
+  webidl = merge(webidl, getDeprecationData(webidl));
+  webidl = merge(webidl, getRemovalData(webidl) as any);
   webidl = prune(webidl, removedItems);
   webidl = mergeApiDescriptions(webidl, documentationFromMDN);
   webidl = merge(webidl, addedItems);
@@ -273,21 +251,38 @@ function emitDom() {
   webidl = mergeDeprecatedMessage(webidl, deprecatedInfo);
   for (const name in webidl.interfaces!.interface) {
     const i = webidl.interfaces!.interface[name];
-    if (i["override-exposed"]) {
-      resolveExposure(i, i["override-exposed"]!, true);
+    if (i.overrideExposed) {
+      resolveExposure(i, i.overrideExposed!, true);
     }
   }
 
+  const knownTypes = require(fileURLToPath(
+    new URL("knownTypes.json", inputFolder)
+  ));
+
   emitFlavor(webidl, new Set(knownTypes.Window), {
     name: "dom",
-    flavor: Flavor.Window,
-    global: "Window",
+    global: ["Window"],
     outputFolder,
   });
   emitFlavor(webidl, new Set(knownTypes.Worker), {
     name: "webworker",
-    flavor: Flavor.Worker,
-    global: "Worker",
+    global: ["Worker", "DedicatedWorker", "SharedWorker", "ServiceWorker"],
+    outputFolder,
+  });
+  emitFlavor(webidl, new Set(knownTypes.Worker), {
+    name: "sharedworker",
+    global: ["SharedWorker", "Worker"],
+    outputFolder,
+  });
+  emitFlavor(webidl, new Set(knownTypes.Worker), {
+    name: "serviceworker",
+    global: ["ServiceWorker", "Worker"],
+    outputFolder,
+  });
+  emitFlavor(webidl, new Set(knownTypes.Worklet), {
+    name: "audioworklet",
+    global: ["AudioWorklet", "Worklet"],
     outputFolder,
   });
 
@@ -299,9 +294,9 @@ function emitDom() {
 
     function filterByNull(obj: any, template: any) {
       if (!template) return obj;
-      const filtered = { ...obj };
+      const filtered = Array.isArray(obj) ? obj.slice(0) : { ...obj };
       for (const k in template) {
-        if (!obj[k] || obj[k].exposed === "") {
+        if (!obj[k]) {
           console.warn(
             `removedTypes.json has a redundant field ${k} in ${JSON.stringify(
               template
@@ -315,20 +310,25 @@ function emitDom() {
           }
           // template should include strings
           filtered[k] = obj[k].filter((item: any) => {
-            const name =
-              typeof item === "string" ? item : item.name || item["new-type"];
+            const name = typeof item === "string" ? item : item.name;
             return !template[k].includes(name);
           });
           if (filtered[k].length === obj[k].length) {
+            const differences = template[k].filter(
+              (t: any) => !obj[k].includes(t)
+            );
             console.warn(
-              `removedTypes.json has a redundant array item in ${JSON.stringify(
-                template[k]
-              )}`
+              `removedTypes.json has a redundant array items: ${differences}`
             );
           }
         } else if (template[k] !== null) {
           filtered[k] = filterByNull(obj[k], template[k]);
         } else {
+          if (obj[k].exposed === "") {
+            console.warn(
+              `removedTypes.json removes ${k} that has already been disabled by BCD.`
+            );
+          }
           delete filtered[k];
         }
       }
@@ -337,4 +337,4 @@ function emitDom() {
   }
 }
 
-emitDom();
+await emitDom();

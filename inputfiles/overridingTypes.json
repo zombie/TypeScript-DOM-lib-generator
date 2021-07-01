@@ -488,16 +488,8 @@
                         "event": {
                             "deprecated": true
                         },
-                        "frameElement": {
-                            "nullable": 1
-                        },
                         "location": {
                             "readonly": false
-                        },
-                        "opener": {
-                            "name": "opener",
-                            "override-type": "WindowProxy | null",
-                            "read-only": 0
                         },
                         "onorientationchange": {
                             "deprecated": true
@@ -1684,16 +1676,6 @@
                 "methods": {
                     "method": {
                         "getRegistration": {
-                            "name": "getRegistration",
-                            "override-signatures": [
-                                "getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | undefined>"
-                            ]
-                        },
-                        "register": {
-                            "name": "register",
-                            "override-signatures": [
-                                "register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>"
-                            ],
                             "signature": {
                                 "0": {
                                     "overrideType": "Promise<ServiceWorkerRegistration | undefined>"
@@ -1909,41 +1891,6 @@
                 }
             },
             "RTCPeerConnection": {
-                "name": "RTCPeerConnection",
-                "methods": {
-                    "method": {
-                        "createAnswer": {
-                            "name": "createAnswer",
-                            "override-signatures": [
-                                "createAnswer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>"
-                            ]
-                        },
-                        "createOffer": {
-                            "name": "createOffer",
-                            "override-signatures": [
-                                "createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>"
-                            ]
-                        },
-                        "setLocalDescription": {
-                            "name": "setLocalDescription",
-                            "override-signatures": [
-                                "setLocalDescription(description?: RTCSessionDescriptionInit): Promise<void>"
-                            ]
-                        },
-                        "setRemoteDescription": {
-                            "name": "setRemoteDescription",
-                            "override-signatures": [
-                                "setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>"
-                            ]
-                        },
-                        "addIceCandidate": {
-                            "name": "addIceCandidate",
-                            "override-signatures": [
-                                "addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate): Promise<void>"
-                            ]
-                        }
-                    }
-                },
                 "events": {
                     "event": [
                         {
@@ -1957,10 +1904,6 @@
                         {
                             "name": "datachannel",
                             "type": "RTCDataChannelEvent"
-                        },
-                        {
-                            "name": "isolationchange",
-                            "type": "Event"
                         }
                     ]
                 },
@@ -2039,33 +1982,6 @@
                         {
                             "name": "push",
                             "type": "PushEvent"
-                        },
-                        {
-                            "name": "sync",
-                            "type": "SyncEvent"
-                        }
-                    ]
-                }
-            },
-            "Notification": {
-                "name": "Notification",
-                "events": {
-                    "event": [
-                        {
-                            "name": "click",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "close",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "show",
-                            "type": "Event"
                         }
                     ]
                 }

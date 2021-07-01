@@ -489,6 +489,10 @@ interface FontFaceSetLoadEventInit extends EventInit {
     fontfaces?: FontFace[];
 }
 
+interface FormDataEventInit extends EventInit {
+    formData: FormData;
+}
+
 interface FullscreenOptions {
     navigationUI?: FullscreenNavigationUI;
 }
@@ -1276,46 +1280,12 @@ interface RTCOfferOptions extends RTCOfferAnswerOptions {
 }
 
 interface RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
-    averageRtcpInterval?: number;
-    bytesDiscardedOnSend?: number;
-    encoderImplementation?: string;
-    fecPacketsSent?: number;
     firCount?: number;
-    frameBitDepth?: number;
-    frameHeight?: number;
-    frameWidth?: number;
-    framesDiscardedOnSend?: number;
     framesEncoded?: number;
-    framesPerSecond?: number;
-    framesSent?: number;
-    headerBytesSent?: number;
-    hugeFramesSent?: number;
-    keyFramesEncoded?: number;
-    lastPacketSentTimestamp?: DOMHighResTimeStamp;
-    mediaSourceId?: string;
     nackCount?: number;
-    packetsDiscardedOnSend?: number;
-    perDscpPacketsSent?: Record<string, number>;
     pliCount?: number;
     qpSum?: number;
-    qualityLimitationDurations?: Record<string, number>;
-    qualityLimitationReason?: RTCQualityLimitationReason;
-    qualityLimitationResolutionChanges?: number;
     remoteId?: string;
-    retransmittedBytesSent?: number;
-    retransmittedPacketsSent?: number;
-    rid?: string;
-    rtxSsrc?: number;
-    samplesEncodedWithCelt?: number;
-    samplesEncodedWithSilk?: number;
-    senderId?: string;
-    sliCount?: number;
-    targetBitrate?: number;
-    totalEncodeTime?: number;
-    totalEncodedBytesTarget?: number;
-    totalPacketSendDelay?: number;
-    totalSamplesSent?: number;
-    voiceActivityFlag?: boolean;
 }
 
 interface RTCPeerConnectionIceErrorEventInit extends EventInit {
@@ -1332,22 +1302,10 @@ interface RTCPeerConnectionIceEventInit extends EventInit {
 }
 
 interface RTCReceivedRtpStreamStats extends RTCRtpStreamStats {
-    burstDiscardCount?: number;
-    burstDiscardRate?: number;
-    burstLossCount?: number;
-    burstLossRate?: number;
-    burstPacketsDiscarded?: number;
-    burstPacketsLost?: number;
-    framesDropped?: number;
-    fullFramesLost?: number;
-    gapDiscardRate?: number;
-    gapLossRate?: number;
     jitter?: number;
     packetsDiscarded?: number;
     packetsLost?: number;
     packetsReceived?: number;
-    packetsRepaired?: number;
-    partialFramesLost?: number;
 }
 
 interface RTCRtcpParameters {
@@ -1364,7 +1322,6 @@ interface RTCRtpCodecCapability {
     channels?: number;
     clockRate: number;
     mimeType: string;
-    scalabilityModes?: string[];
     sdpFmtpLine?: string;
 }
 
@@ -1390,9 +1347,7 @@ interface RTCRtpContributingSource {
 interface RTCRtpEncodingParameters extends RTCRtpCodingParameters {
     active?: boolean;
     maxBitrate?: number;
-    networkPriority?: RTCPriorityType;
     priority?: RTCPriorityType;
-    scalabilityMode?: string;
     scaleResolutionDownBy?: number;
 }
 
@@ -1465,18 +1420,11 @@ interface RTCTransportStats extends RTCStats {
     bytesSent?: number;
     dtlsCipher?: string;
     dtlsState: RTCDtlsTransportState;
-    iceLocalUsernameFragment?: string;
-    iceRole?: RTCIceRole;
-    iceState?: RTCIceTransportState;
     localCertificateId?: string;
-    packetsReceived?: number;
-    packetsSent?: number;
     remoteCertificateId?: string;
     rtcpTransportStatsId?: string;
-    selectedCandidatePairChanges?: number;
     selectedCandidatePairId?: string;
     srtpCipher?: string;
-    tlsGroup?: string;
     tlsVersion?: string;
 }
 
@@ -1802,7 +1750,6 @@ interface UnderlyingSink<W = any> {
 }
 
 interface UnderlyingSource<R = any> {
-    autoAllocateChunkSize?: number;
     cancel?: UnderlyingSourceCancelCallback;
     pull?: UnderlyingSourcePullCallback<R>;
     start?: UnderlyingSourceStartCallback<R>;
@@ -1814,7 +1761,6 @@ interface VideoConfiguration {
     colorGamut?: ColorGamut;
     contentType: string;
     framerate: number;
-    hasAlphaChannel?: boolean;
     hdrMetadataType?: HdrMetadataType;
     height: number;
     scalabilityMode?: string;
@@ -1837,7 +1783,6 @@ interface WebGLContextAttributes {
     premultipliedAlpha?: boolean;
     preserveDrawingBuffer?: boolean;
     stencil?: boolean;
-    xrCompatible?: boolean;
 }
 
 interface WebGLContextEventInit extends EventInit {
@@ -4527,8 +4472,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
     createEvent(eventInterface: "DragEvent"): DragEvent;
     createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
-    createEvent(eventInterface: "Event"): Event;
-    createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
     createEvent(eventInterface: "FontFaceSetLoadEvent"): FontFaceSetLoadEvent;
     createEvent(eventInterface: "FormDataEvent"): FormDataEvent;
@@ -5450,6 +5393,18 @@ interface FormData {
 declare var FormData: {
     prototype: FormData;
     new(form?: HTMLFormElement): FormData;
+};
+
+interface FormDataEvent extends Event {
+    /**
+     * Returns a FormData object representing names and values of elements associated to the target form. Operations on the FormData object will affect form data to be submitted.
+     */
+    readonly formData: FormData;
+}
+
+declare var FormDataEvent: {
+    prototype: FormDataEvent;
+    new(type: string, eventInitDict: FormDataEventInit): FormDataEvent;
 };
 
 /** A change in volume. It is an AudioNode audio-processing module that causes a given gain to be applied to the input data before its propagation to the output. A GainNode always has exactly one input and one output, both with the same number of channels. */
@@ -10963,6 +10918,12 @@ interface ParentNode {
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
+    /**
+     * Replace all children of node with nodes, while replacing strings in nodes with equivalent Text nodes.
+     *
+     * Throws a "HierarchyRequestError" DOMException if the constraints of the node tree are violated.
+     */
+    replaceChildren(...nodes: (Node | string)[]): void;
 }
 
 /** This Canvas 2D API interface is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired. */
@@ -11697,7 +11658,6 @@ interface RTCPeerConnectionEventMap {
     "icecandidate": RTCPeerConnectionIceEvent;
     "iceconnectionstatechange": Event;
     "icegatheringstatechange": Event;
-    "isolationchange": Event;
     "negotiationneeded": Event;
     "signalingstatechange": Event;
     "track": RTCTrackEvent;
@@ -13979,7 +13939,7 @@ interface ServiceWorkerContainer extends EventTarget {
     readonly ready: Promise<ServiceWorkerRegistration>;
     getRegistration(clientURL?: string | URL): Promise<ServiceWorkerRegistration | undefined>;
     getRegistrations(): Promise<ReadonlyArray<ServiceWorkerRegistration>>;
-    register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration | undefined>;
+    register(scriptURL: string | URL, options?: RegistrationOptions): Promise<ServiceWorkerRegistration>;
     startMessages(): void;
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (this: ServiceWorkerContainer, ev: ServiceWorkerContainerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;

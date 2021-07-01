@@ -103,7 +103,6 @@ interface UnderlyingSink<W = any> {
 }
 
 interface UnderlyingSource<R = any> {
-    autoAllocateChunkSize?: number;
     cancel?: UnderlyingSourceCancelCallback;
     pull?: UnderlyingSourcePullCallback<R>;
     start?: UnderlyingSourceStartCallback<R>;

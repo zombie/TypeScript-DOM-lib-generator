@@ -1,6 +1,6 @@
 # TypeScript and JavaScript lib generator
 
-This tool is used to generate the web-based `*.d.ts` files which are included with TypeScript releases, and as `@types/x` packages.
+This tool is used to generate the web-based `lib.dom.d.ts` file which is included with TypeScript releases, and as the `@types/web` package.
 
 ## Why is my fancy API still not available here?
 

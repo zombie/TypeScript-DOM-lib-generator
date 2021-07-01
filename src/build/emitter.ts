@@ -327,7 +327,8 @@ export function emitWebIdl(
     if (obj.overrideType) {
       return obj.nullable ? makeNullable(obj.overrideType) : obj.overrideType;
     }
-    if (!obj.type) throw new Error("Missing type " + JSON.stringify(obj));
+    if (!obj.type)
+      throw new Error("Missing 'type' field in " + JSON.stringify(obj));
     const type = convertDomTypeToTsTypeWorker(obj);
     return obj.nullable ? makeNullable(type) : type;
   }
@@ -1037,7 +1038,7 @@ export function emitWebIdl(
       if (tryEmitTypedEventHandlerForInterface(addOrRemove, optionsType)) {
         // only emit the string event handler if we just emitted a typed handler
         printer.printLine(
-          `${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListener, options?: boolean | ${optionsType}): void;`
+          `${fPrefix}${addOrRemove}EventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | ${optionsType}): void;`
         );
       }
     }

@@ -109,8 +109,6 @@ interface UnderlyingSource<R = any> {
     type?: undefined;
 }
 
-type EventListener = ((event: Event) => void) | { handleEvent(event: Event): void; };
-
 interface AudioWorkletGlobalScope extends WorkletGlobalScope {
     readonly currentFrame: number;
     readonly currentTime: number;
@@ -234,6 +232,14 @@ declare var Event: {
     readonly NONE: number;
 };
 
+interface EventListener {
+    (evt: Event): void;
+}
+
+interface EventListenerObject {
+    handleEvent(object: Event): void;
+}
+
 /** EventTarget is a DOM interface implemented by objects that can receive events and may have listeners for them. */
 interface EventTarget {
     /**
@@ -251,7 +257,7 @@ interface EventTarget {
      *
      * The event listener is appended to target's event listener list and is not appended if it has the same type, callback, and capture.
      */
-    addEventListener(type: string, callback: EventListener | null, options?: AddEventListenerOptions | boolean): void;
+    addEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: AddEventListenerOptions | boolean): void;
     /**
      * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
      */
@@ -259,7 +265,7 @@ interface EventTarget {
     /**
      * Removes the event listener in target's event listener list with the same type, callback, and options.
      */
-    removeEventListener(type: string, callback: EventListener | null, options?: EventListenerOptions | boolean): void;
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
 }
 
 declare var EventTarget: {
@@ -323,9 +329,9 @@ interface MessagePort extends EventTarget {
      */
     start(): void;
     addEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListener, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof MessagePortEventMap>(type: K, listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListener, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var MessagePort: {
@@ -648,6 +654,7 @@ declare var sampleRate: number;
 declare function registerProcessor(name: string, processorCtor: AudioWorkletProcessorConstructor): void;
 type BufferSource = ArrayBufferView | ArrayBuffer;
 type DOMHighResTimeStamp = number;
+type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 type MessageEventSource = MessagePort;
 type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
 type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;

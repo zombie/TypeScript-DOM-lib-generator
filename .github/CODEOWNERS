@@ -2,3 +2,4 @@ src/**/*.ts @saschanaz
 baselines/* @saschanaz
 inputfiles/**/* @saschanaz
 README.md @saschanaz
+package-lock.json @saschanaz

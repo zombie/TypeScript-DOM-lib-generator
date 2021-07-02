@@ -21,6 +21,7 @@ const packages = [
 
 import { join, dirname } from "path";
 import fs from "fs";
+import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 import semver from "semver";
 import pkg from "prettier";

@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 import fetch from "node-fetch";
 import { spawnSync } from "child_process";
 import { Octokit } from "@octokit/core";
+import printDiff from "print-diff";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -34,6 +35,7 @@ const go = async () => {
   // .d.ts files from the version available on npm.
   const generatedDir = join(__dirname, "generated");
   for (const dirName of fs.readdirSync(generatedDir)) {
+    console.log(`Looking at ${dirName}`);
     const localPackageJSONPath = join(generatedDir, dirName, "package.json");
     const newTSConfig = fs.readFileSync(localPackageJSONPath, "utf-8");
     const pkgJSON = JSON.parse(newTSConfig);
@@ -52,6 +54,9 @@ const go = async () => {
       try {
         const npmDTSReq = await fetch(unpkgURL);
         const npmDTSText = await npmDTSReq.text();
+        console.log("Comparing version from unpkg, to generated version:");
+        printDiff(npmDTSText, generatedDTSContent);
+
         upload = upload || npmDTSText !== generatedDTSContent;
       } catch (error) {
         // Could not find a previous build

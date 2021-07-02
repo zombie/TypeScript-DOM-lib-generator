@@ -98,6 +98,8 @@ async function updatePackageJSON(packagePath, pkg, gitSha) {
       version = bumpedVersion;
     }
   } catch (error) {
+    console.error("Caught error in grabbing version for package");
+    console.error(error);
     // NOOP, this is for the first deploy, which will set it to 0.0.1
   }
 

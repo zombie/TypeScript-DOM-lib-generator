@@ -3,7 +3,7 @@ name: Deploy to npm
 on:
   push:
     branches:
-      - master
+      - main
 
   workflow_dispatch:
 

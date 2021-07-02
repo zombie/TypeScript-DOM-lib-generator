@@ -1,18 +1,13 @@
 import * as fs from "fs";
-import * as path from "path";
 import child_process from "child_process";
 import printDiff from "print-diff";
+import { fileURLToPath } from "url";
 
-const __SOURCE_DIRECTORY__ = __dirname;
-const baselineFolder = path.join(__SOURCE_DIRECTORY__, "../", "baselines");
-const outputFolder = path.join(__SOURCE_DIRECTORY__, "../", "generated");
-const tscPath = path.join(
-  __SOURCE_DIRECTORY__,
-  "../",
-  "node_modules",
-  "typescript",
-  "lib",
-  "tsc.js"
+const baselineFolder = new URL("../baselines/", import.meta.url);
+const outputFolder = new URL("../generated/", import.meta.url);
+const tscPath = new URL(
+  "../node_modules/typescript/lib/tsc.js",
+  import.meta.url
 );
 
 function normalizeLineEndings(text: string): string {
@@ -21,17 +16,19 @@ function normalizeLineEndings(text: string): string {
 
 function compareToBaselines() {
   for (const file of fs.readdirSync(baselineFolder)) {
-    if (file.startsWith(".")) continue;
+    if (file.startsWith(".")) {
+      continue;
+    }
 
     const baseline = normalizeLineEndings(
-      fs.readFileSync(path.join(baselineFolder, file)).toString()
+      fs.readFileSync(new URL(file, baselineFolder)).toString()
     );
     const generated = normalizeLineEndings(
-      fs.readFileSync(path.join(outputFolder, file)).toString()
+      fs.readFileSync(new URL(file, outputFolder)).toString()
     );
     if (baseline !== generated) {
       console.error(`Test failed: '${file}' is different from baseline file.`);
-      printDiff(generated, baseline);
+      printDiff(baseline, generated);
       return false;
     }
   }
@@ -41,8 +38,10 @@ function compareToBaselines() {
 function compileGeneratedFiles(lib: string, ...files: string[]) {
   try {
     child_process.execSync(
-      `node ${tscPath} --strict --lib ${lib} --types --noEmit ${files
-        .map((file) => path.join(outputFolder, file))
+      `node ${fileURLToPath(
+        tscPath
+      )} --strict --lib ${lib} --types --noEmit ${files
+        .map((file) => fileURLToPath(new URL(file, outputFolder)))
         .join(" ")}`
     );
   } catch (e) {
@@ -58,11 +57,34 @@ function test() {
   if (
     compareToBaselines() &&
     compileGeneratedFiles("es5", "dom.generated.d.ts") &&
-    compileGeneratedFiles("es5", "webworker.generated.d.ts") &&
     compileGeneratedFiles(
       "es6",
       "dom.generated.d.ts",
       "dom.iterable.generated.d.ts"
+    ) &&
+    compileGeneratedFiles("es5", "webworker.generated.d.ts") &&
+    compileGeneratedFiles(
+      "es6",
+      "webworker.generated.d.ts",
+      "webworker.iterable.generated.d.ts"
+    ) &&
+    compileGeneratedFiles("es5", "sharedworker.generated.d.ts") &&
+    compileGeneratedFiles(
+      "es6",
+      "sharedworker.generated.d.ts",
+      "sharedworker.iterable.generated.d.ts"
+    ) &&
+    compileGeneratedFiles("es5", "serviceworker.generated.d.ts") &&
+    compileGeneratedFiles(
+      "es6",
+      "serviceworker.generated.d.ts",
+      "serviceworker.iterable.generated.d.ts"
+    ) &&
+    compileGeneratedFiles("es5", "audioworklet.generated.d.ts") &&
+    compileGeneratedFiles(
+      "es6",
+      "audioworklet.generated.d.ts",
+      "audioworklet.iterable.generated.d.ts"
     )
   ) {
     console.log("All tests passed.");

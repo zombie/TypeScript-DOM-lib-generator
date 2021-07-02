@@ -1,4 +1,4 @@
-import * as Browser from "./types";
+import * as Browser from "./types.js";
 
 // Extended types used but not defined in the spec
 export const bufferSourceTypes = new Set([
@@ -43,6 +43,7 @@ const sameTypes = new Set([
   "Date",
   "Function",
   "Promise",
+  "PromiseLike",
   "undefined",
   "void",
 ]);
@@ -59,20 +60,20 @@ export const baseTypeConversionMap = new Map<string, string>([
   ["EventHandler", "EventHandler"],
 ]);
 
-export function filter<T>(
+export function deepFilter<T>(
   obj: T,
   fn: (o: any, n: string | undefined) => boolean
 ): T {
   if (typeof obj === "object") {
     if (Array.isArray(obj)) {
       return mapDefined(obj, (e) =>
-        fn(e, undefined) ? filter(e, fn) : undefined
+        fn(e, undefined) ? deepFilter(e, fn) : undefined
       ) as any as T;
     } else {
       const result: any = {};
       for (const e in obj) {
         if (fn(obj[e], e)) {
-          result[e] = filter(obj[e], fn);
+          result[e] = deepFilter(obj[e], fn);
         }
       }
       return result;
@@ -94,11 +95,11 @@ export function filterProperties<T, U extends T>(
   return result;
 }
 
-export function exposesTo(o: { exposed?: string }, target: string): boolean {
+export function exposesTo(o: { exposed?: string }, target: string[]): boolean {
   if (!o || typeof o.exposed !== "string") {
     return true;
   }
-  return o.exposed.includes(target);
+  return o.exposed.split(" ").some((e) => target.includes(e));
 }
 
 export function merge<T>(target: T, src: T, shallow?: boolean): T {
@@ -113,11 +114,6 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
         if (Array.isArray(targetProp) && Array.isArray(srcProp)) {
           mergeNamedArrays(targetProp, srcProp);
         } else {
-          if (Array.isArray(targetProp) !== Array.isArray(srcProp)) {
-            throw new Error(
-              "Mismatch on property: " + k + JSON.stringify(srcProp)
-            );
-          }
           if (
             shallow &&
             typeof (targetProp as any).name === "string" &&
@@ -125,6 +121,11 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
           ) {
             target[k] = srcProp;
           } else {
+            if (targetProp === srcProp && k !== "name") {
+              console.warn(
+                `Redundant merge value ${targetProp} in ${JSON.stringify(src)}`
+              );
+            }
             target[k] = merge(targetProp, srcProp, shallow);
           }
         }
@@ -136,20 +137,20 @@ export function merge<T>(target: T, src: T, shallow?: boolean): T {
   return target;
 }
 
-function mergeNamedArrays<T extends { name: string; "new-type": string }>(
+function mergeNamedArrays<T extends { name: string }>(
   srcProp: T[],
   targetProp: T[]
 ) {
   const map: any = {};
   for (const e1 of srcProp) {
-    const name = e1.name || e1["new-type"];
+    const { name } = e1;
     if (name) {
       map[name] = e1;
     }
   }
 
   for (const e2 of targetProp) {
-    const name = e2.name || e2["new-type"];
+    const { name } = e2;
     if (name && map[name]) {
       merge(map[name], e2);
     } else {
@@ -162,8 +163,8 @@ export function distinct<T>(a: T[]): T[] {
   return Array.from(new Set(a).values());
 }
 
-export function mapToArray<T>(m: Record<string, T>): T[] {
-  return Object.keys(m || {}).map((k) => m[k]);
+export function mapToArray<T>(m?: Record<string, T>): T[] {
+  return Object.keys(m || {}).map((k) => m![k]);
 }
 
 export function arrayToMap<T, U>(
@@ -178,7 +179,7 @@ export function arrayToMap<T, U>(
   return result;
 }
 
-export function map<T, U>(
+export function mapValues<T, U>(
   obj: Record<string, T> | undefined,
   fn: (o: T) => U
 ): U[] {
@@ -217,10 +218,10 @@ export function concat<T>(a: T[] | undefined, b: T[] | undefined): T[] {
 
 export function getEmptyWebIDL(): Browser.WebIdl {
   return {
-    "callback-functions": {
-      "callback-function": {},
+    callbackFunctions: {
+      callbackFunction: {},
     },
-    "callback-interfaces": {
+    callbackInterfaces: {
       interface: {},
     },
     dictionaries: {
@@ -287,17 +288,14 @@ function collectTypeReferences(obj: any): string[] {
 
 function getNonValueTypeMap(webidl: Browser.WebIdl) {
   const namedTypes: { name: string }[] = [
-    ...mapToArray(webidl["callback-functions"]!["callback-function"]),
-    ...mapToArray(webidl["callback-interfaces"]!.interface),
+    ...mapToArray(webidl.callbackFunctions!.callbackFunction),
+    ...mapToArray(webidl.callbackInterfaces!.interface),
     ...mapToArray(webidl.dictionaries!.dictionary),
     ...mapToArray(webidl.enums!.enum),
     ...mapToArray(webidl.mixins!.mixin),
+    ...webidl.typedefs!.typedef,
   ];
-  const map = new Map(namedTypes.map((t) => [t.name, t] as [string, any]));
-  webidl.typedefs!.typedef.map((typedef) =>
-    map.set(typedef["new-type"], typedef)
-  );
-  return map;
+  return new Map(namedTypes.map((t) => [t.name, t] as [string, any]));
 }
 
 export function followTypeReferences(
@@ -321,18 +319,9 @@ export function followTypeReferences(
     if (!type) {
       return;
     }
-    if (!set.has(type.name || type["new-type"])) {
-      set.add(type.name || type["new-type"]);
+    if (!set.has(type.name)) {
+      set.add(type.name);
       collectTypeReferences(type).forEach(follow);
     }
-  }
-}
-
-export function markAsDeprecated(i: Browser.Interface): void {
-  for (const method of mapToArray(i.methods.method)) {
-    method.deprecated = 1;
-  }
-  for (const property of mapToArray(i.properties!.property)) {
-    property.deprecated = 1;
   }
 }

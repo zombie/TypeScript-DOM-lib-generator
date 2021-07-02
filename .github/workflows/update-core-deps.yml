@@ -1,0 +1,33 @@
+name: Update core dependencies
+on:
+  workflow_dispatch:
+  schedule:
+    # https://crontab.guru/#5_8_*_*_*
+    - cron: "5 8 * * *"
+
+# Conditional runs
+# https://stackoverflow.com/a/61832535/2460034
+jobs:
+  update-webref:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '15'
+
+      - run: npm i -g npm-check-updates
+      - run: ncu -u
+      - run: npm i
+      - run: npm run build && npm run baseline-accept
+      - id: git-diff
+        run: git diff --quiet HEAD baselines
+        continue-on-error: true
+      - uses: peter-evans/create-pull-request@v3
+        if: ${{ steps.git-diff.outcome == 'failure' }}
+        with:
+          commit-message: "chore(package): update core dependencies"
+          title: "chore(package): update core dependencies"
+          branch: update-core-deps
+          token: ${{ secrets.TS_GITHUB_BOT_AUTH }}
+

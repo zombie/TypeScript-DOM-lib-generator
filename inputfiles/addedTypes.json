@@ -1,6 +1,16 @@
 {
     "mixins": {
         "mixin": {
+            "AbstractWorker": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "error",
+                            "type": "ErrorEvent"
+                        }
+                    ]
+                }
+            },
             "DocumentAndElementEventHandlers": {
                 "events": {
                     "event": [
@@ -19,55 +29,8 @@
                     ]
                 }
             },
-            "DocumentOrShadowRoot": {
-                "name": "DocumentOrShadowRoot",
-                "methods": {
-                    "method": {
-                        "getSelection": {
-                            "name": "getSelection",
-                            "override-signatures": [
-                                "getSelection(): Selection | null"
-                            ]
-                        },
-                        "elementFromPoint": {
-                            "name": "elementFromPoint",
-                            "override-signatures": [
-                                "elementFromPoint(x: number, y: number): Element | null"
-                            ]
-                        },
-                        "elementsFromPoint": {
-                            "name": "elementsFromPoint",
-                            "override-signatures": [
-                                "elementsFromPoint(x: number, y: number): Element[]"
-                            ]
-                        },
-                        "caretRangeFromPoint": {
-                            "name": "caretRangeFromPoint",
-                            "deprecated": 1,
-                            "override-signatures": [
-                                "caretRangeFromPoint(x: number, y: number): Range"
-                            ]
-                        },
-                        "caretPositionFromPoint": {
-                            "name": "caretPositionFromPoint",
-                            "override-signatures": [
-                                "caretPositionFromPoint(x: number, y: number): CaretPosition | null"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "activeElement": {
-                            "name": "activeElement",
-                            "read-only": 1,
-                            "override-type": "Element | null"
-                        }
-                    }
-                }
-            },
             "GlobalEventHandlers": {
-                "attributeless-events": {
+                "events": {
                     "event": [
                         {
                             "name": "beforeinput",
@@ -90,24 +53,36 @@
                             "type": "FocusEvent"
                         },
                         {
-                            "name": "focusout",
-                            "type": "FocusEvent"
-                        }
-                    ]
-                },
-                "events": {
-                    "event": [
+                            "name": "abort",
+                            "type": "UIEvent"
+                        },
                         {
                             "name": "auxclick",
                             "type": "MouseEvent"
                         },
                         {
-                            "name": "cancel",
-                            "type": "Event"
+                            "name": "beforeinput",
+                            "type": "InputEvent"
                         },
                         {
-                            "name": "change",
-                            "type": "Event"
+                            "name": "blur",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "click",
+                            "type": "MouseEvent"
+                        },
+                        {
+                            "name": "compositionstart",
+                            "type": "CompositionEvent"
+                        },
+                        {
+                            "name": "compositionupdate",
+                            "type": "CompositionEvent"
+                        },
+                        {
+                            "name": "compositionend",
+                            "type": "CompositionEvent"
                         },
                         {
                             "name": "drag",
@@ -136,6 +111,26 @@
                         {
                             "name": "drop",
                             "type": "DragEvent"
+                        },
+                        {
+                            "name": "error",
+                            "type": "ErrorEvent"
+                        },
+                        {
+                            "name": "focus",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "focusin",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "focusout",
+                            "type": "FocusEvent"
+                        },
+                        {
+                            "name": "formdata",
+                            "type": "FormDataEvent"
                         },
                         {
                             "name": "keydown",
@@ -178,16 +173,12 @@
                             "type": "MouseEvent"
                         },
                         {
-                            "name": "pause",
-                            "type": "Event"
+                            "name": "progress",
+                            "type": "ProgressEvent"
                         },
                         {
-                            "name": "scroll",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "select",
-                            "type": "Event"
+                            "name": "resize",
+                            "type": "UIEvent"
                         },
                         {
                             "name": "wheel",
@@ -212,6 +203,34 @@
                 "events": {
                     "event": [
                         {
+                            "name": "beforeunload",
+                            "type": "BeforeUnloadEvent"
+                        },
+                        {
+                            "name": "message",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "messageerror",
+                            "type": "MessageEvent"
+                        },
+                        {
+                            "name": "pagehide",
+                            "type": "PageTransitionEvent"
+                        },
+                        {
+                            "name": "pageshow",
+                            "type": "PageTransitionEvent"
+                        },
+                        {
+                            "name": "popstate",
+                            "type": "PopStateEvent"
+                        },
+                        {
+                            "name": "storage",
+                            "type": "StorageEvent"
+                        },
+                        {
                             "name": "unhandledrejection",
                             "type": "PromiseRejectionEvent"
                         },
@@ -224,7 +243,7 @@
             }
         }
     },
-    "callback-interfaces": {
+    "callbackInterfaces": {
         "interface": {}
     },
     "enums": {
@@ -237,119 +256,16 @@
                     "sharedworker",
                     "all"
                 ]
+            },
+            "RTCStatsIceCandidatePairState": {
+                "value": [
+                    "inprogress"
+                ]
             }
         }
     },
     "interfaces": {
         "interface": {
-            "AudioTrack": {
-                "exposed": ""
-            },
-            "SVGSVGElement": {
-                "name": "SVGSVGElement",
-                "methods": {
-                    "method": {
-                        "animationsPaused": {
-                            "name": "animationsPaused",
-                            "override-signatures": [
-                                "animationsPaused(): boolean"
-                            ]
-                        }
-                    }
-                }
-            },
-            "SVGFEDropShadowElement": {
-                "name": "SVGFEDropShadowElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "in1": {
-                            "name": "in1",
-                            "read-only": 1,
-                            "type": "SVGAnimatedString"
-                        },
-                        "dx": {
-                            "name": "dx",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        },
-                        "dy": {
-                            "name": "dy",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        },
-                        "stdDeviationX": {
-                            "name": "stdDeviationX",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        },
-                        "stdDeviationY": {
-                            "name": "stdDeviationY",
-                            "read-only": 1,
-                            "type": "SVGAnimatedNumber"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "setStdDeviation": {
-                            "name": "setStdDeviation",
-                            "override-signatures": [
-                                "setStdDeviation(stdDeviationX: number, stdDeviationY: number): void"
-                            ]
-                        }
-                    }
-                },
-                "extends": "SVGElement"
-            },
-            "AbortSignal": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
-            "ApplicationCache": {
-                "events": {
-                    "event": [
-                        {
-                            "name": "checking",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "noupdate",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "downloading",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "progress",
-                            "type": "ProgressEvent"
-                        },
-                        {
-                            "name": "cached",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "updateready",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "obsolete",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
             "BroadcastChannel": {
                 "events": {
                     "event": [
@@ -364,11 +280,16 @@
                     ]
                 }
             },
+            "CompileError": {
+                "name": "CompileError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
+            },
             "DeviceMotionEventAcceleration": {
-                "no-interface-object": 1
+                "noInterfaceObject": true
             },
             "DeviceMotionEventRotationRate": {
-                "no-interface-object": 1
+                "noInterfaceObject": true
             },
             "HTMLImageElement": {
                 "name": "HTMLImageElement",
@@ -376,15 +297,43 @@
                     "property": {
                         "decoding": {
                             "name": "decoding",
-                            "override-type": "\"async\" | \"sync\" | \"auto\""
+                            "overrideType": "\"async\" | \"sync\" | \"auto\""
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "img"
-                    }
-                ]
+                }
+            },
+            "HTMLTableDataCellElement": {
+                "name": "HTMLTableDataCellElement",
+                "extends": "HTMLTableCellElement",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "exposed": "Window"
+            },
+            "HTMLTableHeaderCellElement": {
+                "name": "HTMLTableHeaderCellElement",
+                "extends": "HTMLTableCellElement",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "exposed": "Window"
+            },
+            "HTMLDialogElement": {
+                "name": "HTMLDialogElement",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - this is not available in most browsers",
+                "exposed": "Window"
+            },
+            "OffscreenCanvas": {
+                "name": "OffscreenCanvas",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - this is not available in most browsers",
+                "exposed": "Worker"
+            },
+            "HTMLDocument": {
+                "name": "HTMLDocument",
+                "extends": "Document",
+                "noInterfaceObject": true,
+                "comment": "@deprecated - use Document",
+                "exposed": "Window"
             },
             "HTMLMediaElement": {
                 "events": {
@@ -400,78 +349,52 @@
                 "name": "CSSStyleDeclaration",
                 "properties": {
                     "property": {
-                        "pointerEvents": {
-                            "name": "pointerEvents",
-                            "type": "CSSOMString"
+                        "imageOrientation": {
+                            "deprecated": true
                         },
-                        "resize": {
-                            "name": "resize",
-                            "type": "CSSOMString"
-                        },
-                        "touchAction": {
-                            "deprecated": 0
-                        },
-                        "userSelect": {
-                            "name": "userSelect",
-                            "type": "CSSOMString"
-                        },
-                        "webkitAppearance": {
-                            "name": "webkitAppearance",
-                            "type": "CSSOMString",
-                            "deprecated": 1
-                        },
-                        "webkitUserSelect": {
-                            "name": "webkitUserSelect",
-                            "type": "CSSOMString",
-                            "deprecated": 1
-                        },
-                        "webkitTapHighlightColor": {
-                            "name": "webkitTapHighlightColor",
-                            "type": "CSSOMString"
-                        },
-                        "zoom": {
-                            "name": "zoom",
-                            "type": "CSSOMString",
-                            "deprecated": 1
+                        "wordWrap": {
+                            "deprecated": true
                         }
                     }
                 }
             },
             "Window": {
                 "name": "Window",
-                "properties": {
-                    "property": {
-                        "customElements": {
-                            "name": "customElements",
-                            "type": "CustomElementRegistry"
-                        },
-                        "ongamepadconnected": {
-                            "name": "ongamepadconnected",
-                            "type-original": "EventHandler",
-                            "nullable": 1,
-                            "type": "EventHandlerNonNull",
-                            "event-handler": "gamepadconnected"
-                        },
-                        "ongamepaddisconnected": {
-                            "name": "ongamepaddisconnected",
-                            "type-original": "EventHandler",
-                            "nullable": 1,
-                            "type": "EventHandlerNonNull",
-                            "event-handler": "gamepaddisconnected"
+                "methods": {
+                    "method": {
+                        "captureEvents": {
+                            "deprecated": true
                         }
                     }
                 },
-                "implements": [
-                    "WindowEventHandlers"
-                ],
-                "override-index-signatures": [
+                "properties": {
+                    "property": {
+                        "HTMLDocument": {
+                            "name": "HTMLDocument",
+                            "type": "Document"
+                        }
+                    }
+                },
+                "overrideIndexSignatures": [
                     "[index: number]: Window"
                 ],
                 "events": {
                     "event": [
                         {
-                            "name": "deviceorientationabsolute",
+                            "name": "devicemotion",
+                            "type": "DeviceMotionEvent"
+                        },
+                        {
+                            "name": "deviceorientation",
                             "type": "DeviceOrientationEvent"
+                        },
+                        {
+                            "name": "gamepadconnected",
+                            "type": "GamepadEvent"
+                        },
+                        {
+                            "name": "gamepaddisconnected",
+                            "type": "GamepadEvent"
                         }
                     ]
                 }
@@ -479,9 +402,16 @@
             "URLSearchParams": {
                 "name": "URLSearchParams",
                 "constructor": {
-                    "override-signatures": [
-                        "new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams"
-                    ]
+                    "signature": {
+                        "0": {
+                            "param": [
+                                {
+                                    "name": "init",
+                                    "additionalTypes": ["URLSearchParams"]
+                                }
+                            ]
+                        }
+                    }
                 }
             },
             "URL": {
@@ -490,7 +420,7 @@
                     "method": {
                         "createObjectURL": {
                             "exposed": "Window Worker",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "createObjectURL(object: any): string"
                             ]
                         }
@@ -499,7 +429,7 @@
             },
             "NodeListOf": {
                 "name": "NodeListOf",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "TNode",
                         "extends": "Node"
@@ -511,28 +441,28 @@
                     "method": {
                         "item": {
                             "name": "item",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "item(index: number): TNode"
                             ]
                         }
                     }
                 },
-                "no-interface-object": "1",
-                "override-index-signatures": [
+                "noInterfaceObject": true,
+                "overrideIndexSignatures": [
                     "[index: number]: TNode"
                 ],
                 "iterator": {
                     "kind": "iterable",
                     "type": [
                         {
-                            "override-type": "TNode"
+                            "overrideType": "TNode"
                         }
                     ]
                 }
             },
             "HTMLCollectionOf": {
                 "name": "HTMLCollectionOf",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "extends": "Element"
@@ -543,11 +473,11 @@
                 "methods": {
                     "method": {
                         "item": {
-                            "getter": 1,
+                            "getter": true,
                             "signature": [
                                 {
-                                    "nullable": 1,
-                                    "override-type": "T",
+                                    "nullable": true,
+                                    "overrideType": "T",
                                     "param": [
                                         {
                                             "name": "index",
@@ -561,99 +491,79 @@
                         },
                         "namedItem": {
                             "name": "namedItem",
-                            "override-signatures": [
+                            "overrideSignatures": [
                                 "namedItem(name: string): T | null"
                             ]
                         }
                     }
                 },
-                "no-interface-object": "1"
-            },
-            "EventListenerObject": {
-                "name": "EventListenerObject",
-                "methods": {
-                    "method": {
-                        "handleEvent": {
-                            "name": "handleEvent",
-                            "override-signatures": [
-                                "handleEvent(evt: Event): void"
-                            ]
-                        }
-                    }
-                },
-                "no-interface-object": "1"
+                "noInterfaceObject": true
             },
             "Element": {
-                "events": {
-                    "event": [
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchstart",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchmove",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchcancel",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        },
-                        {
-                            "dispatch": "sync",
-                            "specs": "dom4",
-                            "name": "touchend",
-                            "type": "TouchEvent",
-                            "cancelable": 1,
-                            "bubbles": 1
-                        }
-                    ]
-                },
                 "name": "Element",
                 "methods": {
                     "method": {
                         "getElementsByClassName": {
                             "name": "getElementsByClassName",
-                            "override-signatures": [
-                                "getElementsByClassName(classNames: string): HTMLCollectionOf<Element>"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "overrideType": "HTMLCollectionOf<Element>"
+                                }
+                            }
                         },
                         "closest": {
-                            "name": "closest",
-                            "override-signatures": [
+                            "additionalSignatures": [
                                 "closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null",
-                                "closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null",
-                                "closest<E extends Element = Element>(selector: string): E | null"
-                            ]
+                                "closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null"
+                            ],
+                            "signature": {
+                                "0": {
+                                    "typeParameters": [
+                                        {
+                                            "name": "E",
+                                            "extends": "Element",
+                                            "default": "Element"
+                                        }
+                                    ],
+                                    "overrideType": "E"
+                                }
+                            }
                         },
                         "insertAdjacentElement": {
-                            "name": "insertAdjacentElement",
-                            "override-signatures": [
-                                "insertAdjacentElement(position: InsertPosition, insertedElement: Element): Element | null"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "where",
+                                            "type": "InsertPosition"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "insertAdjacentHTML": {
-                            "name": "insertAdjacentHTML",
-                            "override-signatures": [
-                                "insertAdjacentHTML(where: InsertPosition, html: string): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "position",
+                                            "type": "InsertPosition"
+                                        }
+                                    ]
+                                }
+                            }
                         },
                         "insertAdjacentText": {
-                            "name": "insertAdjacentText",
-                            "override-signatures": [
-                                "insertAdjacentText(where: InsertPosition, text: string): void"
-                            ]
+                            "signature": {
+                                "0": {
+                                    "param": [
+                                        {
+                                            "name": "where",
+                                            "type": "InsertPosition"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     }
                 },
@@ -661,18 +571,61 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
                 }
+            },
+            // This is used in many DT libraries, via ckeditor
+            "ClientRect": {
+                "name": "ClientRect",
+                "exposed": "Window",
+                "deprecated": true,
+                "extends": "DOMRect",
+                "noInterfaceObject": true
+            },
+            /*
+              Keeping EventListener and EventListenerObject isn't the most elegant way to handle
+              the event listeners, but we need to keep the EventListener as an extendable interface
+              for libraries like angular.
+            */
+            "EventListener": {
+                "name": "EventListener",
+                "noInterfaceObject": true,
+                "methods": {
+                    "method": {
+                        // This is a hack to add a call signature, but I think it's reasonable
+                        // as it means we don't have to add a call signatures section to the
+                        // emitter for this one case.
+                        "callable": {
+                            "overrideSignatures": [
+                                "(evt: Event): void"
+                            ]
+                        }
+                    }
+                },
+
+            },
+            "EventListenerObject": {
+                "name": "EventListenerObject",
+                "noInterfaceObject": true,
+                "methods": {
+                    "method": {
+                        "handleEvent": {
+                            "overrideSignatures": [
+                                "handleEvent(object: Event): void"
+                            ]
+                        }
+                    }
+                },
             },
             "Document": {
                 "methods": {
                     "method": {
                         "createElementNS": {
                             "name": "createElementNS",
-                            "additional-signatures": [
+                            "additionalSignatures": [
                                 "createElementNS(namespaceURI: \"http://www.w3.org/1999/xhtml\", qualifiedName: string): HTMLElement",
                                 "createElementNS<K extends keyof SVGElementTagNameMap>(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: K): SVGElementTagNameMap[K]",
                                 "createElementNS(namespaceURI: \"http://www.w3.org/2000/svg\", qualifiedName: string): SVGElement",
@@ -681,56 +634,59 @@
                         }
                     }
                 },
-                "events": {
-                    "event": [
-                        {
-                            "name": "visibilitychange",
-                            "type": "Event"
-                        }
-                    ]
-                },
                 "properties": {
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
-                            "override-type": "null"
+                            "readonly": true,
+                            "overrideType": "null"
+                        }
+                    }
+                }
+            },
+            // This is used in the React d.ts files, and not including 
+            // it would force an update for anyone using React.
+            "StyleMedia": {
+                "name": "StyleMedia",
+                "exposed": "Window",
+                "noInterfaceObject": true,
+                "deprecated": true,
+                "properties": {
+                    "property": {
+                        "type": {
+                            "name": "type",
+                            "type": "DOMString"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "matchMedium": {
+                            "name": "matchMedium",
+                            "overrideSignatures": [
+                                "matchMedium(mediaquery: string): boolean"
+                            ]
                         }
                     }
                 }
             },
             "Navigator": {
                 "name": "Navigator",
-                "methods": {
-                    "method": {
-                        "vibrate": {
-                            "name": "vibrate",
-                            "override-signatures": [
-                                "vibrate(pattern: number | number[]): boolean"
-                            ]
-                        }
-                    }
-                },
                 "properties": {
                     "property": {
                         "pointerEnabled": {
                             "name": "pointerEnabled",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "boolean"
                         },
                         "doNotTrack": {
                             "name": "doNotTrack",
-                            "read-only": 1,
-                            "nullable": 1,
+                            "readonly": true,
+                            "nullable": true,
                             "type": "DOMString"
                         }
                     }
                 }
-            },
-            "IDBArrayKey": {
-                "name": "IDBArrayKey",
-                "extends": "Array<IDBValidKey>",
-                "no-interface-object": "1"
             },
             "HTMLIFrameElement": {
                 "name": "HTMLIFrameElement",
@@ -740,29 +696,12 @@
                             "type": "ReferrerPolicy"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "iframe"
-                    }
-                ]
+                }
             },
             "IDBDatabase": {
                 "name": "IDBDatabase",
                 "events": {
                     "event": [
-                        {
-                            "name": "abort",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "close",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        },
                         {
                             "name": "versionchange",
                             "type": "IDBVersionChangeEvent"
@@ -776,229 +715,17 @@
                 "events": {
                     "event": [
                         {
-                            "name": "block",
-                            "type": "Event"
-                        },
-                        {
                             "name": "upgradeneeded",
                             "type": "IDBVersionChangeEvent"
                         }
                     ]
                 }
             },
-            "IDBRequest": {
-                "name": "IDBRequest",
-                "events": {
-                    "event": [
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "success",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
-            "IDBTransaction": {
-                "name": "IDBTransaction",
-                "events": {
-                    "event": [
-                        {
-                            "name": "abort",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "complete",
-                            "type": "Event"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
-                        }
-                    ]
-                }
-            },
-            "AesCmacParams": {
-                "name": "AesCmacParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "length": {
-                            "name": "length",
-                            "type": "unsigned long"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "AesCfbParams": {
-                "name": "AesCfbParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "iv": {
-                            "name": "iv",
-                            "override-type": "Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "DhKeyGenParams": {
-                "name": "DhKeyGenParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "prime": {
-                            "name": "prime",
-                            "type": "Uint8Array"
-                        },
-                        "generator": {
-                            "name": "generator",
-                            "type": "Uint8Array"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "DhKeyAlgorithm": {
-                "name": "DhKeyAlgorithm",
-                "extends": "KeyAlgorithm",
-                "properties": {
-                    "property": {
-                        "prime": {
-                            "name": "prime",
-                            "type": "Uint8Array"
-                        },
-                        "generator": {
-                            "name": "generator",
-                            "type": "Uint8Array"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "DhKeyDeriveParams": {
-                "name": "DhKeyDeriveParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "prime": {
-                            "name": "public",
-                            "type": "CryptoKey"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "DhImportKeyParams": {
-                "name": "DhImportKeyParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "prime": {
-                            "name": "prime",
-                            "type": "Uint8Array"
-                        },
-                        "generator": {
-                            "name": "generator",
-                            "type": "Uint8Array"
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "ConcatParams": {
-                "name": "ConcatParams",
-                "extends": "Algorithm",
-                "properties": {
-                    "property": {
-                        "hash": {
-                            "name": "hash",
-                            "override-type": "string | Algorithm",
-                            "required": 0
-                        },
-                        "algorithmId": {
-                            "name": "algorithmId",
-                            "type": "Uint8Array"
-                        },
-                        "partyUInfo": {
-                            "name": "partyUInfo",
-                            "type": "Uint8Array"
-                        },
-                        "partyVInfo": {
-                            "name": "partyVInfo",
-                            "type": "Uint8Array"
-                        },
-                        "publicInfo": {
-                            "name": "publicInfo",
-                            "type": "Uint8Array",
-                            "required": 0
-                        },
-                        "privateInfo": {
-                            "name": "privateInfo",
-                            "type": "Uint8Array",
-                            "required": 0
-                        }
-                    }
-                },
-                "no-interface-object": "1"
-            },
-            "DataTransfer": {
-                "name": "DataTransfer",
-                "methods": {
-                    "method": {
-                        "setDragImage": {
-                            "name": "setDragImage",
-                            "override-signatures": [
-                                "setDragImage(image: Element, x: number, y: number): void"
-                            ]
-                        }
-                    }
-                }
-            },
-            "KeyboardEvent": {
-                "properties": {
-                    "property": {
-                        "charCode": {
-                            "deprecated": 1
-                        },
-                        "keyCode": {
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
             "UIEvent": {
                 "properties": {
                     "property": {
                         "which": {
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "DocumentFragment": {
-                "name": "DocumentFragment",
-                "methods": {
-                    "method": {
-                        "getElementById": {
-                            "name": "getElementById",
-                            "exposed": "Window",
-                            "override-signatures": [
-                                "getElementById(elementId: string): HTMLElement | null"
-                            ]
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "ownerDocument": {
-                            "name": "ownerDocument",
-                            "read-only": 1,
-                            "type": "Document"
+                            "deprecated": true
                         }
                     }
                 }
@@ -1017,10 +744,6 @@
                         {
                             "name": "error",
                             "type": "SpeechRecognitionErrorEvent"
-                        },
-                        {
-                            "name": "end",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -1071,8 +794,8 @@
                     "property": {
                         "assignedSlot": {
                             "name": "assignedSlot",
-                            "read-only": 1,
-                            "override-type": "HTMLSlotElement | null"
+                            "readonly": true,
+                            "overrideType": "HTMLSlotElement | null"
                         }
                     }
                 }
@@ -1095,21 +818,7 @@
                 "methods": {
                     "method": {
                         "scaleNonUniform": {
-                            "deprecated": 1
-                        }
-                    }
-                }
-            },
-            "DOMTokenList": {
-                "name": "DOMTokenList",
-                "exposed": "Window",
-                "methods": {
-                    "method": {
-                        "replace": {
-                            "name": "replace",
-                            "override-signatures": [
-                                "replace(oldToken: string, newToken: string): void"
-                            ]
+                            "deprecated": true
                         }
                     }
                 }
@@ -1118,381 +827,52 @@
                 "events": {
                     "event": [
                         {
-                            "name": "error",
-                            "type": "Event"
+                            "name": "message",
+                            "type": "MessageEvent"
                         }
                     ]
                 }
             },
-            "HTMLAnchorElement": {
-                "element": [
-                    {
-                        "name": "a"
-                    }
-                ]
-            },
-            "HTMLAreaElement": {
-                "element": [
-                    {
-                        "name": "area"
-                    }
-                ]
-            },
-            "HTMLAudioElement": {
-                "element": [
-                    {
-                        "name": "audio"
-                    }
-                ]
-            },
-            "HTMLBaseElement": {
-                "element": [
-                    {
-                        "name": "base"
-                    }
-                ]
-            },
             "HTMLBodyElement": {
-                "element": [
-                    {
-                        "name": "body"
+                "properties": {
+                    "property": {
+                        "onorientationchange": {
+                            "deprecated": true
+                        }
                     }
-                ]
-            },
-            "HTMLBRElement": {
-                "element": [
-                    {
-                        "name": "br"
-                    }
-                ]
-            },
-            "HTMLCanvasElement": {
-                "element": [
-                    {
-                        "name": "canvas"
-                    }
-                ]
-            },
-            "HTMLDataElement": {
-                "element": [
-                    {
-                        "name": "data"
-                    }
-                ]
-            },
-            "HTMLDetailsElement": {
-                "element": [
-                    {
-                        "name": "details"
-                    }
-                ]
-            },
-            "HTMLDivElement": {
-                "element": [
-                    {
-                        "name": "div"
-                    }
-                ]
-            },
-            "HTMLDListElement": {
-                "element": [
-                    {
-                        "name": "dl"
-                    }
-                ]
+                }
             },
             "HTMLElement": {
-                "element": [
-                    {
-                        "name": "abbr"
-                    },
-                    {
-                        "name": "address"
-                    },
-                    {
-                        "name": "article"
-                    },
-                    {
-                        "name": "aside"
-                    },
-                    {
-                        "name": "b"
-                    },
-                    {
-                        "name": "bdi"
-                    },
-                    {
-                        "name": "bdo"
-                    },
-                    {
-                        "name": "cite"
-                    },
-                    {
-                        "name": "code"
-                    },
-                    {
-                        "name": "dd"
-                    },
-                    {
-                        "name": "dfn"
-                    },
-                    {
-                        "name": "dt"
-                    },
-                    {
-                        "name": "em"
-                    },
-                    {
-                        "name": "figcaption"
-                    },
-                    {
-                        "name": "figure"
-                    },
-                    {
-                        "name": "footer"
-                    },
-                    {
-                        "name": "header"
-                    },
-                    {
-                        "name": "hgroup"
-                    },
-                    {
-                        "name": "i"
-                    },
-                    {
-                        "name": "kbd"
-                    },
-                    {
-                        "name": "main"
-                    },
-                    {
-                        "name": "mark"
-                    },
-                    {
-                        "name": "nav"
-                    },
-                    {
-                        "name": "noscript"
-                    },
-                    {
-                        "name": "rp"
-                    },
-                    {
-                        "name": "rt"
-                    },
-                    {
-                        "name": "ruby"
-                    },
-                    {
-                        "name": "s"
-                    },
-                    {
-                        "name": "samp"
-                    },
-                    {
-                        "name": "section"
-                    },
-                    {
-                        "name": "small"
-                    },
-                    {
-                        "name": "strong"
-                    },
-                    {
-                        "name": "sub"
-                    },
-                    {
-                        "name": "summary"
-                    },
-                    {
-                        "name": "sup"
-                    },
-                    {
-                        "name": "u"
-                    },
-                    {
-                        "name": "var"
-                    },
-                    {
-                        "name": "wbr"
-                    }
-                ],
                 "implements": [
                     "ElementCSSInlineStyle"
-                ]
-            },
-            "HTMLEmbedElement": {
-                "element": [
-                    {
-                        "name": "embed"
-                    }
-                ]
-            },
-            "HTMLFormElement": {
-                "element": [
-                    {
-                        "name": "form"
-                    }
-                ]
-            },
-            "HTMLHeadElement": {
-                "element": [
-                    {
-                        "name": "head"
-                    }
-                ]
-            },
-            "HTMLHeadingElement": {
-                "element": [
-                    {
-                        "name": "h1"
-                    },
-                    {
-                        "name": "h2"
-                    },
-                    {
-                        "name": "h3"
-                    },
-                    {
-                        "name": "h4"
-                    },
-                    {
-                        "name": "h5"
-                    },
-                    {
-                        "name": "h6"
-                    }
-                ]
-            },
-            "HTMLHRElement": {
-                "element": [
-                    {
-                        "name": "hr"
-                    }
-                ]
-            },
-            "HTMLHtmlElement": {
-                "element": [
-                    {
-                        "name": "html"
-                    }
                 ]
             },
             "HTMLInputElement": {
                 "properties": {
                     "property": {
                         "labels": {
-                            "override-type": "NodeListOf<HTMLLabelElement> | null"
+                            "overrideType": "NodeListOf<HTMLLabelElement>"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "input"
-                    }
-                ]
+                }
             },
             "HTMLLinkElement": {
                 "properties": {
                     "property": {
-                        "disabled": {
-                            "name": "disabled",
-                            "type": "boolean"
+                        "charset": {
+                            "deprecated": true
+                        },
+                        "rev": {
+                            "deprecated": true
+                        },
+                        "target": {
+                            "deprecated": true
                         }
                     }
-                },
-                "element": [
-                    {
-                        "name": "link"
-                    }
-                ]
-            },
-            "HTMLLabelElement": {
-                "element": [
-                    {
-                        "name": "label"
-                    }
-                ]
-            },
-            "HTMLLIElement": {
-                "element": [
-                    {
-                        "name": "li"
-                    }
-                ]
-            },
-            "HTMLMapElement": {
-                "element": [
-                    {
-                        "name": "map"
-                    }
-                ]
-            },
-            "HTMLMenuElement": {
-                "element": [
-                    {
-                        "name": "menu"
-                    }
-                ]
-            },
-            "HTMLMetaElement": {
-                "element": [
-                    {
-                        "name": "meta"
-                    }
-                ]
-            },
-            "HTMLModElement": {
-                "element": [
-                    {
-                        "name": "del"
-                    },
-                    {
-                        "name": "ins"
-                    }
-                ]
-            },
-            "HTMLObjectElement": {
-                "element": [
-                    {
-                        "name": "object"
-                    }
-                ]
-            },
-            "HTMLOListElement": {
-                "element": [
-                    {
-                        "name": "ol"
-                    }
-                ]
-            },
-            "HTMLParagraphElement": {
-                "element": [
-                    {
-                        "name": "p"
-                    }
-                ]
-            },
-            "HTMLParamElement": {
-                "element": [
-                    {
-                        "name": "param"
-                    }
-                ]
-            },
-            "HTMLPictureElement": {
-                "element": [
-                    {
-                        "name": "picture"
-                    }
-                ]
+                }
             },
             "HTMLPreElement": {
                 "element": [
-                    {
-                        "name": "pre"
-                    },
                     {
                         "name": "listing",
                         "deprecated": true
@@ -1503,618 +883,26 @@
                     }
                 ]
             },
-            "HTMLQuoteElement": {
-                "element": [
-                    {
-                        "name": "blockquote"
-                    },
-                    {
-                        "name": "q"
-                    }
-                ]
+            "KHR_parallel_shader_compile": {
+                "overrideExposed": "Window Worker"
             },
-            "HTMLScriptElement": {
-                "element": [
-                    {
-                        "name": "script"
-                    }
-                ]
+            "OVR_multiview2": {
+                "overrideExposed": "Window Worker"
             },
-            "HTMLSlotElement": {
-                "element": [
-                    {
-                        "name": "slot"
-                    }
-                ]
-            },
-            "HTMLSourceElement": {
-                "element": [
-                    {
-                        "name": "source"
-                    }
-                ]
-            },
-            "HTMLSpanElement": {
-                "element": [
-                    {
-                        "name": "span"
-                    }
-                ]
-            },
-            "HTMLStyleElement": {
-                "element": [
-                    {
-                        "name": "style"
-                    }
-                ]
-            },
-            "HTMLTableCaptionElement": {
-                "element": [
-                    {
-                        "name": "caption"
-                    }
-                ]
-            },
-            "HTMLTableCellElement": {
-                "element": [
-                    {
-                        "name": "td"
-                    },
-                    {
-                        "name": "th"
-                    }
-                ]
-            },
-            "HTMLTableColElement": {
-                "element": [
-                    {
-                        "name": "col"
-                    },
-                    {
-                        "name": "colgroup"
-                    }
-                ]
-            },
-            "HTMLTableDataCellElement": {
-                "name": "HTMLTableDataCellElement",
-                "extends": "HTMLTableCellElement",
-                "exposed": "Window",
-                "element": [
-                    {
-                        "specs": "HTML5",
-                        "namespace": "HTML",
-                        "name": "td"
-                    }
-                ]
-            },
-            "HTMLTableElement": {
-                "element": [
-                    {
-                        "name": "table"
-                    }
-                ]
-            },
-            "HTMLTableHeaderCellElement": {
-                "name": "HTMLTableHeaderCellElement",
-                "extends": "HTMLTableCellElement",
-                "exposed": "Window",
-                "element": [
-                    {
-                        "name": "th"
-                    }
-                ]
-            },
-            "HTMLTableRowElement": {
-                "element": [
-                    {
-                        "name": "tr"
-                    }
-                ]
-            },
-            "HTMLTableSectionElement": {
-                "element": [
-                    {
-                        "name": "tbody"
-                    },
-                    {
-                        "name": "tfoot"
-                    },
-                    {
-                        "name": "thead"
-                    }
-                ]
-            },
-            "HTMLTimeElement": {
-                "element": [
-                    {
-                        "name": "time"
-                    }
-                ]
-            },
-            "HTMLTitleElement": {
-                "element": [
-                    {
-                        "name": "title"
-                    }
-                ]
-            },
-            "HTMLTemplateElement": {
-                "element": [
-                    {
-                        "name": "template"
-                    }
-                ]
-            },
-            "HTMLTrackElement": {
-                "element": [
-                    {
-                        "name": "track"
-                    }
-                ]
-            },
-            "HTMLUListElement": {
-                "element": [
-                    {
-                        "name": "ul"
-                    }
-                ]
-            },
-            "HTMLVideoElement": {
-                "element": [
-                    {
-                        "name": "video"
-                    }
-                ]
-            },
-            "HTMLDialogElement": {
-                "element": [
-                    {
-                        "name": "dialog"
-                    }
-                ]
-            },
-            "EXT_blend_minmax": {
-                "override-exposed": "Window Worker"
-            },
-            "EXT_texture_filter_anisotropic": {
-                "override-exposed": "Window Worker"
-            },
-            "EXT_frag_depth": {
-                "override-exposed": "Window Worker"
-            },
-            "EXT_shader_texture_lod": {
-                "override-exposed": "Window Worker"
-            },
-            "EXT_sRGB": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_vertex_array_object": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_color_buffer_float": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_astc": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_s3tc_srgb": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_debug_shaders": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_draw_buffers": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_lose_context": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_depth_texture": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_debug_renderer_info": {
-                "override-exposed": "Window Worker"
-            },
-            "WEBGL_compressed_texture_s3tc": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_texture_half_float_linear": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_texture_half_float": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_texture_float_linear": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_texture_float": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_standard_derivatives": {
-                "override-exposed": "Window Worker"
-            },
-            "OES_element_index_uint": {
-                "override-exposed": "Window Worker"
-            },
-            "ANGLE_instanced_arrays": {
-                "override-exposed": "Window Worker"
-            },
-            "WebGLVertexArrayObjectOES": {
-                "override-exposed": "Window Worker"
-            },
-            "SVGCursorElement": {
-                "name": "SVGCursorElement",
-                "extends": "SVGElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "x": {
-                            "name": "x",
-                            "read-only": 1,
-                            "type": "SVGAnimatedLength"
-                        },
-                        "y": {
-                            "name": "y",
-                            "read-only": 1,
-                            "type": "SVGAnimatedLength"
+            "RTCDTMFSender": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "tonechange",
+                            "type": "RTCDTMFToneChangeEvent"
                         }
-                    }
+                    ]
                 }
             },
-            "SVGAnimationElement": {
-                "name": "SVGAnimationElement",
-                "extends": "SVGElement",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "targetElement": {
-                            "name": "targetElement",
-                            "read-only": 1,
-                            "type": "SVGElement"
-                        }
-                    }
-                },
-                "methods": {
-                    "method": {
-                        "getStartTime": {
-                            "name": "getStartTime",
-                            "override-signatures": [
-                                "getStartTime(): number"
-                            ]
-                        },
-                        "getCurrentTime": {
-                            "name": "getCurrentTime",
-                            "override-signatures": [
-                                "getCurrentTime(): number"
-                            ]
-                        },
-                        "getSimpleDuration": {
-                            "name": "getSimpleDuration",
-                            "override-signatures": [
-                                "getSimpleDuration(): number"
-                            ]
-                        }
-                    }
-                }
-            },
-            "SVGAnimateElement": {
-                "name": "SVGAnimateElement",
-                "extends": "SVGAnimationElement",
-                "exposed": "Window"
-            },
-            "SVGAnimateTransformElement": {
-                "name": "SVGAnimateTransformElement",
-                "extends": "SVGAnimationElement",
-                "exposed": "Window"
-            },
-            "SVGAnimateMotionElement": {
-                "name": "SVGAnimateMotionElement",
-                "extends": "SVGAnimationElement",
-                "exposed": "Window"
-            },
-            "SVGRectElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "rect"
-                    }
-                ]
-            },
-            "SVGCircleElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "circle"
-                    }
-                ]
-            },
-            "SVGClipPathElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "clipPath"
-                    }
-                ]
-            },
-            "SVGEllipseElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "ellipse"
-                    }
-                ]
-            },
-            "SVGFEBlendElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feBlend"
-                    }
-                ]
-            },
-            "SVGFEColorMatrixElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feColorMatrix"
-                    }
-                ]
-            },
-            "SVGFEComponentTransferElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feComponentTransfer"
-                    }
-                ]
-            },
-            "SVGFECompositeElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feComposite"
-                    }
-                ]
-            },
-            "SVGFEConvolveMatrixElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feConvolveMatrix"
-                    }
-                ]
-            },
-            "SVGFEDiffuseLightingElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feDiffuseLighting"
-                    }
-                ]
-            },
-            "SVGFEDisplacementMapElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feDisplacementMap"
-                    }
-                ]
-            },
-            "SVGFEDistantLightElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feDistantLight"
-                    }
-                ]
-            },
-            "SVGFEFloodElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feFlood"
-                    }
-                ]
-            },
-            "SVGFEFuncAElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feFuncA"
-                    }
-                ]
-            },
-            "SVGFEFuncBElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feFuncB"
-                    }
-                ]
-            },
-            "SVGFEFuncGElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feFuncG"
-                    }
-                ]
-            },
-            "SVGFEFuncRElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feFuncR"
-                    }
-                ]
-            },
-            "SVGFEGaussianBlurElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feGaussianBlur"
-                    }
-                ]
-            },
-            "SVGFEImageElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feImage"
-                    }
-                ]
-            },
-            "SVGFEMergeElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feMerge"
-                    }
-                ]
-            },
-            "SVGFEMergeNodeElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feMergeNode"
-                    }
-                ]
-            },
-            "SVGFEMorphologyElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feMorphology"
-                    }
-                ]
-            },
-            "SVGFEOffsetElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feOffset"
-                    }
-                ]
-            },
-            "SVGFEPointLightElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "fePointLight"
-                    }
-                ]
-            },
-            "SVGFESpecularLightingElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feSpecularLighting"
-                    }
-                ]
-            },
-            "SVGFESpotLightElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feSpotLight"
-                    }
-                ]
-            },
-            "SVGFETileElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feTile"
-                    }
-                ]
-            },
-            "SVGFETurbulenceElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "feTurbulence"
-                    }
-                ]
-            },
-            "SVGFilterElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "filter"
-                    }
-                ]
-            },
-            "SVGLinearGradientElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "linearGradient"
-                    }
-                ]
-            },
-            "SVGLineElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "line"
-                    }
-                ]
-            },
-            "SVGMarkerElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "marker"
-                    }
-                ]
-            },
-            "SVGMaskElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "mask"
-                    }
-                ]
-            },
-            "SVGPatternElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "pattern"
-                    }
-                ]
-            },
-            "SVGPolygonElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "polygon"
-                    }
-                ]
-            },
-            "SVGPolylineElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "polyline"
-                    }
-                ]
-            },
-            "SVGRadialGradientElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "radialGradient"
-                    }
-                ]
-            },
-            "SVGStopElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "stop"
-                    }
-                ]
+            "RuntimeError": {
+                "name": "RuntimeError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
             },
             "SVGStyleElement": {
                 "properties": {
@@ -2124,37 +912,22 @@
                             "type": "boolean"
                         }
                     }
-                },
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "style"
-                    }
-                ]
+                }
             },
-            "SVGTextElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "text"
-                    }
-                ]
+            "LinkError": {
+                "name": "LinkError",
+                "extends": "Error",
+                "legacyNamespace": "WebAssembly"
             },
-            "SVGTextPathElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "textPath"
-                    }
-                ]
-            },
-            "SVGTSpanElement": {
-                "element": [
-                    {
-                        "namespace": "SVG",
-                        "name": "tspan"
-                    }
-                ]
+            "MediaRecorder": {
+                "events": {
+                    "event": [
+                        {
+                            "name": "dataavailable",
+                            "type": "BlobEvent"
+                        }
+                    ]
+                }
             },
             "MediaStream": {
                 "events": {
@@ -2172,19 +945,10 @@
             },
             "OverconstrainedError": {
                 "name": "OverconstrainedError",
-                "extends": "Error",
-                "exposed": "Window",
-                "properties": {
-                    "property": {
-                        "constraint": {
-                            "name": "constraint",
-                            "type": "DOMString"
-                        }
-                    }
-                }
+                "extends": "Error"
             },
             "ProgressEvent": {
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T",
                         "extends": "EventTarget",
@@ -2195,14 +959,14 @@
                     "property": {
                         "target": {
                             "name": "target",
-                            "read-only": 1,
-                            "nullable": 1,
-                            "override-type": "T"
+                            "readonly": true,
+                            "nullable": true,
+                            "overrideType": "T"
                         }
                     }
                 }
             },
-            "SharedWorker": {
+            "SharedWorkerGlobalScope": {
                 "events": {
                     "event": [
                         {
@@ -2218,7 +982,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -2230,7 +994,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -2242,7 +1006,7 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
@@ -2254,14 +1018,11 @@
                     "property": {
                         "ownerDocument": {
                             "name": "ownerDocument",
-                            "read-only": 1,
+                            "readonly": true,
                             "type": "Document"
                         }
                     }
                 }
-            },
-            "VideoTrack": {
-                "exposed": ""
             },
             "WebSocket": {
                 "events": {
@@ -2269,10 +1030,6 @@
                         {
                             "name": "close",
                             "type": "CloseEvent"
-                        },
-                        {
-                            "name": "error",
-                            "type": "Event"
                         }
                     ]
                 }
@@ -2323,26 +1080,8 @@
                     "member": {
                         "delegatesFocus": {
                             "name": "delegatesFocus",
-                            "type": "boolean"
-                        }
-                    }
-                }
-            },
-            "WorkerOptions": {
-                "name": "WorkerOptions",
-                "members": {
-                    "member": {
-                        "type": {
-                            "name": "type",
-                            "type": "WorkerType"
-                        },
-                        "credentials": {
-                            "name": "credentials",
-                            "type": "RequestCredentials"
-                        },
-                        "name": {
-                            "name": "name",
-                            "type": "DOMString"
+                            "type": "boolean",
+                            "required": true
                         }
                     }
                 }
@@ -2351,10 +1090,10 @@
                 "members": {
                     "member": {
                         "charCode": {
-                            "deprecated": 1
+                            "deprecated": true
                         },
                         "keyCode": {
-                            "deprecated": 1
+                            "deprecated": true
                         }
                     }
                 }
@@ -2365,19 +1104,19 @@
                     "member": {
                         "done": {
                             "name": "done",
-                            "override-type": "true",
-                            "required": 1
+                            "overrideType": "true",
+                            "required": true
                         },
                         "value": {
                             "name": "value",
-                            "override-type": "undefined"
+                            "overrideType": "undefined"
                         }
                     }
                 }
             },
             "ReadableStreamDefaultReadValueResult": {
                 "name": "ReadableStreamDefaultReadValueResult",
-                "type-parameters": [
+                "typeParameters": [
                     {
                         "name": "T"
                     }
@@ -2386,13 +1125,13 @@
                     "member": {
                         "done": {
                             "name": "done",
-                            "override-type": "false",
-                            "required": 1
+                            "overrideType": "false",
+                            "required": true
                         },
                         "value": {
                             "name": "value",
-                            "override-type": "T",
-                            "required": 1
+                            "overrideType": "T",
+                            "required": true
                         }
                     }
                 }
@@ -2402,58 +1141,49 @@
     "typedefs": {
         "typedef": [
             {
-                "override-type": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
-                "new-type": "InsertPosition"
+                "overrideType": "\"beforebegin\" | \"afterbegin\" | \"beforeend\" | \"afterend\"",
+                "name": "InsertPosition"
             },
             {
-                "override-type": "Headers | string[][] | Record<string, string>",
-                "new-type": "HeadersInit"
+                "additionalTypes": ["Headers"],
+                "name": "HeadersInit"
             },
             {
-                "override-type": "number | string | Date | BufferSource | IDBArrayKey",
-                "new-type": "IDBValidKey"
+                "overrideType": "number | string | Date | BufferSource | IDBValidKey[]",
+                "name": "IDBValidKey"
             },
             {
-                "override-type": "string | Algorithm",
-                "new-type": "AlgorithmIdentifier"
+                "type": {
+                    "0": {
+                        "type": "Algorithm"
+                    }
+                },
+                "name": "AlgorithmIdentifier"
             },
             {
-                "new-type": "MutationRecordType",
-                "override-type": "\"attributes\" | \"characterData\" | \"childList\""
+                "name": "MutationRecordType",
+                "overrideType": "\"attributes\" | \"characterData\" | \"childList\""
             },
             {
-                "new-type": "IDBKeyPath",
-                "type": "DOMString"
+                "name": "Transferable",
+                "type": [
+                    { "type": "ArrayBuffer" },
+                    { "type": "MessagePort" },
+                    { "type": "ImageBitmap" }
+                ]
             },
             {
-                "new-type": "Transferable",
-                "override-type": "ArrayBuffer | MessagePort | ImageBitmap | OffscreenCanvas"
-            },
-            {
-                "new-type": "RTCIceGatherCandidate",
-                "override-type": "RTCIceCandidateDictionary | RTCIceCandidateComplete"
-            },
-            {
-                "new-type": "RTCTransport",
-                "override-type": "RTCDtlsTransport | RTCSrtpSdesTransport"
-            },
-            {
-                "new-type": "MouseWheelEvent",
-                "type": "WheelEvent",
-                "deprecated": 1
-            },
-            {
-                "new-type": "WindowProxy",
+                "name": "WindowProxy",
                 "type": "Window"
             },
             {
-                "new-type": "ExportValue",
-                "legacy-namespace": "WebAssembly",
-                "override-type": "Function | Global | Memory | Table"
+                "name": "ExportValue",
+                "legacyNamespace": "WebAssembly",
+                "overrideType": "Function | Global | Memory | Table"
             },
             {
-                "new-type": "Exports",
-                "legacy-namespace": "WebAssembly",
+                "name": "Exports",
+                "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
                     {
@@ -2465,13 +1195,13 @@
                 ]
             },
             {
-                "new-type": "ImportValue",
-                "legacy-namespace": "WebAssembly",
-                "override-type": "ExportValue | number"
+                "name": "ImportValue",
+                "legacyNamespace": "WebAssembly",
+                "overrideType": "ExportValue | number"
             },
             {
-                "new-type": "ModuleImports",
-                "legacy-namespace": "WebAssembly",
+                "name": "ModuleImports",
+                "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
                     {
@@ -2483,8 +1213,8 @@
                 ]
             },
             {
-                "new-type": "Imports",
-                "legacy-namespace": "WebAssembly",
+                "name": "Imports",
+                "legacyNamespace": "WebAssembly",
                 "type": "record",
                 "subtype": [
                     {
@@ -2496,8 +1226,8 @@
                 ]
             },
             {
-                "new-type": "ReadableStreamDefaultReadResult",
-                "type-parameters": [
+                "name": "ReadableStreamDefaultReadResult",
+                "typeParameters": [
                     {
                         "name": "T"
                     }
@@ -2510,11 +1240,11 @@
                         "type": "ReadableStreamDefaultReadDoneResult"
                     }
                 ],
-                "override-type": "ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult"
+                "overrideType": "ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult"
             },
             {
-                "new-type": "ReadableStreamReader",
-                "type-parameters": [
+                "name": "ReadableStreamReader",
+                "typeParameters": [
                     {
                         "name": "T"
                     }
@@ -2524,7 +1254,11 @@
                         "type": "ReadableStreamDefaultReader"
                     }
                 ],
-                "override-type": "ReadableStreamDefaultReader<T>"
+                "overrideType": "ReadableStreamDefaultReader<T>"
+            },
+            {
+                "name": "EventListenerOrEventListenerObject",
+                "overrideType": "EventListener | EventListenerObject"
             }
         ]
     }

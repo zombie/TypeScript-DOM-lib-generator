@@ -1,39 +1,38 @@
 export interface Typed {
   type: string | Typed[];
   subtype?: Typed | Typed[];
-  nullable?: 1;
-  "type-original"?: string;
-  "override-type"?: string;
+  nullable?: boolean;
+  overrideType?: string;
+  additionalTypes?: string[];
 }
 
 export interface Param extends Typed {
   name: string;
-  optional?: 1;
-  variadic?: 1;
-  "treat-null-as"?: string;
+  optional?: boolean;
+  variadic?: boolean;
 }
 
 export interface Signature extends Typed {
   param?: Param[];
-  "param-min-required"?: number;
-  deprecated?: 1;
+  deprecated?: boolean;
+  typeParameters?: TypeParameter[];
 }
 
 export interface Member extends Typed {
   name: string;
   default?: string;
-  required?: 1;
+  required?: boolean;
   specs?: string;
   comment?: string;
 }
 
 export interface Property extends Typed {
   name: string;
-  "event-handler"?: string;
-  "read-only"?: 1;
+  eventHandler?: string;
+  readonly?: boolean;
   replaceable?: string;
-  "put-forwards"?: string;
-  stringifier?: 1;
+  putForwards?: string;
+  stringifier?: boolean;
   tags?: string;
   "property-descriptor-not-enumerable"?: string;
   "content-attribute"?: string;
@@ -53,14 +52,12 @@ export interface Property extends Typed {
   "lenient-this"?: string;
   "treat-null-as"?: string;
   "event-handler-map-to-window"?: string;
-  static?: 1;
+  static?: boolean;
   comment?: string;
-  required?: 1;
+  optional?: boolean;
   specs?: string;
-  deprecated?: 1;
-  interop?: 1;
+  deprecated?: boolean;
   exposed?: string;
-  constant?: 1;
 }
 
 export interface Event {
@@ -79,17 +76,15 @@ export interface Event {
 
 export interface AnonymousMethod {
   tags?: string;
-  static?: 1;
-  getter?: 1;
-  stringifier?: 1;
-  serializer?: 1;
-  "serializer-info"?: string;
+  static?: boolean;
+  getter?: boolean;
+  stringifier?: boolean;
   comment?: string;
-  "override-signatures"?: string[];
-  "additional-signatures"?: string[];
+  overrideSignatures?: string[];
+  additionalSignatures?: string[];
   specs?: string;
   exposed?: string;
-  deprecated?: 1;
+  deprecated?: boolean;
   signature: Signature[];
 }
 
@@ -99,12 +94,11 @@ export interface Method extends AnonymousMethod {
 
 export interface CallbackFunction {
   name: string;
-  callback: 1;
   signature: Signature[];
   tags?: string;
-  "override-signatures"?: string[];
+  overrideSignatures?: string[];
   specs?: string;
-  "type-parameters"?: TypeParameter[];
+  typeParameters?: TypeParameter[];
 }
 
 export interface Constructor {
@@ -138,7 +132,6 @@ export interface Element {
   name: string;
   namespace?: string;
   deprecated?: boolean;
-  "html-self-closing"?: string;
   specs?: string;
 }
 
@@ -151,7 +144,7 @@ export interface TypeParameter {
 export interface Interface {
   name: string;
   mixin?: boolean;
-  extends: string;
+  extends?: string;
   comment?: string;
   constants?: {
     constant: Record<string, Constant>;
@@ -162,7 +155,7 @@ export interface Interface {
   events?: {
     event: Event[];
   };
-  "attributeless-events"?: {
+  attributelessEvents?: {
     event: Event[];
   };
   properties?: {
@@ -170,38 +163,34 @@ export interface Interface {
     namesakes?: Record<string, Property[]>;
   };
   constructor?: Constructor;
-  "secure-context"?: 1;
   implements?: string[];
-  static?: 1;
-  "anonymous-methods"?: {
+  anonymousMethods?: {
     method: AnonymousMethod[];
   };
   "anonymous-content-attributes"?: {
     parsedattribute: ParsedAttribute[];
   };
   element?: Element[];
-  "named-constructor"?: NamedConstructor;
-  "override-builtins"?: 1;
+  namedConstructor?: NamedConstructor;
   exposed?: string;
-  "override-exposed"?: string;
+  overrideExposed?: string;
   tags?: string;
   "implicit-this"?: 1;
-  "primary-global"?: string;
-  "no-interface-object"?: 1;
+  noInterfaceObject?: boolean;
   global?: string;
-  "type-parameters"?: TypeParameter[];
-  "override-index-signatures"?: string[];
+  typeParameters?: TypeParameter[];
+  overrideIndexSignatures?: string[];
   specs?: string;
-  iterable?: "value" | "pair" | "pair-iterator";
   iterator?: Iterator;
-  "legacy-window-alias"?: string[];
-  "legacy-namespace"?: string;
+  legacyWindowAlias?: string[];
+  legacyNamespace?: string;
   nested?: {
     interfaces: Interface[];
     enums: Enum[];
     dictionaries: Dictionary[];
     typedefs: TypeDef[];
   };
+  deprecated?: boolean;
 }
 
 export interface Iterator {
@@ -217,33 +206,33 @@ export interface Enum {
   name: string;
   value: string[];
   specs?: string;
-  "legacy-namespace"?: string;
+  legacyNamespace?: string;
 }
 
 export interface TypeDef extends Typed {
-  "new-type": string;
-  deprecated?: 1;
-  "legacy-namespace"?: string;
-  "type-parameters"?: TypeParameter[];
+  name: string;
+  deprecated?: boolean;
+  legacyNamespace?: string;
+  typeParameters?: TypeParameter[];
 }
 
 export interface Dictionary {
   name: string;
-  extends: string;
+  extends?: string;
   members: {
     member: Record<string, Member>;
   };
-  "override-index-signatures"?: string[];
+  overrideIndexSignatures?: string[];
   specs?: string;
-  "type-parameters"?: TypeParameter[];
-  "legacy-namespace"?: string;
+  typeParameters?: TypeParameter[];
+  legacyNamespace?: string;
 }
 
 export interface WebIdl {
-  "callback-functions"?: {
-    "callback-function": Record<string, CallbackFunction>;
+  callbackFunctions?: {
+    callbackFunction: Record<string, CallbackFunction>;
   };
-  "callback-interfaces"?: {
+  callbackInterfaces?: {
     interface: Record<string, Interface>;
   };
   dictionaries?: {

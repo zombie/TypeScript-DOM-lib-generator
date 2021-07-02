@@ -1,5 +1,5 @@
-import * as Browser from "./types";
-import { mapToArray, arrayToMap } from "./helpers";
+import * as Browser from "./types.js";
+import { mapToArray, arrayToMap } from "./helpers.js";
 
 export function collectLegacyNamespaceTypes(
   webidl: Browser.WebIdl
@@ -14,23 +14,23 @@ export function collectLegacyNamespaceTypes(
     (i) => i
   );
   for (const i of mapToArray(webidl.interfaces!.interface)) {
-    if (i["legacy-namespace"]) {
-      getNamespace(i["legacy-namespace"]).nested!.interfaces.push(i);
+    if (i.legacyNamespace) {
+      getNamespace(i.legacyNamespace).nested!.interfaces.push(i);
     }
   }
   for (const i of mapToArray(webidl.dictionaries!.dictionary)) {
-    if (i["legacy-namespace"]) {
-      getNamespace(i["legacy-namespace"]).nested!.dictionaries.push(i);
+    if (i.legacyNamespace) {
+      getNamespace(i.legacyNamespace).nested!.dictionaries.push(i);
     }
   }
   for (const i of mapToArray(webidl.enums!.enum)) {
-    if (i["legacy-namespace"]) {
-      getNamespace(i["legacy-namespace"]).nested!.enums.push(i);
+    if (i.legacyNamespace) {
+      getNamespace(i.legacyNamespace).nested!.enums.push(i);
     }
   }
   for (const i of webidl.typedefs!.typedef) {
-    if (i["legacy-namespace"]) {
-      getNamespace(i["legacy-namespace"]).nested!.typedefs.push(i);
+    if (i.legacyNamespace) {
+      getNamespace(i.legacyNamespace).nested!.typedefs.push(i);
     }
   }
 

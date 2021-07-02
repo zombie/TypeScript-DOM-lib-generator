@@ -54,7 +54,7 @@ const go = async () => {
       try {
         const npmDTSReq = await fetch(unpkgURL);
         const npmDTSText = await npmDTSReq.text();
-        console.log("Comparing version from unpkg, to generated version:");
+        console.log(`Comparing ${file} from unpkg, to generated version:`);
         printDiff(npmDTSText, generatedDTSContent);
 
         upload = upload || npmDTSText !== generatedDTSContent;

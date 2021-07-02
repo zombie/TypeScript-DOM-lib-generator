@@ -95,7 +95,7 @@ async function updatePackageJSON(packagePath, pkg, gitSha) {
       Number(semverMarkers[2]) + 1
     }`;
 
-    if (semver.gt(version, bumpedVersion)) {
+    if (semver.gt(bumpedVersion, version)) {
       version = bumpedVersion;
     }
   } catch (error) {

@@ -16,9 +16,11 @@ jobs:
         with:
           node-version: '15'
 
+      # Use ncu to detect major version changes
       - run: npm i -g npm-check-updates
       - run: ncu -u
       - run: npm i
+      - run: git restore package.json
       - run: npm run build && npm run baseline-accept
       - id: git-diff
         run: git diff --quiet HEAD baselines

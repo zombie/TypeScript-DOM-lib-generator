@@ -16,6 +16,7 @@
             "WebGLRenderingContextBase": {
                 "properties": {
                     "namesakes": {
+                        // https://github.com/KhronosGroup/WebGL/pull/3296 will make this redundant
                         "canvas": null
                     }
                 }

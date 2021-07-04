@@ -5,8 +5,7 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-
+  workflow_dispatch: null
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,18 +16,18 @@ jobs:
         with:
           node-version: "15.x"
           registry-url: "https://registry.npmjs.org"
+          cache: npm
 
       - run: npm install
       - run: npm run build
       - run: npm test
-  
+
       - name: Create packages for .d.ts files
         run: node deploy/createTypesPackages.mjs
-        
+
       # Deploy anything which differs from the npm version of a tsconfig
-      - name: 'Deploy built packages to NPM'
+      - name: "Deploy built packages to NPM"
         run: node deploy/deployChangedPackages.mjs
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        

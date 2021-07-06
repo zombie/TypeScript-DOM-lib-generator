@@ -12,6 +12,7 @@ import fetch from "node-fetch";
 import { spawnSync } from "child_process";
 import { Octokit } from "@octokit/core";
 import printDiff from "print-diff";
+import { generateChangelogFrom } from "../lib/changelog.js";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -44,6 +45,9 @@ const go = async () => {
       .readdirSync(join(generatedDir, dirName))
       .filter((f) => f.endsWith(".d.ts"));
 
+    /** @type {string[]} */
+    let releaseNotes = [];
+
     // Look through each .d.ts file included in a package to
     // determine if anything has changed
     let upload = false;
@@ -56,6 +60,11 @@ const go = async () => {
         const npmDTSText = await npmDTSReq.text();
         console.log(`Comparing ${file} from unpkg, to generated version:`);
         printDiff(npmDTSText, generatedDTSContent);
+
+        const title = `\n## \`${file}\`\n`;
+        const notes = generateChangelogFrom(npmDTSText, generatedDTSContent);
+        releaseNotes.push(title);
+        releaseNotes.push(notes.trim() === "" ? "No changes" : notes);
 
         upload = upload || npmDTSText !== generatedDTSContent;
       } catch (error) {
@@ -93,8 +102,10 @@ Assuming that this means we need to upload this package.`);
 
       uploaded.push(dirName);
     }
-  }
 
+    console.log("\n# Release notes:");
+    console.log(releaseNotes.join("\n"), "\n\n");
+  }
   // Warn if we did a dry run.
   if (!process.env.NODE_AUTH_TOKEN) {
     console.log(
@@ -109,7 +120,7 @@ Assuming that this means we need to upload this package.`);
   }
 };
 
-async function createRelease(tag) {
+async function createRelease(tag, body) {
   const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
   const octokit = new Octokit({ auth: authToken });
 
@@ -119,6 +130,7 @@ async function createRelease(tag) {
       repo: "TypeScript-DOM-lib-generator",
       tag_name: tag,
       target_commitish: process.env.GITHUB_SHA,
+      body,
     });
   } catch (error) {
     console.error(

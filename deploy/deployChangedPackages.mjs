@@ -130,6 +130,7 @@ async function createRelease(tag, body) {
       repo: "TypeScript-DOM-lib-generator",
       tag_name: tag,
       target_commitish: process.env.GITHUB_SHA,
+      name: tag,
       body,
     });
   } catch (error) {

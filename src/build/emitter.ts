@@ -828,12 +828,22 @@ export function emitWebIdl(
   ) {
     if (entity.comment) {
       if (entity.comment.startsWith("/*")) {
-        entity.comment.split("\n").forEach(print);
+        const split = entity.comment.split("\n");
+
+        // Merge in the deprecated notice, if required.
+        if (entity.deprecated && !entity.comment.includes("@deprecated")) {
+          split[split.length - 1] = " * @deprecated";
+          split.push(" */");
+        }
+
+        split.forEach(print);
+      } else if (entity.deprecated && !entity.comment.includes("@deprecated")) {
+        // Convert into multi-line comment with deprecation notice.
+        print(`/**\n * ${entity.comment}\n * @deprecated\n */`);
       } else {
         print(`/** ${entity.comment} */`);
       }
-    }
-    if (entity.deprecated && !entity.comment?.includes("@deprecated")) {
+    } else if (entity.deprecated) {
       print(`/** @deprecated */`);
     }
   }

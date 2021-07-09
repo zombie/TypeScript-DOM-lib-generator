@@ -2366,7 +2366,7 @@ interface OVR_multiview2 {
     readonly MAX_VIEWS_OVR: GLenum;
 }
 
-/** @deprecated - this is not available in most browsers */
+/** @deprecated this is not available in most browsers */
 interface OffscreenCanvas extends EventTarget {
 }
 

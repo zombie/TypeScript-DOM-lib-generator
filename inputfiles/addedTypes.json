@@ -294,33 +294,33 @@
                 "name": "HTMLTableDataCellElement",
                 "extends": "HTMLTableCellElement",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "deprecated": "prefer HTMLTableCellElement",
                 "exposed": "Window"
             },
             "HTMLTableHeaderCellElement": {
                 "name": "HTMLTableHeaderCellElement",
                 "extends": "HTMLTableCellElement",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - prefer HTMLTableCellElement",
+                "deprecated": "prefer HTMLTableCellElement",
                 "exposed": "Window"
             },
             "HTMLDialogElement": {
                 "name": "HTMLDialogElement",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - this is not available in most browsers",
+                "deprecated": "this is not available in most browsers",
                 "exposed": "Window"
             },
             "OffscreenCanvas": {
                 "name": "OffscreenCanvas",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - this is not available in most browsers",
+                "deprecated": "this is not available in most browsers",
                 "exposed": "Worker"
             },
             "HTMLDocument": {
                 "name": "HTMLDocument",
                 "extends": "Document",
                 "noInterfaceObject": true,
-                "comment": "@deprecated - use Document",
+                "deprecated": "use Document",
                 "exposed": "Window"
             },
             "HTMLMediaElement": {

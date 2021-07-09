@@ -1,5 +1,12 @@
 name: Runs with TypeScript Tests
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - "baselines/*"
+  pull_request:
+    paths:
+      - "baselines/*"
+
 
 jobs:
   test:

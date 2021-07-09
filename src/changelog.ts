@@ -141,7 +141,11 @@ export function generateDefaultFromRecentTag(): string {
   const [base = gitLatestTag(), head = "HEAD"] = process.argv.slice(2);
   const previous = gitShowFile(base, dom);
   const current = gitShowFile(head, dom);
-  return generateChangelogFrom(previous, current);
+  const changelog = generateChangelogFrom(previous, current);
+  if (!changelog.length) {
+    throw new Error(`No change reported between ${base} and ${head}.`);
+  }
+  return changelog;
 }
 
 export function generateChangelogFrom(

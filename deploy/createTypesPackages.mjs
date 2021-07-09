@@ -3,7 +3,7 @@
 // node deploy/createTypesPackages.mjs
 
 // prettier-ignore
-const packages = [
+export const packages = [
     {
       name: "@types/web",
       description: "Types for the DOM, and other web technologies in browsers",
@@ -71,8 +71,6 @@ const go = async () => {
   }
 };
 
-go();
-
 async function updatePackageJSON(packagePath, pkg, gitSha) {
   const pkgJSONPath = join(packagePath, "package.json");
   const packageText = fs.readFileSync(pkgJSONPath, "utf8");
@@ -130,4 +128,8 @@ function copyREADME(pkg, pkgJSON, writePath) {
     );
 
   fs.writeFileSync(writePath, readme);
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  go();
 }

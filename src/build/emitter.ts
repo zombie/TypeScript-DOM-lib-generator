@@ -823,28 +823,33 @@ export function emitWebIdl(
   }
 
   function emitComments(
-    entity: { comment?: string; deprecated?: boolean },
+    entity: { comment?: string; deprecated?: boolean | string },
     print: (s: string) => void
   ) {
+    const deprecated =
+      typeof entity.deprecated === "string"
+        ? `@deprecated ${entity.deprecated}`
+        : entity.deprecated
+        ? "@deprecated"
+        : null;
     if (entity.comment) {
       if (entity.comment.startsWith("/*")) {
         const split = entity.comment.split("\n");
 
         // Merge in the deprecated notice, if required.
-        if (entity.deprecated && !entity.comment.includes("@deprecated")) {
-          split[split.length - 1] = " * @deprecated";
-          split.push(" */");
+        if (deprecated) {
+          split.splice(split.length - 1, 0, ` * ${deprecated}`);
         }
 
         split.forEach(print);
-      } else if (entity.deprecated && !entity.comment.includes("@deprecated")) {
+      } else if (deprecated) {
         // Convert into multi-line comment with deprecation notice.
-        print(`/**\n * ${entity.comment}\n * @deprecated\n */`);
+        print(`/**\n * ${entity.comment}\n * ${deprecated}\n */`);
       } else {
         print(`/** ${entity.comment} */`);
       }
-    } else if (entity.deprecated) {
-      print(`/** @deprecated */`);
+    } else if (deprecated) {
+      print(`/** ${deprecated} */`);
     }
   }
 

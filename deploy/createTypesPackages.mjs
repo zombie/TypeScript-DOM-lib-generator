@@ -131,5 +131,5 @@ function copyREADME(pkg, pkgJSON, writePath) {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  go();
+  await go();
 }

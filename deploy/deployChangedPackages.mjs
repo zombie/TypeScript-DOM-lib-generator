@@ -6,18 +6,13 @@
 // ones which have changed.
 
 import * as fs from "fs";
-import { join, dirname, basename } from "path";
-import { fileURLToPath } from "url";
+import { basename } from "path";
 import { spawnSync, execSync } from "child_process";
 import { Octokit } from "@octokit/core";
 import printDiff from "print-diff";
 import { generateChangelogFrom } from "../lib/changelog.js";
 import { packages } from "./createTypesPackages.mjs";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { fileURLToPath } from "node:url";
 
 verify();
 
@@ -25,10 +20,11 @@ const uploaded = [];
 
 // Loop through generated packages, deploying versions for anything which has different
 // .d.ts files from the version available on npm.
-const generatedDir = join(__dirname, "generated");
+const generatedDir = new URL("generated/", import.meta.url);
 for (const dirName of fs.readdirSync(generatedDir)) {
   console.log(`Looking at ${dirName}`);
-  const localPackageJSONPath = join(generatedDir, dirName, "package.json");
+  const packageDir = new URL(`${dirName}/`, generatedDir);
+  const localPackageJSONPath = new URL("package.json", packageDir);
   const newTSConfig = fs.readFileSync(localPackageJSONPath, "utf-8");
   const pkgJSON = JSON.parse(newTSConfig);
 
@@ -37,7 +33,7 @@ for (const dirName of fs.readdirSync(generatedDir)) {
   const thisPackageMeta = packages.find((p) => p.name === pkgJSON.name);
 
   const dtsFiles = fs
-    .readdirSync(join(generatedDir, dirName))
+    .readdirSync(packageDir)
     .filter((f) => f.endsWith(".d.ts"));
 
   /** @type {string[]} */
@@ -51,7 +47,7 @@ for (const dirName of fs.readdirSync(generatedDir)) {
       thisPackageMeta.files.find((f) => f.to === file).from
     );
 
-    const generatedDTSPath = join(generatedDir, dirName, file);
+    const generatedDTSPath = new URL(file, packageDir);
     const generatedDTSContent = fs.readFileSync(generatedDTSPath, "utf8");
 
     // This assumes we'll only _ever_ ship patches, which may change in the
@@ -86,7 +82,7 @@ Assuming that this means we need to upload this package.`);
   if (upload) {
     if (process.env.NODE_AUTH_TOKEN) {
       const publish = spawnSync("npm", ["publish", "--access", "public"], {
-        cwd: join(generatedDir, dirName),
+        cwd: fileURLToPath(packageDir),
         stdio: "inherit",
       });
 
@@ -102,7 +98,7 @@ Assuming that this means we need to upload this package.`);
     } else {
       console.log(
         "Wanting to run: 'npm publish --access public' in " +
-          join(generatedDir, dirName)
+          fileURLToPath(packageDir)
       );
     }
 

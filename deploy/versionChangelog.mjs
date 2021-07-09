@@ -3,7 +3,9 @@
 // npm run ts-changelog @types/web 0.0.1 0.0.3
 
 import { generateChangelogFrom } from "../lib/changelog.js";
-import fetch from "node-fetch";
+import { packages } from "./createTypesPackages.mjs";
+import { execSync } from "child_process";
+import { basename } from "path";
 
 const [name, before, to] = process.argv.slice(2);
 if (!name || !before || !to) {
@@ -12,26 +14,26 @@ if (!name || !before || !to) {
   );
 }
 
-const go = async () => {
-  const allFiles = `https://unpkg.com/${name}/?meta`;
-  const npmFileReq = await fetch(allFiles);
-  const npmDTSFiles = await npmFileReq.json();
-  const dtsFiles = npmDTSFiles.files.filter((f) => f.path.endsWith(".d.ts"));
+const go = () => {
+  // We'll need to map back from the filename in the npm package to the
+  // generated file in baselines inside the git tag
+  const thisPackageMeta = packages.find((p) => p.name === name);
+  if (!thisPackageMeta)
+    throw new Error(`Could not find ${name} in ${packages.map((p) => p.name)}`);
 
-  for (const file of dtsFiles) {
-    const beforeURI = `https://unpkg.com/${name}@${before}${file.path}`;
-    const npmBeforeFileReq = await fetch(beforeURI);
-    const npmBeforeFileText = await npmBeforeFileReq.text();
+  for (const file of thisPackageMeta.files) {
+    const filename = `baselines/${basename(file.from)}`;
+    const beforeFileText = gitShowFile(`${name}@${before}`, filename);
+    const toFileText = gitShowFile(`${name}@${to}`, filename);
 
-    const toURI = `https://unpkg.com/${name}@${to}${file.path}`;
-    const npmToFileReq = await fetch(toURI);
-    const npmToFileText = await npmToFileReq.text();
+    const notes = generateChangelogFrom(beforeFileText, toFileText);
 
-    const title = `\n## \`${file.path.slice(1)}\`\n`;
-    const notes = generateChangelogFrom(npmBeforeFileText, npmToFileText);
-
-    console.log(title);
+    console.log(`\n## \`${file.to}\`\n`);
     console.log(notes.trim() === "" ? "No changes" : notes);
   }
 };
+
+const gitShowFile = (commitish, path) =>
+  execSync(`git show "${commitish}":${path}`, { encoding: "utf-8" });
+
 go();

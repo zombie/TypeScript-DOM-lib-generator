@@ -19,124 +19,109 @@ import { packages } from "./createTypesPackages.mjs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const verify = () => {
-  const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
-  if (!authToken)
-    throw new Error(
-      "There isn't an ENV var set up for creating a GitHub release, expected GITHUB_TOKEN."
+verify();
+
+const uploaded = [];
+
+// Loop through generated packages, deploying versions for anything which has different
+// .d.ts files from the version available on npm.
+const generatedDir = join(__dirname, "generated");
+for (const dirName of fs.readdirSync(generatedDir)) {
+  console.log(`Looking at ${dirName}`);
+  const localPackageJSONPath = join(generatedDir, dirName, "package.json");
+  const newTSConfig = fs.readFileSync(localPackageJSONPath, "utf-8");
+  const pkgJSON = JSON.parse(newTSConfig);
+
+  // We'll need to map back from the filename in the npm package to the
+  // generated file in baselines inside the git tag
+  const thisPackageMeta = packages.find((p) => p.name === pkgJSON.name);
+
+  const dtsFiles = fs
+    .readdirSync(join(generatedDir, dirName))
+    .filter((f) => f.endsWith(".d.ts"));
+
+  /** @type {string[]} */
+  let releaseNotes = [];
+
+  // Look through each .d.ts file included in a package to
+  // determine if anything has changed
+  let upload = false;
+  for (const file of dtsFiles) {
+    const originalFilename = basename(
+      thisPackageMeta.files.find((f) => f.to === file).from
     );
-};
 
-const gitShowFile = (commitish, path) =>
-  execSync(`git show "${commitish}":${path}`, { encoding: "utf-8" });
+    const generatedDTSPath = join(generatedDir, dirName, file);
+    const generatedDTSContent = fs.readFileSync(generatedDTSPath, "utf8");
 
-const go = async () => {
-  verify();
+    // This assumes we'll only _ever_ ship patches, which may change in the
+    // future someday.
+    const [maj, min, patch] = pkgJSON.version.split(".");
+    const olderVersion = `${maj}.${min}.${patch - 1}`;
 
-  const uploaded = [];
-
-  // Loop through generated packages, deploying versions for anything which has different
-  // .d.ts files from the version available on npm.
-  const generatedDir = join(__dirname, "generated");
-  for (const dirName of fs.readdirSync(generatedDir)) {
-    console.log(`Looking at ${dirName}`);
-    const localPackageJSONPath = join(generatedDir, dirName, "package.json");
-    const newTSConfig = fs.readFileSync(localPackageJSONPath, "utf-8");
-    const pkgJSON = JSON.parse(newTSConfig);
-
-    // We'll need to map back from the filename in the npm package to the
-    // generated file in baselines inside the git tag
-    const thisPackageMeta = packages.find((p) => p.name === pkgJSON.name);
-
-    const dtsFiles = fs
-      .readdirSync(join(generatedDir, dirName))
-      .filter((f) => f.endsWith(".d.ts"));
-
-    /** @type {string[]} */
-    let releaseNotes = [];
-
-    // Look through each .d.ts file included in a package to
-    // determine if anything has changed
-    let upload = false;
-    for (const file of dtsFiles) {
-      const originalFilename = basename(
-        thisPackageMeta.files.find((f) => f.to === file).from
+    try {
+      const oldFile = gitShowFile(
+        `${pkgJSON.name}@${olderVersion}`,
+        `baselines/${originalFilename}`
       );
+      console.log(`Comparing ${file} from ${olderVersion}, to now:`);
+      printDiff(oldFile, generatedDTSContent);
 
-      const generatedDTSPath = join(generatedDir, dirName, file);
-      const generatedDTSContent = fs.readFileSync(generatedDTSPath, "utf8");
+      const title = `\n## \`${file}\`\n`;
+      const notes = generateChangelogFrom(oldFile, generatedDTSContent);
+      releaseNotes.push(title);
+      releaseNotes.push(notes.trim() === "" ? "No changes" : notes);
 
-      // This assumes we'll only _ever_ ship patches, which may change in the
-      // future someday.
-      const [maj, min, patch] = pkgJSON.version.split(".");
-      const olderVersion = `${maj}.${min}.${patch - 1}`;
-
-      try {
-        const oldFile = gitShowFile(
-          `${pkgJSON.name}@${olderVersion}`,
-          `baselines/${originalFilename}`
-        );
-        console.log(`Comparing ${file} from ${olderVersion}, to now:`);
-        printDiff(oldFile, generatedDTSContent);
-
-        const title = `\n## \`${file}\`\n`;
-        const notes = generateChangelogFrom(oldFile, generatedDTSContent);
-        releaseNotes.push(title);
-        releaseNotes.push(notes.trim() === "" ? "No changes" : notes);
-
-        upload = upload || oldFile !== generatedDTSContent;
-      } catch (error) {
-        // Could not find a previous build
-        console.log(`
+      upload = upload || oldFile !== generatedDTSContent;
+    } catch (error) {
+      // Could not find a previous build
+      console.log(`
 Could not get the file ${file} inside the npm package ${pkgJSON.name} from tag ${olderVersion}.
 Assuming that this means we need to upload this package.`);
-        upload = true;
-      }
+      upload = true;
     }
+  }
 
-    // Publish via npm
-    if (upload) {
-      if (process.env.NODE_AUTH_TOKEN) {
-        const publish = spawnSync("npm", ["publish", "--access", "public"], {
-          cwd: join(generatedDir, dirName),
-          stdio: "inherit",
-        });
+  // Publish via npm
+  if (upload) {
+    if (process.env.NODE_AUTH_TOKEN) {
+      const publish = spawnSync("npm", ["publish", "--access", "public"], {
+        cwd: join(generatedDir, dirName),
+        stdio: "inherit",
+      });
 
-        if (publish.status) {
-          console.log(publish.stdout?.toString());
-          console.log(publish.stderr?.toString());
-          process.exit(publish.status);
-        } else {
-          console.log(publish.stdout?.toString());
-
-          await createRelease(`${pkgJSON.name}@${pkgJSON.version}`);
-        }
+      if (publish.status) {
+        console.log(publish.stdout?.toString());
+        console.log(publish.stderr?.toString());
+        process.exit(publish.status);
       } else {
-        console.log(
-          "Wanting to run: 'npm publish --access public' in " +
-            join(generatedDir, dirName)
-        );
-      }
+        console.log(publish.stdout?.toString());
 
-      uploaded.push(dirName);
+        await createRelease(`${pkgJSON.name}@${pkgJSON.version}`);
+      }
+    } else {
+      console.log(
+        "Wanting to run: 'npm publish --access public' in " +
+          join(generatedDir, dirName)
+      );
     }
 
-    console.log("\n# Release notes:");
-    console.log(releaseNotes.join("\n"), "\n\n");
-  }
-  // Warn if we did a dry run.
-  if (!process.env.NODE_AUTH_TOKEN) {
-    console.log(
-      "Did a dry run because process.env.NODE_AUTH_TOKEN is not set."
-    );
+    uploaded.push(dirName);
   }
 
-  if (uploaded.length) {
-    console.log("Uploaded: ", uploaded.join(", "));
-  } else {
-    console.log("No uploads");
-  }
-};
+  console.log("\n# Release notes:");
+  console.log(releaseNotes.join("\n"), "\n\n");
+}
+// Warn if we did a dry run.
+if (!process.env.NODE_AUTH_TOKEN) {
+  console.log("Did a dry run because process.env.NODE_AUTH_TOKEN is not set.");
+}
+
+if (uploaded.length) {
+  console.log("Uploaded: ", uploaded.join(", "));
+} else {
+  console.log("No uploads");
+}
 
 async function createRelease(tag, body) {
   const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
@@ -158,4 +143,14 @@ async function createRelease(tag, body) {
   }
 }
 
-go();
+function verify() {
+  const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
+  if (!authToken)
+    throw new Error(
+      "There isn't an ENV var set up for creating a GitHub release, expected GITHUB_TOKEN."
+    );
+}
+
+function gitShowFile(commitish, path) {
+  return execSync(`git show "${commitish}":${path}`, { encoding: "utf-8" });
+}

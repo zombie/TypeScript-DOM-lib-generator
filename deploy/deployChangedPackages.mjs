@@ -6,13 +6,13 @@
 // ones which have changed.
 
 import * as fs from "fs";
-import { join, dirname } from "path";
+import { join, dirname, basename } from "path";
 import { fileURLToPath } from "url";
-import fetch from "node-fetch";
-import { spawnSync } from "child_process";
+import { spawnSync, execSync } from "child_process";
 import { Octokit } from "@octokit/core";
 import printDiff from "print-diff";
 import { generateChangelogFrom } from "../lib/changelog.js";
+import { packages } from "./createTypesPackages.mjs";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -26,6 +26,9 @@ const verify = () => {
       "There isn't an ENV var set up for creating a GitHub release, expected GITHUB_TOKEN."
     );
 };
+
+const gitShowFile = (commitish, path) =>
+  execSync(`git show "${commitish}":${path}`, { encoding: "utf-8" });
 
 const go = async () => {
   verify();
@@ -41,6 +44,10 @@ const go = async () => {
     const newTSConfig = fs.readFileSync(localPackageJSONPath, "utf-8");
     const pkgJSON = JSON.parse(newTSConfig);
 
+    // We'll need to map back from the filename in the npm package to the
+    // generated file in baselines inside the git tag
+    const thisPackageMeta = packages.find((p) => p.name === pkgJSON.name);
+
     const dtsFiles = fs
       .readdirSync(join(generatedDir, dirName))
       .filter((f) => f.endsWith(".d.ts"));
@@ -52,25 +59,36 @@ const go = async () => {
     // determine if anything has changed
     let upload = false;
     for (const file of dtsFiles) {
+      const originalFilename = basename(
+        thisPackageMeta.files.find((f) => f.to === file).from
+      );
+
       const generatedDTSPath = join(generatedDir, dirName, file);
       const generatedDTSContent = fs.readFileSync(generatedDTSPath, "utf8");
-      const unpkgURL = `https://unpkg.com/${pkgJSON.name}/${file}`;
+
+      // This assumes we'll only _ever_ ship patches, which may change in the
+      // future someday.
+      const [maj, min, patch] = pkgJSON.version.split(".");
+      const olderVersion = `${maj}.${min}.${patch - 1}`;
+
       try {
-        const npmDTSReq = await fetch(unpkgURL);
-        const npmDTSText = await npmDTSReq.text();
-        console.log(`Comparing ${file} from unpkg, to generated version:`);
-        printDiff(npmDTSText, generatedDTSContent);
+        const oldFile = gitShowFile(
+          `${pkgJSON.name}@${olderVersion}`,
+          `baselines/${originalFilename}`
+        );
+        console.log(`Comparing ${file} from ${olderVersion}, to now:`);
+        printDiff(oldFile, generatedDTSContent);
 
         const title = `\n## \`${file}\`\n`;
-        const notes = generateChangelogFrom(npmDTSText, generatedDTSContent);
+        const notes = generateChangelogFrom(oldFile, generatedDTSContent);
         releaseNotes.push(title);
         releaseNotes.push(notes.trim() === "" ? "No changes" : notes);
 
-        upload = upload || npmDTSText !== generatedDTSContent;
+        upload = upload || oldFile !== generatedDTSContent;
       } catch (error) {
         // Could not find a previous build
         console.log(`
-Could not get the file ${file} inside the npm package ${pkgJSON.name} from unpkg at ${unpkgURL}
+Could not get the file ${file} inside the npm package ${pkgJSON.name} from tag ${olderVersion}.
 Assuming that this means we need to upload this package.`);
         upload = true;
       }

@@ -10180,22 +10180,22 @@ interface MimeType {
      * Returns the MIME type's description.
      * @deprecated
      */
-    readonly description: undefined;
+    readonly description: string;
     /**
      * Returns the Plugin object that implements this MIME type.
      * @deprecated
      */
-    readonly enabledPlugin: undefined;
+    readonly enabledPlugin: Plugin;
     /**
      * Returns the MIME type's typical file extensions, in a comma-separated list.
      * @deprecated
      */
-    readonly suffixes: undefined;
+    readonly suffixes: string;
     /**
      * Returns the MIME type.
      * @deprecated
      */
-    readonly type: undefined;
+    readonly type: string;
 }
 
 /** @deprecated */
@@ -10212,10 +10212,10 @@ interface MimeTypeArray {
     /** @deprecated */
     readonly length: number;
     /** @deprecated */
-    item(index: number): any;
+    item(index: number): MimeType | null;
     /** @deprecated */
-    namedItem(name: string): any;
-    [index: number]: any;
+    namedItem(name: string): MimeType | null;
+    [index: number]: MimeType;
 }
 
 /** @deprecated */
@@ -10260,11 +10260,17 @@ declare var MouseEvent: {
  * @deprecated DOM4 [DOM] provides a new mechanism using a MutationObserver interface which addresses the use cases that mutation events solve, but in a more performant manner. Thus, this specification describes mutation events for reference and completeness of legacy behavior, but deprecates the use of the MutationEvent interface.
  */
 interface MutationEvent extends Event {
+    /** @deprecated */
     readonly attrChange: number;
+    /** @deprecated */
     readonly attrName: string;
+    /** @deprecated */
     readonly newValue: string;
+    /** @deprecated */
     readonly prevValue: string;
+    /** @deprecated */
     readonly relatedNode: Node | null;
+    /** @deprecated */
     initMutationEvent(typeArg: string, bubblesArg?: boolean, cancelableArg?: boolean, relatedNodeArg?: Node | null, prevValueArg?: string, newValueArg?: string, attrNameArg?: string, attrChangeArg?: number): void;
     readonly ADDITION: number;
     readonly MODIFICATION: number;
@@ -10439,7 +10445,6 @@ interface NavigatorOnLine {
     readonly onLine: boolean;
 }
 
-/** @deprecated */
 interface NavigatorPlugins {
     /** @deprecated */
     readonly mimeTypes: MimeTypeArray;
@@ -11399,30 +11404,30 @@ interface Plugin {
      * Returns the plugin's description.
      * @deprecated
      */
-    readonly description: undefined;
+    readonly description: string;
     /**
      * Returns the plugin library's filename, if applicable on the current platform.
      * @deprecated
      */
-    readonly filename: undefined;
+    readonly filename: string;
     /**
      * Returns the number of MIME types, represented by MimeType objects, supported by the plugin.
      * @deprecated
      */
-    readonly length: undefined;
+    readonly length: number;
     /**
      * Returns the plugin's name.
      * @deprecated
      */
-    readonly name: undefined;
+    readonly name: string;
     /**
      * Returns the specified MimeType object.
      * @deprecated
      */
-    item(index: number): void;
+    item(index: number): MimeType | null;
     /** @deprecated */
-    namedItem(name: string): void;
-    [index: number]: undefined;
+    namedItem(name: string): MimeType | null;
+    [index: number]: MimeType;
 }
 
 /** @deprecated */
@@ -11439,12 +11444,12 @@ interface PluginArray {
     /** @deprecated */
     readonly length: number;
     /** @deprecated */
-    item(index: number): any;
+    item(index: number): Plugin | null;
     /** @deprecated */
-    namedItem(name: string): any;
+    namedItem(name: string): Plugin | null;
     /** @deprecated */
     refresh(): void;
-    [index: number]: any;
+    [index: number]: Plugin;
 }
 
 /** @deprecated */
@@ -11715,6 +11720,7 @@ interface RTCPeerConnectionEventMap {
     "connectionstatechange": Event;
     "datachannel": RTCDataChannelEvent;
     "icecandidate": RTCPeerConnectionIceEvent;
+    "icecandidateerror": Event;
     "iceconnectionstatechange": Event;
     "icegatheringstatechange": Event;
     "negotiationneeded": Event;
@@ -11734,6 +11740,7 @@ interface RTCPeerConnection extends EventTarget {
     onconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     ondatachannel: ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any) | null;
     onicecandidate: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any) | null;
+    onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null;
     oniceconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;

@@ -3760,6 +3760,28 @@ declare var DOMImplementation: {
 };
 
 interface DOMMatrix extends DOMMatrixReadOnly {
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    e: number;
+    f: number;
+    m11: number;
+    m12: number;
+    m13: number;
+    m14: number;
+    m21: number;
+    m22: number;
+    m23: number;
+    m24: number;
+    m31: number;
+    m32: number;
+    m33: number;
+    m34: number;
+    m41: number;
+    m42: number;
+    m43: number;
+    m44: number;
     invertSelf(): DOMMatrix;
     multiplySelf(other?: DOMMatrixInit): DOMMatrix;
     preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
@@ -3863,6 +3885,10 @@ declare var DOMParser: {
 };
 
 interface DOMPoint extends DOMPointReadOnly {
+    w: number;
+    x: number;
+    y: number;
+    z: number;
 }
 
 declare var DOMPoint: {
@@ -3906,6 +3932,10 @@ declare var DOMQuad: {
 };
 
 interface DOMRect extends DOMRectReadOnly {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
 }
 
 declare var DOMRect: {
@@ -4409,6 +4439,8 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     /** @deprecated */
     captureEvents(): void;
     /** @deprecated */
+    caretRangeFromPoint(x: number, y: number): Range | null;
+    /** @deprecated */
     clear(): void;
     /**
      * Closes an output stream and forces the sent data to display.
@@ -4694,6 +4726,8 @@ interface DocumentAndElementEventHandlers {
 
 /** A minimal document object that has no parent. It is used as a lightweight version of Document that stores a segment of a document structure comprised of nodes just like a standard document. The key difference is that because the document fragment isn't part of the active document tree structure, changes made to the fragment don't affect the document, cause reflow, or incur any performance impact that can occur when changes are made. */
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
+    readonly ownerDocument: Document;
+    getElementById(elementId: string): HTMLElement | null;
 }
 
 declare var DocumentFragment: {
@@ -9749,7 +9783,7 @@ interface MediaKeySessionEventMap {
 
 /** This EncryptedMediaExtensions API interface represents a context for message exchange with a content decryption module (CDM). */
 interface MediaKeySession extends EventTarget {
-    readonly closed: Promise<undefined>;
+    readonly closed: Promise<MediaKeySessionClosedReason>;
     readonly expiration: number;
     readonly keyStatuses: MediaKeyStatusMap;
     onkeystatuseschange: ((this: MediaKeySession, ev: Event) => any) | null;
@@ -10146,22 +10180,22 @@ interface MimeType {
      * Returns the MIME type's description.
      * @deprecated
      */
-    readonly description: undefined;
+    readonly description: string;
     /**
      * Returns the Plugin object that implements this MIME type.
      * @deprecated
      */
-    readonly enabledPlugin: undefined;
+    readonly enabledPlugin: Plugin;
     /**
      * Returns the MIME type's typical file extensions, in a comma-separated list.
      * @deprecated
      */
-    readonly suffixes: undefined;
+    readonly suffixes: string;
     /**
      * Returns the MIME type.
      * @deprecated
      */
-    readonly type: undefined;
+    readonly type: string;
 }
 
 /** @deprecated */
@@ -10178,10 +10212,10 @@ interface MimeTypeArray {
     /** @deprecated */
     readonly length: number;
     /** @deprecated */
-    item(index: number): any;
+    item(index: number): MimeType | null;
     /** @deprecated */
-    namedItem(name: string): any;
-    [index: number]: any;
+    namedItem(name: string): MimeType | null;
+    [index: number]: MimeType;
 }
 
 /** @deprecated */
@@ -10226,11 +10260,17 @@ declare var MouseEvent: {
  * @deprecated DOM4 [DOM] provides a new mechanism using a MutationObserver interface which addresses the use cases that mutation events solve, but in a more performant manner. Thus, this specification describes mutation events for reference and completeness of legacy behavior, but deprecates the use of the MutationEvent interface.
  */
 interface MutationEvent extends Event {
+    /** @deprecated */
     readonly attrChange: number;
+    /** @deprecated */
     readonly attrName: string;
+    /** @deprecated */
     readonly newValue: string;
+    /** @deprecated */
     readonly prevValue: string;
+    /** @deprecated */
     readonly relatedNode: Node | null;
+    /** @deprecated */
     initMutationEvent(typeArg: string, bubblesArg?: boolean, cancelableArg?: boolean, relatedNodeArg?: Node | null, prevValueArg?: string, newValueArg?: string, attrNameArg?: string, attrChangeArg?: number): void;
     readonly ADDITION: number;
     readonly MODIFICATION: number;
@@ -10405,7 +10445,6 @@ interface NavigatorOnLine {
     readonly onLine: boolean;
 }
 
-/** @deprecated */
 interface NavigatorPlugins {
     /** @deprecated */
     readonly mimeTypes: MimeTypeArray;
@@ -11365,30 +11404,30 @@ interface Plugin {
      * Returns the plugin's description.
      * @deprecated
      */
-    readonly description: undefined;
+    readonly description: string;
     /**
      * Returns the plugin library's filename, if applicable on the current platform.
      * @deprecated
      */
-    readonly filename: undefined;
+    readonly filename: string;
     /**
      * Returns the number of MIME types, represented by MimeType objects, supported by the plugin.
      * @deprecated
      */
-    readonly length: undefined;
+    readonly length: number;
     /**
      * Returns the plugin's name.
      * @deprecated
      */
-    readonly name: undefined;
+    readonly name: string;
     /**
      * Returns the specified MimeType object.
      * @deprecated
      */
-    item(index: number): void;
+    item(index: number): MimeType | null;
     /** @deprecated */
-    namedItem(name: string): void;
-    [index: number]: undefined;
+    namedItem(name: string): MimeType | null;
+    [index: number]: MimeType;
 }
 
 /** @deprecated */
@@ -11405,12 +11444,12 @@ interface PluginArray {
     /** @deprecated */
     readonly length: number;
     /** @deprecated */
-    item(index: number): any;
+    item(index: number): Plugin | null;
     /** @deprecated */
-    namedItem(name: string): any;
+    namedItem(name: string): Plugin | null;
     /** @deprecated */
     refresh(): void;
-    [index: number]: any;
+    [index: number]: Plugin;
 }
 
 /** @deprecated */
@@ -11681,6 +11720,7 @@ interface RTCPeerConnectionEventMap {
     "connectionstatechange": Event;
     "datachannel": RTCDataChannelEvent;
     "icecandidate": RTCPeerConnectionIceEvent;
+    "icecandidateerror": Event;
     "iceconnectionstatechange": Event;
     "icegatheringstatechange": Event;
     "negotiationneeded": Event;
@@ -11700,6 +11740,7 @@ interface RTCPeerConnection extends EventTarget {
     onconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     ondatachannel: ((this: RTCPeerConnection, ev: RTCDataChannelEvent) => any) | null;
     onicecandidate: ((this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => any) | null;
+    onicecandidateerror: ((this: RTCPeerConnection, ev: Event) => any) | null;
     oniceconnectionstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onicegatheringstatechange: ((this: RTCPeerConnection, ev: Event) => any) | null;
     onnegotiationneeded: ((this: RTCPeerConnection, ev: Event) => any) | null;
@@ -18778,6 +18819,7 @@ type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
 type MediaEncodingType = "record" | "webrtc";
 type MediaKeyMessageType = "individualization-request" | "license-release" | "license-renewal" | "license-request";
+type MediaKeySessionClosedReason = "closed-by-application" | "hardware-context-reset" | "internal-error" | "release-acknowledged" | "resource-evicted";
 type MediaKeySessionType = "persistent-license" | "temporary";
 type MediaKeyStatus = "expired" | "internal-error" | "output-downscaled" | "output-restricted" | "released" | "status-pending" | "usable" | "usable-in-future";
 type MediaKeysRequirement = "not-allowed" | "optional" | "required";
@@ -18793,7 +18835,7 @@ type OscillatorType = "custom" | "sawtooth" | "sine" | "square" | "triangle";
 type OverSampleType = "2x" | "4x" | "none";
 type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
-type PermissionName = "gamepad" | "geolocation" | "notifications" | "persistent-storage" | "push";
+type PermissionName = "gamepad" | "geolocation" | "notifications" | "persistent-storage" | "push" | "screen-wake-lock";
 type PermissionState = "denied" | "granted" | "prompt";
 type PlaybackDirection = "alternate" | "alternate-reverse" | "normal" | "reverse";
 type PositionAlignSetting = "auto" | "center" | "line-left" | "line-right";

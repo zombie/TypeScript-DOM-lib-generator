@@ -93,7 +93,7 @@ Assuming that this means we need to upload this package.`);
       } else {
         console.log(publish.stdout?.toString());
 
-        await createRelease(`${pkgJSON.name}@${pkgJSON.version}`);
+        await createRelease(`${pkgJSON.name}@${pkgJSON.version}`, releaseNotes);
       }
     } else {
       console.log(

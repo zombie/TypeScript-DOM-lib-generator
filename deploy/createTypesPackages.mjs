@@ -14,15 +14,6 @@ export const packages = [
       ],
     },
     {
-      name: "@types/webworker",
-      description: "Types for the global scope of Web Workers",
-      readme: "./readmes/webworker.md",
-      files: [
-        { from: "../generated/webworker.generated.d.ts", to: "index.d.ts" },
-        { from: "../generated/webworker.iterable.generated.d.ts", to: "index.iterable.d.ts" }
-      ],
-    },
-    {
       name: "@types/serviceworker",
       description: "Types for the global scope of Service Workers",
       readme: "./readmes/serviceworker.md",

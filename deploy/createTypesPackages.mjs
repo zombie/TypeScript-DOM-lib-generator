@@ -10,7 +10,34 @@ export const packages = [
     readme: "./readmes/web.md",
     files: [
       { from: "../generated/dom.generated.d.ts", to: "index.d.ts" },
-      { from: "../generated/dom.iterable.generated.d.ts", to: "index.iterable.d.ts" }
+      { from: "../generated/dom.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true },
+    ],
+  },
+  {
+    name: "@types/serviceworker",
+    description: "Types for the global scope of Service Workers",
+    readme: "./readmes/serviceworker.md",
+    files: [
+      { from: "../generated/serviceworker.generated.d.ts", to: "index.d.ts" },
+      { from: "../generated/serviceworker.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true  },
+    ],
+  },
+  {
+    name: "@types/audioworklet",
+    description: "Types for the global scope of Audio Worklets",
+    readme: "./readmes/audioworklet.md",
+    files: [
+      { from: "../generated/audioworklet.generated.d.ts", to: "index.d.ts" },
+      { from: "../generated/audioworklet.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true  },
+    ],
+  },
+  {
+    name: "@types/sharedworker",
+    description: "Types for the global scope of Shared Workers",
+    readme: "./readmes/sharedworker.md",
+    files: [
+      { from: "../generated/sharedworker.generated.d.ts", to: "index.d.ts" },
+      { from: "../generated/sharedworker.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true },
     ],
   },
 ];
@@ -58,8 +85,10 @@ const go = async () => {
       );
     });
 
+    prependAutoImports(pkg, packagePath);
+
     // Setup the files in the repo
-    const newPkgJSON = await updatePackageJSON(packagePath, pkg, gitSha);
+    const newPkgJSON = await updatePackageJSON(pkg, packagePath, gitSha);
     copyREADME(pkg, newPkgJSON, new URL("README.md", packagePath));
 
     // Done
@@ -67,7 +96,7 @@ const go = async () => {
   }
 };
 
-async function updatePackageJSON(packagePath, pkg, gitSha) {
+async function updatePackageJSON(pkg, packagePath, gitSha) {
   const pkgJSONPath = new URL("package.json", packagePath);
   const packageText = fs.readFileSync(pkgJSONPath, "utf8");
   const packageJSON = JSON.parse(packageText);
@@ -126,6 +155,20 @@ function copyREADME(pkg, pkgJSON, writePath) {
     );
 
   fs.writeFileSync(writePath, readme);
+}
+
+// Appends any files marked as autoImport in the metadata.
+function prependAutoImports(pkg, packagePath) {
+  const index = new URL("index.d.ts", packagePath);
+  if (!fs.existsSync(index)) return;
+
+  const toPrepend = pkg.files
+    .filter((f) => !!f.autoImport)
+    .map((f) => `/// <reference path="./${f.to}" />`)
+    .join("\n");
+
+  let indexText = fs.readFileSync(index, "utf-8");
+  fs.writeFileSync(index, `${toPrepend}\n\n${indexText}`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -36,6 +36,10 @@ npm run test
 | `@types/web` [0.0.1](https://www.npmjs.com/package/@types/web/v/0.0.1) | ~4.3        | 4.4            |
 | `@types/web` [0.0.2](https://www.npmjs.com/package/@types/web/v/0.0.2) | ~4.4 beta   | 4.4            |
 
+## `@types/[lib]` Minimum Target
+
+The libraries available on `@types/` like `@types/web` require a [`"target"`](https://www.typescriptlang.org/tsconfig#target) of ES6 or above, because [iterator](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html) APIs are included.
+
 ## Contribution Guidelines
 
 The `dom.generated.d.ts`, `webworker.generated.d.ts` and `dom.iterable.generated.d.ts` files from the TypeScript repo are used as baselines.

@@ -49,7 +49,7 @@
     "@webref/css": "^2.0.5",
     "@webref/elements": "^1.0.2",
     "@webref/idl": "^2.2.9",
-    "bcd-idl-mapper": "^1.1.0",
+    "bcd-idl-mapper": "^1.1.1",
     "cpx2": "^3.0.0",
     "danger": "^10.6.6",
     "eslint": "^7.32.0",

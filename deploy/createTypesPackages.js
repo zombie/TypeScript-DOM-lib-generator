@@ -1,6 +1,6 @@
 // @ts-check
 
-// node deploy/createTypesPackages.mjs
+// node deploy/createTypesPackages.js
 
 // prettier-ignore
 export const packages = [

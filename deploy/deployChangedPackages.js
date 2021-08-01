@@ -1,8 +1,8 @@
 // @ts-check
 
-// node deploy/deployChangedPackages.mjs
+// node deploy/deployChangedPackages.js
 
-// Builds on the results of createTypesPackages.mjs and deploys the
+// Builds on the results of createTypesPackages.js and deploys the
 // ones which have changed.
 
 import * as fs from "fs";
@@ -11,7 +11,7 @@ import { spawnSync, execSync } from "child_process";
 import { Octokit } from "@octokit/core";
 import printDiff from "print-diff";
 import { generateChangelogFrom } from "../lib/changelog.js";
-import { packages } from "./createTypesPackages.mjs";
+import { packages } from "./createTypesPackages.js";
 import { fileURLToPath } from "node:url";
 
 verify();

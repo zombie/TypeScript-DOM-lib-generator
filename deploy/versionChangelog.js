@@ -3,7 +3,7 @@
 // npm run ts-changelog @types/web 0.0.1 0.0.3
 
 import { generateChangelogFrom } from "../lib/changelog.js";
-import { packages } from "./createTypesPackages.mjs";
+import { packages } from "./createTypesPackages.js";
 import { execSync } from "child_process";
 import { basename } from "path";
 

@@ -24,11 +24,11 @@ jobs:
       - run: npm test
 
       - name: Create packages for .d.ts files
-        run: node deploy/createTypesPackages.mjs
+        run: node deploy/createTypesPackages.js
 
       # Deploy anything which differs from the npm version of a tsconfig
       - name: "Deploy built packages to NPM"
-        run: node deploy/deployChangedPackages.mjs
+        run: node deploy/deployChangedPackages.js
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

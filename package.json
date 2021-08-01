@@ -17,11 +17,11 @@
     "fetch-mdn": "npm run build && node ./lib/fetch-mdn.js",
     "fetch": "echo This could take a few minutes... && npm run fetch-comment && npm run fetch-mdn",
     "baseline-accept": "cpx \"generated\\*\" baselines\\",
-    "lint": "eslint --max-warnings 0 src",
+    "lint": "eslint --max-warnings 0 src deploy/*.js && tsc -p deploy/jsconfig.json",
     "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
     "changelog": "tsc && node ./lib/changelog.js",
-    "ts-changelog": "node ./deploy/versionChangelog.mjs",
-    "migrate": "node ./deploy/migrate.mjs",
+    "ts-changelog": "node ./deploy/versionChangelog.js",
+    "migrate": "node ./deploy/migrate.js",
     "version": "npm i && tsc && node ./lib/version.js"
   },
   "author": {

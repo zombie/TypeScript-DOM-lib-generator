@@ -8,7 +8,7 @@
 import * as fs from "fs";
 import { basename } from "path";
 import { spawnSync, execSync } from "child_process";
-import { Octokit } from "@octokit/core";
+import { Octokit } from "@octokit/rest";
 import printDiff from "print-diff";
 import { generateChangelogFrom } from "../lib/changelog.js";
 import { packages } from "./createTypesPackages.mjs";
@@ -36,8 +36,7 @@ for (const dirName of fs.readdirSync(generatedDir)) {
     .readdirSync(packageDir)
     .filter((f) => f.endsWith(".d.ts"));
 
-  /** @type {string[]} */
-  let releaseNotes = [];
+  let releaseNotes = "";
 
   // Look through each .d.ts file included in a package to
   // determine if anything has changed
@@ -63,10 +62,10 @@ for (const dirName of fs.readdirSync(generatedDir)) {
       console.log(`Comparing ${file} from ${olderVersion}, to now:`);
       printDiff(oldFile, generatedDTSContent);
 
-      const title = `\n## \`${file}\`\n`;
+      const title = `\n## \`${file}\`\n\n`;
       const notes = generateChangelogFrom(oldFile, generatedDTSContent);
-      releaseNotes.push(title);
-      releaseNotes.push(notes.trim() === "" ? "No changes" : notes);
+      releaseNotes = title;
+      releaseNotes += notes.trim() === "" ? "No changes" : notes;
 
       upload = upload || oldFile !== generatedDTSContent;
     } catch (error) {
@@ -106,7 +105,7 @@ Assuming that this means we need to upload this package.`);
   }
 
   console.log("\n# Release notes:");
-  console.log(releaseNotes.join("\n"), "\n\n");
+  console.log(releaseNotes, "\n\n");
 }
 // Warn if we did a dry run.
 if (!process.env.NODE_AUTH_TOKEN) {
@@ -124,7 +123,7 @@ async function createRelease(tag, body) {
   const octokit = new Octokit({ auth: authToken });
 
   try {
-    await octokit.request("POST /repos/{owner}/{repo}/releases", {
+    await octokit.repos.createRelease({
       owner: "microsoft",
       repo: "TypeScript-DOM-lib-generator",
       tag_name: tag,

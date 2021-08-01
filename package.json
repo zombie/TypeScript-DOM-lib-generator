@@ -40,6 +40,7 @@
   "type": "module",
   "devDependencies": {
     "@mdn/browser-compat-data": "^3.3.13",
+    "@octokit/rest": "^16.43.2",
     "@types/jsdom": "^16.2.13",
     "@types/node": "^16.4.8",
     "@types/node-fetch": "^2.5.12",

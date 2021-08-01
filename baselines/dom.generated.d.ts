@@ -2762,6 +2762,7 @@ interface CSSStyleDeclaration {
     captionSide: string;
     caretColor: string;
     clear: string;
+    /** @deprecated */
     clip: string;
     clipPath: string;
     clipRule: string;
@@ -2816,6 +2817,7 @@ interface CSSStyleDeclaration {
     fontStyle: string;
     fontSynthesis: string;
     fontVariant: string;
+    /** @deprecated */
     fontVariantAlternates: string;
     fontVariantCaps: string;
     fontVariantEastAsian: string;
@@ -3124,7 +3126,6 @@ interface CSSStyleDeclaration {
     webkitMaskBoxImageWidth: string;
     /** @deprecated */
     webkitMaskClip: string;
-    /** @deprecated */
     webkitMaskComposite: string;
     /** @deprecated */
     webkitMaskImage: string;
@@ -3142,15 +3143,9 @@ interface CSSStyleDeclaration {
     webkitPerspective: string;
     /** @deprecated */
     webkitPerspectiveOrigin: string;
-    /** @deprecated */
     webkitTextFillColor: string;
-    /** @deprecated */
-    webkitTextSizeAdjust: string;
-    /** @deprecated */
     webkitTextStroke: string;
-    /** @deprecated */
     webkitTextStrokeColor: string;
-    /** @deprecated */
     webkitTextStrokeWidth: string;
     /** @deprecated */
     webkitTransform: string;
@@ -17186,6 +17181,7 @@ interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandler
 /** A window containing a DOM document; the document property points to the DOM document loaded in that window. */
 interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandlers, WindowEventHandlers, WindowLocalStorage, WindowOrWorkerGlobalScope, WindowSessionStorage {
     HTMLDocument: Document;
+    readonly clientInformation: Navigator;
     /**
      * Returns true if the window has been closed, false otherwise.
      */
@@ -18246,6 +18242,7 @@ declare var Option: {
     new(text?: string, value?: string, defaultSelected?: boolean, selected?: boolean): HTMLOptionElement;
 };
 declare var HTMLDocument: Document;
+declare var clientInformation: Navigator;
 /**
  * Returns true if the window has been closed, false otherwise.
  */

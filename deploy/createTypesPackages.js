@@ -2,6 +2,13 @@
 
 // node deploy/createTypesPackages.js
 
+/**
+ * @template T
+ * @typedef {T extends (infer U)[] ? U : T} ArrayInner
+ */
+/**
+ * @typedef {ArrayInner<typeof packages>} Package
+ */
 // prettier-ignore
 export const packages = [
   {
@@ -52,11 +59,8 @@ import { fileURLToPath } from "url";
 import semver from "semver";
 import pkg from "prettier";
 const { format } = pkg;
-import { execSync } from "child_process";
 
 const go = async () => {
-  const gitSha = execSync("git rev-parse HEAD").toString().trim().slice(0, 7);
-
   const generatedDir = new URL("generated/", import.meta.url);
   const templateDir = new URL("template/", import.meta.url);
 
@@ -88,7 +92,7 @@ const go = async () => {
     prependAutoImports(pkg, packagePath);
 
     // Setup the files in the repo
-    const newPkgJSON = await updatePackageJSON(pkg, packagePath, gitSha);
+    const newPkgJSON = await updatePackageJSON(pkg, packagePath);
     copyREADME(pkg, newPkgJSON, new URL("README.md", packagePath));
 
     // Done
@@ -96,9 +100,14 @@ const go = async () => {
   }
 };
 
-async function updatePackageJSON(pkg, packagePath, gitSha) {
+/**
+ * @param {Package} pkg
+ * @param {URL} packagePath
+ */
+async function updatePackageJSON(pkg, packagePath) {
   const pkgJSONPath = new URL("package.json", packagePath);
   const packageText = fs.readFileSync(pkgJSONPath, "utf8");
+  /** @type {import("./template/package.json")} */
   const packageJSON = JSON.parse(packageText);
   packageJSON.name = pkg.name;
   packageJSON.description = pkg.description;
@@ -106,7 +115,7 @@ async function updatePackageJSON(pkg, packagePath, gitSha) {
   // Bump the last version of the number from npm,
   // or use the _version in tsconfig if it's higher,
   // or default to 0.0.1
-  let version = pkg.version || "0.0.1";
+  let version = "0.0.1";
   try {
     const npmResponse = await fetch(
       `https://registry.npmjs.org/${packageJSON.name}`
@@ -128,7 +137,6 @@ async function updatePackageJSON(pkg, packagePath, gitSha) {
   }
 
   packageJSON.version = version;
-  packageJSON.domLibGeneratorSha = gitSha;
 
   fs.writeFileSync(
     pkgJSONPath,
@@ -140,7 +148,12 @@ async function updatePackageJSON(pkg, packagePath, gitSha) {
   return packageJSON;
 }
 
-// Copies the README and adds some rudimentary templating to the file.
+/**
+ * Copies the README and adds some rudimentary templating to the file.
+ * @param {Package} pkg
+ * @param {import("./template/package.json")} pkgJSON
+ * @param {URL} writePath
+ */
 function copyREADME(pkg, pkgJSON, writePath) {
   let readme = fs.readFileSync(new URL(pkg.readme, import.meta.url), "utf-8");
 
@@ -157,7 +170,11 @@ function copyREADME(pkg, pkgJSON, writePath) {
   fs.writeFileSync(writePath, readme);
 }
 
-// Appends any files marked as autoImport in the metadata.
+/**
+ * Appends any files marked as autoImport in the metadata.
+ * @param {Package} pkg
+ * @param {URL} packagePath
+ */
 function prependAutoImports(pkg, packagePath) {
   const index = new URL("index.d.ts", packagePath);
   if (!fs.existsSync(index)) return;

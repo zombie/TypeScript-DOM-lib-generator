@@ -2,9 +2,8 @@
 
 // npm run ts-changelog @types/web 0.0.1 0.0.3
 
-import { generateChangelogFrom } from "../lib/changelog.js";
+import { gitShowFile, generateChangelogFrom } from "../lib/changelog.js";
 import { packages } from "./createTypesPackages.js";
-import { execSync } from "child_process";
 import { basename } from "path";
 
 const [name, before, to] = process.argv.slice(2);
@@ -32,8 +31,5 @@ const go = () => {
     console.log(notes.trim() === "" ? "No changes" : notes);
   }
 };
-
-const gitShowFile = (commitish, path) =>
-  execSync(`git show "${commitish}":${path}`, { encoding: "utf-8" });
 
 go();

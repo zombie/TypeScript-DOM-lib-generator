@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import ts from "typescript";
 import { fileURLToPath } from "url";
 
-function gitShowFile(commit: string, path: string) {
+export function gitShowFile(commit: string, path: string): string {
   return execSync(`git show ${commit}:${path}`, { encoding: "utf-8" });
 }
 

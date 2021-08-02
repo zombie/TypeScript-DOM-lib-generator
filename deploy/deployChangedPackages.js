@@ -1,17 +1,17 @@
 // @ts-check
 
-// node deploy/deployChangedPackages.mjs
+// node deploy/deployChangedPackages.js
 
-// Builds on the results of createTypesPackages.mjs and deploys the
+// Builds on the results of createTypesPackages.js and deploys the
 // ones which have changed.
 
 import * as fs from "fs";
 import { basename } from "path";
-import { spawnSync, execSync } from "child_process";
+import { spawnSync } from "child_process";
 import { Octokit } from "@octokit/rest";
 import printDiff from "print-diff";
-import { generateChangelogFrom } from "../lib/changelog.js";
-import { packages } from "./createTypesPackages.mjs";
+import { gitShowFile, generateChangelogFrom } from "../lib/changelog.js";
+import { packages } from "./createTypesPackages.js";
 import { fileURLToPath } from "node:url";
 
 verify();
@@ -31,6 +31,9 @@ for (const dirName of fs.readdirSync(generatedDir)) {
   // We'll need to map back from the filename in the npm package to the
   // generated file in baselines inside the git tag
   const thisPackageMeta = packages.find((p) => p.name === pkgJSON.name);
+  if (!thisPackageMeta) {
+    throw new Error(`Couldn't find ${pkgJSON.name}`);
+  }
 
   const dtsFiles = fs
     .readdirSync(packageDir)
@@ -42,9 +45,11 @@ for (const dirName of fs.readdirSync(generatedDir)) {
   // determine if anything has changed
   let upload = false;
   for (const file of dtsFiles) {
-    const originalFilename = basename(
-      thisPackageMeta.files.find((f) => f.to === file).from
-    );
+    const filemap = thisPackageMeta.files.find((f) => f.to === file);
+    if (!filemap) {
+      throw new Error(`Couldn't find ${file} from ${pkgJSON.name}`);
+    }
+    const originalFilename = basename(filemap.from);
 
     const generatedDTSPath = new URL(file, packageDir);
     const generatedDTSContent = fs.readFileSync(generatedDTSPath, "utf8");
@@ -118,6 +123,10 @@ if (uploaded.length) {
   console.log("No uploads");
 }
 
+/**
+ * @param {string} tag
+ * @param {string} body
+ */
 async function createRelease(tag, body) {
   const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
   const octokit = new Octokit({ auth: authToken });
@@ -144,8 +153,4 @@ function verify() {
     throw new Error(
       "There isn't an ENV var set up for creating a GitHub release, expected GITHUB_TOKEN."
     );
-}
-
-function gitShowFile(commitish, path) {
-  return execSync(`git show "${commitish}":${path}`, { encoding: "utf-8" });
 }

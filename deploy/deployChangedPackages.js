@@ -8,7 +8,7 @@
 import * as fs from "fs";
 import { basename } from "path";
 import { spawnSync } from "child_process";
-import { Octokit } from "@octokit/core";
+import { Octokit } from "@octokit/rest";
 import printDiff from "print-diff";
 import { gitShowFile, generateChangelogFrom } from "../lib/changelog.js";
 import { packages } from "./createTypesPackages.js";
@@ -39,7 +39,6 @@ for (const dirName of fs.readdirSync(generatedDir)) {
     .readdirSync(packageDir)
     .filter((f) => f.endsWith(".d.ts"));
 
-  /** @type {string} */
   let releaseNotes = "";
 
   // Look through each .d.ts file included in a package to
@@ -133,7 +132,7 @@ async function createRelease(tag, body) {
   const octokit = new Octokit({ auth: authToken });
 
   try {
-    await octokit.request("POST /repos/{owner}/{repo}/releases", {
+    await octokit.repos.createRelease({
       owner: "microsoft",
       repo: "TypeScript-DOM-lib-generator",
       tag_name: tag,

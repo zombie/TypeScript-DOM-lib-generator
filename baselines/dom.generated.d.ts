@@ -3463,7 +3463,7 @@ declare var CharacterData: {
     new(): CharacterData;
 };
 
-interface ChildNode {
+interface ChildNode extends Node {
     /**
      * Inserts nodes just after node, while replacing strings in nodes with equivalent Text nodes.
      *
@@ -10471,11 +10471,11 @@ interface Node extends EventTarget {
     /**
      * Returns the children.
      */
-    readonly childNodes: NodeListOf<ChildNode & Node>;
+    readonly childNodes: NodeListOf<ChildNode>;
     /**
      * Returns the first child.
      */
-    readonly firstChild: (ChildNode & Node) | null;
+    readonly firstChild: ChildNode | null;
     /**
      * Returns true if node is connected and false otherwise.
      */
@@ -10483,11 +10483,11 @@ interface Node extends EventTarget {
     /**
      * Returns the last child.
      */
-    readonly lastChild: (ChildNode & Node) | null;
+    readonly lastChild: ChildNode | null;
     /**
      * Returns the next sibling.
      */
-    readonly nextSibling: (ChildNode & Node) | null;
+    readonly nextSibling: ChildNode | null;
     /**
      * Returns a string appropriate for the type of node.
      */
@@ -10508,11 +10508,11 @@ interface Node extends EventTarget {
     /**
      * Returns the parent.
      */
-    readonly parentNode: (Node & ParentNode) | null;
+    readonly parentNode: ParentNode | null;
     /**
      * Returns the previous sibling.
      */
-    readonly previousSibling: (ChildNode & Node) | null;
+    readonly previousSibling: ChildNode | null;
     textContent: string | null;
     appendChild<T extends Node>(node: T): T;
     /**
@@ -10929,7 +10929,7 @@ declare var PannerNode: {
     new(context: BaseAudioContext, options?: PannerOptions): PannerNode;
 };
 
-interface ParentNode {
+interface ParentNode extends Node {
     readonly childElementCount: number;
     /**
      * Returns the child elements.

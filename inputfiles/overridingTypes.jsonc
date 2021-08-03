@@ -2,7 +2,6 @@
     "mixins": {
         "mixin": {
             "Animatable": {
-                "name": "Animatable",
                 "methods": {
                     "method": {
                         "animate": {
@@ -22,7 +21,6 @@
                 }
             },
             "GlobalEventHandlers": {
-                "name": "GlobalEventHandlers",
                 "events": {
                     "event": [
                         {
@@ -145,7 +143,6 @@
               }
             },
             "WebGLRenderingContextBase": {
-                "name": "WebGLRenderingContextBase",
                 "methods": {
                     "method": {
                         "getExtension": {
@@ -432,7 +429,6 @@
                 }
             },
             "CustomEvent": {
-                "name": "CustomEvent",
                 "properties": {
                     "property": {
                         "detail": {
@@ -482,7 +478,6 @@
                 }
             },
             "Window": {
-                "name": "Window",
                 "properties": {
                     "property": {
                         "event": {
@@ -526,7 +521,6 @@
                 "overrideIndexSignatures": []
             },
             "Document": {
-                "name": "Document",
                 "methods": {
                     "method": {
                         "adoptNode": {
@@ -677,7 +671,6 @@
                 }
             },
             "Node": {
-                "name": "Node",
                 "methods": {
                     "method": {
                         "appendChild": {
@@ -785,7 +778,6 @@
                 }
             },
             "IDBObjectStore": {
-                "name": "IDBObjectStore",
                 "methods": {
                     "method": {
                         "openCursor": {
@@ -948,7 +940,6 @@
                 }
             },
             "IDBIndex": {
-                "name": "IDBIndex",
                 "properties": {
                     "property": {
                         "keyPath": {
@@ -1075,7 +1066,6 @@
                 }
             },
             "BeforeUnloadEvent": {
-                "name": "BeforeUnloadEvent",
                 "properties": {
                     "property": {
                         "returnValue": {
@@ -1086,7 +1076,6 @@
                 }
             },
             "SVGElement": {
-                "name": "SVGElement",
                 "properties": {
                     "property": {
                         "className": {
@@ -1098,7 +1087,6 @@
                 }
             },
             "SVGSVGElement": {
-                "name": "SVGSVGElement",
                 "methods": {
                     "method": {
                         "getEnclosureList": {
@@ -1122,7 +1110,6 @@
                 "extends": "SVGElement"
             },
             "FormData": {
-                "name": "FormData",
                 "methods": {
                     "method": {
                         "append": {
@@ -1222,7 +1209,6 @@
                 }
             },
             "Element": {
-                "name": "Element",
                 "methods": {
                     "method": {
                         "getElementsByTagNameNS": {
@@ -1241,7 +1227,6 @@
                 }
             },
             "DataTransfer": {
-                "name": "DataTransfer",
                 "properties": {
                     "property": {
                         "dropEffect": {
@@ -1256,7 +1241,6 @@
                 }
             },
             "IDBCursor": {
-                "name": "IDBCursor",
                 "properties": {
                     "property": {
                         "key": {
@@ -1317,7 +1301,6 @@
                 }
             },
             "IDBRequest": {
-                "name": "IDBRequest",
                 "properties": {
                     "property": {
                         "source": {
@@ -1352,11 +1335,9 @@
                 ]
             },
             "HTMLOptionsCollection": {
-                "name": "HTMLOptionsCollection",
                 "extends": "HTMLCollectionOf<HTMLOptionElement>"
             },
             "SubtleCrypto": {
-                "name": "SubtleCrypto",
                 "methods": {
                     "method": {
                         "decrypt": {
@@ -1574,7 +1555,6 @@
                 }
             },
             "MouseEvent": {
-                "name": "MouseEvent",
                 "methods": {
                     "method": {
                         "initMouseEvent": {
@@ -1587,13 +1567,11 @@
                 }
             },
             "DOMStringMap": {
-                "name": "DOMStringMap",
                 "overrideIndexSignatures": [
                     "[name: string]: string | undefined"
                 ]
             },
             "DOMImplementation": {
-                "name": "DOMImplementation",
                 "methods": {
                     "method": {
                         "hasFeature": {
@@ -1693,7 +1671,6 @@
                 }
             },
             "ServiceWorkerContainer": {
-                "name": "ServiceWorkerContainer",
                 "methods": {
                     "method": {
                         "getRegistration": {
@@ -1719,7 +1696,6 @@
                 }
             },
             "WebSocket": {
-                "name": "WebSocket",
                 "methods": {
                     "method": {
                         "send": {
@@ -1750,7 +1726,6 @@
                 }
             },
             "XMLHttpRequestEventTarget": {
-                "name": "XMLHttpRequestEventTarget",
                 "properties": {
                     "property": {
                         "onloadstart": {
@@ -1817,7 +1792,6 @@
                 }
             },
             "FileReader": {
-                "name": "FileReader",
                 "events": {
                     "event": [
                         {
@@ -1848,7 +1822,6 @@
                 }
             },
             "MutationRecord": {
-                "name": "MutationRecord",
                 "properties": {
                     "property": {
                         "type": {
@@ -1859,7 +1832,6 @@
                 }
             },
             "URL": {
-                "name": "URL",
                 "constructor": {
                     "signature": {
                         "0": {
@@ -1874,7 +1846,6 @@
                 }
             },
             "Client": {
-                "name": "Client",
                 "properties": {
                     "property": {
                         "type": {
@@ -1901,7 +1872,6 @@
                 }
             },
             "RTCDataChannel": {
-                "name": "RTCDataChannel",
                 "events": {
                     "event": [
                         {
@@ -1969,7 +1939,6 @@
                 }
             },
             "ServiceWorkerGlobalScope": {
-                "name": "ServiceWorkerGlobalScope",
                 "events": {
                     "event": [
                         {
@@ -2008,7 +1977,6 @@
                 }
             },
             "Cache": {
-                "name": "Cache",
                 "methods": {
                     "method": {
                         "match": {
@@ -2023,7 +1991,6 @@
                 }
             },
             "CacheStorage": {
-                "name": "CacheStorage",
                 "methods": {
                     "method": {
                         "match": {
@@ -2038,7 +2005,6 @@
                 }
             },
             "Animation": {
-                "name": "Animation",
                 "events": {
                     "event": [
                         {
@@ -2053,7 +2019,6 @@
                 }
             },
             "KeyframeEffect": {
-                "name": "KeyframeEffect",
                 "constructor": {
                     "signature": {
                         "0": {
@@ -2098,7 +2063,6 @@
                 ]
             },
             "Worker": {
-                "name": "Worker",
                 "methods": {
                     "method": {
                         "postMessage": {
@@ -2129,7 +2093,6 @@
                 }
             },
             "Crypto": {
-                "name": "Crypto",
                 "methods": {
                     "method": {
                         "getRandomValues": {
@@ -2155,7 +2118,6 @@
                 }
             },
             "OfflineAudioContext": {
-                "name": "OfflineAudioContext",
                 "events": {
                     "event": [
                         {
@@ -2166,7 +2128,6 @@
                 }
             },
             "PannerNode": {
-                "name": "PannerNode",
                 "methods": {
                     "method": {
                         "setPosition": {
@@ -2191,7 +2152,6 @@
                 }
             },
             "MessagePort": {
-                "name": "MessagePort",
                 "methods": {
                     "method": {
                         "postMessage": {
@@ -2222,7 +2182,6 @@
                 }
             },
             "ServiceWorker": {
-                "name": "ServiceWorker",
                 "methods": {
                     "method": {
                         "postMessage": {
@@ -2241,7 +2200,6 @@
                 }
             },
             "DedicatedWorkerGlobalScope": {
-                "name": "DedicatedWorkerGlobalScope",
                 "methods": {
                     "method": {
                         "postMessage": {
@@ -2759,7 +2717,6 @@
                 }
             },
             "MessageEvent": {
-                "name": "MessageEvent",
                 "properties": {
                     "property": {
                         "data": {
@@ -2829,7 +2786,6 @@
     "dictionaries": {
         "dictionary": {
             "MessageEventInit": {
-                "name": "MessageEventInit",
                 "members": {
                     "member": {
                         "data": {
@@ -2846,7 +2802,6 @@
                 ]
             },
             "CustomEventInit": {
-                "name": "CustomEventInit",
                 "members": {
                     "member": {
                         "detail": {
@@ -2863,7 +2818,6 @@
                 ]
             },
             "ClientQueryOptions": {
-                "name": "ClientQueryOptions",
                 "members": {
                     "member": {
                         "type": {

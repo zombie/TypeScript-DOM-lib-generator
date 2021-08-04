@@ -15,15 +15,17 @@ if (!tscWD)
   );
 
 const generatedFiles = readdirSync("generated");
-generatedFiles.forEach((file) => {
-  if (file == ".DS_Store") return;
+const filesToSend = generatedFiles.filter(
+  (file) => file.includes("dom.") || file.includes("webworker.")
+);
+filesToSend.forEach((file) => {
   const contents = readFileSync(join("generated", file), "utf8");
   const newFilePath = join(tscWD, "src", "lib", file);
   writeFileSync(newFilePath, contents);
 });
 
 console.log(
-  `Moved ${generatedFiles
+  `Moved ${filesToSend
     .map((f) => f.replace(".generated", ""))
     .join(", ")} to '${tscWD}/src/lib'.`
 );

@@ -166,14 +166,6 @@
             "Text": {
                 "implements": ["GeometryUtils"]
             },
-            // This is hard to get in sync with @types/node
-            "AbortSignal": {
-                "methods": {
-                    "method": {
-                        "abort": null
-                    }
-                }
-            },
             "WebGLBuffer": {
                 "extends": null
             },

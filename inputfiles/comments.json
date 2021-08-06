@@ -1796,6 +1796,15 @@
                         }
                     }
                 }
+            },
+            "Window": {
+                "properties": {
+                    "property": {
+                        "parent": {
+                            "comment" : "/**\n * Refers to either the parent WindowProxy, or itself.\n *\n * It can rarely be null e.g. for contentWindow of an iframe that is already removed from the parent.\n */"
+                        }
+                    }
+                }
             }
         }
     }

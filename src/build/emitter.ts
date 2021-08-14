@@ -160,7 +160,7 @@ export function emitWebIdl(
   const allEnumsMap = webidl.enums ? webidl.enums.enum : {};
   const allCallbackFunctionsMap =
     webidl.callbackFunctions?.callbackFunction ?? {};
-  const allTypeDefsMap = new Set(webidl.typedefs?.typedef.map((td) => td.name));
+  const allTypedefsMap = toNameMap(webidl.typedefs?.typedef ?? []);
 
   /// Tag name to element name map
   const tagNameToEleName = getTagNameToElementNameMap();
@@ -415,7 +415,7 @@ export function emitWebIdl(
     )
       return objDomType;
     // Name of a type alias. Just return itself
-    if (allTypeDefsMap.has(objDomType)) return objDomType;
+    if (allTypedefsMap[objDomType]) return objDomType;
 
     throw new Error("Unknown DOM type: " + objDomType);
   }
@@ -648,11 +648,22 @@ export function emitWebIdl(
   }
 
   function resolvePromise<T extends Browser.Typed>(t: T): T {
-    if (t.type !== "Promise") {
+    const typedef =
+      typeof t.type === "string" ? allTypedefsMap[t.type] : undefined;
+    const typeOwner = typedef ?? t;
+    if (typeOwner.type !== "Promise") {
+      if (t.subtype) {
+        return {
+          ...t,
+          subtype: Array.isArray(t.subtype)
+            ? t.subtype.map(resolvePromise)
+            : resolvePromise(t.subtype),
+        };
+      }
       return t;
     }
-    const type = [t.subtype!].flat();
-    type.push({ ...t, type: "PromiseLike" });
+    const type = [typeOwner.subtype!].flat();
+    type.push({ ...typeOwner, type: "PromiseLike" });
     return { ...t, subtype: undefined, type };
   }
 

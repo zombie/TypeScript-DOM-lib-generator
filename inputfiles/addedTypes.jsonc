@@ -201,6 +201,18 @@
                             "type": "BeforeUnloadEvent"
                         },
                         {
+                            "name": "gamepadconnected",
+                            "type": "GamepadEvent"
+                        },
+                        {
+                            "name": "gamepaddisconnected",
+                            "type": "GamepadEvent"
+                        },
+                        {
+                            "name": "hashchange",
+                            "type": "HashChangeEvent"
+                        },
+                        {
                             "name": "message",
                             "type": "MessageEvent"
                         },

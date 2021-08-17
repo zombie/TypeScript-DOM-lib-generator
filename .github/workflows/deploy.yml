@@ -1,11 +1,15 @@
 name: Deploy to npm
 
 on:
+  # This only gets triggered by a maintainer merging, not the bot
   push:
     branches:
       - main
-
+  schedule:
+    # Daily run
+    - cron: "0 4 * * *"
   workflow_dispatch: null
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -36,7 +36,6 @@ export const forceKeepAlive: Record<string, string[]> = {
     "strokeWidth",
     "textAnchor",
   ],
-  DOMRect: ["x", "y", "width", "height"],
   Gamepad: ["hapticActuators"],
   GlobalEventHandlers: [
     "ontoggle",

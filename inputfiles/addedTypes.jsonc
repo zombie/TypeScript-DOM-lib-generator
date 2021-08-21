@@ -187,12 +187,7 @@
                 "properties": {
                     "property": {
                         "canvas": {
-                            "exposed": "Window",
-
-                            // https://github.com/KhronosGroup/WebGL/pull/3296 will make these redundant
-                            "name": "canvas",
-                            "type": "HTMLCanvasElement",
-                            "readonly": true
+                            "exposed": "Window"
                         }
                     }
                 }

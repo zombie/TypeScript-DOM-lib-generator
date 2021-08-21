@@ -41,6 +41,9 @@ function mergeCompatStatements(data?: Identifier): CompatStatement | undefined {
     for (const key of Object.keys(statement.support)) {
       const support = statement.support[key];
       if (support && hasStableImplementation(support)) {
+        if (!base[key]) {
+          base[key] = []; // some support field is not everywhere e.g. deno
+        }
         base[key].push(...(Array.isArray(support) ? support : [support]));
       }
     }

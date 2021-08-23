@@ -1,2 +1,1 @@
-const d = new HTMLDocument()
-const result = d instanceof HTMLDocument
+document instanceof HTMLDocument

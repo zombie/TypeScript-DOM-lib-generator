@@ -330,7 +330,6 @@
             "HTMLDocument": {
                 "name": "HTMLDocument",
                 "extends": "Document",
-                "noInterfaceObject": true,
                 "deprecated": "use Document",
                 "exposed": "Window"
             },
@@ -363,14 +362,6 @@
                     "method": {
                         "captureEvents": {
                             "deprecated": true
-                        }
-                    }
-                },
-                "properties": {
-                    "property": {
-                        "HTMLDocument": {
-                            "name": "HTMLDocument",
-                            "type": "Document"
                         }
                     }
                 },

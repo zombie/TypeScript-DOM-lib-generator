@@ -2792,6 +2792,15 @@
                         }
                     }
                 }
+            },
+            "HTMLMediaElement": {
+                "properties": {
+                    "property": {
+                        "preload": {
+                            "overrideType": "\"none\" | \"metadata\" | \"auto\" | \"\""
+                        }
+                    }
+                }
             }
         }
     },

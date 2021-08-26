@@ -6,13 +6,13 @@
 // ones which have changed.
 
 import * as fs from "fs";
-import { basename } from "path";
 import { spawnSync } from "child_process";
 import { Octokit } from "@octokit/rest";
 import printDiff from "print-diff";
-import { gitShowFile, generateChangelogFrom } from "../lib/changelog.js";
+import { generateChangelogFrom } from "../lib/changelog.js";
 import { packages } from "./createTypesPackages.js";
 import { fileURLToPath } from "node:url";
+import fetch from "node-fetch";
 
 verify();
 
@@ -22,11 +22,17 @@ const uploaded = [];
 // .d.ts files from the version available on npm.
 const generatedDir = new URL("generated/", import.meta.url);
 for (const dirName of fs.readdirSync(generatedDir)) {
-  console.log(`Looking at ${dirName}`);
   const packageDir = new URL(`${dirName}/`, generatedDir);
   const localPackageJSONPath = new URL("package.json", packageDir);
   const newTSConfig = fs.readFileSync(localPackageJSONPath, "utf-8");
   const pkgJSON = JSON.parse(newTSConfig);
+
+  // This assumes we'll only _ever_ ship patches, which may change in the
+  // future someday.
+  const [maj, min, patch] = pkgJSON.version.split(".");
+  const olderVersion = `${maj}.${min}.${patch - 1}`;
+
+  console.log(`\nLooking at ${dirName} vs ${olderVersion}`);
 
   // We'll need to map back from the filename in the npm package to the
   // generated file in baselines inside the git tag
@@ -49,23 +55,17 @@ for (const dirName of fs.readdirSync(generatedDir)) {
     if (!filemap) {
       throw new Error(`Couldn't find ${file} from ${pkgJSON.name}`);
     }
-    const originalFilename = basename(filemap.from);
 
     const generatedDTSPath = new URL(file, packageDir);
     const generatedDTSContent = fs.readFileSync(generatedDTSPath, "utf8");
 
-    // This assumes we'll only _ever_ ship patches, which may change in the
-    // future someday.
-    const [maj, min, patch] = pkgJSON.version.split(".");
-    const olderVersion = `${maj}.${min}.${patch - 1}`;
-
     try {
-      const oldFile = gitShowFile(
-        `${pkgJSON.name}@${olderVersion}`,
-        `baselines/${originalFilename}`
+      const oldFile = await getFileFromUnpkg(
+        `${pkgJSON.name}@${olderVersion}/${filemap.to}`
       );
-      console.log(`Comparing ${file} from ${olderVersion}, to now:`);
-      printDiff(oldFile, generatedDTSContent);
+      console.log(` - ${file}`);
+      if (oldFile !== generatedDTSContent)
+        printDiff(oldFile, generatedDTSContent);
 
       const title = `\n## \`${file}\`\n\n`;
       const notes = generateChangelogFrom(oldFile, generatedDTSContent);
@@ -78,6 +78,7 @@ for (const dirName of fs.readdirSync(generatedDir)) {
       console.log(`
 Could not get the file ${file} inside the npm package ${pkgJSON.name} from tag ${olderVersion}.
 Assuming that this means we need to upload this package.`);
+      console.error(error);
       upload = true;
     }
   }
@@ -107,11 +108,13 @@ Assuming that this means we need to upload this package.`);
     }
 
     uploaded.push(dirName);
-  }
 
-  console.log("\n# Release notes:");
-  console.log(releaseNotes, "\n\n");
+    console.log("\n# Release notes:");
+    console.log(releaseNotes, "\n\n");
+  }
 }
+console.log("");
+
 // Warn if we did a dry run.
 if (!process.env.NODE_AUTH_TOKEN) {
   console.log("Did a dry run because process.env.NODE_AUTH_TOKEN is not set.");
@@ -120,7 +123,7 @@ if (!process.env.NODE_AUTH_TOKEN) {
 if (uploaded.length) {
   console.log("Uploaded: ", uploaded.join(", "));
 } else {
-  console.log("No uploads");
+  console.log("Nothing to upload");
 }
 
 /**
@@ -153,4 +156,9 @@ function verify() {
     throw new Error(
       "There isn't an ENV var set up for creating a GitHub release, expected GITHUB_TOKEN."
     );
+}
+
+/** @param {string} filepath */
+function getFileFromUnpkg(filepath) {
+  return fetch(`https://unpkg.com/${filepath}`).then((r) => r.text());
 }

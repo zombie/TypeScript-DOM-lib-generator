@@ -4395,13 +4395,6 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
      */
     createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null): TreeWalker;
     /**
-     * Returns the element for the specified x coordinate and the specified y coordinate.
-     * @param x The x-offset
-     * @param y The y-offset
-     */
-    elementFromPoint(x: number, y: number): Element | null;
-    elementsFromPoint(x: number, y: number): Element[];
-    /**
      * Executes a command on the current document, current selection, or the given range.
      * @param commandId String that specifies the command to execute. This command can be any of the command identifiers that can be executed in script.
      * @param showUI Display the user interface, defaults to false.
@@ -4558,6 +4551,13 @@ interface DocumentOrShadowRoot {
     readonly pointerLockElement: Element | null;
     /** Retrieves a collection of styleSheet objects representing the style sheets that correspond to each instance of a link or style object in the document. */
     readonly styleSheets: StyleSheetList;
+    /**
+     * Returns the element for the specified x coordinate and the specified y coordinate.
+     * @param x The x-offset
+     * @param y The y-offset
+     */
+    elementFromPoint(x: number, y: number): Element | null;
+    elementsFromPoint(x: number, y: number): Element[];
     getAnimations(): Animation[];
 }
 
@@ -13348,7 +13348,6 @@ declare var SubtleCrypto: {
 
 /** The textual content of Element or Attr. If an element has no markup within its content, it has a single child implementing Text that contains the element's text. However, if the element contains markup, it is parsed into information items and Text nodes that form its children. */
 interface Text extends CharacterData, Slottable {
-    readonly assignedSlot: HTMLSlotElement | null;
     /** Returns the combined data of all direct Text node siblings. */
     readonly wholeText: string;
     /** Splits data at the given offset and returns the remainder as Text node. */

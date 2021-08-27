@@ -32,9 +32,10 @@ npm run test
 ## `@types/[lib]` to TypeScript Versions
 
 | `@types/[lib]` version | TypeScript Version  | Minimum TypeScript Support |
-| ---------------------------------------------------------------------- | ----------- | -------------- |
-| `@types/web` [0.0.1](https://www.npmjs.com/package/@types/web/v/0.0.1) | ~4.3        | 4.4            |
-| `@types/web` [0.0.2](https://www.npmjs.com/package/@types/web/v/0.0.2) | ~4.4 beta   | 4.4            |
+| ------------------------------------------------------------------------- | ----------- | -------------- |
+| `@types/web` [0.0.1](https://www.npmjs.com/package/@types/web/v/0.0.1)    | ~4.3        | 4.4            |
+| `@types/web` [0.0.2](https://www.npmjs.com/package/@types/web/v/0.0.2)    | ~4.4 beta   | 4.4            |
+| `@types/web` [0.0.25](https://www.npmjs.com/package/@types/web/v/0.0.25)  | 4.4         | 4.4            |
 
 ## `@types/[lib]` Minimum Target
 

@@ -45,7 +45,7 @@ for (const dirName of fs.readdirSync(generatedDir)) {
     .readdirSync(packageDir)
     .filter((f) => f.endsWith(".d.ts"));
 
-  let releaseNotes = "";
+  const releaseNotes = [];
 
   // Look through each .d.ts file included in a package to
   // determine if anything has changed
@@ -67,10 +67,10 @@ for (const dirName of fs.readdirSync(generatedDir)) {
       if (oldFile !== generatedDTSContent)
         printDiff(oldFile, generatedDTSContent);
 
-      const title = `\n## \`${file}\`\n\n`;
+      const title = `## \`${file}\``;
       const notes = generateChangelogFrom(oldFile, generatedDTSContent);
-      releaseNotes = title;
-      releaseNotes += notes.trim() === "" ? "No changes" : notes;
+      releaseNotes.push(title);
+      releaseNotes.push(notes.trim() === "" ? "No changes" : notes);
 
       upload = upload || oldFile !== generatedDTSContent;
     } catch (error) {
@@ -98,7 +98,10 @@ Assuming that this means we need to upload this package.`);
       } else {
         console.log(publish.stdout?.toString());
 
-        await createRelease(`${pkgJSON.name}@${pkgJSON.version}`, releaseNotes);
+        await createRelease(
+          `${pkgJSON.name}@${pkgJSON.version}`,
+          releaseNotes.join("\n\n")
+        );
       }
     } else {
       console.log(
@@ -109,8 +112,8 @@ Assuming that this means we need to upload this package.`);
 
     uploaded.push(dirName);
 
-    console.log("\n# Release notes:");
-    console.log(releaseNotes, "\n\n");
+    console.log("\n# Release notes:\n");
+    console.log(releaseNotes.join("\n\n"), "\n\n");
   }
 }
 console.log("");
@@ -152,10 +155,11 @@ async function createRelease(tag, body) {
 
 function verify() {
   const authToken = process.env.GITHUB_TOKEN || process.env.GITHUB_API_TOKEN;
-  if (!authToken)
+  if (!authToken) {
     throw new Error(
       "There isn't an ENV var set up for creating a GitHub release, expected GITHUB_TOKEN."
     );
+  }
 }
 
 /** @param {string} filepath */

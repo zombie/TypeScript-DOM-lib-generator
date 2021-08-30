@@ -29,8 +29,8 @@ jobs:
       - uses: peter-evans/create-pull-request@v3
         if: ${{ steps.git-diff.outcome == 'failure' }}
         with:
-          commit-message: "chore(package): update core dependencies"
-          title: "chore(package): update core dependencies"
+          commit-message: "🤖 Update core dependencies"
+          title: "Update core dependencies"
           push-to-fork: typescript-bot/TypeScript-DOM-lib-generator
           branch: update-core-deps
           token: ${{ secrets.TS_GITHUB_BOT_AUTH }}

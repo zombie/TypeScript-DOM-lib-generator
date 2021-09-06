@@ -28,7 +28,7 @@ async function fetchInterfaceDescriptions() {
       `https://developer.mozilla.org/en-US/docs/Web/API/${name}$json`
     );
     if (response.ok) {
-      const page = await response.json();
+      const page: any = await response.json();
       addDescription(name, page);
     } else if (response.status !== 404) {
       throw new Error(`Failed to fetch ${name}: ${response.statusText}`);

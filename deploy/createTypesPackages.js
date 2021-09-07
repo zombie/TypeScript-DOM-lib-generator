@@ -121,6 +121,7 @@ async function updatePackageJSON(pkg, packagePath) {
     const npmResponse = await fetch(
       `https://registry.npmjs.org/${packageJSON.name}`
     );
+    /** @type {*} */
     const npmPackage = await npmResponse.json();
 
     const semverMarkers = npmPackage["dist-tags"].latest.split(".");

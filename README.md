@@ -36,6 +36,7 @@ npm run test
 | `@types/web` [0.0.1](https://www.npmjs.com/package/@types/web/v/0.0.1)    | ~4.3        | 4.4            |
 | `@types/web` [0.0.2](https://www.npmjs.com/package/@types/web/v/0.0.2)    | ~4.4 beta   | 4.4            |
 | `@types/web` [0.0.25](https://www.npmjs.com/package/@types/web/v/0.0.25)  | 4.4         | 4.4            |
+| `@types/web` [0.0.37](https://www.npmjs.com/package/@types/web/v/0.0.37)  | 4.5 beta    | 4.4            |
 
 ## `@types/[lib]` Minimum Target
 
@@ -84,12 +85,12 @@ To migrate the *.d.ts files into TypeScript:
 1. Run:
 
     ```sh
-    npm run migrate -- [previous_types_web_version]
+    npm run migrate -- [optional/file/path/to/tsc]
     ```
 
     The script will look in for a clone of the TypeScript repo in "../TypeScript", or "./TypeScript" to move the generated files in. Or migrate the files manually, you do you.
 
-1. Update the README table with the mappings for versions in the `@types/[lib]`. E.g. TS 4.5 -> `@types/web` `0.0.23`.
+1. Update the README table with the mappings for versions in the `@types/[lib]`. E.g. TS 4.5 -> `@types/web` `0.0.23`. Find that number here: https://www.npmjs.com/package/@types/web
 
 1. Generate a CHANGELOG for the releases:
 
@@ -97,5 +98,7 @@ To migrate the *.d.ts files into TypeScript:
     #                       lib        from  to
     npm run ts-changelog -- @types/web 0.0.2 0.0.23
     ```
+
+    You might need to run `git pull origin main --tags` to run this ^
 
 1. Add the CHANGELOG to the release issue

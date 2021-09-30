@@ -17,7 +17,7 @@ export const packages = [
     readme: "./readmes/web.md",
     files: [
       { from: "../generated/dom.generated.d.ts", to: "index.d.ts" },
-      { from: "../generated/dom.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true },
+      { from: "../generated/dom.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
     ],
   },
   {
@@ -26,7 +26,7 @@ export const packages = [
     readme: "./readmes/serviceworker.md",
     files: [
       { from: "../generated/serviceworker.generated.d.ts", to: "index.d.ts" },
-      { from: "../generated/serviceworker.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true  },
+      { from: "../generated/serviceworker.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true  },
     ],
   },
   {
@@ -35,7 +35,7 @@ export const packages = [
     readme: "./readmes/audioworklet.md",
     files: [
       { from: "../generated/audioworklet.generated.d.ts", to: "index.d.ts" },
-      { from: "../generated/audioworklet.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true  },
+      { from: "../generated/audioworklet.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true  },
     ],
   },
   {
@@ -44,7 +44,7 @@ export const packages = [
     readme: "./readmes/sharedworker.md",
     files: [
       { from: "../generated/sharedworker.generated.d.ts", to: "index.d.ts" },
-      { from: "../generated/sharedworker.iterable.generated.d.ts", to: "index.iterable.d.ts", autoImport: true },
+      { from: "../generated/sharedworker.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
     ],
   },
 ];

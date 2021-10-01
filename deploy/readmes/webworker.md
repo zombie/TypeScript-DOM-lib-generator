@@ -35,7 +35,7 @@ Removing `"webworker"` gives @types/webworker the chance to provide the same set
 
 </details>
 
-If you'd like to ensure that the DOM types are never accidentally included, you can use [@orta/types-noop]()https://www.npmjs.com/package/@orta/type-noops) in TypeScript 4.5+.
+If you'd like to ensure that the DOM types are never accidentally included, you can use [@orta/types-noop](https://www.npmjs.com/package/@orta/type-noops) in TypeScript 4.5+.
 
 ## SemVer
 

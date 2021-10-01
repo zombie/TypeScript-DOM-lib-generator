@@ -195,7 +195,7 @@ function prependAutoImports(pkg, packagePath) {
  * @param {Package} pkg
  * @param {URL} packagePath
  */
-function postProcessDTSFiles(pkg, packagePath) {
+export function postProcessDTSFiles(pkg, packagePath) {
   iterateThroughFiles((content) => {
     return content.replace(
       "abort(): AbortSignal;",

@@ -135,6 +135,7 @@ interface NamedNodeMap {
 }
 
 interface Navigator {
+    /** Available only on secure context. */
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: Iterable<MediaKeySystemConfiguration>): Promise<MediaKeySystemAccess>;
     vibrate(pattern: Iterable<number>): boolean;
 }

@@ -58,6 +58,7 @@ export interface Property extends Typed {
   specs?: string;
   deprecated?: boolean;
   exposed?: string;
+  secureContext?: boolean;
 }
 
 export interface Event {
@@ -86,6 +87,7 @@ export interface AnonymousMethod {
   exposed?: string;
   deprecated?: boolean;
   signature: Signature[];
+  secureContext?: boolean;
 }
 
 export interface Method extends AnonymousMethod {
@@ -191,6 +193,7 @@ export interface Interface {
     typedefs: TypeDef[];
   };
   deprecated?: boolean | string;
+  secureContext?: boolean;
 }
 
 export interface Iterator {

@@ -2214,6 +2214,7 @@ declare var AudioScheduledSourceNode: {
     new(): AudioScheduledSourceNode;
 };
 
+/** Available only on secure context. */
 interface AudioWorklet extends Worklet {
 }
 
@@ -2226,6 +2227,7 @@ interface AudioWorkletNodeEventMap {
     "processorerror": Event;
 }
 
+/** Available only on secure context. */
 interface AudioWorkletNode extends AudioNode {
     onprocessorerror: ((this: AudioWorkletNode, ev: Event) => any) | null;
     readonly parameters: AudioParamMap;
@@ -2241,6 +2243,7 @@ declare var AudioWorkletNode: {
     new(context: BaseAudioContext, name: string, options?: AudioWorkletNodeOptions): AudioWorkletNode;
 };
 
+/** Available only on secure context. */
 interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
@@ -2252,6 +2255,7 @@ declare var AuthenticatorAssertionResponse: {
     new(): AuthenticatorAssertionResponse;
 };
 
+/** Available only on secure context. */
 interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
     readonly attestationObject: ArrayBuffer;
 }
@@ -2261,6 +2265,7 @@ declare var AuthenticatorAttestationResponse: {
     new(): AuthenticatorAttestationResponse;
 };
 
+/** Available only on secure context. */
 interface AuthenticatorResponse {
     readonly clientDataJSON: ArrayBuffer;
 }
@@ -2284,6 +2289,7 @@ interface BaseAudioContextEventMap {
 }
 
 interface BaseAudioContext extends EventTarget {
+    /** Available only on secure context. */
     readonly audioWorklet: AudioWorklet;
     readonly currentTime: number;
     readonly destination: AudioDestinationNode;
@@ -3189,7 +3195,10 @@ declare var CSSTransition: {
     new(): CSSTransition;
 };
 
-/** Provides a storage mechanism for Request / Response object pairs that are cached, for example as part of the ServiceWorker life cycle. Note that the Cache interface is exposed to windowed scopes as well as workers. You don't have to use it in conjunction with service workers, even though it is defined in the service worker spec. */
+/**
+ * Provides a storage mechanism for Request / Response object pairs that are cached, for example as part of the ServiceWorker life cycle. Note that the Cache interface is exposed to windowed scopes as well as workers. You don't have to use it in conjunction with service workers, even though it is defined in the service worker spec.
+ * Available only on secure context.
+ */
 interface Cache {
     add(request: RequestInfo): Promise<void>;
     addAll(requests: RequestInfo[]): Promise<void>;
@@ -3205,7 +3214,10 @@ declare var Cache: {
     new(): Cache;
 };
 
-/** The storage for Cache objects. */
+/**
+ * The storage for Cache objects.
+ * Available only on secure context.
+ */
 interface CacheStorage {
     delete(cacheName: string): Promise<boolean>;
     has(cacheName: string): Promise<boolean>;
@@ -3437,6 +3449,7 @@ interface ChildNode extends Node {
 interface ClientRect extends DOMRect {
 }
 
+/** Available only on secure context. */
 interface Clipboard extends EventTarget {
     read(): Promise<ClipboardItems>;
     readText(): Promise<string>;
@@ -3540,6 +3553,7 @@ declare var CountQueuingStrategy: {
     new(init: QueuingStrategyInit): CountQueuingStrategy;
 };
 
+/** Available only on secure context. */
 interface Credential {
     readonly id: string;
     readonly type: string;
@@ -3550,6 +3564,7 @@ declare var Credential: {
     new(): Credential;
 };
 
+/** Available only on secure context. */
 interface CredentialsContainer {
     create(options?: CredentialCreationOptions): Promise<Credential | null>;
     get(options?: CredentialRequestOptions): Promise<Credential | null>;
@@ -3564,6 +3579,7 @@ declare var CredentialsContainer: {
 
 /** Basic cryptography features available in the current context. It allows access to a cryptographically strong random number generator and to cryptographic primitives. */
 interface Crypto {
+    /** Available only on secure context. */
     readonly subtle: SubtleCrypto;
     getRandomValues<T extends ArrayBufferView | null>(array: T): T;
 }
@@ -3573,7 +3589,10 @@ declare var Crypto: {
     new(): Crypto;
 };
 
-/** The CryptoKey dictionary of the Web Crypto API represents a cryptographic key. */
+/**
+ * The CryptoKey dictionary of the Web Crypto API represents a cryptographic key.
+ * Available only on secure context.
+ */
 interface CryptoKey {
     readonly algorithm: KeyAlgorithm;
     readonly extractable: boolean;
@@ -4081,7 +4100,10 @@ declare var DelayNode: {
     new(context: BaseAudioContext, options?: DelayOptions): DelayNode;
 };
 
-/** The DeviceMotionEvent provides web developers with information about the speed of changes for the device's position and orientation. */
+/**
+ * The DeviceMotionEvent provides web developers with information about the speed of changes for the device's position and orientation.
+ * Available only on secure context.
+ */
 interface DeviceMotionEvent extends Event {
     readonly acceleration: DeviceMotionEventAcceleration | null;
     readonly accelerationIncludingGravity: DeviceMotionEventAcceleration | null;
@@ -4094,19 +4116,24 @@ declare var DeviceMotionEvent: {
     new(type: string, eventInitDict?: DeviceMotionEventInit): DeviceMotionEvent;
 };
 
+/** Available only on secure context. */
 interface DeviceMotionEventAcceleration {
     readonly x: number | null;
     readonly y: number | null;
     readonly z: number | null;
 }
 
+/** Available only on secure context. */
 interface DeviceMotionEventRotationRate {
     readonly alpha: number | null;
     readonly beta: number | null;
     readonly gamma: number | null;
 }
 
-/** The DeviceOrientationEvent provides web developers with information from the physical orientation of the device running the web page. */
+/**
+ * The DeviceOrientationEvent provides web developers with information from the physical orientation of the device running the web page.
+ * Available only on secure context.
+ */
 interface DeviceOrientationEvent extends Event {
     readonly absolute: boolean;
     readonly alpha: number | null;
@@ -5184,7 +5211,10 @@ declare var GainNode: {
     new(context: BaseAudioContext, options?: GainOptions): GainNode;
 };
 
-/** This Gamepad API interface defines an individual gamepad or other controller, allowing access to information such as button presses, axis positions, and id. */
+/**
+ * This Gamepad API interface defines an individual gamepad or other controller, allowing access to information such as button presses, axis positions, and id.
+ * Available only on secure context.
+ */
 interface Gamepad {
     readonly axes: ReadonlyArray<number>;
     readonly buttons: ReadonlyArray<GamepadButton>;
@@ -5201,7 +5231,10 @@ declare var Gamepad: {
     new(): Gamepad;
 };
 
-/** An individual button of a gamepad or other controller, allowing access to the current state of different types of buttons available on the control device. */
+/**
+ * An individual button of a gamepad or other controller, allowing access to the current state of different types of buttons available on the control device.
+ * Available only on secure context.
+ */
 interface GamepadButton {
     readonly pressed: boolean;
     readonly touched: boolean;
@@ -5213,7 +5246,10 @@ declare var GamepadButton: {
     new(): GamepadButton;
 };
 
-/** This Gamepad API interface contains references to gamepads connected to the system, which is what the gamepad events Window.gamepadconnected and Window.gamepaddisconnected are fired in response to. */
+/**
+ * This Gamepad API interface contains references to gamepads connected to the system, which is what the gamepad events Window.gamepadconnected and Window.gamepaddisconnected are fired in response to.
+ * Available only on secure context.
+ */
 interface GamepadEvent extends Event {
     readonly gamepad: Gamepad;
 }
@@ -5250,6 +5286,7 @@ declare var Geolocation: {
     new(): Geolocation;
 };
 
+/** Available only on secure context. */
 interface GeolocationCoordinates {
     readonly accuracy: number;
     readonly altitude: number | null;
@@ -5265,6 +5302,7 @@ declare var GeolocationCoordinates: {
     new(): GeolocationCoordinates;
 };
 
+/** Available only on secure context. */
 interface GeolocationPosition {
     readonly coords: GeolocationCoordinates;
     readonly timestamp: DOMTimeStamp;
@@ -6951,6 +6989,7 @@ interface HTMLMediaElement extends HTMLElement {
     readonly error: MediaError | null;
     /** Gets or sets a flag to specify whether playback should restart after it completes. */
     loop: boolean;
+    /** Available only on secure context. */
     readonly mediaKeys: MediaKeys | null;
     /** Gets or sets a flag that indicates whether the audio (either audio or the audio track on video media) is muted. */
     muted: boolean;
@@ -6988,6 +7027,7 @@ interface HTMLMediaElement extends HTMLElement {
     pause(): void;
     /** Loads and starts playback of a media resource. */
     play(): Promise<void>;
+    /** Available only on secure context. */
     setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
     readonly HAVE_CURRENT_DATA: number;
     readonly HAVE_ENOUGH_DATA: number;
@@ -8816,7 +8856,10 @@ declare var MediaCapabilities: {
     new(): MediaCapabilities;
 };
 
-/** The MediaDevicesInfo interface contains information that describes a single media input or output device. */
+/**
+ * The MediaDevicesInfo interface contains information that describes a single media input or output device.
+ * Available only on secure context.
+ */
 interface MediaDeviceInfo {
     readonly deviceId: string;
     readonly groupId: string;
@@ -8834,7 +8877,10 @@ interface MediaDevicesEventMap {
     "devicechange": Event;
 }
 
-/** Provides access to connected media input devices like cameras and microphones, as well as screen sharing. In essence, it lets you obtain access to any hardware source of media data. */
+/**
+ * Provides access to connected media input devices like cameras and microphones, as well as screen sharing. In essence, it lets you obtain access to any hardware source of media data.
+ * Available only on secure context.
+ */
 interface MediaDevices extends EventTarget {
     ondevicechange: ((this: MediaDevices, ev: Event) => any) | null;
     enumerateDevices(): Promise<MediaDeviceInfo[]>;
@@ -8891,7 +8937,10 @@ declare var MediaError: {
     readonly MEDIA_ERR_SRC_NOT_SUPPORTED: number;
 };
 
-/** This EncryptedMediaExtensions API interface contains the content and related data when the content decryption module generates a message for the session. */
+/**
+ * This EncryptedMediaExtensions API interface contains the content and related data when the content decryption module generates a message for the session.
+ * Available only on secure context.
+ */
 interface MediaKeyMessageEvent extends Event {
     readonly message: ArrayBuffer;
     readonly messageType: MediaKeyMessageType;
@@ -8907,7 +8956,10 @@ interface MediaKeySessionEventMap {
     "message": MediaKeyMessageEvent;
 }
 
-/** This EncryptedMediaExtensions API interface represents a context for message exchange with a content decryption module (CDM). */
+/**
+ * This EncryptedMediaExtensions API interface represents a context for message exchange with a content decryption module (CDM).
+ * Available only on secure context.
+ */
 interface MediaKeySession extends EventTarget {
     readonly closed: Promise<MediaKeySessionClosedReason>;
     readonly expiration: number;
@@ -8931,7 +8983,10 @@ declare var MediaKeySession: {
     new(): MediaKeySession;
 };
 
-/** This EncryptedMediaExtensions API interface is a read-only map of media key statuses by key IDs. */
+/**
+ * This EncryptedMediaExtensions API interface is a read-only map of media key statuses by key IDs.
+ * Available only on secure context.
+ */
 interface MediaKeyStatusMap {
     readonly size: number;
     get(keyId: BufferSource): MediaKeyStatus | undefined;
@@ -8944,7 +8999,10 @@ declare var MediaKeyStatusMap: {
     new(): MediaKeyStatusMap;
 };
 
-/** This EncryptedMediaExtensions API interface provides access to a Key System for decryption and/or a content protection provider. You can request an instance of this object using the Navigator.requestMediaKeySystemAccess method. */
+/**
+ * This EncryptedMediaExtensions API interface provides access to a Key System for decryption and/or a content protection provider. You can request an instance of this object using the Navigator.requestMediaKeySystemAccess method.
+ * Available only on secure context.
+ */
 interface MediaKeySystemAccess {
     readonly keySystem: string;
     createMediaKeys(): Promise<MediaKeys>;
@@ -8956,7 +9014,10 @@ declare var MediaKeySystemAccess: {
     new(): MediaKeySystemAccess;
 };
 
-/** This EncryptedMediaExtensions API interface the represents a set of keys that an associated HTMLMediaElement can use for decryption of media data during playback. */
+/**
+ * This EncryptedMediaExtensions API interface the represents a set of keys that an associated HTMLMediaElement can use for decryption of media data during playback.
+ * Available only on secure context.
+ */
 interface MediaKeys {
     createSession(sessionType?: MediaKeySessionType): MediaKeySession;
     setServerCertificate(serverCertificate: BufferSource): Promise<boolean>;
@@ -9460,20 +9521,27 @@ declare var NamedNodeMap: {
 
 /** The state and the identity of the user agent. It allows scripts to query it and to register themselves to carry on some activities. */
 interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentHardware, NavigatorContentUtils, NavigatorCookies, NavigatorID, NavigatorLanguage, NavigatorNetworkInformation, NavigatorOnLine, NavigatorPlugins, NavigatorStorage {
+    /** Available only on secure context. */
     readonly clipboard: Clipboard;
+    /** Available only on secure context. */
     readonly credentials: CredentialsContainer;
     readonly doNotTrack: string | null;
     readonly geolocation: Geolocation;
     readonly maxTouchPoints: number;
     readonly mediaCapabilities: MediaCapabilities;
+    /** Available only on secure context. */
     readonly mediaDevices: MediaDevices;
     readonly mediaSession: MediaSession;
     readonly permissions: Permissions;
+    /** Available only on secure context. */
     readonly serviceWorker: ServiceWorkerContainer;
+    /** Available only on secure context. */
     canShare(data?: ShareData): boolean;
     getGamepads(): (Gamepad | null)[];
+    /** Available only on secure context. */
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: MediaKeySystemConfiguration[]): Promise<MediaKeySystemAccess>;
     sendBeacon(url: string | URL, data?: BodyInit | null): boolean;
+    /** Available only on secure context. */
     share(data?: ShareData): Promise<void>;
     vibrate(pattern: VibratePattern): boolean;
 }
@@ -9492,6 +9560,7 @@ interface NavigatorConcurrentHardware {
 }
 
 interface NavigatorContentUtils {
+    /** Available only on secure context. */
     registerProtocolHandler(scheme: string, url: string | URL): void;
 }
 
@@ -9540,6 +9609,7 @@ interface NavigatorPlugins {
     javaEnabled(): boolean;
 }
 
+/** Available only on secure context. */
 interface NavigatorStorage {
     readonly storage: StorageManager;
 }
@@ -9967,6 +10037,7 @@ declare var Path2D: {
     new(path?: Path2D | string): Path2D;
 };
 
+/** Available only on secure context. */
 interface PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
     readonly methodDetails: any;
     readonly methodName: string;
@@ -9981,7 +10052,10 @@ interface PaymentRequestEventMap {
     "paymentmethodchange": Event;
 }
 
-/** This Payment Request API interface is the primary access point into the API, and lets web content and apps accept payments from the end user. */
+/**
+ * This Payment Request API interface is the primary access point into the API, and lets web content and apps accept payments from the end user.
+ * Available only on secure context.
+ */
 interface PaymentRequest extends EventTarget {
     readonly id: string;
     onpaymentmethodchange: ((this: PaymentRequest, ev: Event) => any) | null;
@@ -9999,7 +10073,10 @@ declare var PaymentRequest: {
     new(methodData: PaymentMethodData[], details: PaymentDetailsInit): PaymentRequest;
 };
 
-/** This Payment Request API interface enables a web page to update the details of a PaymentRequest in response to a user action. */
+/**
+ * This Payment Request API interface enables a web page to update the details of a PaymentRequest in response to a user action.
+ * Available only on secure context.
+ */
 interface PaymentRequestUpdateEvent extends Event {
     updateWith(detailsPromise: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>): void;
 }
@@ -10009,7 +10086,10 @@ declare var PaymentRequestUpdateEvent: {
     new(type: string, eventInitDict?: PaymentRequestUpdateEventInit): PaymentRequestUpdateEvent;
 };
 
-/** This Payment Request API interface is returned after a user selects a payment method and approves a payment request. */
+/**
+ * This Payment Request API interface is returned after a user selects a payment method and approves a payment request.
+ * Available only on secure context.
+ */
 interface PaymentResponse extends EventTarget {
     readonly details: any;
     readonly methodName: string;
@@ -10409,6 +10489,7 @@ interface PointerEvent extends MouseEvent {
     readonly tiltY: number;
     readonly twist: number;
     readonly width: number;
+    /** Available only on secure context. */
     getCoalescedEvents(): PointerEvent[];
     getPredictedEvents(): PointerEvent[];
 }
@@ -10463,6 +10544,7 @@ declare var PromiseRejectionEvent: {
     new(type: string, eventInitDict: PromiseRejectionEventInit): PromiseRejectionEvent;
 };
 
+/** Available only on secure context. */
 interface PublicKeyCredential extends Credential {
     readonly rawId: ArrayBuffer;
     readonly response: AuthenticatorResponse;
@@ -10475,7 +10557,10 @@ declare var PublicKeyCredential: {
     isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
 };
 
-/** This Push API interface provides a way to receive notifications from third-party servers as well as request URLs for push notifications. */
+/**
+ * This Push API interface provides a way to receive notifications from third-party servers as well as request URLs for push notifications.
+ * Available only on secure context.
+ */
 interface PushManager {
     getSubscription(): Promise<PushSubscription | null>;
     permissionState(options?: PushSubscriptionOptionsInit): Promise<PushPermissionState>;
@@ -10488,7 +10573,10 @@ declare var PushManager: {
     readonly supportedContentEncodings: ReadonlyArray<string>;
 };
 
-/** This Push API interface provides a subcription's URL endpoint and allows unsubscription from a push service. */
+/**
+ * This Push API interface provides a subcription's URL endpoint and allows unsubscription from a push service.
+ * Available only on secure context.
+ */
 interface PushSubscription {
     readonly endpoint: string;
     readonly options: PushSubscriptionOptions;
@@ -10502,6 +10590,7 @@ declare var PushSubscription: {
     new(): PushSubscription;
 };
 
+/** Available only on secure context. */
 interface PushSubscriptionOptions {
     readonly applicationServerKey: ArrayBuffer | null;
 }
@@ -12881,7 +12970,10 @@ interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
     "statechange": Event;
 }
 
-/** This ServiceWorker API interface provides a reference to a service worker. Multiple browsing contexts (e.g. pages, workers, etc.) can be associated with the same service worker, each through a unique ServiceWorker object. */
+/**
+ * This ServiceWorker API interface provides a reference to a service worker. Multiple browsing contexts (e.g. pages, workers, etc.) can be associated with the same service worker, each through a unique ServiceWorker object.
+ * Available only on secure context.
+ */
 interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: ((this: ServiceWorker, ev: Event) => any) | null;
     readonly scriptURL: string;
@@ -12905,7 +12997,10 @@ interface ServiceWorkerContainerEventMap {
     "messageerror": MessageEvent;
 }
 
-/** The ServiceWorkerContainer interface of the ServiceWorker API provides an object representing the service worker as an overall unit in the network ecosystem, including facilities to register, unregister and update service workers, and access the state of service workers and their registrations. */
+/**
+ * The ServiceWorkerContainer interface of the ServiceWorker API provides an object representing the service worker as an overall unit in the network ecosystem, including facilities to register, unregister and update service workers, and access the state of service workers and their registrations.
+ * Available only on secure context.
+ */
 interface ServiceWorkerContainer extends EventTarget {
     readonly controller: ServiceWorker | null;
     oncontrollerchange: ((this: ServiceWorkerContainer, ev: Event) => any) | null;
@@ -12931,7 +13026,10 @@ interface ServiceWorkerRegistrationEventMap {
     "updatefound": Event;
 }
 
-/** This ServiceWorker API interface represents the service worker registration. You register a service worker to control one or more pages that share the same origin. */
+/**
+ * This ServiceWorker API interface represents the service worker registration. You register a service worker to control one or more pages that share the same origin.
+ * Available only on secure context.
+ */
 interface ServiceWorkerRegistration extends EventTarget {
     readonly active: ServiceWorker | null;
     readonly installing: ServiceWorker | null;
@@ -13249,6 +13347,7 @@ declare var StorageEvent: {
     new(type: string, eventInitDict?: StorageEventInit): StorageEvent;
 };
 
+/** Available only on secure context. */
 interface StorageManager {
     estimate(): Promise<StorageEstimate>;
     persist(): Promise<boolean>;
@@ -13304,7 +13403,10 @@ declare var SubmitEvent: {
     new(type: string, eventInitDict?: SubmitEventInit): SubmitEvent;
 };
 
-/** This Web Crypto API interface provides a number of low-level cryptographic functions. It is accessed via the Crypto.subtle properties available in a window context (via Window.crypto). */
+/**
+ * This Web Crypto API interface provides a number of low-level cryptographic functions. It is accessed via the Crypto.subtle properties available in a window context (via Window.crypto).
+ * Available only on secure context.
+ */
 interface SubtleCrypto {
     decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<any>;
     deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
@@ -16014,7 +16116,9 @@ interface Window extends EventTarget, AnimationFrameProvider, GlobalEventHandler
     readonly menubar: BarProp;
     name: string;
     readonly navigator: Navigator;
+    /** Available only on secure context. */
     ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
+    /** Available only on secure context. */
     ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
     /** @deprecated */
     onorientationchange: ((this: Window, ev: Event) => any) | null;
@@ -16162,6 +16266,7 @@ interface WindowLocalStorage {
 }
 
 interface WindowOrWorkerGlobalScope {
+    /** Available only on secure context. */
     readonly caches: CacheStorage;
     readonly crossOriginIsolated: boolean;
     readonly crypto: Crypto;
@@ -16210,6 +16315,7 @@ declare var Worker: {
     new(scriptURL: string | URL, options?: WorkerOptions): Worker;
 };
 
+/** Available only on secure context. */
 interface Worklet {
     /**
      * Loads and executes the module script given by moduleURL into all of worklet's global scopes. It can also create additional global scopes as part of this process, depending on the worklet type. The returned promise will fulfill once the script has been successfully loaded and run in all global scopes.
@@ -17051,7 +17157,9 @@ declare var menubar: BarProp;
 /** @deprecated */
 declare const name: void;
 declare var navigator: Navigator;
+/** Available only on secure context. */
 declare var ondevicemotion: ((this: Window, ev: DeviceMotionEvent) => any) | null;
+/** Available only on secure context. */
 declare var ondeviceorientation: ((this: Window, ev: DeviceOrientationEvent) => any) | null;
 /** @deprecated */
 declare var onorientationchange: ((this: Window, ev: Event) => any) | null;
@@ -17432,6 +17540,7 @@ declare var onstorage: ((this: Window, ev: StorageEvent) => any) | null;
 declare var onunhandledrejection: ((this: Window, ev: PromiseRejectionEvent) => any) | null;
 declare var onunload: ((this: Window, ev: Event) => any) | null;
 declare var localStorage: Storage;
+/** Available only on secure context. */
 declare var caches: CacheStorage;
 declare var crossOriginIsolated: boolean;
 declare var crypto: Crypto;

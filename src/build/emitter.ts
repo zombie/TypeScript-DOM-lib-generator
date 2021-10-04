@@ -853,7 +853,7 @@ export function emitWebIdl(
       comments.push(deprecated);
     }
     if (entity.secureContext) {
-      comments.push("Available only on secure context.");
+      comments.push("Available only in secure contexts.");
     }
 
     if (comments.length > 1) {

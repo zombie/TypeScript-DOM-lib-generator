@@ -357,7 +357,7 @@ declare var TransformStreamDefaultController: {
     new(): TransformStreamDefaultController;
 };
 
-/** Available only on secure context. */
+/** Available only in secure contexts. */
 interface WorkletGlobalScope {
 }
 

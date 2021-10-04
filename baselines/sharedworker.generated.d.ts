@@ -715,7 +715,7 @@ declare var ByteLengthQueuingStrategy: {
 
 /**
  * Provides a storage mechanism for Request / Response object pairs that are cached, for example as part of the ServiceWorker life cycle. Note that the Cache interface is exposed to windowed scopes as well as workers. You don't have to use it in conjunction with service workers, even though it is defined in the service worker spec.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface Cache {
     add(request: RequestInfo): Promise<void>;
@@ -734,7 +734,7 @@ declare var Cache: {
 
 /**
  * The storage for Cache objects.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface CacheStorage {
     delete(cacheName: string): Promise<boolean>;
@@ -815,7 +815,7 @@ declare var CountQueuingStrategy: {
 
 /** Basic cryptography features available in the current context. It allows access to a cryptographically strong random number generator and to cryptographic primitives. */
 interface Crypto {
-    /** Available only on secure context. */
+    /** Available only in secure contexts. */
     readonly subtle: SubtleCrypto;
     getRandomValues<T extends ArrayBufferView | null>(array: T): T;
 }
@@ -827,7 +827,7 @@ declare var Crypto: {
 
 /**
  * The CryptoKey dictionary of the Web Crypto API represents a cryptographic key.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface CryptoKey {
     readonly algorithm: KeyAlgorithm;
@@ -2015,7 +2015,7 @@ interface NavigatorOnLine {
     readonly onLine: boolean;
 }
 
-/** Available only on secure context. */
+/** Available only in secure contexts. */
 interface NavigatorStorage {
     readonly storage: StorageManager;
 }
@@ -2301,7 +2301,7 @@ declare var PromiseRejectionEvent: {
 
 /**
  * This Push API interface provides a way to receive notifications from third-party servers as well as request URLs for push notifications.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface PushManager {
     getSubscription(): Promise<PushSubscription | null>;
@@ -2317,7 +2317,7 @@ declare var PushManager: {
 
 /**
  * This Push API interface provides a subcription's URL endpoint and allows unsubscription from a push service.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface PushSubscription {
     readonly endpoint: string;
@@ -2332,7 +2332,7 @@ declare var PushSubscription: {
     new(): PushSubscription;
 };
 
-/** Available only on secure context. */
+/** Available only in secure contexts. */
 interface PushSubscriptionOptions {
     readonly applicationServerKey: ArrayBuffer | null;
 }
@@ -2466,7 +2466,7 @@ interface ServiceWorkerEventMap extends AbstractWorkerEventMap {
 
 /**
  * This ServiceWorker API interface provides a reference to a service worker. Multiple browsing contexts (e.g. pages, workers, etc.) can be associated with the same service worker, each through a unique ServiceWorker object.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface ServiceWorker extends EventTarget, AbstractWorker {
     onstatechange: ((this: ServiceWorker, ev: Event) => any) | null;
@@ -2493,7 +2493,7 @@ interface ServiceWorkerContainerEventMap {
 
 /**
  * The ServiceWorkerContainer interface of the ServiceWorker API provides an object representing the service worker as an overall unit in the network ecosystem, including facilities to register, unregister and update service workers, and access the state of service workers and their registrations.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface ServiceWorkerContainer extends EventTarget {
     readonly controller: ServiceWorker | null;
@@ -2522,7 +2522,7 @@ interface ServiceWorkerRegistrationEventMap {
 
 /**
  * This ServiceWorker API interface represents the service worker registration. You register a service worker to control one or more pages that share the same origin.
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface ServiceWorkerRegistration extends EventTarget {
     readonly active: ServiceWorker | null;
@@ -2568,7 +2568,7 @@ declare var SharedWorkerGlobalScope: {
     new(): SharedWorkerGlobalScope;
 };
 
-/** Available only on secure context. */
+/** Available only in secure contexts. */
 interface StorageManager {
     estimate(): Promise<StorageEstimate>;
     persisted(): Promise<boolean>;
@@ -2581,7 +2581,7 @@ declare var StorageManager: {
 
 /**
  * This Web Crypto API interface provides a number of low-level cryptographic functions. It is accessed via the Crypto.subtle properties available in a window context (via Window.crypto).
- * Available only on secure context.
+ * Available only in secure contexts.
  */
 interface SubtleCrypto {
     decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<any>;
@@ -4846,7 +4846,7 @@ declare var WebSocket: {
 };
 
 interface WindowOrWorkerGlobalScope {
-    /** Available only on secure context. */
+    /** Available only in secure contexts. */
     readonly caches: CacheStorage;
     readonly crossOriginIsolated: boolean;
     readonly crypto: Crypto;
@@ -5372,7 +5372,7 @@ declare function importScripts(...urls: (string | URL)[]): void;
 /** Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise. */
 declare function dispatchEvent(event: Event): boolean;
 declare var fonts: FontFaceSet;
-/** Available only on secure context. */
+/** Available only in secure contexts. */
 declare var caches: CacheStorage;
 declare var crossOriginIsolated: boolean;
 declare var crypto: Crypto;

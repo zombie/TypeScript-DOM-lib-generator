@@ -1,6 +1,7 @@
 // @ts-check
-
 // node deploy/createTypesPackages.js
+
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /**
  * @template T

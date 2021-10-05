@@ -835,18 +835,25 @@ export function emitWebIdl(
   }
 
   function emitComments(
-    entity: { comment?: string; deprecated?: boolean | string },
+    entity: {
+      comment?: string;
+      deprecated?: boolean | string;
+      secureContext?: boolean;
+    },
     print: (s: string) => void
   ) {
+    const comments = entity.comment?.split("\n") ?? [];
     const deprecated =
       typeof entity.deprecated === "string"
         ? `@deprecated ${entity.deprecated}`
         : entity.deprecated
         ? "@deprecated"
         : null;
-    const comments = entity.comment?.split("\n") ?? [];
     if (deprecated) {
       comments.push(deprecated);
+    }
+    if (entity.secureContext) {
+      comments.push("Available only in secure contexts.");
     }
 
     if (comments.length > 1) {

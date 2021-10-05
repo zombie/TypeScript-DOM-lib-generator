@@ -158,6 +158,7 @@ function convertInterfaceCommon(
       hasExtAttr(i.extAttrs, "NoInterfaceObject"),
     legacyWindowAlias: getExtAttr(i.extAttrs, "LegacyWindowAlias"),
     legacyNamespace: getExtAttr(i.extAttrs, "LegacyNamespace")[0],
+    secureContext: hasExtAttr(i.extAttrs, "SecureContext"),
   };
   if (!result.exposed && i.type === "interface" && !i.partial) {
     result.exposed = "Window";
@@ -306,6 +307,7 @@ function convertOperation(
     exposed:
       getExtAttrConcatenated(operation.extAttrs, "Exposed") ||
       inheritedExposure,
+    secureContext: hasExtAttr(operation.extAttrs, "SecureContext"),
   };
 }
 
@@ -354,6 +356,7 @@ function convertAttribute(
       getExtAttrConcatenated(attribute.extAttrs, "Exposed") ||
       inheritedExposure,
     putForwards: getExtAttr(attribute.extAttrs, "PutForwards")[0],
+    secureContext: hasExtAttr(attribute.extAttrs, "SecureContext"),
   };
 }
 

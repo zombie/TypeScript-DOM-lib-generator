@@ -36,7 +36,7 @@ npm run test
 | `@types/web` [0.0.1](https://www.npmjs.com/package/@types/web/v/0.0.1)    | ~4.3        | 4.4            |
 | `@types/web` [0.0.2](https://www.npmjs.com/package/@types/web/v/0.0.2)    | ~4.4 beta   | 4.4            |
 | `@types/web` [0.0.25](https://www.npmjs.com/package/@types/web/v/0.0.25)  | 4.4         | 4.4            |
-| `@types/web` [0.0.37](https://www.npmjs.com/package/@types/web/v/0.0.37)  | 4.5 beta    | 4.4            |
+| `@types/web` [0.0.28](https://www.npmjs.com/package/@types/web/v/0.0.28)  | 4.5 beta    | 4.4            |
 
 ## `@types/[lib]` Minimum Target
 
@@ -82,13 +82,8 @@ If you are familiar with Web IDL, you may also want to check whether the upstrea
 
 To migrate the *.d.ts files into TypeScript:
 
-1. Run:
+1. [Trigger the workflow here](https://github.com/microsoft/TypeScript-DOM-lib-generator/actions/workflows/pr-to-typescript.yml) - this will send a PR to TypeScript under your alias.
 
-    ```sh
-    npm run migrate -- [optional/file/path/to/tsc]
-    ```
-
-    The script will look in for a clone of the TypeScript repo in "../TypeScript", or "./TypeScript" to move the generated files in. Or migrate the files manually, you do you.
 
 1. Update the README table with the mappings for versions in the `@types/[lib]`. E.g. TS 4.5 -> `@types/web` `0.0.23`. Find that number here: https://www.npmjs.com/package/@types/web
 

@@ -3,7 +3,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,14 @@ jobs:
           path: "TypeScript"
 
       - run: |
+          # Move the new lib files ins
           node ./deploy/migrate.js ./TypeScript
+
+          # Update the TypeScript test baselines also
+          cd TypeScript
+          npm i
+          gulp runtests-parallel
+          gulp baseline-accept
 
       - uses: peter-evans/create-pull-request@v3
         with:

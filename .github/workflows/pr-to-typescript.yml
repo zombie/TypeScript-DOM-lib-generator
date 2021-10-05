@@ -29,7 +29,7 @@ jobs:
           # Update the TypeScript test baselines also
           cd TypeScript
           npm i
-          gulp runtests-parallel
+          gulp runtests-parallel || true
           gulp baseline-accept
 
       - uses: peter-evans/create-pull-request@v3

@@ -1,6 +1,7 @@
 // @ts-check
-
 // node deploy/createTypesPackages.js
+
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /**
  * @template T
@@ -195,7 +196,7 @@ function prependAutoImports(pkg, packagePath) {
  * @param {Package} pkg
  * @param {URL} packagePath
  */
-function postProcessDTSFiles(pkg, packagePath) {
+export function postProcessDTSFiles(pkg, packagePath) {
   iterateThroughFiles((content) => {
     return content.replace(
       "abort(): AbortSignal;",

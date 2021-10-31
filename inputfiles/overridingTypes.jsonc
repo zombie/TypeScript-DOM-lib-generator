@@ -2817,6 +2817,19 @@
     },
     "dictionaries": {
         "dictionary": {
+            // https://github.com/microsoft/TypeScript/issues/46036
+            "CryptoKeyPair": {
+                "members": {
+                    "member": {
+                        "privateKey": {
+                            "required": true
+                        },
+                        "publicKey": {
+                            "required": true
+                        }
+                    }
+                }
+            },
             "MessageEventInit": {
                 "members": {
                     "member": {

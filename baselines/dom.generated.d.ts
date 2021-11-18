@@ -1640,7 +1640,7 @@ interface StreamPipeOptions {
 }
 
 interface StructuredSerializeOptions {
-    transfer?: any[];
+    transfer?: Transferable[];
 }
 
 interface SubmitEventInit extends EventInit {

@@ -570,7 +570,7 @@ interface StreamPipeOptions {
 }
 
 interface StructuredSerializeOptions {
-    transfer?: any[];
+    transfer?: Transferable[];
 }
 
 interface TextDecodeOptions {

@@ -43,7 +43,6 @@
     "@octokit/rest": "^18.12.0",
     "@types/jsdom": "^16.2.13",
     "@types/node": "^16.10.5",
-    "@types/node-fetch": "^3.0.2",
     "@types/webidl2": "^23.13.6",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",

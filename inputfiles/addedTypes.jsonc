@@ -309,7 +309,7 @@
                     "hue",
                     "saturation",
                     "color",
-                    "luminosity"          
+                    "luminosity"
                 ]
             }
         }
@@ -354,6 +354,9 @@
                         "decoding": {
                             "name": "decoding",
                             "overrideType": "\"async\" | \"sync\" | \"auto\""
+                        },
+                        "loading": {
+                            "overrideType": "\"eager\" | \"lazy\""
                         }
                     }
                 }

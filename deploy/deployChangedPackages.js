@@ -85,7 +85,7 @@ Assuming that this means we need to upload this package.`);
 
   // Publish via npm
   if (upload) {
-    if (process.env.NODE_AUTH_TOKEN) {
+    if (process.env.CI) {
       const publish = spawnSync("npm", ["publish", "--access", "public"], {
         cwd: fileURLToPath(packageDir),
         stdio: "inherit",
@@ -119,8 +119,8 @@ Assuming that this means we need to upload this package.`);
 console.log("");
 
 // Warn if we did a dry run.
-if (!process.env.NODE_AUTH_TOKEN) {
-  console.log("Did a dry run because process.env.NODE_AUTH_TOKEN is not set.");
+if (!process.env.CI) {
+  console.log("Did a dry run because process.env.CI is not set.");
 }
 
 if (uploaded.length) {

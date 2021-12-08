@@ -27,7 +27,8 @@ jobs:
 
       - name: "Deploy built packages to NPM" 
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          npm i -g npm@latest
           npm whoami
           node deploy/deployChangedPackages.js
         env:

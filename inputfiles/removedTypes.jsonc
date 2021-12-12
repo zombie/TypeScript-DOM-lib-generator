@@ -16,6 +16,9 @@
             "ConnectionType": {
                 "value": ["wimax"]
             },
+            "CredentialMediationRequirement": {
+                "value": ["conditional"] // tied to Credential#isConditionalMediationAvailable
+            },
             "PermissionName": {
                 "value": [
                     "midi",
@@ -124,7 +127,6 @@
             "ServiceWorkerGlobalScope": {
                 "properties": {
                     "property": {
-                        "onpushsubscriptionchange": null,
                         "onsync": null
                     }
                 }

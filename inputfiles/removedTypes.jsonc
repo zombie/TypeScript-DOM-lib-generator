@@ -416,6 +416,14 @@
             "ReadableStreamBYOBReadResult": null,
             "ReadableStreamDefaultReadResult": null,
             "ReadableStreamGetReaderOptions": null,
+            "RequestInit": {
+                "members": {
+                    "member": {
+                        // Corresponds to Request#importance
+                        "importance": null
+                    }
+                }
+            },
             "RTCConfiguration": {
                 "members": {
                     "member": {

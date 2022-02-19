@@ -2389,7 +2389,7 @@ interface Blob {
     readonly type: string;
     arrayBuffer(): Promise<ArrayBuffer>;
     slice(start?: number, end?: number, contentType?: string): Blob;
-    stream(): ReadableStream;
+    stream(): ReadableStream<Uint8Array>;
     text(): Promise<string>;
 }
 

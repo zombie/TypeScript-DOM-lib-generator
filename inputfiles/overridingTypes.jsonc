@@ -2256,6 +2256,19 @@
                     "[name: string]: any"
                 ]
             },
+            "Blob": {
+              "methods": {
+                "method": {
+                  "stream": {
+                    "signature": {
+                      "0": {
+                        "overrideType": "ReadableStream<Uint8Array>"
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "ReadableStream": {
                 "typeParameters": [
                     {

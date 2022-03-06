@@ -4259,6 +4259,7 @@ declare var DeviceOrientationEvent: {
 };
 
 interface DocumentEventMap extends DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
+    "DOMContentLoaded": Event;
     "fullscreenchange": Event;
     "fullscreenerror": Event;
     "pointerlockchange": Event;
@@ -4476,6 +4477,8 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "DeviceOrientationEvent"): DeviceOrientationEvent;
     createEvent(eventInterface: "DragEvent"): DragEvent;
     createEvent(eventInterface: "ErrorEvent"): ErrorEvent;
+    createEvent(eventInterface: "Event"): Event;
+    createEvent(eventInterface: "Events"): Event;
     createEvent(eventInterface: "FocusEvent"): FocusEvent;
     createEvent(eventInterface: "FontFaceSetLoadEvent"): FontFaceSetLoadEvent;
     createEvent(eventInterface: "FormDataEvent"): FormDataEvent;
@@ -16443,6 +16446,7 @@ declare var WheelEvent: {
 };
 
 interface WindowEventMap extends GlobalEventHandlersEventMap, WindowEventHandlersEventMap {
+    "DOMContentLoaded": Event;
     "devicemotion": DeviceMotionEvent;
     "deviceorientation": DeviceOrientationEvent;
     "gamepadconnected": GamepadEvent;

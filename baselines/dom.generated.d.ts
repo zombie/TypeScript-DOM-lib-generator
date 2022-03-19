@@ -701,6 +701,19 @@ interface LockOptions {
     steal?: boolean;
 }
 
+interface MIDIConnectionEventInit extends EventInit {
+    port?: MIDIPort;
+}
+
+interface MIDIMessageEventInit extends EventInit {
+    data?: Uint8Array;
+}
+
+interface MIDIOptions {
+    software?: boolean;
+    sysex?: boolean;
+}
+
 interface MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
     configuration?: MediaDecodingConfiguration;
 }
@@ -1948,6 +1961,7 @@ interface AbortSignal extends EventTarget {
     /** Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise. */
     readonly aborted: boolean;
     onabort: ((this: AbortSignal, ev: Event) => any) | null;
+    readonly reason: any;
     addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -2803,7 +2817,6 @@ interface CSSStyleDeclaration {
     clipPath: string;
     clipRule: string;
     color: string;
-    colorAdjust: string;
     colorInterpolation: string;
     colorInterpolationFilters: string;
     colorScheme: string;
@@ -2855,7 +2868,6 @@ interface CSSStyleDeclaration {
     fontStyle: string;
     fontSynthesis: string;
     fontVariant: string;
-    /** @deprecated */
     fontVariantAlternates: string;
     fontVariantCaps: string;
     fontVariantEastAsian: string;
@@ -2950,7 +2962,6 @@ interface CSSStyleDeclaration {
     objectFit: string;
     objectPosition: string;
     offset: string;
-    offsetAnchor: string;
     offsetDistance: string;
     offsetPath: string;
     offsetRotate: string;
@@ -2995,6 +3006,7 @@ interface CSSStyleDeclaration {
     placeSelf: string;
     pointerEvents: string;
     position: string;
+    printColorAdjust: string;
     quotes: string;
     resize: string;
     right: string;
@@ -4488,6 +4500,8 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     createEvent(eventInterface: "IDBVersionChangeEvent"): IDBVersionChangeEvent;
     createEvent(eventInterface: "InputEvent"): InputEvent;
     createEvent(eventInterface: "KeyboardEvent"): KeyboardEvent;
+    createEvent(eventInterface: "MIDIConnectionEvent"): MIDIConnectionEvent;
+    createEvent(eventInterface: "MIDIMessageEvent"): MIDIMessageEvent;
     createEvent(eventInterface: "MediaEncryptedEvent"): MediaEncryptedEvent;
     createEvent(eventInterface: "MediaKeyMessageEvent"): MediaKeyMessageEvent;
     createEvent(eventInterface: "MediaQueryListEvent"): MediaQueryListEvent;
@@ -7699,6 +7713,7 @@ interface HTMLScriptElement extends HTMLElement {
 declare var HTMLScriptElement: {
     prototype: HTMLScriptElement;
     new(): HTMLScriptElement;
+    supports(type: string): boolean;
 };
 
 /** A <select> HTML Element. These elements also share all of the properties and methods of other HTML elements via the HTMLElement interface. */
@@ -9065,6 +9080,126 @@ declare var LockManager: {
     new(): LockManager;
 };
 
+interface MIDIAccessEventMap {
+    "statechange": Event;
+}
+
+/** Available only in secure contexts. */
+interface MIDIAccess extends EventTarget {
+    readonly inputs: MIDIInputMap;
+    onstatechange: ((this: MIDIAccess, ev: Event) => any) | null;
+    readonly outputs: MIDIOutputMap;
+    readonly sysexEnabled: boolean;
+    addEventListener<K extends keyof MIDIAccessEventMap>(type: K, listener: (this: MIDIAccess, ev: MIDIAccessEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MIDIAccessEventMap>(type: K, listener: (this: MIDIAccess, ev: MIDIAccessEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var MIDIAccess: {
+    prototype: MIDIAccess;
+    new(): MIDIAccess;
+};
+
+/** Available only in secure contexts. */
+interface MIDIConnectionEvent extends Event {
+    readonly port: MIDIPort;
+}
+
+declare var MIDIConnectionEvent: {
+    prototype: MIDIConnectionEvent;
+    new(type: string, eventInitDict?: MIDIConnectionEventInit): MIDIConnectionEvent;
+};
+
+interface MIDIInputEventMap extends MIDIPortEventMap {
+    "midimessage": Event;
+}
+
+/** Available only in secure contexts. */
+interface MIDIInput extends MIDIPort {
+    onmidimessage: ((this: MIDIInput, ev: Event) => any) | null;
+    addEventListener<K extends keyof MIDIInputEventMap>(type: K, listener: (this: MIDIInput, ev: MIDIInputEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MIDIInputEventMap>(type: K, listener: (this: MIDIInput, ev: MIDIInputEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var MIDIInput: {
+    prototype: MIDIInput;
+    new(): MIDIInput;
+};
+
+/** Available only in secure contexts. */
+interface MIDIInputMap {
+    forEach(callbackfn: (value: MIDIInput, key: string, parent: MIDIInputMap) => void, thisArg?: any): void;
+}
+
+declare var MIDIInputMap: {
+    prototype: MIDIInputMap;
+    new(): MIDIInputMap;
+};
+
+/** Available only in secure contexts. */
+interface MIDIMessageEvent extends Event {
+    readonly data: Uint8Array;
+}
+
+declare var MIDIMessageEvent: {
+    prototype: MIDIMessageEvent;
+    new(type: string, eventInitDict?: MIDIMessageEventInit): MIDIMessageEvent;
+};
+
+/** Available only in secure contexts. */
+interface MIDIOutput extends MIDIPort {
+    send(data: number[], timestamp?: DOMHighResTimeStamp): void;
+    addEventListener<K extends keyof MIDIPortEventMap>(type: K, listener: (this: MIDIOutput, ev: MIDIPortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MIDIPortEventMap>(type: K, listener: (this: MIDIOutput, ev: MIDIPortEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var MIDIOutput: {
+    prototype: MIDIOutput;
+    new(): MIDIOutput;
+};
+
+/** Available only in secure contexts. */
+interface MIDIOutputMap {
+    forEach(callbackfn: (value: MIDIOutput, key: string, parent: MIDIOutputMap) => void, thisArg?: any): void;
+}
+
+declare var MIDIOutputMap: {
+    prototype: MIDIOutputMap;
+    new(): MIDIOutputMap;
+};
+
+interface MIDIPortEventMap {
+    "statechange": Event;
+}
+
+/** Available only in secure contexts. */
+interface MIDIPort extends EventTarget {
+    readonly connection: MIDIPortConnectionState;
+    readonly id: string;
+    readonly manufacturer: string | null;
+    readonly name: string | null;
+    onstatechange: ((this: MIDIPort, ev: Event) => any) | null;
+    readonly state: MIDIPortDeviceState;
+    readonly type: MIDIPortType;
+    readonly version: string | null;
+    close(): Promise<MIDIPort>;
+    open(): Promise<MIDIPort>;
+    addEventListener<K extends keyof MIDIPortEventMap>(type: K, listener: (this: MIDIPort, ev: MIDIPortEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MIDIPortEventMap>(type: K, listener: (this: MIDIPort, ev: MIDIPortEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var MIDIPort: {
+    prototype: MIDIPort;
+    new(): MIDIPort;
+};
+
 interface MathMLElementEventMap extends ElementEventMap, DocumentAndElementEventHandlersEventMap, GlobalEventHandlersEventMap {
 }
 
@@ -9786,6 +9921,8 @@ interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentH
     canShare(data?: ShareData): boolean;
     getGamepads(): (Gamepad | null)[];
     /** Available only in secure contexts. */
+    requestMIDIAccess(options?: MIDIOptions): Promise<MIDIAccess>;
+    /** Available only in secure contexts. */
     requestMediaKeySystemAccess(keySystem: string, supportedConfigurations: MediaKeySystemConfiguration[]): Promise<MediaKeySystemAccess>;
     sendBeacon(url: string | URL, data?: BodyInit | null): boolean;
     /** Available only in secure contexts. */
@@ -9855,6 +9992,7 @@ interface NavigatorOnLine {
 interface NavigatorPlugins {
     /** @deprecated */
     readonly mimeTypes: MimeTypeArray;
+    readonly pdfViewerEnabled: boolean;
     /** @deprecated */
     readonly plugins: PluginArray;
     /** @deprecated */
@@ -14396,13 +14534,6 @@ interface WEBGL_compressed_texture_etc1 {
     readonly COMPRESSED_RGB_ETC1_WEBGL: GLenum;
 }
 
-interface WEBGL_compressed_texture_pvrtc {
-    readonly COMPRESSED_RGBA_PVRTC_2BPPV1_IMG: GLenum;
-    readonly COMPRESSED_RGBA_PVRTC_4BPPV1_IMG: GLenum;
-    readonly COMPRESSED_RGB_PVRTC_2BPPV1_IMG: GLenum;
-    readonly COMPRESSED_RGB_PVRTC_4BPPV1_IMG: GLenum;
-}
-
 /** The WEBGL_compressed_texture_s3tc extension is part of the WebGL API and exposes four S3TC compressed texture formats. */
 interface WEBGL_compressed_texture_s3tc {
     readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: GLenum;
@@ -15905,7 +16036,6 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_etc"): WEBGL_compressed_texture_etc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_etc1"): WEBGL_compressed_texture_etc1 | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_pvrtc"): WEBGL_compressed_texture_pvrtc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
     getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
     getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
@@ -18074,6 +18204,9 @@ type KeyType = "private" | "public" | "secret";
 type KeyUsage = "decrypt" | "deriveBits" | "deriveKey" | "encrypt" | "sign" | "unwrapKey" | "verify" | "wrapKey";
 type LineAlignSetting = "center" | "end" | "start";
 type LockMode = "exclusive" | "shared";
+type MIDIPortConnectionState = "closed" | "open" | "pending";
+type MIDIPortDeviceState = "connected" | "disconnected";
+type MIDIPortType = "input" | "output";
 type MediaDecodingType = "file" | "media-source" | "webrtc";
 type MediaDeviceKind = "audioinput" | "audiooutput" | "videoinput";
 type MediaEncodingType = "record" | "webrtc";

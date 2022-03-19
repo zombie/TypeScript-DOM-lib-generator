@@ -381,8 +381,6 @@
             "RequestInit": {
                 "members": {
                     "member": {
-                        // Corresponds to Request#importance
-                        "importance": null,
                         // Corresponds to Request#priority
                         "priority": null
                     }

@@ -691,6 +691,7 @@ interface AbortSignal extends EventTarget {
     /** Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise. */
     readonly aborted: boolean;
     onabort: ((this: AbortSignal, ev: Event) => any) | null;
+    readonly reason: any;
     addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
@@ -3081,13 +3082,6 @@ interface WEBGL_compressed_texture_etc1 {
     readonly COMPRESSED_RGB_ETC1_WEBGL: GLenum;
 }
 
-interface WEBGL_compressed_texture_pvrtc {
-    readonly COMPRESSED_RGBA_PVRTC_2BPPV1_IMG: GLenum;
-    readonly COMPRESSED_RGBA_PVRTC_4BPPV1_IMG: GLenum;
-    readonly COMPRESSED_RGB_PVRTC_2BPPV1_IMG: GLenum;
-    readonly COMPRESSED_RGB_PVRTC_4BPPV1_IMG: GLenum;
-}
-
 /** The WEBGL_compressed_texture_s3tc extension is part of the WebGL API and exposes four S3TC compressed texture formats. */
 interface WEBGL_compressed_texture_s3tc {
     readonly COMPRESSED_RGBA_S3TC_DXT1_EXT: GLenum;
@@ -4578,7 +4572,6 @@ interface WebGLRenderingContextBase {
     getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_etc"): WEBGL_compressed_texture_etc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_etc1"): WEBGL_compressed_texture_etc1 | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_pvrtc"): WEBGL_compressed_texture_pvrtc | null;
     getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
     getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
     getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;

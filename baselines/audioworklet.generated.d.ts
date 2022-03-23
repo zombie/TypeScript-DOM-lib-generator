@@ -217,6 +217,10 @@ declare var AudioWorkletProcessor: {
     new(): AudioWorkletProcessor;
 };
 
+interface AudioWorkletProcessorImpl extends AudioWorkletProcessor {
+    process(inputs: Float32Array[][], outputs: Float32Array[][], parameters: Record<string, Float32Array>): boolean;
+}
+
 /** This Streams API interface provides a built-in byte length queuing strategy that can be used when constructing streams. */
 interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
     readonly highWaterMark: number;
@@ -891,7 +895,7 @@ declare namespace WebAssembly {
 }
 
 interface AudioWorkletProcessorConstructor {
-    (options: any): AudioWorkletProcessor;
+    new (options: any): AudioWorkletProcessorImpl;
 }
 
 interface PerformanceObserverCallback {

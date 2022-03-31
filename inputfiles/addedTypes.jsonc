@@ -1126,6 +1126,16 @@
                         }
                     }
                 }
+            },
+            "HTMLStyleElement": {
+                "properties": {
+                    "property": {
+                        "disabled": {
+                            "name": "disabled",
+                            "type": "boolean"
+                        }
+                    }
+                }
             }
         }
     },

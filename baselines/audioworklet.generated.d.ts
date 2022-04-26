@@ -75,12 +75,12 @@ interface QueuingStrategyInit {
     highWaterMark: number;
 }
 
-interface ReadableStreamDefaultReadDoneResult {
+interface ReadableStreamReadDoneResult {
     done: true;
     value?: undefined;
 }
 
-interface ReadableStreamDefaultReadValueResult<T> {
+interface ReadableStreamReadValueResult<T> {
     done: false;
     value: T;
 }
@@ -540,7 +540,7 @@ declare var ReadableStreamDefaultController: {
 };
 
 interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
-    read(): Promise<ReadableStreamDefaultReadResult<R>>;
+    read(): Promise<ReadableStreamReadResult<R>>;
     releaseLock(): void;
 }
 
@@ -956,6 +956,6 @@ type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
 type MessageEventSource = MessagePort;
 type PerformanceEntryList = PerformanceEntry[];
 type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
-type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
+type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult;
 type ReadableStreamReader<T> = ReadableStreamDefaultReader<T>;
 type Transferable = ArrayBuffer | MessagePort;

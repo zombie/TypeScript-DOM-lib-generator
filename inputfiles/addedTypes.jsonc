@@ -1212,6 +1212,13 @@
                 "name": "InsertPosition"
             },
             {
+                "type": {
+                    "0": {
+                        "subtype": {
+                            "overrideType": "[string, string]"
+                        }
+                    }
+                },
                 "additionalTypes": ["Headers"],
                 "name": "HeadersInit"
             },

@@ -1414,7 +1414,10 @@
                                             "name": "algorithm",
                                             "additionalTypes": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         }
-                                    ]
+                                    ],
+                                    "subtype": {
+                                      "type": "ArrayBuffer"
+                                    }
                                 }
                             }
                         },
@@ -1463,7 +1466,10 @@
                                             "name": "algorithm",
                                             "additionalTypes": ["RsaOaepParams", "AesCtrParams", "AesCbcParams", "AesGcmParams"]
                                         }
-                                    ]
+                                    ],
+                                    "subtype": {
+                                      "type": "ArrayBuffer"
+                                    }
                                 }
                             }
                         },

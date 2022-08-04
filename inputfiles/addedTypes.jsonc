@@ -1155,6 +1155,11 @@
             },
             "ReadableStreamReadDoneResult": {
                 "name": "ReadableStreamReadDoneResult",
+                "typeParameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
                 "members": {
                     "member": {
                         "done": {
@@ -1164,7 +1169,7 @@
                         },
                         "value": {
                             "name": "value",
-                            "overrideType": "undefined"
+                            "overrideType": "T"
                         }
                     }
                 }
@@ -1187,6 +1192,63 @@
                             "name": "value",
                             "overrideType": "T",
                             "required": true
+                        }
+                    }
+                }
+            },
+            "UnderlyingByteSource": {
+                "name": "UnderlyingByteSource",
+                "members": {
+                    "member": {
+                        "type": {
+                            "name": "type",
+                            "required": true,
+                            "overrideType": "\"bytes\""
+                        },
+                        "autoAllocateChunkSize": {
+                            "name": "autoAllocateChunkSize",
+                            "type": "unsigned long long"
+                        },
+                        "start": {
+                            "name": "start",
+                            "overrideType": "(controller: ReadableByteStreamController) => any"
+                        },
+                        "pull": {
+                            "name": "pull",
+                            "overrideType": "(controller: ReadableByteStreamController) => void | PromiseLike<void>"
+                        },
+                        "cancel": {
+                            "name": "cancel",
+                            "type": "UnderlyingSourceCancelCallback"
+                        }
+                    }
+                }
+            },
+            "UnderlyingDefaultSource": {
+                "name": "UnderlyingDefaultSource",
+                "typeParameters": [
+                    {
+                        "name": "R",
+                        "default": "any"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "type": {
+                            "name": "type",
+                            "type": "undefined"
+                        },
+                        "start": {
+                            "name": "start",
+                            "overrideType": "(controller: ReadableStreamDefaultController<R>) => any"
+                        },
+                        "pull": {
+                            "name": "pull",
+                            "overrideType": "(controller: ReadableStreamDefaultController<R>) => void | PromiseLike<void>"
+                        },
+                        "cancel": {
+                            "name": "cancel",
+                            "type": "UnderlyingSourceCancelCallback"
                         }
                     }
                 }
@@ -1302,21 +1364,7 @@
                         "type": "ReadableStreamReadDoneResult"
                     }
                 ],
-                "overrideType": "ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult"
-            },
-            {
-                "name": "ReadableStreamReader",
-                "typeParameters": [
-                    {
-                        "name": "T"
-                    }
-                ],
-                "type": [
-                    {
-                        "type": "ReadableStreamDefaultReader"
-                    }
-                ],
-                "overrideType": "ReadableStreamDefaultReader<T>"
+                "overrideType": "ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>"
             },
             {
                 "name": "EventListenerOrEventListenerObject",

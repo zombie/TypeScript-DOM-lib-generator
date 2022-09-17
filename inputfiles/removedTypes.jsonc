@@ -51,25 +51,7 @@
                         "elementFromPoint": null,
                         "elementsFromPoint": null
                     }
-                },
-                "implements": ["GeometryUtils"]
-            },
-            "Element": {
-                "implements": ["GeometryUtils", "Region"]
-            },
-            "Navigator": {
-                "implements": [
-                    "NavigatorBadge",
-                    "NavigatorDeviceMemory",
-                    "NavigatorFonts",
-                    "NavigatorGPU",
-                    "NavigatorML",
-                    "NavigatorNetworkInformation",
-                    "NavigatorUA"
-                ]
-            },
-            "NetworkInformation": {
-                "implements": ["NetworkInformationSaveData"]
+                }
             },
             "Response": {
                 "methods": {
@@ -91,9 +73,6 @@
                     }
                 }
             },
-            "SVGElement": {
-                "implements": ["SVGElementInstance"]
-            },
             "SVGFEGaussianBlurElement": {
                 "constants": {
                     "constant": {
@@ -103,9 +82,6 @@
                         "SVG_EDGEMODE_WRAP": null
                     }
                 }
-            },
-            "Text": {
-                "implements": ["GeometryUtils"]
             },
             "WebGLBuffer": {
                 "extends": null
@@ -142,17 +118,6 @@
             },
             "WebGLVertexArrayObjectOES": {
                 "extends": null
-            },
-            "WorkerNavigator": {
-                "implements": [
-                    "NavigatorBadge",
-                    "NavigatorDeviceMemory",
-                    "NavigatorFonts",
-                    "NavigatorGPU",
-                    "NavigatorML",
-                    "NavigatorNetworkInformation",
-                    "NavigatorUA"
-                ]
             }
         }
     },
@@ -571,6 +536,18 @@
                 "members": {
                     "member": {
                         "xrCompatible": null
+                    }
+                }
+            }
+        }
+    },
+    "mixins": {
+        "mixin":{
+            "NavigatorNetworkInformation": {
+                "properties": {
+                    "property": {
+                        // https://github.com/mdn/browser-compat-data/pull/17824
+                        "connection": null
                     }
                 }
             }

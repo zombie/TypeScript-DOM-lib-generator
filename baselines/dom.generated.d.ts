@@ -1940,12 +1940,14 @@ interface ARIAMixin {
     ariaChecked: string | null;
     ariaColCount: string | null;
     ariaColIndex: string | null;
+    ariaColIndexText: string | null;
     ariaColSpan: string | null;
     ariaCurrent: string | null;
     ariaDisabled: string | null;
     ariaExpanded: string | null;
     ariaHasPopup: string | null;
     ariaHidden: string | null;
+    ariaInvalid: string | null;
     ariaKeyShortcuts: string | null;
     ariaLabel: string | null;
     ariaLevel: string | null;
@@ -1962,6 +1964,7 @@ interface ARIAMixin {
     ariaRoleDescription: string | null;
     ariaRowCount: string | null;
     ariaRowIndex: string | null;
+    ariaRowIndexText: string | null;
     ariaRowSpan: string | null;
     ariaSelected: string | null;
     ariaSetSize: string | null;
@@ -1970,6 +1973,7 @@ interface ARIAMixin {
     ariaValueMin: string | null;
     ariaValueNow: string | null;
     ariaValueText: string | null;
+    role: string | null;
 }
 
 /** A controller object that allows you to abort one or more DOM requests as and when desired. */
@@ -2157,6 +2161,7 @@ interface Attr extends Node {
     readonly ownerDocument: Document;
     readonly ownerElement: Element | null;
     readonly prefix: string | null;
+    /** @deprecated */
     readonly specified: boolean;
     value: string;
 }
@@ -2620,6 +2625,18 @@ declare var CSSFontFaceRule: {
     new(): CSSFontFaceRule;
 };
 
+interface CSSFontPaletteValuesRule extends CSSRule {
+    readonly basePalette: string;
+    readonly fontFamily: string;
+    readonly name: string;
+    readonly overrideColors: string;
+}
+
+declare var CSSFontPaletteValuesRule: {
+    prototype: CSSFontPaletteValuesRule;
+    new(): CSSFontPaletteValuesRule;
+};
+
 /** Any CSS at-rule that contains other rules nested within it. */
 interface CSSGroupingRule extends CSSRule {
     readonly cssRules: CSSRuleList;
@@ -2634,6 +2651,7 @@ declare var CSSGroupingRule: {
 
 interface CSSImportRule extends CSSRule {
     readonly href: string;
+    readonly layerName: string | null;
     readonly media: MediaList;
     readonly styleSheet: CSSStyleSheet;
 }
@@ -2666,6 +2684,24 @@ interface CSSKeyframesRule extends CSSRule {
 declare var CSSKeyframesRule: {
     prototype: CSSKeyframesRule;
     new(): CSSKeyframesRule;
+};
+
+interface CSSLayerBlockRule extends CSSGroupingRule {
+    readonly name: string;
+}
+
+declare var CSSLayerBlockRule: {
+    prototype: CSSLayerBlockRule;
+    new(): CSSLayerBlockRule;
+};
+
+interface CSSLayerStatementRule extends CSSRule {
+    readonly nameList: ReadonlyArray<string>;
+}
+
+declare var CSSLayerStatementRule: {
+    prototype: CSSLayerStatementRule;
+    new(): CSSLayerStatementRule;
 };
 
 /** A single CSS @media rule. It implements the CSSConditionRule interface, and therefore the CSSGroupingRule and the CSSRule interface with a type value of 4 (CSSRule.MEDIA_RULE). */
@@ -2765,6 +2801,7 @@ interface CSSStyleDeclaration {
     animationTimingFunction: string;
     appearance: string;
     aspectRatio: string;
+    backdropFilter: string;
     backfaceVisibility: string;
     background: string;
     backgroundAttachment: string;
@@ -2899,6 +2936,7 @@ interface CSSStyleDeclaration {
     fontFeatureSettings: string;
     fontKerning: string;
     fontOpticalSizing: string;
+    fontPalette: string;
     fontSize: string;
     fontSizeAdjust: string;
     fontStretch: string;
@@ -3530,6 +3568,7 @@ interface CanvasText {
 interface CanvasTextDrawingStyles {
     direction: CanvasDirection;
     font: string;
+    fontKerning: CanvasFontKerning;
     textAlign: CanvasTextAlign;
     textBaseline: CanvasTextBaseline;
 }
@@ -4391,7 +4430,10 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     readonly documentElement: HTMLElement;
     /** Returns document's URL. */
     readonly documentURI: string;
-    /** Sets or gets the security domain of the document. */
+    /**
+     * Sets or gets the security domain of the document.
+     * @deprecated
+     */
     domain: string;
     /** Retrieves a collection of all embed objects in the document. */
     readonly embeds: HTMLCollectionOf<HTMLEmbedElement>;
@@ -4675,6 +4717,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     /**
      * Returns a Boolean value that indicates whether the specified command is in the indeterminate state.
      * @param commandId String that specifies a command identifier.
+     * @deprecated
      */
     queryCommandIndeterm(commandId: string): boolean;
     /**
@@ -4692,6 +4735,7 @@ interface Document extends Node, DocumentAndElementEventHandlers, DocumentOrShad
     /**
      * Returns the current value of the document, range, or current selection for the given command.
      * @param commandId String that specifies a command identifier.
+     * @deprecated
      */
     queryCommandValue(commandId: string): string;
     /** @deprecated */
@@ -5052,6 +5096,7 @@ declare var ErrorEvent: {
 interface Event {
     /** Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise. */
     readonly bubbles: boolean;
+    /** @deprecated */
     cancelBubble: boolean;
     /** Returns true or false depending on how event was initialized. Its return value does not always carry meaning, but true can indicate that part of the operation during which event was dispatched, can be canceled by invoking the preventDefault() method. */
     readonly cancelable: boolean;
@@ -5588,6 +5633,7 @@ interface GlobalEventHandlersEventMap {
     "auxclick": MouseEvent;
     "beforeinput": InputEvent;
     "blur": FocusEvent;
+    "cancel": Event;
     "canplay": Event;
     "canplaythrough": Event;
     "change": Event;
@@ -5693,6 +5739,7 @@ interface GlobalEventHandlers {
      * @param ev The focus event.
      */
     onblur: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
+    oncancel: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Occurs when playback is possible, but would require further buffering.
      * @param ev The event.
@@ -9447,10 +9494,13 @@ declare var MediaRecorder: {
     isTypeSupported(type: string): boolean;
 };
 
+/** @deprecated */
 interface MediaRecorderErrorEvent extends Event {
+    /** @deprecated */
     readonly error: DOMException;
 }
 
+/** @deprecated */
 declare var MediaRecorderErrorEvent: {
     prototype: MediaRecorderErrorEvent;
     new(type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
@@ -9908,12 +9958,14 @@ interface NavigatorID {
     readonly appName: string;
     /** @deprecated */
     readonly appVersion: string;
+    /** @deprecated */
     readonly platform: string;
     /** @deprecated */
     readonly product: string;
     /** @deprecated */
     readonly productSub: string;
     readonly userAgent: string;
+    /** @deprecated */
     readonly vendor: string;
     /** @deprecated */
     readonly vendorSub: string;
@@ -10883,6 +10935,7 @@ declare var PromiseRejectionEvent: {
 
 /** Available only in secure contexts. */
 interface PublicKeyCredential extends Credential {
+    readonly authenticatorAttachment: string | null;
     readonly rawId: ArrayBuffer;
     readonly response: AuthenticatorResponse;
     getClientExtensionResults(): AuthenticationExtensionsClientOutputs;
@@ -13053,6 +13106,7 @@ interface SVGStyleElement extends SVGElement, LinkStyle {
     disabled: boolean;
     media: string;
     title: string;
+    /** @deprecated */
     type: string;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGStyleElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
@@ -13813,6 +13867,7 @@ interface StorageEvent extends Event {
     readonly storageArea: Storage | null;
     /** Returns the URL of the document whose storage item changed. */
     readonly url: string;
+    /** @deprecated */
     initStorageEvent(type: string, bubbles?: boolean, cancelable?: boolean, key?: string | null, oldValue?: string | null, newValue?: string | null, url?: string | URL, storageArea?: Storage | null): void;
 }
 
@@ -17788,6 +17843,7 @@ declare var onauxclick: ((this: Window, ev: MouseEvent) => any) | null;
  * @param ev The focus event.
  */
 declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
+declare var oncancel: ((this: Window, ev: Event) => any) | null;
 /**
  * Occurs when playback is possible, but would require further buffering.
  * @param ev The event.

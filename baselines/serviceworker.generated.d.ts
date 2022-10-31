@@ -203,8 +203,11 @@ interface FileSystemRemoveOptions {
 }
 
 interface FontFaceDescriptors {
-    display?: string;
+    ascentOverride?: string;
+    descentOverride?: string;
+    display?: FontDisplay;
     featureSettings?: string;
+    lineGapOverride?: string;
     stretch?: string;
     style?: string;
     unicodeRange?: string;
@@ -1683,7 +1686,7 @@ declare var FileSystemHandle: {
 interface FontFace {
     ascentOverride: string;
     descentOverride: string;
-    display: string;
+    display: FontDisplay;
     family: string;
     featureSettings: string;
     lineGapOverride: string;
@@ -5820,6 +5823,7 @@ type ColorSpaceConversion = "default" | "none";
 type DocumentVisibilityState = "hidden" | "visible";
 type EndingType = "native" | "transparent";
 type FileSystemHandleKind = "directory" | "file";
+type FontDisplay = "auto" | "block" | "fallback" | "optional" | "swap";
 type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
 type FontFaceSetLoadStatus = "loaded" | "loading";
 type FrameType = "auxiliary" | "nested" | "none" | "top-level";

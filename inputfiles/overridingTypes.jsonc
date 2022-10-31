@@ -1247,6 +1247,15 @@
                     }
                 ]
             },
+            "FontFace": {
+              "properties": {
+                "property": {
+                  "display": {
+                    "type": "FontDisplay"
+                  }
+                }
+              }
+            },
             "HTMLFrameSetElement": {
                 "element": [
                     {
@@ -3009,7 +3018,16 @@
         }
     },
     "dictionaries": {
-        "dictionary": {
+          "dictionary": {
+            "FontFaceDescriptors": {
+              "members": {
+                "member": {
+                  "display":{
+                    "type": "FontDisplay"
+                  }
+                }
+              }
+            },
             // https://github.com/microsoft/TypeScript/issues/46036
             "CryptoKeyPair": {
                 "members": {

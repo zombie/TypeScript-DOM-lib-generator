@@ -282,6 +282,17 @@
                 "afterend"
               ]
             },
+            "FontDisplay": {
+              "name": "FontDisplay",
+              // https://w3c.github.io/csswg-drafts/css-fonts-4/#font-display-desc
+              "value": [
+                "auto",
+                "block",
+                "swap",
+                "fallback",
+                "optional"
+              ]
+            },
             "ClientType": {
                 "name": "ClientTypes"
             },

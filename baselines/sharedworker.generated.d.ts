@@ -178,8 +178,11 @@ interface FileSystemRemoveOptions {
 }
 
 interface FontFaceDescriptors {
-    display?: string;
+    ascentOverride?: string;
+    descentOverride?: string;
+    display?: FontDisplay;
     featureSettings?: string;
+    lineGapOverride?: string;
     stretch?: string;
     style?: string;
     unicodeRange?: string;
@@ -1602,7 +1605,7 @@ declare var FileSystemHandle: {
 interface FontFace {
     ascentOverride: string;
     descentOverride: string;
-    display: string;
+    display: FontDisplay;
     family: string;
     featureSettings: string;
     lineGapOverride: string;
@@ -5829,6 +5832,7 @@ type ColorGamut = "p3" | "rec2020" | "srgb";
 type ColorSpaceConversion = "default" | "none";
 type EndingType = "native" | "transparent";
 type FileSystemHandleKind = "directory" | "file";
+type FontDisplay = "auto" | "block" | "fallback" | "optional" | "swap";
 type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
 type FontFaceSetLoadStatus = "loaded" | "loading";
 type GlobalCompositeOperation = "color" | "color-burn" | "color-dodge" | "copy" | "darken" | "destination-atop" | "destination-in" | "destination-out" | "destination-over" | "difference" | "exclusion" | "hard-light" | "hue" | "lighten" | "lighter" | "luminosity" | "multiply" | "overlay" | "saturation" | "screen" | "soft-light" | "source-atop" | "source-in" | "source-out" | "source-over" | "xor";

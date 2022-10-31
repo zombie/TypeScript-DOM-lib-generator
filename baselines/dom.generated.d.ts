@@ -487,8 +487,11 @@ interface FocusOptions {
 }
 
 interface FontFaceDescriptors {
-    display?: string;
+    ascentOverride?: string;
+    descentOverride?: string;
+    display?: FontDisplay;
     featureSettings?: string;
+    lineGapOverride?: string;
     stretch?: string;
     style?: string;
     unicodeRange?: string;
@@ -5479,7 +5482,7 @@ declare var FocusEvent: {
 interface FontFace {
     ascentOverride: string;
     descentOverride: string;
-    display: string;
+    display: FontDisplay;
     family: string;
     featureSettings: string;
     lineGapOverride: string;
@@ -18371,6 +18374,7 @@ type EndOfStreamError = "decode" | "network";
 type EndingType = "native" | "transparent";
 type FileSystemHandleKind = "directory" | "file";
 type FillMode = "auto" | "backwards" | "both" | "forwards" | "none";
+type FontDisplay = "auto" | "block" | "fallback" | "optional" | "swap";
 type FontFaceLoadStatus = "error" | "loaded" | "loading" | "unloaded";
 type FontFaceSetLoadStatus = "loaded" | "loading";
 type FullscreenNavigationUI = "auto" | "hide" | "show";

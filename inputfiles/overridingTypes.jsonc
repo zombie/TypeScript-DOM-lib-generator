@@ -2217,6 +2217,13 @@
                                     "overrideType": "T"
                                 }
                             }
+                        },
+                        "randomUUID": {
+                            "signature": {
+                                "0": {
+                                    "overrideType": "`${string}-${string}-${string}-${string}-${string}`"
+                                }
+                            }
                         }
                     }
                 }

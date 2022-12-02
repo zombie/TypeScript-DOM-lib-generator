@@ -178,6 +178,11 @@ interface ChannelSplitterOptions extends AudioNodeOptions {
     numberOfOutputs?: number;
 }
 
+interface CheckVisibilityOptions {
+    checkOpacity?: boolean;
+    checkVisibilityCSS?: boolean;
+}
+
 interface ClientQueryOptions {
     includeUncontrolled?: boolean;
     type?: ClientTypes;
@@ -5044,6 +5049,7 @@ interface Element extends Node, ARIAMixin, Animatable, ChildNode, InnerHTML, Non
     readonly tagName: string;
     /** Creates a shadow root for element and returns it. */
     attachShadow(init: ShadowRootInit): ShadowRoot;
+    checkVisibility(options?: CheckVisibilityOptions): boolean;
     /** Returns the first (starting at element) inclusive ancestor that matches selectors, and null otherwise. */
     closest<K extends keyof HTMLElementTagNameMap>(selector: K): HTMLElementTagNameMap[K] | null;
     closest<K extends keyof SVGElementTagNameMap>(selector: K): SVGElementTagNameMap[K] | null;
@@ -7111,7 +7117,7 @@ interface HTMLInputElement extends HTMLElement {
     indeterminate: boolean;
     readonly labels: NodeListOf<HTMLLabelElement> | null;
     /** Specifies the ID of a pre-defined datalist of options for an input element. */
-    readonly list: HTMLElement | null;
+    readonly list: HTMLDataListElement | null;
     /** Defines the maximum acceptable value for an input element with type="number".When used with the min and step attributes, lets you control the range and increment (such as only even numbers) that the user can enter into an input field. */
     max: string;
     /** Sets or retrieves the maximum number of characters that the user can enter in a text control. */

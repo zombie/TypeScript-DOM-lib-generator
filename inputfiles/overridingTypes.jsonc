@@ -1801,6 +1801,37 @@
                             "type": "MessageEvent"
                         }
                     ]
+                },
+                "constants": {
+                    "constant": {
+                        "CONNECTING": {
+                            "overrideType": "0"
+                        },
+                        "OPEN": {
+                            "overrideType": "1"
+                        },
+                        "CLOSING": {
+                            "overrideType": "2"
+                        },
+                        "CLOSED": {
+                            "overrideType": "3"
+                        }
+                    }
+                }
+            },
+            "EventSource": {
+                "constants": {
+                    "constant": {
+                        "CONNECTING": {
+                            "overrideType": "0"
+                        },
+                        "OPEN": {
+                            "overrideType": "1"
+                        },
+                        "CLOSED": {
+                            "overrideType": "2"
+                        }
+                    }
                 }
             },
             "HTMLTableRowElement": {
@@ -1880,6 +1911,19 @@
                 }
             },
             "FileReader": {
+                "constants": {
+                    "constant": {
+                        "EMPTY": {
+                            "overrideType": "0"
+                        },
+                        "LOADING": {
+                            "overrideType": "1"
+                        },
+                        "DONE": {
+                            "overrideType": "2"
+                        }
+                    }
+                },
                 "events": {
                     "event": [
                         {

@@ -3075,6 +3075,20 @@
             },
             "SourceBufferList": {
                 "exposed": "Window"
+            },
+            "StylePropertyMapReadOnly": {
+                "methods": {
+                    "method": {
+                        "get": {
+                            // https://github.com/w3c/css-houdini-drafts/pull/1087
+                            "signature": {
+                                "0": {
+                                    "overrideType": "undefined | CSSStyleValue"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -3482,6 +3496,19 @@
                                 ]
                             }
                         }
+                    }
+                }
+            }
+        },
+        {
+            "name": "CSS",
+            "methods": {
+                "method": {
+                    // `in` is a keyword and needs a special emit, which will be done in a separate PR
+                    // Not in removedTypes as removals in arrays are not well supported
+                    // https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1515
+                    "in": {
+                        "exposed": ""
                     }
                 }
             }

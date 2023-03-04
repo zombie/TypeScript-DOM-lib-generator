@@ -240,6 +240,14 @@
                     }
                 }
             },
+            "EncodedVideoChunkMetadata": {
+                "members": {
+                    "member": {
+                        "alphaSideData": null, // Blink only as of 2023-03
+                        "svc": null // Blink only as of 2023-03
+                    }
+                }
+            },
             "FocusOptions": {
                 "members": {
                     "member": {
@@ -577,6 +585,20 @@
                     "member": {
                         "hasAlphaChannel": null,
                         "spatialScalability": null
+                    }
+                }
+            },
+            "VideoEncoderConfig": {
+                "members": {
+                    "member": {
+                        "hevc": null // Blink only as of 2023-03
+                    }
+                }
+            },
+            "VideoFrameInit": {
+                "members": {
+                    "member": {
+                        "metadata": null // No implementation as of 2023-03. Linked to VideoFrame.metadata()
                     }
                 }
             },

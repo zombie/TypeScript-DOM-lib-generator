@@ -59,6 +59,7 @@ export interface Property extends Typed {
   deprecated?: boolean;
   exposed?: string;
   secureContext?: boolean;
+  mdnUrl?: string;
 }
 
 export interface Event {
@@ -88,6 +89,7 @@ export interface AnonymousMethod {
   deprecated?: boolean;
   signature: Signature[];
   secureContext?: boolean;
+  mdnUrl?: string;
 }
 
 export interface Method extends AnonymousMethod {
@@ -194,6 +196,7 @@ export interface Interface {
   };
   deprecated?: boolean | string;
   secureContext?: boolean;
+  mdnUrl?: string;
   transferable?: boolean;
 }
 

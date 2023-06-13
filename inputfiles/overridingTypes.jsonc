@@ -627,6 +627,33 @@
                 },
                 "overrideIndexSignatures": []
             },
+            "WebTransport": {
+                "methods": {
+                    "method": {
+                        "createUnidirectionalStream": {
+                            "signature": {
+                                "0": {
+                                    "subtype": {
+                                        "type": "WritableStream"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "WebTransportBidirectionalStream": {
+                "properties": {
+                    "property": {
+                        "readable": {
+                            "type": "ReadableStream"
+                        },
+                        "writable": {
+                            "type": "WritableStream"
+                        }
+                    }
+                }
+            },
             "Document": {
                 "methods": {
                     "method": {

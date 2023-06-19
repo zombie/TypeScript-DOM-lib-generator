@@ -1281,6 +1281,10 @@
             "HTMLSelectElement": {
                 "properties": {
                     "property": {
+                        "autocomplete": {
+                            "name": "autocomplete",
+                            "overrideType": "AutoFill"
+                        },
                         "selectedOptions": {
                             "name": "selectedOptions",
                             "overrideType": "HTMLCollectionOf<HTMLOptionElement>"
@@ -1684,6 +1688,10 @@
             "HTMLInputElement": {
                 "properties": {
                     "property": {
+                        "autocomplete": {
+                            "name": "autocomplete",
+                            "overrideType": "AutoFill"
+                        },
                         "selectionDirection": {
                             "name": "selectionDirection",
                             "overrideType": "\"forward\" | \"backward\" | \"none\""
@@ -1806,6 +1814,10 @@
             "HTMLTextAreaElement": {
                 "properties": {
                     "property": {
+                        "autocomplete": {
+                            "name": "autocomplete",
+                            "overrideType": "AutoFill"
+                        },
                         "labels": {
                             "name": "labels",
                             "overrideType": "NodeListOf<HTMLLabelElement>"
@@ -2443,7 +2455,15 @@
                 "overrideIndexSignatures": [
                     "[index: number]: Element",
                     "[name: string]: any"
-                ]
+                ],
+                "properties": {
+                    "property": {
+                        "autocomplete": {
+                            "name": "autocomplete",
+                            "overrideType": "AutoFillBase"
+                        }
+                    }
+                }
             },
             "Blob": {
               "methods": {

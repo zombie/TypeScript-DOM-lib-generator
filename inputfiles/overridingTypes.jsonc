@@ -1572,17 +1572,18 @@
                         },
                         "exportKey": {
                             "additionalSignatures": [
-                                "exportKey(format: \"jwk\", key: CryptoKey): Promise<JsonWebKey>"
+                                "exportKey(format: \"jwk\", key: CryptoKey): Promise<JsonWebKey>",
+                                "exportKey(format: Exclude<KeyFormat, \"jwk\">, key: CryptoKey): Promise<ArrayBuffer>"
                             ],
                             "signature": {
                                 "0": {
                                     "param": [
                                         {
                                             "name": "format",
-                                            "overrideType": "Exclude<KeyFormat, \"jwk\">"
+                                            "overrideType": "KeyFormat"
                                         }
                                     ],
-                                    "overrideType": "Promise<ArrayBuffer>"
+                                    "overrideType": "Promise<ArrayBuffer | JsonWebKey>"
                                 }
                             }
                         },

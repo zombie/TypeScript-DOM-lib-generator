@@ -2113,7 +2113,7 @@ interface WebTransportOptions {
 }
 
 interface WebTransportSendStreamOptions {
-    sendOrder?: number | null;
+    sendOrder?: number;
 }
 
 interface WheelEventInit extends MouseEventInit {
@@ -3052,6 +3052,7 @@ declare var BaseAudioContext: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/BeforeUnloadEvent)
  */
 interface BeforeUnloadEvent extends Event {
+    /** @deprecated */
     returnValue: any;
 }
 
@@ -3709,6 +3710,8 @@ interface CSSRule {
     readonly KEYFRAMES_RULE: 7;
     readonly KEYFRAME_RULE: 8;
     readonly SUPPORTS_RULE: 12;
+    readonly COUNTER_STYLE_RULE: 11;
+    readonly FONT_FEATURE_VALUES_RULE: 14;
 }
 
 declare var CSSRule: {
@@ -3724,6 +3727,8 @@ declare var CSSRule: {
     readonly KEYFRAMES_RULE: 7;
     readonly KEYFRAME_RULE: 8;
     readonly SUPPORTS_RULE: 12;
+    readonly COUNTER_STYLE_RULE: 11;
+    readonly FONT_FEATURE_VALUES_RULE: 14;
 };
 
 /**
@@ -8839,6 +8844,7 @@ interface GlobalEventHandlersEventMap {
     "animationstart": AnimationEvent;
     "auxclick": MouseEvent;
     "beforeinput": InputEvent;
+    "beforetoggle": Event;
     "blur": FocusEvent;
     "cancel": Event;
     "canplay": Event;
@@ -8954,6 +8960,8 @@ interface GlobalEventHandlers {
     onauxclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/beforeinput_event) */
     onbeforeinput: ((this: GlobalEventHandlers, ev: InputEvent) => any) | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/beforetoggle_event) */
+    onbeforetoggle: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /**
      * Fires when the object loses the input focus.
      * @param ev The focus event.
@@ -14641,7 +14649,7 @@ declare var MIDIAccess: {
  */
 interface MIDIConnectionEvent extends Event {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIConnectionEvent/port) */
-    readonly port: MIDIPort;
+    readonly port: MIDIPort | null;
 }
 
 declare var MIDIConnectionEvent: {
@@ -14693,7 +14701,7 @@ declare var MIDIInputMap: {
  */
 interface MIDIMessageEvent extends Event {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIMessageEvent/data) */
-    readonly data: Uint8Array;
+    readonly data: Uint8Array | null;
 }
 
 declare var MIDIMessageEvent: {
@@ -17727,6 +17735,7 @@ interface PublicKeyCredential extends Credential {
 declare var PublicKeyCredential: {
     prototype: PublicKeyCredential;
     new(): PublicKeyCredential;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isConditionalMediationAvailable) */
     isConditionalMediationAvailable(): Promise<boolean>;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isUserVerifyingPlatformAuthenticatorAvailable_static) */
     isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
@@ -27525,6 +27534,8 @@ declare var onanimationstart: ((this: Window, ev: AnimationEvent) => any) | null
 declare var onauxclick: ((this: Window, ev: MouseEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/beforeinput_event) */
 declare var onbeforeinput: ((this: Window, ev: InputEvent) => any) | null;
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/beforetoggle_event) */
+declare var onbeforetoggle: ((this: Window, ev: Event) => any) | null;
 /**
  * Fires when the object loses the input focus.
  * @param ev The focus event.

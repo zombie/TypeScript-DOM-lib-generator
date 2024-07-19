@@ -23,36 +23,36 @@ interface BaseAudioContext {
 }
 
 interface CSSKeyframesRule {
-    [Symbol.iterator](): IterableIterator<CSSKeyframeRule, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<CSSKeyframeRule, BuiltinIteratorReturn>;
 }
 
 interface CSSNumericArray {
-    [Symbol.iterator](): IterableIterator<CSSNumericValue, BuiltinIteratorReturn>;
-    entries(): IterableIterator<[number, CSSNumericValue], BuiltinIteratorReturn>;
-    keys(): IterableIterator<number, BuiltinIteratorReturn>;
-    values(): IterableIterator<CSSNumericValue, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<CSSNumericValue, BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[number, CSSNumericValue], BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<number, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<CSSNumericValue, BuiltinIteratorReturn>;
 }
 
 interface CSSRuleList {
-    [Symbol.iterator](): IterableIterator<CSSRule, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<CSSRule, BuiltinIteratorReturn>;
 }
 
 interface CSSStyleDeclaration {
-    [Symbol.iterator](): IterableIterator<string, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface CSSTransformValue {
-    [Symbol.iterator](): IterableIterator<CSSTransformComponent, BuiltinIteratorReturn>;
-    entries(): IterableIterator<[number, CSSTransformComponent], BuiltinIteratorReturn>;
-    keys(): IterableIterator<number, BuiltinIteratorReturn>;
-    values(): IterableIterator<CSSTransformComponent, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<CSSTransformComponent, BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[number, CSSTransformComponent], BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<number, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<CSSTransformComponent, BuiltinIteratorReturn>;
 }
 
 interface CSSUnparsedValue {
-    [Symbol.iterator](): IterableIterator<CSSUnparsedSegment, BuiltinIteratorReturn>;
-    entries(): IterableIterator<[number, CSSUnparsedSegment], BuiltinIteratorReturn>;
-    keys(): IterableIterator<number, BuiltinIteratorReturn>;
-    values(): IterableIterator<CSSUnparsedSegment, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<CSSUnparsedSegment, BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[number, CSSUnparsedSegment], BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<number, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<CSSUnparsedSegment, BuiltinIteratorReturn>;
 }
 
 interface Cache {
@@ -74,72 +74,72 @@ interface CustomStateSet extends Set<string> {
 }
 
 interface DOMRectList {
-    [Symbol.iterator](): IterableIterator<DOMRect, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<DOMRect, BuiltinIteratorReturn>;
 }
 
 interface DOMStringList {
-    [Symbol.iterator](): IterableIterator<string, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface DOMTokenList {
-    [Symbol.iterator](): IterableIterator<string, BuiltinIteratorReturn>;
-    entries(): IterableIterator<[number, string], BuiltinIteratorReturn>;
-    keys(): IterableIterator<number, BuiltinIteratorReturn>;
-    values(): IterableIterator<string, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<string, BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[number, string], BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<number, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface DataTransferItemList {
-    [Symbol.iterator](): IterableIterator<DataTransferItem, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<DataTransferItem, BuiltinIteratorReturn>;
 }
 
 interface EventCounts extends ReadonlyMap<string, number> {
 }
 
 interface FileList {
-    [Symbol.iterator](): IterableIterator<File, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<File, BuiltinIteratorReturn>;
 }
 
 interface FontFaceSet extends Set<FontFace> {
 }
 
 interface FormData {
-    [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue], BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<[string, FormDataEntryValue], BuiltinIteratorReturn>;
     /** Returns an array of key, value pairs for every entry in the list. */
-    entries(): IterableIterator<[string, FormDataEntryValue], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[string, FormDataEntryValue], BuiltinIteratorReturn>;
     /** Returns a list of keys in the list. */
-    keys(): IterableIterator<string, BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<string, BuiltinIteratorReturn>;
     /** Returns a list of values in the list. */
-    values(): IterableIterator<FormDataEntryValue, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<FormDataEntryValue, BuiltinIteratorReturn>;
 }
 
 interface HTMLAllCollection {
-    [Symbol.iterator](): IterableIterator<Element, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Element, BuiltinIteratorReturn>;
 }
 
 interface HTMLCollectionBase {
-    [Symbol.iterator](): IterableIterator<Element, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Element, BuiltinIteratorReturn>;
 }
 
 interface HTMLCollectionOf<T extends Element> {
-    [Symbol.iterator](): IterableIterator<T, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<T, BuiltinIteratorReturn>;
 }
 
 interface HTMLFormElement {
-    [Symbol.iterator](): IterableIterator<Element, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Element, BuiltinIteratorReturn>;
 }
 
 interface HTMLSelectElement {
-    [Symbol.iterator](): IterableIterator<HTMLOptionElement, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<HTMLOptionElement, BuiltinIteratorReturn>;
 }
 
 interface Headers {
-    [Symbol.iterator](): IterableIterator<[string, string], BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<[string, string], BuiltinIteratorReturn>;
     /** Returns an iterator allowing to go through all key/value pairs contained in this object. */
-    entries(): IterableIterator<[string, string], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[string, string], BuiltinIteratorReturn>;
     /** Returns an iterator allowing to go through all keys of the key/value pairs contained in this object. */
-    keys(): IterableIterator<string, BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<string, BuiltinIteratorReturn>;
     /** Returns an iterator allowing to go through all values of the key/value pairs contained in this object. */
-    values(): IterableIterator<string, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface Highlight extends Set<AbstractRange> {
@@ -180,14 +180,14 @@ interface MIDIOutputMap extends ReadonlyMap<string, MIDIOutput> {
 }
 
 interface MediaKeyStatusMap {
-    [Symbol.iterator](): IterableIterator<[BufferSource, MediaKeyStatus], BuiltinIteratorReturn>;
-    entries(): IterableIterator<[BufferSource, MediaKeyStatus], BuiltinIteratorReturn>;
-    keys(): IterableIterator<BufferSource, BuiltinIteratorReturn>;
-    values(): IterableIterator<MediaKeyStatus, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<[BufferSource, MediaKeyStatus], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[BufferSource, MediaKeyStatus], BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<BufferSource, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<MediaKeyStatus, BuiltinIteratorReturn>;
 }
 
 interface MediaList {
-    [Symbol.iterator](): IterableIterator<string, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface MessageEvent<T = any> {
@@ -200,11 +200,11 @@ interface MessageEvent<T = any> {
 }
 
 interface MimeTypeArray {
-    [Symbol.iterator](): IterableIterator<MimeType, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<MimeType, BuiltinIteratorReturn>;
 }
 
 interface NamedNodeMap {
-    [Symbol.iterator](): IterableIterator<Attr, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Attr, BuiltinIteratorReturn>;
 }
 
 interface Navigator {
@@ -219,31 +219,31 @@ interface Navigator {
 }
 
 interface NodeList {
-    [Symbol.iterator](): IterableIterator<Node, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Node, BuiltinIteratorReturn>;
     /** Returns an array of key, value pairs for every entry in the list. */
-    entries(): IterableIterator<[number, Node], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[number, Node], BuiltinIteratorReturn>;
     /** Returns an list of keys in the list. */
-    keys(): IterableIterator<number, BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<number, BuiltinIteratorReturn>;
     /** Returns an list of values in the list. */
-    values(): IterableIterator<Node, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<Node, BuiltinIteratorReturn>;
 }
 
 interface NodeListOf<TNode extends Node> {
-    [Symbol.iterator](): IterableIterator<TNode, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<TNode, BuiltinIteratorReturn>;
     /** Returns an array of key, value pairs for every entry in the list. */
-    entries(): IterableIterator<[number, TNode], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[number, TNode], BuiltinIteratorReturn>;
     /** Returns an list of keys in the list. */
-    keys(): IterableIterator<number, BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<number, BuiltinIteratorReturn>;
     /** Returns an list of values in the list. */
-    values(): IterableIterator<TNode, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<TNode, BuiltinIteratorReturn>;
 }
 
 interface Plugin {
-    [Symbol.iterator](): IterableIterator<MimeType, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<MimeType, BuiltinIteratorReturn>;
 }
 
 interface PluginArray {
-    [Symbol.iterator](): IterableIterator<Plugin, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Plugin, BuiltinIteratorReturn>;
 }
 
 interface RTCRtpTransceiver {
@@ -255,46 +255,46 @@ interface RTCStatsReport extends ReadonlyMap<string, any> {
 }
 
 interface SVGLengthList {
-    [Symbol.iterator](): IterableIterator<SVGLength, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<SVGLength, BuiltinIteratorReturn>;
 }
 
 interface SVGNumberList {
-    [Symbol.iterator](): IterableIterator<SVGNumber, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<SVGNumber, BuiltinIteratorReturn>;
 }
 
 interface SVGPointList {
-    [Symbol.iterator](): IterableIterator<DOMPoint, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<DOMPoint, BuiltinIteratorReturn>;
 }
 
 interface SVGStringList {
-    [Symbol.iterator](): IterableIterator<string, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface SVGTransformList {
-    [Symbol.iterator](): IterableIterator<SVGTransform, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<SVGTransform, BuiltinIteratorReturn>;
 }
 
 interface SourceBufferList {
-    [Symbol.iterator](): IterableIterator<SourceBuffer, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<SourceBuffer, BuiltinIteratorReturn>;
 }
 
 interface SpeechRecognitionResult {
-    [Symbol.iterator](): IterableIterator<SpeechRecognitionAlternative, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<SpeechRecognitionAlternative, BuiltinIteratorReturn>;
 }
 
 interface SpeechRecognitionResultList {
-    [Symbol.iterator](): IterableIterator<SpeechRecognitionResult, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<SpeechRecognitionResult, BuiltinIteratorReturn>;
 }
 
 interface StylePropertyMapReadOnly {
-    [Symbol.iterator](): IterableIterator<[string, Iterable<CSSStyleValue>], BuiltinIteratorReturn>;
-    entries(): IterableIterator<[string, Iterable<CSSStyleValue>], BuiltinIteratorReturn>;
-    keys(): IterableIterator<string, BuiltinIteratorReturn>;
-    values(): IterableIterator<Iterable<CSSStyleValue>, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<[string, Iterable<CSSStyleValue>], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[string, Iterable<CSSStyleValue>], BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<string, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<Iterable<CSSStyleValue>, BuiltinIteratorReturn>;
 }
 
 interface StyleSheetList {
-    [Symbol.iterator](): IterableIterator<CSSStyleSheet, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<CSSStyleSheet, BuiltinIteratorReturn>;
 }
 
 interface SubtleCrypto {
@@ -313,25 +313,25 @@ interface SubtleCrypto {
 }
 
 interface TextTrackCueList {
-    [Symbol.iterator](): IterableIterator<TextTrackCue, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<TextTrackCue, BuiltinIteratorReturn>;
 }
 
 interface TextTrackList {
-    [Symbol.iterator](): IterableIterator<TextTrack, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<TextTrack, BuiltinIteratorReturn>;
 }
 
 interface TouchList {
-    [Symbol.iterator](): IterableIterator<Touch, BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<Touch, BuiltinIteratorReturn>;
 }
 
 interface URLSearchParams {
-    [Symbol.iterator](): IterableIterator<[string, string], BuiltinIteratorReturn>;
+    [Symbol.iterator](): BuiltinIterator<[string, string], BuiltinIteratorReturn>;
     /** Returns an array of key, value pairs for every entry in the search params. */
-    entries(): IterableIterator<[string, string], BuiltinIteratorReturn>;
+    entries(): BuiltinIterator<[string, string], BuiltinIteratorReturn>;
     /** Returns a list of keys in the search params. */
-    keys(): IterableIterator<string, BuiltinIteratorReturn>;
+    keys(): BuiltinIterator<string, BuiltinIteratorReturn>;
     /** Returns a list of values in the search params. */
-    values(): IterableIterator<string, BuiltinIteratorReturn>;
+    values(): BuiltinIterator<string, BuiltinIteratorReturn>;
 }
 
 interface WEBGL_draw_buffers {

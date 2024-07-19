@@ -1581,15 +1581,15 @@ export function emitWebIdl(
       const methods = [
         {
           name: "entries",
-          definition: `IterableIterator<[${keyType}, ${valueType}], BuiltinIteratorReturn>`,
+          definition: `BuiltinIterator<[${keyType}, ${valueType}], BuiltinIteratorReturn>`,
         },
         {
           name: "keys",
-          definition: `IterableIterator<${keyType}, BuiltinIteratorReturn>`,
+          definition: `BuiltinIterator<${keyType}, BuiltinIteratorReturn>`,
         },
         {
           name: "values",
-          definition: `IterableIterator<${valueType}, BuiltinIteratorReturn>`,
+          definition: `BuiltinIterator<${valueType}, BuiltinIteratorReturn>`,
         },
       ];
 
@@ -1697,7 +1697,7 @@ export function emitWebIdl(
 
     if (subtypes && !iteratorExtends) {
       printer.printLine(
-        `[Symbol.iterator](): IterableIterator<${stringifySingleOrTupleTypes(
+        `[Symbol.iterator](): BuiltinIterator<${stringifySingleOrTupleTypes(
           subtypes,
         )}, BuiltinIteratorReturn>;`,
       );
@@ -1731,7 +1731,7 @@ export function emitWebIdl(
         methods = [
           {
             name: "values",
-            definition: `AsyncIterableIterator<${valueType}, BuiltinIteratorReturn>`,
+            definition: `AsyncBuiltinIterator<${valueType}, BuiltinIteratorReturn>`,
           },
         ];
       } else {
@@ -1740,15 +1740,15 @@ export function emitWebIdl(
         methods = [
           {
             name: "entries",
-            definition: `AsyncIterableIterator<[${keyType}, ${valueType}], BuiltinIteratorReturn>`,
+            definition: `AsyncBuiltinIterator<[${keyType}, ${valueType}], BuiltinIteratorReturn>`,
           },
           {
             name: "keys",
-            definition: `AsyncIterableIterator<${keyType}, BuiltinIteratorReturn>`,
+            definition: `AsyncBuiltinIterator<${keyType}, BuiltinIteratorReturn>`,
           },
           {
             name: "values",
-            definition: `AsyncIterableIterator<${valueType}, BuiltinIteratorReturn>`,
+            definition: `AsyncBuiltinIterator<${valueType}, BuiltinIteratorReturn>`,
           },
         ];
       }
@@ -1778,7 +1778,7 @@ export function emitWebIdl(
     printer.increaseIndent();
 
     printer.printLine(
-      `[Symbol.asyncIterator](${paramsString}): AsyncIterableIterator<${stringifySingleOrTupleTypes(
+      `[Symbol.asyncIterator](${paramsString}): AsyncBuiltinIterator<${stringifySingleOrTupleTypes(
         subtypes,
       )}, BuiltinIteratorReturn>;`,
     );

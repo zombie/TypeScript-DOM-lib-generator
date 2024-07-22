@@ -1731,7 +1731,7 @@ export function emitWebIdl(
         methods = [
           {
             name: "values",
-            definition: `AsyncBuiltinIterator<${valueType}, BuiltinIteratorReturn>`,
+            definition: `BuiltinAsyncIterator<${valueType}, BuiltinIteratorReturn>`,
           },
         ];
       } else {
@@ -1740,15 +1740,15 @@ export function emitWebIdl(
         methods = [
           {
             name: "entries",
-            definition: `AsyncBuiltinIterator<[${keyType}, ${valueType}], BuiltinIteratorReturn>`,
+            definition: `BuiltinAsyncIterator<[${keyType}, ${valueType}], BuiltinIteratorReturn>`,
           },
           {
             name: "keys",
-            definition: `AsyncBuiltinIterator<${keyType}, BuiltinIteratorReturn>`,
+            definition: `BuiltinAsyncIterator<${keyType}, BuiltinIteratorReturn>`,
           },
           {
             name: "values",
-            definition: `AsyncBuiltinIterator<${valueType}, BuiltinIteratorReturn>`,
+            definition: `BuiltinAsyncIterator<${valueType}, BuiltinIteratorReturn>`,
           },
         ];
       }
@@ -1778,7 +1778,7 @@ export function emitWebIdl(
     printer.increaseIndent();
 
     printer.printLine(
-      `[Symbol.asyncIterator](${paramsString}): AsyncBuiltinIterator<${stringifySingleOrTupleTypes(
+      `[Symbol.asyncIterator](${paramsString}): BuiltinAsyncIterator<${stringifySingleOrTupleTypes(
         subtypes,
       )}, BuiltinIteratorReturn>;`,
     );

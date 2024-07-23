@@ -56,7 +56,7 @@
     "node-fetch": "^3.3.2",
     "prettier": "^3.2.5",
     "print-diff": "^2.0.0",
-    "typescript": "npm:@typescript-deploys/pr-build@5.6.0-pr-59388-4",
+    "typescript": "^5.6.0-dev.20240722",
     "webidl2": "^24.4.1"
   },
   "overrides": {

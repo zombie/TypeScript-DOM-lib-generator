@@ -1541,7 +1541,9 @@ export function emitWebIdl(
     const iteratorType = `${name}${async ? "Async" : ""}Iterator`;
     const iteratorSymbol = async ? "Symbol.asyncIterator" : "Symbol.iterator";
     printer.printLine("");
-    printer.printLine(`interface ${iteratorType}<T> extends ${iteratorBaseType}<T, BuiltinIteratorReturn, unknown> {`);
+    printer.printLine(
+      `interface ${iteratorType}<T> extends ${iteratorBaseType}<T, BuiltinIteratorReturn, unknown> {`,
+    );
     printer.increaseIndent();
     printer.printLine(`[${iteratorSymbol}](): ${iteratorType}<T>;`);
     printer.decreaseIndent();
@@ -1551,7 +1553,7 @@ export function emitWebIdl(
   function emitIterableMethods(
     i: Browser.Interface,
     name: string,
-    subtypes: string[]
+    subtypes: string[],
   ) {
     switch (i.iterator?.kind) {
       case "maplike":
@@ -1559,7 +1561,11 @@ export function emitWebIdl(
         return;
     }
     const async = i.iterator?.async;
-    const iteratorType = async ? `${name}AsyncIterator` : subtypes.length !== 1 ? `${name}Iterator` : "ArrayIterator";
+    const iteratorType = async
+      ? `${name}AsyncIterator`
+      : subtypes.length !== 1
+        ? `${name}Iterator`
+        : "ArrayIterator";
     const methods = [];
     methods.push({
       name: `[Symbol.${async ? "asyncIterator" : "iterator"}]`,
@@ -1597,7 +1603,9 @@ export function emitWebIdl(
 
       methods.forEach((m) => {
         emitComments({ comment: comments?.[m.name] }, printer.printLine);
-        printer.printLine(`${m.name}(${paramsString}): ${iteratorType}<${m.type}>;`);
+        printer.printLine(
+          `${m.name}(${paramsString}): ${iteratorType}<${m.type}>;`,
+        );
       });
     }
   }
@@ -1725,14 +1733,19 @@ export function emitWebIdl(
 
     const iteratorExtends = getIteratorExtends(i.iterator, subtypes);
     const name = getName(i);
-    const nameWithTypeParameters = getNameWithTypeParameters(i.typeParameters, name);
+    const nameWithTypeParameters = getNameWithTypeParameters(
+      i.typeParameters,
+      name,
+    );
 
     if (i.iterator?.kind === "iterable" && subtypes?.length === 2) {
       emitSelfIterator(i);
     }
 
     printer.printLine("");
-    printer.printLine(`interface ${nameWithTypeParameters} ${iteratorExtends}{`);
+    printer.printLine(
+      `interface ${nameWithTypeParameters} ${iteratorExtends}{`,
+    );
     printer.increaseIndent();
 
     methodsWithSequence.forEach((m) => emitMethod("", m, new Set()));
@@ -1761,7 +1774,10 @@ export function emitWebIdl(
     }
 
     const name = getName(i);
-    const nameWithTypeParameters = getNameWithTypeParameters(i.typeParameters, name);
+    const nameWithTypeParameters = getNameWithTypeParameters(
+      i.typeParameters,
+      name,
+    );
 
     emitSelfIterator(i);
 

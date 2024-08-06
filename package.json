@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "tsc && node ./lib/build.js",
-    "baseline-accept": "cpx \"generated\\*\" baselines\\",
+    "baseline-accept": "cpx \"generated\\**\" baselines\\",
     "lint": "eslint --max-warnings 0 src deploy/*.js && tsc -p deploy/jsconfig.json",
     "lint-fix": "eslint --max-warnings 0 src deploy/*.js --fix",
     "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",

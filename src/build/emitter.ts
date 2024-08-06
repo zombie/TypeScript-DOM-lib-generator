@@ -136,6 +136,7 @@ export function emitWebIdl(
   webidl: Browser.WebIdl,
   global: string,
   iterator: "" | "sync" | "async",
+  useIteratorObject: boolean,
 ): string {
   // Global print target
   const printer = createTextWriter("\n");
@@ -1535,6 +1536,7 @@ export function emitWebIdl(
   }
 
   function emitSelfIterator(i: Browser.Interface) {
+    if (!useIteratorObject) return;
     const async = i.iterator?.async;
     const name = getName(i);
     const iteratorBaseType = `${async ? "Async" : ""}IteratorObject`;
@@ -1562,10 +1564,14 @@ export function emitWebIdl(
     }
     const async = i.iterator?.async;
     const iteratorType = async
-      ? `${name}AsyncIterator`
-      : subtypes.length !== 1
-        ? `${name}Iterator`
-        : "ArrayIterator";
+      ? !useIteratorObject
+        ? "AsyncIterableIterator"
+        : `${name}AsyncIterator`
+      : !useIteratorObject
+        ? "IterableIterator"
+        : subtypes.length !== 1
+          ? `${name}Iterator`
+          : "ArrayIterator";
     const methods = [];
     methods.push({
       name: `[Symbol.${async ? "asyncIterator" : "iterator"}]`,

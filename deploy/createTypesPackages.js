@@ -19,6 +19,8 @@ export const packages = [
     files: [
       { from: "../generated/dom.generated.d.ts", to: "index.d.ts" },
       { from: "../generated/dom.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
+      { from: "../generated/ts5.5/dom.generated.d.ts", to: "ts5.5/index.d.ts" },
+      { from: "../generated/ts5.5/dom.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true },
     ],
   },
   {
@@ -28,6 +30,8 @@ export const packages = [
     files: [
       { from: "../generated/serviceworker.generated.d.ts", to: "index.d.ts" },
       { from: "../generated/serviceworker.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true  },
+      { from: "../generated/ts5.5/serviceworker.generated.d.ts", to: "ts5.5/index.d.ts" },
+      { from: "../generated/ts5.5/serviceworker.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true  },
     ],
   },
   {
@@ -37,6 +41,8 @@ export const packages = [
     files: [
       { from: "../generated/audioworklet.generated.d.ts", to: "index.d.ts" },
       { from: "../generated/audioworklet.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true  },
+      { from: "../generated/ts5.5/audioworklet.generated.d.ts", to: "ts5.5/index.d.ts" },
+      { from: "../generated/ts5.5/audioworklet.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true  },
     ],
   },
   {
@@ -46,6 +52,8 @@ export const packages = [
     files: [
       { from: "../generated/sharedworker.generated.d.ts", to: "index.d.ts" },
       { from: "../generated/sharedworker.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
+      { from: "../generated/ts5.5/sharedworker.generated.d.ts", to: "ts5.5/index.d.ts" },
+      { from: "../generated/ts5.5/sharedworker.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true },
     ],
   },
 ];
@@ -84,10 +92,10 @@ const go = async () => {
 
     // Add the reference files in the config above
     pkg.files.forEach((fileRef) => {
-      fs.copyFileSync(
-        new URL(fileRef.from, import.meta.url),
-        new URL(fileRef.to, packagePath),
-      );
+      const from = new URL(fileRef.from, import.meta.url);
+      const to = new URL(fileRef.to, packagePath);
+      fs.mkdirSync(new URL(".", to), { recursive: true });
+      fs.copyFileSync(from, to);
     });
 
     prependAutoImports(pkg, packagePath);

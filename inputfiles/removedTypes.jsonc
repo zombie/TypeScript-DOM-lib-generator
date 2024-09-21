@@ -201,6 +201,14 @@
                     }
                 }
             },
+            "AudioEncoderConfig": {
+                "members": {
+                    "member": {
+                        "aac": null, // Blink only as of 2024-09
+                        "flac": null // Blink only as of 2024-09
+                    }
+                }
+            },
             "AuthenticationExtensionsClientInputs": {
                 "members": {
                     "member": {
@@ -518,6 +526,14 @@
                     }
                 }
             },
+            "OpusEncoderConfig": {
+                "members": {
+                    "member": {
+                        "application": null, // Blink only as of 2024-09
+                        "signal": null // Blink only as of 2024-09
+                    }
+                }
+            },
             "PaymentDetailsUpdate": {
                 "members": {
                     "member": {
@@ -719,7 +735,6 @@
             "VideoConfiguration": {
                 "members": {
                     "member": {
-                        "hasAlphaChannel": null,
                         "spatialScalability": null
                     }
                 }
@@ -727,7 +742,6 @@
             "VideoEncoderConfig": {
                 "members": {
                     "member": {
-                        "contentHint": null, // Blink only as of 2023-11
                         "hevc": null // Blink only as of 2023-03
                     }
                 }
@@ -736,7 +750,6 @@
                 "members": {
                     "member": {
                         "av1": null, // Blink only as of 2023-09
-                        "avc": null, // Blink only as of 2023-09
                         "hevc": null, // No implementation as of 2023-09
                         "vp9": null // Blink only as of 2023-09
                     }
@@ -754,14 +767,6 @@
                     "member": {
                         "transfer": null, // Blink only as of 2024-04.
                         "metadata": null // No implementation as of 2024-04. Linked to VideoFrame.metadata()
-                    }
-                }
-            },
-            "VideoFrameCopyToOptions": {
-                "members": {
-                    "member": {
-                        "colorSpace": null, // Blink experimental only as of 2024-05
-                        "format": null // Blink experimental only as of 2024-05
                     }
                 }
             },

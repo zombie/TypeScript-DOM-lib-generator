@@ -246,13 +246,6 @@
                     }
                 }
             },
-            "CredentialPropertiesOutput": {
-                "members": {
-                    "member": {
-                        "authenticatorDisplayName": null // No implementation as of 2023-10
-                    }
-                }
-            },
             "CredentialRequestOptions": {
                 "members": {
                     "member": {
@@ -628,41 +621,30 @@
             "RTCEncodedAudioFrameMetadata": {
                 "members": {
                     "member": {
-                        "mimeType": null, // Blink only as of 2023-11
-                        "rtpTimestamp": null // Blink only as of 2023-10
+                        "mimeType": null, // Blink only as of 2024-11
+                        "rtpTimestamp": null // Blink only as of 2024-11
                     }
                 }
             },
             "RTCEncodedVideoFrameMetadata": {
                 "members": {
                     "member": {
-                        "mimeType": null, // Blink only as of 2023-11
-                        "rtpTimestamp": null // Blink only as of 2023-10
+                        "mimeType": null, // Blink only as of 2024-11
+                        "rtpTimestamp": null // Blink only as of 2024-11
                     }
                 }
             },
             "RTCConfiguration": {
                 "members": {
                     "member": {
-                        "peerIdentity": null
+                        "peerIdentity": null // Gecko only as of 2024-11
                     }
                 }
             },
             "RTCDataChannelInit": {
                 "members": {
                     "member": {
-                        "priority": null
-                    }
-                }
-            },
-            "RTCIceCandidatePairStats": {
-                "members": {
-                    "member": {
-                        "bytesDiscardedOnSend": null, // Blink only as of 2022-09
-                        "consentRequestsSent": null, // Blink only as of 2022-09
-                        "packetsDiscardedOnSend": null, // Blink only as of 2022-09
-                        "packetsReceived": null, // Blink only as of 2022-09
-                        "packetsSent": null // Blink only as of 2022-09
+                        "priority": null // Blink experimental only as of 2024-11
                     }
                 }
             },
@@ -672,56 +654,26 @@
                         // https://searchfox.org/mozilla-central/source/dom/webidl/RTCStatsReport.webidl
                         // https://searchfox.org/wubkat/source/Source/WebCore/Modules/mediastream/RTCStatsReport.idl
                         // https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/stats/rtcstats_objects.cc
-                        "fecBytesReceived": null, // Blink only as of 2023-09
-                        "fecSsrc": null, // Blink only as of 2023-09
-                        "framesAssembledFromMultiplePackets": null, // Blink only as of 2023-09
-                        "framesRendered": null, // No implementation as of 2023-09
-                        "freezeCount": null, // Blink only as of 2023-09
-                        "jitterBufferMinimumDelay": null, // Blink only as of 2023-09
-                        "jitterBufferTargetDelay": null, // Blink only as of 2023-09
-                        "pauseCount": null, // Blink only as of 2023-09
-                        "playoutId": null, // Blink only as of 2023-09
-                        "powerEfficientDecoder": null, // Blink only as of 2023-09
-                        "retransmittedBytesReceived": null, // Blink only as of 2023-09
-                        "retransmittedPacketsReceived": null, // Blink only as of 2023-09
-                        "rtxSsrc": null, // Blink only as of 2023-09
-                        "totalAssemblyTime": null, // Blink only as of 2023-09
-                        "totalFreezesDuration": null, // Blink only as of 2023-09
-                        "totalPausesDuration": null // Blink only as of 2023-09
+                        "corruptionMeasurements": null, // Blink only as of 2024-11
+                        "powerEfficientDecoder": null, // Blink only as of 2024-11
+                        "totalCorruptionProbability": null, // Blink only as of 2024-11
+                        "totalSquaredCorruptionProbability": null // Blink only as of 2024-11
                     }
                 }
             },
             "RTCOutboundRtpStreamStats": {
                 "members": {
                     "member": {
-                        "active": null, // Blink only as of 2023-09
-                        "mid": null, // Blink only as of 2023-09
-                        "powerEfficientEncoder": null, // Blink only as of 2023-09
-                        "qualityLimitationReason": null, // Blink only as of 2023-09
-                        "qualityLimitationDurations": null, // Blink only as of 2023-09
-                        "scalabilityMode": null, // Blink only as of 2023-09
-                        "encoderImplementation": null // Blink only as of 2022-09
+                        "powerEfficientEncoder": null, // Blink only as of 2024-11
+                        "encoderImplementation": null // Blink only as of 2024-11
                     }
                 }
             },
             "RTCRtpEncodingParameters": {
                 "members": {
                     "member": {
-                        "codec": null, // Blink only as of 2024-08
-                        "scalabilityMode": null // Blink only as of 2024-08
-                    }
-                }
-            },
-            "RTCTransportStats": {
-                "members": {
-                    "member": {
-                        "packetsSent": null,
-                        "packetsReceived": null,
-                        "iceRole": null,
-                        "iceLocalUsernameFragment": null,
-                        "iceState": null,
-                        "dtlsRole": null,
-                        "selectedCandidatePairChanges": null
+                        "codec": null, // Blink only as of 2024-11
+                        "scalabilityMode": null // Blink only as of 2024-11
                     }
                 }
             },

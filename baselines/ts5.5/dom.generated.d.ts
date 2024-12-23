@@ -4869,8 +4869,6 @@ interface CSSStyleDeclaration {
     pointerEvents: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/position) */
     position: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/position-area) */
-    positionArea: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/print-color-adjust) */
     printColorAdjust: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/quotes) */
@@ -4991,6 +4989,9 @@ interface CSSStyleDeclaration {
     textAlignLast: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-anchor) */
     textAnchor: string;
+    textBox: string;
+    textBoxEdge: string;
+    textBoxTrim: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-combine-upright) */
     textCombineUpright: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration) */
@@ -6623,17 +6624,23 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     m43: number;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix#instance_properties) */
     m44: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/invertSelf) */
     invertSelf(): DOMMatrix;
     multiplySelf(other?: DOMMatrixInit): DOMMatrix;
     preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
     rotateAxisAngleSelf(x?: number, y?: number, z?: number, angle?: number): DOMMatrix;
     rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/rotateSelf) */
     rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
     scale3dSelf(scale?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
     scaleSelf(scaleX?: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/setMatrixValue) */
     setMatrixValue(transformList: string): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/skewXSelf) */
     skewXSelf(sx?: number): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/skewYSelf) */
     skewYSelf(sy?: number): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/translateSelf) */
     translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
 }
 
@@ -6702,6 +6709,7 @@ interface DOMMatrixReadOnly {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/flipX) */
     flipX(): DOMMatrix;
     flipY(): DOMMatrix;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/inverse) */
     inverse(): DOMMatrix;
     multiply(other?: DOMMatrixInit): DOMMatrix;
     rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
@@ -6716,6 +6724,7 @@ interface DOMMatrixReadOnly {
     skewY(sy?: number): DOMMatrix;
     toFloat32Array(): Float32Array;
     toFloat64Array(): Float64Array;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/toJSON) */
     toJSON(): any;
     transformPoint(point?: DOMPointInit): DOMPoint;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/translate) */
@@ -7864,7 +7873,7 @@ interface Document extends Node, DocumentOrShadowRoot, FontFaceSource, GlobalEve
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/importNode)
      */
-    importNode<T extends Node>(node: T, deep?: boolean): T;
+    importNode<T extends Node>(node: T, subtree?: boolean): T;
     /**
      * Opens a new window and loads a document specified by a given URL. Also, opens a new window that uses the url parameter and the name parameter to collect the output of the write method and the writeln method.
      * @param url Specifies a MIME type for the document.
@@ -7921,6 +7930,7 @@ interface Document extends Node, DocumentOrShadowRoot, FontFaceSource, GlobalEve
     /**
      * Writes one or more HTML expressions to a document in the specified window.
      * @param content Specifies the text and HTML tags to write.
+     * @deprecated
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/write)
      */
@@ -10670,6 +10680,7 @@ interface HTMLElement extends Element, ElementCSSInlineStyle, ElementContentEdit
     title: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/translate) */
     translate: boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/writingSuggestions) */
     writingSuggestions: string;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/attachInternals) */
     attachInternals(): ElementInternals;
@@ -17013,7 +17024,7 @@ interface Node extends EventTarget {
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/cloneNode)
      */
-    cloneNode(deep?: boolean): Node;
+    cloneNode(subtree?: boolean): Node;
     /**
      * Returns a bitmask indicating the position of other relative to node.
      *
@@ -19910,7 +19921,9 @@ declare var SVGAnimateTransformElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedAngle)
  */
 interface SVGAnimatedAngle {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedAngle/animVal) */
     readonly animVal: SVGAngle;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedAngle/baseVal) */
     readonly baseVal: SVGAngle;
 }
 
@@ -19925,7 +19938,9 @@ declare var SVGAnimatedAngle: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedBoolean)
  */
 interface SVGAnimatedBoolean {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedBoolean/animVal) */
     readonly animVal: boolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedBoolean/baseVal) */
     baseVal: boolean;
 }
 
@@ -19989,7 +20004,9 @@ declare var SVGAnimatedLength: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedLengthList)
  */
 interface SVGAnimatedLengthList {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedLengthList/animVal) */
     readonly animVal: SVGLengthList;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedLengthList/baseVal) */
     readonly baseVal: SVGLengthList;
 }
 
@@ -20004,7 +20021,9 @@ declare var SVGAnimatedLengthList: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumber)
  */
 interface SVGAnimatedNumber {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumber/animVal) */
     readonly animVal: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumber/baseVal) */
     baseVal: number;
 }
 
@@ -20019,7 +20038,9 @@ declare var SVGAnimatedNumber: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumberList)
  */
 interface SVGAnimatedNumberList {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumberList/animVal) */
     readonly animVal: SVGNumberList;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumberList/baseVal) */
     readonly baseVal: SVGNumberList;
 }
 
@@ -20054,7 +20075,9 @@ declare var SVGAnimatedPreserveAspectRatio: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedRect)
  */
 interface SVGAnimatedRect {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedRect/animVal) */
     readonly animVal: DOMRectReadOnly;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedRect/baseVal) */
     readonly baseVal: DOMRect;
 }
 
@@ -20086,7 +20109,9 @@ declare var SVGAnimatedString: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList)
  */
 interface SVGAnimatedTransformList {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/animVal) */
     readonly animVal: SVGTransformList;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/baseVal) */
     readonly baseVal: SVGTransformList;
 }
 
@@ -20099,9 +20124,13 @@ declare var SVGAnimatedTransformList: {
 interface SVGAnimationElement extends SVGElement, SVGTests {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/targetElement) */
     readonly targetElement: SVGElement | null;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/beginElement) */
     beginElement(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/beginElementAt) */
     beginElementAt(offset: number): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/endElement) */
     endElement(): void;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/endElementAt) */
     endElementAt(offset: number): void;
     getCurrentTime(): number;
     getSimpleDuration(): number;
@@ -21700,7 +21729,9 @@ declare var SVGTSpanElement: {
 };
 
 interface SVGTests {
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/requiredExtensions) */
     readonly requiredExtensions: SVGStringList;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/systemLanguage) */
     readonly systemLanguage: SVGStringList;
 }
 
@@ -25935,6 +25966,7 @@ interface WebGLRenderingContextBase {
     isShader(shader: WebGLShader | null): GLboolean;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/isTexture) */
     isTexture(texture: WebGLTexture | null): GLboolean;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/lineWidth) */
     lineWidth(width: GLfloat): void;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/linkProgram) */
     linkProgram(program: WebGLProgram): void;

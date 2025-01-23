@@ -169,6 +169,7 @@ export interface Interface {
   };
   constructor?: Constructor;
   implements?: string[];
+  overrideImplements?: string[];
   anonymousMethods?: {
     method: AnonymousMethod[];
   };

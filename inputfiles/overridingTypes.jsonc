@@ -2,6 +2,11 @@
     "mixins": {
         "mixin": {
             "MessageEventTarget": {
+                "typeParameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
                 "events": {
                     "event": [
                         {
@@ -2521,6 +2526,7 @@
                 ]
             },
             "Worker": {
+                "overrideImplements": ["AbstractWorker", "MessageEventTarget<Worker>"],
                 "methods": {
                     "method": {
                         "postMessage": {
@@ -2536,18 +2542,6 @@
                             }
                         }
                     }
-                },
-                "events": {
-                    "event": [
-                        {
-                            "name": "message",
-                            "type": "MessageEvent"
-                        },
-                        {
-                            "name": "messageerror",
-                            "type": "MessageEvent"
-                        }
-                    ]
                 }
             },
             "Crypto": {
@@ -2626,6 +2620,7 @@
                 }
             },
             "MessagePort": {
+                "overrideImplements": ["MessageEventTarget<MessagePort>"],
                 "methods": {
                     "method": {
                         "postMessage": {
@@ -2674,6 +2669,7 @@
                 }
             },
             "DedicatedWorkerGlobalScope": {
+                "overrideImplements": ["AnimationFrameProvider", "MessageEventTarget<DedicatedWorkerGlobalScope>"],
                 "methods": {
                     "method": {
                         "postMessage": {

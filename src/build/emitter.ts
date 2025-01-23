@@ -1209,6 +1209,13 @@ export function emitWebIdl(
       return extendConflictsBaseTypes[iName] ? `${iName}Base` : iName;
     }
 
+    function processMixinName(mixinName: string) {
+      if (allInterfacesMap[mixinName].typeParameters?.length === 1) {
+        return `${mixinName}<${i.name}>`;
+      }
+      return mixinName;
+    }
+
     const processedIName = processIName(i.name);
 
     if (processedIName !== i.name) {
@@ -1227,9 +1234,10 @@ export function emitWebIdl(
     );
 
     const finalExtends = [i.extends || "Object"]
-      .concat(i.overrideImplements ?? getImplementList(i.name))
+      .concat(getImplementList(i.name).map(processMixinName))
       .filter((i) => i !== "Object")
       .map(processIName);
+
     if (finalExtends.length) {
       printer.print(` extends ${assertUnique(finalExtends).join(", ")}`);
     }

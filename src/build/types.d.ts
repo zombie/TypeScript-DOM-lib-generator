@@ -181,6 +181,7 @@ export interface Interface {
   overrideExposed?: string;
   tags?: string;
   "implicit-this"?: 1;
+  overrideThis?: string;
   noInterfaceObject?: boolean;
   global?: string;
   typeParameters?: TypeParameter[];
@@ -263,4 +264,5 @@ export interface WebIdl {
     typedef: TypeDef[];
   };
   namespaces?: Interface[];
+  events?: Map<string, Map<string, string>>;
 }

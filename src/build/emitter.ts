@@ -1516,7 +1516,9 @@ export function emitWebIdl(
       .forEach((i) => emitCallBackInterface(i));
     emitNonCallbackInterfaces();
 
-    collectLegacyNamespaceTypes(webidl).forEach(emitNamespace);
+    collectLegacyNamespaceTypes(webidl)
+      .sort(compareName)
+      .forEach(emitNamespace);
 
     emitCallBackFunctions();
 

@@ -803,7 +803,8 @@ export function emitWebIdl(
     if (
       p.name === "name" &&
       i.name === "Window" &&
-      emitScope === EmitScope.All
+      emitScope === EmitScope.InstanceOnly &&
+      prefix === "declare var "
     ) {
       printer.printLine("/** @deprecated */");
       printer.printLine("declare const name: void;");
@@ -1064,7 +1065,7 @@ export function emitWebIdl(
   /// Emit all members of every interfaces at the root level.
   /// Called only once on the global polluter object
   function emitAllMembers(i: Browser.Interface) {
-    emitMembers(/*prefix*/ "declare var ", EmitScope.All, i);
+    emitMembers(/*prefix*/ "declare var ", EmitScope.InstanceOnly, i);
 
     for (const relatedIName of iNameToIDependList[i.name]) {
       const i = allInterfacesMap[relatedIName];
